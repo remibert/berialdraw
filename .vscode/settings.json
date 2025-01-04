@@ -1,0 +1,19 @@
+{
+	"cmake.sourceDirectory": "${workspaceFolder}/berialdraw",
+	"cmake.debugConfig": {
+		"cwd": "${workspaceFolder}/berialdraw"
+	},
+	"cmake.buildDirectory": "${env:HOME}/Downloads/build",
+	"files.associations": {
+		"ios": "cpp",
+		"__config": "cpp",
+		"tuple": "cpp",
+		"__availability": "cpp",
+		"deque": "cpp",
+		"ostream": "cpp",
+		"print": "cpp",
+		"streambuf": "cpp",
+		"string": "cpp",
+		"cstdio": "cpp"
+	}
+}
