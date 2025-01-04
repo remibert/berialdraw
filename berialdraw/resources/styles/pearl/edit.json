@@ -1,0 +1,22 @@
+{
+	"color"          : 0x00000026, // EDIT_COLOR        
+	"border-color"   : 0x00000027, // EDIT_BORDER_COLOR 
+	"text-color"     : 0x00000028, // EDIT_TEXT_COLOR   
+	"cursor-color"   : 0x00000029, // EDIT_CURSOR_COLOR 
+	"select-color"   : 0x0000002C, // EDIT_SELECT_COLOR 
+	"focus-color"    : 0x0000002B, // EDIT_FOCUS_COLOR
+	"thickness"      : 1,
+	"radius"         : 1,
+	"margin"         : {"top":3,"left":3,"bottom":3,"right":3},
+	"align"          : "center",
+	"font-size"      : {"width":20,"height":22},
+	"padding"        : {"top":5,"left":5,"bottom":5,"right":5},
+	"text-align"     : "left",
+	"extend"         : "width",
+	"size-policy"    : "enlarge-width",
+	"focusable"      : true,
+	"focus-thickness": 1,
+	"max-lines"      : 1,
+	"selectable"     : true,
+	"pressable"      : true,
+}

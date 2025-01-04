@@ -1,0 +1,17 @@
+{
+	"color"          : 0x0000002D, // ICON_BACK_COLOR        
+	"border-color"   : 0x0000002E, // ICON_BORDER_COLOR 
+	"text-color"     : 0x0000002F, // ICON_TEXT_COLOR 
+	"icon-color"     : 0x00000030, // ICON_COLOR
+	"thickness"      : 0,
+	"radius"         : 20,
+	"margin"         : {"top":4,"left":4,"bottom":6,"right":4},
+	"align"          : "top",
+	"font-size"      : {"width":15,"height":15},
+	"icon-padding"   : {"top":6,"left":6,"bottom":6,"right":6},
+	"padding"        : {"top":5,"left":5,"bottom":5,"right":5},
+	"text-align"     : "center",
+	"focusable"      : true,
+	"pressable"      : true,
+	"focus-thickness": 3,
+}

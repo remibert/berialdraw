@@ -1,0 +1,15 @@
+{
+	"thickness"      : 1,
+	"border-color"   : 0x00000037, // SLIDER_BORDER_COLOR 
+	"track-color"    : 0x00000038, // SLIDER_TRACK_COLOR  
+	"handle-color"   : 0x00000039, // SLIDER_HANDLE_COLOR 
+	"margin"         : {"top":1,"left":1,"bottom":1,"right":1},
+	"radius"         : 10,
+	"track-size"     : 6,
+	"handle-size"    : 20,
+	"focusable"      : true,
+	"focus-thickness": 2,
+	"extend"         : "width",
+	"selectable"     : true,
+	"pressable"      : true,
+}

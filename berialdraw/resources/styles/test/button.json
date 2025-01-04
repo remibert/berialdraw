@@ -1,0 +1,16 @@
+{
+	"color"          : 0x00000021, // BUTTON_COLOR       
+	"border-color"   : 0x00000022, // BUTTON_BORDER_COLOR
+	"text-color"     : 0x00000023, // BUTTON_TEXT_COLOR  
+	"thickness"      : 1,
+	"radius"         : 8,
+	"margin"         : {"top":2,"left":2,"bottom":2,"right":2},
+	"align"          : "center",
+	"font-size"      : {"width":15,"height":20},
+	"padding"        : {"top":5,"left":5,"bottom":5,"right":5},
+	"text-align"     : "center",
+	"extend"         : "all",
+	"focusable"      : true,
+	"pressable"      : true,
+	"focus-thickness": 2,
+}
