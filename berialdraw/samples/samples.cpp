@@ -35,3 +35,35 @@ void sample_icon_menu()
 	dialog.bind("Theme"      , "resources/icons/filter_vintage.icn"    ,sample_theme       );
 	while (dialog.exec() != "<quit>");
 }
+
+
+/** Sample of menu */
+void sample_menu()
+{
+	UIManager::styles()->style("pearl");            // Select the style pearl
+	UIManager::colors()->appearance("light");       // Select the light appearance
+	UIManager::colors()->theme(Color::THEME_LIME);  // Select the color theme
+
+	MenuDialog dialog;
+
+	dialog.title("Samples");
+	dialog.add_back_button("Back");
+	dialog.bind("Button"     ,sample_button      );
+	dialog.bind("Canvas"     ,sample_canvas      );
+	dialog.bind("Column"     ,sample_column      );
+	dialog.bind("Edit"       ,sample_edit        );
+	dialog.bind("Grid"       ,sample_grid        );
+	dialog.bind("Icon"       ,sample_icon        );
+	dialog.bind("Keyboard"   ,sample_keyboard    );
+	dialog.bind("Label"      ,sample_label       );
+	dialog.bind("Pane"       ,sample_pane        );
+	dialog.bind("ProgressBar",sample_progress_bar);
+	dialog.bind("Row"        ,sample_row         );
+	dialog.bind("ScrollView" ,sample_scroll_view );
+	dialog.bind("Slider"     ,sample_slider      );
+	dialog.bind("Switch"     ,sample_switch      );
+	dialog.bind("Window"     ,sample_window      );
+	dialog.bind("Speedometer",sample_speedometer );
+	dialog.bind("Theme"      ,sample_theme       );
+	while (dialog.exec() != "<quit>");
+}

@@ -9,8 +9,9 @@ set(BD_SAMPLE      sample)
 
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_BUILD_RPATH /Library/Frameworks)
 
-find_package(SDL2 REQUIRED)
+find_package(SDL2 REQUIRED COMPONENTS SDL2)
 
 set(SRCS_LIB
 	src/widget/edit.cpp

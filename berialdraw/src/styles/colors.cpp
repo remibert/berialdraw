@@ -24,19 +24,26 @@ void Colors::theme(uint32_t col)
 	{
 		m_theme = col;
 		col = color(col);
-		uint32_t front_gray_level = Hsl::to_gray(col)&0xFF;
-		uint32_t back_gray_level = Hsl::to_gray(color(Color::WINDOW_COLOR)) & 0xFF;
 
-		color(Color::VALUE_THEME_BACK_COLOR,     col);
-		color(Color::VALUE_THEME_SELECT_COLOR,   back_gray_level > 128 ? col & 0x40FFFFFF : col & 0x90FFFFFF);
-		color(Color::VALUE_THEME_FOCUS_COLOR,    Hsl::adjust_light(col, -10));
-		color(Color::VALUE_THEME_FUNC_KEY_COLOR, Hsl::to_gray(col));
-		color(Color::VALUE_THEME_FRONT_COLOR,    (front_gray_level >= 160 ? Color::BLACK: Color::WHITE));
-
-		uint32_t track_gray_color = (front_gray_level+back_gray_level) >> 1;
-		track_gray_color = 0xFF000000 | (track_gray_color & 0xFF) | ((track_gray_color & 0xFF) << 8) | ((track_gray_color & 0xFF) << 16);
-		color(Color::VALUE_THEME_TRACK_COLOR, track_gray_color);
-		color(Color::VALUE_THEME_FUNC_KEY_COLOR, back_gray_level > 128 ? col & 0xA0FFFFFF : col & 0x90FFFFFF);
+		// If light theme selected
+		if ((Hsl::to_gray(color(Color::WINDOW_COLOR)) & 0xFF) > 128)
+		{
+			color(Color::VALUE_THEME_BACK_COLOR,     Hsl::add_color(col, Color::WHITE, 128+16));
+			color(Color::VALUE_THEME_FOCUS_COLOR,    col);
+			color(Color::VALUE_THEME_FUNC_KEY_COLOR, Hsl::add_color(col,Color::WHITE,128+64));
+			color(Color::VALUE_THEME_TRACK_COLOR,    Hsl::add_color(color(Color::WINDOW_COLOR),Color::BLACK,32) );
+			color(Color::VALUE_THEME_SELECT_COLOR,   Hsl::add_color(col, Color::WHITE, 192+16));
+			color(Color::VALUE_THEME_FRONT_COLOR,    Hsl::add_color(col, Color::BLACK, 128+32));
+		}
+		else
+		{
+			color(Color::VALUE_THEME_BACK_COLOR,     Hsl::add_color(col, Color::BLACK, 128+16));
+			color(Color::VALUE_THEME_FOCUS_COLOR,    col);
+			color(Color::VALUE_THEME_FUNC_KEY_COLOR, Hsl::add_color(col,Color::BLACK,128+32));
+			color(Color::VALUE_THEME_TRACK_COLOR,    Hsl::add_color(color(Color::WINDOW_COLOR),Color::WHITE,64) );
+			color(Color::VALUE_THEME_SELECT_COLOR,   Hsl::add_color(col, Color::BLACK, 96));
+			color(Color::VALUE_THEME_FRONT_COLOR,    Hsl::add_color(col, Color::WHITE, 128+32));
+		}
 	}
 }
 

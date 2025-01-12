@@ -141,26 +141,26 @@ public:
 		
 		switch(widget->id())                                          // According to the theme selected
 		{
-		case Color::THEME_SLATE        :theme_name->text("THEME_SLATE           "); break;
-		case Color::THEME_ZINC         :theme_name->text("THEME_ZINC            "); break;
-		case Color::THEME_GRAY         :theme_name->text("THEME_GRAY            "); break;
-		case Color::THEME_METAL        :theme_name->text("THEME_METAL           "); break;
-		case Color::THEME_SAND         :theme_name->text("THEME_SAND            "); break;
-		case Color::THEME_DARK_PURPLE  :theme_name->text("THEME_DARK_PURPLE     "); break;
-		case Color::THEME_DARK_FUSHIA  :theme_name->text("THEME_DARK_FUSHIA     "); break;
-		case Color::THEME_FUSHIA       :theme_name->text("THEME_FUSHIA          "); break;
-		case Color::THEME_PINK         :theme_name->text("THEME_PINK            "); break;
-		case Color::THEME_VIOLET       :theme_name->text("THEME_VIOLET          "); break;
-		case Color::THEME_DARK_VIOLET  :theme_name->text("THEME_DARK_VIOLET     "); break;
-		case Color::THEME_DARK_BLUE    :theme_name->text("THEME_DARK_BLUE       "); break;
-		case Color::THEME_BLUE         :theme_name->text("THEME_BLUE            "); break;
-		case Color::THEME_CYAN         :theme_name->text("THEME_CYAN            "); break;
-		case Color::THEME_DARK_GREEN   :theme_name->text("THEME_DARK_GREEN      "); break;
-		case Color::THEME_GREEN        :theme_name->text("THEME_GREEN           "); break;
-		case Color::THEME_LIME         :theme_name->text("THEME_LIME            "); break;
-		case Color::THEME_YELLOW       :theme_name->text("THEME_YELLOW          "); break;
-		case Color::THEME_ORANGE       :theme_name->text("THEME_ORANGE          "); break;
-		case Color::THEME_RED          :theme_name->text("THEME_RED             "); break;
+		case Color::THEME_RED    :theme_name->text("THEME_RED   "); break;
+		case Color::THEME_ORANGE :theme_name->text("THEME_ORANGE"); break;
+		case Color::THEME_YELLOW :theme_name->text("THEME_YELLOW"); break;
+		case Color::THEME_LIME   :theme_name->text("THEME_LIME  "); break;
+		case Color::THEME_GREEN  :theme_name->text("THEME_GREEN "); break;
+		case Color::THEME_TEAL   :theme_name->text("THEME_TEAL  "); break;
+		case Color::THEME_CYAN   :theme_name->text("THEME_CYAN  "); break;
+		case Color::THEME_BLUE   :theme_name->text("THEME_BLUE  "); break;
+		case Color::THEME_INDIGO :theme_name->text("THEME_INDIGO"); break;
+		case Color::THEME_VIOLET :theme_name->text("THEME_VIOLET"); break;
+		case Color::THEME_MAUVE  :theme_name->text("THEME_MAUVE "); break;
+		case Color::THEME_FUSHIA :theme_name->text("THEME_FUSHIA"); break;
+		case Color::THEME_PINK   :theme_name->text("THEME_PINK  "); break;
+		case Color::THEME_SAND   :theme_name->text("THEME_SAND  "); break;
+		case Color::THEME_GRAY   :theme_name->text("THEME_GRAY  "); break;
+		case Color::THEME_METAL  :theme_name->text("THEME_METAL "); break;
+		case Color::THEME_USER_1 :theme_name->text("THEME_USER_1"); break;
+		case Color::THEME_USER_2 :theme_name->text("THEME_USER_2"); break;
+		case Color::THEME_USER_3 :theme_name->text("THEME_USER_3"); break;
+		case Color::THEME_USER_4 :theme_name->text("THEME_USER_4"); break;
 		default:theme_name->text("       "); break;
 		}
 	}

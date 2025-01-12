@@ -21,17 +21,23 @@ namespace berialdraw
 		@param light value returned [0-100] */
 		static void from_rgb(uint32_t color, uint32_t & hue, uint32_t & saturation, uint32_t &light);
 
-		/** Adjust the brightness of selected color
+		/** Adjust the light of selected color
 		@param color color to convert
-		@param light value added [-100..100]
+		@param level value added [-100..100]
 		@return rgb color */
-		static uint32_t adjust_light(uint32_t color, int32_t light);
+		static uint32_t enlighten(uint32_t color, int32_t level);
 
 		/** Adjust the saturation of selected color
 		@param color color to convert
-		@param saturation value added [-100..100]
+		@param level value added [-100..100]
 		@return rgb color */
-		static uint32_t adjust_saturation(uint32_t color, int32_t saturation);
+		static uint32_t saturate(uint32_t color, int32_t level);
+
+		/** Change the color into pastel
+		@param color color to convert
+		@param level value added [-100..100]
+		@return rgb color */
+		static uint32_t pastel(uint32_t color, int32_t level);
 
 		/** Convert color to gray
 		@param color
@@ -54,6 +60,14 @@ namespace berialdraw
 		@param light_max light [0-100]
 		@return rgb color */
 		static uint32_t harmonious_colors(uint32_t hue, uint32_t current, uint32_t n_colors=5, uint32_t saturation=80, uint32_t light_min=10, uint32_t light_max=80);
+
+
+		/** Adds one color over another by managing the alpha channel
+		@param color color to change
+		@param added_color color to add
+		@param added_alpha alpha to add 
+		@return the new color */
+		static uint32_t add_color(uint32_t color, uint32_t added_color, uint32_t added_alpha = 0);
 
 	};
 }

@@ -15,5 +15,8 @@
 		"streambuf": "cpp",
 		"string": "cpp",
 		"cstdio": "cpp"
+	},
+	"cmake.configureSettings": {
+		"SDL3_INCLUDE_DIRS": "/Library/Frameworks/SDL3.framework"
 	}
 }

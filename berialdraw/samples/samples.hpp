@@ -13,6 +13,9 @@ void samples_widgets();
 /** Sample of icon menu */
 void sample_icon_menu();
 
+/** Sample of menu */
+void sample_menu();
+
 // Sample function to show Button widget
 void sample_button(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
 

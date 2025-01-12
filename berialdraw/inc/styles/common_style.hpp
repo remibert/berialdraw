@@ -120,6 +120,17 @@ namespace berialdraw
 		/** Set the back color with alpha */
 		void color(uint32_t col, uint8_t alpha);
 
+		/** Enlighten the back color
+		@param level value added [-100..100] */
+		void enlighten(int8_t level);
+
+		/** Saturate the back color
+		@param level value added [-100..100] */
+		void saturate(int8_t level);
+
+		/** Change to pastel the back color
+		@param level value added [-100..100] */
+		void to_pastel(int8_t level);
 
 		/** Get the size */
 		const Size & size() const;
@@ -188,6 +199,8 @@ namespace berialdraw
 
 		unsigned int m_align:4;
 		unsigned int m_angle_modified:1;
+		int m_light:8;
+		int m_saturation:8;
 		uint8_t m_sides;
 /// @endcond 
 	}; 

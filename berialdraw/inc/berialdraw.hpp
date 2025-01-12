@@ -149,7 +149,7 @@
 	#include "device/device_win32.hpp"
 	#define DeviceScreen DeviceWin32
 #else
-	#include<SDL2/SDL.h> 
+	#include <SDL2/SDL.h> 
 	#include "device/device_sdl.hpp"
 	#define DeviceScreen DeviceSdl
 #endif

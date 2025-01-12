@@ -19,6 +19,8 @@
 		},
 		"align" : "default",
 		"color" : 70,
+		"light" : 0,
+		"saturation" : 0,
 		"angle" : 0,
 		"center" : 
 		{
@@ -99,6 +101,8 @@
 				},
 				"align" : "default",
 				"color" : 4278190080,
+				"light" : 0,
+				"saturation" : 0,
 				"angle" : 0,
 				"center" : 
 				{
@@ -154,6 +158,8 @@
 						},
 						"align" : "default",
 						"color" : 4278190080,
+						"light" : 0,
+						"saturation" : 0,
 						"angle" : 0,
 						"center" : 
 						{
@@ -184,6 +190,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -259,6 +267,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -334,6 +344,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -409,6 +421,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -484,6 +498,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -559,6 +575,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -634,6 +652,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -709,6 +729,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -784,6 +806,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -859,6 +883,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -961,6 +987,8 @@
 						},
 						"align" : "default",
 						"color" : 4278190080,
+						"light" : 0,
+						"saturation" : 0,
 						"angle" : 0,
 						"center" : 
 						{
@@ -991,6 +1019,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -1066,6 +1096,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -1141,6 +1173,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -1216,6 +1250,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -1291,6 +1327,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -1366,6 +1404,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -1441,6 +1481,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -1516,6 +1558,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -1591,6 +1635,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -1666,6 +1712,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -1768,6 +1816,8 @@
 						},
 						"align" : "default",
 						"color" : 4278190080,
+						"light" : 0,
+						"saturation" : 0,
 						"angle" : 0,
 						"center" : 
 						{
@@ -1798,6 +1848,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -1873,6 +1925,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -1948,6 +2002,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -2023,6 +2079,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -2098,6 +2156,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -2173,6 +2233,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -2248,6 +2310,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -2323,6 +2387,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -2398,6 +2464,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -2500,6 +2568,8 @@
 						},
 						"align" : "default",
 						"color" : 4278190080,
+						"light" : 0,
+						"saturation" : 0,
 						"angle" : 0,
 						"center" : 
 						{
@@ -2530,6 +2600,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -2605,6 +2677,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{
@@ -2680,6 +2754,8 @@
 								},
 								"align" : "center",
 								"color" : 4293393663,
+								"light" : 0,
+								"saturation" : 0,
 								"angle" : 0,
 								"center" : 
 								{

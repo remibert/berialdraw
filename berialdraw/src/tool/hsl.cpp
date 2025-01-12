@@ -2,6 +2,66 @@
 
 using namespace berialdraw;
 
+inline int32_t mapToPercent(int32_t value)
+{
+	if (value > 100)
+	{
+		value = 100;
+	}
+	else if (value < 0)
+	{
+		value = 0;
+	}
+	return value;
+}
+
+inline int32_t mapToRange(int32_t value)
+{
+	if (value > 100)
+	{
+		value = 100;
+	}
+	else if (value < -100)
+	{
+		value = -100;
+	}
+	return value;
+}
+
+/** Adds one color over another by managing the alpha channel
+@param color color to change
+@param added_color color to add
+@param added_alpha alpha to add 
+@return the new color */
+uint32_t Hsl::add_color(uint32_t color, uint32_t added_color, uint32_t added_alpha)
+{
+	uint32_t inv_alpha;
+
+	if (added_alpha == 0)
+	{
+		inv_alpha = 256 - ((added_color & 0xFF000000) >> 24);
+	}
+	else
+	{
+		inv_alpha = 256 - added_alpha;
+	}
+
+	uint32_t fore_red   = ((added_color & 0x00FF0000) >> 16);
+	uint32_t fore_green = ((added_color & 0x0000FF00) >> 8 );
+	uint32_t fore_blue  = ((added_color & 0x000000FF)      );
+
+	uint32_t color_red   = ((color & 0x00FF0000) >> 16);
+	uint32_t color_green = ((color & 0x0000FF00) >> 8 );
+	uint32_t color_blue  = ((color & 0x000000FF)      );
+
+	uint32_t back_red   = ((((color_red   - fore_red  ) * inv_alpha)>> 8) + fore_red  );
+	uint32_t back_green = ((((color_green - fore_green) * inv_alpha)>> 8) + fore_green);
+	uint32_t back_blue  = ((((color_blue  - fore_blue ) * inv_alpha)>> 8) + fore_blue );
+
+	uint32_t result = (color & 0xFF000000) | (back_red << 16) | (back_green << 8) | (back_blue);
+	return result;
+}
+
 /** Conversion from hue saturation light to RGB color
 @param hue hue value [0-359]
 @param saturation saturation [0-100]
@@ -17,15 +77,8 @@ uint32_t Hsl::to_rgb(uint32_t hue, uint32_t saturation, uint32_t light)
 	uint32_t res = 0;
 	red = green = blue = 0;
 
-	if (saturation > 100)
-	{
-		saturation = 100;
-	}
-
-	if (light > 100)
-	{
-		light = 100;
-	}
+	saturation = mapToPercent(saturation);
+	light = mapToPercent(light);
 
 	hue %= 360;
 	v = (light < 50) ? (light * (saturation + 100) / 100) : (light + saturation - (light * saturation / 100));
@@ -150,50 +203,42 @@ void Hsl::from_rgb(uint32_t color, uint32_t & hue, uint32_t & saturation, uint32
 }
 
 /** Enlighten the color */
-uint32_t Hsl::adjust_light(uint32_t color, int32_t light_level)
+uint32_t Hsl::enlighten(uint32_t color, int32_t level)
 {
 	uint32_t hue;
 	uint32_t saturation;
 	uint32_t light;
 	Hsl::from_rgb(color, hue, saturation, light);
-
-	int32_t new_light = ((int32_t)light) + light_level;
-
-	if (new_light < 0)
-	{
-		new_light = 0;
-	}
-	if (new_light > 100)
-	{
-		new_light = 100;
-	}
-	return Hsl::to_rgb(hue, saturation, (uint32_t)new_light);
+	level = mapToRange(level);
+	return Hsl::to_rgb(hue, saturation, mapToPercent(light + ((100-light) * level) / 100));
 }
 
 
-/** Adjust the saturation of selected color
-@param color color to convert
-@param saturation value added [-100..100]
-@return rgb color */
-uint32_t Hsl::adjust_saturation(uint32_t color, int32_t saturation_level)
+/** Adjust the saturation of selected color */
+uint32_t Hsl::saturate(uint32_t color, int32_t level)
 {
 	uint32_t hue;
 	uint32_t saturation;
 	uint32_t light;
 	Hsl::from_rgb(color, hue, saturation, light);
-
-	int32_t new_saturation = ((int32_t)saturation) + saturation_level;
-
-	if (new_saturation < 0)
-	{
-		new_saturation = 0;
-	}
-	if (new_saturation > 100)
-	{
-		new_saturation = 100;
-	}
-	return Hsl::to_rgb(hue, (uint32_t)new_saturation, light);
+	level = mapToRange(level);
+	return Hsl::to_rgb(hue, mapToPercent(saturation - ((100-saturation) * level) / 100), light);
 }
+
+
+/** Change the color into pastel */
+uint32_t Hsl::pastel(uint32_t color, int32_t level)
+{
+	uint32_t hue;
+	uint32_t saturation;
+	uint32_t light;
+	Hsl::from_rgb(color, hue, saturation, light);
+	level = mapToRange(level);
+	return Hsl::to_rgb(hue, 
+		mapToPercent(saturation - ((100-saturation) * level) / 100), 
+		mapToPercent(light      + ((100-light)      * level) / 100));
+}
+
 
 /** Convert color to gray
 @param color

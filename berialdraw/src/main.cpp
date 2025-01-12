@@ -5,7 +5,7 @@
 const int SCREEN_WIDTH = 480;
 const int SCREEN_HEIGHT = 480;
 
-using namespace berialdraw;
+using namespace berialdraw; 
 
 #if defined(WIN32)
 int WINAPI WinMain(HINSTANCE h_instance, HINSTANCE h_prev_instance, LPSTR lp_cmd_line, int i_cmd_show)

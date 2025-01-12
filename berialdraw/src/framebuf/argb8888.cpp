@@ -43,14 +43,10 @@ void     Argb8888::pixel(int32_t x, int32_t y, uint32_t col)
 				}
 				else
 				{
-					*buf = ((((*buf - red) * inv_alpha) >> 8) + red); buf++;
+					*buf = ((((*buf - red  ) * inv_alpha) >> 8) + red  ); buf++;
 					*buf = ((((*buf - green) * inv_alpha) >> 8) + green); buf++;
-					*buf = ((((*buf - blue) * inv_alpha) >> 8) + blue); buf++;
+					*buf = ((((*buf - blue ) * inv_alpha) >> 8) + blue ); buf++;
 				}
-			}
-			else
-			{
-				buf = buf;
 			}
 		}
 	}

@@ -16,5 +16,5 @@
 	"pressable"      : true,
 	"focusable"      : true,
 	"focus-thickness": 2,
-	"focus-gap"      : 2,
+	"focus-gap"      : 0,
 }

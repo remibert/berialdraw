@@ -23,7 +23,8 @@ namespace berialdraw
 			Icon * result = 0;
 			if (object && method)
 			{
-				UIManager::notifier()->bind(new MethodCaller<CLASS,EVENT>(object, method, create_icon(text, icon_filename)));            // Binds the click event to the `on_menu_click` handler
+				result = create_icon(text, icon_filename);
+				UIManager::notifier()->bind(new MethodCaller<CLASS,EVENT>(object, method, result));            // Binds the click event to the `on_menu_click` handler
 			}
 			return result;
 		}
@@ -34,7 +35,8 @@ namespace berialdraw
 			Icon * result = 0;
 			if (function)
 			{
-				UIManager::notifier()->bind(new FunctionCaller<EVENT>(function, create_icon(text, icon_filename)));            // Binds the click event to the `on_menu_click` handler
+				result = create_icon(text, icon_filename);
+				UIManager::notifier()->bind(new FunctionCaller<EVENT>(function, result));            // Binds the click event to the `on_menu_click` handler
 			}
 			return result;
 		}

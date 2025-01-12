@@ -9,6 +9,8 @@ CommonStyle::CommonStyle()
 	m_angle = 0;
 	m_angle_modified = 1;
 	m_sides = CommonStyle::ALL_SIDES;
+	m_light = 0;
+	m_saturation = 0;
 }
 
 /** Unserialize the content of extend from json */
@@ -78,6 +80,9 @@ void CommonStyle::serialize(JsonIterator & it)
 	m_margin.serialize ("margin",it);
 	berialdraw::serialize("align",it, (Align)m_align);
 	it["color"]        = m_color;
+	it["light"]        = m_light;
+	it["saturation"]   = m_saturation;
+
 	it["angle_"]       = m_angle;
 	m_center.serialize("center",it);
 	serialize_sides(it, m_sides);
@@ -92,6 +97,10 @@ void CommonStyle::unserialize(JsonIterator & it)
 
 	m_angle       = (int)(it["angle_"]       | (int)m_angle);
 	m_color       = (int)(it["color"]        | (int)m_color);
+
+	m_light       = (int)(it["light"]        | (int)m_light);
+	m_saturation  = (int)(it["saturation"]   | (int)m_saturation);
+
 	Align align = (Align)m_align;
 	berialdraw::unserialize("align",it, align);
 	m_align = align;
@@ -111,6 +120,8 @@ void CommonStyle::set(const CommonStyle & other)
 	m_size     = other.m_size;
 	m_align    = other.m_align;
 	m_sides    = other.m_sides;
+	m_light   = other.m_light;
+	m_saturation = other.m_saturation;
 	UIManager::invalidator()->dirty(this);
 }
 
@@ -127,6 +138,8 @@ CommonStyle& CommonStyle::operator=(const CommonStyle& other)
 		m_size    = other.m_size;
 		m_align   = other.m_align;
 		m_sides   = other.m_sides;
+		m_light   = other.m_light;
+		m_saturation = other.m_saturation;
 		UIManager::invalidator()->dirty(this);
 	}
 	return *this;
@@ -435,7 +448,27 @@ void CommonStyle::position_(Coord x, Coord y)
 /** Get the back color */
 uint32_t CommonStyle::color() const
 {
-	return UIManager::colors()->color(m_color);
+	uint32_t result = UIManager::colors()->color(m_color);
+
+	if (m_light != 0 || m_saturation != 0)
+	{
+		if (m_light == -m_saturation)
+		{
+			result = Hsl::enlighten(result, m_light);
+		}
+		else 
+		{
+			if (m_light != 0)
+			{
+				result = Hsl::enlighten(result, m_light);
+			}
+			if (m_saturation != 0)
+			{
+				result = Hsl::saturate(result, m_saturation);
+			}
+		}
+	}
+	return result;
 }
 
 /** Set the back color */
@@ -449,8 +482,32 @@ void CommonStyle::color(uint32_t col)
 void CommonStyle::color(uint32_t col, uint8_t alpha)
 {
 	UIManager::invalidator()->dirty(this);
-	m_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
+	m_color = (UIManager::colors()->color(col) & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
+
+/** Enlighten the back color
+@param light value added [-100..100] */
+void CommonStyle::enlighten(int8_t light)
+{
+	UIManager::invalidator()->dirty(this);
+	m_light = light;
+}
+
+/** Saturate the back color
+@param saturation value added [-100..100] */
+void CommonStyle::saturate(int8_t saturation)
+{
+	m_saturation = saturation;
+}
+
+/** Change to pastel the back color
+@param level value added [-100..100] */
+void CommonStyle::to_pastel(int8_t level)
+{
+	m_light = level;
+	m_saturation = 0-level;
+}
+
 
 
 /** Get the size */

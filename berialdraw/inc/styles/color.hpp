@@ -10,29 +10,29 @@ namespace berialdraw
 		TRANSPARENT          = 0x00000000,
 		
 		// Themes colors
-		THEME_RED         = 0x00000001, ///< Theme red         
-		THEME_ORANGE      = 0x00000002, ///< Theme orange      
-		THEME_YELLOW      = 0x00000003, ///< Theme yellow      
-		THEME_LIME        = 0x00000004, ///< Theme lime        
-		THEME_GREEN       = 0x00000005, ///< Theme green       
-		THEME_DARK_GREEN  = 0x00000006, ///< Theme dark green  
-		THEME_CYAN        = 0x00000007, ///< Theme cyan        
-		THEME_BLUE        = 0x00000008, ///< Theme blue        
-		THEME_DARK_BLUE   = 0x00000009, ///< Theme dark blue   
-		THEME_DARK_VIOLET = 0x0000000A, ///< Theme dark violet 
-		THEME_VIOLET      = 0x0000000B, ///< Theme violet      
-		THEME_PINK        = 0x0000000C, ///< Theme pink        
-		THEME_FUSHIA      = 0x0000000D, ///< Theme fushia      
-		THEME_DARK_FUSHIA = 0x0000000E, ///< Theme dark fushia 
-		THEME_DARK_PURPLE = 0x0000000F, ///< Theme dark purple 
-		THEME_SAND        = 0x00000010, ///< Theme sand        
-		THEME_METAL       = 0x00000011, ///< Theme metal       
-		THEME_GRAY        = 0x00000012, ///< Theme gray        
-		THEME_ZINC        = 0x00000013, ///< Theme zinc        
-		THEME_SLATE       = 0x00000014, ///< Theme slate       
+		THEME_RED     = 0x00000001, ///< Theme red      
+		THEME_ORANGE  = 0x00000002, ///< Theme orange   
+		THEME_YELLOW  = 0x00000003, ///< Theme yellow   
+		THEME_LIME    = 0x00000004, ///< Theme lime     
+		THEME_GREEN   = 0x00000005, ///< Theme green    
+		THEME_TEAL    = 0x00000006, ///< Theme teal     
+		THEME_CYAN    = 0x00000007, ///< Theme cyan     
+		THEME_BLUE    = 0x00000008, ///< Theme blue     
+		THEME_INDIGO  = 0x00000009, ///< Theme indigo   
+		THEME_VIOLET  = 0x0000000A, ///< Theme violet   
+		THEME_MAUVE   = 0x0000000B, ///< Theme mauve    
+		THEME_FUSHIA  = 0x0000000C, ///< Theme fushia   
+		THEME_PINK    = 0x0000000D, ///< Theme pink     
+		THEME_SAND    = 0x0000000E, ///< Theme sand     
+		THEME_GRAY    = 0x0000000F, ///< Theme gray     
+		THEME_METAL   = 0x00000010, ///< Theme metal    
+		THEME_USER_1  = 0x00000011, ///< Theme reserved for user       
+		THEME_USER_2  = 0x00000012, ///< Theme reserved for user       
+		THEME_USER_3  = 0x00000013, ///< Theme reserved for user       
+		THEME_USER_4  = 0x00000014, ///< Theme reserved for user       
 
 		FIRST_THEME = THEME_RED,
-		LAST_THEME = THEME_SLATE,
+		LAST_THEME = THEME_USER_4,
 
 		VALUE_THEME_BACK_COLOR     = 0x00000015, ///< Value of background color for the current theme
 		VALUE_THEME_SELECT_COLOR   = 0x00000016, ///< Value of text selected color for the current theme
