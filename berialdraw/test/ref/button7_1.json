@@ -18,7 +18,7 @@
 			"right" : 0
 		},
 		"align" : "default",
-		"color" : 70,
+		"color" : 63,
 		"light" : 0,
 		"saturation" : 0,
 		"angle" : 0,
@@ -100,7 +100,7 @@
 					"right" : 0
 				},
 				"align" : "default",
-				"color" : 4278190080,
+				"color" : 0,
 				"light" : 0,
 				"saturation" : 0,
 				"angle" : 0,
@@ -157,7 +157,7 @@
 							"right" : 0
 						},
 						"align" : "default",
-						"color" : 4278190080,
+						"color" : 0,
 						"light" : 0,
 						"saturation" : 0,
 						"angle" : 0,
@@ -986,7 +986,7 @@
 							"right" : 0
 						},
 						"align" : "default",
-						"color" : 4278190080,
+						"color" : 0,
 						"light" : 0,
 						"saturation" : 0,
 						"angle" : 0,
@@ -1815,7 +1815,7 @@
 							"right" : 0
 						},
 						"align" : "default",
-						"color" : 4278190080,
+						"color" : 0,
 						"light" : 0,
 						"saturation" : 0,
 						"angle" : 0,
@@ -2567,7 +2567,7 @@
 							"right" : 0
 						},
 						"align" : "default",
-						"color" : 4278190080,
+						"color" : 0,
 						"light" : 0,
 						"saturation" : 0,
 						"angle" : 0,
