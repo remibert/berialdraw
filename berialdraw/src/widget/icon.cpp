@@ -99,15 +99,13 @@ void Icon::paint(const Region & parent_region)
 	UIManager::renderer()->region(region);
 	Point shift;
 
-	// Paint background
-	Rect::build_polygon(m_icon_foreclip, shift, m_radius, m_thickness, 0, m_sides, pressed_color(color(),pressed()), border_color());
-
-	// If button with focus
 	if (m_focused)
 	{
-		// Display focus
-		Rect::build_polygon(m_icon_foreclip, shift, m_radius+ (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, focus_color());
+		// Draw focus
+		Rect::build_polygon(m_icon_foreclip, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
 	}
+	// Draw backround
+	Rect::build_polygon(m_icon_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
 
 	// If icon existing
 	if (m_paths.size() > 0)
@@ -151,7 +149,7 @@ void Icon::paint(const Region & parent_region)
 				if (icon_color() != Color::TRANSPARENT && one_color == true)
 				{
 					// Change icon color
-					polygon.color(icon_color());
+					polygon.color(stated_color(m_icon_color));
 				}
 				else
 				{
@@ -177,7 +175,7 @@ void Icon::paint(const Region & parent_region)
 	region.intersect(m_text_backclip);
 	select_font();
 	UIManager::renderer()->region(region);
-	m_text_box.paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_backclip, text_color(), 0, 0, true);
+	m_text_box.paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_backclip, stated_color(m_text_color), 0, 0, true);
 
 	Widget::paint(region);
 }

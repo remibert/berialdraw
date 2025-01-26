@@ -108,7 +108,7 @@ void BorderStyle::thickness_(Dim v)
 /** Get the border color */
 uint32_t BorderStyle::border_color() const
 {
-	return UIManager::colors()->color(m_border_color); 
+	return m_border_color; 
 }
 
 /** Set the border color */
@@ -129,7 +129,7 @@ void BorderStyle::border_color(uint32_t col, uint8_t alpha)
 /** Get the focus color */
 uint32_t BorderStyle::focus_color() const
 {
-	return UIManager::colors()->color(m_focus_color); 
+	return m_focus_color;
 }
 
 /** Set the focus color */

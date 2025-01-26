@@ -39,14 +39,15 @@ Button * MenuDialog::create_button(const String & text)
 		//button->border_color(Color::LIGHT_BLACK);      // Sets border color to light black
 		//button->sides(CommonStyle::BOTTOM_SIDE);       // Draws border only on the bottom side
 		//button->extend(Extend::EXTEND_WIDTH);          // Extends button width to fill available space
-		button->margin(3);                             // Adds margin around the button
+		button->margin(0,0,3,0);                             // Adds margin around the button
 		button->padding(2);
-		button->focus_thickness(2);
-		button->focus_gap(1);
-		button->color(VALUE_THEME_BACK_COLOR);
+		button->focus_thickness(3);
+		button->focus_gap(0);
+		button->sides(CommonStyle::BOTTOM_SIDE);
+		// button->color(VALUE_THEME_TEXT_COLOR);
 		//button->focus_color(
 		//button->saturate(-30);
-		button->to_pastel(50);
+		//button->to_pastel(50);
 		
 		//button->thickness(1);                          // Sets border thickness to 1
 		//button->focus_thickness(0);                    // Removes focus border

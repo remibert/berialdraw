@@ -6,6 +6,7 @@ ScrollView::ScrollView(Widget * parent):
 	Widget("scroll_view", parent)
 {
 	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
+	m_color = Color::TRANSPARENT;
 	m_scroll_size.clean();
 	m_scroll_position.set(0,0);
 	m_size.clean();

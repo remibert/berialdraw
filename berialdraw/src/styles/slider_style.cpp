@@ -69,7 +69,7 @@ bool SliderStyle::is_dirty()
 /** Get the track color */
 uint32_t SliderStyle::track_color() const
 {
-	return UIManager::colors()->color(m_track_color);
+	return m_track_color;
 }
 
 /** Set the track color */
@@ -109,7 +109,7 @@ void SliderStyle::track_size_(Dim size_)
 /** Get the handle color */
 uint32_t SliderStyle::handle_color() const
 {
-	return UIManager::colors()->color(m_handle_color);
+	return m_handle_color;
 }
 
 /** Set the slider color */

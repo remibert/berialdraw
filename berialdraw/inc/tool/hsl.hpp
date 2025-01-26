@@ -7,6 +7,17 @@ namespace berialdraw
 	class Hsl
 	{
 	public:
+		/** Calculate the luminance of a color
+		@param color color to convert
+		@return luminance computed*255*10000 */
+		static uint32_t luminance(uint32_t color);
+
+		/** Indicates if the constrast is readable 
+		@param color1 color 1 
+		@param color2 color 2
+		@return contrast * 10000*/
+		static uint32_t delta_contrast(uint32_t color1, uint32_t color2);
+
 		/** Conversion from hue saturation light to RGB color
 		@param hue hue value [0-359]
 		@param saturation saturation [0-100]
@@ -61,13 +72,12 @@ namespace berialdraw
 		@return rgb color */
 		static uint32_t harmonious_colors(uint32_t hue, uint32_t current, uint32_t n_colors=5, uint32_t saturation=80, uint32_t light_min=10, uint32_t light_max=80);
 
-
 		/** Adds one color over another by managing the alpha channel
 		@param color color to change
 		@param added_color color to add
 		@param added_alpha alpha to add 
 		@return the new color */
-		static uint32_t add_color(uint32_t color, uint32_t added_color, uint32_t added_alpha = 0);
+		static uint32_t add_color(uint32_t color, uint32_t added_color, uint32_t added_alpha = 0xFF);
 
 	};
 }

@@ -62,7 +62,7 @@ bool TextStyle::is_dirty()
 /** Get the text color */
 uint32_t TextStyle::text_color() const
 {
-	return UIManager::colors()->color(m_text_color);
+	return m_text_color;
 }
 
 /** Set the text color */
@@ -78,9 +78,6 @@ void TextStyle::text_color(uint32_t col, uint8_t alpha)
 	UIManager::invalidator()->dirty(this);
 	m_text_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
-
-
-
 
 /** Get the font familly selected */
 const String & TextStyle::font_familly()

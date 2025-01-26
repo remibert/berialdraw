@@ -104,7 +104,10 @@ namespace berialdraw
 		virtual void unserialize(JsonIterator & it) = 0;
 
 		/** Return the color value when the widget is pressed */
-		static uint32_t pressed_color(uint32_t color, bool pressed);
+		uint32_t pressed_color(uint32_t color, bool pressed);
+
+		/** Return the stated color */
+		uint32_t stated_color(uint32_t color);
 
 	protected:
 /// @cond DOXYGEN_IGNORE

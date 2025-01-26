@@ -141,7 +141,7 @@ void Window::paint(const Region & parent_region)
 		rect.size(m_backclip.size());
 		rect.position(m_backclip.position());
 		rect.radius_(0);
-		rect.color(color());
+		rect.color(stated_color(m_color));
 		rect.paint(shift);
 
 	// Paint widgets children

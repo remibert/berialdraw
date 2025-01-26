@@ -75,7 +75,7 @@ void Label::paint(const Region & parent_region)
 	UIManager::renderer()->region(region);
 
 	Point shift;
-	m_text_box.paint(shift, *m_font.get(), m_text, m_foreclip.position(), m_backclip, text_color(), 0, 0, true);
+	m_text_box.paint(shift, *m_font.get(), m_text, m_foreclip.position(), m_backclip, stated_color(m_text_color), 0, 0, true);
 }
 
 /** Get the widget hovered */

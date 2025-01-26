@@ -39,7 +39,7 @@ public:
 		// Theme color picker
 		{
 			Row * color_picker = new Row(column);                  // Creates a content row within the scroll view
-			for (uint32_t i = FIRST_THEME; i <= LAST_THEME; i++)
+			for (uint32_t i = FIRST_THEME_COLOR; i <= LAST_THEME_COLOR; i++)
 			{
 				Button *color  = new Button(color_picker);           // Creates a button within the row
 					color->color(i);                                 // Sets the theme color
@@ -49,6 +49,7 @@ public:
 					color->margin(1);                                // Sets the margin of the button to 1
 					color->id(i);                                    // Sets the ID of the button
 					color->bind(this, &SampleTheme::on_color_event); // Binds the button to an event handler
+					color->thickness(0);
 			}
 		}
 
@@ -61,6 +62,7 @@ public:
 				Column * col = new Column(row);                                  // Creates a new column within the row
 					Button * button = new Button(col);                           // Creates a new button within the column
 						button->text("Button");                                  // Sets the text of the button
+						button->id(1122);
 					Edit * edit = new Edit(col);                                 // Creates a new edit box within the column
 						edit->text("Hello World");                               // Sets the text of the edit box
 						edit->select_all();                                      // Selects all text in the edit box
@@ -141,26 +143,26 @@ public:
 		
 		switch(widget->id())                                          // According to the theme selected
 		{
-		case Color::THEME_RED    :theme_name->text("THEME_RED   "); break;
-		case Color::THEME_ORANGE :theme_name->text("THEME_ORANGE"); break;
-		case Color::THEME_YELLOW :theme_name->text("THEME_YELLOW"); break;
-		case Color::THEME_LIME   :theme_name->text("THEME_LIME  "); break;
-		case Color::THEME_GREEN  :theme_name->text("THEME_GREEN "); break;
-		case Color::THEME_TEAL   :theme_name->text("THEME_TEAL  "); break;
-		case Color::THEME_CYAN   :theme_name->text("THEME_CYAN  "); break;
-		case Color::THEME_BLUE   :theme_name->text("THEME_BLUE  "); break;
-		case Color::THEME_INDIGO :theme_name->text("THEME_INDIGO"); break;
-		case Color::THEME_VIOLET :theme_name->text("THEME_VIOLET"); break;
-		case Color::THEME_MAUVE  :theme_name->text("THEME_MAUVE "); break;
-		case Color::THEME_FUSHIA :theme_name->text("THEME_FUSHIA"); break;
-		case Color::THEME_PINK   :theme_name->text("THEME_PINK  "); break;
-		case Color::THEME_SAND   :theme_name->text("THEME_SAND  "); break;
-		case Color::THEME_GRAY   :theme_name->text("THEME_GRAY  "); break;
-		case Color::THEME_METAL  :theme_name->text("THEME_METAL "); break;
-		case Color::THEME_USER_1 :theme_name->text("THEME_USER_1"); break;
-		case Color::THEME_USER_2 :theme_name->text("THEME_USER_2"); break;
-		case Color::THEME_USER_3 :theme_name->text("THEME_USER_3"); break;
-		case Color::THEME_USER_4 :theme_name->text("THEME_USER_4"); break;
+		case Color::THEME_RED      :theme_name->text("RED     "); break;
+		case Color::THEME_ORANGE   :theme_name->text("ORANGE  "); break;
+		case Color::THEME_YELLOW   :theme_name->text("YELLOW  "); break;
+		case Color::THEME_LIME     :theme_name->text("LIME    "); break;
+		case Color::THEME_GREEN    :theme_name->text("GREEN   "); break;
+		case Color::THEME_JADE     :theme_name->text("JADE    "); break;
+		case Color::THEME_CYAN     :theme_name->text("CYAN    "); break;
+		case Color::THEME_AZURE    :theme_name->text("AZURE   "); break;
+		case Color::THEME_BLUE     :theme_name->text("BLUE    "); break;
+		case Color::THEME_INDIGO   :theme_name->text("INDIGO  "); break;
+		case Color::THEME_PURPLE   :theme_name->text("PURPLE  "); break;
+		case Color::THEME_VIOLET   :theme_name->text("VIOLET  "); break;
+		case Color::THEME_FUSHIA   :theme_name->text("FUSHIA  "); break;
+		case Color::THEME_PINK     :theme_name->text("PINK    "); break;
+		case Color::THEME_ROSEWOOD :theme_name->text("ROSEWOOD"); break;
+		case Color::THEME_SAND     :theme_name->text("SAND    "); break;
+		case Color::THEME_ASH      :theme_name->text("ASH     "); break;
+		case Color::THEME_GRAY     :theme_name->text("GRAY    "); break;
+		case Color::THEME_ZINC     :theme_name->text("ZINC    "); break;
+		case Color::THEME_SLATE    :theme_name->text("SLATE   "); break;
 		default:theme_name->text("       "); break;
 		}
 	}

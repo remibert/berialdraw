@@ -1,7 +1,7 @@
 {
-	"color"          : 0x00000021, // BUTTON_COLOR       
-	"border-color"   : 0x00000022, // BUTTON_BORDER_COLOR
-	"text-color"     : 0x00000023, // BUTTON_TEXT_COLOR  
+	"color"          : 0x0000001A, // BUTTON_COLOR       
+	"border-color"   : 0x0000001B, // BUTTON_BORDER_COLOR
+	"text-color"     : 0x0000001C, // BUTTON_TEXT_COLOR  
 	"thickness"      : 1,
 	"radius"         : 8,
 	"margin"         : {"top":2,"left":2,"bottom":2,"right":2},

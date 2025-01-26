@@ -67,7 +67,7 @@ bool ProgressBarStyle::is_dirty()
 /** Get the track color */
 uint32_t ProgressBarStyle::track_color() const
 {
-	return UIManager::colors()->color(m_track_color);
+	return m_track_color;
 }
 
 /** Set the track color */
@@ -107,7 +107,7 @@ void ProgressBarStyle::track_size_(Dim size_)
 /** Get the fill color */
 uint32_t ProgressBarStyle::fill_color() const
 {
-	return UIManager::colors()->color(m_fill_color);
+	return m_fill_color;
 }
 
 /** Set the progress_bar color */

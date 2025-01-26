@@ -1,9 +1,9 @@
 {
 	"thickness"      : 1,
-	"border-color"   : 0x00000032, // SWITCH_BORDER_COLOR
-	"on-track-color" : 0x00000033, // SWITCH_ON_TRACK_COLOR 
-	"off-track-color": 0x00000034, // SWITCH_OFF_TRACK_COLOR
-	"thumb-color"    : 0x00000035, // SWITCH_THUMB_COLOR    
+	"border-color"   : 0x0000002B, // SWITCH_BORDER_COLOR
+	"on-track-color" : 0x0000002C, // SWITCH_ON_TRACK_COLOR 
+	"off-track-color": 0x0000002D, // SWITCH_OFF_TRACK_COLOR
+	"thumb-color"    : 0x0000002E, // SWITCH_THUMB_COLOR    
 	"margin"         : {"top":1,"left":1,"bottom":1,"right":1},
 	"radius"         : 10,
 	"align"          : "center",

@@ -1,8 +1,8 @@
 {
-	"color"          : 0x0000002D, // ICON_BACK_COLOR        
-	"border-color"   : 0x0000002E, // ICON_BORDER_COLOR 
-	"text-color"     : 0x0000002F, // ICON_TEXT_COLOR 
-	"icon-color"     : 0x00000030, // ICON_COLOR
+	"color"          : 0x00000026, // ICON_BACK_COLOR        
+	"border-color"   : 0x00000027, // ICON_BORDER_COLOR 
+	"text-color"     : 0x00000028, // ICON_TEXT_COLOR 
+	"icon-color"     : 0x00000029, // ICON_COLOR
 	"thickness"      : 0,
 	"radius"         : 20,
 	"margin"         : {"top":4,"left":4,"bottom":6,"right":4},

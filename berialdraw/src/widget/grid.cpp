@@ -5,6 +5,7 @@ using namespace berialdraw;
 Grid::Grid(Widget * parent):
 	Widget("grid", parent)
 {
+	m_color = Color::TRANSPARENT;
 }
 
 Grid::~Grid()

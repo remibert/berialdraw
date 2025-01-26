@@ -76,11 +76,11 @@ void Canvas::paint(const Region & parent_region)
 	UIManager::renderer()->region(region);
 
 	// Draw background color
-	if(color())
+	if(m_color)
 	{
 		Rect rect(0);
 		rect.size(m_foreclip.size());
-		rect.color(color());
+		rect.color(stated_color(m_color));
 		rect.paint(m_foreclip.position());
 	}
 

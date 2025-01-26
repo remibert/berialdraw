@@ -109,7 +109,7 @@ void EditStyle::max_columns(uint16_t v)
 /** Get the selection color */
 uint32_t EditStyle::select_color() const
 {
-	return UIManager::colors()->color(m_select_color);
+	return m_select_color;
 }
 
 /** Set the selection color */
@@ -129,7 +129,7 @@ void EditStyle::select_color(uint32_t col, uint8_t alpha)
 /** Get the cursor color */
 uint32_t EditStyle::cursor_color() const
 {
-	return UIManager::colors()->color(m_cursor_color);
+	return m_cursor_color;
 }
 
 /** Set the cursor color */
@@ -195,7 +195,7 @@ void EditStyle::place_holder(const String & str)
 /** Get the place holder color */
 uint32_t EditStyle::place_holder_color() const
 {
-	return UIManager::colors()->color(m_place_holder_color);
+	return m_place_holder_color;
 }
 
 /** Set the place holder color */

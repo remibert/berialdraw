@@ -3,9 +3,9 @@
 	"thickness"   : 1,
 	"margin"      : {"top":3,"left":3,"bottom":3,"right":3},
 	"font-size"   : {"width":20,"height":22},
-	"color"       : 0x00000040, // KEYBOARD_KEY_COLOR         
-	"border-color": 0x00000041, // KEYBOARD_KEY_BORDER_COLOR  
-	"text-color"  : 0x00000042, // KEYBOARD_KEY_TEXT_COLOR    
+	"color"       : 0x00000039, // KEYBOARD_KEY_COLOR         
+	"border-color": 0x0000003A, // KEYBOARD_KEY_BORDER_COLOR  
+	"text-color"  : 0x0000003B, // KEYBOARD_KEY_TEXT_COLOR    
 	"min-size"    : {"height":50 },
 	"extend"      :"all",
 	"mappings":
@@ -19,18 +19,18 @@
 	
 	"keys":
 	[   //                                                                                                     KEYBOARD_FUNC_BORDER_COLOR KEYBOARD_FUNC_TEXT_COLOR KEYBOARD_FUNC_COLOR                                                                     
-		{"key":0x01   ,"name":"lowercase","to":"numeric"  , "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x00000044, "text-color":0x00000045, "color":0x00000043, "text":"  123  "  ,"font-size"   : {"width" : 16,"height" : 16}},
-		{"key":0x01   ,"name":"uppercase","to":"numeric"  , "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x00000044, "text-color":0x00000045, "color":0x00000043, "text":"  123  "  ,"font-size"   : {"width" : 16,"height" : 16}},
-		{"key":0x01   ,"name":"numeric"  ,"to":"lowercase", "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x00000044, "text-color":0x00000045, "color":0x00000043, "text":"  ABC  "  ,"font-size"   : {"width" : 16,"height" : 16}},
-		{"key":0x01   ,"name":"symbol"   ,"to":"lowercase", "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x00000044, "text-color":0x00000045, "color":0x00000043, "text":"  ABC  "  ,"font-size"   : {"width" : 16,"height" : 16}},
-		{"key":0x08   ,                                     "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x00000044, "text-color":0x00000045, "color":0x00000043, "text":" \u232B " ,"font-familly":"Berial"  }, # Backspace
-		{"key":0x0A   ,                                     "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x00000044, "text-color":0x00000045, "color":0x00000043, "text":"  \u21A9  ","font-familly":"Berial" }, # Enter
-		{"key":0x20   ,"size-policy":"enlarge-width"      , "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x00000044, "text-color":0x00000045, "color":0x00000043, "text":" "                                  }, # Space bar
-		{"key":0x2B06 ,"name":"lowercase","to":"uppercase", "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x00000044, "text-color":0x00000045, "color":0x00000043, "text":" \u2B06 ","font-familly":"Berial"   }, # Shift
-		{"key":0x2B06 ,"name":"uppercase","to":"lowercase", "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x00000044, "text-color":0x00000045, "color":0x00000043, "text":" \u2B06 ","font-familly":"Berial"   }, # Shift
-		{"key":0x2B06 ,"name":"numeric"  ,"to":"symbol"   , "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x00000044, "text-color":0x00000045, "color":0x00000043, "text":" #+= "   ,"font-size"   : {"width" : 16,"height" : 16}}, # Shift
-		{"key":0x2B06 ,"name":"symbol"   ,"to":"numeric"  , "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x00000044, "text-color":0x00000045, "color":0x00000043, "text":" 123 "   ,"font-size"   : {"width" : 16,"height" : 16}}, # Shift
-		{"key":0x2190 ,                                     "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x00000044, "text-color":0x00000045, "color":0x00000043, "text":" \u2190 ","font-familly":"Berial"   }, # Left arrow
-		{"key":0x2192 ,                                     "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x00000044, "text-color":0x00000045, "color":0x00000043, "text":" \u2192 ","font-familly":"Berial"   }, # Right arrow
+		{"key":0x01   ,"name":"lowercase","to":"numeric"  , "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x0000003D, "text-color":0x0000003E, "color":0x0000003C, "text":"  123  "  ,"font-size"   : {"width" : 16,"height" : 16}},
+		{"key":0x01   ,"name":"uppercase","to":"numeric"  , "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x0000003D, "text-color":0x0000003E, "color":0x0000003C, "text":"  123  "  ,"font-size"   : {"width" : 16,"height" : 16}},
+		{"key":0x01   ,"name":"numeric"  ,"to":"lowercase", "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x0000003D, "text-color":0x0000003E, "color":0x0000003C, "text":"  ABC  "  ,"font-size"   : {"width" : 16,"height" : 16}},
+		{"key":0x01   ,"name":"symbol"   ,"to":"lowercase", "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x0000003D, "text-color":0x0000003E, "color":0x0000003C, "text":"  ABC  "  ,"font-size"   : {"width" : 16,"height" : 16}},
+		{"key":0x08   ,                                     "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x0000003D, "text-color":0x0000003E, "color":0x0000003C, "text":" \u232B " ,"font-familly":"Berial"  }, # Backspace
+		{"key":0x0A   ,                                     "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x0000003D, "text-color":0x0000003E, "color":0x0000003C, "text":"  \u21A9  ","font-familly":"Berial" }, # Enter
+		{"key":0x20   ,"size-policy":"enlarge-width"      , "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x0000003D, "text-color":0x0000003E, "color":0x0000003C, "text":" "                                  }, # Space bar
+		{"key":0x2B06 ,"name":"lowercase","to":"uppercase", "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x0000003D, "text-color":0x0000003E, "color":0x0000003C, "text":" \u2B06 ","font-familly":"Berial"   }, # Shift
+		{"key":0x2B06 ,"name":"uppercase","to":"lowercase", "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x0000003D, "text-color":0x0000003E, "color":0x0000003C, "text":" \u2B06 ","font-familly":"Berial"   }, # Shift
+		{"key":0x2B06 ,"name":"numeric"  ,"to":"symbol"   , "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x0000003D, "text-color":0x0000003E, "color":0x0000003C, "text":" #+= "   ,"font-size"   : {"width" : 16,"height" : 16}}, # Shift
+		{"key":0x2B06 ,"name":"symbol"   ,"to":"numeric"  , "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x0000003D, "text-color":0x0000003E, "color":0x0000003C, "text":" 123 "   ,"font-size"   : {"width" : 16,"height" : 16}}, # Shift
+		{"key":0x2190 ,                                     "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x0000003D, "text-color":0x0000003E, "color":0x0000003C, "text":" \u2190 ","font-familly":"Berial"   }, # Left arrow
+		{"key":0x2192 ,                                     "padding":{"top":2,"left":2,"bottom":2,"right":2}, "border-color":0x0000003D, "text-color":0x0000003E, "color":0x0000003C, "text":" \u2192 ","font-familly":"Berial"   }, # Right arrow
 	]
 }

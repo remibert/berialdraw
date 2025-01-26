@@ -1,9 +1,9 @@
 {
 	"thickness"      : 0,
-	"border-color"   : 0x00000037, // SLIDER_BORDER_COLOR 
-	"track-color"    : 0x00000038, // SLIDER_TRACK_COLOR  
-	"handle-color"   : 0x00000039, // SLIDER_HANDLE_COLOR 
-	"focus-color"    : 0x0000003A, // SLIDER_FOCUS_COLOR
+	"border-color"   : 0x00000030, // SLIDER_BORDER_COLOR 
+	"track-color"    : 0x00000031, // SLIDER_TRACK_COLOR  
+	"handle-color"   : 0x00000032, // SLIDER_HANDLE_COLOR 
+	"focus-color"    : 0x00000033, // SLIDER_FOCUS_COLOR
 	"margin"         : {"top":5,"left":5,"bottom":5,"right":5},
 	"radius"         : 10,
 	"track-size"     : 6,
@@ -12,6 +12,7 @@
 	"extend"         : "width",
 	"selectable"     : true,
 	"pressable"      : true,
-	"focus-thickness": 2,
+	"focus-thickness": 3,
 	"focus-gap"      : 0,
+	"thickness"      : 1,
 }

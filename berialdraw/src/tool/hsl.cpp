@@ -35,16 +35,7 @@ inline int32_t mapToRange(int32_t value)
 @return the new color */
 uint32_t Hsl::add_color(uint32_t color, uint32_t added_color, uint32_t added_alpha)
 {
-	uint32_t inv_alpha;
-
-	if (added_alpha == 0)
-	{
-		inv_alpha = 256 - ((added_color & 0xFF000000) >> 24);
-	}
-	else
-	{
-		inv_alpha = 256 - added_alpha;
-	}
+	uint32_t inv_alpha = 256 - added_alpha;
 
 	uint32_t fore_red   = ((added_color & 0x00FF0000) >> 16);
 	uint32_t fore_green = ((added_color & 0x0000FF00) >> 8 );
@@ -213,7 +204,6 @@ uint32_t Hsl::enlighten(uint32_t color, int32_t level)
 	return Hsl::to_rgb(hue, saturation, mapToPercent(light + ((100-light) * level) / 100));
 }
 
-
 /** Adjust the saturation of selected color */
 uint32_t Hsl::saturate(uint32_t color, int32_t level)
 {
@@ -224,7 +214,6 @@ uint32_t Hsl::saturate(uint32_t color, int32_t level)
 	level = mapToRange(level);
 	return Hsl::to_rgb(hue, mapToPercent(saturation - ((100-saturation) * level) / 100), light);
 }
-
 
 /** Change the color into pastel */
 uint32_t Hsl::pastel(uint32_t color, int32_t level)
@@ -238,7 +227,6 @@ uint32_t Hsl::pastel(uint32_t color, int32_t level)
 		mapToPercent(saturation - ((100-saturation) * level) / 100), 
 		mapToPercent(light      + ((100-light)      * level) / 100));
 }
-
 
 /** Convert color to gray
 @param color
@@ -271,6 +259,68 @@ uint32_t Hsl::to_gray(uint32_t color)
 	return result;
 }
 
+
+uint32_t channel_luminance(uint32_t channel)
+{
+	Linear line;
+	if      (channel <  32) line.set_coef(  0,       0,  31,     137);
+	else if (channel <  64) line.set_coef( 32,     144,  63,     497);
+	else if (channel <  96) line.set_coef( 64,     512,  95,    1144);
+	else if (channel < 128) line.set_coef( 96,    1169, 127,    2122);
+	else if (channel < 160) line.set_coef(128,    2158, 159,    3467);
+	else if (channel < 192) line.set_coef(160,    3515, 191,    5209);
+	else if (channel < 224) line.set_coef(192,    5271, 223,    7379);
+	else                    line.set_coef(224,    7454, 255,   10000);
+	uint32_t result = line.fx(channel);
+	return result;
+}
+
+
+
+// Calculate the luminance of a color
+uint32_t Hsl::luminance(uint32_t color)
+{
+	static const uint32_t weight_r = 2126; // 0.2126 * 10000
+	static const uint32_t weight_g = 7152; // 0.7152 * 10000
+	static const uint32_t weight_b = 722 ; // 0.0722 * 10000
+
+	uint32_t red, green, blue;
+
+	red   = ((color >> 16) & 0xFF);
+	green = ((color >> 8) & 0xFF);
+	blue  = ((color & 0xFF));
+
+	uint32_t result;
+
+	red   = channel_luminance(((color >> 16) & 0xFF));
+	green = channel_luminance(((color >> 8) & 0xFF));
+	blue  = channel_luminance((color & 0xFF));
+
+	result = (red * weight_r + green * weight_g + blue * weight_b)/10000;
+	return result;
+}
+
+// Indicates if the constrast is readable 
+uint32_t Hsl::delta_contrast(uint32_t color1, uint32_t color2)
+{
+	//if ((color1 & 0xFF) >= 248)
+	//{
+	//	color1 = color1;
+	//}
+	uint32_t luminance1 = luminance(color1);
+	uint32_t luminance2 = luminance(color2);
+
+
+	uint32_t v1 = (max(luminance1, luminance2) + 500) * 10000;
+	uint32_t v2 =  min(luminance1, luminance2) + 500;
+
+	uint32_t result = v1/v2;
+	//bd_printf("[0x%08X, 0x%08X, %d.%04d, %d.%04d, %d.%04d],\n", color1,color2,
+	//	result/10000,result%10000,
+	//	luminance1/10000,luminance1%10000,
+	//	luminance2/10000,luminance2%10000);
+	return result;
+}
 
 // Convert a HS type color with a determined gray level to achieve, to have homogeneity in the colors
 uint32_t Hsl::to_balanced_color(uint32_t hue, uint32_t saturation, uint32_t gray_level)

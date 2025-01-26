@@ -5,6 +5,7 @@ using namespace berialdraw;
 Column::Column(Widget * parent):
 	Widget("column", parent)
 {
+	m_color = Color::TRANSPARENT;
 }
 
 Column::~Column()

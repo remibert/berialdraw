@@ -53,7 +53,7 @@ void Pane::paint(const Region & parent_region)
 	region.intersect(m_backclip);
 	UIManager::renderer()->region(region);
 	Point shift;
-	Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, pressed_color(color(),pressed()), border_color());
+	Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
 	Widget::paint(region);
 }
 

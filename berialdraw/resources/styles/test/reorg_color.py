@@ -12,10 +12,17 @@ def search(directory, patterns):
 def replace(line, start, end, shift):
 	found = False
 	before = line
-	for i in range(end,start-1,-1):
-		if "0x%08X"%i in line:
-			found = True
-			line = line.replace("0x%08X"%i, "0x%08X"%(i+shift))
+	if shift > 0:
+		for i in range(end,start-1,-1):
+			if "0x%08X"%i in line:
+				found = True
+				line = line.replace("0x%08X"%i, "0x%08X"%(i+shift))
+	else:
+		for i in range(start, end, 1):
+			if "0x%08X"%i in line:
+				found = True
+				line = line.replace("0x%08X"%i, "0x%08X"%(i+shift))
+		
 
 	if found:
 		print(before.strip())
@@ -36,7 +43,7 @@ def main():
 
 	for filename in filenames:
 		print(filename)
-		scan_file(filename, 0x00000001, 0x0000002A, 1)
+		scan_file(filename, 0x00000015, 0x0000007f, -7)
 		print("")
 		#~ break
 		#~ print(file)

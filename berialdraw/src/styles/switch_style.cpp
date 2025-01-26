@@ -53,7 +53,7 @@ bool SwitchStyle::is_dirty()
 /** Get the on track color */
 uint32_t SwitchStyle::on_track_color() const
 {
-	return UIManager::colors()->color(m_on_track_color);
+	return m_on_track_color;
 }
 
 /** Set the on track color */
@@ -74,7 +74,7 @@ void SwitchStyle::on_track_color(uint32_t col, uint8_t alpha)
 /** Get the off track color */
 uint32_t SwitchStyle::off_track_color() const
 {
-	return UIManager::colors()->color(m_off_track_color);
+	return m_off_track_color;
 }
 
 /** Set the off track color */
@@ -95,7 +95,7 @@ void SwitchStyle::off_track_color(uint32_t col, uint8_t alpha)
 /** Get the switch color */
 uint32_t SwitchStyle::thumb_color() const
 {
-	return UIManager::colors()->color(m_thumb_color);
+	return m_thumb_color;
 }
 
 /** Set the switch color */

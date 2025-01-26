@@ -1,10 +1,10 @@
 {
-	"color"          : 0x00000021, // BUTTON_COLOR       
-	"border-color"   : 0x00000022, // BUTTON_BORDER_COLOR
-	"text-color"     : 0x00000023, // BUTTON_TEXT_COLOR  
-	"focus-color"    : 0x00000024, // BUTTON_FOCUS_COLOR
+	"color"          : 0x0000001A, // BUTTON_COLOR       
+	"border-color"   : 0x0000001B, // BUTTON_BORDER_COLOR
+	"text-color"     : 0x0000001C, // BUTTON_TEXT_COLOR  
+	"focus-color"    : 0x0000001D, // BUTTON_FOCUS_COLOR
 	"thickness"      : 1,
-	"radius"         : 9,
+	"radius"         : 13,
 	"margin"         : {"top":5,"left":5,"bottom":5,"right":5},
 	"align"          : "center",
 	"font-size"      : {"width":20,"height":22},
@@ -13,6 +13,6 @@
 	"extend"         : "all",
 	"focusable"      : true,
 	"pressable"      : true,
-	"focus-thickness": 2,
+	"focus-thickness": 3,
 	"focus-gap"      : 0,
 }

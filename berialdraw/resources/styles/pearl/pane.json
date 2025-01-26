@@ -1,6 +1,6 @@
 {
-	"color"       : 0x0000003E, // PANE_COLOR
-	"border-color": 0x0000003F, // PANE_BORDER_COLOR
+	"color"       : 0x00000037, // PANE_COLOR
+	"border-color": 0x00000038, // PANE_BORDER_COLOR
 	"thickness"   : 0,
 	"radius"      : 0,
 	"align"       : "center",

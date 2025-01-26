@@ -5,6 +5,7 @@ using namespace berialdraw;
 Row::Row(Widget * parent):
 	Widget("row", parent)
 {
+	m_color = Color::TRANSPARENT;
 }
 
 Row::~Row()

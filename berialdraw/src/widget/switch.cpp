@@ -21,11 +21,6 @@ Switch::~Switch()
 Size Switch::content_size()
 {
 	Size result(m_switch_size);
-
-	// if ((m_focus_thickness % 2)!= 0 && m_focused)
-	// {
-	// 	result.increase(1,1);
-	// }
 	return result;
 }
 
@@ -52,9 +47,8 @@ void Switch::place(const Area & area, bool in_layout)
 void Switch::paint(const Region & parent_region)
 {
 	Point shift;
-	uint32_t track_color = checked() ? on_track_color() : off_track_color();
+	uint32_t track_color = checked() ? stated_color(m_on_track_color) : stated_color(m_off_track_color);
 	Dim thickness = (m_focused == 0 ? m_thickness: m_thickness + (m_focus_thickness<<6));
-	uint32_t border_color_ = (m_focused == 0 ? border_color(): focus_color());
 
 	Region region(parent_region);
 	region.intersect(m_backclip);
@@ -62,15 +56,13 @@ void Switch::paint(const Region & parent_region)
 
 	Area area_track(m_foreclip);
 
-	// Paint background
-	Rect::build_polygon(area_track, shift, m_radius, m_thickness, 0, m_sides, pressed_color(track_color,pressed()), border_color());
-
-	// If button with focus
 	if (m_focused)
 	{
-		// Display focus
-		Rect::build_polygon(area_track, shift, m_radius+ (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, focus_color());
+		// Draw focus
+		Rect::build_polygon(m_foreclip, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
 	}
+	// Draw backround
+	Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(track_color), stated_color(m_border_color));
 
 	Area area_thumb(m_foreclip);
 
@@ -90,7 +82,7 @@ void Switch::paint(const Region & parent_region)
 		}
 	}
 	area_thumb.size().width(area_thumb.size().height());
-	Rect::build_polygon(area_thumb, shift, substract(m_radius, m_thumb_padding), m_focus_gap, 0, CommonStyle::ALL_SIDES, thumb_color(), 0);
+	Rect::build_polygon(area_thumb, shift, substract(m_radius, m_thumb_padding), 0, 0, CommonStyle::ALL_SIDES, stated_color(m_thumb_color), 0);
 }
 
 /** Get the widget hovered */

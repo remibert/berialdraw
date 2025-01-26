@@ -40,9 +40,9 @@ Icon * IconMenuDialog::create_icon(const String & text, const String & icon_file
 		icon->radius(200);                                    // Sets the radius of rounded borders
 		icon->icon_padding(20);                               // Adds paddings between icon and borders
 		m_color ++;
-		if (m_color > Color::LAST_THEME)
+		if (m_color > Color::LAST_THEME_COLOR)
 		{
-			m_color = Color::FIRST_THEME;
+			m_color = Color::FIRST_THEME_COLOR;
 		}
 
 		// Other settings

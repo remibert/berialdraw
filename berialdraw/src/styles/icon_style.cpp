@@ -27,7 +27,7 @@ void Path::path(const String & path_)
 /** Get the back color */
 uint32_t Path::color() const
 {
-	return UIManager::colors()->color(m_color);
+	return m_color;
 }
 
 /** Set the back color */
@@ -198,7 +198,7 @@ void IconStyle::icon_padding_(Dim top, Dim left, Dim bottom, Dim right)
 /** Get the back icon_color */
 uint32_t IconStyle::icon_color() const
 {
-	return UIManager::colors()->color(m_icon_color);
+	return m_icon_color;
 }
 
 /** Set the back icon_color */

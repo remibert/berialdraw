@@ -116,12 +116,12 @@ void Edit::paint(const Region & parent_region)
 {
 	Region region(parent_region);
 	String display;
-	uint32_t txt_col = text_color();
+	uint32_t txt_col = stated_color(m_text_color);
 	
 	if (m_input->size() == 0 && m_place_holder != 0)
 	{
 		display = *m_place_holder;
-		txt_col = place_holder_color();
+		txt_col = stated_color(m_place_holder_color);
 	}
 	else
 	{
@@ -155,12 +155,15 @@ void Edit::paint(const Region & parent_region)
 
 	UIManager::renderer()->region(region);
 	Point shift;
-	Dim thickness = (m_focused == 0 ? m_thickness: m_thickness + (m_focus_thickness<<6));
-	uint32_t border_color_ = (m_focused == 0 ? border_color(): focus_color());
 
-	//bd_printf("editP(%d,%d)\n",m_foreclip.width(),m_foreclip.height());
+	if (m_focused)
+	{
+		// Draw focus
+		Rect::build_polygon(m_foreclip, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
+	}
 	// Draw backround
-	Rect::build_polygon(m_foreclip, shift, m_radius, thickness, m_focus_gap, m_sides, pressed_color(color(),pressed()), border_color_);
+	Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
+
 	Widget::paint(region);
 
 	// Get clipping text area
@@ -182,7 +185,8 @@ void Edit::paint(const Region & parent_region)
 	text_shift.move(m_cursor_shift);
 
 	m_text_box.paint(m_cursor_shift, *m_font.get(), display, m_text_foreclip.position(), m_text_backclip, txt_col,
-		( focused() ? m_cursor_color : 0), (focused() ? m_select_color : 0),
+		focused() ? stated_color(m_cursor_color) : Color::TRANSPARENT, 
+		focused() ? stated_color(m_select_color) : Color::TRANSPARENT,
 		(TypingMode)m_typing_mode == TypingMode::INSERTION);
 }
 

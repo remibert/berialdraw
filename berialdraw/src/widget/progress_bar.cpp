@@ -139,7 +139,7 @@ void ProgressBar::draw_track()
 			fill_radius -= radius_dif;
 		}
 		fill_border_color = Color::TRANSPARENT;
-		track_border_color = border_color();
+		track_border_color = stated_color(m_border_color);
 		
 		// Vertical progress bar
 		if (m_extend == Extend::EXTEND_HEIGHT)
@@ -189,7 +189,7 @@ void ProgressBar::draw_track()
 			track_radius -= radius_dif;
 		}
 		track_border_color = Color::TRANSPARENT;
-		fill_border_color = border_color();
+		fill_border_color = stated_color(m_border_color);
 
 		// Vertical progress bar
 		if (m_extend == Extend::EXTEND_HEIGHT)
@@ -237,11 +237,11 @@ void ProgressBar::draw_track()
 
 	// Draw track
 	track_area.nearest_pixel();
-	Rect::build_polygon(track_area, shift, track_radius, track_thickness, 0, m_sides, track_color(), track_border_color);
+	Rect::build_polygon(track_area, shift, track_radius, track_thickness, 0, m_sides, stated_color(m_track_color), track_border_color);
 
 	// Draw fill
 	fill_area.nearest_pixel();
-	Rect::build_polygon(fill_area, shift, fill_radius, fill_thickness, 0, m_sides, fill_color(), fill_border_color);
+	Rect::build_polygon(fill_area, shift, fill_radius, fill_thickness, 0, m_sides, stated_color(m_fill_color), fill_border_color);
 }
 
 void ProgressBar::paint(const Region & parent_region)

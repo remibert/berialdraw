@@ -23,7 +23,7 @@ public:
 				pane->radius(15);                          // Rounded corners with a radius of 15
 				pane->thickness(1);                        // Border thickness of 1
 				pane->color(Color::WHITE_GRAY);            // Sets the pane background color
-				pane->border_color(Color::VALUE_THEME_FOCUS_COLOR); // Sets the border color
+				pane->border_color(Color::THEME_COLOR_LIGHT); // Sets the border color
 				pane->margin(5);                           // Adds a margin around the pane
 
 				// Adds a column layout inside the pane
@@ -51,7 +51,7 @@ public:
 				pane->radius(15);                          // Rounded corners with a radius of 15
 				pane->thickness(1);                        // Border thickness of 1
 				pane->color(Color::WHITE_GRAY);            // Sets the pane background color
-				pane->border_color(Color::VALUE_THEME_FOCUS_COLOR); // Sets the border color
+				pane->border_color(Color::THEME_COLOR_LIGHT); // Sets the border color
 				pane->margin(5);                           // Adds a margin around the pane
 
 				// Adds a column layout inside the pane

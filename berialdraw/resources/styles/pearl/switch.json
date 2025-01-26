@@ -1,17 +1,18 @@
 {
 	"thickness"      : 0,
-	"border-color"   : 0x00000032, // SWITCH_BORDER_COLOR
-	"on-track-color" : 0x00000033, // SWITCH_ON_TRACK_COLOR 
-	"off-track-color": 0x00000034, // SWITCH_OFF_TRACK_COLOR
-	"thumb-color"    : 0x00000035, // SWITCH_THUMB_COLOR    
-	"focus-color"    : 0x00000036, // SWITCH_FOCUS_COLOR
+	"border-color"   : 0x0000002B, // SWITCH_BORDER_COLOR
+	"on-track-color" : 0x0000002C, // SWITCH_ON_TRACK_COLOR 
+	"off-track-color": 0x0000002D, // SWITCH_OFF_TRACK_COLOR
+	"thumb-color"    : 0x0000002E, // SWITCH_THUMB_COLOR    
+	"focus-color"    : 0x0000002F, // SWITCH_FOCUS_COLOR
 	"margin"         : {"top":5,"left":5,"bottom":5,"right":5},
 	"radius"         : 10,
 	"align"          : "center",
-	"switch-size"    : {"width":40,"height":20},
+	"switch-size"    : {"width":35,"height":20},
 	"thumb-padding"  : 1,
 	"focusable"      : true,
 	"pressable"      : true,
-	"focus-thickness": 2,
+	"focus-thickness": 3,
 	"focus-gap"      : 0,
+	"thickness"      : 1,
 }

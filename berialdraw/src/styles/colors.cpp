@@ -20,29 +20,29 @@ Colors::~Colors()
 @param color theme */
 void Colors::theme(uint32_t col)
 {
-	if (col >= Color::FIRST_THEME && col <= Color::LAST_THEME)
+	if (col >= Color::FIRST_THEME_COLOR && col <= Color::LAST_THEME_COLOR)
 	{
 		m_theme = col;
 		col = color(col);
 
+		m_theme_values [Color::THEME_COLOR_XXX_LIGHT   - Color::FIRST_THEME_VALUE] =  Hsl::add_color(col, Color::WHITE, 204); // Transparency 80%
+		m_theme_values [Color::THEME_COLOR_XX_LIGHT    - Color::FIRST_THEME_VALUE] =  Hsl::add_color(col, Color::WHITE, 154); // Transparency 60%
+		m_theme_values [Color::THEME_COLOR_X_LIGHT     - Color::FIRST_THEME_VALUE] =  Hsl::add_color(col, Color::WHITE, 102); // Transparency 40%
+		m_theme_values [Color::THEME_COLOR_LIGHT       - Color::FIRST_THEME_VALUE] =  Hsl::add_color(col, Color::WHITE, 51);  // Transparency 20%
+		m_theme_values [Color::THEME_COLOR             - Color::FIRST_THEME_VALUE] =  col;
+		m_theme_values [Color::THEME_COLOR_DARK        - Color::FIRST_THEME_VALUE] =  Hsl::add_color(col, Color::BLACK, 44);  // Transparency 17%
+		m_theme_values [Color::THEME_COLOR_X_DARK      - Color::FIRST_THEME_VALUE] =  Hsl::add_color(col, Color::BLACK, 87);  // Transparency 34%
+		m_theme_values [Color::THEME_COLOR_XX_DARK     - Color::FIRST_THEME_VALUE] =  Hsl::add_color(col, Color::BLACK, 131); // Transparency 51%
+		m_theme_values [Color::THEME_COLOR_XXX_DARK    - Color::FIRST_THEME_VALUE] =  Hsl::add_color(col, Color::BLACK, 174); // Transparency 68%
+
 		// If light theme selected
-		if ((Hsl::to_gray(color(Color::WINDOW_COLOR)) & 0xFF) > 128)
+		if (Hsl::delta_contrast(col, Color::WHITE) > Hsl::delta_contrast(col, Color::BLACK))
 		{
-			color(Color::VALUE_THEME_BACK_COLOR,     Hsl::add_color(col, Color::WHITE, 128+16));
-			color(Color::VALUE_THEME_FOCUS_COLOR,    col);
-			color(Color::VALUE_THEME_FUNC_KEY_COLOR, Hsl::add_color(col,Color::WHITE,128+64));
-			color(Color::VALUE_THEME_TRACK_COLOR,    Hsl::add_color(color(Color::WINDOW_COLOR),Color::BLACK,32) );
-			color(Color::VALUE_THEME_SELECT_COLOR,   Hsl::add_color(col, Color::WHITE, 192+16));
-			color(Color::VALUE_THEME_FRONT_COLOR,    Hsl::add_color(col, Color::BLACK, 128+32));
+			m_theme_values [Color::THEME_COLOR_FOREGROUND  - Color::FIRST_THEME_VALUE] = Color::WHITE;
 		}
 		else
 		{
-			color(Color::VALUE_THEME_BACK_COLOR,     Hsl::add_color(col, Color::BLACK, 128+16));
-			color(Color::VALUE_THEME_FOCUS_COLOR,    col);
-			color(Color::VALUE_THEME_FUNC_KEY_COLOR, Hsl::add_color(col,Color::BLACK,128+32));
-			color(Color::VALUE_THEME_TRACK_COLOR,    Hsl::add_color(color(Color::WINDOW_COLOR),Color::WHITE,64) );
-			color(Color::VALUE_THEME_SELECT_COLOR,   Hsl::add_color(col, Color::BLACK, 96));
-			color(Color::VALUE_THEME_FRONT_COLOR,    Hsl::add_color(col, Color::WHITE, 128+32));
+			m_theme_values [Color::THEME_COLOR_FOREGROUND  - Color::FIRST_THEME_VALUE] = Color::BLACK;
 		}
 	}
 }
@@ -76,11 +76,25 @@ bool Colors::appearance(const char * name)
 			{
 				json.unserialize(file);
 				m_colors.clear();
-				JsonIterator iterator(json);
-				for (iterator.first(); iterator.exist(); iterator.next())
+				m_state_colors.clear();
+
 				{
-					m_colors.push_back(iterator);
+					JsonIterator iterator(json["colors"]);
+					for (iterator.first(); iterator.exist(); iterator.next())
+					{
+						m_colors.push_back(iterator);
+					}
 				}
+				
+				{
+					JsonIterator iterator = json["state-colors"];
+
+					for (iterator.first(); iterator.exist(); iterator.next())
+					{
+						m_state_colors.push_back(iterator);
+					}
+				}
+
 				theme(m_theme);
 				result = true;
 			}
@@ -106,17 +120,55 @@ void Colors::color(uint32_t id, uint32_t color)
 @return color predefined or id value if not found */
 uint32_t Colors::color(uint32_t id)
 {
+	return color(id, false);
+}
+
+
+/** Return the color according to its id 
+@param id color identifier
+@param focused indicates if the color is focused or not
+@return color predefined or id value if not found */
+uint32_t Colors::color(uint32_t id, bool focused)
+{
 	uint32_t result = id;
-	if (id < m_colors.size())
+	if (id <= LAST_THEME_VALUE && id != Color::TRANSPARENT)
 	{
-		result = m_colors[id];
-		if (result > Color::TRANSPARENT && result < m_colors.size())
+		// If color is in colors table
+		if (id < m_colors.size())
 		{
-			result = m_colors[result];
+			// Get color
+			result = m_colors[id];
+		}
+
+		// If state color selected
+		if (result >= FIRST_STATE_COLOR && result <= LAST_STATE_COLOR)
+		{
+			id = (result - FIRST_STATE_COLOR) * 2;
+			if (focused)
+			{
+				id += 1;
+			}
+			if (id < m_state_colors.size())
+			{
+				result = m_state_colors[id];
+			}
+		}
+
+		// If the color is in theme value table
+		if (result >= FIRST_THEME_VALUE && result <= LAST_THEME_VALUE)
+		{
+			id = (result - FIRST_THEME_VALUE);
+			
+			// Get theme value
+			if (id <= (Color::LAST_THEME_VALUE-Color::FIRST_THEME_VALUE))
+			{
+				result = m_theme_values[id];
+			}
 		}
 	}
 	return result;
 }
+
 
 
 /** Get style filename according to class name */
@@ -133,11 +185,11 @@ void Colors::test1()
 	assert(UIManager::colors()->color(100) == 100);
 
 	assert(UIManager::colors()->appearance("dark") == true);
-	assert(UIManager::colors()->color(LABEL_TEXT_COLOR) == 0xFFC0C0C0);
+	assert(UIManager::colors()->color(LABEL_TEXT_COLOR) == 0xffffffff);
 	assert(UIManager::colors()->color(100) == 100);
 
 	assert(UIManager::colors()->appearance("prout") == false);
-	assert(UIManager::colors()->color(LABEL_TEXT_COLOR) == 0xFFC0C0C0);
+	assert(UIManager::colors()->color(LABEL_TEXT_COLOR) == 0xffffffff);
 	assert(UIManager::colors()->color(100) == 100);
 
 	assert(UIManager::colors()->appearance("test_light") == true);

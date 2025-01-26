@@ -361,46 +361,61 @@ void Widget::space_occupied(Point & min_position, Point & max_position)
 	}
 }
 
-
 /** Return the color value when the widget is pressed */
 uint32_t Widget::pressed_color(uint32_t color, bool pressed)
 {
 	uint32_t result = color;
 	if (pressed)
 	{
-		uint32_t hue, saturation, light;
-		Hsl::from_rgb(color, hue, saturation, light);
-		uint32_t gray = Hsl::to_gray(color) & 0xFF;
-		if      (gray < 16)  light += 14;
-		else if (gray < 48)  light += 13;
-		else if (gray < 80)  light += 12;
-		else if (gray < 112) light += 11;
-		else if (gray < 144) light += 10;
-		else if (gray < 176) light +=  9;
-		else if (gray < 208) light +=  8;
-		else if (gray < 224) light +=  7;
-		else if (gray < 240) light +=  6;
+		// If color is transparent
+		if (color == Color::TRANSPARENT)
+		{
+			// Search parent color
+			Widget * widget = this;
+
+			// Search the first color not transparent in widget parent
+			do
+			{
+				widget = widget->parent();
+				if (widget)
+				{
+					uint32_t parent_color = UIManager::colors()->color(widget->color());
+
+					// Check if parent color not transparent
+					if ((parent_color & Color::TRANSPARENT_MASK) == Color::TRANSPARENT_MASK)
+					{
+						color = parent_color;
+						break;
+					}
+				}
+			}
+			while (widget);
+		}
+
+		// If dark color
+		if ((Hsl::to_gray(color) & 0xFF) < 0x76)
+		{
+			// Enlight the color
+			result = Hsl::add_color(color, Color::WHITE, 40);
+		}
 		else
 		{
-			if (light + 5 > 100)
-			{
-				light -= 5;
-			}
-			else
-			{
-				light += 5;
-			}
+			// Darken the color
+			result = Hsl::add_color(color, Color::BLACK, 10);
 		}
-
-		if (light > 100)
-		{
-			light = 100;
-		}
-
-		result = (Hsl::to_rgb(hue, saturation, light) & 0x00FFFFFF) | (color & 0xFF000000);
 	}
 	return result;
 }
+
+/** Return the state color */
+uint32_t Widget::stated_color(uint32_t color)
+{
+	uint32_t result = color;
+	result = UIManager::colors()->color(color, m_focused == 1);
+	result = pressed_color(result, m_pressed);
+	return result;
+}
+
 
 Widget * Widget::search(uint16_t id)
 {

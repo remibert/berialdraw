@@ -155,7 +155,7 @@ void Slider::draw_track()
 		handle_thickness = 0;
 		handle_radius = substract(handle_radius, dif_radius);
 		handle_border_color = Color::TRANSPARENT;
-		track_border_color = border_color();
+		track_border_color = stated_color(m_border_color);
 		
 		// Vertical slider
 		if (m_extend == Extend::EXTEND_HEIGHT)
@@ -180,7 +180,7 @@ void Slider::draw_track()
 
 		track_radius = substract(track_radius, dif_radius);
 		track_border_color = Color::TRANSPARENT;
-		handle_border_color = border_color();
+		handle_border_color = stated_color(m_border_color);
 
 		// Vertical slider
 		if (m_extend == Extend::EXTEND_HEIGHT)
@@ -214,20 +214,18 @@ void Slider::draw_track()
 
 	// Draw track
 	track_area.nearest_pixel();
-	Rect::build_polygon(track_area, shift, track_radius, track_thickness, 0, m_sides, track_color(), track_border_color);
+	Rect::build_polygon(track_area, shift, track_radius, track_thickness, 0, m_sides, stated_color(m_track_color), track_border_color);
 
 	// Draw fill
 	handle_area.nearest_pixel();
 
-	// Paint background
-	Rect::build_polygon(handle_area, shift, handle_radius, m_thickness, 0, m_sides, pressed_color(handle_color(),pressed()), handle_border_color);
-
-	// If button with focus
 	if (m_focused)
 	{
-		// Display focus
-		Rect::build_polygon(handle_area, shift, handle_radius+ (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, focus_color());
+		// Draw focus
+		Rect::build_polygon(handle_area, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
 	}
+	// Draw backround
+	Rect::build_polygon(handle_area, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_handle_color), handle_border_color);
 }
 
 void Slider::paint(const Region & parent_region)

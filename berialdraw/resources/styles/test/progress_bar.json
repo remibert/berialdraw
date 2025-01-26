@@ -1,8 +1,8 @@
 {
 	"thickness"      : 1,
-	"border-color"   : 0x0000003B, // PROGRESS_BAR_BORDER_COLOR
-	"track-color"    : 0x0000003C, // PROGRESS_BAR_TRACK_COLOR 
-	"fill-color"     : 0x0000003D, // PROGRESS_BAR_FILL_COLOR  
+	"border-color"   : 0x00000034, // PROGRESS_BAR_BORDER_COLOR
+	"track-color"    : 0x00000035, // PROGRESS_BAR_TRACK_COLOR 
+	"fill-color"     : 0x00000036, // PROGRESS_BAR_FILL_COLOR  
 	"margin"         : {"top":2,"left":2,"bottom":2,"right":2},
 	"radius"         : 2,
 	"track-size"     : 20,

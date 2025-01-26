@@ -31,6 +31,12 @@ namespace berialdraw
 		@return color predefined or id value if not found */
 		uint32_t color(uint32_t id);
 
+		/** Return the color according to its id 
+		@param id color identifier
+		@param focused indicates if the color is focused or not
+		@return color predefined or id value if not found */
+		uint32_t color(uint32_t id, bool focused);
+
 		/** Get style filename according to class name */
 		void filename(const char * classname, String & filename_);
 
@@ -45,6 +51,8 @@ namespace berialdraw
 	protected:
 /// @cond DOXYGEN_IGNORE
 		Vector<uint32_t> m_colors;
+		Vector<uint32_t> m_state_colors;
+		uint32_t m_theme_values[(Color::LAST_THEME_VALUE-Color::FIRST_THEME_VALUE) + 1];
 		uint32_t m_theme;
 /// @endcond
 	};

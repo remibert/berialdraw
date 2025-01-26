@@ -79,15 +79,13 @@ void Button::paint(const Region & parent_region)
 	UIManager::renderer()->region(region);
 	Point shift;
 
-	// Paint background
-	Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, pressed_color(color(),pressed()), border_color());
-
-	// If button with focus
 	if (m_focused)
 	{
-		// Display focus
-		Rect::build_polygon(m_foreclip, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, focus_color());
+		// Draw focus
+		Rect::build_polygon(m_foreclip, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
 	}
+	// Draw backround
+	Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
 
 	// Paint children
 	Widget::paint(region);
@@ -96,7 +94,7 @@ void Button::paint(const Region & parent_region)
 	region.intersect(m_text_backclip);
 	select_font();
 	UIManager::renderer()->region(region);
-	m_text_box.paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_backclip, text_color(), 0, 0, true);
+	m_text_box.paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_backclip, stated_color(m_text_color), 0, 0, true);
 }
 
 /** Get the widget hovered */
@@ -416,7 +414,7 @@ void Button::test6()
 						rect->color(color);
 						rect = new Pane(grid);
 						rect->cell(row+1, column);
-						rect->color(Widget::pressed_color(color,true));
+						rect->color(window.pressed_color(color,true));
 						column ++;
 					}
 					row += 2;
@@ -620,9 +618,6 @@ public:
 	{
 		Label * label = dynamic_cast<Label*>(widget->root()->search(1));
 		label->text("%s %d,%d:%d touch",widget->classname(), evt.position().x(),evt.position().y(),evt.state());
-
-	//if (evt.state() != TouchEvent::TOUCH_MOVE)
-		//bd_printf("{%d,%d,%s},\n",evt.position().x(), evt.position().y(), evt.state() == TouchEvent::TOUCH_DOWN ? "TouchEvent::TOUCH_DOWN" : "TouchEvent::TOUCH_UP");
 	}
 
 	void on_click(Widget * widget, const ClickEvent & evt)
