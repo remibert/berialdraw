@@ -2,7 +2,7 @@
 
 using namespace berialdraw;
 
-Window::Window() : Widget("window",0)
+Window::Window() : Widget("window",0, sizeof(Window))
 {
 	m_allocated = false;
 	UIManager::desktop()->add(this);
@@ -116,42 +116,46 @@ bool Window::flow_replacement()
 
 void Window::paint(const Region & parent_region)
 {
-	// Open svg export if it required
-	Exporter * exporter = UIManager::exporter();
-
-	// If export svg required
-	if(exporter)
-	{
-		// Open svg group for the current window
-		exporter->open_group(m_backclip.position(), m_backclip.size());
-	}
-
 	// Create region of window
 	Region region(m_backclip);
 
 	// Remove other windows region
 	region.subtract(parent_region);
 
-	// Register region
-	UIManager::renderer()->region(region);
-
-	// Show window background
-	Point shift;
-	Rect rect(0);
-		rect.size(m_backclip.size());
-		rect.position(m_backclip.position());
-		rect.radius_(0);
-		rect.color(stated_color(m_color));
-		rect.paint(shift);
-
-	// Paint widgets children
-	Widget::paint(region);
-
-	// If svg export required
-	if(exporter)
+	// If widget visible
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
 	{
-		// Close svg group for the current window
-		exporter->close_group();
+		// Register region
+		UIManager::renderer()->region(region);
+
+		// Open svg export if it required
+		Exporter * exporter = UIManager::exporter();
+
+		// If export svg required
+		if(exporter)
+		{
+			// Open svg group for the current window
+			exporter->open_group(m_backclip.position(), m_backclip.size());
+		}
+
+		// Show window background
+		Point shift;
+		Rect rect(0);
+			rect.size(m_backclip.size());
+			rect.position(m_backclip.position());
+			rect.radius_(0);
+			rect.color(stated_color(m_color));
+			rect.paint(shift);
+
+		// Paint widgets children
+		Widget::paint(region);
+
+		// If svg export required
+		if(exporter)
+		{
+			// Close svg group for the current window
+			exporter->close_group();
+		}
 	}
 }
 
@@ -167,7 +171,7 @@ Widget * Window::hovered(const Region & parent_region, const Point & position)
 	region.subtract(parent_region);
 
 	// If the touch is in the current window
-	if(region.is_inside(position))
+	if(region.is_inside(position) != Region::Overlap::OUT)
 	{
 		Widget* child = m_children;
 		Widget * hovered = 0;

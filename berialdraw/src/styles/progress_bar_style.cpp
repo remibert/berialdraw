@@ -50,18 +50,12 @@ void ProgressBarStyle::set(const ProgressBarStyle & other)
 	m_max_value     = other.m_max_value;
 	m_step_value    = other.m_step_value;
 	check_progress_bar();
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 }
 
 Style * ProgressBarStyle::create()
 {
 	return new ProgressBarStyle;
-}
-
-/** Indicates if the window must be refreshed */
-bool ProgressBarStyle::is_dirty()
-{
-	return UIManager::invalidator()->is_dirty(this);
 }
 
 /** Get the track color */
@@ -73,14 +67,14 @@ uint32_t ProgressBarStyle::track_color() const
 /** Set the track color */
 void ProgressBarStyle::track_color(uint32_t col)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_track_color = col;
 }
 
 /** Set the track color with alpha */
 void ProgressBarStyle::track_color(uint32_t col, uint8_t alpha)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_track_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
@@ -93,14 +87,14 @@ Dim ProgressBarStyle::track_size() const
 /** Set the track size in pixels */
 void ProgressBarStyle::track_size(Dim size_)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_track_size = size_<<6;
 }
 
 /** Set the track size with a precision of 64th of a pixel */
 void ProgressBarStyle::track_size_(Dim size_)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_track_size = size_;
 }
 
@@ -113,14 +107,14 @@ uint32_t ProgressBarStyle::fill_color() const
 /** Set the progress_bar color */
 void ProgressBarStyle::fill_color(uint32_t col)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_fill_color = col;
 }
 
 /** Set the progress_bar color with alpha */
 void ProgressBarStyle::fill_color(uint32_t col, uint8_t alpha)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_fill_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
@@ -133,14 +127,14 @@ Dim ProgressBarStyle::fill_size() const
 /** Set the fill size in pixels */
 void ProgressBarStyle::fill_size(Dim size_)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_fill_size = size_<<6;
 }
 
 /** Set the fill size with a precision of 64th of a pixel */
 void ProgressBarStyle::fill_size_(Dim size_)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_fill_size = size_;
 }
 
@@ -153,7 +147,7 @@ int32_t ProgressBarStyle::value() const
 /** Set the value of progress_bar */
 void ProgressBarStyle::value(int32_t val)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_value = val;
 }
 
@@ -166,7 +160,7 @@ int32_t ProgressBarStyle::min_value() const
 /** Set the min value of progress_bar */
 void ProgressBarStyle::min_value(int32_t val)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_min_value = val;
 }
 
@@ -179,7 +173,7 @@ int32_t ProgressBarStyle::max_value() const
 /** Set the max value of progress_bar */
 void ProgressBarStyle::max_value(int32_t val)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_max_value = val;
 }
 
@@ -192,7 +186,7 @@ uint32_t ProgressBarStyle::step_value() const
 /** Set the step value of progress_bar */
 void ProgressBarStyle::step_value(uint32_t val)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_step_value = val;
 }
 

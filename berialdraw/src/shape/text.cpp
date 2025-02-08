@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Text::Text(Canvas * canvas):
-	Shape(canvas)
+	Shape(canvas, sizeof(Text))
 {
 	m_font_modified = 1;
 	m_text_modified = 1;
@@ -30,7 +30,7 @@ void Text::paint(const Point & shift)
 
 Size Text::content_size()
 {
-	if (m_font_modified || m_text_modified || m_angle_modified || ShapeStyle::is_dirty())
+	if (m_font_modified || m_text_modified || m_angle_modified )
 	{
 		Area area;
 		select_font();

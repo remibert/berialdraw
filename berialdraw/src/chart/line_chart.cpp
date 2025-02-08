@@ -2,7 +2,9 @@
 
 using namespace berialdraw;
 
-LineChart::LineChart(Canvas * canvas):Shape(canvas)
+LineChart::LineChart(Canvas * canvas):
+	Shape(canvas, sizeof(LineChart)),
+	m_lines(canvas)
 {
 	m_font_modified = 1;
 }

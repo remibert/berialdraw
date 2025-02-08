@@ -2,8 +2,8 @@
 #include "samples/samples.hpp"
 
 // Screen resolution
-const int SCREEN_WIDTH = 480;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 960;
+const int SCREEN_HEIGHT = 960;
 
 using namespace berialdraw; 
 
@@ -15,6 +15,7 @@ int main(int argc, char* args[])
 {
 	// Start memory leak tracer
 	MemoryLeakTracer::start();
+
 
 	// Stop the debugger while allocating the memory block with the specified id.
 	// Very useful for finding a memory leak
@@ -32,11 +33,11 @@ int main(int argc, char* args[])
 		// Starts the user event logger, useful if you want to script user interface tests
 		//UIManager::notifier()->log();
 
-		// Execute scripted user interface test on samples
-		test_samples();
-
 		// Execute scripted user interface test every widgets
 		test_widget();
+
+		// Execute scripted user interface test on samples
+		test_samples();
 
 		// Stop library
 		UIManager::deinit();

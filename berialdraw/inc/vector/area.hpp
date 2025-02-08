@@ -134,6 +134,15 @@ namespace berialdraw
 		@return Size of the area */
 		Size& size();
 
+		/**	Set the size of the area
+		@param size New size of the area */
+		void size(const Size& size);
+
+		/**	Set the position of the area
+		@param position New position of the area */
+		void position(const Point& position);
+
+
 		/** Print content */
 		void print(const char * name) const;
 

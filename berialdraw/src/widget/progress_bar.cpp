@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 ProgressBar::ProgressBar(Widget * parent):
-	Widget("progress_bar", parent)
+	Widget("progress_bar", parent, sizeof(ProgressBar))
 {
 	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
 	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
@@ -248,9 +248,14 @@ void ProgressBar::paint(const Region & parent_region)
 {
 	Region region(parent_region);
 	region.intersect(m_backclip);
-	UIManager::renderer()->region(region);
-	check_progress_bar();
-	draw_track();
+
+	// If widget visible
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
+	{
+		UIManager::renderer()->region(region);
+		check_progress_bar();
+		draw_track();
+	}
 }
 
 /** Get the widget hovered */
@@ -260,7 +265,7 @@ Widget * ProgressBar::hovered(const Region & parent_region, const Point & positi
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if(region.is_inside(position))
+	if(region.is_inside(position) != Region::Overlap::OUT)
 	{
 		return this;
 	}
@@ -285,12 +290,6 @@ void ProgressBar::unserialize(JsonIterator & it)
 	WidgetStyle::unserialize(it);
 	BorderStyle::unserialize(it);
 	ProgressBarStyle::unserialize(it);
-}
-
-/** Indicates if the window must be refreshed */
-bool ProgressBar::dirty()
-{
-	return UIManager::invalidator()->is_dirty(this) || WidgetStyle::is_dirty() || BorderStyle::is_dirty() || CommonStyle::is_dirty();
 }
 
 #ifdef _DEBUG

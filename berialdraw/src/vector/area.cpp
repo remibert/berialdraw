@@ -194,6 +194,20 @@ Size& Area::size()
 	return m_size;
 }
 
+/**	Set the size of the area
+@param size New size of the area */
+void Area::size(const Size& size)
+{
+	m_size = size;
+}
+
+/**	Set the position of the area
+@param position New position of the area */
+void Area::position(const Point& position)
+{
+	m_position = position;
+}
+
 /** Print content */
 void Area::print(const char * name) const
 {

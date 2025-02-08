@@ -3,7 +3,8 @@
 using namespace berialdraw;
 
 Line::Line(Canvas * canvas) : 
-	Shape(canvas)
+	Shape(canvas, sizeof(Line)),
+	m_polygon(0)
 {
 	m_thickness = 1<<6;
 	m_color = Color::SHAPE_COLOR;
@@ -53,7 +54,7 @@ void Line::get_thickness(Coord x1, Coord y1, Coord x2, Coord y2, Dim thickness, 
 
 void Line::paint(const Point & shift)
 {
-	if ((UIManager::invalidator()->is_dirty(this) || UIManager::invalidator()->is_dirty(m_canvas) || ShapeStyle::is_dirty()) && m_thickness > 0)
+	if (UIManager::invalidator()->is_dirty(m_canvas) && m_thickness > 0)
 	{
 		Coord dx = 0;
 		Coord dy = 0;

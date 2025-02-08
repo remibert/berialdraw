@@ -10,7 +10,6 @@ WidgetStyle::WidgetStyle()
 	m_focusable   = 0;
 	m_focused     = 0;
 	m_checked     = 0;
-	m_place       = 1;
 	m_pressable   = 0;
 	m_flow_place  = 0;
 	m_selectable  = 0;
@@ -80,18 +79,12 @@ void WidgetStyle::set(const WidgetStyle & other)
 	m_flow            = other.m_flow;
 	m_focus_thickness = other.m_focus_thickness;
 	m_flow_in_children = other.m_flow_in_children;
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 }
 
 Style * WidgetStyle::create()
 {
 	return new WidgetStyle;
-}
-
-/** Indicates if the window must be refreshed */
-bool WidgetStyle::is_dirty()
-{
-	return UIManager::invalidator()->is_dirty(this);
 }
 
 /** Get the row in the grid */
@@ -109,21 +102,21 @@ uint16_t WidgetStyle::column() const
 /** Set the row in the grid */
 void WidgetStyle::row(uint16_t r)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_row = r;
 }
 
 /** Set the column in the grid */
 void WidgetStyle::column(uint16_t c)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_column = c;
 }
 
 /** Set the cell in the grid */
 void WidgetStyle::cell(uint16_t r, uint16_t c)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_row = r;
 	m_column = c;
 }
@@ -137,7 +130,7 @@ SizePolicy WidgetStyle::size_policy() const
 /** Set the cell size policy */
 void WidgetStyle::size_policy(SizePolicy v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_size_policy = (SizePolicy)v;
 }
 
@@ -150,21 +143,21 @@ const Size & WidgetStyle::min_size() const
 /** Set the minsize */
 void WidgetStyle::min_size(const Size & min_size_)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_min_size = min_size_;
 }
 
 /** Set the minsize with width and height in pixels */
 void WidgetStyle::min_size(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_min_size.set(w,h);
 }
 
 /** Set the minsize with a precision of 64th of a pixel */
 void WidgetStyle::min_size_(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_min_size.set_(w,h);
 }
 
@@ -177,21 +170,21 @@ const Size & WidgetStyle::max_size() const
 /** Set the max size */
 void WidgetStyle::max_size(const Size & max_size_)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_max_size = max_size_;
 }
 
 /** Set the max size with width and height */
 void WidgetStyle::max_size(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_max_size.set(w,h);
 }
 
 /** Set the max size with a precision of 64th of a pixel */
 void WidgetStyle::max_size_(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_max_size.set_(w,h);
 }
 
@@ -204,7 +197,7 @@ uint16_t WidgetStyle::id() const
 /** Set the id */
 void WidgetStyle::id(uint16_t v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_id = (uint16_t)v;
 }
 
@@ -217,7 +210,7 @@ Extend WidgetStyle::extend() const
 /** Set the extend */
 void WidgetStyle::extend(Extend v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_extend = (Extend)v;
 }
 
@@ -230,7 +223,7 @@ bool WidgetStyle::pressable() const
 /** Set the pressable */
 void WidgetStyle::pressable(bool v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_pressable = v;
 }
 
@@ -245,7 +238,7 @@ void WidgetStyle::pressed(bool v)
 {
 	if (m_pressable)
 	{
-		UIManager::invalidator()->dirty(this);
+		UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 		m_pressed = v;
 	}
 }
@@ -260,7 +253,7 @@ bool WidgetStyle::focusable() const
 /** Set the focusable */
 void WidgetStyle::focusable(bool v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_focusable = v;
 }
 
@@ -274,7 +267,7 @@ bool WidgetStyle::selectable() const
 /** Set the selectable (used for the SelectEvent) */
 void WidgetStyle::selectable(bool v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_selectable = v;
 }
 
@@ -287,7 +280,7 @@ bool WidgetStyle::checked() const
 /** Set the checked */
 void WidgetStyle::checked(bool v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_checked = v;
 }
 
@@ -300,7 +293,7 @@ bool WidgetStyle::focused() const
 /** Set the focused */
 void WidgetStyle::focused(bool v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_focused = v;
 }
 
@@ -315,7 +308,7 @@ Dim WidgetStyle::focus_thickness() const
 /** Set the focus thickness in pixels (16 pixels max)*/
 void WidgetStyle::focus_thickness(Dim v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_focus_thickness = v;
 }
 

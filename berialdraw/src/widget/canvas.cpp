@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Canvas::Canvas(Widget * parent):
-	Widget("canvas",parent)
+	Widget("canvas",parent, sizeof(Canvas))
 {
 	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
 	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
@@ -64,49 +64,58 @@ void Canvas::paint(const Region & parent_region)
 {
 	Region region(parent_region);
 
-	Exporter * exporter = UIManager::exporter();
-	if (exporter)
-	{
-		// Clipping canvas svg
-		exporter->open_group(m_foreclip.position(), m_foreclip.size());
-	}
-
 	// Clipping canvas
 	region.intersect(m_foreclip);
-	UIManager::renderer()->region(region);
 
-	// Draw background color
-	if(m_color)
+	// If widget visible
+	if (region.is_inside(m_foreclip.position(), m_foreclip.size()) != Region::OUT)
 	{
-		Rect rect(0);
-		rect.size(m_foreclip.size());
-		rect.color(stated_color(m_color));
-		rect.paint(m_foreclip.position());
-	}
+		UIManager::renderer()->region(region);
 
-	// Redraw all shapes
-	for(uint32_t i = 0; i < m_shapes.size(); i++)
-	{
-		if (m_shapes[i])
+		Exporter * exporter = UIManager::exporter();
+		if (exporter)
 		{
-			m_shapes[i]->paints(m_foreclip.position());
+			// Clipping canvas svg
+			exporter->open_group(m_foreclip.position(), m_foreclip.size());
+		}
+
+		// Draw background color
+		if(m_color)
+		{
+			Rect rect(0);
+			rect.size(m_foreclip.size());
+			rect.color(stated_color(m_color));
+			rect.paint(m_foreclip.position());
+		}
+
+		// Redraw all shapes
+		for(uint32_t i = 0; i < m_shapes.size(); i++)
+		{
+			if (m_shapes[i])
+			{
+				m_shapes[i]->paints(m_foreclip.position());
+			}
+		}
+
+		if (exporter)
+		{
+			// Stop clipping canvas svg
+			exporter->close_group();
 		}
 	}
 
-	if (exporter)
-	{
-		// Stop clipping canvas svg
-		exporter->close_group();
-	}
 }
 
 /** Add shape into the canvas (all shapes added will be destroyed when the canvas destroy) */
-void Canvas::add(Shape * shape)
+void Canvas::add(Shape * shape, size_t shape_size)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	if(shape)
 	{
 		bool found = false;
+
+		UIManager::invalidator()->add(this, shape, shape_size);
+
 		m_content_size.clean();
 		for(uint32_t i = 0; i < m_shapes.size(); i++)
 		{
@@ -133,7 +142,9 @@ void Canvas::remove(Shape * shape)
 	if(shape)
 	{
 		m_content_size.clean();
-		for(uint32_t i = 0; i < m_shapes.size(); i++)
+		UIManager::invalidator()->remove(shape);
+		uint32_t size = m_shapes.size();
+		for(uint32_t i = 0; i < size; i++)
 		{
 			if(m_shapes[i] == shape)
 			{
@@ -150,10 +161,12 @@ void Canvas::clear()
 	m_content_size.clean();
 	while (m_shapes.size() > 0)
 	{
+		UIManager::invalidator()->remove(m_shapes[0]);
 		delete m_shapes[0];
 	}
 	m_shapes.clear();
 }
+
 
 /** Get the widget hovered */
 Widget * Canvas::hovered(const Region & parent_region, const Point & position)
@@ -162,7 +175,7 @@ Widget * Canvas::hovered(const Region & parent_region, const Point & position)
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if(region.is_inside(position))
+	if(region.is_inside(position) != Region::Overlap::OUT)
 	{
 		return this;
 	}
@@ -184,11 +197,6 @@ void Canvas::unserialize(JsonIterator & it)
 	WidgetStyle::unserialize(it);
 }
 
-/** Indicates if the window must be refreshed */
-bool Canvas::dirty()
-{
-	return UIManager::invalidator()->is_dirty(this) || WidgetStyle::is_dirty() || CommonStyle::is_dirty();
-}
 
 #ifdef _DEBUG
 void Canvas::test1()
@@ -388,8 +396,13 @@ void Canvas::test4()
 	UIManager::desktop()->dispatch("test/out/canvas4.svg");
 }
 
+void Canvas::test5()
+{
+}
+
 void Canvas::test()
 {
+	test5();
 	test4();
 	test3();
 	test2();

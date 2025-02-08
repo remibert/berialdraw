@@ -10,7 +10,7 @@ namespace berialdraw
 	public:
 		/** Constructor for Square.
 		@param canvas Pointer to the canvas object. */
-		Square(Canvas * canvas = 0);
+		Square(Canvas * canvas);
 
 #ifdef _DEBUG
 		/** Unitary test for the Square class. */

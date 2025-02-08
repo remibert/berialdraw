@@ -3,7 +3,8 @@
 using namespace berialdraw;
 
 Marker::Marker(Canvas * canvas):
-	Shape(canvas)
+	Shape(canvas, sizeof(Marker)),
+	m_polygon(0)
 {
 	m_thickness = 1<<6;
 	m_color = Color::SHAPE_COLOR;
@@ -12,7 +13,7 @@ Marker::Marker(Canvas * canvas):
 
 void Marker::paint(const Point & shift, const char * filled, const char * un_filled)
 {
-	if(UIManager::invalidator()->is_dirty(this) || UIManager::invalidator()->is_dirty(m_canvas))
+	if (UIManager::invalidator()->is_dirty(m_canvas))
 	{
 		VectorsScript vectors_script(m_polygon);
 		if(m_thickness > 0)

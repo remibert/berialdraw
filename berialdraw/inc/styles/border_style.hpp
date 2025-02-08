@@ -23,9 +23,6 @@ namespace berialdraw
 		/** Set properties with another */
 		void set(const BorderStyle & other);
 
-		/** Indicates if the window must be refreshed */
-		bool is_dirty();
-
 		/** Create new border style */
 		static Style * create();
 

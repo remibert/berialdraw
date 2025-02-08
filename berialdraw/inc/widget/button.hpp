@@ -39,12 +39,6 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
-		/** Indicates if the window must be refreshed */
-		virtual bool dirty();
-
-		/** Indicates if the paint is required for this current */
-		virtual bool paintable(const Region & parent_region) {return true;}
-
 		/** Paint on screen memory the content of this widget */
 		virtual void paint(const Region & parent_region);
 

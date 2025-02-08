@@ -7,6 +7,8 @@ set(BD_APP_TEST    app_unitary_test)
 set(BD_APP_SAMPLE  app_sample)
 set(BD_SAMPLE      sample)
 
+set(CMAKE_OSX_ARCHITECTURES "arm64") # "x86_64"ou "arm64" selon ton architecture
+
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_BUILD_RPATH /Library/Frameworks)

@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Row::Row(Widget * parent):
-	Widget("row", parent)
+	Widget("row", parent, sizeof(Row))
 {
 	m_color = Color::TRANSPARENT;
 }
@@ -53,7 +53,8 @@ void Row::linear_place()
 
 void Row::place(const Area & area, bool in_layout)
 {
-	if(m_place)
+	//if(m_place)
+	if (UIManager::invalidator()->is_dirty(this))
 	{
 		if (m_flow)
 		{
@@ -62,7 +63,7 @@ void Row::place(const Area & area, bool in_layout)
 		else
 		{
 			linear_place();
-			m_place = 0;
+			//m_place = 0;
 		}
 		
 		Area marged_area(area);
@@ -124,7 +125,7 @@ bool Row::flow() const
 /** Set the flow */
 void Row::flow(bool v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	Window * window = dynamic_cast<Window*>(root());
 	if (window)
 	{

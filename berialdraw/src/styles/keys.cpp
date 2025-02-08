@@ -126,9 +126,3 @@ Style * Keys::create()
 {
 	return new Keys;
 }
-
-/** Indicates if the window must be refreshed */
-bool Keys::is_dirty()
-{
-	return UIManager::invalidator()->is_dirty(this);
-}

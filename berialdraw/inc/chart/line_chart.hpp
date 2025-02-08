@@ -10,7 +10,7 @@ namespace berialdraw
 	public:
 		/** Constructor for LineChart.
 		@param canvas Pointer to the canvas object.  */
-		LineChart(Canvas * canvas=0);
+		LineChart(Canvas * canvas);
 
 		/** Destructor for LineChart. */
 		virtual ~LineChart();

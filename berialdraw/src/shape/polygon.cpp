@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Polygon::Polygon(Canvas * canvas):
-	Shape(canvas),
+	Shape(canvas, sizeof(Polygon)),
 	m_outline(new Outline)
 {
 }

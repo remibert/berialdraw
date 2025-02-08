@@ -122,7 +122,7 @@ void CommonStyle::set(const CommonStyle & other)
 	m_sides    = other.m_sides;
 	m_light   = other.m_light;
 	m_saturation = other.m_saturation;
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 }
 
 
@@ -140,7 +140,7 @@ CommonStyle& CommonStyle::operator=(const CommonStyle& other)
 		m_sides   = other.m_sides;
 		m_light   = other.m_light;
 		m_saturation = other.m_saturation;
-		UIManager::invalidator()->dirty(this);
+		UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	}
 	return *this;
 }
@@ -281,12 +281,6 @@ Style * CommonStyle::create()
 	return new CommonStyle;
 }
 
-/** Indicates if the window must be refreshed */
-bool CommonStyle::is_dirty()
-{
-	return UIManager::invalidator()->is_dirty(this);
-}
-
 
 
 /** Get the margin */
@@ -298,63 +292,63 @@ const Margin & CommonStyle::margin() const
 /** Set the margin */
 void CommonStyle::margin(const Margin & m)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_margin = m;
 }
 
 /** Set the margin */
 void CommonStyle::margin(Dim value)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_margin.set(value,value,value,value);
 }
 
 /** Set the margin */
 void CommonStyle::margin(Dim horizontal, Dim vertical)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_margin.set(vertical,horizontal,vertical,horizontal);
 }
 
 /** Set the margin in pixels */
 void CommonStyle::margin(Dim top, Dim left, Dim bottom, Dim right)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_margin.set(top,left,bottom,right);
 }
 
 /** Set the margin with a precision of 64th of a pixel */
 void CommonStyle::margin_(Dim top, Dim left, Dim bottom, Dim right)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_margin.set_(top,left,bottom,right);
 }
 
 /** Set the margin top in pixels */
 void CommonStyle::margin_top(Dim top)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_margin.set(top, m_margin.left(), m_margin.bottom(), m_margin.right());
 }
 
 /** Set the margin left in pixels */
 void CommonStyle::margin_left(Dim left)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_margin.set(m_margin.top(), left, m_margin.bottom(), m_margin.right());
 }
 
 /** Set the margin bottom in pixels */
 void CommonStyle::margin_bottom(Dim bottom)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_margin.set(m_margin.top(), m_margin.left(), bottom, m_margin.right());
 }
 
 /** Set the margin right in pixels */
 void CommonStyle::margin_right(Dim right)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_margin.set(m_margin.top(), m_margin.left(), m_margin.bottom(), right);
 }
 
@@ -374,7 +368,7 @@ Coord CommonStyle::angle_() const
 /** Set the angle in pixels */
 void CommonStyle::angle(Coord v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_angle_modified = 1;
 	m_angle = v << 6;
 }
@@ -382,7 +376,7 @@ void CommonStyle::angle(Coord v)
 /** Set the angle with a precision of 64th of a pixel */
 void CommonStyle::angle_(Coord v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_angle_modified = 1;
 	m_angle = v;
 }
@@ -397,21 +391,21 @@ const Point & CommonStyle::center() const
 /** Set the center */
 void CommonStyle::center(const Point & center_)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_center = center_;
 }
 
 /** Set the center with x and y in pixels */
 void CommonStyle::center(Coord x, Coord y)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_center.set(x,y);
 }
 
 /** Set the center with a precision of 64th of a pixel */
 void CommonStyle::center_(Coord x, Coord y)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_center.set_(x,y);
 }
 
@@ -426,21 +420,21 @@ const Point & CommonStyle::position() const
 /** Set the position */
 void CommonStyle::position(const Point & position_)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_position = position_;
 }
 
 /** Set the position with x and y in pixels */
 void CommonStyle::position(Coord x, Coord y)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_position.set(x,y);
 }
 
 /** Set the position with a precision of 64th of a pixel */
 void CommonStyle::position_(Coord x, Coord y)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_position.set_(x,y);
 }
 
@@ -474,14 +468,14 @@ uint32_t CommonStyle::color() const
 /** Set the back color */
 void CommonStyle::color(uint32_t col)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_color = col;
 }
 
 /** Set the back color with alpha */
 void CommonStyle::color(uint32_t col, uint8_t alpha)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_color = (UIManager::colors()->color(col) & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
@@ -489,7 +483,7 @@ void CommonStyle::color(uint32_t col, uint8_t alpha)
 @param light value added [-100..100] */
 void CommonStyle::enlighten(int8_t light)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_light = light;
 }
 
@@ -519,21 +513,21 @@ const Size & CommonStyle::size() const
 /** Set the size */
 void CommonStyle::size(const Size & size_)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_size = size_;
 }
 
 /** Set the size with width and height in pixels */
 void CommonStyle::size(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_size.set(w,h);
 }
 
 /** Set the size with a precision of 64th of a pixel */
 void CommonStyle::size_(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_size.set_(w,h);
 }
 
@@ -547,7 +541,7 @@ Align CommonStyle::align() const
 /** Set the align */
 void CommonStyle::align(Align v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_align = (Align)v;
 }
 
@@ -556,7 +550,7 @@ void CommonStyle::align(Align v)
 /** Select the displayed side of the rectangle */
 void CommonStyle::sides(uint8_t side)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_sides = side;
 }
 

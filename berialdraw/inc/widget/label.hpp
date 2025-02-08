@@ -42,9 +42,6 @@ namespace berialdraw
 		/** Get the widget hovered */
 		virtual Widget * hovered(const Region & parent_region, const Point & position);
 
-		/** Indicates if the window must be refreshed */
-		virtual bool dirty();
-
 		TextBox m_text_box;
 /// @endcond
 	};

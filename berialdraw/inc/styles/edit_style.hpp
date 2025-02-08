@@ -23,9 +23,6 @@ namespace berialdraw
 		/** Set properties with another */
 		void set(const EditStyle & other);
 
-		/** Indicates if the window must be refreshed */
-		bool is_dirty();
-
 
 		/** Get the max visible lines in the edit */
 		uint16_t max_lines() const;

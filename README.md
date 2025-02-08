@@ -13,6 +13,10 @@ Features:
 
 **Berialdraw is incomplete and still under development, but it works on Windows, OSX and probably any OS that supports SDL.**
 
+Git clone :
+git clone --recurse-submodules https://github.com/remibert/berialdraw.git
+
+
 [C++ Api documentation](berialdraw/doc/html/index.html)
 
 Click on the image to see the source code that produces this screen, example code for each widget :

@@ -64,7 +64,8 @@ void Desktop::front(Window * window)
 
 void Desktop::remove(Window * window)
 {
-	for(uint32_t i = 0; i < m_windows.size(); i++)
+	uint32_t size = m_windows.size();
+	for(uint32_t i = 0; i < size; i++)
 	{
 		if(m_windows[i] == window)
 		{
@@ -75,6 +76,11 @@ void Desktop::remove(Window * window)
 			m_windows.remove(i);
 			break;
 		}
+	}
+	size = m_windows.size();
+	for(uint32_t i = 0; i < size; i++)
+	{
+		UIManager::invalidator()->dirty(m_windows[i], Invalidator::REPAINT);
 	}
 }
 
@@ -132,7 +138,7 @@ bool Desktop::dispatch(const char * snapshot)
 	result = UIManager::device()->dispatch();
 
 	// If the screen must be refressed
-	if (UIManager::invalidator()->is_dirty(0) || snapshot != 0)
+	if (UIManager::invalidator()->is_dirty() || snapshot != 0)
 	{
 		// Refresh the display
 		refresh(snapshot);
@@ -142,6 +148,7 @@ bool Desktop::dispatch(const char * snapshot)
 	UIManager::notifier()->dispatch();
 	return result;
 }
+
 
 void Desktop::refresh(const char * snapshot)
 {
@@ -162,14 +169,16 @@ void Desktop::refresh(const char * snapshot)
 			Window * window = m_windows[i];
 			if (window)
 			{
-				window->replace_all();
-				window->place();
-
-				// Flow replacement detected
-				if (window->flow_replacement())
+				if(UIManager::invalidator()->is_dirty(window))
 				{
-					window->replace_all();
 					window->place();
+
+					// Flow replacement detected
+					if (window->flow_replacement())
+					{
+						//window->replace_all();
+						window->place();
+					}
 				}
 			}
 		}

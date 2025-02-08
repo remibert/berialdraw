@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 /** Constructor */
-Path::Path()
+Path::Path(IconStyle * parent) : m_parent(parent)
 {
 }
 
@@ -33,14 +33,14 @@ uint32_t Path::color() const
 /** Set the back color */
 void Path::color(uint32_t col)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(m_parent, Invalidator::REPAINT);
 	m_color = col;
 }
 
 /** Set the back color with alpha */
 void Path::color(uint32_t col, uint8_t alpha)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(m_parent, Invalidator::REPAINT);
 	m_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
@@ -75,7 +75,7 @@ IconStyle::~IconStyle()
 /** Add bezier path */
 void IconStyle::add_path(uint32_t color, const String & path)
 {
-	Path * p = new Path();
+	Path * p = new Path(this);
 
 	if (p)
 	{
@@ -104,21 +104,21 @@ const Size & IconStyle::resolution() const
 /** Set the resolution */
 void IconStyle::resolution(const Size & resolution_)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_resolution = resolution_;
 }
 
 /** Set the resolution with width and height in pixels */
 void IconStyle::resolution(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_resolution.set(w,h);
 }
 
 /** Set the resolution with a precision of 64th of a pixel */
 void IconStyle::resolution_(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_resolution.set_(w,h);
 }
 
@@ -126,7 +126,7 @@ void IconStyle::resolution_(Dim w, Dim h)
 @param z zoom value */
 void IconStyle::zoom(Dim z)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_zoom = z <<6;
 }
 		
@@ -141,7 +141,7 @@ Dim IconStyle::zoom()
 @param z zoom value shifted by 6 bits */
 void IconStyle::zoom_(Dim z)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_zoom = z;
 }
 		
@@ -161,7 +161,7 @@ const String & IconStyle::filename()
 /** Set filename value with string */
 void IconStyle::filename(const String & s)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	clear_paths();
 	m_filename = s;
 }
@@ -177,21 +177,21 @@ const Margin & IconStyle::icon_padding() const
 /** Set the icon_padding */
 void IconStyle::icon_padding(const Margin & m)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_icon_padding = m;
 }
 
 /** Set the icon_padding in pixels */
 void IconStyle::icon_padding(Dim top, Dim left, Dim bottom, Dim right)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_icon_padding.set(top,left,bottom,right);
 }
 
 /** Set the icon_padding with a precision of 64th of a pixel */
 void IconStyle::icon_padding_(Dim top, Dim left, Dim bottom, Dim right)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_icon_padding.set_(top,left,bottom,right);
 }
 
@@ -204,14 +204,14 @@ uint32_t IconStyle::icon_color() const
 /** Set the back icon_color */
 void IconStyle::icon_color(uint32_t col)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_icon_color = col;
 }
 
 /** Set the back icon_color with alpha */
 void IconStyle::icon_color(uint32_t col, uint8_t alpha)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_icon_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
@@ -269,7 +269,7 @@ void IconStyle::unserialize(JsonIterator & it)
 	JsonIterator paths = it["paths"];
 	for(paths.first(); paths.exist(); paths.next())
 	{
-		Path * path = new Path;
+		Path * path = new Path(this);
 		JsonIterator child = paths.child();
 		path->unserialize(child);
 		m_paths.push_back(path);
@@ -280,10 +280,4 @@ void IconStyle::unserialize(JsonIterator & it)
 Style * IconStyle::create()
 {
 	return new IconStyle;
-}
-
-/** Indicates if the window must be refreshed */
-bool IconStyle::is_dirty()
-{
-	return UIManager::invalidator()->is_dirty(this);
 }

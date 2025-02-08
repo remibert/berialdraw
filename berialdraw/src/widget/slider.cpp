@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Slider::Slider(Widget * parent):
-	Widget("slider", parent)
+	Widget("slider", parent, sizeof(Slider))
 {
 	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
 	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
@@ -232,9 +232,14 @@ void Slider::paint(const Region & parent_region)
 {
 	Region region(parent_region);
 	region.intersect(m_backclip);
-	UIManager::renderer()->region(region);
-	check_slider();
-	draw_track();
+
+	// If widget visible
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
+	{
+		UIManager::renderer()->region(region);
+		check_slider();
+		draw_track();
+	}
 }
 
 /** Get the widget hovered */
@@ -244,7 +249,7 @@ Widget * Slider::hovered(const Region & parent_region, const Point & position)
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if(region.is_inside(position))
+	if(region.is_inside(position) != Region::Overlap::OUT)
 	{
 		return this;
 	}
@@ -270,11 +275,6 @@ void Slider::unserialize(JsonIterator & it)
 	SliderStyle::unserialize(it);
 }
 
-/** Indicates if the window must be refreshed */
-bool Slider::dirty()
-{
-	return UIManager::invalidator()->is_dirty(this) || WidgetStyle::is_dirty() || BorderStyle::is_dirty() || CommonStyle::is_dirty();
-}
 
 /** Call back on key */
 void Slider::on_key(Widget * widget, const KeyEvent & evt)
@@ -301,7 +301,7 @@ void Slider::on_key(Widget * widget, const KeyEvent & evt)
 			if (notify)
 			{
 				check_slider();
-				UIManager::invalidator()->dirty(this);
+				UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 				UIManager::notifier()->slide(m_value, this);
 			}
 		}
@@ -335,7 +335,7 @@ void Slider::touch_handle(const Point & touch_position)
 	{
 		m_value = (int32_t)((((int64_t)m_max_value  - (int64_t)m_min_value)* position)/(length-m_handle_size));
 		check_slider();
-		UIManager::invalidator()->dirty(this);
+		UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 		UIManager::notifier()->slide(m_value, this);
 	}
 }

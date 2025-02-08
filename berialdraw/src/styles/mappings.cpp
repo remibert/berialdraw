@@ -104,9 +104,3 @@ Style * Mappings::create()
 {
 	return new Mappings;
 }
-
-/** Indicates if the window must be refreshed */
-bool Mappings::is_dirty()
-{
-	return UIManager::invalidator()->is_dirty(this);
-}

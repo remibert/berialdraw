@@ -32,21 +32,17 @@ void     Argb8888::pixel(int32_t x, int32_t y, uint32_t col)
 			uint32_t blue  = (uint32_t)((col & 0x000000FF));
 			uint8_t* buf   = &((uint8_t*)m_buffer)[(x * 3) + (y * m_width * 3)];
 
-			// If pixel is not outside the screen memory
-			if (buf >= (uint8_t*)m_buffer)
+			if (alpha == 0xFF)
 			{
-				if (alpha == 0xFF)
-				{
-					*buf++ = red;
-					*buf++ = green;
-					*buf++ = blue;
-				}
-				else
-				{
-					*buf = ((((*buf - red  ) * inv_alpha) >> 8) + red  ); buf++;
-					*buf = ((((*buf - green) * inv_alpha) >> 8) + green); buf++;
-					*buf = ((((*buf - blue ) * inv_alpha) >> 8) + blue ); buf++;
-				}
+				*buf++ = red;
+				*buf++ = green;
+				*buf++ = blue;
+			}
+			else
+			{
+				*buf = ((((*buf - red  ) * inv_alpha) >> 8) + red  ); buf++;
+				*buf = ((((*buf - green) * inv_alpha) >> 8) + green); buf++;
+				*buf = ((((*buf - blue ) * inv_alpha) >> 8) + blue ); buf++;
 			}
 		}
 	}
@@ -61,13 +57,10 @@ uint32_t Argb8888::pixel(int32_t x, int32_t y)
 	{
 		uint8_t* buf = &((uint8_t*)m_buffer)[(x * 3) + (y * m_width * 3)];
 
-		if (buf >= (uint8_t*)m_buffer)
-		{
-			result = ((uint32_t)*buf++) << 16;
-			result |= ((uint32_t)*buf++) << 8;
-			result |= ((uint32_t)*buf++);
-			result |= 0xFF000000;
-		}
+		result = ((uint32_t)*buf++) << 16;
+		result |= ((uint32_t)*buf++) << 8;
+		result |= ((uint32_t)*buf++);
+		result |= 0xFF000000;
 	}
 	return result;
 }
@@ -81,6 +74,7 @@ void     Argb8888::fill_rect(int32_t x, int32_t y, uint32_t width, uint32_t heig
 	if (alpha > 0)
 	{
 		m_dirty = true;
+
 		// If the rectangle start on the left of screen
 		if (x < 0)
 		{
@@ -143,31 +137,44 @@ void     Argb8888::fill_rect(int32_t x, int32_t y, uint32_t width, uint32_t heig
 				// If no transparency
 				if (alpha == 0xFF)
 				{
+#if !defined(WIN32) && !defined(OSX)
+					// Init color for fast line
+					uint32_t c1 = red   << 24 | green << 16 | blue  << 8 | red  ;
+					uint32_t c2 = green << 24 | blue  << 16 | red   << 8 | green;
+					uint32_t c3 = blue  << 24 | red   << 16 | green << 8 | blue ;
+#else
+					// Init color for fast line
+					uint32_t c1 = red   << 24 | blue  << 16 | green << 8 | red  ;
+					uint32_t c2 = green << 24 | red   << 16 | blue  << 8 | green;
+					uint32_t c3 = blue  << 24 | green << 16 | red   << 8 | blue ;
+#endif
 					while (height--)
 					{
-						uint32_t width_ = width;
-						if(width >= 4)
+						uint32_t width_remaining = width;
+						if(width >= 16)
 						{
-#if !defined(WIN32) && !defined(OSX)
-							uint32_t c1 = red   << 24 | green << 16 | blue  << 8 | red  ;
-							uint32_t c2 = green << 24 | blue  << 16 | red   << 8 | green;
-							uint32_t c3 = blue  << 24 | red   << 16 | green << 8 | blue ;
-#else
-							uint32_t c1 = red   << 24 | blue  << 16 | green << 8 | red  ;
-							uint32_t c2 = green << 24 | red   << 16 | blue  << 8 | green;
-							uint32_t c3 = blue  << 24 | green << 16 | red   << 8 | blue ;
-#endif
-							uint32_t * buf3 = (uint32_t *)buf;
-							for(unsigned int ww = width/4; ww; --ww)
+							uint32_t * buf_fast = (uint32_t *)buf;
+
+							// Fast set line
+							for(unsigned int i = width/16; i; --i)
 							{
-								*buf3++ = c1;
-								*buf3++ = c2;
-								*buf3++ = c3;
+								*buf_fast++ = c1;  // RGBR
+								*buf_fast++ = c2;  // GBRG
+								*buf_fast++ = c3;  // BRGB
+								*buf_fast++ = c1;  // RGBR
+								*buf_fast++ = c2;  // GBRG
+								*buf_fast++ = c3;  // BRGB
+								*buf_fast++ = c1;  // RGBR
+								*buf_fast++ = c2;  // GBRG
+								*buf_fast++ = c3;  // BRGB
+								*buf_fast++ = c1;  // RGBR
+								*buf_fast++ = c2;  // GBRG
+								*buf_fast++ = c3;  // BRGB
 							}
-							width_ = width%4;
-							buf = (uint8_t *)buf3;
+							width_remaining = width%16;
+							buf = (uint8_t *)buf_fast;
 						}
-						for (unsigned int ww = width_; ww; --ww)
+						for (unsigned int i = width_remaining; i; --i)
 						{
 							*buf++ = red;
 							*buf++ = green;
@@ -182,7 +189,7 @@ void     Argb8888::fill_rect(int32_t x, int32_t y, uint32_t width, uint32_t heig
 				{
 					while (height--)
 					{
-						for (unsigned int ww = width; ww; --ww)
+						for (unsigned int i = width; i; --i)
 						{
 							*buf = ((((*buf - red  ) * inv_alpha) >> 8) + red  ); buf++;
 							*buf = ((((*buf - green) * inv_alpha) >> 8) + green); buf++;

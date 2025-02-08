@@ -3,14 +3,15 @@
 using namespace berialdraw;
 
 Rect::Rect(Canvas * canvas) : 
-	Shape(canvas)
+	Shape(canvas, sizeof(Rect)),
+	m_polygon(0)
 {
 	m_thickness = 0;
 }
 
 Rect::Rect(const Rect & other):
 	Shape(other),
-	m_polygon(other.m_polygon)
+	m_polygon(0)
 {
 }
 

@@ -48,9 +48,6 @@ namespace berialdraw
 		/** Get the widget hovered */
 		virtual Widget * hovered(const Region & parent_region, const Point & position);
 
-		/** Indicates if the window must be refreshed */
-		virtual bool dirty();
-
 		Area m_text_foreclip;
 		Area m_icon_foreclip;
 		Area m_text_backclip;

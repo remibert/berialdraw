@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Keyboard::Keyboard(Widget * parent):
-	Widget("keyboard", parent)
+	Widget("keyboard", parent, sizeof(Keyboard))
 {
 	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
 	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
@@ -133,11 +133,6 @@ void Keyboard::unserialize(JsonIterator & it)
 	BorderStyle::unserialize(it);
 }
 
-/** Indicates if the window must be refreshed */
-bool Keyboard::dirty()
-{
-	return UIManager::invalidator()->is_dirty(this) || WidgetStyle::is_dirty() || TextStyle::is_dirty() || BorderStyle::is_dirty() || CommonStyle::is_dirty();
-}
 
 /** Get the widget hovered */
 Widget * Keyboard::hovered(const Region & parent_region, const Point & position)

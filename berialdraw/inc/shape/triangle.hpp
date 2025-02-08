@@ -10,7 +10,7 @@ namespace berialdraw
 	public:
 		/** Constructor for Triangle.
 		@param canvas Pointer to the canvas object. */
-		Triangle(Canvas * canvas = 0);
+		Triangle(Canvas * canvas);
 	
 	#ifdef _DEBUG
 		/** Unitary test for the Triangle class. */

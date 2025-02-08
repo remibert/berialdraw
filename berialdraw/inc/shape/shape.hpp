@@ -14,8 +14,9 @@ namespace berialdraw
 	{
 	public:
 		/** Constructor
-		@param canvas Pointer to the Canvas object */
-		Shape(Canvas * canvas);
+		@param canvas Pointer to the Canvas object
+		@shape_size size of shape instance (required by invalidator) */
+		Shape(Canvas * canvas, size_t shape_size);
 
 		/** Copy constructor
 		@param other Reference to another Shape object */

@@ -9,7 +9,7 @@ namespace berialdraw
 	public:
 		/** Constructor for Pie
 		@param canvas Pointer to the canvas on which the pie is drawn */
-		Pie(Canvas * canvas = 0);
+		Pie(Canvas * canvas);
 
 		/** Copy constructor for Pie
 		@param other Other Pie object to copy from */
@@ -32,6 +32,7 @@ namespace berialdraw
 		static void test2();
 		static void test3();
 		static void test4();
+		static void test5();
 		static void dial(const Point & origin, Canvas * canvas);
 	#endif
 

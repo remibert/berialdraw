@@ -10,7 +10,12 @@ namespace berialdraw
 	class UIManager
 	{
 	public:
-		/** Initialize the ui manager with device */
+		/** Initialize the ui manager with device
+		@param device screen device
+		@param width width in pixels on device
+		@param height height in pixels on device
+		@param type type of framebuffer supported by the display
+		@param scale rendering scale (a number less than 10 is direct, a number greater than 10 is equivalent to a floating point of divide by 64) */
 		static void init(Device * device, Dim width, Dim height, enum Framebuf::Type type, uint32_t scale=1);
 
 		/** Deinitialize the ui manager */

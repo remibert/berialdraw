@@ -8,7 +8,7 @@ namespace berialdraw
 	{
 	public:
 		/** Constructor */
-		Line(Canvas * canvas=0);
+		Line(Canvas * canvas);
 
 		/** Refresh the line */
 		virtual void paint(const Point & shift);

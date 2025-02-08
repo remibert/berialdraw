@@ -34,26 +34,13 @@ Button * MenuDialog::create_button(const String & text)
 	Button * button = new Button(m_column);            // Creates a new button in the content area for a menu choice
 		button->text(text);                            // Sets button text to the provided item
 		button->text_align(Align::ALIGN_LEFT);         // Aligns text to the left
-		//button->font_size(20);                         // Sets font size to 20
-		//button->color(Color::WHITE);                   // Sets background color to white
-		//button->border_color(Color::LIGHT_BLACK);      // Sets border color to light black
-		//button->sides(CommonStyle::BOTTOM_SIDE);       // Draws border only on the bottom side
-		//button->extend(Extend::EXTEND_WIDTH);          // Extends button width to fill available space
-		button->margin(0,0,3,0);                             // Adds margin around the button
-		button->padding(2);
-		button->focus_thickness(3);
-		button->focus_gap(0);
+		button->border_color(Color::LIGHT_BLACK,64);   // Sets border color to light black
+		button->sides(CommonStyle::BOTTOM_SIDE);       // Draws border only on the bottom side
+		button->margin(0,0,1,0);                       // Adds margin around the button
 		button->sides(CommonStyle::BOTTOM_SIDE);
-		// button->color(VALUE_THEME_TEXT_COLOR);
-		//button->focus_color(
-		//button->saturate(-30);
-		//button->to_pastel(50);
 		
-		//button->thickness(1);                          // Sets border thickness to 1
-		//button->focus_thickness(0);                    // Removes focus border
+		button->thickness(1);                          // Sets border thickness to 1
 		button->radius(0);                             // Sets corner radius to 0 (square corners)
-		//button->text_color(Color::LIGHT_BLACK);        // Sets text color to light black
-		//button->bind(this, &MenuDialog::on_menu_click);// Binds the click event to the on_menu_click handler
 
 	Label * label = new Label(button);                 // Adds a label inside the button for a right arrow
 		label->text(">");                              // Sets label text to right arrow

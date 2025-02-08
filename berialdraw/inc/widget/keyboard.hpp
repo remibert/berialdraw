@@ -23,11 +23,6 @@ namespace berialdraw
 
 	protected:
 /// @cond DOXYGEN_IGNORE
-		/** Indicates if the window must be refreshed */
-		virtual bool dirty();
-
-		/** Indicates if the paint is required for this current */
-		virtual bool paintable(const Region & parent_region) {return true;}
 
 		/** Place all widget in area */
 		virtual void place(const Area & area, bool in_layout);

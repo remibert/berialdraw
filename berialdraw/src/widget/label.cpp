@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Label::Label(Widget * parent):
-	Widget("label", parent)
+	Widget("label", parent, sizeof(Label))
 {
 	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
 	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
@@ -71,11 +71,15 @@ void Label::paint(const Region & parent_region)
 	Region region(parent_region);
 	region.intersect(m_backclip);
 
-	select_font();
-	UIManager::renderer()->region(region);
+	// If widget visible
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
+	{
+		select_font();
+		UIManager::renderer()->region(region);
 
-	Point shift;
-	m_text_box.paint(shift, *m_font.get(), m_text, m_foreclip.position(), m_backclip, stated_color(m_text_color), 0, 0, true);
+		Point shift;
+		m_text_box.paint(shift, *m_font.get(), m_text, m_foreclip.position(), m_backclip, stated_color(m_text_color), 0, 0, true);
+	}
 }
 
 /** Get the widget hovered */
@@ -85,7 +89,7 @@ Widget * Label::hovered(const Region & parent_region, const Point & position)
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if(region.is_inside(position))
+	if(region.is_inside(position) != Region::Overlap::OUT)
 	{
 		return this;
 	}
@@ -109,11 +113,6 @@ void Label::unserialize(JsonIterator & it)
 	TextStyle::unserialize(it);
 }
 
-/** Indicates if the window must be refreshed */
-bool Label::dirty()
-{
-	return m_text_modified || m_font_modified || UIManager::invalidator()->is_dirty(this) || WidgetStyle::is_dirty() || TextStyle::is_dirty() || CommonStyle::is_dirty();
-}
 
 #ifdef _DEBUG
 void Label::test1()

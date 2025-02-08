@@ -9,7 +9,7 @@ namespace berialdraw
 	public:
 		/** Constructor
 		@param canvas Pointer to the Canvas object, default is nullptr */
-		PolyLines(Canvas * canvas = 0);
+		PolyLines(Canvas * canvas);
 
 		/** Copy constructor
 		@param other PolyLines object to copy from */

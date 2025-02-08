@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Icon::Icon(Widget * parent):
-	Widget("icon", parent)
+	Widget("icon", parent, sizeof(Icon))
 {
 	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
 	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
@@ -96,88 +96,93 @@ void Icon::paint(const Region & parent_region)
 {
 	Region region(parent_region);
 	region.intersect(m_backclip);
-	UIManager::renderer()->region(region);
-	Point shift;
 
-	if (m_focused)
+	// If widget visible
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
 	{
-		// Draw focus
-		Rect::build_polygon(m_icon_foreclip, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
-	}
-	// Draw backround
-	Rect::build_polygon(m_icon_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
+		UIManager::renderer()->region(region);
+		Point shift;
 
-	// If icon existing
-	if (m_paths.size() > 0)
-	{
-		Canvas canvas(this);
-		canvas.position(m_foreclip.position());
-		canvas.color(0);
-		Point shift(m_foreclip.position());
-		shift.move_(icon_padding().right_(), icon_padding().top_());
-
-		uint32_t custom_color = Color::TRANSPARENT;
-		bool custom_color_set = false;
-		bool one_color = true;
-
-		// Check if icon has only one color
-		for (uint32_t i = 1; i < m_paths.size(); i++)
+		if (m_focused)
 		{
-			Path * path = m_paths[i];
-			Path * path_prev = m_paths[i-1];
-			
-			if (path && path_prev)
+			// Draw focus
+			Rect::build_polygon(m_icon_foreclip, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
+		}
+		// Draw backround
+		Rect::build_polygon(m_icon_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
+
+		// If icon existing
+		if (m_paths.size() > 0)
+		{
+			Canvas canvas(this);
+			canvas.position(m_foreclip.position());
+			canvas.color(0);
+			Point shift(m_foreclip.position());
+			shift.move_(icon_padding().right_(), icon_padding().top_());
+
+			uint32_t custom_color = Color::TRANSPARENT;
+			bool custom_color_set = false;
+			bool one_color = true;
+
+			// Check if icon has only one color
+			for (uint32_t i = 1; i < m_paths.size(); i++)
 			{
-				if (path->color() != path_prev->color())
+				Path * path = m_paths[i];
+				Path * path_prev = m_paths[i-1];
+				
+				if (path && path_prev)
 				{
-					one_color = false;
-					break;
+					if (path->color() != path_prev->color())
+					{
+						one_color = false;
+						break;
+					}
+				}
+			}
+
+			// Display icon
+			for (uint32_t i = 0; i < m_paths.size(); i++)
+			{
+				Path * path = m_paths[i];
+
+				if (path)
+				{
+					Polygon polygon(&canvas);
+
+					// If icon color can be changed
+					if (icon_color() != Color::TRANSPARENT && one_color == true)
+					{
+						// Change icon color
+						polygon.color(stated_color(m_icon_color));
+					}
+					else
+					{
+						// Used icon file color
+						polygon.color(path->color());
+					}
+					
+					// Apply icon zoom
+					polygon.zoom_(m_zoom);
+					
+					// Parse icon path
+					VectorsScript vectors_script(polygon);
+					vectors_script.select(path->path());
+					vectors_script.parse();
+
+					// Paint icon path
+					polygon.paint(shift);
 				}
 			}
 		}
 
-		// Display icon
-		for (uint32_t i = 0; i < m_paths.size(); i++)
-		{
-			Path * path = m_paths[i];
+		// Paint text
+		region.intersect(m_text_backclip);
+		select_font();
+		UIManager::renderer()->region(region);
+		m_text_box.paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_backclip, stated_color(m_text_color), 0, 0, true);
 
-			if (path)
-			{
-				Polygon polygon(&canvas);
-
-				// If icon color can be changed
-				if (icon_color() != Color::TRANSPARENT && one_color == true)
-				{
-					// Change icon color
-					polygon.color(stated_color(m_icon_color));
-				}
-				else
-				{
-					// Used icon file color
-					polygon.color(path->color());
-				}
-				
-				// Apply icon zoom
-				polygon.zoom_(m_zoom);
-				
-				// Parse icon path
-				VectorsScript vectors_script(polygon);
-				vectors_script.select(path->path());
-				vectors_script.parse();
-
-				// Paint icon path
-				polygon.paint(shift);
-			}
-		}
+		Widget::paint(region);
 	}
-
-	// Paint text
-	region.intersect(m_text_backclip);
-	select_font();
-	UIManager::renderer()->region(region);
-	m_text_box.paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_backclip, stated_color(m_text_color), 0, 0, true);
-
-	Widget::paint(region);
 }
 
 /** Get the widget hovered */
@@ -187,7 +192,7 @@ Widget * Icon::hovered(const Region & parent_region, const Point & position)
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if(region.is_inside(position))
+	if(region.is_inside(position) != Region::Overlap::OUT)
 	{
 		return this;
 	}
@@ -215,17 +220,6 @@ void Icon::unserialize(JsonIterator & it)
 	TextStyle::unserialize(it);
 }
 
-/** Indicates if the window must be refreshed */
-bool Icon::dirty()
-{
-	return 
-		UIManager::invalidator()->is_dirty(this) || 
-		WidgetStyle::is_dirty() || 
-		BorderStyle::is_dirty() || 
-		CommonStyle::is_dirty() || 
-		IconStyle::is_dirty()   || 
-		TextStyle::is_dirty();
-}
 
 #ifdef _DEBUG
 

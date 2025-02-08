@@ -13,7 +13,7 @@ namespace berialdraw
 	public:
 		/**	Constructor
 		@param canvas Pointer to the Canvas object, default is nullptr */
-		Polygon(Canvas * canvas = 0);
+		Polygon(Canvas * canvas);
 
 		/** Copy constructor
 		@param other Polygon object to copy from */

@@ -39,18 +39,12 @@ void BorderStyle::set(const BorderStyle & other)
 	m_focus_color  = other.m_focus_color;
 	m_thickness    = other.m_thickness;
 	m_focus_gap          = other.m_focus_gap;
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 }
 
 Style * BorderStyle::create()
 {
 	return new BorderStyle;
-}
-
-/** Indicates if the window must be refreshed */
-bool BorderStyle::is_dirty()
-{
-	return UIManager::invalidator()->is_dirty(this);
 }
 
 /** Get the radius */
@@ -68,14 +62,14 @@ Dim BorderStyle::radius_() const
 /** Set the radius in pixels */
 void BorderStyle::radius(Dim v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_radius =  v << 6;
 }
 
 /** Set the radius with a precision of 64th of a pixel */
 void BorderStyle::radius_(Dim v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_radius = v;
 }
 
@@ -94,14 +88,14 @@ Dim BorderStyle::thickness_() const
 /** Set the thickness in pixels */
 void BorderStyle::thickness(Dim v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_thickness = v << 6;
 }
 
 /** Set the thickness with a precision of 64th of a pixel */
 void BorderStyle::thickness_(Dim v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_thickness = v;
 }
 
@@ -114,14 +108,14 @@ uint32_t BorderStyle::border_color() const
 /** Set the border color */
 void BorderStyle::border_color(uint32_t col)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_border_color = col;
 }
 
 /** Set the border color with alpha */
 void BorderStyle::border_color(uint32_t col, uint8_t alpha)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_border_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
@@ -135,14 +129,14 @@ uint32_t BorderStyle::focus_color() const
 /** Set the focus color */
 void BorderStyle::focus_color(uint32_t col)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_focus_color = col;
 }
 
 /** Set the focus color with alpha */
 void BorderStyle::focus_color(uint32_t col, uint8_t alpha)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_focus_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
@@ -161,13 +155,13 @@ Dim BorderStyle::focus_gap_() const
 /** Set the focus_gap in pixels */
 void BorderStyle::focus_gap(Dim v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_focus_gap = v << 6;
 }
 
 /** Set the focus_gap with a precision of 64th of a pixel */
 void BorderStyle::focus_gap_(Dim v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_focus_gap = v;
 }

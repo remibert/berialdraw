@@ -27,9 +27,6 @@ namespace berialdraw
 		/** Set properties with another */
 		void set(const CommonStyle & other);
 
-		/** Indicates if the window must be refreshed */
-		bool is_dirty();
-
 		/** Create new shape style */
 		static Style * create();
 

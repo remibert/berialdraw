@@ -23,9 +23,6 @@ namespace berialdraw
 		/** Set properties with another */
 		void set(const TextStyle & other);
 
-		/** Indicates if the window must be refreshed */
-		bool is_dirty();
-
 		/** Create new text style */
 		static Style * create();
 

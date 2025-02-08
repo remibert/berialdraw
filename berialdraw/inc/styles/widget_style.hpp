@@ -22,9 +22,6 @@ namespace berialdraw
 		/** Set properties with another */
 		void set(const WidgetStyle & other);
 
-		/** Indicates if the window must be refreshed */
-		bool is_dirty();
-
 		/** Create new widget style */
 		static Style * create();
 
@@ -169,7 +166,6 @@ namespace berialdraw
 
 		unsigned int m_selectable:1;
 
-		unsigned int m_place     :1;
 		unsigned int m_edited    :1;
 		unsigned int m_refocus   :1;
 

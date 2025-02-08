@@ -38,9 +38,6 @@ namespace berialdraw
 		/** Place all widget in area */
 		virtual void place(const Area & area, bool in_layout);
 
-		/** Indicates if the paint is required for this current */
-		virtual bool paintable(const Region & parent_region) {return true;}
-
 		/** Return the size of content without marges */
 		virtual Size content_size();
 

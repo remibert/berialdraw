@@ -25,15 +25,17 @@ void Colors::theme(uint32_t col)
 		m_theme = col;
 		col = color(col);
 
-		m_theme_values [Color::THEME_COLOR_XXX_LIGHT   - Color::FIRST_THEME_VALUE] =  Hsl::add_color(col, Color::WHITE, 204); // Transparency 80%
-		m_theme_values [Color::THEME_COLOR_XX_LIGHT    - Color::FIRST_THEME_VALUE] =  Hsl::add_color(col, Color::WHITE, 154); // Transparency 60%
-		m_theme_values [Color::THEME_COLOR_X_LIGHT     - Color::FIRST_THEME_VALUE] =  Hsl::add_color(col, Color::WHITE, 102); // Transparency 40%
-		m_theme_values [Color::THEME_COLOR_LIGHT       - Color::FIRST_THEME_VALUE] =  Hsl::add_color(col, Color::WHITE, 51);  // Transparency 20%
 		m_theme_values [Color::THEME_COLOR             - Color::FIRST_THEME_VALUE] =  col;
-		m_theme_values [Color::THEME_COLOR_DARK        - Color::FIRST_THEME_VALUE] =  Hsl::add_color(col, Color::BLACK, 44);  // Transparency 17%
-		m_theme_values [Color::THEME_COLOR_X_DARK      - Color::FIRST_THEME_VALUE] =  Hsl::add_color(col, Color::BLACK, 87);  // Transparency 34%
-		m_theme_values [Color::THEME_COLOR_XX_DARK     - Color::FIRST_THEME_VALUE] =  Hsl::add_color(col, Color::BLACK, 131); // Transparency 51%
-		m_theme_values [Color::THEME_COLOR_XXX_DARK    - Color::FIRST_THEME_VALUE] =  Hsl::add_color(col, Color::BLACK, 174); // Transparency 68%
+
+		for (int i = THEME_COLOR_LIGHT_1; i <= THEME_COLOR_LIGHT_15; i++)
+		{
+			m_theme_values [i-FIRST_THEME_VALUE] = Hsl::add_color(col, Color::WHITE, ((i-THEME_COLOR_LIGHT_1) * 17) +8);
+		}
+
+		for (int i = THEME_COLOR_DARK_1; i <= THEME_COLOR_DARK_15; i++)
+		{
+			m_theme_values [i-FIRST_THEME_VALUE] = Hsl::add_color(col, Color::BLACK, (i-THEME_COLOR_DARK_1) * 17);
+		}
 
 		// If light theme selected
 		if (Hsl::delta_contrast(col, Color::WHITE) > Hsl::delta_contrast(col, Color::BLACK))

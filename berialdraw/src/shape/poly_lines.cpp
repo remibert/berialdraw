@@ -3,13 +3,15 @@
 using namespace berialdraw;
 
 PolyLines::PolyLines(Canvas * canvas):
-	Shape(canvas),
+	Shape(canvas, sizeof(PolyLines)),
+	m_polygon(0),
 	m_count(0)
 {
 }
 
 PolyLines::PolyLines(const PolyLines & other):
 	Shape(other),
+	m_polygon(0),
 	m_count(0),
 	m_shape(other.m_shape),
 	m_points(other.m_points)
@@ -18,41 +20,41 @@ PolyLines::PolyLines(const PolyLines & other):
 
 void PolyLines::prepend(Coord x, Coord y)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
 	Point p(x,y,true);
 	m_points.prepend(p);
 }
 
 void PolyLines::prepend_(Coord x, Coord y)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
 	Point p(x,y,false);
 	m_points.prepend(p);
 }
 
 void PolyLines::prepend(const Point & p)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
 	m_points.prepend(p);
 }
 
 void PolyLines::append(Coord x, Coord y)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
 	Point p(x,y,true);
 	m_points.append(p);
 }
 
 void PolyLines::append_(Coord x, Coord y)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
 	Point p(x,y,false);
 	m_points.append(p);
 }
 
 void PolyLines::append(const Point & p)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
 	m_points.append(p);
 }
 
@@ -256,7 +258,7 @@ void PolyLines::build()
 // Render outline
 void PolyLines::paint(const Point & shift)
 {
-	if (UIManager::invalidator()->is_dirty(this)  || UIManager::invalidator()->is_dirty(m_canvas) || ShapeStyle::is_dirty())
+	if (UIManager::invalidator()->is_dirty(m_canvas))
 	{
 		build();
 	}
@@ -419,7 +421,7 @@ void PolyLines::test1()
 				x = get_rand(10,UIManager::renderer()->size().width()-10) ;
 				y = get_rand(10,UIManager::renderer()->size().height()-10) ;
 				{
-					Line corner;
+					Line corner(canvas);
 					corner.point1(x,y);
 					corner.point2(x+(1),y+(1));
 					corner.thickness(3);

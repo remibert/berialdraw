@@ -16,7 +16,7 @@ namespace berialdraw
 		virtual ~Canvas();
 
 		/** Add shape into the canvas (all shapes added will be destroyed when the canvas destroy) */
-		void add(Shape *);
+		void add(Shape *, size_t shape_size);
 
 		/** Remove shape from the canvas  */
 		void remove(Shape *);
@@ -36,15 +36,13 @@ namespace berialdraw
 		static void test2();
 		static void test3();
 		static void test4();
+		static void test5();
 #endif
 
 	protected:
 /// @cond DOXYGEN_IGNORE
 		/** Return the size of content without marges */
 		virtual Size content_size();
-
-		/** Indicates if the window must be refreshed */
-		virtual bool dirty();
 
 		/** Paint on screen memory the content of this widget */
 		virtual void paint(const Region & parent_region);

@@ -66,18 +66,12 @@ void EditStyle::set(const EditStyle & other)
 	{
 		m_place_holder = 0;
 	}
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 }
 
 Style * EditStyle::create()
 {
 	return new EditStyle;
-}
-
-/** Indicates if the window must be refreshed */
-bool EditStyle::is_dirty()
-{
-	return UIManager::invalidator()->is_dirty(this);
 }
 
 /** Get the max visible lines in the edit */
@@ -95,14 +89,14 @@ uint16_t EditStyle::max_columns() const
 /** Set the max visible lines in the edit */
 void EditStyle::max_lines(uint16_t v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_max_lines = v;
 }
 
 /** Set the max visible column in the edit */
 void EditStyle::max_columns(uint16_t v)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_max_columns = v;
 }
 
@@ -115,14 +109,14 @@ uint32_t EditStyle::select_color() const
 /** Set the selection color */
 void EditStyle::select_color(uint32_t col)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_select_color = col;
 }
 
 /** Set the selection color with alpha */
 void EditStyle::select_color(uint32_t col, uint8_t alpha)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_select_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
@@ -135,21 +129,21 @@ uint32_t EditStyle::cursor_color() const
 /** Set the cursor color */
 void EditStyle::cursor_color(uint32_t col)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_cursor_color = col;
 }
 
 /** Set the cursor color with alpha */
 void EditStyle::cursor_color(uint32_t col, uint8_t alpha)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_cursor_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
 /** Hides characters for password entry */
 void EditStyle::password(bool state)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_password = state;
 }
 
@@ -175,7 +169,7 @@ void EditStyle::place_holder(const char * place_holder_, ...)
 		m_place_holder = new String("");
 	}
 	
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_place_holder->vprint(place_holder_, args);
 	va_end(args);
 }
@@ -183,7 +177,7 @@ void EditStyle::place_holder(const char * place_holder_, ...)
 /** Set place holder value with string */
 void EditStyle::place_holder(const String & str)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	if (m_place_holder == 0)
 	{
 		m_place_holder = new String("");
@@ -201,13 +195,13 @@ uint32_t EditStyle::place_holder_color() const
 /** Set the place holder color */
 void EditStyle::place_holder_color(uint32_t col)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_place_holder_color = col;
 }
 
 /** Set the place holder color with alpha */
 void EditStyle::place_holder_color(uint32_t col, uint8_t alpha)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 	m_place_holder_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }

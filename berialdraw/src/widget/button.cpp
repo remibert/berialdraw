@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Button::Button(Widget * parent):
-	Widget("button", parent)
+	Widget("button", parent, sizeof(Button))
 {
 	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
 	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
@@ -76,25 +76,30 @@ void Button::paint(const Region & parent_region)
 
 	// Draw rectangle
 	region.intersect(m_backclip);
-	UIManager::renderer()->region(region);
-	Point shift;
 
-	if (m_focused)
+	// If button visible
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
 	{
-		// Draw focus
-		Rect::build_polygon(m_foreclip, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
+		UIManager::renderer()->region(region);
+		Point shift;
+
+		if (m_focused)
+		{
+			// Draw focus
+			Rect::build_polygon(m_foreclip, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
+		}
+		// Draw backround
+		Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
+
+		// Paint children
+		Widget::paint(region);
+
+		// Paint text
+		region.intersect(m_text_backclip);
+		select_font();
+		UIManager::renderer()->region(region);
+		m_text_box.paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_backclip, stated_color(m_text_color), 0, 0, true);
 	}
-	// Draw backround
-	Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
-
-	// Paint children
-	Widget::paint(region);
-
-	// Paint text
-	region.intersect(m_text_backclip);
-	select_font();
-	UIManager::renderer()->region(region);
-	m_text_box.paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_backclip, stated_color(m_text_color), 0, 0, true);
 }
 
 /** Get the widget hovered */
@@ -104,7 +109,7 @@ Widget * Button::hovered(const Region & parent_region, const Point & position)
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if(region.is_inside(position))
+	if(region.is_inside(position) != Region::Overlap::OUT)
 	{
 		return this;
 	}
@@ -128,12 +133,6 @@ void Button::unserialize(JsonIterator & it)
 	WidgetStyle::unserialize(it);
 	TextStyle::unserialize(it);
 	BorderStyle::unserialize(it);
-}
-
-/** Indicates if the window must be refreshed */
-bool Button::dirty()
-{
-	return m_text_modified || m_font_modified || UIManager::invalidator()->is_dirty(this) || WidgetStyle::is_dirty() || TextStyle::is_dirty() || BorderStyle::is_dirty() || CommonStyle::is_dirty();
 }
 
 #ifdef _DEBUG

@@ -9,7 +9,7 @@ namespace berialdraw
 	public:
 		/** Create a marker
 		@param canvas canvas used to draw marker */
-		Marker(Canvas * canvas=0);
+		Marker(Canvas * canvas);
 
 		/** Refresh the marker */
 		void paint(const Point & shift, const char * filled, const char * un_filled);

@@ -2,8 +2,8 @@
 #include "samples/samples.hpp"
 
 // Screen resolution
-const int SCREEN_WIDTH = 480;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 960;
+const int SCREEN_HEIGHT = 960;
 
 using namespace berialdraw;
 
@@ -18,8 +18,8 @@ int main(int argc, char* args[])
 	UIManager::init(new DeviceScreen("Samples BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888, 2);
 
 	// Execute menu with all samples
-	sample_icon_menu();
-	//sample_menu();
+	//sample_icon_menu();
+	sample_menu();
 
 	// Terminates use of the library, destroys all objects and frees the allocated memory
 	UIManager::deinit();

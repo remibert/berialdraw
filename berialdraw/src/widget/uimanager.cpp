@@ -15,6 +15,16 @@ Desktop     * UIManager::m_desktop = 0;
 ScreenCrc   * UIManager::m_screen_crc = 0;
 bool          UIManager::m_initialized= false;
 
+
+inline Dim adapt_size(Dim size, uint32_t scale)
+{
+	if (scale < 10)
+	{
+		scale <<= 6;
+	}
+	return ((size << 6) / scale);
+}
+
 void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type type, uint32_t scale)
 {
 	if(device && m_device == 0)
@@ -27,9 +37,9 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 		m_desktop      = new Desktop;
 		m_screen_crc   = new ScreenCrc;
 		m_device       = device;
-		m_device->size(width*scale, height*scale);
-		m_framebuf     = Framebuf::create(width*scale, height*scale, type);
-		m_renderer     = new Renderer(width, height,scale);
+		m_device->size(width, height);
+		m_framebuf     = Framebuf::create(width, height, type);
+		m_renderer     = new Renderer(adapt_size(width,scale), adapt_size(height,scale), scale);
 		m_initialized = true;
 	}
 	else

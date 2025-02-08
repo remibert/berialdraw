@@ -3,12 +3,13 @@
 
 namespace berialdraw
 {
+	class IconStyle ;
 	/** Class defines the behavior of path */
 	class Path
 	{
 	public:
 		/** Constructor */
-		Path();
+		Path(IconStyle * parent);
 
 		/** Destructor */
 		~Path();
@@ -38,6 +39,7 @@ namespace berialdraw
 	protected:
 /// @cond DOXYGEN_IGNORE
 		String     m_path;
+		IconStyle * m_parent;
 		uint32_t   m_color = 0xFF000000;
 /// @endcond
 	};
@@ -58,9 +60,6 @@ namespace berialdraw
 
 		/** Unserialize the content of widget from json */
 		void unserialize(JsonIterator & it);
-
-		/** Indicates if the window must be refreshed */
-		bool is_dirty();
 
 		/** Create new paths */
 		static Style * create();

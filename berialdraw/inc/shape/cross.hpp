@@ -8,7 +8,7 @@ namespace berialdraw
 	{
 	public:
 		/** Constructor */
-		Cross(Canvas * canvas = 0);
+		Cross(Canvas * canvas);
 
 		/** Render outline */
 		virtual void paint(const Point & shift);

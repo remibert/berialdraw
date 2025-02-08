@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 ScrollView::ScrollView(Widget * parent):
-	Widget("scroll_view", parent)
+	Widget("scroll_view", parent, sizeof(ScrollView))
 {
 	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
 	m_color = Color::TRANSPARENT;
@@ -64,6 +64,13 @@ Coord ScrollView::calc_shift_focus(Coord widget_position, Dim widget_size, Coord
 	}
 	return result;
 }
+
+/** Compute the scroll area */
+void ScrollView::space_occupied(Point & min_position, Point & max_position)
+{
+	Widget::space_occupied(min_position,max_position);
+}
+
 
 /** Compute the scroll area */
 void ScrollView::scroll_area(Area & area)
@@ -239,26 +246,30 @@ void ScrollView::paint(const Region & parent_region)
 	Region region(parent_region);
 	region.intersect(m_backclip);
 
-	Exporter * exporter = UIManager::exporter();
-
-	if (exporter)
+	// If widget visible
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
 	{
-		exporter->open_group(m_backclip.position(), m_backclip.size());
-	}
+		Exporter * exporter = UIManager::exporter();
 
-	Widget::paint(region);
+		if (exporter)
+		{
+			exporter->open_group(m_backclip.position(), m_backclip.size());
+		}
 
-	if (exporter)
-	{
-		exporter->close_group();
+		Widget::paint(region);
+
+		if (exporter)
+		{
+			exporter->close_group();
+		}
 	}
 }
 
 /** Call back on scroll */
 void ScrollView::on_scroll(Widget * widget, const ScrollEvent & evt)
 {
-	UIManager::invalidator()->dirty(this);
 	m_scroll_position.move(evt.shift());
+	dirty_children(Invalidator::REPLACE);
 }
 
 /** Serialize the content of widget into json */
@@ -276,16 +287,10 @@ void ScrollView::unserialize(JsonIterator & it)
 	WidgetStyle::unserialize(it);
 }
 
-/** Indicates if the window must be refreshed */
-bool ScrollView::dirty()
-{
-	return UIManager::invalidator()->is_dirty(this) || WidgetStyle::is_dirty() || CommonStyle::is_dirty();
-}
-
 /** Set scroll size */
 void ScrollView::scroll_size(const Size & size)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_scroll_size = size;
 }
 
@@ -305,21 +310,21 @@ const Size & ScrollView::scroll_size() const
 /** Set the scroll size with width and height in pixels */
 void ScrollView::scroll_size(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_scroll_size.set(w,h);
 }
 
 /** Set scroll position */
 void ScrollView::scroll_position(const Point & position)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_scroll_position = position;
 }
 
 /** Set the scroll position with x and y in pixels */
 void ScrollView::scroll_position(Coord x, Coord y)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_scroll_position.set(x,y);
 }
 
@@ -345,14 +350,14 @@ const Size & ScrollView::viewport_size() const
 /** Set viewport size */
 void ScrollView::viewport_size(const Size & size)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_viewport_size = size;
 }
 
 /** Set the viewport size with width and height in pixels */
 void ScrollView::viewport_size(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_viewport_size.set(w,h);
 }
 

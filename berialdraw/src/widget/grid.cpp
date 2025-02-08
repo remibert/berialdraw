@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Grid::Grid(Widget * parent):
-	Widget("grid", parent)
+	Widget("grid", parent, sizeof(Grid))
 {
 	m_color = Color::TRANSPARENT;
 }
@@ -14,12 +14,13 @@ Grid::~Grid()
 
 void Grid::place(const Area & area, bool in_layout)
 {
-	if(m_place)
+	//if(m_place)
+	if (UIManager::invalidator()->is_dirty(this))
 	{
 		Area marged_area(area);
 		marged_area.decrease(margin());
 		m_cells.place(this, marged_area);
-		m_place = 0;
+		//m_place = 0;
 	}
 }
 

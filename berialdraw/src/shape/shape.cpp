@@ -2,14 +2,15 @@
 
 using namespace berialdraw;
 
-Shape::Shape(Canvas * canvas):
+Shape::Shape(Canvas * canvas, size_t shape_size):
 	m_canvas(canvas)
 {
 	m_color = Color::SHAPE_COLOR;
-	UIManager::invalidator()->dirty(this);
+	
 	if(canvas)
 	{
-		canvas->add(this);
+		UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
+		canvas->add(this, shape_size);
 	}
 }
 
@@ -17,14 +18,13 @@ Shape::~Shape()
 {
 	if(m_canvas)
 	{
+		UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
 		m_canvas->remove(this);
 	}
 }
 
 Shape::Shape(const Shape & other)
 {
-	UIManager::invalidator()->dirty(this);
-
 	*((ShapeStyle*)this) = *(const ShapeStyle*)&other;
 	*((CommonStyle*)this) = *(const CommonStyle*)&other;
 
@@ -36,7 +36,8 @@ Shape::Shape(const Shape & other)
 
 	if(m_canvas)
 	{
-		m_canvas->add(this);
+		UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
+		m_canvas->add(this, sizeof(Shape));
 	}
 }
 
@@ -70,11 +71,6 @@ Size Shape::content_size()
 		result.height_(m_size.height_());
 	}
 	return result;
-}
-
-bool Shape::is_dirty()
-{
-	return UIManager::invalidator()->is_dirty(this) || ShapeStyle::is_dirty();
 }
 
 Size Shape::marged_size()

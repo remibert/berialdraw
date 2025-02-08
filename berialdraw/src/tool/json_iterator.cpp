@@ -192,7 +192,7 @@ bool JsonIterator::remove()
 				result = (*obj).remove(m_key);
 				m_item = 0;
 				m_index = 0;
-				m_key = "";				
+				m_key = "";
 			}
 		}
 	}

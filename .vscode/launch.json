@@ -8,6 +8,7 @@
             "program": "/Users/remi/Downloads/berialdraw/berialdraw_",
             "args": [],
             "stopAtEntry": false,
+            "targetArchitecture": "arm64",
             "cwd": "${workspaceFolder}",
             "environment": [],
             "MIMode": "lldb"

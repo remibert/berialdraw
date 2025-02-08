@@ -2,12 +2,12 @@
 
 using namespace berialdraw;
 
-Widget::Widget(const char * classname, Widget * parent):
+Widget::Widget(const char * classname, Widget * parent, size_t size_of_widget):
 	m_classname(classname),
 	m_parent(parent)
 {
-	UIManager::invalidator()->dirty(this);
-	m_place     = 1;
+	UIManager::invalidator()->add(this, size_of_widget);
+	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	m_pressed   = 0;
 	m_focused   = 0;
 	m_focusable = 0;
@@ -62,10 +62,19 @@ void Widget::clear()
 Widget::~Widget()
 {
 	clear();
+
+	if (UIManager::invalidator())
+	{
+		UIManager::invalidator()->remove(this);
+	}
+
 	// Unlink parent
 	if(m_parent)
 	{
-		UIManager::invalidator()->dirty(m_parent);
+		if (UIManager::invalidator())
+		{
+			UIManager::invalidator()->dirty(m_parent, Invalidator::REPLACE);
+		}
 		// If the parent has children
 		if(m_parent->m_children)
 		{
@@ -137,10 +146,7 @@ void Widget::paint(const Region & parent_region)
 	Widget* child = m_children;
 	while (child)
 	{
-		if(child->paintable(parent_region))
-		{
-			child->paint(parent_region);
-		}
+		child->paint(parent_region);
 		child = child->next();
 	}
 }
@@ -173,34 +179,18 @@ ScrollView * Widget::scroll_view()
 	return result;
 }
 
-void Widget::replace_children()
-{
-	Widget * child = m_children;
-	while(child)
-	{
-		child->m_place = 1;
-		child->dirty();
-		child->replace_children();
-		child = child->m_next;
-	}
-}
+
 
 /** Clean all dirty flag in all */
 void Widget::clean_all()
 {
 	Widget * child = m_children;
-	m_place = 1;
 	UIManager::invalidator()->clear(this);
 	while(child)
 	{
 		child->clean_all();
 		child = child->m_next;
 	}
-}
-
-void Widget::replace_all()
-{
-	replace_children();
 }
 
 Area Widget::area()
@@ -302,19 +292,22 @@ Size Widget::children_size()
 	return result;
 }
 
-bool Widget::paintable(const Region & parent_region)
+
+/** Add dirty on the widget and all of its children */
+void Widget::dirty_children(enum Invalidator::Status status)
 {
-	if(parent_region.is_inside(m_backclip.position().x_(),m_backclip.position().y_(), m_backclip.size().width_(), m_backclip.size().height_(), false) != Region::OUT)
+	Widget* child = m_children;
+	UIManager::invalidator()->dirty(this, status);
+	while (child)
 	{
-		return true;
+		child->dirty_children(status);
+		child = child->next();
 	}
-	return false;
 }
 
 /** Compute the scroll area */
 void Widget::space_occupied(Point & min_position, Point & max_position)
 {
-
 	Widget* child = m_children;
 	while (child)
 	{
@@ -469,8 +462,8 @@ void Widget::focus_to(Widget * & current_focus, Widget * new_focus)
 			{
 				current_focus->m_focused = 0;
 			}
-			UIManager::invalidator()->dirty(current_focus);
-			UIManager::invalidator()->dirty(new_focus);
+			UIManager::invalidator()->dirty(current_focus, Invalidator::REPAINT);
+			UIManager::invalidator()->dirty(new_focus, Invalidator::REPAINT);
 			current_focus = new_focus;
 			
 			new_focus->m_focused = 1;
@@ -485,7 +478,7 @@ void Widget::focus_next(Widget * & widget)
 
 	if (widget)
 	{
-		UIManager::invalidator()->dirty(widget);
+		UIManager::invalidator()->dirty(widget, Invalidator::REPAINT);
 		widget->m_focused = 0;
 	}
 
@@ -546,7 +539,7 @@ void Widget::focus_next(Widget * & widget)
 
 		if (new_widget_focus)
 		{
-			UIManager::invalidator()->dirty(new_widget_focus);
+			UIManager::invalidator()->dirty(new_widget_focus, Invalidator::REPAINT);
 			widget = new_widget_focus;
 			new_widget_focus->m_focused = 1;
 
@@ -569,7 +562,7 @@ void Widget::focus_previous(Widget * & widget)
 	focusables(all);
 	if (widget)
 	{
-		UIManager::invalidator()->dirty(widget);
+		UIManager::invalidator()->dirty(widget, Invalidator::REPAINT);
 		widget->m_focused = 0;
 	}
 	if (all.size() >= 1)
@@ -628,7 +621,7 @@ void Widget::focus_previous(Widget * & widget)
 		}
 		if (new_widget_focus)
 		{
-			UIManager::invalidator()->dirty(new_widget_focus);
+			UIManager::invalidator()->dirty(new_widget_focus, Invalidator::REPAINT);
 			widget = new_widget_focus;
 			new_widget_focus->m_focused = 1;
 			ScrollView * scroll_view = dynamic_cast<ScrollView*>(widget->scroll_view());
@@ -656,7 +649,7 @@ Widget * Widget::hovered(const Region & parent_region, const Point & position)
 	region.intersect(m_backclip);
 
 	// If the widget hovered
-	if(region.is_inside(position))
+	if(region.is_inside(position) != Region::Overlap::OUT)
 	{
 		Widget * result_child = 0;
 		Widget* child = m_children;
@@ -675,31 +668,6 @@ Widget * Widget::hovered(const Region & parent_region, const Point & position)
 		{
 			// Select children
 			result = result_child;
-		}
-	}
-	return result;
-}
-
-/** Indicates if the window must be refreshed */
-bool Widget::dirty()
-{
-	bool result = false;
-
-	if(	UIManager::invalidator()->is_dirty(this))
-	{
-		result = true;
-	}
-	else
-	{
-		Widget* child = m_children;
-		while (child && result == false)
-		{
-			result = child->dirty();
-			if (result)
-			{
-				break;
-			}
-			child = child->m_next;
 		}
 	}
 	return result;

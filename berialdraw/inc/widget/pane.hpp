@@ -40,9 +40,6 @@ namespace berialdraw
 
 		/** Place all widget in area */
 		virtual void place(const Area & area, bool in_layout);
-
-		/** Indicates if the window must be refreshed */
-		virtual bool dirty();
 /// @endcond
 	};
 }

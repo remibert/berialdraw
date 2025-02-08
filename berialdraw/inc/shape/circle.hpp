@@ -8,7 +8,7 @@ namespace berialdraw
 	{
 	public:
 		/** Constructor */
-		Circle(Canvas * canvas = 0);
+		Circle(Canvas * canvas);
 
 #ifdef _DEBUG
 		static void test();

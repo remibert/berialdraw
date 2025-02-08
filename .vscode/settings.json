@@ -18,5 +18,20 @@
 	},
 	"cmake.configureSettings": {
 		"SDL3_INCLUDE_DIRS": "/Library/Frameworks/SDL3.framework"
-	}
+	},
+	"editor.minimap.enabled": false,
+	"editor.renderWhitespace":"all",
+	"editor.suggest.insertMode": "replace",
+	"workbench.editor.enablePreview": false,
+	"workbench.tree.indent": 10,
+	"workbench.tree.renderIndentGuides": "always",
+	"workbench.colorTheme": "Visual Studio Light - C++",
+	"workbench.iconTheme": "vscode-icons",
+	"extensions.ignoreRecommendations": true,
+	"editor.autoClosingBrackets": "never",
+	"editor.autoClosingQuotes": "never",
+	"editor.quickSuggestions": {
+		"other": "off"
+	},
+	"editor.snippetSuggestions": "none"
 }

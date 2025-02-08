@@ -44,12 +44,6 @@ namespace berialdraw
 		/** Call back on click */
 		void on_click(Widget * widget, const ClickEvent & evt);
 
-		/** Indicates if the window must be refreshed */
-		virtual bool dirty();
-
-		/** Indicates if the paint is required for this current */
-		virtual bool paintable(const Region & parent_region) {return true;}
-
 		/** Paint on screen memory the content of this widget */
 		virtual void paint(const Region & parent_region);
 

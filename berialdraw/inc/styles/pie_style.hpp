@@ -23,9 +23,6 @@ namespace berialdraw
 		/** Set properties with another */
 		void set(const PieStyle & other);
 
-		/** Indicates if the window must be refreshed */
-		bool is_dirty();
-
 		/** Create new pie style */
 		static Style * create();
 

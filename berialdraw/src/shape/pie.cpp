@@ -3,13 +3,15 @@
 using namespace berialdraw;
 
 Pie::Pie(Canvas * canvas) : 
-	Shape(canvas)
+	Shape(canvas, sizeof(Pie)),
+	m_polygon(0)
 {
 	m_thickness = 0;
 }
 
 Pie::Pie(const Pie & other):
-	Shape(other)
+	Shape(other),
+	m_polygon(0)
 {
 	*((PieStyle*)this) = *(const PieStyle*)&other;
 }
@@ -124,7 +126,7 @@ void Pie::build_empty()
 
 void Pie::paint(const Point & shift)
 {
-	if (UIManager::invalidator()->is_dirty(this) || UIManager::invalidator()->is_dirty(m_canvas) || PieStyle::is_dirty() || ShapeStyle::is_dirty())
+	if (UIManager::invalidator()->is_dirty(m_canvas))
 	{
 		Coord sweep_angle;
 		if (m_end_angle > (360<<6))
@@ -486,10 +488,15 @@ void Pie::test4()
 	}
 }
 
+void Pie::test5()
+{
+}
+
 void Pie::test()
 {
-	test3();
+	test5();
 	test4();
+	test3();
 	test2();
 	test1();
 }

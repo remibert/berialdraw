@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Pane::Pane(Widget * parent):
-	Widget("pane", parent)
+	Widget("pane", parent, sizeof(Pane))
 {
 	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
 	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
@@ -51,10 +51,15 @@ void Pane::paint(const Region & parent_region)
 {
 	Region region(parent_region);
 	region.intersect(m_backclip);
-	UIManager::renderer()->region(region);
-	Point shift;
-	Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
-	Widget::paint(region);
+
+	// If widget visible
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
+	{
+		UIManager::renderer()->region(region);
+		Point shift;
+		Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
+		Widget::paint(region);
+	}
 }
 
 /** Serialize the content of widget into json */
@@ -72,12 +77,6 @@ void Pane::unserialize(JsonIterator & it)
 	CommonStyle::unserialize(it);
 	WidgetStyle::unserialize(it);
 	BorderStyle::unserialize(it);
-}
-
-/** Indicates if the window must be refreshed */
-bool Pane::dirty()
-{
-	return UIManager::invalidator()->is_dirty(this) || WidgetStyle::is_dirty() || BorderStyle::is_dirty() || CommonStyle::is_dirty();
 }
 
 

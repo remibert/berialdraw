@@ -81,9 +81,6 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		void unserialize(JsonIterator & it);
 
-		/** Indicates if the window must be refreshed */
-		bool is_dirty();
-
 		/** Create new keys */
 		static Style * create();
 

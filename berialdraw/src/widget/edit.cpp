@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Edit::Edit(Widget * parent):
-	Widget("edit", parent),
+	Widget("edit", parent, sizeof(Edit)),
 	Entry(&m_text),
 	m_text_box()
 {
@@ -115,79 +115,85 @@ void Edit::place(const Area & area, bool in_layout)
 void Edit::paint(const Region & parent_region)
 {
 	Region region(parent_region);
-	String display;
-	uint32_t txt_col = stated_color(m_text_color);
-	
-	if (m_input->size() == 0 && m_place_holder != 0)
-	{
-		display = *m_place_holder;
-		txt_col = stated_color(m_place_holder_color);
-	}
-	else
-	{
-		display = *m_input;
-	}
 
-	// If mask selected
-	if (m_mask)
-	{
-		MaskValidator validator(*m_mask);
-		validator.display(m_text, display);
-	}
-
-	// If it is a password
-	if (m_password && m_text.size() != 0)
-	{
-		// Hide all characters
-		for (uint32_t i = 0; i < display.count(); i++)
-		{
-			if (display.get(i) != '\n')
-			{
-				display.replace('*',i);
-			}
-		}
-	}
-
-	m_text_box.parse(m_text_foreclip, *m_font, display, m_cursor_position, m_selection_start, m_selection_end, (Align)m_text_align);
-	
 	// Clipping background
 	region.intersect(m_backclip);
 
-	UIManager::renderer()->region(region);
-	Point shift;
-
-	if (m_focused)
+	// If widget visible
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
 	{
-		// Draw focus
-		Rect::build_polygon(m_foreclip, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
+		UIManager::renderer()->region(region);
+
+		String display;
+		uint32_t txt_col = stated_color(m_text_color);
+		
+		if (m_input->size() == 0 && m_place_holder != 0)
+		{
+			display = *m_place_holder;
+			txt_col = stated_color(m_place_holder_color);
+		}
+		else
+		{
+			display = *m_input;
+		}
+
+		// If mask selected
+		if (m_mask)
+		{
+			MaskValidator validator(*m_mask);
+			validator.display(m_text, display);
+		}
+
+		// If it is a password
+		if (m_password && m_text.size() != 0)
+		{
+			// Hide all characters
+			for (uint32_t i = 0; i < display.count(); i++)
+			{
+				if (display.get(i) != '\n')
+				{
+					display.replace('*',i);
+				}
+			}
+		}
+
+		m_text_box.parse(m_text_foreclip, *m_font, display, m_cursor_position, m_selection_start, m_selection_end, (Align)m_text_align);
+		
+		Point shift;
+
+		if (m_focused)
+		{
+			// Draw focus
+			Rect::build_polygon(m_foreclip, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
+		}
+		// Draw backround
+		Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
+
+		Widget::paint(region);
+
+		// Get clipping text area
+		Area text_clip(m_text_backclip);
+
+		// Add cursor width and height
+		Margin cursor_margin(1,1,1,1);
+		text_clip.increase(cursor_margin);
+
+		// Clipping text area
+		region.intersect(text_clip);
+		UIManager::renderer()->region(region);
+
+		// Shift to show cursor
+		m_text_box.text_shift(m_cursor_shift, m_text_foreclip);
+
+		// Move to text to display cursor location
+		Point text_shift(m_text_foreclip.position());
+		text_shift.move(m_cursor_shift);
+
+		m_text_box.paint(m_cursor_shift, *m_font.get(), display, m_text_foreclip.position(), m_text_backclip, txt_col,
+			focused() ? stated_color(m_cursor_color) : Color::TRANSPARENT, 
+			focused() ? stated_color(m_select_color) : Color::TRANSPARENT,
+			(TypingMode)m_typing_mode == TypingMode::INSERTION);
 	}
-	// Draw backround
-	Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
-
-	Widget::paint(region);
-
-	// Get clipping text area
-	Area text_clip(m_text_backclip);
-
-	// Add cursor width and height
-	Margin cursor_margin(1,1,1,1);
-	text_clip.increase(cursor_margin);
-
-	// Clipping text area
-	region.intersect(text_clip);
-	UIManager::renderer()->region(region);
-
-	// Shift to show cursor
-	m_text_box.text_shift(m_cursor_shift, m_text_foreclip);
-
-	// Move to text to display cursor location
-	Point text_shift(m_text_foreclip.position());
-	text_shift.move(m_cursor_shift);
-
-	m_text_box.paint(m_cursor_shift, *m_font.get(), display, m_text_foreclip.position(), m_text_backclip, txt_col,
-		focused() ? stated_color(m_cursor_color) : Color::TRANSPARENT, 
-		focused() ? stated_color(m_select_color) : Color::TRANSPARENT,
-		(TypingMode)m_typing_mode == TypingMode::INSERTION);
 }
 
 
@@ -198,7 +204,7 @@ Widget * Edit::hovered(const Region & parent_region, const Point & position)
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if(region.is_inside(position))
+	if(region.is_inside(position) != Region::Overlap::OUT)
 	{
 		return this;
 	}
@@ -214,7 +220,7 @@ void Edit::on_key(Widget * widget, const KeyEvent & evt)
 		{
 			on_key_down(evt.key(), evt.modifier());
 			m_text_modified = 1;
-			UIManager::invalidator()->dirty(this);
+			UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 		}
 	}
 }
@@ -246,7 +252,7 @@ void Edit::on_select(Widget * widget, const SelectEvent & evt)
 		{
 			m_select_from = UINT32_MAX;
 		}
-		UIManager::invalidator()->dirty(this);
+		UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	}
 }
 
@@ -264,7 +270,7 @@ void Edit::on_click(Widget * widget, const ClickEvent & evt)
 		{
 			select_text(position,position);
 		}
-		UIManager::invalidator()->dirty(this);
+		UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
 	}
 }
 
@@ -303,13 +309,6 @@ void Edit::unserialize(JsonIterator & it)
 		}
 		m_mask = new String(mask);
 	}
-}
-
-/** Indicates if the window must be refreshed */
-bool Edit::dirty()
-{
-	return m_text_modified || m_font_modified || UIManager::invalidator()->is_dirty(this) || WidgetStyle::is_dirty() || 
-		TextStyle::is_dirty() || BorderStyle::is_dirty() || CommonStyle::is_dirty() || EditStyle::is_dirty();
 }
 
 #ifdef _DEBUG

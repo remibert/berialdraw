@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Switch::Switch(Widget * parent):
-	Widget("switch", parent)
+	Widget("switch", parent, sizeof(Switch))
 {
 	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
 	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
@@ -46,43 +46,48 @@ void Switch::place(const Area & area, bool in_layout)
 
 void Switch::paint(const Region & parent_region)
 {
-	Point shift;
-	uint32_t track_color = checked() ? stated_color(m_on_track_color) : stated_color(m_off_track_color);
-	Dim thickness = (m_focused == 0 ? m_thickness: m_thickness + (m_focus_thickness<<6));
-
 	Region region(parent_region);
 	region.intersect(m_backclip);
-	UIManager::renderer()->region(region);
 
-	Area area_track(m_foreclip);
-
-	if (m_focused)
+	// If widget visible
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
 	{
-		// Draw focus
-		Rect::build_polygon(m_foreclip, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
-	}
-	// Draw backround
-	Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(track_color), stated_color(m_border_color));
+		Point shift;
+		uint32_t track_color = checked() ? stated_color(m_on_track_color) : stated_color(m_off_track_color);
+		Dim thickness = (m_focused == 0 ? m_thickness: m_thickness + (m_focus_thickness<<6));
 
-	Area area_thumb(m_foreclip);
+		UIManager::renderer()->region(region);
 
-	area_thumb.size().decrease_(m_thumb_padding << 1, m_thumb_padding << 1);
-	area_thumb.position().move_(m_thumb_padding, m_thumb_padding);
+		Area area_track(m_foreclip);
 
-	// Change position of thumb
-	if (m_checked)
-	{
-		if (m_extend & Extend::EXTEND_WIDTH)
+		if (m_focused)
 		{
-			area_thumb.position().move(m_foreclip.width() - m_switch_size.height(), 0);
+			// Draw focus
+			Rect::build_polygon(m_foreclip, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
 		}
-		else
+		// Draw backround
+		Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(track_color), stated_color(m_border_color));
+
+		Area area_thumb(m_foreclip);
+
+		area_thumb.size().decrease_(m_thumb_padding << 1, m_thumb_padding << 1);
+		area_thumb.position().move_(m_thumb_padding, m_thumb_padding);
+
+		// Change position of thumb
+		if (m_checked)
 		{
-			area_thumb.position().move(m_switch_size.width() - m_switch_size.height(), 0);
+			if (m_extend & Extend::EXTEND_WIDTH)
+			{
+				area_thumb.position().move(m_foreclip.width() - m_switch_size.height(), 0);
+			}
+			else
+			{
+				area_thumb.position().move(m_switch_size.width() - m_switch_size.height(), 0);
+			}
 		}
+		area_thumb.size().width(area_thumb.size().height());
+		Rect::build_polygon(area_thumb, shift, substract(m_radius, m_thumb_padding), 0, 0, CommonStyle::ALL_SIDES, stated_color(m_thumb_color), 0);
 	}
-	area_thumb.size().width(area_thumb.size().height());
-	Rect::build_polygon(area_thumb, shift, substract(m_radius, m_thumb_padding), 0, 0, CommonStyle::ALL_SIDES, stated_color(m_thumb_color), 0);
 }
 
 /** Get the widget hovered */
@@ -92,7 +97,7 @@ Widget * Switch::hovered(const Region & parent_region, const Point & position)
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if(region.is_inside(position))
+	if(region.is_inside(position) != Region::Overlap::OUT)
 	{
 		return this;
 	}
@@ -116,11 +121,6 @@ void Switch::unserialize(JsonIterator & it)
 	BorderStyle::unserialize(it);
 }
 
-/** Indicates if the window must be refreshed */
-bool Switch::dirty()
-{
-	return UIManager::invalidator()->is_dirty(this) || WidgetStyle::is_dirty() || BorderStyle::is_dirty() || CommonStyle::is_dirty();
-}
 
 /** Call back on key */
 void Switch::on_key(Widget * widget, const KeyEvent & evt)
@@ -131,19 +131,19 @@ void Switch::on_key(Widget * widget, const KeyEvent & evt)
 		{
 			if (evt.key() == (wchar_t)ReservedKey::KEY_BACKSPACE || evt.key() == (wchar_t)ReservedKey::KEY_DELETE)
 			{
-				UIManager::invalidator()->dirty(this);
+				UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 				m_checked = (m_checked == 0 ? 1 : 0);
 				UIManager::notifier()->check(m_checked, this);
 			}
 			else if (evt.key() == (wchar_t)ReservedKey::KEY_RIGHT)
 			{
-				UIManager::invalidator()->dirty(this);
+				UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 				m_checked = 1;
 				UIManager::notifier()->check(m_checked, this);
 			}
 			else if (evt.key() == (wchar_t)ReservedKey::KEY_LEFT)
 			{
-				UIManager::invalidator()->dirty(this);
+				UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 				m_checked = 0;
 				UIManager::notifier()->check(m_checked, this);
 			}
@@ -156,7 +156,7 @@ void Switch::on_click(Widget * widget, const ClickEvent & evt)
 {
 	m_checked = (m_checked == 0 ? 1 : 0);
 	UIManager::notifier()->check(m_checked, this);
-	UIManager::invalidator()->dirty(this);
+	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
 }
 
 

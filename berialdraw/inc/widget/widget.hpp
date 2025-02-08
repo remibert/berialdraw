@@ -12,16 +12,13 @@ namespace berialdraw
 	friend class Cells;
 	public:
 		/** Create widget */
-		Widget(const char * classname, Widget * parent=0);
+		Widget(const char * classname, Widget * parent, size_t size_of_widget);
 
 		/** Destroy widget */
 		virtual ~Widget();
 
 		/** Paint on screen memory the content of this widget */
 		virtual void paint(const Region & parent_region);
-
-		/** Indicates if the paint is required for this current */
-		virtual bool paintable(const Region & parent_region);
 
 		/** Place the widget in the area */
 		virtual void place(const Area & area, bool in_layout);
@@ -50,9 +47,6 @@ namespace berialdraw
 		/** Get the background area clip */
 		virtual const Area & backclip() const;
 
-		/** Force all children to be replaced */
-		void replace_all();
-
 		/** Clean all dirty flag in all */
 		void clean_all();
 
@@ -67,9 +61,6 @@ namespace berialdraw
 
 		/** Return the area occuped by this window */
 		virtual Area area();
-
-		/** Indicates if the window must be refreshed */
-		virtual bool dirty();
 
 		/** Return the name of class */
 		const char * classname() const;
@@ -111,6 +102,10 @@ namespace berialdraw
 
 	protected:
 /// @cond DOXYGEN_IGNORE
+
+		/** Add dirty on the widget and all of its children */
+		void dirty_children(enum Invalidator::Status status);
+
 		/** Get the size of children */
 		Size children_size();
 
@@ -122,7 +117,7 @@ namespace berialdraw
 		void focus_previous(Widget * & widget);
 
 		/** Compute the scroll area */
-		void space_occupied(Point & min_position, Point & max_position);
+		virtual void space_occupied(Point & min_position, Point & max_position);
 
 		Area m_foreclip;
 		Area m_backclip;
@@ -131,7 +126,7 @@ namespace berialdraw
 		Widget * m_next = 0;
 		const char * m_classname = "Widget";
 
-		void replace_children();
+		
 		void place_in_area(const Area & area, bool in_layout);
 /// @endcond 
 	};
