@@ -1433,6 +1433,11 @@ void Entry::test1()
 // Unitary test
 void Entry::test()
 {
-	test1();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+		test1();
+	}
 }
 #endif

@@ -41,42 +41,47 @@ void Square::paint(const Point & shift)
 #ifdef _DEBUG
 void Square::test()
 {
-	Window window;
-		window.position(0,0);
-		window.size(480,480);
-		window.color(Color::WHITE);
-
-	Canvas * canvas = new Canvas(&window);
-		canvas->position(0,0);
-		canvas->size(window.size());
-		canvas->color(Color::TRANSPARENT);
-
-	Point center(360, 360);
-
+	static bool done = false;
+	if (done == false)
 	{
-		Cross * cross = new Cross(canvas);
-		cross->color(Color::BLACK);
-		cross->thickness(3);
-		cross->position(center);
-		cross->radius(10);
-	}
-	{
-		Square * square = new Square(canvas);
+		done = true;
+		Window window;
+			window.position(0,0);
+			window.size(480,480);
+			window.color(Color::WHITE);
 
-		square->radius(100);
-		square->position(center);
-		square->thickness(40);
-		square->color(Color::RED,64);
-	}
+		Canvas * canvas = new Canvas(&window);
+			canvas->position(0,0);
+			canvas->size(window.size());
+			canvas->color(Color::TRANSPARENT);
 
-	{
-		Square * fillsquare = new Square(canvas);
-		fillsquare->position(center);
-		fillsquare->radius(100);
-		fillsquare->color(Color::GREEN,64);
-		fillsquare->thickness(0);
-	}
+		Point center(360, 360);
 
-	UIManager::desktop()->dispatch("test/out/square.svg");
+		{
+			Cross * cross = new Cross(canvas);
+			cross->color(Color::BLACK);
+			cross->thickness(3);
+			cross->position(center);
+			cross->radius(10);
+		}
+		{
+			Square * square = new Square(canvas);
+
+			square->radius(100);
+			square->position(center);
+			square->thickness(40);
+			square->color(Color::RED,64);
+		}
+
+		{
+			Square * fillsquare = new Square(canvas);
+			fillsquare->position(center);
+			fillsquare->radius(100);
+			fillsquare->color(Color::GREEN,64);
+			fillsquare->thickness(0);
+		}
+
+		UIManager::desktop()->dispatch("test/out/square.svg");
+	}
 }
 #endif

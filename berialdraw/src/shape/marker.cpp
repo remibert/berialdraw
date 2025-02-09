@@ -37,9 +37,14 @@ void Marker::paint(const Point & shift, const char * filled, const char * un_fil
 #ifdef _DEBUG
 void Marker::test()
 {
-	Circle::test();
-	Triangle::test();
-	Square::test();
-	Cross::test();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+		Circle::test();
+		Triangle::test();
+		Square::test();
+		Cross::test();
+	}
 }
 #endif

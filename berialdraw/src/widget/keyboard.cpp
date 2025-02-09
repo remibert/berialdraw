@@ -365,12 +365,17 @@ void Keyboard::test8()
 
 void Keyboard::test()
 {
-	test7();
-	test6();
-	test5();
-	test4();
-	test3();
-	test2();
-	test1();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+		test7();
+		test6();
+		test5();
+		test4();
+		test3();
+		test2();
+		test1();
+	}
 }
 #endif

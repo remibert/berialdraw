@@ -32,7 +32,7 @@ void PieStyle::set(const PieStyle & other)
 	m_start_angle = other.m_start_angle;
 	m_end_angle = other.m_end_angle;
 	m_rope       = other.m_rope;
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 }
 
 
@@ -58,14 +58,14 @@ Coord PieStyle::start_angle_() const
 /** Set the start angle in pixels */
 void PieStyle::start_angle(Coord v)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_start_angle = v << 6;
 }
 
 /** Set the start angle with a precision of 64th of a pixel */
 void PieStyle::start_angle_(Coord v)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_start_angle = v;
 }
 
@@ -84,14 +84,14 @@ Coord PieStyle::end_angle_() const
 /** Set the end angle in pixels */
 void PieStyle::end_angle(Coord v)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_end_angle = v << 6;
 }
 
 /** Set the end angle with a precision of 64th of a pixel */
 void PieStyle::end_angle_(Coord v)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_end_angle = v;
 }
 
@@ -105,6 +105,6 @@ bool PieStyle::rope() const
 /** Set the rope */
 void PieStyle::rope(bool v)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_rope = v;
 }

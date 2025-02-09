@@ -30,7 +30,7 @@ void Text::paint(const Point & shift)
 
 Size Text::content_size()
 {
-	if (m_font_modified || m_text_modified || m_angle_modified )
+	if (m_font_modified || m_text_modified || m_angle_modified)
 	{
 		Area area;
 		select_font();
@@ -73,7 +73,6 @@ void Text::test2()
 	Window window;
 		window.position(10,10);
 		window.size(460,460);
-		//window.color(Color::BROWN,32);
 
 	Canvas * canvas = new Canvas(&window);
 		canvas->position(10,10);
@@ -194,8 +193,13 @@ void Text::test3()
 
 void Text::test()
 {
-	test1();
-	test2();
-	test3();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+		test1();
+		test2();
+		test3();
+	}
 }
 #endif

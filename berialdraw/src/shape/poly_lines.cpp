@@ -20,41 +20,41 @@ PolyLines::PolyLines(const PolyLines & other):
 
 void PolyLines::prepend(Coord x, Coord y)
 {
-	UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(m_canvas, Invalidator::REDRAW);
 	Point p(x,y,true);
 	m_points.prepend(p);
 }
 
 void PolyLines::prepend_(Coord x, Coord y)
 {
-	UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(m_canvas, Invalidator::REDRAW);
 	Point p(x,y,false);
 	m_points.prepend(p);
 }
 
 void PolyLines::prepend(const Point & p)
 {
-	UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(m_canvas, Invalidator::REDRAW);
 	m_points.prepend(p);
 }
 
 void PolyLines::append(Coord x, Coord y)
 {
-	UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(m_canvas, Invalidator::REDRAW);
 	Point p(x,y,true);
 	m_points.append(p);
 }
 
 void PolyLines::append_(Coord x, Coord y)
 {
-	UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(m_canvas, Invalidator::REDRAW);
 	Point p(x,y,false);
 	m_points.append(p);
 }
 
 void PolyLines::append(const Point & p)
 {
-	UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(m_canvas, Invalidator::REDRAW);
 	m_points.append(p);
 }
 
@@ -537,8 +537,13 @@ void PolyLines::test3()
 
 void PolyLines::test()
 {
-	test2();
-	test1();
-	test0();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+		test2();
+		test1();
+		test0();
+	}
 }
 #endif

@@ -231,31 +231,36 @@ Size Font::char_size(wchar_t character)
 #ifdef _DEBUG
 void Font::test()
 {
-	Window window;
-		window.color(Color::WHITE);
-		window.size(480,480);
-
-	Canvas * canvas = new Canvas(&window);
-		canvas->size(440,440);
-		canvas->position(20,20);
-		canvas->color(Color::MINT_CREAM);
-
-	for (uint32_t angle = 0; angle < 360; angle += 30)
+	static bool done = false;
+	if (done == false)
 	{
-		Text * label = new Text(canvas);
-			label->color(Color::CADET_BLUE, 128);
+		done = true;
+		Window window;
+			window.color(Color::WHITE);
+			window.size(480,480);
 
-			// Set position of text
-			label->position(220,220);
+		Canvas * canvas = new Canvas(&window);
+			canvas->size(440,440);
+			canvas->position(20,20);
+			canvas->color(Color::MINT_CREAM);
 
-			// Change the rotation center to the left side
-			label->center(-100,30);
+		for (uint32_t angle = 0; angle < 360; angle += 30)
+		{
+			Text * label = new Text(canvas);
+				label->color(Color::CADET_BLUE, 128);
 
-			label->angle(angle);
-			label->text("|rémi %3d|",angle);
-			label->font_size(20,60);
+				// Set position of text
+				label->position(220,220);
+
+				// Change the rotation center to the left side
+				label->center(-100,30);
+
+				label->angle(angle);
+				label->text("|rémi %3d|",angle);
+				label->font_size(20,60);
+		}
+
+		UIManager::desktop()->dispatch("test/out/font_1.svg");
 	}
-
-	UIManager::desktop()->dispatch("test/out/font_1.svg");
 }
 #endif

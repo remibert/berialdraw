@@ -131,19 +131,19 @@ void Switch::on_key(Widget * widget, const KeyEvent & evt)
 		{
 			if (evt.key() == (wchar_t)ReservedKey::KEY_BACKSPACE || evt.key() == (wchar_t)ReservedKey::KEY_DELETE)
 			{
-				UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+				UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 				m_checked = (m_checked == 0 ? 1 : 0);
 				UIManager::notifier()->check(m_checked, this);
 			}
 			else if (evt.key() == (wchar_t)ReservedKey::KEY_RIGHT)
 			{
-				UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+				UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 				m_checked = 1;
 				UIManager::notifier()->check(m_checked, this);
 			}
 			else if (evt.key() == (wchar_t)ReservedKey::KEY_LEFT)
 			{
-				UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+				UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 				m_checked = 0;
 				UIManager::notifier()->check(m_checked, this);
 			}
@@ -156,7 +156,7 @@ void Switch::on_click(Widget * widget, const ClickEvent & evt)
 {
 	m_checked = (m_checked == 0 ? 1 : 0);
 	UIManager::notifier()->check(m_checked, this);
-	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 }
 
 
@@ -429,9 +429,14 @@ void Switch::test4()
 
 void Switch::test()
 {
-	test4();
-	test3();
-	test2();
-	test1();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+		test4();
+		test3();
+		test2();
+		test1();
+	}
 }
 #endif

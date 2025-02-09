@@ -6,7 +6,7 @@ using namespace berialdraw;
 ScreenCrc::ScreenCrc()
 {
 	m_crcs = 0;
-	m_filename = 0;
+	m_out_filename = 0;
 }
 
 /** Destructor */
@@ -35,9 +35,9 @@ void ScreenCrc::add(const String & filename, uint32_t crc_value)
 }
 
 /** Open screen crc file */
-void ScreenCrc::open(const String & crc_filename)
+void ScreenCrc::open(const String & out_filename, const String & ref_filename)
 {
-	if (crc_filename.size())
+	if (out_filename.size() > 0 && ref_filename.size() > 0)
 	{
 		if (m_crcs)
 		{
@@ -46,10 +46,10 @@ void ScreenCrc::open(const String & crc_filename)
 
 		delete m_crcs;
 		m_crcs = new Json;
-		m_filename = new String(crc_filename);
+		m_out_filename = new String(out_filename);
 
 		File file;
-		if (file.open(*m_filename,"rb") != -1)
+		if (file.open(ref_filename,"rb") != -1)
 		{
 			try
 			{
@@ -65,16 +65,16 @@ void ScreenCrc::open(const String & crc_filename)
 /** Close screen crc file */
 void ScreenCrc::close()
 {
-	if (m_crcs && m_filename)
+	if (m_crcs && m_out_filename)
 	{
 		File file;
-		if (file.open(*m_filename,"w") >= 0)
+		if (file.open(*m_out_filename,"w") >= 0)
 		{
 			m_crcs->serialize(file,1);
 		}
 		delete m_crcs;
-		delete m_filename;
+		delete m_out_filename;
 		m_crcs = 0;
-		m_filename = 0;
+		m_out_filename = 0;
 	}
 }

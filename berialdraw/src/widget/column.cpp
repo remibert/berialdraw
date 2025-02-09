@@ -53,7 +53,6 @@ void Column::linear_place()
 
 void Column::place(const Area & area, bool in_layout)
 {
-	//if(m_place)
 	if (UIManager::invalidator()->is_dirty(this))
 	{
 		if (m_flow)
@@ -63,7 +62,7 @@ void Column::place(const Area & area, bool in_layout)
 		else
 		{
 			linear_place();
-			//m_place = 0;
+			UIManager::invalidator()->undirty(this,Invalidator::GEOMETRY);
 		}
 		
 		Area marged_area(area);
@@ -125,7 +124,7 @@ bool Column::flow() const
 /** Set the flow */
 void Column::flow(bool v)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	Window * window = dynamic_cast<Window*>(root());
 	if (window)
 	{

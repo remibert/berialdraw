@@ -542,18 +542,15 @@ void Notifier::notify(Event * evt)
 /** Clean up call back according to widget handle */
 void Notifier::clean_up_callback(Widget *widget)
 {
-	//if ((widget == 0) || widget != 0)
+	for (uint32_t i = 0; i < m_callbacks.size(); i++)
 	{
-		for (uint32_t i = 0; i < m_callbacks.size(); i++)
+		Callable * callback = m_callbacks[i];
+		if (callback)
 		{
-			Callable * callback = m_callbacks[i];
-			if (callback)
+			if (callback->widget() == widget)
 			{
-				if (callback->widget() == widget)
-				{
-					delete callback;
-					m_callbacks[i] = 0;
-				}
+				delete callback;
+				m_callbacks[i] = 0;
 			}
 		}
 	}

@@ -157,6 +157,7 @@ Point ScrollView::compute_scroll_view(const Area & area, Point & scroll_position
 {
 	Point result;
 	Area fixed_area;
+
 	// If scroll size not specified
 	if (m_scroll_size.is_width_undefined() || m_scroll_size.is_height_undefined())
 	{
@@ -269,7 +270,7 @@ void ScrollView::paint(const Region & parent_region)
 void ScrollView::on_scroll(Widget * widget, const ScrollEvent & evt)
 {
 	m_scroll_position.move(evt.shift());
-	dirty_children(Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this,Invalidator::GEOMETRY);
 }
 
 /** Serialize the content of widget into json */
@@ -290,7 +291,7 @@ void ScrollView::unserialize(JsonIterator & it)
 /** Set scroll size */
 void ScrollView::scroll_size(const Size & size)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_scroll_size = size;
 }
 
@@ -310,21 +311,21 @@ const Size & ScrollView::scroll_size() const
 /** Set the scroll size with width and height in pixels */
 void ScrollView::scroll_size(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_scroll_size.set(w,h);
 }
 
 /** Set scroll position */
 void ScrollView::scroll_position(const Point & position)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_scroll_position = position;
 }
 
 /** Set the scroll position with x and y in pixels */
 void ScrollView::scroll_position(Coord x, Coord y)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_scroll_position.set(x,y);
 }
 
@@ -350,14 +351,14 @@ const Size & ScrollView::viewport_size() const
 /** Set viewport size */
 void ScrollView::viewport_size(const Size & size)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_viewport_size = size;
 }
 
 /** Set the viewport size with width and height in pixels */
 void ScrollView::viewport_size(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_viewport_size.set(w,h);
 }
 
@@ -746,12 +747,17 @@ void ScrollView::test8()
 
 void ScrollView::test()
 {
-	test7();
-	test6();
-//test5();
-	test4();
-	test3();
-	test2();
-	test1();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+		test7();
+		test6();
+	//test5();
+		test4();
+		test3();
+		test2();
+		test1();
+	}
 }
 #endif

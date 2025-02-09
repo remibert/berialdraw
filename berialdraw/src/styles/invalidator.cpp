@@ -24,9 +24,30 @@ void Invalidator::dirty(Style * object, enum Status status)
 	dirty((void*)object,status);
 }
 
+
 /** Add dirty object */
 void Invalidator::dirty(void * object, enum Status status)
 {
+	if (object)
+	{
+		int32_t i = search(object);
+		if (i >= 0)
+		{
+			m_widgets[i].status = (Status)(m_widgets[i].status | status);
+		}
+	}
+}
+
+/** Remove dirty object */
+void Invalidator::undirty(Widget * object, enum Status status)
+{
+	undirty((void*)object,status);
+}
+
+/** Return the index in table or -1 if not found */
+int32_t Invalidator::search(void * object)
+{
+	int32_t result = -1;
 	if (object)
 	{
 		bool found = false;
@@ -37,8 +58,7 @@ void Invalidator::dirty(void * object, enum Status status)
 			if ( (char*)object >= (char*)item.widget               && 
 				((char*)object <= (char*)item.widget + item.size))
 			{
-				m_widgets[i].status = (Status)(m_widgets[i].status | status);
-				found = true;
+				result = i;
 				break;
 			}
 
@@ -60,16 +80,29 @@ void Invalidator::dirty(void * object, enum Status status)
 				{
 					if (m_widgets[i].widget == widget_with_shape)
 					{
-						m_widgets[i].status = (Status)(m_widgets[i].status | status);
-						found = true;
+						result = i;
 						break;
 					}
 				}
 			}
 		}
 	}
+	return result;
 }
 
+
+/** Remove dirty object */
+void Invalidator::undirty(void * object, enum Status status)
+{
+	if (object)
+	{
+		int32_t i = search(object);
+		if (i >= 0)
+		{
+			m_widgets[i].status = (Status)(m_widgets[i].status & ~status);
+		}
+	}
+}
 
 
 
@@ -141,39 +174,70 @@ void Invalidator::clear(void * object)
 void Invalidator::update()
 {
 	uint32_t size = m_widgets.size();
+	bool geometry_window = false;
 	for (uint32_t i = 0; i < size; i++)
 	{
 		if (m_widgets[i].status != NOTHING)
 		{
-			Widget * parent = m_widgets[i].widget->parent();
-			while (parent)
+			if (m_widgets[i].status & GEOMETRY)
 			{
-				dirty(parent, m_widgets[i].status);
-				parent = parent->parent();
+				dirty(m_widgets[i].widget->root(),GEOMETRY);
+				geometry_window = true;
+			}
+		}
+	}
+
+	if (geometry_window)
+	{
+		uint32_t size = m_widgets.size();
+		for (uint32_t i = 0; i < size; i++)
+		{
+			if ((m_widgets[i].status & GEOMETRY) && (m_widgets[i].window == 1))
+			{
+				m_widgets[i].widget->dirty_children(GEOMETRY);
 			}
 		}
 	}
 }
 
 
+
 /** Add widget in the list */
 void Invalidator::add(Widget * widget, size_t size)
 {
-	struct InvalidatorItem item;
-	item.widget = widget;
-	item.shape = 0;
-	item.size = size;
-	m_widgets.push_back(item);
+	if (widget && size)
+	{
+		struct InvalidatorItem item;
+
+		if (widget->parent() == 0)
+		{
+			item.window = 1;
+		}
+		else
+		{
+			item.window = 0;
+		}
+		item.widget = widget;
+		item.shape = 0;
+		item.size = (uint16_t)size;
+		item.status = Invalidator::ALL;
+		m_widgets.push_back(item);
+	}
 }
 
 /** Add Shape in the list */
 void Invalidator::add(Widget * widget, Shape * shape, size_t size)
 {
-	struct InvalidatorItem item;
-	item.widget = widget;
-	item.shape = shape;
-	item.size = size;
-	m_widgets.push_back(item);
+	if (widget && size)
+	{
+		struct InvalidatorItem item;
+		item.widget = widget;
+		item.shape = shape;
+		item.window = 0;
+		item.size = (uint16_t)size;
+		item.status = Invalidator::ALL;
+		m_widgets.push_back(item);
+	}
 }
 
 /** Remove shape from the list */

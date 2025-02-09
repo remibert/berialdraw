@@ -52,7 +52,7 @@ void SliderStyle::set(const SliderStyle & other)
 	m_max_value     = other.m_max_value;
 	m_step_value    = other.m_step_value;
 	check_slider();
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 }
 
 Style * SliderStyle::create()
@@ -70,14 +70,14 @@ uint32_t SliderStyle::track_color() const
 /** Set the track color */
 void SliderStyle::track_color(uint32_t col)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_track_color = col;
 }
 
 /** Set the track color with alpha */
 void SliderStyle::track_color(uint32_t col, uint8_t alpha)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_track_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
@@ -90,14 +90,14 @@ Dim SliderStyle::track_size() const
 /** Set the track size in pixels */
 void SliderStyle::track_size(Dim size_)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_track_size = size_<<6;
 }
 
 /** Set the track size with a precision of 64th of a pixel */
 void SliderStyle::track_size_(Dim size_)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_track_size = size_;
 }
 
@@ -110,14 +110,14 @@ uint32_t SliderStyle::handle_color() const
 /** Set the slider color */
 void SliderStyle::handle_color(uint32_t col)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_handle_color = col;
 }
 
 /** Set the slider color with alpha */
 void SliderStyle::handle_color(uint32_t col, uint8_t alpha)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_handle_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
@@ -130,14 +130,14 @@ Dim SliderStyle::handle_size() const
 /** Set the handle size in pixels */
 void SliderStyle::handle_size(Dim size_)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_handle_size = size_<<6;
 }
 
 /** Set the handle size with a precision of 64th of a pixel */
 void SliderStyle::handle_size_(Dim size_)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_handle_size = size_;
 }
 
@@ -150,7 +150,7 @@ int32_t SliderStyle::value() const
 /** Set the value of slider */
 void SliderStyle::value(int32_t val)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_value = val;
 }
 
@@ -163,7 +163,7 @@ int32_t SliderStyle::min_value() const
 /** Set the min value of slider */
 void SliderStyle::min_value(int32_t val)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_min_value = val;
 }
 
@@ -176,7 +176,7 @@ int32_t SliderStyle::max_value() const
 /** Set the max value of slider */
 void SliderStyle::max_value(int32_t val)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_max_value = val;
 }
 
@@ -189,7 +189,7 @@ uint32_t SliderStyle::step_value() const
 /** Set the step value of slider */
 void SliderStyle::step_value(uint32_t val)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_step_value = val;
 }
 

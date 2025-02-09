@@ -133,6 +133,11 @@ uint32_t PolyPoints::count()
 #ifdef _DEBUG
 void PolyPoints::test()
 {
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+	}
 }
 #endif
 

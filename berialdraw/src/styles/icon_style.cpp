@@ -33,14 +33,14 @@ uint32_t Path::color() const
 /** Set the back color */
 void Path::color(uint32_t col)
 {
-	UIManager::invalidator()->dirty(m_parent, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(m_parent, Invalidator::REDRAW);
 	m_color = col;
 }
 
 /** Set the back color with alpha */
 void Path::color(uint32_t col, uint8_t alpha)
 {
-	UIManager::invalidator()->dirty(m_parent, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(m_parent, Invalidator::REDRAW);
 	m_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
@@ -104,21 +104,21 @@ const Size & IconStyle::resolution() const
 /** Set the resolution */
 void IconStyle::resolution(const Size & resolution_)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_resolution = resolution_;
 }
 
 /** Set the resolution with width and height in pixels */
 void IconStyle::resolution(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_resolution.set(w,h);
 }
 
 /** Set the resolution with a precision of 64th of a pixel */
 void IconStyle::resolution_(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_resolution.set_(w,h);
 }
 
@@ -126,7 +126,7 @@ void IconStyle::resolution_(Dim w, Dim h)
 @param z zoom value */
 void IconStyle::zoom(Dim z)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_zoom = z <<6;
 }
 		
@@ -141,7 +141,7 @@ Dim IconStyle::zoom()
 @param z zoom value shifted by 6 bits */
 void IconStyle::zoom_(Dim z)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_zoom = z;
 }
 		
@@ -161,7 +161,7 @@ const String & IconStyle::filename()
 /** Set filename value with string */
 void IconStyle::filename(const String & s)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	clear_paths();
 	m_filename = s;
 }
@@ -177,21 +177,21 @@ const Margin & IconStyle::icon_padding() const
 /** Set the icon_padding */
 void IconStyle::icon_padding(const Margin & m)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_icon_padding = m;
 }
 
 /** Set the icon_padding in pixels */
 void IconStyle::icon_padding(Dim top, Dim left, Dim bottom, Dim right)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_icon_padding.set(top,left,bottom,right);
 }
 
 /** Set the icon_padding with a precision of 64th of a pixel */
 void IconStyle::icon_padding_(Dim top, Dim left, Dim bottom, Dim right)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_icon_padding.set_(top,left,bottom,right);
 }
 
@@ -204,14 +204,14 @@ uint32_t IconStyle::icon_color() const
 /** Set the back icon_color */
 void IconStyle::icon_color(uint32_t col)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_icon_color = col;
 }
 
 /** Set the back icon_color with alpha */
 void IconStyle::icon_color(uint32_t col, uint8_t alpha)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_icon_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 

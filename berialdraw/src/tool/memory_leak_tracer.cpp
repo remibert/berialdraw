@@ -181,7 +181,6 @@ void MemoryLeakTracer::free(void* ptr) noexcept
 	}
 }
 
-
 /** Memory allocator */
 void * MemoryLeakTracer::alloc(std::size_t size)
 {
@@ -189,7 +188,9 @@ void * MemoryLeakTracer::alloc(std::size_t size)
 	if (size > 0)
 	{
 		if (MemoryLeakTracer::m_started) m_mutex.lock();
-		header = (MemHeader*)std::malloc(size + sizeof(MemHeader));
+		size_t alloc_size = size + sizeof(MemHeader);
+		header = (MemHeader*)std::malloc(alloc_size + 4);
+
 		if (!header)
 		{
 			m_mutex.unlock();
@@ -197,6 +198,12 @@ void * MemoryLeakTracer::alloc(std::size_t size)
 		}
 		else
 		{
+			// Mark allocated block has to check overflow
+			((char*)header)[alloc_size+0] = '[';
+			((char*)header)[alloc_size+1] = '#';
+			((char*)header)[alloc_size+2] = '#';
+			((char*)header)[alloc_size+3] = ']';
+
 			// Set default information
 			header->size = size;
 			header->id   = 0;
@@ -238,6 +245,18 @@ void MemoryLeakTracer::unalloc(void* ptr) noexcept
 		if (MemoryLeakTracer::m_started) m_mutex.lock();
 		MemHeader * header = (MemHeader*)ptr;
 		header--;
+
+		size_t alloc_size = header->size + sizeof(MemHeader);
+
+		// Checks if the allocated block has not overflowed in memory
+		if (((char*)header)[alloc_size+0] != '[' ||
+		    ((char*)header)[alloc_size+1] != '#' ||
+		    ((char*)header)[alloc_size+2] != '#' ||
+		    ((char*)header)[alloc_size+3] != ']')
+		{
+			// Memory corrupted
+			breakpoint();
+		}
 
 		// If analysis started
 		if (MemoryLeakTracer::m_started)

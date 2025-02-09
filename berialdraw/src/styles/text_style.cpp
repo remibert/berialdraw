@@ -43,7 +43,7 @@ void TextStyle::set(const TextStyle & other)
 	m_font_familly = other.m_font_familly;
 	m_font_size    = other.m_font_size;
 	m_text        = other.m_text;
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_text_modified = 1;
 	m_font_modified = 1;
 }
@@ -63,14 +63,14 @@ uint32_t TextStyle::text_color() const
 /** Set the text color */
 void TextStyle::text_color(uint32_t col)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_text_color = col;
 }
 
 /** Set the text color with alpha */
 void TextStyle::text_color(uint32_t col, uint8_t alpha)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_text_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
@@ -83,7 +83,7 @@ const String & TextStyle::font_familly()
 /** Set the font familly */
 void TextStyle::font_familly(const char * fontFamilly_)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::RESIZE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_font_modified = 1;
 	m_font_familly = fontFamilly_;
 }
@@ -97,7 +97,7 @@ const Size & TextStyle::font_size() const
 /** Set the font size */
 void TextStyle::font_size(const Size & font_size_)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::RESIZE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_font_modified = 1;
 	m_font_size = font_size_;
 }
@@ -105,7 +105,7 @@ void TextStyle::font_size(const Size & font_size_)
 /** Set the font size with width and height */
 void TextStyle::font_size(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::RESIZE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_font_modified = 1;
 	if(h == 0)
 	{
@@ -120,7 +120,7 @@ void TextStyle::font_size(Dim w, Dim h)
 /** Set the font size with a precision of 64th of a pixel */
 void TextStyle::font_size_(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::RESIZE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_font_modified = 1;
 	m_font_size.set_(w,h);
 }
@@ -159,7 +159,7 @@ void TextStyle::text(const char * text_, ...)
 	va_list args;
 	va_start(args, text_);
 	m_text_modified = 1;
-	UIManager::invalidator()->dirty(this, Invalidator::RESIZE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_text.vprint(text_, args);
 	va_end(args);
 }
@@ -168,7 +168,7 @@ void TextStyle::text(const char * text_, ...)
 void TextStyle::text(const String & str)
 {
 	m_text_modified = 1;
-	UIManager::invalidator()->dirty(this, Invalidator::RESIZE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_text = str;
 }
 
@@ -189,35 +189,35 @@ const Margin & TextStyle::padding() const
 /** Set the padding */
 void TextStyle::padding(const Margin & m)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_padding = m;
 }
 
 /** Set the padding in pixels */
 void TextStyle::padding(Dim top, Dim left, Dim bottom, Dim right)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_padding.set(top,left,bottom,right);
 }
 
 /** Set the padding with a precision of 64th of a pixel */
 void TextStyle::padding_(Dim top, Dim left, Dim bottom, Dim right)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_padding.set_(top,left,bottom,right);
 }
 
 /** Set the padding */
 void TextStyle::padding(Dim horizontal, Dim vertical)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_padding.set(vertical,horizontal,vertical,horizontal);
 }
 
 /** Set the padding */
 void TextStyle::padding(Dim value)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_padding.set(value,value,value,value);
 }
 
@@ -232,6 +232,6 @@ Align TextStyle::text_align() const
 /** Set the text align */
 void TextStyle::text_align(Align v)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_text_align = (Align)v;
 }

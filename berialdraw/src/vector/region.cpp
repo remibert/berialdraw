@@ -283,6 +283,7 @@ void Region::init_rect (RegionBoxes *	region, Coord x, Coord y, Dim width, Dim h
 	region->extents.y1 = y;
 	region->extents.x2 = x + width;
 	region->extents.y2 = y + height;
+	region->data = NULL;
 
 	if (!is_good_rect (&region->extents))
 	{
@@ -290,10 +291,6 @@ void Region::init_rect (RegionBoxes *	region, Coord x, Coord y, Dim width, Dim h
 		{
 			create (region);
 		}
-	}
-	else
-	{
-		region->data = NULL;
 	}
 }
 

@@ -301,7 +301,7 @@ void Slider::on_key(Widget * widget, const KeyEvent & evt)
 			if (notify)
 			{
 				check_slider();
-				UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+				UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 				UIManager::notifier()->slide(m_value, this);
 			}
 		}
@@ -335,7 +335,7 @@ void Slider::touch_handle(const Point & touch_position)
 	{
 		m_value = (int32_t)((((int64_t)m_max_value  - (int64_t)m_min_value)* position)/(length-m_handle_size));
 		check_slider();
-		UIManager::invalidator()->dirty(this, Invalidator::REPAINT);
+		UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 		UIManager::notifier()->slide(m_value, this);
 	}
 }
@@ -1343,10 +1343,15 @@ void Slider::test5()
 
 void Slider::test()
 {
-	test5();
-	test4();
-	test3();
-	test2();
-	test1();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+		test5();
+		test4();
+		test3();
+		test2();
+		test1();
+	}
 }
 #endif

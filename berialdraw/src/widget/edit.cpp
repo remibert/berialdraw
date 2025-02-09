@@ -220,7 +220,7 @@ void Edit::on_key(Widget * widget, const KeyEvent & evt)
 		{
 			on_key_down(evt.key(), evt.modifier());
 			m_text_modified = 1;
-			UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+			UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 		}
 	}
 }
@@ -252,7 +252,7 @@ void Edit::on_select(Widget * widget, const SelectEvent & evt)
 		{
 			m_select_from = UINT32_MAX;
 		}
-		UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	}
 }
 
@@ -270,7 +270,7 @@ void Edit::on_click(Widget * widget, const ClickEvent & evt)
 		{
 			select_text(position,position);
 		}
-		UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	}
 }
 
@@ -1529,13 +1529,18 @@ void Edit::test8()
 
 void Edit::test()
 {
-	test8();
-	test7();
-	test6();
-	test5();
-	test4();
-	test3();
-	test2();
-	test1();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+		test8();
+		test7();
+		test6();
+		test5();
+		test4();
+		test3();
+		test2();
+		test1();
+	}
 }
 #endif

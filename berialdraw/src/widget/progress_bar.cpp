@@ -538,9 +538,14 @@ void ProgressBar::test4()
 
 void ProgressBar::test()
 {
-	test4();
-	test3();
-	test2();
-	test1();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+		test4();
+		test3();
+		test2();
+		test1();
+	}
 }
 #endif

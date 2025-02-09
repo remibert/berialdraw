@@ -80,7 +80,7 @@ void Desktop::remove(Window * window)
 	size = m_windows.size();
 	for(uint32_t i = 0; i < size; i++)
 	{
-		UIManager::invalidator()->dirty(m_windows[i], Invalidator::REPAINT);
+		UIManager::invalidator()->dirty(m_windows[i], Invalidator::REDRAW);
 	}
 }
 
@@ -176,7 +176,6 @@ void Desktop::refresh(const char * snapshot)
 					// Flow replacement detected
 					if (window->flow_replacement())
 					{
-						//window->replace_all();
 						window->place();
 					}
 				}

@@ -380,10 +380,6 @@ void Json::test3()
 	assert(out == "{\"toto\":\"titi\",\"array\":1234,\"DEUX\":{\"one\":1,\"two\":\"2\"}}");
 
 	Item * deux_node = main["DEUX"];
-
-	//ItemObject * deux = dynamic_cast<ItemObject*>(deux_node->value());
-	//assert(deux->get(0)->name() == "one");
-	//assert(deux->get(1)->name() == "two");
 }
 
 void Json::test4()
@@ -1364,15 +1360,6 @@ void Json::test21()
 
 void Json::test22()
 {
-	//Json json;
-	//String out;
-	//JsonIterator win(json);
-	//win["position"]["x_"] = 0x8001;
-	//json.serialize(out);
-	//assert(out == "{\"position\":{\"x\":512.02}}");
-	//win["position"]["x_"] = 0x8002;
-	//json.serialize(out);
-	//assert(out == "{\"position\":{\"x\":512.02}}");
 }
 
 void Json::test23()
@@ -1381,32 +1368,37 @@ void Json::test23()
 
 void Json::test()
 {
-#ifdef _WIN32
-	DeviceWin32::show_console();
-#endif
-	test23();
-	test22();
-	test21();
-	test20();
-	test19();
-	test18();
-	test17();
-	test16();
-	test15();
-	test14();
-	test13();
-	test12();
-	test11();
-	test10();
-	test9();
-	test8();
-	test7();
-	test6();
-	test5();
-	test4();
-	test3();
-	test2();
-	test1();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+	#ifdef _WIN32
+		DeviceWin32::show_console();
+	#endif
+		test23();
+		test22();
+		test21();
+		test20();
+		test19();
+		test18();
+		test17();
+		test16();
+		test15();
+		test14();
+		test13();
+		test12();
+		test11();
+		test10();
+		test9();
+		test8();
+		test7();
+		test6();
+		test5();
+		test4();
+		test3();
+		test2();
+		test1();
+	}
 }
 
 #endif

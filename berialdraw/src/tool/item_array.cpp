@@ -141,7 +141,6 @@ void ItemArray::set(int32_t index, Item * value)
 {
 	if (value)
 	{
-		//value->set_parent(this);
 		if (m_array.inbound(index))
 		{
 			Item * previous = m_array.operator[](index);

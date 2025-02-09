@@ -264,8 +264,13 @@ void Styles::test3()
 
 void Styles::test()
 {
-	test3();
-	test2();
-	test1();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+		test3();
+		test2();
+		test1();
+	}
 }
 #endif

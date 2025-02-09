@@ -7,7 +7,7 @@ Widget::Widget(const char * classname, Widget * parent, size_t size_of_widget):
 	m_parent(parent)
 {
 	UIManager::invalidator()->add(this, size_of_widget);
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 	m_pressed   = 0;
 	m_focused   = 0;
 	m_focusable = 0;
@@ -73,7 +73,7 @@ Widget::~Widget()
 	{
 		if (UIManager::invalidator())
 		{
-			UIManager::invalidator()->dirty(m_parent, Invalidator::REPLACE);
+			UIManager::invalidator()->dirty(m_parent, Invalidator::GEOMETRY);
 		}
 		// If the parent has children
 		if(m_parent->m_children)
@@ -462,8 +462,8 @@ void Widget::focus_to(Widget * & current_focus, Widget * new_focus)
 			{
 				current_focus->m_focused = 0;
 			}
-			UIManager::invalidator()->dirty(current_focus, Invalidator::REPAINT);
-			UIManager::invalidator()->dirty(new_focus, Invalidator::REPAINT);
+			UIManager::invalidator()->dirty(current_focus, Invalidator::REDRAW);
+			UIManager::invalidator()->dirty(new_focus, Invalidator::REDRAW);
 			current_focus = new_focus;
 			
 			new_focus->m_focused = 1;
@@ -478,7 +478,7 @@ void Widget::focus_next(Widget * & widget)
 
 	if (widget)
 	{
-		UIManager::invalidator()->dirty(widget, Invalidator::REPAINT);
+		UIManager::invalidator()->dirty(widget, Invalidator::REDRAW);
 		widget->m_focused = 0;
 	}
 
@@ -539,7 +539,7 @@ void Widget::focus_next(Widget * & widget)
 
 		if (new_widget_focus)
 		{
-			UIManager::invalidator()->dirty(new_widget_focus, Invalidator::REPAINT);
+			UIManager::invalidator()->dirty(new_widget_focus, Invalidator::REDRAW);
 			widget = new_widget_focus;
 			new_widget_focus->m_focused = 1;
 
@@ -562,7 +562,7 @@ void Widget::focus_previous(Widget * & widget)
 	focusables(all);
 	if (widget)
 	{
-		UIManager::invalidator()->dirty(widget, Invalidator::REPAINT);
+		UIManager::invalidator()->dirty(widget, Invalidator::REDRAW);
 		widget->m_focused = 0;
 	}
 	if (all.size() >= 1)
@@ -621,7 +621,7 @@ void Widget::focus_previous(Widget * & widget)
 		}
 		if (new_widget_focus)
 		{
-			UIManager::invalidator()->dirty(new_widget_focus, Invalidator::REPAINT);
+			UIManager::invalidator()->dirty(new_widget_focus, Invalidator::REDRAW);
 			widget = new_widget_focus;
 			new_widget_focus->m_focused = 1;
 			ScrollView * scroll_view = dynamic_cast<ScrollView*>(widget->scroll_view());

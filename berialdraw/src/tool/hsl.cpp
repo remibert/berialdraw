@@ -303,22 +303,13 @@ uint32_t Hsl::luminance(uint32_t color)
 // Indicates if the constrast is readable 
 uint32_t Hsl::delta_contrast(uint32_t color1, uint32_t color2)
 {
-	//if ((color1 & 0xFF) >= 248)
-	//{
-	//	color1 = color1;
-	//}
 	uint32_t luminance1 = luminance(color1);
 	uint32_t luminance2 = luminance(color2);
-
 
 	uint32_t v1 = (max(luminance1, luminance2) + 500) * 10000;
 	uint32_t v2 =  min(luminance1, luminance2) + 500;
 
 	uint32_t result = v1/v2;
-	//bd_printf("[0x%08X, 0x%08X, %d.%04d, %d.%04d, %d.%04d],\n", color1,color2,
-	//	result/10000,result%10000,
-	//	luminance1/10000,luminance1%10000,
-	//	luminance2/10000,luminance2%10000);
 	return result;
 }
 

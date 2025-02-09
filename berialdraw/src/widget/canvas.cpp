@@ -109,7 +109,7 @@ void Canvas::paint(const Region & parent_region)
 /** Add shape into the canvas (all shapes added will be destroyed when the canvas destroy) */
 void Canvas::add(Shape * shape, size_t shape_size)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REPLACE);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	if(shape)
 	{
 		bool found = false;
@@ -402,10 +402,15 @@ void Canvas::test5()
 
 void Canvas::test()
 {
-	test5();
-	test4();
-	test3();
-	test2();
-	test1();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+		test5();
+		test4();
+		test3();
+		test2();
+		test1();
+	}
 }
 #endif

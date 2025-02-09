@@ -14,13 +14,12 @@ Grid::~Grid()
 
 void Grid::place(const Area & area, bool in_layout)
 {
-	//if(m_place)
 	if (UIManager::invalidator()->is_dirty(this))
 	{
 		Area marged_area(area);
 		marged_area.decrease(margin());
 		m_cells.place(this, marged_area);
-		//m_place = 0;
+		UIManager::invalidator()->undirty(this,Invalidator::GEOMETRY);
 	}
 }
 
@@ -611,11 +610,16 @@ void Grid::test6()
 
 void Grid::test()
 {
-	test6();
-	test5();
-	test4();
-	test3();
-	test2();
-	test1();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+		test6();
+		test5();
+		test4();
+		test3();
+		test2();
+		test1();
+	}
 }
 #endif

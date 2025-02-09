@@ -494,11 +494,16 @@ void Pie::test5()
 
 void Pie::test()
 {
-	test5();
-	test4();
-	test3();
-	test2();
-	test1();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+		test5();
+		test4();
+		test3();
+		test2();
+		test1();
+	}
 }
 
 #endif

@@ -9,7 +9,7 @@ Shape::Shape(Canvas * canvas, size_t shape_size):
 	
 	if(canvas)
 	{
-		UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
+		UIManager::invalidator()->dirty(m_canvas, Invalidator::REDRAW);
 		canvas->add(this, shape_size);
 	}
 }
@@ -18,7 +18,7 @@ Shape::~Shape()
 {
 	if(m_canvas)
 	{
-		UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
+		UIManager::invalidator()->dirty(m_canvas, Invalidator::REDRAW);
 		m_canvas->remove(this);
 	}
 }
@@ -36,7 +36,7 @@ Shape::Shape(const Shape & other)
 
 	if(m_canvas)
 	{
-		UIManager::invalidator()->dirty(m_canvas, Invalidator::REPLACE);
+		UIManager::invalidator()->dirty(m_canvas, Invalidator::GEOMETRY);
 		m_canvas->add(this, sizeof(Shape));
 	}
 }

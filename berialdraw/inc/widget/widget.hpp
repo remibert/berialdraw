@@ -10,6 +10,7 @@ namespace berialdraw
 	class Widget : public CommonStyle, public WidgetStyle
 	{
 	friend class Cells;
+	friend class Invalidator;
 	public:
 		/** Create widget */
 		Widget(const char * classname, Widget * parent, size_t size_of_widget);

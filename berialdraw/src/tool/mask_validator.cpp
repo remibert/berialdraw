@@ -693,7 +693,12 @@ void MaskValidator::test1()
 // Unitary test
 void MaskValidator::test()
 {
-	test1();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+		test1();
+	}
 }
 #endif
 

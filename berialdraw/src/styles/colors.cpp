@@ -213,9 +213,14 @@ void Colors::test4()
 
 void Colors::test()
 {
-	test1();
-	test2();
-	test3();
-	test4();
+	static bool done = false;
+	if (done == false)
+	{
+		done = true;
+		test1();
+		test2();
+		test3();
+		test4();
+	}
 }
 #endif
