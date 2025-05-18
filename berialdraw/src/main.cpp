@@ -2,10 +2,16 @@
 #include "samples/samples.hpp"
 
 // Screen resolution
-const int SCREEN_WIDTH = 960;
-const int SCREEN_HEIGHT = 960;
+const int ZOOM = 2;
+const int SCREEN_WIDTH  = 480*ZOOM;
+const int SCREEN_HEIGHT = 480*ZOOM;
 
 using namespace berialdraw; 
+
+
+#include <stdio.h>
+#include <freetype/fttrigon.h>
+
 
 #if defined(WIN32)
 int WINAPI WinMain(HINSTANCE h_instance, HINSTANCE h_prev_instance, LPSTR lp_cmd_line, int i_cmd_show)
@@ -16,16 +22,15 @@ int main(int argc, char* args[])
 	// Start memory leak tracer
 	MemoryLeakTracer::start();
 
-
 	// Stop the debugger while allocating the memory block with the specified id.
 	// Very useful for finding a memory leak
-	//MemoryLeakTracer::break_at(132650);
+	//MemoryLeakTracer::break_at(5587);
 	{
 		// Execute unitary test
 		test_unitary();
 
 		// Start and init berial draw library
-		UIManager::init(new DeviceScreen("Test BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888, 2);
+		UIManager::init(new DeviceScreen("Test BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888,ZOOM);
 
 		// Select the CRC checks for the screens to verify whether the tests are successful or not.
 		UIManager::screen_crc()->open("test/out/all_crcs.json","test/ref/all_crcs.json");

@@ -38,7 +38,7 @@ public:
 	@param sides Number of sides of the polygon (approximating a rounded rectangle).
 	@param backcolor Background color of the rectangle.
 	@param bordercolor Border color of the rectangle. */
-	static void build_polygon(const Area & area, const Point & shift, Dim radius, Dim thickness, Dim gap, uint8_t sides, uint32_t backcolor, uint32_t bordercolor);
+	static void build_polygon(const Area & area, const Point & shift, Dim radius, Dim thickness, Dim gap, uint8_t sides, uint32_t backcolor, uint32_t bordercolor, Dim focus_thickness=0);
 
 	/** Renders the outline of the rectangle on the canvas.
 	@param shift Offset to apply while rendering. */
@@ -53,44 +53,12 @@ public:
 
 protected:
 /// @cond DOXYGEN_IGNORE
-	/** Generates the top-right corner of the rectangle with the specified radius.
-	@param x X-coordinate of the corner.
-	@param y Y-coordinate of the corner.
-	@param r Radius of the corner.
-	@param clockwise Specifies the drawing direction (clockwise or counter-clockwise). */
-	void top_right_corner(Coord x, Coord y, Coord r, bool clockwise);
-
-	/**
-	 * Generates the top-left corner of the rectangle with the specified radius.
-	 * @param x X-coordinate of the corner.
-	 * @param y Y-coordinate of the corner.
-	 * @param r Radius of the corner.
-	 * @param clockwise Specifies the drawing direction (clockwise or counter-clockwise).
-	 */
-	void top_left_corner(Coord x, Coord y, Coord r, bool clockwise);
-
-	/** Generates the bottom-left corner of the rectangle with the specified radius.
-	@param x X-coordinate of the corner.
-	@param y Y-coordinate of the corner.
-	@param r Radius of the corner.
-	@param clockwise Specifies the drawing direction (clockwise or counter-clockwise). */
-	void bottom_left_corner(Coord x, Coord y, Coord r, bool clockwise);
-
-	/**
-	 * Generates the bottom-right corner of the rectangle with the specified radius.
-	 * @param x X-coordinate of the corner.
-	 * @param y Y-coordinate of the corner.
-	 * @param r Radius of the corner.
-	 * @param clockwise Specifies the drawing direction (clockwise or counter-clockwise).
-	 */
-	void bottom_right_corner(Coord x, Coord y, Coord r, bool clockwise);
-
-	/** Draws a rectangle on the canvas with specified dimensions.
-	@param x X-coordinate of the rectangle's top-left corner.
-	@param y Y-coordinate of the rectangle's top-left corner.
-	@param width Width of the rectangle.
-	@param height Height of the rectangle.
-	@param clockwise Specifies the drawing direction (clockwise or counter-clockwise).*/
+	///** Draws a rectangle on the canvas with specified dimensions.
+	//@param x X-coordinate of the rectangle's top-left corner.
+	//@param y Y-coordinate of the rectangle's top-left corner.
+	//@param width Width of the rectangle.
+	//@param height Height of the rectangle.
+	//@param clockwise Specifies the drawing direction (clockwise or counter-clockwise).*/
 	void draw_rect(Coord x, Coord y, Coord width, Coord height, bool clockwise);
 
 	/**
@@ -98,14 +66,8 @@ protected:
 	 */
 	void create_part();
 
-	/** Creates a polygon object for the rectangle with specified parameters.
-	@param polygon Reference to the polygon object to be created.
-	@param position Position of the rectangle.
-	@param size Size of the rectangle.
-	@param thickness Thickness of the border.
-	@param radius Radius for rounded corners.
-	@param angle Rotation angle of the rectangle. */
-	static void create_polygon(Polygon & polygon, const Point & position, const Size & size, Dim thickness, Dim radius, Coord angle);
+	inline void edge    (Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags);
+	
 
 	/// Polygon representation of the rectangle's outline.
 	Polygon m_polygon;

@@ -24,41 +24,84 @@ Coord round_(Coord value)
 	return value;
 }
 
-void Rect::build_polygon(const Area & area, const Point & shift_, Dim radius, Dim thickness, Dim gap, uint8_t sides, uint32_t backcolor, uint32_t bordercolor)
+void Rect::build_polygon(const Area & area, const Point & shift_, Dim radius, Dim thickness, Dim gap, uint8_t sides, uint32_t backcolor, uint32_t bordercolor, Dim focus_thickness)
 {
 	thickness = min(area.size().width_(), min(area.size().height_(), thickness));
 
 	Size  siz = area.size();
 	Point pos = area.position();
+	Coord delta;
+
+	Rect border(0);
+		border.radius_(radius);
+
+	if (focus_thickness)
+	{
+		delta = thickness>>1;
+		pos.move_(-delta - gap-(focus_thickness>>1),-delta - gap-(focus_thickness>>1));
+
+		delta = (thickness)>>7;
+		siz.decrease(delta<<1,delta<<1);
+		siz.increase_((thickness<<1)+gap+gap+focus_thickness,(thickness<<1)+gap+gap+focus_thickness);
+		border.thickness_(focus_thickness);
+		border.radius_(radius +  (thickness>>1) + (focus_thickness>>1));
+
+		// If the focus thickness is odd
+		if ((focus_thickness >> 6) % 2)
+		{
+			if (((pos.x_() >> 5) & 1) == 0)
+			{
+				// Shift by half a pixel to have a thinner line
+				pos.move_(-32,0);
+			}
+			if (((pos.y_() >> 5) & 1) == 0)
+			{
+				// Shift by half a pixel to have a thinner line
+				pos.move_(0,-32);
+			}
+		}
+		else
+		{
+			if (((pos.x_() >> 5) & 1) == 1)
+			{
+				// Shift by half a pixel to have a thinner line
+				pos.move_(-32,0);
+			}
+			if (((pos.y_() >> 5) & 1) == 1)
+			{
+				// Shift by half a pixel to have a thinner line
+				pos.move_(0,-32);
+			}
+		}
+	}
+	else
+	{
+		border.thickness_(thickness);
+		delta = (thickness)>>7;
+		siz.decrease(delta<<1,delta<<1);
+		siz.increase_(thickness,thickness);
+
+		// If the thickness is odd
+		if ((thickness >> 6) % 2)
+		{
+			// Shift by half a pixel to have a thinner line
+			pos.move_(-32,-32);
+		}
+	}
+
+	border.size(siz);
 
 	if(backcolor)
 	{
-		Dim delta = thickness>>7;
-		pos.move(delta,delta);
-		siz.decrease(delta<<1,delta<<1);
-		Rect background(0);
-			background.size(siz);
-			background.radius_(radius);
-			background.color(backcolor);
-			background.paint(pos);
+		border.color(backcolor);
+		border.sides(sides|Side::INNER_AREA);
+		border.paint(pos);
 	}
-
-	if(bordercolor && thickness)
+	if(bordercolor && (thickness || focus_thickness))
 	{
-		Dim delta = (thickness+32+gap+gap)>>7;
-		pos.move(0-delta,0-delta);
-		siz.increase_(thickness+gap+gap,thickness+gap+gap);
-		Rect border(0);
-			border.thickness_(thickness);
-			border.radius_(radius+gap);
-			border.color(bordercolor);
-			border.sides(sides);
-			if ((thickness >> 6) % 2)
-			{
-				pos.move_(0- 32,0-32);
-			}
-			border.size(siz);
-			border.paint(pos);
+		border.color(bordercolor);
+		border.sides(sides);
+		border.paint(pos);
 	}
 }
 
@@ -76,91 +119,6 @@ void Rect::paint(const Point & shift)
 	{
 		create_part();
 		UIManager::renderer()->draw(*this, shift);
-	}
-}
-
-
-void Rect::top_right_corner(Coord x, Coord y, Coord r, bool clockwise)
-{
-	Coord d = (r*27146)>>16;
-	m_polygon.add_point_(x    , y    ); 
-	if (r != 0)
-	{
-		if (clockwise)
-		{
-			m_polygon.add_conic_(x+d  , y    );
-			m_polygon.add_conic_(x+r  , y+r-d);
-			m_polygon.add_point_(x+r  , y+r  );
-		}
-		else
-		{
-			m_polygon.add_conic_(x    , y-d  );
-			m_polygon.add_conic_(x-r+d, y-r  );
-			m_polygon.add_point_(x-r  , y-r  ); 
-		}
-	}
-}
-
-void Rect::top_left_corner(Coord x, Coord y, Coord r, bool clockwise)
-{
-	Coord d = (r*27146)>>16;
-	m_polygon.add_point_(x    , y    ); 
-	if (r != 0)
-	{
-		if (clockwise)
-		{
-			m_polygon.add_conic_(x    , y-d );
-			m_polygon.add_conic_(x+r-d, y-r );
-			m_polygon.add_point_(x+r  , y-r );
-		}
-		else
-		{
-			m_polygon.add_conic_(x-d  ,y    );
-			m_polygon.add_conic_(x-r  ,y+r-d);
-			m_polygon.add_point_(x-r  ,y+r  );
-		}
-	}
-}
-
-void Rect::bottom_left_corner(Coord x, Coord y, Coord r, bool clockwise)
-{
-	Coord d = (r*27146)>>16;
-	m_polygon.add_point_(x    , y    ); 
-	if (r != 0)
-	{
-		if (clockwise)
-		{
-			m_polygon.add_conic_(x-d  , y    );
-			m_polygon.add_conic_(x-r  , y-r+d);
-			m_polygon.add_point_(x-r  , y-r  );
-		}
-		else
-		{
-			m_polygon.add_conic_(x    , y+d  );
-			m_polygon.add_conic_(x+r-d, y+r  );
-			m_polygon.add_point_(x+r  , y+r  ); 
-		}
-	}
-}
-
-void Rect::bottom_right_corner(Coord x, Coord y, Coord r, bool clockwise)
-{
-	Coord d = (r*27146)>>16;
-	m_polygon.add_point_(x    ,y    );
-	if (r != 0)
-	{
-		if (clockwise)
-		{
-			m_polygon.add_conic_(x    ,y+d  );
-			m_polygon.add_conic_(x-r+d,y+r  );
-			m_polygon.add_point_(x-r  ,y+r  );
-		}
-		else
-		{
-			m_polygon.add_conic_(x+d   ,y    );
-			m_polygon.add_conic_(x+r   ,y-r+d);
-			m_polygon.add_point_(x+r   ,y-r  );
-		}
 	}
 }
 
@@ -182,232 +140,231 @@ void Rect::draw_rect(Coord x, Coord y, Coord width, Coord height, bool clockwise
 	m_polygon.next_contour();
 }
 
+void Rect::edge(Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags)
+{
+	uint32_t adding_flags = 0;
+	if (m_sides & Side::RECTANGULAR_EXTREMITY)
+	{
+		adding_flags = Polygon::FLAG_RECTANGULAR;
+	}
+
+	if (m_sides & Side::INNER_AREA)
+	{
+		adding_flags |= Polygon::FLAG_INNER;
+	}
+
+	m_polygon.arc_(x,y,radius,thickness,flags|adding_flags);
+}
+
 void Rect::create_part()
 {
 	Coord w = m_size.width_();
 	Coord h = m_size.height_();
-	Coord r = m_radius;
-	Coord t = m_thickness;
+	Coord radius = m_radius;
+	Coord thickness = m_thickness;
 
-	if(r > (Coord)m_size.width_()/2)
+	if(radius > (Coord)m_size.width_()/2)
 	{
-		r = m_size.width_()/2;
+		radius = m_size.width_()/2;
 	}
-	if(r > (Coord)m_size.height_()/2)
+	if(radius > (Coord)m_size.height_()/2)
 	{
-		r = m_size.height_()/2;
+		radius = m_size.height_()/2;
 	}
-	if(t > (Coord)m_size.width_())
+	if(thickness > (Coord)m_size.width_())
 	{
-		t = m_size.width_();
+		thickness = m_size.width_();
 	}
-	if(t > (Coord)m_size.height_())
+	if(thickness > (Coord)m_size.height_())
 	{
-		t = m_size.height_();
+		thickness = m_size.height_();
 	}
 
-	Coord R = r + t;
-	t = t>>1;
-
-	if (r == 0)
-	{
-		R = 0;
-	}
+	Coord t = thickness>>1;
+	Coord R = radius +t;
+	Coord r = radius -t;
 
 	m_polygon.clear();
-	if (m_radius == 0)// && m_thickness == 0)
 	{
-		switch(sides())
+		if (radius <= 0)
 		{
-		case CommonStyle::NO_SIDE               : 
-			break;
-
-		// One side
-		case CommonStyle::TOP_SIDE              : 
-			draw_rect(-t, -t, w+t+t, t+t, true);
-			break;
-
-		case CommonStyle::RIGHT_SIDE            : 
-			draw_rect(w-t, -t, t+t, t+t+h, true);
-			break;
-
-		case CommonStyle::BOTTOM_SIDE           : 
-			draw_rect(-t, h-t, w+t+t, t+t, true);
-			break;
-
-		case CommonStyle::LEFT_SIDE             : 
-			draw_rect(-t, -t, t+t, t+t+h, true);
-			break;
-
-		// Two sides parallel
-		case CommonStyle::TOP_BOTTOM_SIDE       : 
-			draw_rect(-t,  -t, w+t+t, t+t, true);
-			draw_rect(-t, h-t, w+t+t, t+t, true);
-			break;
-
-		case CommonStyle::LEFT_RIGHT_SIDE       : 
-			draw_rect(w-t, -t, t+t, t+t+h, true);
-			draw_rect(-t,  -t, t+t, t+t+h, true);
-			break;
-
-		default:
-			draw_rect(-t, -t, w+t+t, h+t+t, true);
-			if (m_thickness > 0)
-			{
-				draw_rect(t, t, w-t-t, h-t-t, false);
-			}
-			break;
+			r = -thickness;
+			R = 0;
 		}
-	}
-	else
-	{
+
 		// Fill completly
-		if (m_thickness == 0)
+		if (thickness == 0)
 		{
-			top_right_corner   (w+t-R  ,-t     ,R, true);
-			bottom_right_corner(w+t    ,h+t-R  ,R, true);
-			bottom_left_corner (-t+R   ,h+t    ,R, true);
-			top_left_corner    (-t     ,R-t    ,R, true);
+			edge(-t   ,  R-t,R,R,Polygon::LEFT_TO_TOP);
+			edge(w+t-R,   -t,R,R,Polygon::TOP_TO_RIGHT);
+			edge(w+t  ,h+t-R,R,R,Polygon::RIGHT_TO_BOTTOM);
+			edge(-t+R ,  h+t,R,R,Polygon::BOTTOM_TO_LEFT);
 			m_polygon.next_contour();
 		}
 		// Empty rectangle
 		else
 		{
-			switch(sides())
+			switch(sides() & ALL_SIDES)
 			{
-			case CommonStyle::NO_SIDE               : 
+			case NO_SIDE               : 
 				break;
 
 			// One side
-			case CommonStyle::TOP_SIDE              : 
-				draw_rect(-t, -t, w+t+t, t+t, true);
+			case TOP_BOTTOM_SIDE       : 
+			case TOP_SIDE              : 
+			case BOTTOM_SIDE           : 
+				if ((m_sides & INNER_AREA) == 0)
+				{
+					if (sides() == TOP_SIDE || sides() == TOP_BOTTOM_SIDE)
+					{
+						edge(R-t  , -t, R, thickness, Polygon::TOP_TO_LEFT  | Polygon::FLAG_EXTREMITY);
+						edge(w+t-R, -t, R, thickness, Polygon::TOP_TO_RIGHT | Polygon::FLAG_REVERSE | Polygon::FLAG_EXTREMITY);
+						m_polygon.next_contour();
+					}
+
+					if (sides() == BOTTOM_SIDE || sides() == TOP_BOTTOM_SIDE)
+					{
+						edge(R-t  , h+t, R, thickness, Polygon::BOTTOM_TO_LEFT  | Polygon::FLAG_EXTREMITY);
+						edge(w+t-R, h+t, R, thickness, Polygon::BOTTOM_TO_RIGHT | Polygon::FLAG_REVERSE | Polygon::FLAG_EXTREMITY);
+						m_polygon.next_contour();
+					}
+				}
 				break;
 
-			case CommonStyle::RIGHT_SIDE            : 
-				draw_rect(w-t, -t, t+t, t+t+h, true);
-				break;
-
-			case CommonStyle::BOTTOM_SIDE           : 
-				draw_rect(-t, h-t, w+t+t, t+t, true);
-				break;
-
-			case CommonStyle::LEFT_SIDE             : 
-				draw_rect(-t, -t, t+t, t+t+h, true);
-				break;
-
-			// Two sides parallel
-			case CommonStyle::TOP_BOTTOM_SIDE       : 
-				draw_rect(-t,  -t, w+t+t, t+t, true);
-				draw_rect(-t, h-t, w+t+t, t+t, true);
-				break;
-
-			case CommonStyle::LEFT_RIGHT_SIDE       : 
-				draw_rect(w-t, -t, t+t, t+t+h, true);
-				draw_rect(-t,  -t, t+t, t+t+h, true);
+			case LEFT_RIGHT_SIDE       :
+			case LEFT_SIDE             : 
+			case RIGHT_SIDE            : 
+				if ((m_sides & INNER_AREA) == 0)
+				{
+					if (sides() == RIGHT_SIDE || sides() == LEFT_RIGHT_SIDE)
+					{
+						edge(w+t, R-t  , R, thickness, Polygon::RIGHT_TO_TOP    | Polygon::FLAG_EXTREMITY);
+						edge(w+t, h+t-R, R, thickness, Polygon::RIGHT_TO_BOTTOM | Polygon::FLAG_REVERSE | Polygon::FLAG_EXTREMITY);
+						m_polygon.next_contour();
+					}
+					if (sides() == LEFT_SIDE || sides() == LEFT_RIGHT_SIDE)
+					{
+						edge(-t, R-t  , R, thickness, Polygon::LEFT_TO_TOP    | Polygon::FLAG_EXTREMITY);
+						edge(-t, h+t-R, R, thickness, Polygon::LEFT_TO_BOTTOM | Polygon::FLAG_REVERSE | Polygon::FLAG_EXTREMITY);
+						m_polygon.next_contour();
+					}
+				}
 				break;
 
 			// Two sides corner
-			case CommonStyle::TOP_RIGHT_SIDE        : 
-				m_polygon.add_point_(-t    ,-t   );
-				top_right_corner    (w+t-R ,-t   ,R, true);
-				m_polygon.add_point_(w+t   ,h+t  );
-				m_polygon.add_point_(w-t   ,h+t  );
-				top_right_corner    (w-t   ,R-t  ,r, false);
-				m_polygon.add_point_(-t    ,t    );
-				m_polygon.next_contour();
+			case TOP_RIGHT_SIDE        : 
+				if ((m_sides & INNER_AREA) == 0)
+				{
+					edge(R-t  , -t  , R, thickness, Polygon::TOP_TO_LEFT     | Polygon::FLAG_EXTREMITY);
+					edge(w+t-R, t   , r, r        , Polygon::TOP_TO_RIGHT    | Polygon::FLAG_INTERNAL);
+					edge(w+t  ,h+t-R, R, thickness, Polygon::RIGHT_TO_BOTTOM | Polygon::FLAG_REVERSE| Polygon::FLAG_EXTREMITY);
+					edge(w+t  , R-t , R, R        , Polygon::RIGHT_TO_TOP);
+					m_polygon.next_contour();
+				}
 				break;
 
-			case CommonStyle::TOP_LEFT_SIDE         : 
-				m_polygon.add_point_(-t    ,h+t  );
-				top_left_corner     (-t    ,R-t  ,R, true);
-				m_polygon.add_point_(w+t   ,-t   );
-				m_polygon.add_point_(w+t   ,t    );
-				top_left_corner     (R-t   ,t    ,r, false);
-				m_polygon.add_point_(t     ,h+t  );
-				m_polygon.next_contour();
+			case TOP_LEFT_SIDE         : 
+				if ((m_sides & INNER_AREA) == 0)
+				{
+					edge(-t   , h+t-R, R, thickness, Polygon::LEFT_TO_BOTTOM | Polygon::FLAG_EXTREMITY);
+					edge(t    , R-t  , r, r        , Polygon::LEFT_TO_TOP    | Polygon::FLAG_INTERNAL);
+					edge(w+t-R, -t   , R, thickness, Polygon::TOP_TO_RIGHT   | Polygon::FLAG_REVERSE| Polygon::FLAG_EXTREMITY);
+					edge(R-t  , -t   , R, R        , Polygon::TOP_TO_LEFT);
+					m_polygon.next_contour();
+				}
 				break;
 
-			case CommonStyle::BOTTOM_RIGHT_SIDE     : 
-				m_polygon.add_point_(w+t   ,-t    );
-				bottom_right_corner (w+t   ,h+t-R ,R, true);
-				m_polygon.add_point_(-t    ,h+t   );
-				m_polygon.add_point_(-t    ,h-t   );
-				bottom_right_corner (w+t-R ,h-t   ,r, false);
-				m_polygon.add_point_(w-t   ,-t    );
-				m_polygon.next_contour();
+			case BOTTOM_RIGHT_SIDE     : 
+				if ((m_sides & INNER_AREA) == 0)
+				{
+					edge(w+t  , R-t  , R, thickness, Polygon::RIGHT_TO_TOP    | Polygon::FLAG_EXTREMITY);
+					edge(w-t  , h+t-R, r, r        , Polygon::RIGHT_TO_BOTTOM | Polygon::FLAG_INTERNAL);
+					edge(R-t  , h+t  , R, thickness, Polygon::BOTTOM_TO_LEFT  | Polygon::FLAG_REVERSE| Polygon::FLAG_EXTREMITY);
+					edge(w+t-R, h+t  , R, R        , Polygon::BOTTOM_TO_RIGHT);
+					m_polygon.next_contour();
+				}
 				break;
 
-			case CommonStyle::BOTTOM_LEFT_SIDE      :
-				m_polygon.add_point_(w+t  ,h+t    );
-				bottom_left_corner  (-t+R ,h+t    ,R, true);
-				m_polygon.add_point_(-t   ,-t     );
-				m_polygon.add_point_(t    ,-t     );
-				bottom_left_corner  (t    ,h+t-R  ,r, false);
-				m_polygon.add_point_(w+t  ,h-t    );
-				m_polygon.next_contour();
+			case BOTTOM_LEFT_SIDE      :
+				if ((m_sides & INNER_AREA) == 0)
+				{
+					edge(w+t-R, h+t  , R, thickness, Polygon::BOTTOM_TO_RIGHT| Polygon::FLAG_EXTREMITY);
+					edge(R-t  , h-t  , r, r        , Polygon::BOTTOM_TO_LEFT | Polygon::FLAG_INTERNAL);
+					edge(-t   , R-t  , R, thickness, Polygon::LEFT_TO_TOP    | Polygon::FLAG_REVERSE| Polygon::FLAG_EXTREMITY);
+					edge(-t   , h+t-R, R, R        , Polygon::LEFT_TO_BOTTOM);
+					m_polygon.next_contour();
+				}
 				break;
 		
 			// Three sides U
-			case CommonStyle::TOP_RIGHT_BOTTOM_SIDE : 
-				m_polygon.add_point_(-t   ,-t     );
-				top_right_corner    (w+t-R,-t     ,R, true);
-				bottom_right_corner (w+t  ,h+t-R  ,R, true);
-				m_polygon.add_point_(-t   ,h+t    );
-
-				m_polygon.add_point_(-t   ,h-t    );
-				bottom_right_corner (w+t-R,h-t    ,r, false);
-				top_right_corner    (w-t  ,R-t    ,r, false);
-				m_polygon.add_point_(-t   ,t      );
+			case TOP_RIGHT_BOTTOM_SIDE : 
+				edge(R-t  , -t   , R, thickness, Polygon::TOP_TO_LEFT    | Polygon::FLAG_EXTREMITY);
+				edge(w+t-R, t    , r, r        , Polygon::TOP_TO_RIGHT   | Polygon::FLAG_INTERNAL);
+				edge(w-t  , h+t-R, r, r        , Polygon::RIGHT_TO_BOTTOM| Polygon::FLAG_INTERNAL);
+				edge(R-t  , h+t  , R, thickness, Polygon::BOTTOM_TO_LEFT | Polygon::FLAG_REVERSE | Polygon::FLAG_EXTREMITY);
+				if ((m_sides & INNER_AREA) == 0)
+				{
+					edge(w+t-R, h+t  , R, R        , Polygon::BOTTOM_TO_RIGHT);
+					edge(w+t  , R-t  , R, R        , Polygon::RIGHT_TO_TOP);
+				}
 				m_polygon.next_contour();
 				break;
 
-			case CommonStyle::RIGHT_BOTTOM_LEFT_SIDE: 
-				m_polygon.add_point_(w+t  ,-t     );
-				bottom_right_corner (w+t  ,h+t-R  ,R, true);
-				bottom_left_corner  (-t+R ,h+t    ,R, true);
-				m_polygon.add_point_(-t   ,-t     );
-
-				m_polygon.add_point_(t    ,-t     );
-				bottom_left_corner  (t    ,h+t-R  ,r, false);
-				bottom_right_corner (w+t-R,h-t    ,r, false);
-				m_polygon.add_point_(w-t  ,-t     );
+			case RIGHT_BOTTOM_LEFT_SIDE: 
+				edge(-t   , R-t  , R, thickness, Polygon::LEFT_TO_TOP   | Polygon::FLAG_REVERSE | Polygon::FLAG_EXTREMITY);
+				if ((m_sides & INNER_AREA) == 0)
+				{
+					edge(-t   , h+t-R, R, R        , Polygon::LEFT_TO_BOTTOM);
+					edge(w+t-R, h+t  , R, R        , Polygon::BOTTOM_TO_RIGHT);
+				}
+				edge(w+t  , R-t  , R, thickness, Polygon::RIGHT_TO_TOP   | Polygon::FLAG_EXTREMITY);
+				edge(w-t  , h+t-R, r, r        , Polygon::RIGHT_TO_BOTTOM| Polygon::FLAG_INTERNAL);
+				edge(R-t  , h-t  , r, r        , Polygon::BOTTOM_TO_LEFT | Polygon::FLAG_INTERNAL);
 				m_polygon.next_contour();
 				break;
 
-			case CommonStyle::BOTTOM_LEFT_TOP_SIDE  : 
-				m_polygon.add_point_(w+t  ,h+t    );
-				bottom_left_corner  (-t+R ,h+t    ,R, true);
-				top_left_corner     (-t   ,R-t    ,R, true);
-				m_polygon.add_point_(w+t  ,-t     );
-				m_polygon.add_point_(w+t  , t     );
-				top_left_corner     (R-t  ,t      ,r, false);
-				bottom_left_corner  (t    ,h+t-R  ,r, false);
-				m_polygon.add_point_(w+t  ,h-t    );
+			case BOTTOM_LEFT_TOP_SIDE  : 
+				edge(w+t-R, -t   , R, thickness, Polygon::TOP_TO_RIGHT    | Polygon::FLAG_EXTREMITY);
+				edge(R-t  , t    , r, r        , Polygon::TOP_TO_LEFT);
+				edge(t    , h+t-R, r, r        , Polygon::LEFT_TO_BOTTOM);
+				edge(w+t-R, h+t  , R, thickness, Polygon::BOTTOM_TO_RIGHT | Polygon::FLAG_REVERSE | Polygon::FLAG_EXTREMITY);
+				if ((m_sides & INNER_AREA) == 0)
+				{
+					edge(R-t  , h+t  , R, R        , Polygon::BOTTOM_TO_LEFT);
+					edge(-t   , R-t  , R, R        , Polygon::LEFT_TO_TOP);
+				}
 				m_polygon.next_contour();
 				break;
 
-			case CommonStyle::LEFT_TOP_RIGHT_SIDE   : 
-				m_polygon.add_point_(-t   ,h+t    );
-				top_left_corner     (-t   ,R-t    ,R, true);
-				top_right_corner    (w+t-R,-t     ,R, true);
-				m_polygon.add_point_(w+t  ,h+t    );
-				m_polygon.add_point_(w-t  , h+t   );
-				top_right_corner    (w-t  ,R-t    ,r, false);
-				top_left_corner     (R-t  ,t      ,r, false);
-				m_polygon.add_point_(t    ,h+t    );
+			case LEFT_TOP_RIGHT_SIDE   : 
+				edge(-t   , h+t-R, R, thickness, Polygon::LEFT_TO_BOTTOM  | Polygon::FLAG_EXTREMITY); 
+				edge(t    , R-t  , r, r        , Polygon::LEFT_TO_TOP     | Polygon::FLAG_INTERNAL);
+				edge(w+t-R, t    , r, r        , Polygon::TOP_TO_RIGHT    | Polygon::FLAG_INTERNAL);
+				edge(w+t  , h+t-R, R, thickness, Polygon::RIGHT_TO_BOTTOM | Polygon::FLAG_REVERSE| Polygon::FLAG_EXTREMITY);
+				if ((m_sides & INNER_AREA) == 0)
+				{
+					edge(w+t  , R-t  , R, R        , Polygon::RIGHT_TO_TOP);
+					edge(R-t  , -t   , R, R        , Polygon::TOP_TO_LEFT);
+				}
+				m_polygon.next_contour();
 				break;
 
 			// All sides
-			case CommonStyle::ALL_SIDES             : 
-				top_right_corner   (w+t-R ,-t     ,R, true);
-				bottom_right_corner(w+t   ,h+t-R  ,R, true);
-				bottom_left_corner (-t+R  ,h+t    ,R, true);
-				top_left_corner    (-t    ,R-t    ,R, true);
+			case ALL_SIDES:
+				if ((m_sides & INNER_AREA) == 0)
+				{
+					edge(-t   , R-t    , R, R, Polygon::LEFT_TO_TOP);
+					edge(w+t-R, -t     , R, R, Polygon::TOP_TO_RIGHT);
+					edge(w+t  , h+t-R  , R, R, Polygon::RIGHT_TO_BOTTOM);
+					edge(-t+R , h+t    , R, R, Polygon::BOTTOM_TO_LEFT);
+					m_polygon.next_contour();
+				}
+
+				edge(R-t  , t      , r, r, Polygon::TOP_TO_LEFT);
+				edge(t    , h+t-R  , r, r, Polygon::LEFT_TO_BOTTOM);
+				edge(w+t-R, h-t    , r, r, Polygon::BOTTOM_TO_RIGHT);
+				edge(w-t  , R-t    , r, r, Polygon::RIGHT_TO_TOP);
 				m_polygon.next_contour();
-				top_left_corner    (R-t   ,t      ,r, false);
-				bottom_left_corner (t     ,h+t-R  ,r, false);
-				bottom_right_corner(w+t-R ,h-t    ,r, false);
-				top_right_corner   (w-t   ,R-t    ,r, false);
 				break;
 			}
 		}
@@ -701,7 +658,7 @@ void Rect::test4()
 		rect->position(10, 10);
 		rect->size(460, 460);
 		rect->color(Color::RED,32);
-		rect->radius(40);
+		rect->radius(35);
 
 		rect = new Rect(canvas);
 		rect->position(5, 5);
@@ -715,25 +672,54 @@ void Rect::test4()
 
 void Rect::test5()
 {
+	int row = 0;
+	int column = 0;
 	Window window;
 	Canvas * canvas = new Canvas(&window);
 		canvas->color(Color::WHITE);
 		canvas->extend(Extend::EXTEND_ALL);
+		canvas->clear();
+	Rect * rect = 0;
+	int id = 0;
 
-		int row = 0;
-		int column = 0;
-		for (int side = Rect::NO_SIDE; side <= Rect::ALL_SIDES; side++)
+	for (Dim thickness = 0; thickness <= 16; )
+	{
+		for (Dim radius = 0; radius <= 16; )
 		{
-			Rect * rect = new Rect(canvas);
-				rect->position(15+column*120, 15+row*120);
-				rect->size(90, 90);
-				rect->color(Color::RED,64);
-				rect->thickness(20);
-				rect->radius(20);
+			row = 0;
+			column = 0;
+			for (int side = NO_SIDE; side <= ALL_SIDES; side++)
+			{
+				rect = new Rect(canvas);
+					rect->position(15+column*120, 15+row*60);
+					rect->size(80, 35);
+					rect->color(Color::RED,58);
+					rect->thickness(thickness);
+					rect->radius(radius);
+					
+				rect = new Rect(*rect);
+					rect->color(Color::BLUE,64);
+					rect->sides(side);
 
-			rect = new Rect(*rect);
-				rect->sides(side);
-				rect->color(Color::BLUE,64);
+				rect = new Rect(*rect);
+					rect->color(Color::GREEN,64);
+					rect->sides(side | INNER_AREA);
+
+
+				rect = new Rect(canvas);
+					rect->position(15+column*120, 15+(row+4)*58);
+					rect->size(80, 35);
+					rect->color(Color::RED,64);
+					rect->thickness(thickness);
+					rect->radius(radius);
+					
+				rect = new Rect(*rect);
+					rect->color(Color::BLUE,64);
+					rect->sides(side | RECTANGULAR_EXTREMITY);
+
+				rect = new Rect(*rect);
+					rect->color(Color::GREEN,64);
+					rect->sides(side | RECTANGULAR_EXTREMITY | INNER_AREA);
 
 				column ++;
 				if (column >= 4)
@@ -741,14 +727,62 @@ void Rect::test5()
 					row ++;
 					column = 0;
 				}
+			}
+			if (radius == 0)
+			{
+				radius = 1;
+			}
+			else
+			{
+				radius <<= 1;
+			}
+			{
+				String name;
+				name.print("test/out/rect5_%d.svg", ++id);
+				UIManager::desktop()->dispatch(name);
+			}
+			canvas->clear();
 		}
-	//UIManager::desktop()->mainloop();
-	UIManager::desktop()->dispatch("test/out/rect5.svg");
+		if (thickness == 0)
+		{
+			thickness = 1;
+		}
+		else
+		{
+			thickness <<= 1;
+		}
+	}
 }
 
 void Rect::test6()
 {
+	int row = 0;
+	int column = 0;
+	Window window;
+	Canvas * canvas = new Canvas(&window);
+		canvas->color(Color::WHITE);
+		canvas->extend(Extend::EXTEND_ALL);
+		canvas->clear();
+	Rect * rect = 0;
+	int id = 0;
+
+	rect = new Rect(canvas);
+		rect->position(15+column*120, 15+row*60);
+		rect->size(80, 35);
+		rect->color(Color::RED,58);
+		rect->thickness(10);
+		rect->radius(30);
+					
+	//rect = new Rect(*rect);
+		rect->color(Color::GREEN,64);
+		rect->sides(Side::BOTTOM_LEFT_TOP_SIDE | INNER_AREA);
+
+	rect = new Rect(*rect);
+		rect->color(Color::BLUE,64);
+		rect->sides(Side::BOTTOM_LEFT_TOP_SIDE);
+	UIManager::desktop()->dispatch();
 }
+
 
 void Rect::test()
 {
@@ -756,8 +790,8 @@ void Rect::test()
 	if (done == false)
 	{
 		done = true;
-		test5();
 		test6();
+		test5();
 		test4();
 		test3();
 		test2();

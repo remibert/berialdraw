@@ -5,11 +5,14 @@ namespace berialdraw
 {
 	void test_widget()
 	{
+		tools_test2();
 	#if _DEBUG
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
 
-//ProgressBar::test();
+		Icon::test();
+Slider::test();
+		Rect::test();
 
 		// Widgets
 		Icon::test();
@@ -24,7 +27,6 @@ namespace berialdraw
 		Pane::test();
 		Label::test();
 		Window::test();
-		Grid::test();
 
 		// Shapes
 		Rect::test();
@@ -613,6 +615,7 @@ namespace berialdraw
 	void test_unitary()
 	{
 		static bool done = false;
+
 		if (done == false)
 		{
 			done = true;

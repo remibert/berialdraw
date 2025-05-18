@@ -1,4 +1,4 @@
-#include "berialdraw_imp.hpp"
+﻿#include "berialdraw_imp.hpp"
 
 using namespace berialdraw;
 
@@ -492,12 +492,18 @@ void Pie::test5()
 {
 }
 
+
+void Pie::test6()
+{
+}
+
 void Pie::test()
 {
 	static bool done = false;
 	if (done == false)
 	{
 		done = true;
+		test6();
 		test5();
 		test4();
 		test3();

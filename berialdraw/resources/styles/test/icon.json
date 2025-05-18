@@ -13,5 +13,5 @@
 	"text-align"     : "center",
 	"focusable"      : true,
 	"pressable"      : true,
-	"focus-thickness": 3,
+	"focus-thickness": 2,
 }

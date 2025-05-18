@@ -35,9 +35,9 @@ Button * MenuDialog::create_button(const String & text)
 		button->text(text);                            // Sets button text to the provided item
 		button->text_align(Align::ALIGN_LEFT);         // Aligns text to the left
 		button->border_color(Color::LIGHT_BLACK,64);   // Sets border color to light black
-		button->sides(CommonStyle::BOTTOM_SIDE);       // Draws border only on the bottom side
+		button->sides(Side::BOTTOM_SIDE);       // Draws border only on the bottom side
 		button->margin(0,0,1,0);                       // Adds margin around the button
-		button->sides(CommonStyle::BOTTOM_SIDE);
+		button->sides(Side::BOTTOM_SIDE);
 		
 		button->thickness(1);                          // Sets border thickness to 1
 		button->radius(0);                             // Sets corner radius to 0 (square corners)

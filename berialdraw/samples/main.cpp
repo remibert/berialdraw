@@ -2,8 +2,9 @@
 #include "samples/samples.hpp"
 
 // Screen resolution
-const int SCREEN_WIDTH = 960;
-const int SCREEN_HEIGHT = 960;
+const int ZOOM = 2;
+const int SCREEN_WIDTH  = 480*ZOOM;
+const int SCREEN_HEIGHT = 480*ZOOM;
 
 using namespace berialdraw;
 
@@ -15,7 +16,7 @@ int main(int argc, char* args[])
 {
 	// Initializes the UI manager with a new DeviceScreen named "Samples BerialDraw", 
 	// setting the screen width 480, height 480, pixel format, and zoom size
-	UIManager::init(new DeviceScreen("Samples BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888, 2);
+	UIManager::init(new DeviceScreen("Samples BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888, ZOOM);
 
 	// Execute menu with all samples
 	sample_icon_menu();

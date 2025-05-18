@@ -45,8 +45,8 @@ Size Edit::content_size()
 	}
 
 	result = m_text_size;
-	result.height_(result.height_()+ padding().bottom_() + padding().top_());
-	result.width_(result.width_()  + padding().left_()   + padding().right_());
+	result.height_(result.height_()+ padding().bottom_() + padding().top_() + m_focus_gap +m_focus_gap);
+	result.width_(result.width_()  + padding().left_()   + padding().right_() + m_focus_gap + m_focus_gap);
 
 	return result;
 }
@@ -164,9 +164,9 @@ void Edit::paint(const Region & parent_region)
 		if (m_focused)
 		{
 			// Draw focus
-			Rect::build_polygon(m_foreclip, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
+			Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color), m_focus_thickness<<6);
 		}
-		// Draw backround
+		// Draw background
 		Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
 
 		Widget::paint(region);
@@ -1525,6 +1525,35 @@ void Edit::test7()
 
 void Edit::test8()
 {
+	//UIManager::notifier()->log();
+	Window window;
+		window.position(10,10);
+		window.size(50,50);
+		window.color(Color::LIGHT_RED);
+
+	Dim row = 0;
+	Grid * scroll_layout = new Grid(&window);
+		Edit * edit = new Edit(scroll_layout);
+			edit->cell(row++,0);
+			edit->text("");
+			edit->border_color(Color::LIGHT_GREEN);
+			edit->focus_color(Color::LIGHT_BLUE);
+			//edit->margin(4);
+			//edit->place_holder("Enter text");
+
+		//edit = new Edit(scroll_layout);
+		//	edit->cell(row++,0);
+		//	edit->text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.");
+		//	edit->place_holder("Enter text");
+	UIManager::desktop()->dispatch();
+edit->margin(3);
+UIManager::desktop()->dispatch();
+edit->margin(2);
+UIManager::desktop()->dispatch();
+edit->margin(1);
+UIManager::desktop()->dispatch();
+edit->margin(0);
+UIManager::desktop()->dispatch();
 }
 
 void Edit::test()

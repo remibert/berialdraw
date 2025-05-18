@@ -63,9 +63,9 @@ void Switch::paint(const Region & parent_region)
 		if (m_focused)
 		{
 			// Draw focus
-			Rect::build_polygon(m_foreclip, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
+			Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color), m_focus_thickness<<6);
 		}
-		// Draw backround
+		// Draw background
 		Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(track_color), stated_color(m_border_color));
 
 		Area area_thumb(m_foreclip);
@@ -86,7 +86,7 @@ void Switch::paint(const Region & parent_region)
 			}
 		}
 		area_thumb.size().width(area_thumb.size().height());
-		Rect::build_polygon(area_thumb, shift, substract(m_radius, m_thumb_padding), 0, 0, CommonStyle::ALL_SIDES, stated_color(m_thumb_color), 0);
+		Rect::build_polygon(area_thumb, shift, substract(m_radius, m_thumb_padding), 0, 0, ALL_SIDES, stated_color(m_thumb_color), 0);
 	}
 }
 

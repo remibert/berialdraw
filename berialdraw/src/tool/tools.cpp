@@ -325,13 +325,45 @@ FT_Matrix vector_matrix(int32_t angle)
 	}
 	else
 	{
-		FT_Vector sincosvec;
-		FT_Vector_Unit(&sincosvec, FT_ANGLE_PI2 + angle);
 		FT_Matrix matrix;
-		matrix.yy = sincosvec.y;
-		matrix.xx = sincosvec.y;
-		matrix.yx = sincosvec.x;
-		matrix.xy = -sincosvec.x;
+
+		if ((angle % FT_ANGLE_2PI) == 0)
+		{
+			matrix.xx = 65536;
+			matrix.yx = 0;
+			matrix.xy = 0;
+			matrix.yy = 65536;
+		}
+		else if ((angle % FT_ANGLE_2PI) == FT_ANGLE_PI2)
+		{
+			matrix.xx = 0;
+			matrix.yx = -65536;
+			matrix.xy = 65536;
+			matrix.yy = 0;
+		}
+		else if ((angle % FT_ANGLE_2PI) == FT_ANGLE_PI)
+		{
+			matrix.xx = -65536;
+			matrix.yx = 0;
+			matrix.xy = 0;
+			matrix.yy = -65536;
+		}
+		else if ((angle % FT_ANGLE_2PI) == (FT_ANGLE_PI + FT_ANGLE_PI2))
+		{
+			matrix.xx = 0;
+			matrix.yx = 65536;
+			matrix.xy = -65536;
+			matrix.yy = 0;
+		}
+		else
+		{
+			FT_Vector sincosvec;
+			FT_Vector_Unit(&sincosvec, FT_ANGLE_PI2 + angle);
+			matrix.yy = sincosvec.y;
+			matrix.xx = sincosvec.y;
+			matrix.yx = sincosvec.x;
+			matrix.xy = -sincosvec.x;
+		}
 		previous_matrix = matrix;
 		previous_angle = angle;
 		return matrix;
@@ -346,8 +378,8 @@ void calc_point(Point & p, Dim radius, FT_Vector & sincos)
 
 void calc_cubic(Point & p, Dim radius, FT_Vector & sincos)
 {
-	p.x_(p.x_()+ (Coord)((((int64_t)(sincos.y)*(int64_t)(radius)) + (1 << 15)) >>16));
-	p.y_(p.y_()+ (Coord)((((int64_t)(sincos.x)*(int64_t)(radius)) + (1 << 15)) >>16));
+	p.x_(p.x_() + (Coord)((((int64_t)(sincos.y)*(int64_t)(radius)) + (1 << 15))>>16));
+	p.y_(p.y_() + (Coord)((((int64_t)(sincos.x)*(int64_t)(radius)) + (1 << 15))>>16));
 }
 
 bool match_pattern(const char *pattern, const char *string, bool ignore_case)
@@ -487,7 +519,7 @@ Dim compute_zoom(Dim value, Dim zoom)
 #ifdef _DEBUG
 #include <math.h>
 #include <stdio.h>
-void tools_test()
+void tools_test1()
 {
 	uint32_t i;
 	uint32_t res;
@@ -505,5 +537,18 @@ void tools_test()
 			bd_printf("%d %.4lf %.4lf %d\n", i, r1, r2, abs(int32_t(r1 - r2)));
 		}
 	}
+}
+
+void tools_test2()
+{
+	FT_Matrix m = berialdraw::vector_matrix(0);
+
+	assert(m.xx == 65536 && m.yy == 65536 && m.xy == 0 && m.yx == 0);
+	m = berialdraw::vector_matrix(FT_ANGLE_PI2);
+	assert(m.xx == 0 && m.yy == 0 && m.xy == 65536 && m.yx == -65536);
+	m = berialdraw::vector_matrix(FT_ANGLE_PI);
+	assert(m.xx == -65536 && m.yy == -65536 && m.xy == 0 && m.yx == 0);
+	m = berialdraw::vector_matrix(FT_ANGLE_PI + FT_ANGLE_PI2);
+	assert(m.xx == 0 && m.yy == 0 && m.xy == -65536 && m.yx == 65536);
 }
 #endif

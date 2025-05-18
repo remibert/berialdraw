@@ -111,6 +111,31 @@ namespace berialdraw
 			return *this;
 		}
 
+		/** Defines the position and direction of a rounded arc tip. */
+		enum ArcFlags
+		{
+			LEFT_TO_TOP     = 0, ///< Arc on the left edge, curving upward.
+			TOP_TO_RIGHT    = 1, ///< Arc on the top edge, curving to the right.
+			RIGHT_TO_BOTTOM = 2, ///< Arc on the right edge, curving downward.
+			BOTTOM_TO_LEFT  = 3, ///< Arc on the bottom edge, curving to the left.
+
+			TOP_TO_LEFT     = 4, ///< Arc on the top edge, curving to the left.
+			LEFT_TO_BOTTOM  = 5, ///< Arc on the left edge, curving downward.
+			BOTTOM_TO_RIGHT = 6, ///< Arc on the bottom edge, curving to the right.
+			RIGHT_TO_TOP    = 7, ///< Arc on the right edge, curving upward.
+
+			EDGE_MASK       = 7,
+
+			FLAG_REVERSE    = 8,
+			FLAG_RECTANGULAR= 16,
+			FLAG_INTERNAL   = 32,
+			FLAG_EXTREMITY  = 64,
+			FLAG_INNER      = 128
+		};
+
+		// Draws a rounded arc at a given point with specified parameters.
+		void arc_(Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags);
+		
 #ifdef _DEBUG
 		static void test();
 #endif

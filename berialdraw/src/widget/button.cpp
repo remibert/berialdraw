@@ -86,9 +86,9 @@ void Button::paint(const Region & parent_region)
 		if (m_focused)
 		{
 			// Draw focus
-			Rect::build_polygon(m_foreclip, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
+			Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color), m_focus_thickness<<6);
 		}
-		// Draw backround
+		// Draw background
 		Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
 
 		// Paint children
@@ -378,8 +378,6 @@ void Button::test5()
 		button->border_color(Color::BOTTLE_GREEN);
 		button->text_color(Color::YELLOW);
 		button->thickness(5);
-		//button->focus_thickness(1);
-		//button->focus_gap(3);
 		button->radius(10);
 		button->align(CENTER);
 		button->padding(25,25,25,25);
@@ -838,7 +836,7 @@ static Button * new_menu_item(Widget * parent, uint32_t hue, const char * menu, 
 
 		button->color(Color::WHITE);
 		button->border_color(Color::GRAY);
-		button->sides(CommonStyle::BOTTOM_SIDE);
+		button->sides(BOTTOM_SIDE);
 		button->extend(Extend::EXTEND_WIDTH);
 
 		button->margin(1);
@@ -925,7 +923,8 @@ void Button::test11()
 			button->focus_thickness(1);
 			button->focus_color(Color::RED);
 			button->radius(10);
-			button->focus_gap(column+line);
+			button->focus_gap(column);
+			button->focus_color(Color::BROWN);
 			button->text("thickness=%d\ngap=%d",line+1,column);
 			button->size_policy(SizePolicy::SHRINK_ALL);
 			button->text_color(Color::RED_BLOOD);
@@ -1005,12 +1004,81 @@ void Button::test11()
 	UIManager::notifier()->play_script(script, "");
 }
 
+void Button::test12()
+{
+	Button * button;
+	Window window;
+		window.position(0,0);
+		window.size(200,200);
+		window.color(Color::WHITE);
+
+		button = new Button(&window);
+			button->position(30,30);
+			button->text("Press key");
+			button->id(123);
+
+		//UIManager::desktop()->dispatch("test/out/button5_1.svg");
+		//button->text("Press");
+		//UIManager::desktop()->dispatch("test/out/button5_2.svg");
+		button->font_size(30);
+		//UIManager::desktop()->dispatch("test/out/button5_3.svg");
+		button->pressed(true);
+		//UIManager::desktop()->dispatch("test/out/button5_4.svg");
+
+		button->color(Color::GREEN);
+		button->border_color(Color::BOTTLE_GREEN);
+		button->text_color(Color::YELLOW);
+		button->thickness(10);
+		button->radius(10);
+		button->align(CENTER);
+		button->padding(25,25,25,25);
+		button->focus_gap(0);
+		button->focus_thickness(1);
+
+	//button = dynamic_cast<Button*>(window.search(123));
+	//if(button)
+	//{
+		button->text("Casted");
+		button->color(Color::RED,64);
+		button->border_color(Color::RED_BLOOD,64);
+button->sides(Side::LEFT_TOP_RIGHT_SIDE|Side::RECTANGULAR_EXTREMITY);
+	//}
+	button->focus_thickness(1);button->focus_gap(0);
+	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
+	button->focus_thickness(2);button->focus_gap(0);
+	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
+	button->focus_thickness(3);button->focus_gap(0);
+	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
+	button->focus_thickness(4);button->focus_gap(0);
+	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
+
+
+	button->focus_thickness(1);button->focus_gap(1);
+	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
+	button->focus_thickness(2);button->focus_gap(1);
+	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
+	button->focus_thickness(3);button->focus_gap(1);
+	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
+	button->focus_thickness(4);button->focus_gap(1);
+	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
+
+	button->focus_thickness(1);button->focus_gap(2);
+	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
+	button->focus_thickness(2);button->focus_gap(2);
+	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
+	button->focus_thickness(3);button->focus_gap(2);
+	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
+	button->focus_thickness(4);button->focus_gap(2);
+	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
+
+}
 
 void Button::test()
 {
 	static bool done = false;
 	if (done == false)
 	{
+test12();
 		done = true;
 		test11();
 		test10();

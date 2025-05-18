@@ -3,18 +3,20 @@
 using namespace berialdraw;
 
 PolyPoints::PolyPoints() :
-	m_points(0),
+	m_first_point(0),
+	m_last_point(0),
 	m_current(0),
 	m_count(0)
 {
 }
 
 PolyPoints::PolyPoints(const PolyPoints & other):
-	m_points(0),
+	m_first_point(0),
+	m_last_point(0),
 	m_current(0),
 	m_count(0)
 {
-	PolyPoint* current = other.m_points;
+	PolyPoint* current = other.m_first_point;
 	while (current != 0)
 	{
 		append_(current->x_(), current->y_());
@@ -31,7 +33,7 @@ bool PolyPoints::get_first(Point& p)
 {
 	if (m_count > 0)
 	{
-		m_current = m_points;
+		m_current = m_first_point;
 		p.x_(m_current->x_());
 		p.y_(m_current->y_());
 		return true;
@@ -57,16 +59,17 @@ bool PolyPoints::get_next(Point& p)
 void PolyPoints::prepend(const Point & p)
 {
 	PolyPoint* point = new PolyPoint(p);
-	PolyPoint* current = m_points;
+	PolyPoint* current = m_first_point;
 
 	if (current)
 	{
-		m_points = point;
 		point->next = current;
+		m_first_point = point;
 	}
 	else
 	{
-		m_points = point;
+		m_first_point = point;
+		m_last_point = point;
 	}
 	m_count++;
 }
@@ -83,18 +86,16 @@ void PolyPoints::prepend_(Coord x, Coord y)
 void PolyPoints::append(const Point& p)
 {
 	PolyPoint* point = new PolyPoint(p);
-	PolyPoint* current = m_points;
+	PolyPoint* current = m_last_point;
 	if (current)
 	{
-		while (current->next != 0)
-		{
-			current = current->next;
-		}
 		current->next = point;
+		m_last_point = point;
 	}
 	else
 	{
-		m_points = point;
+		m_first_point = point;
+		m_last_point = point;
 	}
 	m_count++;
 }
@@ -111,7 +112,7 @@ void PolyPoints::append_(Coord x, Coord y)
 
 void PolyPoints::clear()
 {
-	PolyPoint* current = m_points;
+	PolyPoint* current = m_first_point;
 	PolyPoint* destroy;
 	while (current != 0)
 	{
@@ -120,7 +121,8 @@ void PolyPoints::clear()
 		delete destroy;
 	}
 
-	m_points  = 0;
+	m_first_point  = 0;
+	m_last_point = 0;
 	m_current = 0;
 	m_count   = 0;
 }

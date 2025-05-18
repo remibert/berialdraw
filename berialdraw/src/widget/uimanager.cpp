@@ -13,6 +13,7 @@ Colors      * UIManager::m_colors = 0;
 Fonts       * UIManager::m_fonts  = 0;
 Desktop     * UIManager::m_desktop = 0;
 ScreenCrc   * UIManager::m_screen_crc = 0;
+ArcCache    * UIManager::m_arc_cache = 0;
 bool          UIManager::m_initialized= false;
 
 
@@ -40,6 +41,7 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 		m_device->size(width, height);
 		m_framebuf     = Framebuf::create(width, height, type);
 		m_renderer     = new Renderer(adapt_size(width,scale), adapt_size(height,scale), scale);
+		m_arc_cache    = new ArcCache;
 		m_initialized = true;
 	}
 	else
@@ -61,6 +63,7 @@ void UIManager::deinit()
 	delete m_colors;
 	delete m_fonts;
 	delete m_screen_crc;
+	delete m_arc_cache;
 
 	m_initialized = false;
 	m_device      = 0;
@@ -74,6 +77,7 @@ void UIManager::deinit()
 	m_fonts       = 0;
 	m_desktop     = 0;
 	m_screen_crc  = 0;
+	m_arc_cache   = 0;
 }
 
 /** Indicates if the uimanager is initialized or not */
@@ -174,3 +178,12 @@ ScreenCrc * UIManager::screen_crc()
 	if (m_screen_crc == 0) bd_printf("UIManager::screen_crc no existing");
 	return m_screen_crc;
 }
+
+/** Return the arc cache handle */
+ArcCache * UIManager::arc_cache()
+{
+	if (m_arc_cache == 0) bd_printf("UIManager::arc_cache no existing");
+	return m_arc_cache;
+}
+
+

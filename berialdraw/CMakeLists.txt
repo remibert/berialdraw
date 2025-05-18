@@ -84,6 +84,7 @@ set(SRCS_LIB
 	src/vector/size_policy.cpp
 	src/vector/extend.cpp
 	src/vector/dim.cpp
+	src/vector/side.cpp
 
 	src/font/utf8.cpp
 	src/font/font.cpp
@@ -116,6 +117,7 @@ set(SRCS_LIB
 	src/tool/mask_validator.cpp
 	src/tool/directory.cpp
 	src/tool/screen_crc.cpp
+	src/tool/arc_cache.cpp
 
 	src/event/event.cpp
 	src/event/key_event.cpp

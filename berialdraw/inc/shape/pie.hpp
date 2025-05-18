@@ -33,6 +33,7 @@ namespace berialdraw
 		static void test3();
 		static void test4();
 		static void test5();
+		static void test6();
 		static void dial(const Point & origin, Canvas * canvas);
 	#endif
 

@@ -183,8 +183,8 @@ bool Point::is_y_undefined() const
 /** Print content */
 void Point::print(const char * name) const
 {
-#define FLOAT_PART(value) (((((value)%64)*1000)/64)+5)/10
-	bd_printf("%s x=%d.%02d y=%d.%02d",name, m_x/64, FLOAT_PART(m_x), m_y/64, FLOAT_PART(m_y));
+#define FLOAT_PART(value) (abs((((((value)%64)*1000)/64)+5)/10))
+	bd_printf("%s x=%d.%02d y=%d.%02d\n",name, m_x/64, FLOAT_PART(m_x), m_y/64, FLOAT_PART(m_y));
 }
 
 /** Adapt point to the UIManager scale */

@@ -3,7 +3,7 @@
 	"border-color"   : 0x00000030, // SLIDER_BORDER_COLOR 
 	"track-color"    : 0x00000031, // SLIDER_TRACK_COLOR  
 	"handle-color"   : 0x00000032, // SLIDER_HANDLE_COLOR 
-	"margin"         : {"top":1,"left":1,"bottom":1,"right":1},
+	"margin"         : {"top":3,"left":3,"bottom":3,"right":3},
 	"radius"         : 10,
 	"track-size"     : 6,
 	"handle-size"    : 20,

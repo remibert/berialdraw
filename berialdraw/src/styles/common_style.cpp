@@ -8,69 +8,10 @@ CommonStyle::CommonStyle()
 	m_align = ALIGN_DEFAULT;
 	m_angle = 0;
 	m_angle_modified = 1;
-	m_sides = CommonStyle::ALL_SIDES;
+	m_sides = ALL_SIDES;
 	m_light = 0;
 	m_saturation = 0;
 }
-
-/** Unserialize the content of extend from json */
-static void unserialize_sides(JsonIterator & it, uint8_t & sides)
-{
-	String str = it["sides"] | "nothing";
-	
-	if (str != "nothing")
-	{
-		sides = CommonStyle::NO_SIDE;
-
-		if (str.find("top") != INT32_MAX)
-		{
-			sides |= CommonStyle::TOP_SIDE;
-		}
-		if (str.find("bottom") != INT32_MAX)
-		{
-			sides |= CommonStyle::BOTTOM_SIDE;
-		}
-		if (str.find("left") != INT32_MAX)
-		{
-			sides |= CommonStyle::LEFT_SIDE;
-		}
-		if (str.find("right") != INT32_MAX)
-		{
-			sides |= CommonStyle::LEFT_SIDE;
-		}
-		if (str.find("all") != INT32_MAX)
-		{
-			sides |= CommonStyle::ALL_SIDES;
-		}
-	}
-}
-
-/** Serialize the content of extend into json */
-static void serialize_sides(JsonIterator & it, uint8_t sides)
-{
-	switch(sides)
-	{
-	case CommonStyle::NO_SIDE               :it["sides"] = "none";             break;
-	case CommonStyle::TOP_SIDE              :it["sides"] = "top";              break;
-	case CommonStyle::RIGHT_SIDE            :it["sides"] = "right";            break;
-	case CommonStyle::BOTTOM_SIDE           :it["sides"] = "bottom";           break;
-	case CommonStyle::LEFT_SIDE             :it["sides"] = "left";             break;
-	case CommonStyle::TOP_RIGHT_SIDE        :it["sides"] = "top,right";        break;
-	case CommonStyle::TOP_LEFT_SIDE         :it["sides"] = "top,left";         break;
-	case CommonStyle::BOTTOM_RIGHT_SIDE     :it["sides"] = "bottom,right";     break;
-	case CommonStyle::BOTTOM_LEFT_SIDE      :it["sides"] = "bottom,left";      break;
-	case CommonStyle::TOP_BOTTOM_SIDE       :it["sides"] = "top,bottom";       break;
-	case CommonStyle::LEFT_RIGHT_SIDE       :it["sides"] = "left,right";       break;
-	case CommonStyle::TOP_RIGHT_BOTTOM_SIDE :it["sides"] = "top,right,bottom"; break;
-	case CommonStyle::RIGHT_BOTTOM_LEFT_SIDE:it["sides"] = "right,bottom,left";break;
-	case CommonStyle::BOTTOM_LEFT_TOP_SIDE  :it["sides"] = "bottom,left,top";  break;
-	case CommonStyle::LEFT_TOP_RIGHT_SIDE   :it["sides"] = "left,top,right";   break;
-	case CommonStyle::ALL_SIDES             :it["sides"] = "all";              break;
-	}
-}
-
-
-
 
 /** Serialize the content of widget into json */
 void CommonStyle::serialize(JsonIterator & it)
@@ -85,7 +26,7 @@ void CommonStyle::serialize(JsonIterator & it)
 
 	it["angle_"]       = m_angle;
 	m_center.serialize("center",it);
-	serialize_sides(it, m_sides);
+	berialdraw::serialize(it, m_sides);
 }
 
 /** Unserialize the content of widget from json */
@@ -105,7 +46,7 @@ void CommonStyle::unserialize(JsonIterator & it)
 	berialdraw::unserialize("align",it, align);
 	m_align = align;
 	m_center.unserialize("center",it);
-	unserialize_sides(it, m_sides);
+	berialdraw::unserialize(it, m_sides);
 	m_angle_modified = 1;
 }
 
@@ -551,7 +492,7 @@ void CommonStyle::align(Align v)
 void CommonStyle::sides(uint8_t side)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
-	m_sides = side;
+	m_sides = (Side)side;
 }
 
 /** Gets the displayed side of the rectangle */

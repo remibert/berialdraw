@@ -39,6 +39,7 @@
 #include "vector/margin.hpp"
 #include "vector/linear.hpp"
 #include "vector/area.hpp"
+#include "vector/side.hpp"
 
 // Font
 #include "font/utf8.hpp"
@@ -110,6 +111,7 @@
 #include "device/device.hpp"
 
 // Widget
+#include "tool/arc_cache.hpp"
 #include "widget/uimanager.hpp"
 #include "widget/desktop.hpp"
 #include "widget/cells.hpp"

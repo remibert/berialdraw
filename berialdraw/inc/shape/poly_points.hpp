@@ -97,9 +97,10 @@ namespace berialdraw
 
 	protected:
 /// @cond DOXYGEN_IGNORE
-		PolyPoint* m_points;    /**< Pointer to the first point in the polyline */
-		PolyPoint* m_current;   /**< Pointer to the current point for iteration */
-		uint32_t m_count;         /**< Number of points in the polyline */
+		PolyPoint* m_first_point;   /**< Pointer to the first point in the polyline */
+		PolyPoint* m_last_point;    /**< Pointer to the last point in the polyline */
+		PolyPoint* m_current;       /**< Pointer to the last point in the polyline */
+		uint32_t m_count;           /**< Number of points in the polyline */
 /// @endcond
 	};
 }

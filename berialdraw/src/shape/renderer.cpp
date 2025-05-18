@@ -79,44 +79,66 @@ void Renderer::draw_line(Coord x, Coord y, uint32_t length, uint32_t coverage, u
 {
 	Framebuf * framebuf = UIManager::framebuf();
 
-	// If something must be displayed
+	// Proceed only if there is something to draw
 	if (coverage && framebuf && alpha)
 	{
+		// Combine the base color with the computed alpha value
 		uint32_t pixel_color = color | (compute_alpha(alpha, coverage) << 24);
 
-		// If horizontal line must be displayed
-		if (length > 1)
+		// Check if the horizontal line is fully within the drawable region
+		Region::Overlap draw = m_region->is_inside_scale(x, y, length, m_scale >> 6, m_scale);
+
+		if (draw == Region::IN)
 		{
-			// Check if horizontal line is not clipped
-			Region::Overlap draw = m_region->is_inside_scale(x, y, length, m_scale>>6, m_scale);
-			
-			// If the horizontal line is not clipped
-			if (draw == Region::IN)
+			// Draw the entire line in one go
+			framebuf->fill_rect(x, y, length, 1, pixel_color);
+		}
+		else if (draw == Region::PART)
+		{
+			// The line is partially visible, so we draw it in segments
+			uint32_t step = 64;
+			uint32_t pos  = 0;
+			uint32_t len  = step;
+
+			// Iterate over the line in chunks
+			for (pos = 0; pos < length; pos += step)
 			{
-				framebuf->fill_rect(x, y, length, 1, pixel_color);
-			}
-			// If the horizontal line is partially clipped
-			else if(draw == Region::PART)
-			{
-				// Display pixel by pixel
-				for(uint32_t i = 0; i < length; i++)
+				// Adjust the length for the last segment if needed
+				if ((length - pos) <= step)
 				{
-					// If pixel is not clipped
-					if(m_region->is_inside_scale((x+i),y, m_scale))
+					len = (length - pos);
+				}
+
+				// Check if the current segment is fully visible
+				draw = m_region->is_inside_scale(x + pos, y, len, m_scale >> 6, m_scale);
+				if (draw == Region::IN)
+				{
+					// Draw the visible segment
+					framebuf->fill_rect(x + pos, y, len, 1, pixel_color);
+				}
+				else if (draw == Region::PART)
+				{
+					// Segment is partially visible, draw pixel by pixel
+					for (uint32_t i = 0; i < len; i++)
 					{
-						// Draw pixel
-						framebuf->pixel(x+i, y, pixel_color);
+						if (m_region->is_inside_scale((x + i + pos), y, m_scale))
+						{
+							// Draw individual visible pixel
+							framebuf->pixel(x + i + pos, y, pixel_color);
+						}
 					}
 				}
-			}
-		}
-		else
-		{
-			// If pixel is not clipped
-			if(m_region->is_inside_scale(x,y, m_scale))
-			{
-				// Draw pixel
-				framebuf->pixel(x, y, pixel_color);
+				else
+				{
+					// Check if the rest of the line is completely outside the drawable region
+					draw = m_region->is_inside_scale(x + pos, y, length - pos, m_scale >> 6, m_scale);
+
+					// If so, stop drawing
+					if (draw == Region::OUT)
+					{
+						break;
+					}
+				}
 			}
 		}
 	}
@@ -165,6 +187,7 @@ void Renderer::draw(Coord x_, Coord y_, const uint8_t * buffer, Dim width, Dim h
 
 	Coord x = (x_*m_scale)>>12;
 	Coord y = (y_*m_scale)>>12;
+
 	// If the buffer is visible
 	if(m_region->is_inside_scale(x, y, width, height, m_scale) != Region::OUT)
 	{

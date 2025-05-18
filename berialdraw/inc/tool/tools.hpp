@@ -45,7 +45,8 @@ namespace berialdraw
 #endif
 
 #ifdef _DEBUG
-void tools_test();
+void tools_test1();
+void tools_test2();
 #endif
 
 	long long clockns();

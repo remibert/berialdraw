@@ -24,6 +24,7 @@
 #include <freetype/ftbitmap.h>
 #include <freetype/ftcache.h>
 #include <freetype/ftsizes.h>
+#include <freetype/internal/ftcalc.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include <ftglyph.h>

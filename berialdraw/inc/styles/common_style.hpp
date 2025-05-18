@@ -3,6 +3,7 @@
 
 namespace berialdraw
 {
+
 	/** The CommonStyle class provides a set of general styling properties, such as background color, 
 	and margin, that can be applied across multiple widgets for consistent design. */
 	class CommonStyle : public Style
@@ -150,33 +151,11 @@ namespace berialdraw
 		void align(Align v);
 
 
-		/** Define the side visible */
-		enum Side 
-		{
-			NO_SIDE                = 0,                                           ///< No side visible
-			TOP_SIDE               = 1,                                           ///< Top side visible
-			RIGHT_SIDE             = 2,                                           ///< Right side visible
-			BOTTOM_SIDE            = 4,                                           ///< Bottom side visible
-			LEFT_SIDE              = 8,                                           ///< Left side visible
-			TOP_RIGHT_SIDE         = (TOP_SIDE|RIGHT_SIDE),                       ///< Top and right sides visible
-			TOP_LEFT_SIDE          = (TOP_SIDE|LEFT_SIDE),                        ///< Top and left sides visible
-			BOTTOM_RIGHT_SIDE      = (BOTTOM_SIDE | RIGHT_SIDE),                  ///< Bottom and right sides visible
-			BOTTOM_LEFT_SIDE       = (BOTTOM_SIDE | LEFT_SIDE),                   ///< Bottom and left sides visible
-			TOP_BOTTOM_SIDE        = (TOP_SIDE|BOTTOM_SIDE),                      ///< Top and bottom sides visible
-			LEFT_RIGHT_SIDE        = (LEFT_SIDE|RIGHT_SIDE),                      ///< Left and right sides visible
-			TOP_RIGHT_BOTTOM_SIDE  = (TOP_SIDE|RIGHT_SIDE|BOTTOM_SIDE),           ///< Top, right, bottom sides visible
-			RIGHT_BOTTOM_LEFT_SIDE = (RIGHT_SIDE|BOTTOM_SIDE|LEFT_SIDE),          ///< Right, bottom, left sides visible
-			BOTTOM_LEFT_TOP_SIDE   = (BOTTOM_SIDE|LEFT_SIDE|TOP_SIDE),            ///< Bottom, left, top sides visible
-			LEFT_TOP_RIGHT_SIDE   = (LEFT_SIDE|TOP_SIDE|RIGHT_SIDE),              ///< Left, top, right sides visible
-			ALL_SIDES              = (TOP_SIDE|RIGHT_SIDE|BOTTOM_SIDE|LEFT_SIDE), ///< All sides visible
-		};
-
 		/** Select the displayed side of the rectangle */
 		void sides(uint8_t side);
 
 		/** Gets the displayed side of the rectangle */
 		uint8_t sides() const;
-
 
 
 	protected:
@@ -198,8 +177,11 @@ namespace berialdraw
 		unsigned int m_angle_modified:1;
 		int m_light:8;
 		int m_saturation:8;
-		uint8_t m_sides;
+		Side m_sides;
 /// @endcond 
 	}; 
+
+
+
 }
 #endif

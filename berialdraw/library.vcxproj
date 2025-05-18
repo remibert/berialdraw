@@ -19,18 +19,55 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\freetype\src\base\ftbase.c" />
+    <ClCompile Include="..\freetype\src\base\ftadvanc.c" />
+    <ClCompile Include="..\freetype\src\base\ftbase.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\freetype\src\base\ftbbox.c" />
+    <ClCompile Include="..\freetype\src\base\ftbdf.c" />
     <ClCompile Include="..\freetype\src\base\ftbitmap.c" />
+    <ClCompile Include="..\freetype\src\base\ftcalc.c" />
+    <ClCompile Include="..\freetype\src\base\ftcid.c" />
+    <ClCompile Include="..\freetype\src\base\ftcolor.c" />
+    <ClCompile Include="..\freetype\src\base\ftdbgmem.c" />
     <ClCompile Include="..\freetype\src\base\ftdebug.c" />
+    <ClCompile Include="..\freetype\src\base\fterrors.c" />
+    <ClCompile Include="..\freetype\src\base\ftfntfmt.c" />
+    <ClCompile Include="..\freetype\src\base\ftfstype.c" />
+    <ClCompile Include="..\freetype\src\base\ftgasp.c" />
+    <ClCompile Include="..\freetype\src\base\ftgloadr.c" />
     <ClCompile Include="..\freetype\src\base\ftglyph.c" />
+    <ClCompile Include="..\freetype\src\base\ftgxval.c" />
+    <ClCompile Include="..\freetype\src\base\fthash.c" />
     <ClCompile Include="..\freetype\src\base\ftinit.c" />
+    <ClCompile Include="..\freetype\src\base\ftlcdfil.c" />
+    <ClCompile Include="..\freetype\src\base\ftmac.c" />
     <ClCompile Include="..\freetype\src\base\ftmm.c" />
+    <ClCompile Include="..\freetype\src\base\ftobjs.c" />
+    <ClCompile Include="..\freetype\src\base\ftotval.c" />
+    <ClCompile Include="..\freetype\src\base\ftoutln.c" />
+    <ClCompile Include="..\freetype\src\base\ftpatent.c" />
+    <ClCompile Include="..\freetype\src\base\ftpfr.c" />
+    <ClCompile Include="..\freetype\src\base\ftpsprop.c" />
+    <ClCompile Include="..\freetype\src\base\ftrfork.c" />
+    <ClCompile Include="..\freetype\src\base\ftsnames.c" />
+    <ClCompile Include="..\freetype\src\base\ftstream.c" />
+    <ClCompile Include="..\freetype\src\base\ftstroke.c" />
+    <ClCompile Include="..\freetype\src\base\ftsynth.c" />
     <ClCompile Include="..\freetype\src\base\ftsystem.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\freetype\src\base\fttrigon.c" />
+    <ClCompile Include="..\freetype\src\base\fttype1.c" />
+    <ClCompile Include="..\freetype\src\base\ftutil.c" />
+    <ClCompile Include="..\freetype\src\base\ftwinfnt.c" />
+    <ClCompile Include="..\freetype\src\base\md5.c" />
     <ClCompile Include="..\freetype\src\sfnt\sfdriver.c" />
     <ClCompile Include="..\freetype\src\sfnt\sfobjs.c" />
     <ClCompile Include="..\freetype\src\sfnt\ttcmap.c" />
@@ -612,6 +649,16 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="src\tool\arc_cache.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="src\tool\bd_system.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
@@ -902,6 +949,16 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="src\vector\side.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="src\vector\size.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
@@ -1124,15 +1181,106 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\freetype\freetype\config\ftconfig.h" />
-    <ClInclude Include="..\freetype\freetype\config\ftheader.h" />
-    <ClInclude Include="..\freetype\freetype\config\ftmodule.h" />
-    <ClInclude Include="..\freetype\freetype\config\ftoption.h" />
-    <ClInclude Include="..\freetype\freetype\config\ftstdlib.h" />
-    <ClInclude Include="..\freetype\freetype\config\integer-types.h" />
-    <ClInclude Include="..\freetype\freetype\config\mac-support.h" />
-    <ClInclude Include="..\freetype\freetype\config\public-macros.h" />
+    <ClInclude Include="..\freetype\include\freetype\config\ftconfig.h" />
+    <ClInclude Include="..\freetype\include\freetype\config\ftheader.h" />
+    <ClInclude Include="..\freetype\include\freetype\config\ftmodule.h" />
+    <ClInclude Include="..\freetype\include\freetype\config\ftoption.h" />
+    <ClInclude Include="..\freetype\include\freetype\config\ftstdlib.h" />
+    <ClInclude Include="..\freetype\include\freetype\config\integer-types.h" />
+    <ClInclude Include="..\freetype\include\freetype\config\mac-support.h" />
+    <ClInclude Include="..\freetype\include\freetype\config\public-macros.h" />
     <ClInclude Include="..\freetype\include\freetype\freetype.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftadvanc.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftbbox.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftbdf.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftbitmap.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftbzip2.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftcache.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftchapters.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftcid.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftcolor.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftdriver.h" />
+    <ClInclude Include="..\freetype\include\freetype\fterrdef.h" />
+    <ClInclude Include="..\freetype\include\freetype\fterrors.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftfntfmt.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftgasp.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftglyph.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftgxval.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftgzip.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftimage.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftincrem.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftlcdfil.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftlist.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftlogging.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftlzw.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftmac.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftmm.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftmodapi.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftmoderr.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftotval.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftoutln.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftparams.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftpfr.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftrender.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftsizes.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftsnames.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftstroke.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftsynth.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftsystem.h" />
+    <ClInclude Include="..\freetype\include\freetype\fttrigon.h" />
+    <ClInclude Include="..\freetype\include\freetype\fttypes.h" />
+    <ClInclude Include="..\freetype\include\freetype\ftwinfnt.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\autohint.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\cffotypes.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\cfftypes.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\compiler-macros.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\ftcalc.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\ftdebug.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\ftdrv.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\ftgloadr.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\fthash.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\ftmemory.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\ftmmtypes.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\ftobjs.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\ftpsprop.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\ftrfork.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\ftserv.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\ftstream.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\fttrace.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\ftvalid.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\psaux.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\pshints.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svbdf.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svcfftl.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svcid.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svfntfmt.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svgldict.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svgxval.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svkern.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svmetric.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svmm.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svotval.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svpfr.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svpostnm.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svprop.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svpscmap.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svpsinfo.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svsfnt.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svttcmap.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svtteng.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svttglyf.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\services\svwinfnt.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\sfnt.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\svginterface.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\t1types.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\tttypes.h" />
+    <ClInclude Include="..\freetype\include\freetype\internal\wofftypes.h" />
+    <ClInclude Include="..\freetype\include\freetype\otsvg.h" />
+    <ClInclude Include="..\freetype\include\freetype\t1tables.h" />
+    <ClInclude Include="..\freetype\include\freetype\ttnameid.h" />
+    <ClInclude Include="..\freetype\include\freetype\tttables.h" />
+    <ClInclude Include="..\freetype\include\freetype\tttags.h" />
+    <ClInclude Include="..\freetype\src\base\ftbase.h" />
     <ClInclude Include="..\freetype\src\sfnt\sfdriver.h" />
     <ClInclude Include="..\freetype\src\sfnt\sfobjs.h" />
     <ClInclude Include="..\freetype\src\sfnt\ttcmap.h" />
@@ -1206,6 +1354,7 @@
     <ClInclude Include="inc\styles\text_style.hpp" />
     <ClInclude Include="inc\styles\widget_style.hpp" />
     <ClInclude Include="inc\styles\colors.hpp" />
+    <ClInclude Include="inc\tool\arc_cache.hpp" />
     <ClInclude Include="inc\tool\bd_system.h" />
     <ClInclude Include="inc\tool\directory.hpp" />
     <ClInclude Include="inc\tool\exporter.hpp" />
@@ -1245,6 +1394,7 @@
     <ClInclude Include="inc\vector\orientation.hpp" />
     <ClInclude Include="inc\vector\point.hpp" />
     <ClInclude Include="inc\vector\region.hpp" />
+    <ClInclude Include="inc\vector\side.hpp" />
     <ClInclude Include="inc\vector\size.hpp" />
     <ClInclude Include="inc\vector\size_policy.hpp" />
     <ClInclude Include="inc\widget\button.hpp" />
@@ -1350,6 +1500,9 @@
   <ItemGroup>
     <Font Include="resources\fonts\Berial-Bold.ttf" />
     <Font Include="resources\fonts\Berial.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\freetype\src\base\ftver.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D2B0C9BA-6691-49BC-B111-1945063134EA}</ProjectGuid>

@@ -6,7 +6,7 @@
 	"select-color"   : 0x00000025, // EDIT_SELECT_COLOR 
 	"thickness"      : 1,
 	"radius"         : 2,
-	"margin"         : {"top":2,"left":2,"bottom":2,"right":2},
+	"margin"         : {"top":3,"left":3,"bottom":3,"right":3},
 	"align"          : "center",
 	"font-size"      : {"width":15,"height":20},
 	"padding"        : {"top":5,"left":5,"bottom":5,"right":5},

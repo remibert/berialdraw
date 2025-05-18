@@ -56,8 +56,11 @@ namespace berialdraw
 		/** Return the desktop */
 		static Desktop * desktop();
 
-		/** Add screen crc */
+		/** Return screen crc */
 		static ScreenCrc * screen_crc();
+
+		/** Return the arc cache handle */
+		static ArcCache * arc_cache();
 
 		/** Indicates if the uimanager is initialized or not */
 		static bool is_initialized();
@@ -76,6 +79,7 @@ namespace berialdraw
 		static Fonts       * m_fonts;
 		static Desktop     * m_desktop;
 		static ScreenCrc   * m_screen_crc;
+		static ArcCache    * m_arc_cache;
 /// @endcond
 	};
 }

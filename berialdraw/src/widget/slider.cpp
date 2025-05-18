@@ -222,9 +222,9 @@ void Slider::draw_track()
 	if (m_focused)
 	{
 		// Draw focus
-		Rect::build_polygon(handle_area, shift, m_radius + (m_thickness>>1), m_focus_thickness<<6, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color));
+		Rect::build_polygon(handle_area, shift, m_radius, m_thickness, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color), m_focus_thickness<<6);
 	}
-	// Draw backround
+	// Draw background
 	Rect::build_polygon(handle_area, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_handle_color), handle_border_color);
 }
 
