@@ -1,1579 +1,1973 @@
 	{
 		"test/out/sample_icon_list_1.svg" : 
 		{
-			"scale_2" : 2191661421
+			"scale_2" : 1955545603,
+			"scale_1" : 278059968
 		},
 		"test/out/sample_buton_1.svg" : 
 		{
-			"scale_2" : 2614347182
+			"scale_2" : 4199924278,
+			"scale_1" : 4191572141
 		},
 		"test/out/sample_canvas_1.svg" : 
 		{
-			"scale_2" : 787979231
+			"scale_2" : 2703641199,
+			"scale_1" : 4182846558
 		},
 		"test/out/sample_column_1.svg" : 
 		{
-			"scale_2" : 2153420003
+			"scale_2" : 4193000728,
+			"scale_1" : 3839348049
 		},
 		"test/out/sample_column_2.svg" : 
 		{
-			"scale_2" : 2430534005
+			"scale_2" : 999851288,
+			"scale_1" : 835963680
 		},
 		"test/out/sample_edit_1.svg" : 
 		{
-			"scale_2" : 1530599080
+			"scale_2" : 3140983987,
+			"scale_1" : 1671515835
 		},
 		"test/out/sample_edit_2.svg" : 
 		{
-			"scale_2" : 1530599080
+			"scale_2" : 3140983987,
+			"scale_1" : 1671515835
 		},
 		"test/out/sample_edit_3.svg" : 
 		{
-			"scale_2" : 2183162921
+			"scale_2" : 1647109682,
+			"scale_1" : 95901728
 		},
 		"test/out/sample_grid_1.svg" : 
 		{
-			"scale_2" : 612364612
+			"scale_2" : 4205611464,
+			"scale_1" : 678013416
 		},
 		"test/out/sample_icon_1.svg" : 
 		{
-			"scale_2" : 192166482
+			"scale_2" : 1450802838,
+			"scale_1" : 4246931842
 		},
 		"test/out/sample_keyboard_1.svg" : 
 		{
-			"scale_2" : 3349737977
+			"scale_2" : 483172057,
+			"scale_1" : 1948280573
 		},
 		"test/out/sample_label_1.svg" : 
 		{
-			"scale_2" : 3317744275
+			"scale_2" : 3317744275,
+			"scale_1" : 755045080
 		},
 		"test/out/sample_pane_1.svg" : 
 		{
-			"scale_2" : 3481517011
+			"scale_2" : 4119875502,
+			"scale_1" : 3869684759
 		},
 		"test/out/sample_pane_2.svg" : 
 		{
-			"scale_2" : 29171452
+			"scale_2" : 1409371368,
+			"scale_1" : 1784092479
 		},
 		"test/out/sample_progress_1.svg" : 
 		{
-			"scale_2" : 2177842459
+			"scale_2" : 799732401,
+			"scale_1" : 3943205030
 		},
 		"test/out/sample_progress_2.svg" : 
 		{
-			"scale_2" : 1744094461
+			"scale_2" : 1656306038,
+			"scale_1" : 1039083544
 		},
 		"test/out/sample_row_1.svg" : 
 		{
-			"scale_2" : 4010180003
+			"scale_2" : 3444839882,
+			"scale_1" : 1125957798
 		},
 		"test/out/sample_row_2.svg" : 
 		{
-			"scale_2" : 2361274506
+			"scale_2" : 1659267912,
+			"scale_1" : 360609306
 		},
 		"test/out/sample_scroll_1.svg" : 
 		{
-			"scale_2" : 3602129217
+			"scale_2" : 8696062,
+			"scale_1" : 2190663098
 		},
 		"test/out/sample_scroll_2.svg" : 
 		{
-			"scale_2" : 603478655
+			"scale_2" : 2164708438,
+			"scale_1" : 1549960964
 		},
 		"test/out/sample_scroll_3.svg" : 
 		{
-			"scale_2" : 736995691
+			"scale_2" : 3179792753,
+			"scale_1" : 2092613470
 		},
 		"test/out/sample_slider_1.svg" : 
 		{
-			"scale_2" : 2783735678
+			"scale_2" : 3816454154,
+			"scale_1" : 1708061624
 		},
 		"test/out/sample_switch_1.svg" : 
 		{
-			"scale_2" : 1751493531
+			"scale_2" : 3262170449,
+			"scale_1" : 3355706590
 		},
 		"test/out/sample_switch_2.svg" : 
 		{
-			"scale_2" : 1875670044
+			"scale_2" : 3289845261,
+			"scale_1" : 3329906968
 		},
 		"test/out/sample_window_1.svg" : 
 		{
-			"scale_2" : 3540782328
+			"scale_2" : 3003356543,
+			"scale_1" : 1169992335
 		},
 		"test/out/sample_speed_1.svg" : 
 		{
-			"scale_2" : 4244471166
+			"scale_2" : 3500848097,
+			"scale_1" : 468021133
 		},
 		"test/out/sample_speed_2.svg" : 
 		{
-			"scale_2" : 122744261
+			"scale_2" : 3005018307,
+			"scale_1" : 2910087000
 		},
 		"test/out/sample_theme_1.svg" : 
 		{
-			"scale_2" : 1225182851
+			"scale_2" : 138372396,
+			"scale_1" : 234302827
 		},
 		"test/out/sample_theme_2.svg" : 
 		{
-			"scale_2" : 135735803
+			"scale_2" : 3514890882,
+			"scale_1" : 3562060354
 		},
 		"test/out/sample_theme_3.svg" : 
 		{
-			"scale_2" : 3009190526
+			"scale_2" : 3875949952,
+			"scale_1" : 1829568840
 		},
 		"test/out/sample_theme_4.svg" : 
 		{
-			"scale_2" : 4051561099
+			"scale_2" : 611212841,
+			"scale_1" : 1333646329
 		},
 		"test/out/sample_theme_5.svg" : 
 		{
-			"scale_2" : 3175575262
+			"scale_2" : 861067959,
+			"scale_1" : 3609495965
 		},
 		"test/out/sample_theme_6.svg" : 
 		{
-			"scale_2" : 3841946440
+			"scale_2" : 754794300,
+			"scale_1" : 1630511926
 		},
 		"test/out/sample_theme_7.svg" : 
 		{
-			"scale_2" : 213020845
+			"scale_2" : 1981560825,
+			"scale_1" : 25609171
 		},
 		"test/out/sample_theme_8.svg" : 
 		{
-			"scale_2" : 1111756395
+			"scale_2" : 565574729,
+			"scale_1" : 425639505
 		},
 		"test/out/sample_theme_9.svg" : 
 		{
-			"scale_2" : 2288177400
+			"scale_2" : 3204018234,
+			"scale_1" : 2301580712
 		},
 		"test/out/sample_theme_10.svg" : 
 		{
-			"scale_2" : 2067616514
+			"scale_2" : 386249936,
+			"scale_1" : 2285277010
 		},
 		"test/out/sample_theme_11.svg" : 
 		{
-			"scale_2" : 3125954025
+			"scale_2" : 2306625366,
+			"scale_1" : 3549934086
 		},
 		"test/out/sample_theme_12.svg" : 
 		{
-			"scale_2" : 3541744507
+			"scale_2" : 4177984146,
+			"scale_1" : 1037189086
 		},
 		"test/out/sample_theme_13.svg" : 
 		{
-			"scale_2" : 789813076
+			"scale_2" : 3796285589,
+			"scale_1" : 2451420199
 		},
 		"test/out/sample_theme_14.svg" : 
 		{
-			"scale_2" : 3091361788
+			"scale_2" : 307328183,
+			"scale_1" : 982596830
 		},
 		"test/out/sample_theme_15.svg" : 
 		{
-			"scale_2" : 456759922
+			"scale_2" : 3145176142,
+			"scale_1" : 1611591486
 		},
 		"test/out/sample_theme_16.svg" : 
 		{
-			"scale_2" : 1798718818
+			"scale_2" : 1307835662,
+			"scale_1" : 1037578907
 		},
 		"test/out/sample_theme_17.svg" : 
 		{
-			"scale_2" : 3072568917
+			"scale_2" : 1175826021,
+			"scale_1" : 2329677992
 		},
 		"test/out/sample_theme_18.svg" : 
 		{
-			"scale_2" : 2558396350
+			"scale_2" : 1932697859,
+			"scale_1" : 876248680
 		},
 		"test/out/sample_theme_19.svg" : 
 		{
-			"scale_2" : 3657223486
+			"scale_2" : 282456247,
+			"scale_1" : 4099604057
 		},
 		"test/out/sample_theme_20.svg" : 
 		{
-			"scale_2" : 119510651
+			"scale_2" : 577279191,
+			"scale_1" : 549806559
 		},
 		"test/out/sample_theme_21.svg" : 
 		{
-			"scale_2" : 1970243209
+			"scale_2" : 3958959422,
+			"scale_1" : 2692520148
 		},
 		"test/out/sample_theme_22.svg" : 
 		{
-			"scale_2" : 3772901498
+			"scale_2" : 534468762,
+			"scale_1" : 724279297
 		},
 		"test/out/sample_theme_23.svg" : 
 		{
-			"scale_2" : 4048927557
+			"scale_2" : 2514847348,
+			"scale_1" : 3633627821
 		},
 		"test/out/sample_theme_24.svg" : 
 		{
-			"scale_2" : 1799083690
+			"scale_2" : 2809693927,
+			"scale_1" : 553620999
 		},
 		"test/out/sample_theme_25.svg" : 
 		{
-			"scale_2" : 3433555935
+			"scale_2" : 1003068228,
+			"scale_1" : 569214546
 		},
 		"test/out/sample_theme_26.svg" : 
 		{
-			"scale_2" : 1525951702
+			"scale_2" : 2120921623,
+			"scale_1" : 3509454318
 		},
 		"test/out/sample_theme_27.svg" : 
 		{
-			"scale_2" : 308526284
+			"scale_2" : 918233368,
+			"scale_1" : 214177268
 		},
 		"test/out/sample_theme_28.svg" : 
 		{
-			"scale_2" : 4217731889
+			"scale_2" : 104262070,
+			"scale_1" : 3404576837
 		},
 		"test/out/sample_theme_29.svg" : 
 		{
-			"scale_2" : 3687743620
+			"scale_2" : 1001205366,
+			"scale_1" : 737430375
 		},
 		"test/out/sample_theme_30.svg" : 
 		{
-			"scale_2" : 2588301579
+			"scale_2" : 768565886,
+			"scale_1" : 1948380772
 		},
 		"test/out/sample_theme_31.svg" : 
 		{
-			"scale_2" : 764154298
+			"scale_2" : 1488856250,
+			"scale_1" : 1599111479
 		},
 		"test/out/sample_theme_32.svg" : 
 		{
-			"scale_2" : 341432827
+			"scale_2" : 1245193537,
+			"scale_1" : 3656629972
 		},
 		"test/out/sample_theme_33.svg" : 
 		{
-			"scale_2" : 2280001977
+			"scale_2" : 1067793110,
+			"scale_1" : 2514172448
 		},
 		"test/out/sample_theme_34.svg" : 
 		{
-			"scale_2" : 876033678
+			"scale_2" : 1899073654,
+			"scale_1" : 1950782059
 		},
 		"test/out/sample_theme_35.svg" : 
 		{
-			"scale_2" : 1072664013
+			"scale_2" : 1669632768,
+			"scale_1" : 729199654
 		},
 		"test/out/sample_theme_36.svg" : 
 		{
-			"scale_2" : 3779856436
+			"scale_2" : 58648636,
+			"scale_1" : 2150948681
 		},
 		"test/out/sample_theme_37.svg" : 
 		{
-			"scale_2" : 4052497158
+			"scale_2" : 3868466009,
+			"scale_1" : 655795582
 		},
 		"test/out/sample_theme_38.svg" : 
 		{
-			"scale_2" : 958230637
+			"scale_2" : 1444131118,
+			"scale_1" : 318596502
 		},
 		"test/out/sample_theme_39.svg" : 
 		{
-			"scale_2" : 659761723
+			"scale_2" : 771109339,
+			"scale_1" : 3650952906
 		},
 		"test/out/sample_theme_40.svg" : 
 		{
-			"scale_2" : 2935043340
+			"scale_2" : 3505601747,
+			"scale_1" : 3939223510
 		},
 		"test/out/icon2_0.svg" : 
 		{
-			"scale_2" : 4069547072
+			"scale_2" : 3282160410,
+			"scale_1" : 376376908
 		},
 		"test/out/icon1_1.svg" : 
 		{
-			"scale_2" : 1113659459
+			"scale_2" : 2469624330,
+			"scale_1" : 3879327233
 		},
 		"test/out/icon1_2.svg" : 
 		{
-			"scale_2" : 798669079
+			"scale_2" : 1091704324,
+			"scale_1" : 2754634494
 		},
 		"test/out/icon1_3.svg" : 
 		{
-			"scale_2" : 3123138823
+			"scale_2" : 2125477982,
+			"scale_1" : 792864269
 		},
 		"test/out/icon1_4.svg" : 
 		{
-			"scale_2" : 2667733285
+			"scale_2" : 1440359913,
+			"scale_1" : 1437931633
 		},
 		"test/out/progress_bar3_1.svg" : 
 		{
-			"scale_2" : 1973348807
+			"scale_2" : 514147209,
+			"scale_1" : 154841758
 		},
 		"test/out/progress_bar3_2.svg" : 
 		{
-			"scale_2" : 1097520701
+			"scale_2" : 1151133675,
+			"scale_1" : 1311926521
 		},
 		"test/out/progress_bar3_3.svg" : 
 		{
-			"scale_2" : 2704567351
+			"scale_2" : 2316152337,
+			"scale_1" : 3975822943
 		},
 		"test/out/progress_bar3_4.svg" : 
 		{
-			"scale_2" : 3486542068
+			"scale_2" : 267353187,
+			"scale_1" : 4190990796
 		},
 		"test/out/progress_bar3_5.svg" : 
 		{
-			"scale_2" : 2885856318
+			"scale_2" : 3981300829,
+			"scale_1" : 500299267
 		},
 		"test/out/progress_bar3_6.svg" : 
 		{
-			"scale_2" : 1583479827
+			"scale_2" : 895112797,
+			"scale_1" : 859002471
 		},
 		"test/out/progress_bar3_7.svg" : 
 		{
-			"scale_2" : 1429759662
+			"scale_2" : 1355700088,
+			"scale_1" : 1217368059
 		},
 		"test/out/progress_bar3_8.svg" : 
 		{
-			"scale_2" : 157780794
+			"scale_2" : 576604444,
+			"scale_1" : 3353786890
 		},
 		"test/out/progress_bar2_1.svg" : 
 		{
-			"scale_2" : 530243524
+			"scale_2" : 2179254832,
+			"scale_1" : 165832627
 		},
 		"test/out/progress_bar2_2.svg" : 
 		{
-			"scale_2" : 587656191
+			"scale_2" : 794644540,
+			"scale_1" : 1737038082
 		},
 		"test/out/progress_bar2_3.svg" : 
 		{
-			"scale_2" : 2925465646
+			"scale_2" : 500706036,
+			"scale_1" : 3630893880
 		},
 		"test/out/progress_bar2_4.svg" : 
 		{
-			"scale_2" : 1514542582
+			"scale_2" : 1978666934,
+			"scale_1" : 863451143
 		},
 		"test/out/progress_bar2_5.svg" : 
 		{
-			"scale_2" : 1357465143
+			"scale_2" : 2969968089,
+			"scale_1" : 588784678
 		},
 		"test/out/progress_bar2_6.svg" : 
 		{
-			"scale_2" : 1155652954
+			"scale_2" : 1452535178,
+			"scale_1" : 2743389709
 		},
 		"test/out/progress_bar2_7.svg" : 
 		{
-			"scale_2" : 3198459362
+			"scale_2" : 2379919964,
+			"scale_1" : 1374349898
 		},
 		"test/out/progress_bar2_8.svg" : 
 		{
-			"scale_2" : 4275844965
+			"scale_2" : 3820674108,
+			"scale_1" : 1873481244
 		},
 		"test/out/progress_bar1_1.svg" : 
 		{
-			"scale_2" : 2314155
+			"scale_2" : 1777172884,
+			"scale_1" : 1866655553
 		},
 		"test/out/progress_bar1_2.svg" : 
 		{
-			"scale_2" : 3138184561
+			"scale_2" : 3771989733,
+			"scale_1" : 1804652676
 		},
 		"test/out/progress_bar1_3.svg" : 
 		{
-			"scale_2" : 280817074
+			"scale_2" : 3507471960,
+			"scale_1" : 4173551642
 		},
 		"test/out/progress_bar1_4.svg" : 
 		{
-			"scale_2" : 1033012775
+			"scale_2" : 3870726475,
+			"scale_1" : 1455422806
 		},
 		"test/out/progress_bar1_5.svg" : 
 		{
-			"scale_2" : 4180489034
+			"scale_2" : 2232955497,
+			"scale_1" : 3353957923
 		},
 		"test/out/progress_bar1_6.svg" : 
 		{
-			"scale_2" : 1417962530
+			"scale_2" : 4268586246,
+			"scale_1" : 3125633027
 		},
 		"test/out/progress_bar1_7.svg" : 
 		{
-			"scale_2" : 3873310373
+			"scale_2" : 4218886795,
+			"scale_1" : 139780690
 		},
 		"test/out/progress_bar1_8.svg" : 
 		{
-			"scale_2" : 951475760
+			"scale_2" : 544374814,
+			"scale_1" : 2827400620
 		},
 		"test/out/slider4_1.svg" : 
 		{
-			"scale_2" : 2069648042
+			"scale_2" : 1867025031,
+			"scale_1" : 1463655032
 		},
 		"test/out/slider4_2.svg" : 
 		{
-			"scale_2" : 1393707733
+			"scale_2" : 3906563366,
+			"scale_1" : 1395919799
 		},
 		"test/out/slider3_1.svg" : 
 		{
-			"scale_2" : 3863720109
+			"scale_2" : 1152970290,
+			"scale_1" : 552002267
 		},
 		"test/out/slider3_2.svg" : 
 		{
-			"scale_2" : 658751456
+			"scale_2" : 1185914130,
+			"scale_1" : 3949379247
 		},
 		"test/out/slider3_3.svg" : 
 		{
-			"scale_2" : 438897103
+			"scale_2" : 2419497519,
+			"scale_1" : 1533314956
 		},
 		"test/out/slider3_4.svg" : 
 		{
-			"scale_2" : 3468470196
+			"scale_2" : 1350176452,
+			"scale_1" : 214975035
 		},
 		"test/out/slider3_5.svg" : 
 		{
-			"scale_2" : 3926101172
+			"scale_2" : 2438541932,
+			"scale_1" : 2082135771
 		},
 		"test/out/slider3_6.svg" : 
 		{
-			"scale_2" : 2953235635
+			"scale_2" : 3494271668,
+			"scale_1" : 2671146863
 		},
 		"test/out/slider3_7.svg" : 
 		{
-			"scale_2" : 2953235635
+			"scale_2" : 3494271668,
+			"scale_1" : 2671146863
 		},
 		"test/out/slider3_8.svg" : 
 		{
-			"scale_2" : 2953235635
+			"scale_2" : 3494271668,
+			"scale_1" : 2671146863
 		},
 		"test/out/slider2_1.svg" : 
 		{
-			"scale_2" : 3005545387
+			"scale_2" : 3137496571,
+			"scale_1" : 922520872
 		},
 		"test/out/slider2_2.svg" : 
 		{
-			"scale_2" : 2951073821
+			"scale_2" : 4047676631,
+			"scale_1" : 3067787940
 		},
 		"test/out/slider2_3.svg" : 
 		{
-			"scale_2" : 1032871264
+			"scale_2" : 1516880543,
+			"scale_1" : 2302003596
 		},
 		"test/out/slider1_1.svg" : 
 		{
-			"scale_2" : 1029901259
+			"scale_2" : 866562732,
+			"scale_1" : 108937079
 		},
 		"test/out/slider1_2.svg" : 
 		{
-			"scale_2" : 49949311
+			"scale_2" : 639600703,
+			"scale_1" : 3560072529
 		},
 		"test/out/slider1_3.svg" : 
 		{
-			"scale_2" : 4099045743
+			"scale_2" : 3484641307,
+			"scale_1" : 3080494596
 		},
 		"test/out/edit7_1.svg" : 
 		{
-			"scale_2" : 388912844
+			"scale_2" : 3663019512,
+			"scale_1" : 4102051129
 		},
 		"test/out/edit6_1.svg" : 
 		{
-			"scale_2" : 544121615
+			"scale_2" : 2331025455,
+			"scale_1" : 3217328922
 		},
 		"test/out/edit5_1.svg" : 
 		{
-			"scale_2" : 3003615870
+			"scale_2" : 3583020772,
+			"scale_1" : 1554313368
 		},
 		"test/out/edit4_1.svg" : 
 		{
-			"scale_2" : 1844049783
+			"scale_2" : 2971887158,
+			"scale_1" : 1771861134
 		},
 		"test/out/edit4_2.svg" : 
 		{
-			"scale_2" : 390165539
+			"scale_2" : 2595886438,
+			"scale_1" : 64449550
 		},
 		"test/out/edit3_1.svg" : 
 		{
-			"scale_2" : 2056436596
+			"scale_2" : 2654927177,
+			"scale_1" : 1903188893
 		},
 		"test/out/edit3_2.svg" : 
 		{
-			"scale_2" : 71633550
+			"scale_2" : 2742517502,
+			"scale_1" : 367355419
 		},
 		"test/out/edit3_3.svg" : 
 		{
-			"scale_2" : 3453477154
+			"scale_2" : 3507658010,
+			"scale_1" : 2423052484
 		},
 		"test/out/edit3_4.svg" : 
 		{
-			"scale_2" : 3034571870
+			"scale_2" : 3963466832,
+			"scale_1" : 2865225148
 		},
 		"test/out/edit3_5.svg" : 
 		{
-			"scale_2" : 3272345221
+			"scale_2" : 3193909788,
+			"scale_1" : 251692799
 		},
 		"test/out/edit3_6.svg" : 
 		{
-			"scale_2" : 356940083
+			"scale_2" : 152532979,
+			"scale_1" : 2285737987
 		},
 		"test/out/edit3_7.svg" : 
 		{
-			"scale_2" : 1332376669
+			"scale_2" : 4272732967,
+			"scale_1" : 1423697739
 		},
 		"test/out/edit3_8.svg" : 
 		{
-			"scale_2" : 4138596518
+			"scale_2" : 2822184449,
+			"scale_1" : 3274593062
 		},
 		"test/out/edit3_9.svg" : 
 		{
-			"scale_2" : 3102167349
+			"scale_2" : 3890121733,
+			"scale_1" : 1972184647
 		},
 		"test/out/edit3_10.svg" : 
 		{
-			"scale_2" : 2755193602
+			"scale_2" : 2749747356,
+			"scale_1" : 1085943639
 		},
 		"test/out/edit2_1.svg" : 
 		{
-			"scale_2" : 3935454821
+			"scale_2" : 1734339281,
+			"scale_1" : 1047878037
 		},
 		"test/out/edit2_2.svg" : 
 		{
-			"scale_2" : 2321599569
+			"scale_2" : 1457316184,
+			"scale_1" : 3709005518
 		},
 		"test/out/edit2_3.svg" : 
 		{
-			"scale_2" : 2740267435
+			"scale_2" : 2485700380,
+			"scale_1" : 1874879524
 		},
 		"test/out/edit2_4.svg" : 
 		{
-			"scale_2" : 368898522
+			"scale_2" : 1166556838,
+			"scale_1" : 4103171177
 		},
 		"test/out/edit2_5.svg" : 
 		{
-			"scale_2" : 3926018163
+			"scale_2" : 2228782031,
+			"scale_1" : 483502880
 		},
 		"test/out/edit2_6.svg" : 
 		{
-			"scale_2" : 3813082590
+			"scale_2" : 2807165719,
+			"scale_1" : 2459356100
 		},
 		"test/out/edit2_7.svg" : 
 		{
-			"scale_2" : 2241665852
+			"scale_2" : 832567665,
+			"scale_1" : 1800452213
 		},
 		"test/out/edit2_8.svg" : 
 		{
-			"scale_2" : 800808562
+			"scale_2" : 445729470,
+			"scale_1" : 2817391556
 		},
 		"test/out/edit2_9.svg" : 
 		{
-			"scale_2" : 2175163514
+			"scale_2" : 3325474506,
+			"scale_1" : 4227980480
 		},
 		"test/out/edit2_10.svg" : 
 		{
-			"scale_2" : 2835213833
+			"scale_2" : 226359546,
+			"scale_1" : 1349252754
 		},
 		"test/out/edit2_11.svg" : 
 		{
-			"scale_2" : 3426899617
+			"scale_2" : 3380292476,
+			"scale_1" : 1629993125
 		},
 		"test/out/edit2_12.svg" : 
 		{
-			"scale_2" : 293693620
+			"scale_2" : 1140648492,
+			"scale_1" : 2152761642
 		},
 		"test/out/edit2_13.svg" : 
 		{
-			"scale_2" : 1207323133
+			"scale_2" : 3623131879,
+			"scale_1" : 1318062627
 		},
 		"test/out/edit2_14.svg" : 
 		{
-			"scale_2" : 287807931
+			"scale_2" : 270670647,
+			"scale_1" : 3238214699
 		},
 		"test/out/edit2_15.svg" : 
 		{
-			"scale_2" : 469240572
+			"scale_2" : 1550377036,
+			"scale_1" : 4094734116
 		},
 		"test/out/edit2_16.svg" : 
 		{
-			"scale_2" : 3432477926
+			"scale_2" : 1788615303,
+			"scale_1" : 243899635
 		},
 		"test/out/edit2_17.svg" : 
 		{
-			"scale_2" : 3503557237
+			"scale_2" : 2148156380,
+			"scale_1" : 577653794
 		},
 		"test/out/edit2_18.svg" : 
 		{
-			"scale_2" : 3603741938
+			"scale_2" : 2226208362,
+			"scale_1" : 1960008883
 		},
 		"test/out/edit2_19.svg" : 
 		{
-			"scale_2" : 4204630834
+			"scale_2" : 3584969791,
+			"scale_1" : 2101816975
 		},
 		"test/out/edit2_20.svg" : 
 		{
-			"scale_2" : 16993773
+			"scale_2" : 1453724540,
+			"scale_1" : 2727727866
 		},
 		"test/out/edit1_1.svg" : 
 		{
-			"scale_2" : 761574317
+			"scale_2" : 992715584,
+			"scale_1" : 2329460028
 		},
 		"test/out/edit1_2.svg" : 
 		{
-			"scale_2" : 736408395
+			"scale_2" : 3212058759,
+			"scale_1" : 2753217617
 		},
 		"test/out/edit1_3.svg" : 
 		{
-			"scale_2" : 979482896
+			"scale_2" : 2526486146,
+			"scale_1" : 2018667442
 		},
 		"test/out/edit1_4.svg" : 
 		{
-			"scale_2" : 3738379516
+			"scale_2" : 340402784,
+			"scale_1" : 3309588451
 		},
 		"test/out/edit1_5.svg" : 
 		{
-			"scale_2" : 446842990
+			"scale_2" : 2261862357,
+			"scale_1" : 4263100619
 		},
 		"test/out/edit1_6.svg" : 
 		{
-			"scale_2" : 425861330
+			"scale_2" : 421111747,
+			"scale_1" : 1499767748
 		},
 		"test/out/edit1_7.svg" : 
 		{
-			"scale_2" : 2605351049
+			"scale_2" : 668593795,
+			"scale_1" : 151901661
 		},
 		"test/out/edit1_8.svg" : 
 		{
-			"scale_2" : 606597314
+			"scale_2" : 2561973960,
+			"scale_1" : 1041291719
 		},
 		"test/out/edit1_9.svg" : 
 		{
-			"scale_2" : 730248607
+			"scale_2" : 2534792085,
+			"scale_1" : 4233432235
 		},
 		"test/out/edit1_10.svg" : 
 		{
-			"scale_2" : 1536194665
+			"scale_2" : 3875739235,
+			"scale_1" : 3220857565
 		},
 		"test/out/switch1_1.svg" : 
 		{
-			"scale_2" : 1005882946
+			"scale_2" : 2332051363,
+			"scale_1" : 388605958
 		},
 		"test/out/switch1_2.svg" : 
 		{
-			"scale_2" : 1240055247
+			"scale_2" : 3764766678,
+			"scale_1" : 743100076
 		},
 		"test/out/switch1_3.svg" : 
 		{
-			"scale_2" : 1243312799
+			"scale_2" : 3300484675,
+			"scale_1" : 1066735461
 		},
 		"test/out/switch1_4.svg" : 
 		{
-			"scale_2" : 2449057008
+			"scale_2" : 1266479088,
+			"scale_1" : 1702158227
 		},
 		"test/out/switch1_5.svg" : 
 		{
-			"scale_2" : 1063330336
+			"scale_2" : 1872776805,
+			"scale_1" : 2397490366
 		},
 		"test/out/scroll4_1.svg" : 
 		{
-			"scale_2" : 1660894938
+			"scale_2" : 1660894938,
+			"scale_1" : 1967223139
 		},
 		"test/out/scroll4_2.svg" : 
 		{
-			"scale_2" : 476827839
+			"scale_2" : 2447207943,
+			"scale_1" : 1464326244
 		},
 		"test/out/scroll4_3.svg" : 
 		{
-			"scale_2" : 2345969102
+			"scale_2" : 2345969102,
+			"scale_1" : 806191294
 		},
 		"test/out/scroll4_4.svg" : 
 		{
-			"scale_2" : 1660894938
+			"scale_2" : 1660894938,
+			"scale_1" : 1967223139
 		},
 		"test/out/scroll3_1.svg" : 
 		{
-			"scale_2" : 4050005106
+			"scale_2" : 4050005106,
+			"scale_1" : 719851069
 		},
 		"test/out/scroll3_2.svg" : 
 		{
-			"scale_2" : 914027824
+			"scale_2" : 914027824,
+			"scale_1" : 700945319
 		},
 		"test/out/scroll3_3.svg" : 
 		{
-			"scale_2" : 1698318068
+			"scale_2" : 1698318068,
+			"scale_1" : 160719529
 		},
 		"test/out/scroll3_4.svg" : 
 		{
-			"scale_2" : 2638366043
+			"scale_2" : 2638366043,
+			"scale_1" : 2160821047
 		},
 		"test/out/scroll3_5.svg" : 
 		{
-			"scale_2" : 721345209
+			"scale_2" : 721345209,
+			"scale_1" : 3566215406
 		},
 		"test/out/scroll2_1.svg" : 
 		{
-			"scale_2" : 4205684950
+			"scale_2" : 3387259933,
+			"scale_1" : 1416577658
 		},
 		"test/out/scroll2_2.svg" : 
 		{
-			"scale_2" : 3145480512
+			"scale_2" : 1427918208,
+			"scale_1" : 3350848431
 		},
 		"test/out/scroll2_3.svg" : 
 		{
-			"scale_2" : 4205684950
+			"scale_2" : 3387259933,
+			"scale_1" : 1416577658
 		},
 		"test/out/scroll2_4.svg" : 
 		{
-			"scale_2" : 661774483
+			"scale_2" : 1934050445,
+			"scale_1" : 646606302
 		},
 		"test/out/scroll2_5.svg" : 
 		{
-			"scale_2" : 1560082798
+			"scale_2" : 4015545165,
+			"scale_1" : 89350118
 		},
 		"test/out/scroll2_6.svg" : 
 		{
-			"scale_2" : 3951517156
+			"scale_2" : 4015545165,
+			"scale_1" : 3837950483
 		},
 		"test/out/scroll2_7.svg" : 
 		{
-			"scale_2" : 3647318652
+			"scale_2" : 1934050445,
+			"scale_1" : 3565456562
 		},
 		"test/out/scroll2_8.svg" : 
 		{
-			"scale_2" : 347953505
+			"scale_2" : 4069087624,
+			"scale_1" : 1091908954
 		},
 		"test/out/scroll2_9.svg" : 
 		{
-			"scale_2" : 3647318652
+			"scale_2" : 615725556,
+			"scale_1" : 3565456562
 		},
 		"test/out/scroll1_1.svg" : 
 		{
-			"scale_2" : 2429242740
+			"scale_2" : 3812324101,
+			"scale_1" : 645498343
 		},
 		"test/out/scroll1_2.svg" : 
 		{
-			"scale_2" : 49561142
+			"scale_2" : 2543774162,
+			"scale_1" : 1946004535
 		},
 		"test/out/scroll1_3.svg" : 
 		{
-			"scale_2" : 2151893985
+			"scale_2" : 1722169050,
+			"scale_1" : 3306546477
 		},
 		"test/out/scroll1_4.svg" : 
 		{
-			"scale_2" : 2240654926
+			"scale_2" : 59163380,
+			"scale_1" : 852684733
 		},
 		"test/out/scroll1_5.svg" : 
 		{
-			"scale_2" : 2166377220
+			"scale_2" : 3733993525,
+			"scale_1" : 226366763
 		},
 		"test/out/button11_1.svg" : 
 		{
-			"scale_2" : 2609393082
+			"scale_2" : 2555559094,
+			"scale_1" : 704090732
 		},
 		"test/out/button11_2.svg" : 
 		{
-			"scale_2" : 1266445506
+			"scale_2" : 1423766082,
+			"scale_1" : 2709101451
 		},
 		"test/out/button11_3.svg" : 
 		{
-			"scale_2" : 2368342504
+			"scale_2" : 2797260587,
+			"scale_1" : 1598462599
 		},
 		"test/out/button11_4.svg" : 
 		{
-			"scale_2" : 2433790993
+			"scale_2" : 1032554077,
+			"scale_1" : 1098861829
 		},
 		"test/out/button11_5.svg" : 
 		{
-			"scale_2" : 2496133861
+			"scale_2" : 100887282,
+			"scale_1" : 484476261
 		},
 		"test/out/button11_6.svg" : 
 		{
-			"scale_2" : 2314697218
+			"scale_2" : 471599969,
+			"scale_1" : 2857996444
 		},
 		"test/out/button11_7.svg" : 
 		{
-			"scale_2" : 2750593442
+			"scale_2" : 3546886269,
+			"scale_1" : 2806215327
 		},
 		"test/out/button11_8.svg" : 
 		{
-			"scale_2" : 2723359848
+			"scale_2" : 1938870033,
+			"scale_1" : 635441790
 		},
 		"test/out/button11_9.svg" : 
 		{
-			"scale_2" : 3634823877
+			"scale_2" : 3066477869,
+			"scale_1" : 668288689
 		},
 		"test/out/button11_10.svg" : 
 		{
-			"scale_2" : 1150021527
+			"scale_2" : 153278660,
+			"scale_1" : 3876058568
 		},
 		"test/out/button11_11.svg" : 
 		{
-			"scale_2" : 3002167332
+			"scale_2" : 4236058309,
+			"scale_1" : 4000195549
 		},
 		"test/out/button11_12.svg" : 
 		{
-			"scale_2" : 2911462620
+			"scale_2" : 355240495,
+			"scale_1" : 207495718
 		},
 		"test/out/button11_13.svg" : 
 		{
-			"scale_2" : 3805354703
+			"scale_2" : 3419375172,
+			"scale_1" : 2118092561
 		},
 		"test/out/button11_14.svg" : 
 		{
-			"scale_2" : 3391717355
+			"scale_2" : 4082542432,
+			"scale_1" : 568803485
 		},
 		"test/out/button11_15.svg" : 
 		{
-			"scale_2" : 2871208478
+			"scale_2" : 962105591,
+			"scale_1" : 583378560
 		},
 		"test/out/button11_16.svg" : 
 		{
-			"scale_2" : 180376016
+			"scale_2" : 1727837141,
+			"scale_1" : 1148643848
 		},
 		"test/out/button10_1.svg" : 
 		{
-			"scale_2" : 2754893208
+			"scale_2" : 2951410313,
+			"scale_1" : 3955774684
 		},
 		"test/out/button10_2.svg" : 
 		{
-			"scale_2" : 2229927396
+			"scale_2" : 3624566557,
+			"scale_1" : 2861542893
 		},
 		"test/out/button9_1.svg" : 
 		{
-			"scale_2" : 1366815743
+			"scale_2" : 4164631555,
+			"scale_1" : 253110161
 		},
 		"test/out/button7_1.svg" : 
 		{
-			"scale_2" : 1346757195
+			"scale_2" : 2042449602,
+			"scale_1" : 3206781658
 		},
 		"test/out/button7_2.svg" : 
 		{
-			"scale_2" : 492419713
+			"scale_2" : 2355335004,
+			"scale_1" : 1826170851
 		},
 		"test/out/button7_3.svg" : 
 		{
-			"scale_2" : 3793714305
+			"scale_2" : 35417253,
+			"scale_1" : 3104635856
 		},
 		"test/out/button7_4.svg" : 
 		{
-			"scale_2" : 3474420486
+			"scale_2" : 789865250,
+			"scale_1" : 2596810565
 		},
 		"test/out/button6.svg" : 
 		{
-			"scale_2" : 3737284370
+			"scale_2" : 3737284370,
+			"scale_1" : 3549972804
 		},
 		"test/out/button5_1.svg" : 
 		{
-			"scale_2" : 757265677
+			"scale_2" : 1064945888,
+			"scale_1" : 2862806842
 		},
 		"test/out/button5_2.svg" : 
 		{
-			"scale_2" : 100532367
+			"scale_2" : 3121325563,
+			"scale_1" : 3962547907
 		},
 		"test/out/button5_3.svg" : 
 		{
-			"scale_2" : 3041063135
+			"scale_2" : 3430914775,
+			"scale_1" : 2905029680
 		},
 		"test/out/button5_4.svg" : 
 		{
-			"scale_2" : 4165880541
+			"scale_2" : 1478991078,
+			"scale_1" : 4291671997
 		},
 		"test/out/button5_5.svg" : 
 		{
-			"scale_2" : 3498802810
+			"scale_2" : 2119499207,
+			"scale_1" : 667137489
 		},
 		"test/out/button4.svg" : 
 		{
-			"scale_2" : 2949224034
+			"scale_2" : 3516488872,
+			"scale_1" : 662049230
 		},
 		"test/out/canvas4.svg" : 
 		{
-			"scale_2" : 2767768818
+			"scale_2" : 235724008,
+			"scale_1" : 4063758812
 		},
 		"test/out/canvas3.svg" : 
 		{
-			"scale_2" : 953322671
+			"scale_2" : 3568465005,
+			"scale_1" : 1601484196
 		},
 		"test/out/canvas1_1.svg" : 
 		{
-			"scale_2" : 4220385809
+			"scale_2" : 4220385809,
+			"scale_1" : 2269199549
 		},
 		"test/out/canvas1_2.svg" : 
 		{
-			"scale_2" : 2061296360
+			"scale_2" : 2061296360,
+			"scale_1" : 2335469927
 		},
 		"test/out/canvas1_3.svg" : 
 		{
-			"scale_2" : 4128247203
+			"scale_2" : 4128247203,
+			"scale_1" : 3958971587
 		},
 		"test/out/canvas1_4.svg" : 
 		{
-			"scale_2" : 36668336
+			"scale_2" : 36668336,
+			"scale_1" : 1135407482
 		},
 		"test/out/canvas1_5.svg" : 
 		{
-			"scale_2" : 1081046095
+			"scale_2" : 1081046095,
+			"scale_1" : 2586679515
 		},
 		"test/out/canvas1_6.svg" : 
 		{
-			"scale_2" : 713593371
+			"scale_2" : 713593371,
+			"scale_1" : 3312255034
 		},
 		"test/out/canvas1_7.svg" : 
 		{
-			"scale_2" : 2325006819
+			"scale_2" : 2325006819,
+			"scale_1" : 269321582
 		},
 		"test/out/canvas1_8.svg" : 
 		{
-			"scale_2" : 1784104184
+			"scale_2" : 1784104184,
+			"scale_1" : 137905572
 		},
 		"test/out/canvas1_9.svg" : 
 		{
-			"scale_2" : 668570620
+			"scale_2" : 668570620,
+			"scale_1" : 684573621
 		},
 		"test/out/canvas1_10.svg" : 
 		{
-			"scale_2" : 2616230458
+			"scale_2" : 2616230458,
+			"scale_1" : 903084054
 		},
 		"test/out/canvas1_11.svg" : 
 		{
-			"scale_2" : 295622977
+			"scale_2" : 295622977,
+			"scale_1" : 2764339562
 		},
 		"test/out/canvas1_12.svg" : 
 		{
-			"scale_2" : 3703661163
+			"scale_2" : 3703661163,
+			"scale_1" : 1014777331
 		},
 		"test/out/canvas1_13.svg" : 
 		{
-			"scale_2" : 4220385809
+			"scale_2" : 4220385809,
+			"scale_1" : 2269199549
 		},
 		"test/out/pane5_1.svg" : 
 		{
-			"scale_2" : 3665532210
+			"scale_2" : 2549624046,
+			"scale_1" : 2157017440
 		},
 		"test/out/pane4_1.svg" : 
 		{
-			"scale_2" : 298030163
+			"scale_2" : 3796243750,
+			"scale_1" : 4251322797
 		},
 		"test/out/pane3_1.svg" : 
 		{
-			"scale_2" : 2790665937
+			"scale_2" : 2790665937,
+			"scale_1" : 2559908147
 		},
 		"test/out/pane3_2.svg" : 
 		{
-			"scale_2" : 2724782134
+			"scale_2" : 799585454,
+			"scale_1" : 1119389753
 		},
 		"test/out/pane3_3.svg" : 
 		{
-			"scale_2" : 2973428309
+			"scale_2" : 1598488700,
+			"scale_1" : 4007837860
 		},
 		"test/out/pane3_4.svg" : 
 		{
-			"scale_2" : 3413240157
+			"scale_2" : 50831911,
+			"scale_1" : 3496353917
 		},
 		"test/out/pane3_5.svg" : 
 		{
-			"scale_2" : 1751279364
+			"scale_2" : 2130627844,
+			"scale_1" : 1769082130
 		},
 		"test/out/pane3_6.svg" : 
 		{
-			"scale_2" : 3538144487
+			"scale_2" : 1342527813,
+			"scale_1" : 2652744671
 		},
 		"test/out/pane3_7.svg" : 
 		{
-			"scale_2" : 4143135586
+			"scale_2" : 1139889340,
+			"scale_1" : 3955931547
 		},
 		"test/out/pane3_8.svg" : 
 		{
-			"scale_2" : 3792015125
+			"scale_2" : 817942043,
+			"scale_1" : 2802594223
 		},
 		"test/out/pane3_9.svg" : 
 		{
-			"scale_2" : 110409010
+			"scale_2" : 431201407,
+			"scale_1" : 295122421
 		},
 		"test/out/pane3_10.svg" : 
 		{
-			"scale_2" : 1904403283
+			"scale_2" : 3349329162,
+			"scale_1" : 2619311778
 		},
 		"test/out/pane2.svg" : 
 		{
-			"scale_2" : 2435347765
+			"scale_2" : 29081543,
+			"scale_1" : 2706118026
 		},
 		"test/out/pane1_1.svg" : 
 		{
-			"scale_2" : 2997629761
+			"scale_2" : 2997629761,
+			"scale_1" : 1718371486
 		},
 		"test/out/pane1_2.svg" : 
 		{
-			"scale_2" : 1247506862
+			"scale_2" : 2330219053,
+			"scale_1" : 2439922006
 		},
 		"test/out/pane1_3.svg" : 
 		{
-			"scale_2" : 2824055576
+			"scale_2" : 1950597849,
+			"scale_1" : 3187214956
 		},
 		"test/out/pane1_4.svg" : 
 		{
-			"scale_2" : 3514788132
+			"scale_2" : 3373094826,
+			"scale_1" : 1508515858
 		},
 		"test/out/pane1_5.svg" : 
 		{
-			"scale_2" : 847128524
+			"scale_2" : 993891761,
+			"scale_1" : 950083146
 		},
 		"test/out/pane1_6.svg" : 
 		{
-			"scale_2" : 3171501015
+			"scale_2" : 3852095342,
+			"scale_1" : 1997878056
 		},
 		"test/out/pane1_7.svg" : 
 		{
-			"scale_2" : 1688741832
+			"scale_2" : 4233924247,
+			"scale_1" : 3824426503
 		},
 		"test/out/pane1_8.svg" : 
 		{
-			"scale_2" : 2721606383
+			"scale_2" : 3590376535,
+			"scale_1" : 2829637889
 		},
 		"test/out/pane1_9.svg" : 
 		{
-			"scale_2" : 747392560
+			"scale_2" : 1311056850,
+			"scale_1" : 3575400247
 		},
 		"test/out/pane1_10.svg" : 
 		{
-			"scale_2" : 1662414448
+			"scale_2" : 4149772946,
+			"scale_1" : 827024986
 		},
 		"test/out/pane1_11.svg" : 
 		{
-			"scale_2" : 1587762744
+			"scale_2" : 3439605982,
+			"scale_1" : 3029319565
 		},
 		"test/out/pane1_12.svg" : 
 		{
-			"scale_2" : 2334910313
+			"scale_2" : 4153778076,
+			"scale_1" : 2727673632
 		},
 		"test/out/pane1_13.svg" : 
 		{
-			"scale_2" : 191373075
+			"scale_2" : 1929394307,
+			"scale_1" : 2952180124
 		},
 		"test/out/pane1_14.svg" : 
 		{
-			"scale_2" : 4143290816
+			"scale_2" : 1636997662,
+			"scale_1" : 3818936367
 		},
 		"test/out/label2_1.svg" : 
 		{
-			"scale_2" : 183731531
+			"scale_2" : 183731531,
+			"scale_1" : 2986031828
 		},
 		"test/out/label1_1.svg" : 
 		{
-			"scale_2" : 1467641115
+			"scale_2" : 1467641115,
+			"scale_1" : 374429170
 		},
 		"test/out/label1_2.svg" : 
 		{
-			"scale_2" : 896250220
+			"scale_2" : 896250220,
+			"scale_1" : 1806934792
 		},
 		"test/out/label1_3.svg" : 
 		{
-			"scale_2" : 4074343770
+			"scale_2" : 4074343770,
+			"scale_1" : 4202106613
 		},
 		"test/out/label1_4.svg" : 
 		{
-			"scale_2" : 2433414319
+			"scale_2" : 2433414319,
+			"scale_1" : 3230570209
 		},
 		"test/out/label1_5.svg" : 
 		{
-			"scale_2" : 48213209
+			"scale_2" : 48213209,
+			"scale_1" : 1045916218
 		},
 		"test/out/label1_6.svg" : 
 		{
-			"scale_2" : 2857859571
+			"scale_2" : 2857859571,
+			"scale_1" : 3545107949
 		},
 		"test/out/window9_1.svg" : 
 		{
-			"scale_2" : 2702867193
+			"scale_2" : 2702867193,
+			"scale_1" : 1581785870
 		},
 		"test/out/window9_2.svg" : 
 		{
-			"scale_2" : 1779487555
+			"scale_2" : 1779487555,
+			"scale_1" : 1308792338
 		},
 		"test/out/window9_3.svg" : 
 		{
-			"scale_2" : 2161222508
+			"scale_2" : 2161222508,
+			"scale_1" : 4126979454
 		},
 		"test/out/window9_4.svg" : 
 		{
-			"scale_2" : 1662502016
+			"scale_2" : 1662502016,
+			"scale_1" : 1421839043
 		},
 		"test/out/window9_5.svg" : 
 		{
-			"scale_2" : 3609174390
+			"scale_2" : 3609174390,
+			"scale_1" : 505333894
 		},
 		"test/out/window9_6.svg" : 
 		{
-			"scale_2" : 77492835
+			"scale_2" : 77492835,
+			"scale_1" : 2423820479
 		},
 		"test/out/window9_7.svg" : 
 		{
-			"scale_2" : 61750774
+			"scale_2" : 61750774,
+			"scale_1" : 338640330
 		},
 		"test/out/window9_8.svg" : 
 		{
-			"scale_2" : 2995275273
+			"scale_2" : 2995275273,
+			"scale_1" : 1803631572
 		},
 		"test/out/window9_9.svg" : 
 		{
-			"scale_2" : 3586146504
+			"scale_2" : 3586146504,
+			"scale_1" : 1955556416
 		},
 		"test/out/window9_10.svg" : 
 		{
-			"scale_2" : 3265563091
+			"scale_2" : 3265563091,
+			"scale_1" : 521448722
 		},
 		"test/out/window9_11.svg" : 
 		{
-			"scale_2" : 1298699973
+			"scale_2" : 1298699973,
+			"scale_1" : 3532741858
 		},
 		"test/out/window9_12.svg" : 
 		{
-			"scale_2" : 3456752658
+			"scale_2" : 3456752658,
+			"scale_1" : 3125188908
 		},
 		"test/out/window9_13.svg" : 
 		{
-			"scale_2" : 1480811155
+			"scale_2" : 1480811155,
+			"scale_1" : 3470802349
 		},
 		"test/out/window9_14.svg" : 
 		{
-			"scale_2" : 2341165415
+			"scale_2" : 2341165415,
+			"scale_1" : 1875306804
 		},
 		"test/out/window9_15.svg" : 
 		{
-			"scale_2" : 1837533848
+			"scale_2" : 1837533848,
+			"scale_1" : 2330215515
 		},
 		"test/out/window9_16.svg" : 
 		{
-			"scale_2" : 1999444431
+			"scale_2" : 1999444431,
+			"scale_1" : 900477467
 		},
 		"test/out/window9_17.svg" : 
 		{
-			"scale_2" : 1853783404
+			"scale_2" : 1853783404,
+			"scale_1" : 231529080
 		},
 		"test/out/window9_18.svg" : 
 		{
-			"scale_2" : 214241388
+			"scale_2" : 214241388,
+			"scale_1" : 71786331
 		},
 		"test/out/window9_19.svg" : 
 		{
-			"scale_2" : 2160712213
+			"scale_2" : 2160712213,
+			"scale_1" : 3304824073
 		},
 		"test/out/window9_20.svg" : 
 		{
-			"scale_2" : 3098327875
+			"scale_2" : 3098327875,
+			"scale_1" : 1893536745
 		},
 		"test/out/window8_1.svg" : 
 		{
-			"scale_2" : 703496085
+			"scale_2" : 2761563239,
+			"scale_1" : 1915173783
 		},
 		"test/out/window8_2.svg" : 
 		{
-			"scale_2" : 3791372531
+			"scale_2" : 277497321,
+			"scale_1" : 3983314410
 		},
 		"test/out/window8_3.svg" : 
 		{
-			"scale_2" : 703496085
+			"scale_2" : 2761563239,
+			"scale_1" : 1915173783
 		},
 		"test/out/window7_1.svg" : 
 		{
-			"scale_2" : 1242268568
+			"scale_2" : 1242268568,
+			"scale_1" : 3523983847
 		},
 		"test/out/window7_2.svg" : 
 		{
-			"scale_2" : 1242268568
+			"scale_2" : 1242268568,
+			"scale_1" : 3523983847
 		},
 		"test/out/window7_3.svg" : 
 		{
-			"scale_2" : 1242268568
+			"scale_2" : 1242268568,
+			"scale_1" : 3523983847
 		},
 		"test/out/window7_4.svg" : 
 		{
-			"scale_2" : 1454872781
+			"scale_2" : 934051967,
+			"scale_1" : 4170117754
 		},
 		"test/out/window7_5.svg" : 
 		{
-			"scale_2" : 4150171827
+			"scale_2" : 3318948916,
+			"scale_1" : 2465577817
 		},
 		"test/out/window7_6.svg" : 
 		{
-			"scale_2" : 1344156537
+			"scale_2" : 3265303109,
+			"scale_1" : 3575167412
 		},
 		"test/out/window7_7.svg" : 
 		{
-			"scale_2" : 370536507
+			"scale_2" : 933473306,
+			"scale_1" : 1585915675
 		},
 		"test/out/window7_8.svg" : 
 		{
-			"scale_2" : 370536507
+			"scale_2" : 933473306,
+			"scale_1" : 1585915675
 		},
 		"test/out/window7_9.svg" : 
 		{
-			"scale_2" : 370536507
+			"scale_2" : 933473306,
+			"scale_1" : 1585915675
 		},
 		"test/out/window7_10.svg" : 
 		{
-			"scale_2" : 2230353682
+			"scale_2" : 1685575331,
+			"scale_1" : 3512504250
 		},
 		"test/out/window7_11.svg" : 
 		{
-			"scale_2" : 2948185874
+			"scale_2" : 3206068444,
+			"scale_1" : 1587762508
 		},
 		"test/out/window7_12.svg" : 
 		{
-			"scale_2" : 3953241232
+			"scale_2" : 2711594076,
+			"scale_1" : 1885882079
 		},
 		"test/out/window7_13.svg" : 
 		{
-			"scale_2" : 865425170
+			"scale_2" : 865425170,
+			"scale_1" : 1413546837
 		},
 		"test/out/window7_14.svg" : 
 		{
-			"scale_2" : 865425170
+			"scale_2" : 865425170,
+			"scale_1" : 1413546837
 		},
 		"test/out/window7_15.svg" : 
 		{
-			"scale_2" : 865425170
+			"scale_2" : 865425170,
+			"scale_1" : 1413546837
 		},
 		"test/out/window7_16.svg" : 
 		{
-			"scale_2" : 2348806373
+			"scale_2" : 16233168,
+			"scale_1" : 3041553110
 		},
 		"test/out/window7_17.svg" : 
 		{
-			"scale_2" : 1979142449
+			"scale_2" : 371282495,
+			"scale_1" : 3288244231
 		},
 		"test/out/window7_18.svg" : 
 		{
-			"scale_2" : 3503172223
+			"scale_2" : 2943018252,
+			"scale_1" : 3302062631
 		},
 		"test/out/window7_19.svg" : 
 		{
-			"scale_2" : 1038944082
+			"scale_2" : 1559511446,
+			"scale_1" : 534083985
 		},
 		"test/out/window7_20.svg" : 
 		{
-			"scale_2" : 673993057
+			"scale_2" : 2702728742,
+			"scale_1" : 1151941409
 		},
 		"test/out/window7_21.svg" : 
 		{
-			"scale_2" : 2456939446
+			"scale_2" : 745941554,
+			"scale_1" : 1364671876
 		},
 		"test/out/window7_22.svg" : 
 		{
-			"scale_2" : 3124083621
+			"scale_2" : 3124083621,
+			"scale_1" : 3014548795
 		},
 		"test/out/window7_23.svg" : 
 		{
-			"scale_2" : 3124083621
+			"scale_2" : 3124083621,
+			"scale_1" : 3014548795
 		},
 		"test/out/window7_24.svg" : 
 		{
-			"scale_2" : 3124083621
+			"scale_2" : 3124083621,
+			"scale_1" : 3014548795
 		},
 		"test/out/window7_25.svg" : 
 		{
-			"scale_2" : 2823953244
+			"scale_2" : 4187254899,
+			"scale_1" : 4111487495
 		},
 		"test/out/window7_26.svg" : 
 		{
-			"scale_2" : 2823953244
+			"scale_2" : 4187254899,
+			"scale_1" : 4111487495
 		},
 		"test/out/window7_27.svg" : 
 		{
-			"scale_2" : 2823953244
+			"scale_2" : 4187254899,
+			"scale_1" : 4111487495
 		},
 		"test/out/window7_28.svg" : 
 		{
-			"scale_2" : 1331117908
+			"scale_2" : 2168746923,
+			"scale_1" : 1809769285
 		},
 		"test/out/window7_29.svg" : 
 		{
-			"scale_2" : 3822966726
+			"scale_2" : 1907111962,
+			"scale_1" : 1046438002
 		},
 		"test/out/window7_30.svg" : 
 		{
-			"scale_2" : 1829386906
+			"scale_2" : 2842592624,
+			"scale_1" : 757063561
 		},
 		"test/out/window6_1.svg" : 
 		{
-			"scale_2" : 2612693746
+			"scale_2" : 2612693746,
+			"scale_1" : 3133926963
 		},
 		"test/out/window5_1.svg" : 
 		{
-			"scale_2" : 1679891995
+			"scale_2" : 3114394074,
+			"scale_1" : 2935845910
 		},
 		"test/out/window5_2.svg" : 
 		{
-			"scale_2" : 1679891995
+			"scale_2" : 3114394074,
+			"scale_1" : 2935845910
 		},
 		"test/out/window5_3.svg" : 
 		{
-			"scale_2" : 1155809649
+			"scale_2" : 2903905779,
+			"scale_1" : 1345809023
 		},
 		"test/out/window5_4.svg" : 
 		{
-			"scale_2" : 1529706789
+			"scale_2" : 1936420524,
+			"scale_1" : 1042443886
 		},
 		"test/out/window5_6.svg" : 
 		{
-			"scale_2" : 928490007
+			"scale_2" : 2470491202,
+			"scale_1" : 2956271770
 		},
 		"test/out/window5_7.svg" : 
 		{
-			"scale_2" : 2892742821
+			"scale_2" : 162814208,
+			"scale_1" : 1037994498
 		},
 		"test/out/window5_8.svg" : 
 		{
-			"scale_2" : 3723817174
+			"scale_2" : 3472770732,
+			"scale_1" : 4030530738
 		},
 		"test/out/window5_9.svg" : 
 		{
-			"scale_2" : 833956410
+			"scale_2" : 248569724,
+			"scale_1" : 1956353350
 		},
 		"test/out/window5_10.svg" : 
 		{
-			"scale_2" : 2233759437
+			"scale_2" : 1072281606,
+			"scale_1" : 3650161279
 		},
 		"test/out/window5_11.svg" : 
 		{
-			"scale_2" : 739040303
+			"scale_2" : 638534614,
+			"scale_1" : 4015951311
 		},
 		"test/out/window4_1.svg" : 
 		{
-			"scale_2" : 151214552
+			"scale_2" : 151214552,
+			"scale_1" : 1794322559
 		},
 		"test/out/window3_1.svg" : 
 		{
-			"scale_2" : 72037768
+			"scale_2" : 72037768,
+			"scale_1" : 3679077628
 		},
 		"test/out/window3_2.svg" : 
 		{
-			"scale_2" : 4257468628
+			"scale_2" : 4257468628,
+			"scale_1" : 397324583
 		},
 		"test/out/window2_1.svg" : 
 		{
-			"scale_2" : 2768813147
+			"scale_2" : 484822984,
+			"scale_1" : 3824701415
 		},
 		"test/out/window2_2.svg" : 
 		{
-			"scale_2" : 1622094488
+			"scale_2" : 93041680,
+			"scale_1" : 2516502635
 		},
 		"test/out/window1_0.svg" : 
 		{
-			"scale_2" : 911643682
+			"scale_2" : 911643682,
+			"scale_1" : 1856047707
 		},
 		"test/out/window1_1.svg" : 
 		{
-			"scale_2" : 477327650
+			"scale_2" : 477327650,
+			"scale_1" : 3417311971
 		},
 		"test/out/window1_2.svg" : 
 		{
-			"scale_2" : 911643682
+			"scale_2" : 911643682,
+			"scale_1" : 1856047707
 		},
 		"test/out/window1_3.svg" : 
 		{
-			"scale_2" : 458613794
+			"scale_2" : 458613794,
+			"scale_1" : 1013854377
 		},
 		"test/out/grid5_1.svg" : 
 		{
-			"scale_2" : 997849904
+			"scale_2" : 997849904,
+			"scale_1" : 3793932309
 		},
 		"test/out/grid5_2.svg" : 
 		{
-			"scale_2" : 1994391975
+			"scale_2" : 1994391975,
+			"scale_1" : 217797887
 		},
 		"test/out/grid5_3.svg" : 
 		{
-			"scale_2" : 581746473
+			"scale_2" : 581746473,
+			"scale_1" : 2912094298
 		},
 		"test/out/grid5_4.svg" : 
 		{
-			"scale_2" : 3788461058
+			"scale_2" : 3788461058,
+			"scale_1" : 4265943052
 		},
 		"test/out/grid5_5.svg" : 
 		{
-			"scale_2" : 732847872
+			"scale_2" : 732847872,
+			"scale_1" : 2989823234
 		},
 		"test/out/grid5_6.svg" : 
 		{
-			"scale_2" : 4016433133
+			"scale_2" : 4016433133,
+			"scale_1" : 1753417336
 		},
 		"test/out/grid5_7.svg" : 
 		{
-			"scale_2" : 2372821372
+			"scale_2" : 2372821372,
+			"scale_1" : 221000066
 		},
 		"test/out/grid5_8.svg" : 
 		{
-			"scale_2" : 964251457
+			"scale_2" : 964251457,
+			"scale_1" : 4109133367
 		},
 		"test/out/grid5_9.svg" : 
 		{
-			"scale_2" : 997849904
+			"scale_2" : 997849904,
+			"scale_1" : 3793932309
 		},
 		"test/out/grid5_10.svg" : 
 		{
-			"scale_2" : 1994391975
+			"scale_2" : 1994391975,
+			"scale_1" : 217797887
 		},
 		"test/out/grid5_11.svg" : 
 		{
-			"scale_2" : 46906659
+			"scale_2" : 46906659,
+			"scale_1" : 4139682014
 		},
 		"test/out/grid5_12.svg" : 
 		{
-			"scale_2" : 673784908
+			"scale_2" : 673784908,
+			"scale_1" : 1129272837
 		},
 		"test/out/grid5_13.svg" : 
 		{
-			"scale_2" : 3078744755
+			"scale_2" : 3078744755,
+			"scale_1" : 393790641
 		},
 		"test/out/grid5_14.svg" : 
 		{
-			"scale_2" : 4075395790
+			"scale_2" : 4075395790,
+			"scale_1" : 4111963364
 		},
 		"test/out/grid5_15.svg" : 
 		{
-			"scale_2" : 1497326065
+			"scale_2" : 1497326065,
+			"scale_1" : 2587946760
 		},
 		"test/out/grid5_16.svg" : 
 		{
-			"scale_2" : 1030058377
+			"scale_2" : 1030058377,
+			"scale_1" : 128294614
 		},
 		"test/out/grid4_1.svg" : 
 		{
-			"scale_2" : 997849904
+			"scale_2" : 997849904,
+			"scale_1" : 3793932309
 		},
 		"test/out/grid4_2.svg" : 
 		{
-			"scale_2" : 1994391975
+			"scale_2" : 1994391975,
+			"scale_1" : 217797887
 		},
 		"test/out/grid4_3.svg" : 
 		{
-			"scale_2" : 46906659
+			"scale_2" : 46906659,
+			"scale_1" : 4139682014
 		},
 		"test/out/grid4_4.svg" : 
 		{
-			"scale_2" : 2037641817
+			"scale_2" : 2037641817,
+			"scale_1" : 1173417802
 		},
 		"test/out/grid4_5.svg" : 
 		{
-			"scale_2" : 1705616579
+			"scale_2" : 1705616579,
+			"scale_1" : 4095848969
 		},
 		"test/out/grid4_6.svg" : 
 		{
-			"scale_2" : 3810196708
+			"scale_2" : 3810196708,
+			"scale_1" : 2706540642
 		},
 		"test/out/grid4_7.svg" : 
 		{
-			"scale_2" : 3578874440
+			"scale_2" : 3578874440,
+			"scale_1" : 749701773
 		},
 		"test/out/grid4_8.svg" : 
 		{
-			"scale_2" : 2850277598
+			"scale_2" : 2850277598,
+			"scale_1" : 2312134243
 		},
 		"test/out/grid4_9.svg" : 
 		{
-			"scale_2" : 997849904
+			"scale_2" : 997849904,
+			"scale_1" : 3793932309
 		},
 		"test/out/grid4_10.svg" : 
 		{
-			"scale_2" : 1994391975
+			"scale_2" : 1994391975,
+			"scale_1" : 217797887
 		},
 		"test/out/grid4_11.svg" : 
 		{
-			"scale_2" : 1893970662
+			"scale_2" : 1893970662,
+			"scale_1" : 3045196418
 		},
 		"test/out/grid4_12.svg" : 
 		{
-			"scale_2" : 2580245157
+			"scale_2" : 2580245157,
+			"scale_1" : 4140620582
 		},
 		"test/out/grid4_13.svg" : 
 		{
-			"scale_2" : 484668852
+			"scale_2" : 484668852,
+			"scale_1" : 4187842934
 		},
 		"test/out/grid4_14.svg" : 
 		{
-			"scale_2" : 251985716
+			"scale_2" : 251985716,
+			"scale_1" : 1424660145
 		},
 		"test/out/grid4_15.svg" : 
 		{
-			"scale_2" : 1852607099
+			"scale_2" : 1852607099,
+			"scale_1" : 914598143
 		},
 		"test/out/grid4_16.svg" : 
 		{
-			"scale_2" : 1672412586
+			"scale_2" : 1672412586,
+			"scale_1" : 2710621635
 		},
 		"test/out/grid3_1.svg" : 
 		{
-			"scale_2" : 661389010
+			"scale_2" : 661389010,
+			"scale_1" : 501753878
 		},
 		"test/out/grid3_2.svg" : 
 		{
-			"scale_2" : 1009792937
+			"scale_2" : 1009792937,
+			"scale_1" : 1624780200
 		},
 		"test/out/grid3_3.svg" : 
 		{
-			"scale_2" : 1446488384
+			"scale_2" : 1446488384,
+			"scale_1" : 2067593687
 		},
 		"test/out/grid3_4.svg" : 
 		{
-			"scale_2" : 541154068
+			"scale_2" : 541154068,
+			"scale_1" : 3370966762
 		},
 		"test/out/grid3_5.svg" : 
 		{
-			"scale_2" : 4114663559
+			"scale_2" : 4114663559,
+			"scale_1" : 1206920534
 		},
 		"test/out/grid3_6.svg" : 
 		{
-			"scale_2" : 2824201205
+			"scale_2" : 2824201205,
+			"scale_1" : 2773150772
 		},
 		"test/out/grid3_7.svg" : 
 		{
-			"scale_2" : 1927141813
+			"scale_2" : 1927141813,
+			"scale_1" : 2315855687
 		},
 		"test/out/grid3_8.svg" : 
 		{
-			"scale_2" : 3785562248
+			"scale_2" : 3785562248,
+			"scale_1" : 897573883
 		},
 		"test/out/grid2_1.svg" : 
 		{
-			"scale_2" : 3215255908
+			"scale_2" : 3215255908,
+			"scale_1" : 145705957
 		},
 		"test/out/grid2_2.svg" : 
 		{
-			"scale_2" : 316356226
+			"scale_2" : 316356226,
+			"scale_1" : 3272705025
 		},
 		"test/out/grid2_3.svg" : 
 		{
-			"scale_2" : 831295486
+			"scale_2" : 831295486,
+			"scale_1" : 2393641183
 		},
 		"test/out/grid2_4.svg" : 
 		{
-			"scale_2" : 3906567802
+			"scale_2" : 3906567802,
+			"scale_1" : 257921616
 		},
 		"test/out/grid2_5.svg" : 
 		{
-			"scale_2" : 3300472369
+			"scale_2" : 3300472369,
+			"scale_1" : 3249581139
 		},
 		"test/out/grid2_6.svg" : 
 		{
-			"scale_2" : 1189104286
+			"scale_2" : 1189104286,
+			"scale_1" : 1768939229
 		},
 		"test/out/grid2_7.svg" : 
 		{
-			"scale_2" : 103713441
+			"scale_2" : 103713441,
+			"scale_1" : 1776268970
 		},
 		"test/out/grid2_8.svg" : 
 		{
-			"scale_2" : 3732446823
+			"scale_2" : 3732446823,
+			"scale_1" : 189398646
 		},
 		"test/out/grid1_1.svg" : 
 		{
-			"scale_2" : 747847024
+			"scale_2" : 747847024,
+			"scale_1" : 3429165748
 		},
 		"test/out/grid1_2.svg" : 
 		{
-			"scale_2" : 1148190374
+			"scale_2" : 1148190374,
+			"scale_1" : 3471050796
 		},
 		"test/out/grid1_3.svg" : 
 		{
-			"scale_2" : 1623641798
+			"scale_2" : 1623641798,
+			"scale_1" : 3723156125
 		},
 		"test/out/grid1_4.svg" : 
 		{
-			"scale_2" : 3921958833
+			"scale_2" : 3921958833,
+			"scale_1" : 3129954816
 		},
 		"test/out/grid1_5.svg" : 
 		{
-			"scale_2" : 1883038746
+			"scale_2" : 1883038746,
+			"scale_1" : 3236158755
 		},
 		"test/out/grid1_6.svg" : 
 		{
-			"scale_2" : 4049990152
+			"scale_2" : 4049990152,
+			"scale_1" : 2337849086
 		},
 		"test/out/grid1_7.svg" : 
 		{
-			"scale_2" : 1575631833
+			"scale_2" : 1575631833,
+			"scale_1" : 4242269146
 		},
 		"test/out/grid1_8.svg" : 
 		{
-			"scale_2" : 3151029971
+			"scale_2" : 3151029971,
+			"scale_1" : 759158926
 		},
 		"test/out/grid1_9.svg" : 
 		{
-			"scale_2" : 3233893581
+			"scale_2" : 3233893581,
+			"scale_1" : 1398767172
 		},
 		"test/out/rect5.svg" : 
 		{
@@ -1581,330 +1975,592 @@
 		},
 		"test/out/rect4.svg" : 
 		{
-			"scale_2" : 4065274813
+			"scale_2" : 3726126237,
+			"scale_1" : 4184108561
 		},
 		"test/out/rect3.svg" : 
 		{
-			"scale_2" : 1231527074
+			"scale_2" : 253024142,
+			"scale_1" : 1622694406
 		},
 		"test/out/rect2.svg" : 
 		{
-			"scale_2" : 2645182937
+			"scale_2" : 3967957411,
+			"scale_1" : 3254629990
 		},
 		"test/out/rect1.svg" : 
 		{
-			"scale_2" : 2440867137
+			"scale_2" : 2488324352,
+			"scale_1" : 458191174
 		},
 		"test/out/pie3.svg" : 
 		{
-			"scale_2" : 1700490289
+			"scale_2" : 1453223287,
+			"scale_1" : 497700289
 		},
 		"test/out/pie4_1.svg" : 
 		{
-			"scale_2" : 2536890204
+			"scale_2" : 2751240135,
+			"scale_1" : 2365393462
 		},
 		"test/out/pie4_2.svg" : 
 		{
-			"scale_2" : 3223066556
+			"scale_2" : 4107624231,
+			"scale_1" : 3181088095
 		},
 		"test/out/pie4_3.svg" : 
 		{
-			"scale_2" : 890528705
+			"scale_2" : 31271770,
+			"scale_1" : 4159004661
 		},
 		"test/out/pie4_4.svg" : 
 		{
-			"scale_2" : 2479880493
+			"scale_2" : 2802233782,
+			"scale_1" : 4292312408
 		},
 		"test/out/pie4_5.svg" : 
 		{
-			"scale_2" : 2869447904
+			"scale_2" : 424813629,
+			"scale_1" : 3917580072
 		},
 		"test/out/pie4_6.svg" : 
 		{
-			"scale_2" : 632775869
+			"scale_2" : 293481510,
+			"scale_1" : 1073432394
 		},
 		"test/out/pie4_7.svg" : 
 		{
-			"scale_2" : 2165007178
+			"scale_2" : 3049401297,
+			"scale_1" : 2228191289
 		},
 		"test/out/pie2_1.svg" : 
 		{
-			"scale_2" : 2081065534
+			"scale_2" : 1890815370,
+			"scale_1" : 2158815096
 		},
 		"test/out/pie2_2.svg" : 
 		{
-			"scale_2" : 3433627262
+			"scale_2" : 3222403530,
+			"scale_1" : 3814399045
 		},
 		"test/out/pie2_3.svg" : 
 		{
-			"scale_2" : 1477696466
+			"scale_2" : 1420483686,
+			"scale_1" : 3341283011
 		},
 		"test/out/pie2_4.svg" : 
 		{
-			"scale_2" : 469847447
+			"scale_2" : 280513059,
+			"scale_1" : 2099712311
 		},
 		"test/out/pie2_5.svg" : 
 		{
-			"scale_2" : 2532190722
+			"scale_2" : 2589404598,
+			"scale_1" : 3962557219
 		},
 		"test/out/pie2_6.svg" : 
 		{
-			"scale_2" : 4135410313
+			"scale_2" : 4207172925,
+			"scale_1" : 4254405572
 		},
 		"test/out/pie2_7.svg" : 
 		{
-			"scale_2" : 2918908552
+			"scale_2" : 2705458492,
+			"scale_1" : 3153952555
 		},
 		"test/out/pie2_8.svg" : 
 		{
-			"scale_2" : 3931271499
+			"scale_2" : 3874191103,
+			"scale_1" : 1408220775
 		},
 		"test/out/pie2_9.svg" : 
 		{
-			"scale_2" : 485878878
+			"scale_2" : 273476586,
+			"scale_1" : 2722341021
 		},
 		"test/out/pie2_10.svg" : 
 		{
-			"scale_2" : 420835825
+			"scale_2" : 363624005,
+			"scale_1" : 3990143308
 		},
 		"test/out/pie2_11.svg" : 
 		{
-			"scale_2" : 1426672940
+			"scale_2" : 1504725656,
+			"scale_1" : 2978288667
 		},
 		"test/out/pie1_0.svg" : 
 		{
-			"scale_2" : 88809483
+			"scale_2" : 1853220559,
+			"scale_1" : 1302661027
 		},
 		"test/out/pie1_1.svg" : 
 		{
-			"scale_2" : 1687265889
+			"scale_2" : 852619336,
+			"scale_1" : 1567811784
 		},
 		"test/out/pie1_2.svg" : 
 		{
-			"scale_2" : 2588190280
+			"scale_2" : 1242169471,
+			"scale_1" : 4149992316
 		},
 		"test/out/pie1_3.svg" : 
 		{
-			"scale_2" : 842007111
+			"scale_2" : 2940520863,
+			"scale_1" : 963566944
 		},
 		"test/out/pie1_4.svg" : 
 		{
-			"scale_2" : 893191080
+			"scale_2" : 3273487813,
+			"scale_1" : 2529026554
 		},
 		"test/out/pie1_5.svg" : 
 		{
-			"scale_2" : 493608734
+			"scale_2" : 2955482981,
+			"scale_1" : 2907582377
 		},
 		"test/out/pie1_6.svg" : 
 		{
-			"scale_2" : 3130986697
+			"scale_2" : 3426635971,
+			"scale_1" : 2803157138
 		},
 		"test/out/text1.svg" : 
 		{
-			"scale_2" : 815022118
+			"scale_2" : 815022118,
+			"scale_1" : 3298118898
 		},
 		"test/out/text2.svg" : 
 		{
-			"scale_2" : 2460263002
+			"scale_2" : 2460263002,
+			"scale_1" : 2399776569
 		},
 		"test/out/text3.svg" : 
 		{
-			"scale_2" : 795976570
+			"scale_2" : 2624997073,
+			"scale_1" : 4157180426
 		},
 		"test/out/linechart.svg" : 
 		{
-			"scale_2" : 2074480420
+			"scale_2" : 2328479071,
+			"scale_1" : 4247085483
 		},
 		"test/out/compass1.svg" : 
 		{
-			"scale_2" : 344299504
+			"scale_2" : 777709467,
+			"scale_1" : 2355080232
 		},
 		"test/out/line1.svg" : 
 		{
-			"scale_2" : 3567762712
+			"scale_2" : 2621795062,
+			"scale_1" : 3066830510
 		},
 		"test/out/circle.svg" : 
 		{
-			"scale_2" : 1153323831
+			"scale_2" : 1153323831,
+			"scale_1" : 2337367279
 		},
 		"test/out/triangle.svg" : 
 		{
-			"scale_2" : 3829514848
+			"scale_2" : 3829514848,
+			"scale_1" : 2967616369
 		},
 		"test/out/square.svg" : 
 		{
-			"scale_2" : 909439535
+			"scale_2" : 909439535,
+			"scale_1" : 4086658552
 		},
 		"test/out/cross.svg" : 
 		{
-			"scale_2" : 2135297302
+			"scale_2" : 2135297302,
+			"scale_1" : 2236845782
 		},
 		"test/out/polyline2.svg" : 
 		{
-			"scale_2" : 1580537647
+			"scale_2" : 3024907053,
+			"scale_1" : 3480924020
 		},
 		"test/out/polylines1_1.svg" : 
 		{
-			"scale_2" : 3536549555
+			"scale_2" : 3721593319,
+			"scale_1" : 164258082
 		},
 		"test/out/polylines1_2.svg" : 
 		{
-			"scale_2" : 3499940778
+			"scale_2" : 1873164117,
+			"scale_1" : 3093750160
 		},
 		"test/out/polylines1_3.svg" : 
 		{
-			"scale_2" : 784751304
+			"scale_2" : 3239192286,
+			"scale_1" : 2520170453
 		},
 		"test/out/polylines1_4.svg" : 
 		{
-			"scale_2" : 3569800526
+			"scale_2" : 3315650346,
+			"scale_1" : 2630257063
 		},
 		"test/out/polylines1_5.svg" : 
 		{
-			"scale_2" : 1320866998
+			"scale_2" : 731683628,
+			"scale_1" : 1599565465
 		},
 		"test/out/polylines1_6.svg" : 
 		{
-			"scale_2" : 3466772217
+			"scale_2" : 1007746401,
+			"scale_1" : 1867254505
 		},
 		"test/out/polylines1_7.svg" : 
 		{
-			"scale_2" : 2061228580
+			"scale_2" : 16360964,
+			"scale_1" : 3383252293
 		},
 		"test/out/polylines1_8.svg" : 
 		{
-			"scale_2" : 341424061
+			"scale_2" : 1761884245,
+			"scale_1" : 3455840093
 		},
 		"test/out/polylines1_9.svg" : 
 		{
-			"scale_2" : 181885613
+			"scale_2" : 3503644874,
+			"scale_1" : 3977449770
 		},
 		"test/out/polylines1_10.svg" : 
 		{
-			"scale_2" : 2344655517
+			"scale_2" : 462534630,
+			"scale_1" : 2664475474
 		},
 		"test/out/polyline0_1.svg" : 
 		{
-			"scale_2" : 1525474323
+			"scale_2" : 2026641993,
+			"scale_1" : 2454565977
 		},
 		"test/out/polyline0_2.svg" : 
 		{
-			"scale_2" : 186671859
+			"scale_2" : 687905961,
+			"scale_1" : 2439430504
 		},
 		"test/out/polyline0_3.svg" : 
 		{
-			"scale_2" : 3542886008
+			"scale_2" : 511427273,
+			"scale_1" : 3231382941
 		},
 		"test/out/polyline0_4.svg" : 
 		{
-			"scale_2" : 1764508993
+			"scale_2" : 1259125531,
+			"scale_1" : 1355614536
 		},
 		"test/out/polyline0_5.svg" : 
 		{
-			"scale_2" : 3231348938
+			"scale_2" : 3803874960,
+			"scale_1" : 563131883
 		},
 		"test/out/polyline0_6.svg" : 
 		{
-			"scale_2" : 3696502346
+			"scale_2" : 4269070352,
+			"scale_1" : 2806107411
 		},
 		"test/out/polyline0_7.svg" : 
 		{
-			"scale_2" : 2492284790
+			"scale_2" : 3064840492,
+			"scale_1" : 1766278095
 		},
 		"test/out/polyline0_8.svg" : 
 		{
-			"scale_2" : 4122165516
+			"scale_2" : 3455052023,
+			"scale_1" : 1693069185
 		},
 		"test/out/polyline0_9.svg" : 
 		{
-			"scale_2" : 2464399416
+			"scale_2" : 2965585506,
+			"scale_1" : 2078662216
 		},
 		"test/out/polyline0_10.svg" : 
 		{
-			"scale_2" : 3051224036
+			"scale_2" : 2549941694,
+			"scale_1" : 2766522007
 		},
 		"test/out/polyline0_11.svg" : 
 		{
-			"scale_2" : 3536228525
+			"scale_2" : 3280963535,
+			"scale_1" : 2624093569
 		},
 		"test/out/polyline0_12.svg" : 
 		{
-			"scale_2" : 3901045522
+			"scale_2" : 3399861576,
+			"scale_1" : 1891573635
 		},
 		"test/out/polyline0_13.svg" : 
 		{
-			"scale_2" : 3781567155
+			"scale_2" : 3276201193,
+			"scale_1" : 295761203
 		},
 		"test/out/polyline0_14.svg" : 
 		{
-			"scale_2" : 1104256190
+			"scale_2" : 1676763876,
+			"scale_1" : 4256188965
 		},
 		"test/out/polyline0_15.svg" : 
 		{
-			"scale_2" : 327282108
+			"scale_2" : 832639974,
+			"scale_1" : 2756040997
 		},
 		"test/out/polyline0_16.svg" : 
 		{
-			"scale_2" : 1385081575
+			"scale_2" : 1890473149,
+			"scale_1" : 1578570724
 		},
 		"test/out/polyline0_17.svg" : 
 		{
-			"scale_2" : 1037659837
+			"scale_2" : 536449255,
+			"scale_1" : 2969163127
 		},
 		"test/out/polyline0_18.svg" : 
 		{
-			"scale_2" : 3990165018
+			"scale_2" : 798654759,
+			"scale_1" : 2062536152
 		},
 		"test/out/polyline0_19.svg" : 
 		{
-			"scale_2" : 2157848450
+			"scale_2" : 2730416600,
+			"scale_1" : 3889867753
 		},
 		"test/out/polyline0_20.svg" : 
 		{
-			"scale_2" : 1443056015
+			"scale_2" : 3612490855,
+			"scale_1" : 2106405294
 		},
 		"test/out/polyline0_21.svg" : 
 		{
-			"scale_2" : 565643440
+			"scale_2" : 60290794,
+			"scale_1" : 862082538
 		},
 		"test/out/polyline0_22.svg" : 
 		{
-			"scale_2" : 4141298701
+			"scale_2" : 3573008983,
+			"scale_1" : 2765216907
 		},
 		"test/out/polyline0_23.svg" : 
 		{
-			"scale_2" : 3108506813
+			"scale_2" : 1660037446,
+			"scale_1" : 2415713378
 		},
 		"test/out/polyline0_24.svg" : 
 		{
-			"scale_2" : 681749964
+			"scale_2" : 3714412071,
+			"scale_1" : 356757410
 		},
 		"test/out/polyline0_25.svg" : 
 		{
-			"scale_2" : 775224862
+			"scale_2" : 202637380,
+			"scale_1" : 192468705
 		},
 		"test/out/polyline0_26.svg" : 
 		{
-			"scale_2" : 802305676
+			"scale_2" : 234014934,
+			"scale_1" : 2387423626
 		},
 		"test/out/polyline0_27.svg" : 
 		{
-			"scale_2" : 1787470302
+			"scale_2" : 1219125124,
+			"scale_1" : 2561971047
 		},
 		"test/out/polyline0_28.svg" : 
 		{
-			"scale_2" : 1936333116
+			"scale_2" : 1363863398,
+			"scale_1" : 3896256806
 		},
 		"test/out/polygon1.svg" : 
 		{
-			"scale_2" : 1134227560
+			"scale_2" : 1134227560,
+			"scale_1" : 2657103204
 		},
 		"test/out/font_1.svg" : 
 		{
-			"scale_2" : 358518280
+			"scale_2" : 358518280,
+			"scale_1" : 3798921093
 		},
 		"test/out/icon3_0.svg" : 
 		{
-			"scale_2" : 145047938
+			"scale_2" : 3582898116,
+			"scale_1" : 4132620359
+		},
+		"test/out/rect5_1.svg" : 
+		{
+			"scale_1" : 2407639157,
+			"scale_2" : 2668232321
+		},
+		"test/out/rect5_2.svg" : 
+		{
+			"scale_1" : 1688617806,
+			"scale_2" : 472469466
+		},
+		"test/out/rect5_3.svg" : 
+		{
+			"scale_1" : 1834281224,
+			"scale_2" : 1673133212
+		},
+		"test/out/rect5_4.svg" : 
+		{
+			"scale_1" : 1520555816,
+			"scale_2" : 1258441620
+		},
+		"test/out/rect5_5.svg" : 
+		{
+			"scale_1" : 1756993090,
+			"scale_2" : 170305923
+		},
+		"test/out/rect5_6.svg" : 
+		{
+			"scale_1" : 3310354099,
+			"scale_2" : 2231312515
+		},
+		"test/out/rect5_7.svg" : 
+		{
+			"scale_1" : 3629722908,
+			"scale_2" : 3887683049
+		},
+		"test/out/rect5_8.svg" : 
+		{
+			"scale_1" : 1153162326,
+			"scale_2" : 1443034851
+		},
+		"test/out/rect5_9.svg" : 
+		{
+			"scale_1" : 762270388,
+			"scale_2" : 1690801258
+		},
+		"test/out/rect5_10.svg" : 
+		{
+			"scale_1" : 775042428,
+			"scale_2" : 3925986014
+		},
+		"test/out/rect5_11.svg" : 
+		{
+			"scale_1" : 402896061,
+			"scale_2" : 1599277796
+		},
+		"test/out/rect5_12.svg" : 
+		{
+			"scale_1" : 4180391342,
+			"scale_2" : 932950207
+		},
+		"test/out/rect5_13.svg" : 
+		{
+			"scale_1" : 1700466902,
+			"scale_2" : 633254836
+		},
+		"test/out/rect5_14.svg" : 
+		{
+			"scale_1" : 853604051,
+			"scale_2" : 244912432
+		},
+		"test/out/rect5_15.svg" : 
+		{
+			"scale_1" : 2913719597,
+			"scale_2" : 3373568170
+		},
+		"test/out/rect5_16.svg" : 
+		{
+			"scale_1" : 2872593080,
+			"scale_2" : 1369391100
+		},
+		"test/out/rect5_17.svg" : 
+		{
+			"scale_1" : 1994838848,
+			"scale_2" : 4021633451
+		},
+		"test/out/rect5_18.svg" : 
+		{
+			"scale_1" : 1968051083,
+			"scale_2" : 1487935372
+		},
+		"test/out/rect5_19.svg" : 
+		{
+			"scale_1" : 2564535827,
+			"scale_2" : 424155135
+		},
+		"test/out/rect5_20.svg" : 
+		{
+			"scale_1" : 3395651152,
+			"scale_2" : 1154423326
+		},
+		"test/out/rect5_21.svg" : 
+		{
+			"scale_1" : 1749935097,
+			"scale_2" : 453680891
+		},
+		"test/out/rect5_22.svg" : 
+		{
+			"scale_1" : 3677565452,
+			"scale_2" : 1952148952
+		},
+		"test/out/rect5_23.svg" : 
+		{
+			"scale_1" : 626017079,
+			"scale_2" : 733529973
+		},
+		"test/out/rect5_24.svg" : 
+		{
+			"scale_1" : 2450093615,
+			"scale_2" : 3162623119
+		},
+		"test/out/rect5_25.svg" : 
+		{
+			"scale_1" : 1637674370,
+			"scale_2" : 1786498565
+		},
+		"test/out/rect5_26.svg" : 
+		{
+			"scale_1" : 1660316593,
+			"scale_2" : 3124176959
+		},
+		"test/out/rect5_27.svg" : 
+		{
+			"scale_1" : 363121245,
+			"scale_2" : 2458822260
+		},
+		"test/out/rect5_28.svg" : 
+		{
+			"scale_1" : 1244137655,
+			"scale_2" : 3211569645
+		},
+		"test/out/rect5_29.svg" : 
+		{
+			"scale_1" : 3510844353,
+			"scale_2" : 3380891768
+		},
+		"test/out/rect5_30.svg" : 
+		{
+			"scale_1" : 18432442,
+			"scale_2" : 1142262792
+		},
+		"test/out/rect5_31.svg" : 
+		{
+			"scale_1" : 3526284189,
+			"scale_2" : 2121092854
+		},
+		"test/out/rect5_32.svg" : 
+		{
+			"scale_1" : 3892989722,
+			"scale_2" : 1269710517
+		},
+		"test/out/rect5_33.svg" : 
+		{
+			"scale_1" : 2312232903,
+			"scale_2" : 1322271384
+		},
+		"test/out/rect5_34.svg" : 
+		{
+			"scale_1" : 2758431549,
+			"scale_2" : 3032795926
+		},
+		"test/out/rect5_35.svg" : 
+		{
+			"scale_1" : 1559662130,
+			"scale_2" : 883295601
+		},
+		"test/out/rect5_36.svg" : 
+		{
+			"scale_1" : 2379418068,
+			"scale_2" : 12736955
 		}
 	}
