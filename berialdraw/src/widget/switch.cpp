@@ -60,7 +60,7 @@ void Switch::paint(const Region & parent_region)
 
 		Area area_track(m_foreclip);
 
-		if (m_focused)
+		if (m_focused && m_focus_thickness)
 		{
 			// Draw focus
 			Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color), m_focus_thickness<<6);

@@ -103,10 +103,10 @@ void Icon::paint(const Region & parent_region)
 		UIManager::renderer()->region(region);
 		Point shift;
 
-		if (m_focused)
+		if (m_focused && m_focus_thickness)
 		{
 			// Draw focus
-			Rect::build_polygon(m_icon_foreclip, shift, m_radius      , m_thickness, m_focus_gap,                         m_sides, Color::TRANSPARENT, stated_color(m_focus_color), m_focus_thickness<<6);
+			Rect::build_polygon(m_icon_foreclip, shift, m_radius, m_thickness, m_focus_gap,                         m_sides, Color::TRANSPARENT, stated_color(m_focus_color), m_focus_thickness<<6);
 		}
 		// Draw background
 		Rect::build_polygon(m_icon_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));

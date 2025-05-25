@@ -219,7 +219,7 @@ void Slider::draw_track()
 	// Draw fill
 	handle_area.nearest_pixel();
 
-	if (m_focused)
+	if (m_focused && m_focus_thickness)
 	{
 		// Draw focus
 		Rect::build_polygon(handle_area, shift, m_radius, m_thickness, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color), m_focus_thickness<<6);

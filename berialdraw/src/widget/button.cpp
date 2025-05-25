@@ -83,10 +83,10 @@ void Button::paint(const Region & parent_region)
 		UIManager::renderer()->region(region);
 		Point shift;
 
-		if (m_focused)
+		if (m_focused && m_focus_thickness)
 		{
 			// Draw focus
-			Rect::build_polygon(m_foreclip, shift, m_radius + (m_thickness>>1) , m_thickness, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color), m_focus_thickness<<6);
+			Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color), m_focus_thickness<<6);
 		}
 		// Draw background
 		Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
@@ -1043,7 +1043,7 @@ button->focus_color(Color::RED);
 			name.print("test/out/button12_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 
-			button->sides(BOTTOM_RIGHT_SIDE);
+			button->sides(BOTTOM_RIGHT_SIDE|ROUNDED_EXTREMITY);
 			name.print("test/out/button12_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
