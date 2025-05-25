@@ -131,13 +131,6 @@ namespace berialdraw
 		void focused(bool v);
 
 
-		/** Get the focus thickness (16 pixels max)*/
-		Dim focus_thickness() const;
-
-		/** Set the focus thickness in pixels (16 pixels max)*/
-		void focus_thickness(Dim v);
-
-
 
 #ifdef _DEBUG
 		static void test();
@@ -174,7 +167,6 @@ namespace berialdraw
 		unsigned int m_flow_place :1;
 		unsigned int m_flow_in_children:1;
 		unsigned int m_flow       :1;
-		unsigned int m_focus_thickness:4;
 /// @endcond 
 	};
 }

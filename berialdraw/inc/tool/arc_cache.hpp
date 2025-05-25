@@ -13,7 +13,7 @@ namespace berialdraw
 		Coord vec_y       = 0;   ///< Computed Y component of the vector.
 		Coord handle      = 0;   ///< Computed handle value.
 		Coord intersection = 0;  ///< Computed intersection point.
-		Dim   width        = 0;  ///< Computed width of edge
+		Dim   width        = 0;  ///< Computed width of add_corner
 
 	};
 
@@ -30,7 +30,7 @@ namespace berialdraw
 		/** Computes or retrieves cached values for an arc-line intersection.
 		@param radius Radius of the arc.
 		@param thickness Thickness of the line.
-		@param width : Computed width of edge
+		@param width : Computed width of add_corner
 		@param vec_x : X component of the vector.
 		@param vec_y : Y component of the vector.
 		@param handle : Handle value.

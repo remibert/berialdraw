@@ -8,6 +8,7 @@ BorderStyle::BorderStyle()
 	m_radius = 0;
 	m_thickness = 0;
 	m_focus_gap = 0;
+	m_focus_thickness = 0;
 }
 
 
@@ -19,6 +20,7 @@ void BorderStyle::serialize(JsonIterator & it)
 	it["border-color"] = m_border_color;
 	it["focus-color"]  = m_focus_color;
 	it["focus-gap_"]   = m_focus_gap;
+	it["focus-thickness"] = (int)m_focus_thickness;
 }
 
 /** Unserialize the content of widget from json */
@@ -29,6 +31,7 @@ void BorderStyle::unserialize(JsonIterator & it)
 	berialdraw::unserialize("focus-gap_", it, m_focus_gap);
 	m_border_color = (int)(it["border-color"]  | (int)m_border_color);
 	m_focus_color  = (int)(it["focus-color"]  | (int)m_focus_color);
+	m_focus_thickness    = (int)it["focus-thickness"] | m_focus_thickness;
 }
 
 /** Set properties with another */
@@ -39,6 +42,7 @@ void BorderStyle::set(const BorderStyle & other)
 	m_focus_color  = other.m_focus_color;
 	m_thickness    = other.m_thickness;
 	m_focus_gap          = other.m_focus_gap;
+	m_focus_thickness = other.m_focus_thickness;
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 }
 
@@ -146,11 +150,11 @@ Dim BorderStyle::focus_gap() const
 	return m_focus_gap >> 6;
 }
 
-/** Get the focus_gap with a precision of 64th of a pixel */
-Dim BorderStyle::focus_gap_() const
-{
-	return m_focus_gap;
-}
+///** Get the focus_gap with a precision of 64th of a pixel */
+//Dim BorderStyle::focus_gap_() const
+//{
+//	return m_focus_gap;
+//}
 
 /** Set the focus_gap in pixels */
 void BorderStyle::focus_gap(Dim v)
@@ -158,10 +162,24 @@ void BorderStyle::focus_gap(Dim v)
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_focus_gap = v << 6;
 }
+//
+///** Set the focus_gap with a precision of 64th of a pixel */
+//void BorderStyle::focus_gap_(Dim v)
+//{
+//	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+//	m_focus_gap = v;
+//}
 
-/** Set the focus_gap with a precision of 64th of a pixel */
-void BorderStyle::focus_gap_(Dim v)
+/** Get the focus thickness (16 pixels max)*/
+Dim BorderStyle::focus_thickness() const
+{
+	return m_focus_thickness;
+}
+
+/** Set the focus thickness in pixels (16 pixels max)*/
+void BorderStyle::focus_thickness(Dim v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
-	m_focus_gap = v;
+	m_focus_thickness = v;
 }
+

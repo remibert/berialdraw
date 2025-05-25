@@ -53,21 +53,15 @@ public:
 
 protected:
 /// @cond DOXYGEN_IGNORE
-	///** Draws a rectangle on the canvas with specified dimensions.
-	//@param x X-coordinate of the rectangle's top-left corner.
-	//@param y Y-coordinate of the rectangle's top-left corner.
-	//@param width Width of the rectangle.
-	//@param height Height of the rectangle.
-	//@param clockwise Specifies the drawing direction (clockwise or counter-clockwise).*/
-	void draw_rect(Coord x, Coord y, Coord width, Coord height, bool clockwise);
-
-	/**
-	 * Creates a part of the rectangle's polygon representation.
-	 */
+	/** Creates a part of the rectangle's polygon representation. */
 	void create_part();
 
-	inline void edge    (Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags);
+	inline void add_corner    (Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags);
+
 	
+	// Render outline
+	void paint(const Point & shift, bool in_widget);
+
 
 	/// Polygon representation of the rectangle's outline.
 	Polygon m_polygon;

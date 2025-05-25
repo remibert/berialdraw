@@ -26,6 +26,7 @@ namespace berialdraw
 
 		INNER_AREA             = 0x10,                                        ///< Keep the inner part of the rectangles without sides
 		RECTANGULAR_EXTREMITY  = 0x20,                                        ///< The extremity will be rectangular
+		ROUNDED_EXTREMITY      = 0x40,
 
 		ALL_SIDES              = (TOP_SIDE|RIGHT_SIDE|BOTTOM_SIDE|LEFT_SIDE), ///< All sides visible
 	};

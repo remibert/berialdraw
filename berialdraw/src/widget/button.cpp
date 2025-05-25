@@ -86,7 +86,7 @@ void Button::paint(const Region & parent_region)
 		if (m_focused)
 		{
 			// Draw focus
-			Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color), m_focus_thickness<<6);
+			Rect::build_polygon(m_foreclip, shift, m_radius + (m_thickness>>1) , m_thickness, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color), m_focus_thickness<<6);
 		}
 		// Draw background
 		Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
@@ -392,7 +392,6 @@ void Button::test5()
 	UIManager::desktop()->dispatch("test/out/button5_5.svg");
 }
 
-
 void Button::test6()
 {
 	Window window;
@@ -420,6 +419,8 @@ void Button::test6()
 	UIManager::desktop()->dispatch("test/out/button6.svg");
 }
 
+void test_keyboard(Grid * grid, String & keyboard)
+{
 #define KEY_LETTER      "\x01"
 #define KEY_NUMERIC     "\x02"
 #define KEY_SHIFT       "\xE2\xAC\x86" // 0x2B06
@@ -432,8 +433,6 @@ void Button::test6()
 #define KEY_EURO        "\xE2\x82\xAC" // 0x20AC
 #define KEY_POUND       "\xC2\xA3"     // 0xA3
 #define KEY_YEN         "\xC2\xA5"     // 0xA5
-void test_keyboard(Grid * grid, String & keyboard)
-{
 	Grid * keyline;
 	Button * button;
 	int line = 0;
@@ -630,7 +629,6 @@ public:
 
 	bool m_quit = false;
 };
-
 
 void Button::test8()
 {
@@ -1009,68 +1007,47 @@ void Button::test12()
 	Button * button;
 	Window window;
 		window.position(0,0);
-		window.size(200,200);
+		window.size(300,300);
 		window.color(Color::WHITE);
 
 		button = new Button(&window);
-			button->position(30,30);
-			button->text("Press key");
+			button->position(120,120);
+			button->text("Press");
 			button->id(123);
+			button->font_size(40);
+			button->color(Color::LIGHT_DAY_BLUE,128);
+			//button->focus_color(Color::NEW_MIDNIGHT_BLUE,128);
+button->focus_color(Color::RED);
+			button->border_color(Color::OCEAN_BLUE,128);
+			button->text_color(Color::NEW_MIDNIGHT_BLUE);
+			button->thickness(3);
+			button->radius(20);
+			button->align(CENTER);
+			button->margin(10);
+			button->padding(10);
+			//button->focus_gap(0);
+			//button->focus_thickness(1);
+			//button->focus_thickness(5);button->focus_gap(5);
 
-		//UIManager::desktop()->dispatch("test/out/button5_1.svg");
-		//button->text("Press");
-		//UIManager::desktop()->dispatch("test/out/button5_2.svg");
-		button->font_size(30);
-		//UIManager::desktop()->dispatch("test/out/button5_3.svg");
-		button->pressed(true);
-		//UIManager::desktop()->dispatch("test/out/button5_4.svg");
+	int id = 0;
+	String name;
 
-		button->color(Color::GREEN);
-		button->border_color(Color::BOTTLE_GREEN);
-		button->text_color(Color::YELLOW);
-		button->thickness(10);
-		button->radius(10);
-		button->align(CENTER);
-		button->padding(25,25,25,25);
-		button->focus_gap(0);
-		button->focus_thickness(1);
+	for (Dim gap = 0; gap <= 3; gap ++)
+	{
+		for (Dim thickness = 0; thickness <= 3; thickness ++)
+		{
+			button->focus_gap(gap);
+			button->focus_thickness(thickness);
 
-	//button = dynamic_cast<Button*>(window.search(123));
-	//if(button)
-	//{
-		button->text("Casted");
-		button->color(Color::RED,64);
-		button->border_color(Color::RED_BLOOD,64);
-button->sides(Side::LEFT_TOP_RIGHT_SIDE|Side::RECTANGULAR_EXTREMITY);
-	//}
-	button->focus_thickness(1);button->focus_gap(0);
-	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
-	button->focus_thickness(2);button->focus_gap(0);
-	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
-	button->focus_thickness(3);button->focus_gap(0);
-	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
-	button->focus_thickness(4);button->focus_gap(0);
-	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
+			button->sides(ALL_SIDES);
+			name.print("test/out/button12_%d.svg", ++id);
+			UIManager::desktop()->dispatch(name);
 
-
-	button->focus_thickness(1);button->focus_gap(1);
-	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
-	button->focus_thickness(2);button->focus_gap(1);
-	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
-	button->focus_thickness(3);button->focus_gap(1);
-	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
-	button->focus_thickness(4);button->focus_gap(1);
-	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
-
-	button->focus_thickness(1);button->focus_gap(2);
-	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
-	button->focus_thickness(2);button->focus_gap(2);
-	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
-	button->focus_thickness(3);button->focus_gap(2);
-	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
-	button->focus_thickness(4);button->focus_gap(2);
-	UIManager::desktop()->dispatch();//"test/out/button5_5.svg");
-
+			button->sides(BOTTOM_RIGHT_SIDE);
+			name.print("test/out/button12_%d.svg", ++id);
+			UIManager::desktop()->dispatch(name);
+		}
+	}
 }
 
 void Button::test()
@@ -1078,8 +1055,8 @@ void Button::test()
 	static bool done = false;
 	if (done == false)
 	{
-test12();
 		done = true;
+		test12();
 		test11();
 		test10();
 		test9();

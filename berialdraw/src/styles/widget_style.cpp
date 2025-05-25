@@ -15,7 +15,6 @@ WidgetStyle::WidgetStyle()
 	m_selectable  = 0;
 	m_flow        = 0;
 	m_flow_in_children = 0;
-	m_focus_thickness = 0;
 }
 
 /** Serialize the content of widget into json */
@@ -34,7 +33,6 @@ void WidgetStyle::serialize(JsonIterator & it)
 	it["selectable"]    = (int)m_selectable;
 	it["pressable"]     = (int)m_pressable;
 	it["flow"]    = (int)m_flow;
-	it["focus-thickness"] = (int)m_focus_thickness;
 }
 
 /** Unserialize the content of widget from json */
@@ -58,7 +56,6 @@ void WidgetStyle::unserialize(JsonIterator & it)
 	m_selectable = (int)it["selectable"] | m_selectable;
 	m_pressable  = (int)it["pressable"] | m_pressable;
 	m_flow       = (int)it["flow"] | m_flow;
-	m_focus_thickness    = (int)it["focus-thickness"] | m_focus_thickness;
 }
 
 /** Set properties with another */
@@ -77,7 +74,6 @@ void WidgetStyle::set(const WidgetStyle & other)
 	m_pressable       = other.m_pressable;
 	m_flow_place      = other.m_flow_place;
 	m_flow            = other.m_flow;
-	m_focus_thickness = other.m_focus_thickness;
 	m_flow_in_children = other.m_flow_in_children;
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 }
@@ -298,19 +294,6 @@ void WidgetStyle::focused(bool v)
 }
 
 
-
-/** Get the focus thickness (16 pixels max)*/
-Dim WidgetStyle::focus_thickness() const
-{
-	return m_focus_thickness;
-}
-
-/** Set the focus thickness in pixels (16 pixels max)*/
-void WidgetStyle::focus_thickness(Dim v)
-{
-	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
-	m_focus_thickness = v;
-}
 
 
 #ifdef _DEBUG

@@ -166,7 +166,7 @@ void Polygon::arc_(Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags
 		UIManager::arc_cache()->compute(radius, thickness, width, vec_x, vec_y, handle, intersection);
 
 
-		if (radius > thickness)
+		if (radius > (Coord)thickness)
 		{
 			if (squared)
 			{

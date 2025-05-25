@@ -30,3 +30,10 @@ bool berialdraw::unserialize(const char * name, JsonIterator & it, Dim & value)
 	value     = (v    == Size::MAX_SIZE) ? value    : v;
 	return v == Size::MAX_SIZE;
 }
+
+bool berialdraw::unserialize(const char * name, JsonIterator & it, uint16_t & value)
+{
+	int v     = it[name]    | Size::MAX_SIZE;
+	value     = (v    == Size::MAX_SIZE) ? value    : v;
+	return v == Size::MAX_SIZE;
+}

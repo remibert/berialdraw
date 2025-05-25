@@ -185,7 +185,8 @@ void bd_printf(const char* format, ...)
 		WIN32_FILE_ATTRIBUTE_DATA file_info;
 		if (GetFileAttributesExA(file_name, GetFileExInfoStandard, &file_info))
 		{
-			return ((size_t)file_info.nFileSizeHigh << 32) | file_info.nFileSizeLow;
+			ULONGLONG size = ((ULONGLONG)file_info.nFileSizeHigh << 32) | file_info.nFileSizeLow;
+			return (size_t)size;
 		}
 		return 0;
 	}

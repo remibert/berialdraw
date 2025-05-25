@@ -10,9 +10,7 @@ namespace berialdraw
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
 
-		Icon::test();
-Slider::test();
-		Rect::test();
+		Button::test();
 
 		// Widgets
 		Icon::test();

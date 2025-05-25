@@ -58,19 +58,19 @@ void Slider::place(const Area & area, bool in_layout)
 	}
 
 	// If margin not support the focus thickness enlarge it
-	if (m_margin.left() < m_focus_thickness>>1)
+	if (m_margin.left() < (Dim)(m_focus_thickness>>1))
 	{
 		m_margin.left(m_focus_thickness>>1);
 	}
-	if (m_margin.right() < m_focus_thickness>>1)
+	if (m_margin.right() < (Dim)(m_focus_thickness>>1))
 	{
 		m_margin.right(m_focus_thickness>>1);
 	}
-	if (m_margin.top() < m_focus_thickness>>1)
+	if (m_margin.top() < (Dim)(m_focus_thickness>>1))
 	{
 		m_margin.top(m_focus_thickness>>1);
 	}
-	if (m_margin.bottom() < m_focus_thickness>>1)
+	if (m_margin.bottom() < (Dim)(m_focus_thickness>>1))
 	{
 		m_margin.bottom(m_focus_thickness>>1);
 	}
