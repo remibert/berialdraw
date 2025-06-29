@@ -79,6 +79,9 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Remove operator = */
+		ScrollView& operator=(const ScrollView& other) = delete;
+		
 		/** Call back on scroll */
 		void on_scroll(Widget * widget, const ScrollEvent & evt);
 

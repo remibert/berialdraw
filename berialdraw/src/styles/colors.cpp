@@ -12,43 +12,37 @@ Colors::Colors()
 /** Destroy widget */
 Colors::~Colors()
 {
-	m_colors.clear();
+	m_colors_primary.clear();
 }
-
 
 /** Choose the color theme
 @param color theme */
-void Colors::theme(uint32_t col)
+void Colors::theme(uint32_t color_theme)
 {
-	if (col >= Color::FIRST_THEME_COLOR && col <= Color::LAST_THEME_COLOR)
+	if (color_theme >= Color::FIRST_THEME_COLOR && color_theme <= Color::LAST_THEME_COLOR)
 	{
-		m_theme = col;
-		col = color(col);
+		uint32_t col;
+		m_theme = color_theme;
+		col = color(color_theme);
 
-		m_theme_values [Color::THEME_COLOR             - Color::FIRST_THEME_VALUE] =  col;
+		m_theme_values [Color::THEME_BACK_COLOR             - Color::FIRST_THEME_VALUE] =  col;
 
-		for (int i = THEME_COLOR_LIGHT_1; i <= THEME_COLOR_LIGHT_15; i++)
+		for (int i = THEME_BACK_COLOR_LIGHT_1; i <= THEME_BACK_COLOR_LIGHT_15; i++)
 		{
-			m_theme_values [i-FIRST_THEME_VALUE] = Hsl::add_color(col, Color::WHITE, ((i-THEME_COLOR_LIGHT_1) * 17) +8);
+			m_theme_values [i-FIRST_THEME_VALUE] = Hsl::add_color(col, Color::WHITE, ((i-THEME_BACK_COLOR_LIGHT_1) * 17) +8);
 		}
 
-		for (int i = THEME_COLOR_DARK_1; i <= THEME_COLOR_DARK_15; i++)
+		for (int i = THEME_BACK_COLOR_DARK_1; i <= THEME_BACK_COLOR_DARK_15; i++)
 		{
-			m_theme_values [i-FIRST_THEME_VALUE] = Hsl::add_color(col, Color::BLACK, (i-THEME_COLOR_DARK_1) * 17);
+			m_theme_values [i-FIRST_THEME_VALUE] = Hsl::add_color(col, Color::BLACK, (i-THEME_BACK_COLOR_DARK_1) * 17);
 		}
 
-		// If light theme selected
-		if (Hsl::delta_contrast(col, Color::WHITE) > Hsl::delta_contrast(col, Color::BLACK))
+		if (color_theme < m_colors_secondary.size())
 		{
-			m_theme_values [Color::THEME_COLOR_FOREGROUND  - Color::FIRST_THEME_VALUE] = Color::WHITE;
-		}
-		else
-		{
-			m_theme_values [Color::THEME_COLOR_FOREGROUND  - Color::FIRST_THEME_VALUE] = Color::BLACK;
+			m_theme_values [Color::THEME_FORE_COLOR  - Color::FIRST_THEME_VALUE] = m_colors_secondary[color_theme];
 		}
 	}
 }
-
 
 /** Choose the name of the appearance mode
 @param name name of appearance (can be "light", "dark")
@@ -77,26 +71,19 @@ bool Colors::appearance(const char * name)
 			try
 			{
 				json.unserialize(file);
-				m_colors.clear();
-				m_state_colors.clear();
+				m_colors_primary.clear();
+				m_colors_secondary.clear();
 
 				{
 					JsonIterator iterator(json["colors"]);
 					for (iterator.first(); iterator.exist(); iterator.next())
 					{
-						m_colors.push_back(iterator);
+						m_colors_primary.push_back(iterator);
+						iterator.next();
+						m_colors_secondary.push_back(iterator);
 					}
 				}
 				
-				{
-					JsonIterator iterator = json["state-colors"];
-
-					for (iterator.first(); iterator.exist(); iterator.next())
-					{
-						m_state_colors.push_back(iterator);
-					}
-				}
-
 				theme(m_theme);
 				result = true;
 			}
@@ -109,22 +96,23 @@ bool Colors::appearance(const char * name)
 }
 
 /** Redefine predefined color */
-void Colors::color(uint32_t id, uint32_t color)
+void Colors::color(uint32_t id, uint32_t color, bool focused)
 {
-	if (id < m_colors.size())
+	if (focused)
 	{
-		m_colors[id] = color;
+		if (id < m_colors_secondary.size())
+		{
+			m_colors_secondary[id] = color;
+		}
+	}
+	else
+	{
+		if (id < m_colors_primary.size())
+		{
+			m_colors_primary[id] = color;
+		}
 	}
 }
-
-/** Return the color according to its id 
-@param id color identifier
-@return color predefined or id value if not found */
-uint32_t Colors::color(uint32_t id)
-{
-	return color(id, false);
-}
-
 
 /** Return the color according to its id 
 @param id color identifier
@@ -135,24 +123,22 @@ uint32_t Colors::color(uint32_t id, bool focused)
 	uint32_t result = id;
 	if (id <= LAST_THEME_VALUE && id != Color::TRANSPARENT)
 	{
-		// If color is in colors table
-		if (id < m_colors.size())
+		if (focused)
 		{
-			// Get color
-			result = m_colors[id];
-		}
-
-		// If state color selected
-		if (result >= FIRST_STATE_COLOR && result <= LAST_STATE_COLOR)
-		{
-			id = (result - FIRST_STATE_COLOR) * 2;
-			if (focused)
+			// If color is in colors table
+			if (id < m_colors_secondary.size())
 			{
-				id += 1;
+				// Get color
+				result = m_colors_secondary[id];
 			}
-			if (id < m_state_colors.size())
+		}
+		else
+		{
+			// If color is in colors table
+			if (id < m_colors_primary.size())
 			{
-				result = m_state_colors[id];
+				// Get color
+				result = m_colors_primary[id];
 			}
 		}
 
@@ -170,8 +156,6 @@ uint32_t Colors::color(uint32_t id, bool focused)
 	}
 	return result;
 }
-
-
 
 /** Get style filename according to class name */
 void Colors::filename(const char * classname, String & filename_)

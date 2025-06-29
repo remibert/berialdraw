@@ -31,6 +31,14 @@ Window::~Window()
 	}
 }
 
+/** Copy all styles of the window */
+void Window::copy(const Window & window)
+{
+	*((CommonStyle*)this) = *(CommonStyle*)(&window);
+	*((WidgetStyle*)this) = *(WidgetStyle*)(&window);
+}
+
+
 bool Window::is_allocated()
 {
 	return m_allocated;

@@ -9,9 +9,6 @@
     <ClCompile Include="samples\icon_menu_dialog.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\samples_widgets.cpp">
-      <Filter>samples</Filter>
-    </ClCompile>
     <ClCompile Include="samples\menu_dialog.cpp">
       <Filter>samples</Filter>
     </ClCompile>

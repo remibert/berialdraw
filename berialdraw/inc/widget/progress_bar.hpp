@@ -24,7 +24,9 @@ namespace berialdraw
 		/** Return the size of content without marges */
 		virtual Size content_size();
 
-
+		/** Copy all styles of the progress_bar */
+		void copy(const ProgressBar & progress_bar);
+	
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -34,6 +36,9 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Remove operator = */
+		ProgressBar& operator=(const ProgressBar& other) = delete;
+		
 		void draw_track();
 		Dim get_bar_length(Dim width);
 

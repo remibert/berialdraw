@@ -20,6 +20,9 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		virtual void unserialize(JsonIterator & it);
 
+		/** Copy all styles of the pane */
+		void copy(const Pane & pane);
+
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -32,6 +35,9 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Remove operator = */
+		Pane& operator=(const Pane& other) = delete;
+		
 		/** Return the size of content without marges */
 		virtual Size content_size();
 

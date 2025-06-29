@@ -15,6 +15,14 @@ Button::~Button()
 {
 }
 
+void Button::copy(const Button & button)
+{
+	*((CommonStyle*)this) = *(CommonStyle*)(&button);
+	*((WidgetStyle*)this) = *(WidgetStyle*)(&button);
+	*((BorderStyle*)this) = *(BorderStyle*)(&button);
+	*((TextStyle  *)this) = *(TextStyle  *)(&button);
+}
+
 Size Button::content_size()
 {
 	Size result;
@@ -83,13 +91,14 @@ void Button::paint(const Region & parent_region)
 		UIManager::renderer()->region(region);
 		Point shift;
 
-		if (m_focused && m_focus_thickness)
-		{
-			// Draw focus
-			Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color), m_focus_thickness<<6);
-		}
-		// Draw background
-		Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
+		Rect::build_focused_polygon(m_foreclip, 
+			*(CommonStyle*)this,
+			*(BorderStyle*)this,
+			stated_color(m_color), 
+			stated_color(m_border_color),
+			Color::TRANSPARENT, 
+			stated_color(m_focus_color),
+			m_focused);
 
 		// Paint children
 		Widget::paint(region);
@@ -1016,8 +1025,7 @@ void Button::test12()
 			button->id(123);
 			button->font_size(40);
 			button->color(Color::LIGHT_DAY_BLUE,128);
-			//button->focus_color(Color::NEW_MIDNIGHT_BLUE,128);
-button->focus_color(Color::RED);
+			button->focus_color(Color::RED);
 			button->border_color(Color::OCEAN_BLUE,128);
 			button->text_color(Color::NEW_MIDNIGHT_BLUE);
 			button->thickness(3);
@@ -1025,9 +1033,6 @@ button->focus_color(Color::RED);
 			button->align(CENTER);
 			button->margin(10);
 			button->padding(10);
-			//button->focus_gap(0);
-			//button->focus_thickness(1);
-			//button->focus_thickness(5);button->focus_gap(5);
 
 	int id = 0;
 	String name;
@@ -1043,11 +1048,152 @@ button->focus_color(Color::RED);
 			name.print("test/out/button12_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 
-			button->sides(BOTTOM_RIGHT_SIDE|ROUNDED_EXTREMITY);
+			button->sides(BOTTOM_SIDE|RIGHT_SIDE|ROUNDED_EXTREMITY);
 			name.print("test/out/button12_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
 	}
+}
+
+void Button::test13()
+{
+#if 0
+	Window window;
+
+		Column * column = new Column(&window);
+		Row * row = new Row(column);
+			Button * buttonRef;
+			Button * button;
+	
+
+			buttonRef = new Button(row);
+				buttonRef->text("One");
+				buttonRef->sides(Sides::LEFT_SIDE|BOTTOM_SIDE|RIGHT_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				buttonRef->color(Color::LIGHT_DAY_BLUE,128);
+				buttonRef->border_color(Color::OCEAN_BLUE,128);
+				buttonRef->text_color(Color::NEW_MIDNIGHT_BLUE);
+				buttonRef->thickness(1);
+				buttonRef->radius(6);
+				buttonRef->align(CENTER);
+				buttonRef->margin(20);
+
+				buttonRef->focus_color(Color::OCEAN_BLUE);
+				buttonRef->focus_gap(1);
+				buttonRef->focus_thickness(2);
+
+
+			button = new Button(row);
+				button->copy(*buttonRef);
+				button->text("Two");
+				button->sides(Sides::LEFT_SIDE|TOP_SIDE|RIGHT_SIDE | Sides::RECTANGULAR_EXTREMITY);
+
+			button = new Button(row);
+				button->copy(*buttonRef);
+				button->text("Three");
+				button->sides(Sides::LEFT_SIDE|BOTTOM_SIDE|TOP_SIDE | Sides::RECTANGULAR_EXTREMITY);
+
+			button = new Button(row);
+				button->copy(*buttonRef);
+				button->text("Four");
+				button->sides(Sides::RIGHT_SIDE|BOTTOM_SIDE|TOP_SIDE | Sides::RECTANGULAR_EXTREMITY);
+
+			row = new Row(column);
+
+			button = new Button(row);
+				button->copy(*buttonRef);
+				button->text("Five");
+				button->sides(LEFT_SIDE|BOTTOM_SIDE | Sides::RECTANGULAR_EXTREMITY);
+
+			button = new Button(row);
+				button->copy(*buttonRef);
+				button->text("Six");
+				button->sides(Sides::LEFT_SIDE|TOP_SIDE | Sides::RECTANGULAR_EXTREMITY);
+
+			button = new Button(row);
+				button->copy(*buttonRef);
+				button->text("Seven");
+				button->sides(Sides::RIGHT_SIDE|TOP_SIDE | Sides::RECTANGULAR_EXTREMITY);
+
+			button = new Button(row);
+				button->copy(*buttonRef);
+				button->text("Height");
+				button->sides(Sides::RIGHT_SIDE|BOTTOM_SIDE | Sides::RECTANGULAR_EXTREMITY);
+
+
+		Pane * pane = new Pane(column);
+			pane->color(Color::WHITE);
+			pane->size_policy(SizePolicy::ENLARGE_ALL);
+	while(1)
+		UIManager::desktop()->dispatch("test/out/button13.svg");
+buttonRef->text("O\ne");
+	while(1)
+		UIManager::desktop()->dispatch();
+#endif
+#if 1
+	UIManager::styles()->style("pearl");            // Select the style pearl
+	UIManager::colors()->appearance("light");       // Select the light appearance
+	UIManager::colors()->theme(Color::THEME_LIME);  // Select the color theme
+
+	Window window;
+	Column * col;
+		Column * column = new Column(&window);
+		Row * row = new Row(column);
+			Button * buttonRef;
+			Button * button;
+
+			buttonRef = new Button(row);
+				buttonRef->text("One");
+				buttonRef->sides(Sides::RIGHT_SIDE|BOTTOM_SIDE|TOP_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				buttonRef->margin(10,10,10,2);
+
+			button = new Button(row);
+				button->copy(*buttonRef);
+				button->text("Two");
+				button->sides(Sides::BOTTOM_SIDE|TOP_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->margin(2,10);
+
+			button = new Button(row);
+				button->copy(*buttonRef);
+				button->text("Three");
+				button->sides(Sides::BOTTOM_SIDE|TOP_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->margin(2,10);
+
+			button = new Button(row);
+				button->copy(*buttonRef);
+				button->text("Four");
+				buttonRef->sides(Sides::LEFT_SIDE|BOTTOM_SIDE|TOP_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->margin(10,2,10,10);
+
+		Pane * paneOne = new Pane(column);
+			paneOne->color(Color::WHITE);
+			paneOne->size_policy(SizePolicy::ENLARGE_ALL);
+			paneOne->radius(10);
+			paneOne->thickness(2);
+			paneOne->margin(5);
+			paneOne->hidden(true);
+
+			col = new Column(paneOne);
+				button = new Button(col);
+				button->text("one");
+
+
+		Pane * paneTwo = new Pane(column);
+			paneTwo->color(Color::WHITE);
+			paneTwo->size_policy(SizePolicy::ENLARGE_ALL);
+			paneTwo->radius(10);
+			paneTwo->thickness(2);
+			paneTwo->margin(5);
+			//paneTwo->hidden(true);
+
+			col = new Column(paneTwo);
+				button = new Button(col);
+				button->text("two");
+
+
+
+	while(1)
+		UIManager::desktop()->dispatch("test/out/button13.svg");
+#endif
 }
 
 void Button::test()
@@ -1056,6 +1202,7 @@ void Button::test()
 	if (done == false)
 	{
 		done = true;
+//		test13();
 		test12();
 		test11();
 		test10();

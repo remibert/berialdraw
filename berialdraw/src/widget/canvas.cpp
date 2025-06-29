@@ -14,6 +14,13 @@ Canvas::~Canvas()
 	clear();
 }
 
+/** Copy all styles of the canvas */
+void Canvas::copy(const Canvas & canvas)
+{
+	*((CommonStyle*)this) = *(CommonStyle*)(&canvas);
+	*((WidgetStyle*)this) = *(WidgetStyle*)(&canvas);
+}
+
 /** Return the size of content without marges */
 Size Canvas::content_size()
 {

@@ -21,8 +21,13 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		virtual void unserialize(JsonIterator & it);
 
+		/** Copy all styles of the keyboard */
+		void copy(const Keyboard & keyboard);
+
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Remove operator = */
+		Keyboard& operator=(const Keyboard& other) = delete;
 
 		/** Place all widget in area */
 		virtual void place(const Area & area, bool in_layout);

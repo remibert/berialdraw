@@ -23,6 +23,16 @@ Edit::~Edit()
 {
 }
 
+/** Copy all styles of the edit */
+void Edit::copy(const Edit & edit)
+{
+	*((CommonStyle*)this) = *(CommonStyle*)(&edit);
+	*((WidgetStyle*)this) = *(WidgetStyle*)(&edit);
+	*((BorderStyle*)this) = *(BorderStyle*)(&edit);
+	*((TextStyle*)this)   = *(TextStyle*)(&edit);
+	*((EditStyle*)this)   = *(EditStyle*)(&edit);
+}
+
 Size Edit::content_size()
 {
 	Size result;
@@ -159,15 +169,14 @@ void Edit::paint(const Region & parent_region)
 
 		m_text_box.parse(m_text_foreclip, *m_font, display, m_cursor_position, m_selection_start, m_selection_end, (Align)m_text_align);
 		
-		Point shift;
-
-		if (m_focused && m_focus_thickness)
-		{
-			// Draw focus
-			Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color), m_focus_thickness<<6);
-		}
-		// Draw background
-		Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
+		Rect::build_focused_polygon(m_foreclip, 
+			*(CommonStyle*)this,
+			*(BorderStyle*)this,
+			stated_color(m_color), 
+			stated_color(m_border_color),
+			Color::TRANSPARENT, 
+			stated_color(m_focus_color),
+			m_focused);
 
 		Widget::paint(region);
 

@@ -103,6 +103,8 @@ namespace berialdraw
 
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Remove operator = */
+		Widget& operator=(const Widget& other) = delete;
 
 		/** Add dirty on the widget and all of its children */
 		void dirty_children(enum Invalidator::Status status);

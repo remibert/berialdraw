@@ -37,13 +37,29 @@ void BorderStyle::unserialize(JsonIterator & it)
 /** Set properties with another */
 void BorderStyle::set(const BorderStyle & other)
 {
-	m_radius       = other.m_radius;
-	m_border_color = other.m_border_color;
-	m_focus_color  = other.m_focus_color;
-	m_thickness    = other.m_thickness;
-	m_focus_gap          = other.m_focus_gap;
+	m_radius          = other.m_radius;
+	m_border_color    = other.m_border_color;
+	m_focus_color     = other.m_focus_color;
+	m_thickness       = other.m_thickness;
+	m_focus_gap       = other.m_focus_gap;
 	m_focus_thickness = other.m_focus_thickness;
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+}
+
+
+BorderStyle& BorderStyle::operator=(const BorderStyle& other)
+{
+	if (this != &other)
+	{
+		m_radius          = other.m_radius;
+		m_border_color    = other.m_border_color;
+		m_focus_color     = other.m_focus_color;
+		m_thickness       = other.m_thickness;
+		m_focus_gap       = other.m_focus_gap;
+		m_focus_thickness = other.m_focus_thickness;
+		UIManager::invalidator()->dirty(this, Invalidator::ALL);
+	}
+	return *this;
 }
 
 Style * BorderStyle::create()
@@ -182,4 +198,3 @@ void BorderStyle::focus_thickness(Dim v)
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_focus_thickness = v;
 }
-

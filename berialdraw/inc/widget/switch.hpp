@@ -24,6 +24,8 @@ namespace berialdraw
 		/** Return the size of content without marges */
 		virtual Size content_size();
 
+		/** Copy all styles of the switchar */
+		void copy(const Switch & switch_);
 
 #ifdef _DEBUG
 		static void test();
@@ -34,6 +36,9 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Remove operator = */
+		Switch& operator=(const Switch& other) = delete;
+
 		/** Call back on key */
 		void on_key(Widget * widget, const KeyEvent & evt);
 

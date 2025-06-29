@@ -26,6 +26,8 @@ namespace berialdraw
 		/** Return the size of content without marges */
 		virtual Size content_size();
 
+		/** Copy all styles of the icon */
+		void copy(const Icon & icon);
 
 #ifdef _DEBUG
 		static void test();
@@ -36,6 +38,9 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Remove operator = */
+		Icon& operator=(const Icon& other) = delete;
+
 		/** Return the icon size */
 		Size icon_size();
 

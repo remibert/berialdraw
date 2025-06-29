@@ -126,11 +126,12 @@ namespace berialdraw
 
 			EDGE_MASK       = 7,
 
-			FLAG_REVERSE    = 8,
-			FLAG_RECTANGULAR= 16,
-			FLAG_INTERNAL   = 32,
-			FLAG_EXTREMITY  = 64,
-			FLAG_INNER      = 128
+			FLAG_REVERSE    = 8,  ///< Reverse the bezier path
+			FLAG_RECTANGULAR= 16, ///< The extremity is rectangular
+			FLAG_INTERNAL   = 32, ///< The bezier path is internal
+			FLAG_EXTREMITY  = 64, ///< This part is on extremity
+			FLAG_INNER      = 128,///< This part is only the internal path
+			FLAG_STRAIGHT   = 256,///< The extremity is straight
 		};
 
 		// Draws a rounded arc at a given point with specified parameters.

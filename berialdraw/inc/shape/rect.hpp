@@ -16,13 +16,14 @@ public:
 #ifdef _DEBUG
 	/** Unit test method to validate functionality. Each test corresponds to
 	a different aspect or feature of the Rect class. */
-	static void test();   ///< Test case 1
-	static void test1();  ///< Test case 2
-	static void test2();  ///< Test case 3
-	static void test3();  ///< Test case 4
-	static void test4();  ///< Test case 5
-	static void test5();  ///< Test case 6
-	static void test6();  ///< Test case 7
+	static void test();   ///< All tests case 
+	static void test1();  ///< Test case 1
+	static void test2();  ///< Test case 2
+	static void test3();  ///< Test case 3
+	static void test4();  ///< Test case 4
+	static void test5();  ///< Test case 5
+	static void test6();  ///< Test case 6
+	static void test7();  ///< Test case 7
 #endif
 
 	/** Copy constructor for the Rect class.
@@ -31,14 +32,23 @@ public:
 
 	/** Builds a polygon representation of a rectangle with customizable parameters.
 	@param area Defines the rectangle's position and size.
-	@param shift Offset to apply to the rectangle.
 	@param radius Radius for rounded corners.
 	@param thickness Thickness of the border.
 	@param gap Gap between the border and the fill.
 	@param sides Number of sides of the polygon (approximating a rounded rectangle).
 	@param backcolor Background color of the rectangle.
 	@param bordercolor Border color of the rectangle. */
-	static void build_polygon(const Area & area, const Point & shift, Dim radius, Dim thickness, Dim gap, uint8_t sides, uint32_t backcolor, uint32_t bordercolor, Dim focus_thickness=0);
+	static void build_polygon(const Area & area, Dim radius, Dim thickness, Dim gap, uint8_t sides, uint32_t backcolor, uint32_t bordercolor, Dim focus_thickness=0);
+
+
+	static void build_focused_polygon(const Area & area, 
+		const CommonStyle & common_style,
+		const BorderStyle & border_style,
+		uint32_t color,
+		uint32_t border_color,
+		uint32_t focus_color,
+		uint32_t focus_border_color,
+		bool focused);
 
 	/** Renders the outline of the rectangle on the canvas.
 	@param shift Offset to apply while rendering. */

@@ -7,9 +7,6 @@
 #include "icon_menu_dialog.hpp"
 
 
-/** Show all widgets supported */
-void samples_widgets();
-
 /** Sample of icon menu */
 void sample_icon_menu();
 

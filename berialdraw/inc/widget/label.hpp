@@ -21,6 +21,9 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		virtual void unserialize(JsonIterator & it);
 
+		/** Copy all styles of the label */
+		void copy(const Label & label);
+
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -30,6 +33,9 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Remove operator = */
+		Label& operator=(const Label& other) = delete;
+		
 		/** Paint on screen memory the content of this widget */
 		virtual void paint(const Region & parent_region);
 

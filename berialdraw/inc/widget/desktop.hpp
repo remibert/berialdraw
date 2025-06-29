@@ -48,6 +48,9 @@ namespace berialdraw
 
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Remove operator = */
+		Desktop& operator=(const Desktop& other) = delete;
+		
 		/** Refresh the desktop content */
 		void refresh(const char * snapshot);
 

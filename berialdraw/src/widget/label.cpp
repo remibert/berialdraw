@@ -14,6 +14,14 @@ Label::~Label()
 {
 }
 
+/** Copy all styles of the label */
+void Label::copy(const Label & label)
+{
+	*((CommonStyle*)this) = *(CommonStyle*)(&label);
+	*((WidgetStyle*)this) = *(WidgetStyle*)(&label);
+	*((TextStyle*)this)   = *(TextStyle*)(&label);
+}
+
 Size Label::content_size()
 {
 	Size result;

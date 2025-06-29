@@ -23,6 +23,9 @@ namespace berialdraw
 		/** Set properties with another */
 		void set(const BorderStyle & other);
 
+		/** Copy operator */
+		BorderStyle& operator=(const BorderStyle& other);
+
 		/** Create new border style */
 		static Style * create();
 
@@ -76,22 +79,15 @@ namespace berialdraw
 		/** Get the focus gap between the widget and border */
 		Dim focus_gap() const;
 
-		/** Get the focus gap between the widget and border with a precision of 64th of a pixel */
-		//Dim focus_gap_() const;
-	
 		/** Set the focus gap between the widget and border in pixels */
 		void focus_gap(Dim v);
 
-		/** Set the focus gap between the widget and border with a precision of 64th of a pixel */
-		//void focus_gap_(Dim v);
 
 		/** Get the focus thickness (16 pixels max)*/
 		Dim focus_thickness() const;
 
 		/** Set the focus thickness in pixels (16 pixels max)*/
 		void focus_thickness(Dim v);
-
-
 
 	protected:
 /// @cond DOXYGEN_IGNORE

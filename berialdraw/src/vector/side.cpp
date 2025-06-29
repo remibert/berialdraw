@@ -5,7 +5,7 @@ using namespace berialdraw;
 namespace berialdraw
 {
 	/** Unserialize the content of extend from json */
-	void unserialize(JsonIterator & it, Side & sides)
+	void unserialize(JsonIterator & it, Sides & sides)
 	{
 		String str = it["sides"] | "nothing";
 	
@@ -45,26 +45,26 @@ namespace berialdraw
 	}
 
 	/** Serialize the content of extend into json */
-	void serialize(JsonIterator & it, Side sides)
+	void serialize(JsonIterator & it, Sides sides)
 	{
 		String value;
 		switch(sides &ALL_SIDES)
 		{
-		case NO_SIDE               :value = "none";             break;
-		case TOP_SIDE              :value = "top";              break;
-		case RIGHT_SIDE            :value = "right";            break;
-		case BOTTOM_SIDE           :value = "bottom";           break;
-		case LEFT_SIDE             :value = "left";             break;
-		case TOP_RIGHT_SIDE        :value = "top,right";        break;
-		case TOP_LEFT_SIDE         :value = "top,left";         break;
-		case BOTTOM_RIGHT_SIDE     :value = "bottom,right";     break;
-		case BOTTOM_LEFT_SIDE      :value = "bottom,left";      break;
-		case TOP_BOTTOM_SIDE       :value = "top,bottom";       break;
-		case LEFT_RIGHT_SIDE       :value = "left,right";       break;
-		case TOP_RIGHT_BOTTOM_SIDE :value = "top,right,bottom"; break;
-		case RIGHT_BOTTOM_LEFT_SIDE:value = "right,bottom,left";break;
-		case BOTTOM_LEFT_TOP_SIDE  :value = "bottom,left,top";  break;
-		case LEFT_TOP_RIGHT_SIDE   :value = "left,top,right";   break;
+		case NO_SIDE                         :value = "none";             break;
+		case TOP_SIDE                        :value = "top";              break;
+		case RIGHT_SIDE                      :value = "right";            break;
+		case BOTTOM_SIDE                     :value = "bottom";           break;
+		case LEFT_SIDE                       :value = "left";             break;
+		case TOP_SIDE|RIGHT_SIDE             :value = "top,right";        break;
+		case TOP_SIDE|LEFT_SIDE              :value = "top,left";         break;
+		case BOTTOM_SIDE|RIGHT_SIDE          :value = "bottom,right";     break;
+		case BOTTOM_SIDE|LEFT_SIDE           :value = "bottom,left";      break;
+		case TOP_SIDE|BOTTOM_SIDE            :value = "top,bottom";       break;
+		case LEFT_SIDE|RIGHT_SIDE            :value = "left,right";       break;
+		case TOP_SIDE|RIGHT_SIDE|BOTTOM_SIDE :value = "top,right,bottom"; break;
+		case RIGHT_SIDE|BOTTOM_SIDE|LEFT_SIDE:value = "right,bottom,left";break;
+		case BOTTOM_SIDE|LEFT_SIDE|TOP_SIDE  :value = "bottom,left,top";  break;
+		case LEFT_SIDE|TOP_SIDE|RIGHT_SIDE   :value = "left,top,right";   break;
 		case ALL_SIDES             :value = "all";              break;
 		}
 

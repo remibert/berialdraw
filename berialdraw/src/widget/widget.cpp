@@ -146,7 +146,10 @@ void Widget::paint(const Region & parent_region)
 	Widget* child = m_children;
 	while (child)
 	{
-		child->paint(parent_region);
+		if (child->hidden() == false)
+		{
+			child->paint(parent_region);
+		}
 		child = child->next();
 	}
 }
@@ -441,7 +444,11 @@ void Widget::focusables(Vector<Widget *> & lst)
 		Widget * child = m_children;
 		while (child)
 		{
-			child->focusables(lst);
+			// Ignore hidden widget, in this case it cannot receive focus
+			if (child->hidden() == false)
+			{
+				child->focusables(lst);
+			}
 			child = child->m_next;
 		}
 	}
@@ -485,6 +492,7 @@ void Widget::focus_next(Widget * & widget)
 	if (all.size() >= 1)
 	{
 		Widget * new_widget_focus = 0;
+		bool found = false;
 		
 		// Find the widget next to the one with focus
 		for (uint32_t i= 0; i < all.size(); i++)
@@ -570,7 +578,7 @@ void Widget::focus_previous(Widget * & widget)
 		Widget * new_widget_focus = 0;
 
 		// Find the widget previous to the one with focus
-		for (uint32_t i= (all.size()-1); i >= 0; i--)
+		for (int32_t i= (all.size()-1); i >= 0; i--)
 		{
 			if (all[i] == widget)
 			{

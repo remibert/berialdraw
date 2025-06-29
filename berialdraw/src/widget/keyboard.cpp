@@ -23,6 +23,14 @@ Keyboard::~Keyboard()
 {
 }
 
+/** Copy all styles of the keyboard */
+void Keyboard::copy(const Keyboard & keyboard)
+{
+	*((CommonStyle*)this) = *(CommonStyle*)(&keyboard);
+	*((WidgetStyle*)this) = *(WidgetStyle*)(&keyboard);
+	*((BorderStyle*)this) = *(BorderStyle*)(&keyboard);
+	*((TextStyle*)this)   = *(TextStyle*)(&keyboard);
+}
 void Keyboard::place(const Area & area, bool in_layout)
 {
 	place_in_area(area, in_layout);

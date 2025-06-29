@@ -292,9 +292,9 @@ uint32_t Hsl::luminance(uint32_t color)
 
 	uint32_t result;
 
-	red   = channel_luminance(((color >> 16) & 0xFF));
-	green = channel_luminance(((color >> 8) & 0xFF));
-	blue  = channel_luminance((color & 0xFF));
+	red   = channel_luminance(red);
+	green = channel_luminance(green);
+	blue  = channel_luminance(blue);
 
 	result = (red * weight_r + green * weight_g + blue * weight_b)/10000;
 	return result;

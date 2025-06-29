@@ -29,6 +29,9 @@ namespace berialdraw
 
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Remove operator = */
+		Column& operator=(const Column& other) = delete;
+		
 		/** Rework all widget to follow this layout linear constraint */
 		void linear_place();
 

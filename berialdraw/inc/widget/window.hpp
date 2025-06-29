@@ -31,6 +31,9 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		virtual void unserialize(JsonIterator & it);
 
+		/** Copy all styles of the window */
+		void copy(const Window & window);
+
 /** @internal 
 {
 */

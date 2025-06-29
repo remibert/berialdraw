@@ -158,6 +158,13 @@ namespace berialdraw
 		uint8_t sides() const;
 
 
+		/** Get the hidden widget state */
+		bool hidden() const;
+
+		/** Set the hidden widget state */
+		void hidden(bool v);
+
+
 	protected:
 /// @cond DOXYGEN_IGNORE
 		Dim reduce(Dim  dimension, Dim reduction);
@@ -175,13 +182,11 @@ namespace berialdraw
 
 		unsigned int m_align:4;
 		unsigned int m_angle_modified:1;
+		unsigned int m_hidden :1;
 		int m_light:8;
 		int m_saturation:8;
-		Side m_sides;
+		Sides m_sides;
 /// @endcond 
 	}; 
-
-
-
 }
 #endif

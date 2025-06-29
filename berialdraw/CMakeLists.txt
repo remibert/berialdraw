@@ -150,7 +150,6 @@ set(SRCS_LIB
 
 set(SRCS_SAMPLE
 	samples/sample_speedometer.cpp
-	samples/samples_widgets.cpp
 	samples/dialog.cpp
 	samples/icon_menu_dialog.cpp
 	samples/menu_dialog.cpp

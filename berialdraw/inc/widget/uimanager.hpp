@@ -67,6 +67,8 @@ namespace berialdraw
 
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Remove operator = */
+		UIManager& operator=(const UIManager& other) = delete;
 		static bool          m_initialized;
 		static Device      * m_device;
 		static Renderer    * m_renderer;

@@ -10,6 +10,7 @@ CommonStyle::CommonStyle()
 	m_angle_modified = 1;
 	m_sides = ALL_SIDES;
 	m_light = 0;
+	m_hidden = false;
 	m_saturation = 0;
 }
 
@@ -23,6 +24,7 @@ void CommonStyle::serialize(JsonIterator & it)
 	it["color"]        = m_color;
 	it["light"]        = m_light;
 	it["saturation"]   = m_saturation;
+	it["hidden"] = m_hidden;
 
 	it["angle_"]       = m_angle;
 	m_center.serialize("center",it);
@@ -42,6 +44,8 @@ void CommonStyle::unserialize(JsonIterator & it)
 	m_light       = (int)(it["light"]        | (int)m_light);
 	m_saturation  = (int)(it["saturation"]   | (int)m_saturation);
 
+	m_hidden      = (int)(it["hidden"] | (int)m_hidden);
+
 	Align align = (Align)m_align;
 	berialdraw::unserialize("align",it, align);
 	m_align = align;
@@ -53,16 +57,17 @@ void CommonStyle::unserialize(JsonIterator & it)
 /** Set properties with another */
 void CommonStyle::set(const CommonStyle & other)
 {
-	m_color    = other.m_color;
-	m_margin   = other.m_margin;
-	m_angle    = other.m_angle;
-	m_position = other.m_position;
-	m_center   = other.m_center;
-	m_size     = other.m_size;
-	m_align    = other.m_align;
-	m_sides    = other.m_sides;
-	m_light   = other.m_light;
+	m_color      = other.m_color;
+	m_margin     = other.m_margin;
+	m_angle      = other.m_angle;
+	m_position   = other.m_position;
+	m_center     = other.m_center;
+	m_size       = other.m_size;
+	m_align      = other.m_align;
+	m_sides      = other.m_sides;
+	m_light      = other.m_light;
 	m_saturation = other.m_saturation;
+	m_hidden     = other.m_hidden;
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
@@ -71,16 +76,17 @@ CommonStyle& CommonStyle::operator=(const CommonStyle& other)
 {
 	if (this != &other)
 	{
-		m_color   = other.m_color;
-		m_margin  = other.m_margin;
-		m_angle   = other.m_angle;
-		m_position= other.m_position;
-		m_center  = other.m_center;
-		m_size    = other.m_size;
-		m_align   = other.m_align;
-		m_sides   = other.m_sides;
-		m_light   = other.m_light;
+		m_color      = other.m_color;
+		m_margin     = other.m_margin;
+		m_angle      = other.m_angle;
+		m_position   = other.m_position;
+		m_center     = other.m_center;
+		m_size       = other.m_size;
+		m_align      = other.m_align;
+		m_sides      = other.m_sides;
+		m_light      = other.m_light;
 		m_saturation = other.m_saturation;
+		m_hidden     = other.m_hidden;
 		UIManager::invalidator()->dirty(this, Invalidator::ALL);
 	}
 	return *this;
@@ -492,11 +498,31 @@ void CommonStyle::align(Align v)
 void CommonStyle::sides(uint8_t side)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
-	m_sides = (Side)side;
+	m_sides = (Sides)side;
 }
 
 /** Gets the displayed side of the rectangle */
 uint8_t CommonStyle::sides() const
 {
 	return m_sides;
+}
+
+/** Get the hidden widget state */
+bool CommonStyle::hidden() const
+{
+	return m_hidden == true;
+}
+
+/** Set the hidden widget state */
+void CommonStyle::hidden(bool v)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	if (v)
+	{
+		m_hidden = 1;
+	}
+	else
+	{
+		m_hidden = 0;
+	}
 }

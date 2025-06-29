@@ -24,6 +24,8 @@ namespace berialdraw
 		/** Return the size of content without marges */
 		virtual Size content_size();
 
+		/** Copy all styles of the slider */
+		void copy(const Slider & slider);
 
 #ifdef _DEBUG
 		static void test();
@@ -35,6 +37,9 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Remove operator = */
+		Slider& operator=(const Slider& other) = delete;
+
 		void draw_track();
 		Dim get_location(Dim width);
 

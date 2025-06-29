@@ -17,6 +17,16 @@ Switch::~Switch()
 {
 }
 
+/** Copy all styles of the switchar */
+void Switch::copy(const Switch & switch_)
+{
+	*((CommonStyle*)this) = *(CommonStyle*)(&switch_);
+	*((WidgetStyle*)this) = *(WidgetStyle*)(&switch_);
+	*((BorderStyle*)this) = *(BorderStyle*)(&switch_);
+	*((SwitchStyle*)this) = *(SwitchStyle*)(&switch_);
+}
+
+
 /** Return the size of content without marges */
 Size Switch::content_size()
 {
@@ -52,7 +62,6 @@ void Switch::paint(const Region & parent_region)
 	// If widget visible
 	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
 	{
-		Point shift;
 		uint32_t track_color = checked() ? stated_color(m_on_track_color) : stated_color(m_off_track_color);
 		Dim thickness = (m_focused == 0 ? m_thickness: m_thickness + (m_focus_thickness<<6));
 
@@ -60,13 +69,14 @@ void Switch::paint(const Region & parent_region)
 
 		Area area_track(m_foreclip);
 
-		if (m_focused && m_focus_thickness)
-		{
-			// Draw focus
-			Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color), m_focus_thickness<<6);
-		}
-		// Draw background
-		Rect::build_polygon(m_foreclip, shift, m_radius, m_thickness, 0, m_sides, stated_color(track_color), stated_color(m_border_color));
+		Rect::build_focused_polygon(m_foreclip, 
+			*(CommonStyle*)this,
+			*(BorderStyle*)this,
+			stated_color(track_color), 
+			stated_color(m_border_color),
+			Color::TRANSPARENT,
+			stated_color(m_focus_color),
+			m_focused);
 
 		Area area_thumb(m_foreclip);
 
@@ -86,7 +96,7 @@ void Switch::paint(const Region & parent_region)
 			}
 		}
 		area_thumb.size().width(area_thumb.size().height());
-		Rect::build_polygon(area_thumb, shift, substract(m_radius, m_thumb_padding), 0, 0, ALL_SIDES, stated_color(m_thumb_color), 0);
+		Rect::build_polygon(area_thumb, substract(m_radius, m_thumb_padding), 0, 0, ALL_SIDES, stated_color(m_thumb_color), 0);
 	}
 }
 

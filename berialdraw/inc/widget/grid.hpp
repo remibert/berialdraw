@@ -32,6 +32,9 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Remove operator = */
+		Grid& operator=(const Grid& other) = delete;
+		
 		/** Place all widget in area */
 		virtual void place(const Area & area, bool in_layout);
 

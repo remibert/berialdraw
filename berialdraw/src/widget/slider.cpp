@@ -18,6 +18,15 @@ Slider::~Slider()
 {
 }
 
+/** Copy all styles of the sliderar */
+void Slider::copy(const Slider & slider)
+{
+	*((CommonStyle*)this) = *(CommonStyle*)(&slider);
+	*((WidgetStyle*)this) = *(WidgetStyle*)(&slider);
+	*((BorderStyle*)this) = *(BorderStyle*)(&slider);
+	*((SliderStyle*)this) = *(SliderStyle*)(&slider);
+}
+
 /** Return the size of content without marges */
 Size Slider::content_size()
 {
@@ -144,8 +153,6 @@ void Slider::draw_track()
 
 	Dim half_thickness = ((m_thickness>>7)<<6);
 
-	Point shift;
-	
 	// If the track is thicker than fill
 	if (track_size >= handle_size)
 	{
@@ -214,18 +221,19 @@ void Slider::draw_track()
 
 	// Draw track
 	track_area.nearest_pixel();
-	Rect::build_polygon(track_area, shift, track_radius, track_thickness, 0, m_sides, stated_color(m_track_color), track_border_color);
+	Rect::build_polygon(track_area, track_radius, track_thickness, 0, m_sides, stated_color(m_track_color), track_border_color);
 
 	// Draw fill
 	handle_area.nearest_pixel();
 
-	if (m_focused && m_focus_thickness)
-	{
-		// Draw focus
-		Rect::build_polygon(handle_area, shift, m_radius, m_thickness, m_focus_gap, m_sides, Color::TRANSPARENT, stated_color(m_focus_color), m_focus_thickness<<6);
-	}
-	// Draw background
-	Rect::build_polygon(handle_area, shift, m_radius, m_thickness, 0, m_sides, stated_color(m_handle_color), handle_border_color);
+	Rect::build_focused_polygon(handle_area, 
+		*(CommonStyle*)this,
+		*(BorderStyle*)this,
+		stated_color(m_handle_color), 
+		handle_border_color,
+		Color::TRANSPARENT, 
+		stated_color(m_focus_color),
+		m_focused);
 }
 
 void Slider::paint(const Region & parent_region)
@@ -667,8 +675,6 @@ void Slider::test1()
 
 	UIManager::notifier()->play_script(script, "test/out/slider1_%d.svg");
 }
-
-
 
 void Slider::test2()
 {

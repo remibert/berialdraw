@@ -15,6 +15,15 @@ ProgressBar::~ProgressBar()
 {
 }
 
+/** Copy all styles of the progress_bar */
+void ProgressBar::copy(const ProgressBar & progress_bar)
+{
+	*((CommonStyle*)this) = *(CommonStyle*)(&progress_bar);
+	*((WidgetStyle*)this) = *(WidgetStyle*)(&progress_bar);
+	*((BorderStyle*)this) = *(BorderStyle*)(&progress_bar);
+	*((ProgressBarStyle*)this) = *(ProgressBarStyle*)(&progress_bar);
+}
+
 /** Return the size of content without marges */
 Size ProgressBar::content_size()
 {
@@ -124,8 +133,6 @@ void ProgressBar::draw_track()
 
 	Dim half_thickness = ((m_thickness>>7)<<6);
 
-	Point shift;
-	
 	// If the track is thicker than fill
 	if (track_size >= fill_size)
 	{
@@ -237,11 +244,11 @@ void ProgressBar::draw_track()
 
 	// Draw track
 	track_area.nearest_pixel();
-	Rect::build_polygon(track_area, shift, track_radius, track_thickness, 0, m_sides, stated_color(m_track_color), track_border_color);
+	Rect::build_polygon(track_area, track_radius, track_thickness, 0, m_sides, stated_color(m_track_color), track_border_color);
 
 	// Draw fill
 	fill_area.nearest_pixel();
-	Rect::build_polygon(fill_area, shift, fill_radius, fill_thickness, 0, m_sides, stated_color(m_fill_color), fill_border_color);
+	Rect::build_polygon(fill_area, fill_radius, fill_thickness, 0, m_sides, stated_color(m_fill_color), fill_border_color);
 }
 
 void ProgressBar::paint(const Region & parent_region)

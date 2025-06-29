@@ -21,6 +21,10 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		virtual void unserialize(JsonIterator & it);
 
+		/** Copy all styles of the edit */
+		void copy(const Edit & edit);
+
+
 #ifdef _DEBUG
 	public:
 		static void test();
@@ -35,6 +39,9 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Remove operator = */
+		Edit& operator=(const Edit& other) = delete;
+		
 		/** Call back on key */
 		void on_key(Widget * widget, const KeyEvent & evt);
 
