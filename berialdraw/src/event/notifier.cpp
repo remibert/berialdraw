@@ -50,7 +50,6 @@ inline void* remove_mark(void* ptr)
 	return (void*)((uintptr_t)ptr & (~(uintptr_t)3));
 }
 
-
 /** Constructor */
 Notifier::Notifier()
 {
@@ -77,122 +76,8 @@ Notifier::~Notifier()
 	m_events.clear();
 }
 
-/** Notify desktop with a scroll event */
-void Notifier::notify(ScrollEvent & evt)
-{
-	ScrollView * scroll_view = evt.scroll_view();
-	if (scroll_view)
-	{
-		// Search callback registered for this event
-		for(uint32_t i = 0; i < m_callbacks.size(); i++)
-		{
-			Callable * callback = m_callbacks[i];
-			if (callback)
-			{
-				// If the widget hovered have a callback registered
-				if (scroll_view == callback->widget())
-				{
-					// If event is touch or click
-					if (callback->type() == evt.type())
-					{
-						// Call callback
-						callback->call(scroll_view, &evt);
-					}
-				}
-			}
-		}
-	}
-}
-
-/** Notify select event */
-void Notifier::notify(SelectEvent & evt)
-{
-	Widget * clicked = evt.widget();
-	if (clicked)
-	{
-		Widget * window = clicked->root();
-
-		// Search callback registered for this event
-		for(uint32_t i = 0; i < m_callbacks.size(); i++)
-		{
-			Callable * callback = m_callbacks[i];
-			if (callback)
-			{
-				// If event is touch or click
-				if (callback->type() == evt.type())
-				{
-					// If the widget hovered have a callback registered
-					if (clicked == callback->widget() || window == callback->widget())
-					{
-						// Call callback
-						callback->call(clicked, &evt);
-					}
-				}
-			}
-		}
-	}
-}
-
-/** Notify click event */
-void Notifier::notify(ClickEvent & evt)
-{
-	Widget * clicked = evt.clicked();
-	if (clicked)
-	{
-		Widget * window = clicked->root();
-
-		// Search callback registered for this event
-		for(uint32_t i = 0; i < m_callbacks.size(); i++)
-		{
-			Callable * callback = m_callbacks[i];
-			if (callback)
-			{
-				// If event is touch or click
-				if (callback->type() == evt.type())
-				{
-					// If the widget hovered have a callback registered
-					if (clicked == callback->widget() || window == callback->widget())
-					{
-						// Call callback
-						callback->call(clicked, &evt);
-					}
-				}
-			}
-		}
-	}
-}
-
-/** Notify check event */
-void Notifier::notify(CheckEvent & evt)
-{
-	Widget * widget = evt.widget();
-	if (widget)
-	{
-		Widget * window = widget->root();
-
-		// Search callback registered for this event
-		for(uint32_t i = 0; i < m_callbacks.size(); i++)
-		{
-			Callable * callback = m_callbacks[i];
-			if (callback)
-			{
-				// If event is touch or click
-				if (callback->type() == evt.type())
-				{
-					// If the widget hovered have a callback registered
-					if (widget == callback->widget() || window == callback->widget())
-					{
-						// Call callback
-						callback->call(widget, &evt);
-					}
-				}
-			}
-		}
-	}
-}
-
-/** Notify slide event */
-void Notifier::notify(SlideEvent & evt)
+/** Notify event */
+void Notifier::notify(Event & evt)
 {
 	Widget * widget = evt.widget();
 	if (widget)
@@ -491,50 +376,9 @@ void Notifier::notify(Event * evt)
 				notify(*key_event);
 			}
 		}
-		// If scroll event
-		else if (evt->type() == ScrollEvent::type_id())
+		else
 		{
-			ScrollEvent * scroll_event = dynamic_cast<ScrollEvent*>(evt);
-			if (scroll_event)
-			{
-				notify(*scroll_event);
-			}
-		}
-		// If select event
-		else if (evt->type() == SelectEvent::type_id())
-		{
-			SelectEvent * select_event = dynamic_cast<SelectEvent*>(evt);
-			if (select_event)
-			{
-				notify(*select_event);
-			}
-		}
-		// If click event
-		else if (evt->type() == ClickEvent::type_id())
-		{
-			ClickEvent * click_event = dynamic_cast<ClickEvent*>(evt);
-			if (click_event)
-			{
-				notify(*click_event);
-			}
-		}
-		// If check event
-		else if (evt->type() == CheckEvent::type_id())
-		{
-			CheckEvent * check_event = dynamic_cast<CheckEvent*>(evt);
-			if (check_event)
-			{
-				notify(*check_event);
-			}
-		}
-		// If slide event
-		else if (evt->type() == SlideEvent::type_id())
-		{
-			SlideEvent * check_event = dynamic_cast<SlideEvent*>(evt);
-			if (check_event)
-			{
-				notify(*check_event);
-			}
+			notify(*evt);
 		}
 	}
 }

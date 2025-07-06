@@ -19,6 +19,9 @@ namespace berialdraw
 		/** To string */
 		virtual void to_string(String & str) const = 0;
 
+		/** Return the widget */
+		virtual Widget * widget() const = 0;
+
 	private:
 /// @cond DOXYGEN_IGNORE
 		uint32_t m_type;

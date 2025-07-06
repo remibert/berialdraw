@@ -24,6 +24,9 @@ namespace berialdraw
 		/** To string */
 		virtual void to_string(String & str) const;
 
+		/** Return the widget */
+		virtual Widget * widget() const {return 0;}
+
 		/** Return the event type */
 		TouchState state() const;
 

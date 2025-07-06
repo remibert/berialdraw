@@ -127,6 +127,7 @@ set(SRCS_LIB
 	src/event/select_event.cpp
 	src/event/scroll_event.cpp
 	src/event/slide_event.cpp
+	src/event/focus_event.cpp
 	src/event/notifier.cpp
 
 	src/chart/line_chart.cpp

@@ -1,4 +1,11 @@
 {
+	/* To select shade of theme colors :
+		back color                => 0xE0
+		fore color                => 0xF0
+
+		back color light : 1..15  => 0xE1..0xEF
+		back color dark  : 1..15  => 0xF1..0xFF */
+
 	"colors":
 	[
 		0x00000000,  0x00000000, // 0x00000000 TRANSPARENT

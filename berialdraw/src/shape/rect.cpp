@@ -1144,26 +1144,6 @@ void Rect::test7()
 	Rect * rect = 0;
 	int id = 0;
 
-
-//				rect = new Rect(canvas);
-//					rect->position(15+column*120, 15+row*100);
-//					rect->size(80, 60);
-//					rect->thickness(10);
-//					rect->radius(30);
-//					rect->color(Color::RED,64);
-//
-//
-//				rect = new Rect(*rect);
-//					rect->color(Color::BLUE,64);
-//					rect->sides(TOP_SIDE | RIGHT_SIDE | BOTTOM_SIDE);
-//
-//				rect = new Rect(*rect);
-//					rect->color(Color::GREEN,64);
-//					rect->sides(TOP_SIDE | RIGHT_SIDE| BOTTOM_SIDE | INNER_AREA);
-//
-//while(1)
-//UIManager::desktop()->dispatch();
-
 	for (Dim thickness=1; thickness <= 32; )
 	{
 		for (Dim radius = 0; radius <= 32; )
@@ -1178,11 +1158,11 @@ void Rect::test7()
 					rect->thickness(thickness);
 					rect->radius(radius);
 					rect->color(Color::BLUE,64);
-					rect->sides(side/*|RECTANGULAR_EXTREMITY*/);
+					rect->sides(side);
 
 				rect = new Rect(*rect);
 					rect->color(Color::GREEN,64);
-					rect->sides(side | INNER_AREA/*|RECTANGULAR_EXTREMITY*/);
+					rect->sides(side | INNER_AREA);
 
 				column ++;
 				if (column >= 4)

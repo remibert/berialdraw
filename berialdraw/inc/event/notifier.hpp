@@ -96,20 +96,8 @@ namespace berialdraw
 		/** Notify desktop with a key event */
 		void notify(KeyEvent & evt);
 
-		/** Notify desktop with a scroll event */
-		void notify(ScrollEvent & evt);
-
-		/** Notify select event */
-		void notify(SelectEvent & evt);
-
-		/** Notify click event */
-		void notify(ClickEvent & evt);
-
-		/** Notify check event */
-		void notify(CheckEvent & evt);
-
-		/** Notify slide event */
-		void notify(SlideEvent & evt);
+		/** Notify focus event */
+		void notify(Event & evt);
 
 		/** Notify desktop with a touch event */
 		Widget * notify(TouchEvent & evt);

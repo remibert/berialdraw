@@ -26,7 +26,7 @@ uint32_t CheckEvent::type_id()
 	return result;
 }
 
-/** Return the checked widget */
+/** Return the widget */
 Widget * CheckEvent::widget() const
 {
 	return m_widget;

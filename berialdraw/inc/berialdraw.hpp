@@ -75,6 +75,7 @@
 #include "event/click_event.hpp"
 #include "event/select_event.hpp"
 #include "event/slide_event.hpp"
+#include "event/focus_event.hpp"
 #include "event/caller.hpp"
 #include "event/notifier.hpp"
 

@@ -17,11 +17,11 @@ namespace berialdraw
 		/** To string */
 		virtual void to_string(String & str) const;
 
+		/** Return the widget */
+		virtual Widget * widget() const;
+
 		/** Get the shift of scrolling */
 		const Point & shift() const;
-
-		/** Return the scroll view widget */
-		ScrollView * scroll_view() const;
 
 		/** Get type */
 		static uint32_t type_id();

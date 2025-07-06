@@ -1055,6 +1055,33 @@ void Button::test12()
 	}
 }
 
+// Event on dark or light changed
+void test13_on_page(Widget * widget, const FocusEvent & focus_event)
+{
+	Widget * window = widget->root();
+
+	if (window)
+	{
+		uint16_t id;
+		for (id = 100; id < 110; id++)
+		{
+			Widget * page = window->search(id);
+			if (page)
+			{
+				if (widget->id() + 100 == page->id())
+				{
+					page->hidden(false);
+				}
+				else
+				{
+					page->hidden(true);
+				}
+			}
+		}
+	}
+}
+
+
 void Button::test13()
 {
 #if 0
@@ -1072,13 +1099,13 @@ void Button::test13()
 				buttonRef->color(Color::LIGHT_DAY_BLUE,128);
 				buttonRef->border_color(Color::OCEAN_BLUE,128);
 				buttonRef->text_color(Color::NEW_MIDNIGHT_BLUE);
-				buttonRef->thickness(1);
+				buttonRef->thickness_(1);
 				buttonRef->radius(6);
 				buttonRef->align(CENTER);
 				buttonRef->margin(20);
 
 				buttonRef->focus_color(Color::OCEAN_BLUE);
-				buttonRef->focus_gap(1);
+				buttonRef->focus_gap(0);
 				buttonRef->focus_thickness(2);
 
 
@@ -1123,76 +1150,128 @@ void Button::test13()
 		Pane * pane = new Pane(column);
 			pane->color(Color::WHITE);
 			pane->size_policy(SizePolicy::ENLARGE_ALL);
-	while(1)
-		UIManager::desktop()->dispatch("test/out/button13.svg");
-buttonRef->text("O\ne");
+	//while(1)
+		//UIManager::desktop()->dispatch("test/out/button13.svg");
+//buttonRef->text("O\ne");
 	while(1)
 		UIManager::desktop()->dispatch();
-#endif
-#if 1
+#else
 	UIManager::styles()->style("pearl");            // Select the style pearl
 	UIManager::colors()->appearance("light");       // Select the light appearance
 	UIManager::colors()->theme(Color::THEME_LIME);  // Select the color theme
 
 	Window window;
 	Column * col;
+	Label * label;
+	Edit * edit;
+	Label * spacer;
+	Switch * check;
+
+		window.color(0xFFF4F4F4);
 		Column * column = new Column(&window);
 		Row * row = new Row(column);
-			Button * buttonRef;
+			//row->size_policy(SizePolicy::ENLARGE_WIDTH);
+			//Button * buttonRef;
+			row->margin(10,10,0,10);
 			Button * button;
 
-			buttonRef = new Button(row);
-				buttonRef->text("One");
-				buttonRef->sides(Sides::RIGHT_SIDE|BOTTOM_SIDE|TOP_SIDE | Sides::RECTANGULAR_EXTREMITY);
-				buttonRef->margin(10,10,10,2);
+			button = new Button(row);
+				button->text("One");
+				button->sides(Sides::LEFT_SIDE|TOP_SIDE|RIGHT_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->margin(5,5,0,5);
+				button->radius(6);
+				button->bind(&test13_on_page);
+				button->id(1);
 
 			button = new Button(row);
-				button->copy(*buttonRef);
+				//button->copy(row);
 				button->text("Two");
-				button->sides(Sides::BOTTOM_SIDE|TOP_SIDE | Sides::RECTANGULAR_EXTREMITY);
-				button->margin(2,10);
+				button->sides(Sides::LEFT_SIDE|TOP_SIDE|RIGHT_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->margin(5,5,0,5);
+				button->radius(6);
+				button->bind(&test13_on_page);
+				button->id(2);
 
 			button = new Button(row);
-				button->copy(*buttonRef);
 				button->text("Three");
-				button->sides(Sides::BOTTOM_SIDE|TOP_SIDE | Sides::RECTANGULAR_EXTREMITY);
-				button->margin(2,10);
+				button->sides(Sides::LEFT_SIDE|TOP_SIDE|RIGHT_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->margin(5,5,0,5);
+				button->radius(6);
+				button->bind(&test13_on_page);
+				button->id(3);
 
 			button = new Button(row);
-				button->copy(*buttonRef);
 				button->text("Four");
-				buttonRef->sides(Sides::LEFT_SIDE|BOTTOM_SIDE|TOP_SIDE | Sides::RECTANGULAR_EXTREMITY);
-				button->margin(10,2,10,10);
+				button->sides(Sides::LEFT_SIDE|TOP_SIDE|RIGHT_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->margin(5,5,0,5);
+				button->radius(6);
+				button->bind(&test13_on_page);
+				button->id(4);
 
-		Pane * paneOne = new Pane(column);
-			paneOne->color(Color::WHITE);
-			paneOne->size_policy(SizePolicy::ENLARGE_ALL);
-			paneOne->radius(10);
-			paneOne->thickness(2);
-			paneOne->margin(5);
-			paneOne->hidden(true);
+		Grid * pages = new Grid(column);
+			pages->margin(0,10,10,10);
+			pages->size_policy(SizePolicy::ENLARGE_ALL);
+			Pane * paneOne = new Pane(pages);
+				paneOne->id(101);
+				paneOne->cell(0,0);
+				paneOne->color(Color::WHITE);
+				paneOne->radius(0);
+				paneOne->thickness(1);
 
-			col = new Column(paneOne);
-				button = new Button(col);
-				button->text("one");
+				col = new Column(paneOne);
+					label = new Label(col);
+						label->text("Birth day : ");
+						label->text_align(Align::ALIGN_LEFT);
 
+					edit = new Edit(col);
+						edit->text("");
 
-		Pane * paneTwo = new Pane(column);
-			paneTwo->color(Color::WHITE);
-			paneTwo->size_policy(SizePolicy::ENLARGE_ALL);
-			paneTwo->radius(10);
-			paneTwo->thickness(2);
-			paneTwo->margin(5);
-			//paneTwo->hidden(true);
+					label = new Label(col);
+						label->text("Country : ");
+						label->text_align(Align::ALIGN_LEFT);
 
-			col = new Column(paneTwo);
-				button = new Button(col);
-				button->text("two");
+					edit = new Edit(col);
+						edit->text("");
 
+					spacer = new Label(col);
+						spacer->size_policy(SizePolicy::ENLARGE_ALL);
 
+			Pane * paneTwo = new Pane(pages);
+				paneTwo->id(102);
+				paneTwo->cell(0,0);
+				paneTwo->color(Color::WHITE);
+				paneTwo->radius(0);
+				paneTwo->thickness(1);
+paneTwo->hidden(true);
+				col = new Column(paneTwo);
+					label = new Label(col);
+						label->text("First name : ");
+						label->text_align(Align::ALIGN_LEFT);
 
-	while(1)
+					edit = new Edit(col);
+						edit->text("");
+
+					label = new Label(col);
+						label->text("Last name : ");
+						label->text_align(Align::ALIGN_LEFT);
+
+					edit = new Edit(col);
+						edit->text("");
+
+					label = new Label(col);
+						label->text("Married");
+						label->text_align(Align::ALIGN_LEFT);
+
+					check = new Switch(col);
+						check->align(Align::ALIGN_LEFT);
+
+					spacer = new Label(col);
+						spacer->size_policy(SizePolicy::ENLARGE_ALL);
+
 		UIManager::desktop()->dispatch("test/out/button13.svg");
+	while(1)
+		UIManager::desktop()->dispatch();
+
 #endif
 }
 
@@ -1202,7 +1281,7 @@ void Button::test()
 	if (done == false)
 	{
 		done = true;
-//		test13();
+		//test13();
 		test12();
 		test11();
 		test10();

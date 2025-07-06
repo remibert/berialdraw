@@ -20,12 +20,6 @@ const Point & ScrollEvent::shift() const
 	return m_shift;
 }
 
-/** Return the scroll view widget */
-ScrollView * ScrollEvent::scroll_view() const
-{
-	return m_scroll_view;
-}
-
 /** Get type */
 uint32_t ScrollEvent::type_id()
 {
@@ -36,6 +30,13 @@ uint32_t ScrollEvent::type_id()
 	}
 	return result;
 }
+
+/** Return the checked widget */
+Widget * ScrollEvent::widget() const 
+{
+	return m_scroll_view;
+}
+
 
 /** To string */
 void ScrollEvent::to_string(String & str) const

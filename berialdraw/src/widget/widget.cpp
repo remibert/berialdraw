@@ -470,7 +470,10 @@ void Widget::focus_to(Widget * & current_focus, Widget * new_focus)
 				current_focus->m_focused = 0;
 			}
 			UIManager::invalidator()->dirty(current_focus, Invalidator::REDRAW);
+			UIManager::notifier()->push_event(new FocusEvent(false, current_focus));
+
 			UIManager::invalidator()->dirty(new_focus, Invalidator::REDRAW);
+			UIManager::notifier()->push_event(new FocusEvent(true, new_focus));
 			current_focus = new_focus;
 			
 			new_focus->m_focused = 1;
@@ -486,6 +489,7 @@ void Widget::focus_next(Widget * & widget)
 	if (widget)
 	{
 		UIManager::invalidator()->dirty(widget, Invalidator::REDRAW);
+		UIManager::notifier()->push_event(new FocusEvent(false, widget));
 		widget->m_focused = 0;
 	}
 
@@ -548,6 +552,7 @@ void Widget::focus_next(Widget * & widget)
 		if (new_widget_focus)
 		{
 			UIManager::invalidator()->dirty(new_widget_focus, Invalidator::REDRAW);
+			UIManager::notifier()->push_event(new FocusEvent(true, new_widget_focus));
 			widget = new_widget_focus;
 			new_widget_focus->m_focused = 1;
 
@@ -571,6 +576,7 @@ void Widget::focus_previous(Widget * & widget)
 	if (widget)
 	{
 		UIManager::invalidator()->dirty(widget, Invalidator::REDRAW);
+		UIManager::notifier()->push_event(new FocusEvent(false, widget));
 		widget->m_focused = 0;
 	}
 	if (all.size() >= 1)
@@ -630,6 +636,7 @@ void Widget::focus_previous(Widget * & widget)
 		if (new_widget_focus)
 		{
 			UIManager::invalidator()->dirty(new_widget_focus, Invalidator::REDRAW);
+			UIManager::notifier()->push_event(new FocusEvent(true, new_widget_focus));
 			widget = new_widget_focus;
 			new_widget_focus->m_focused = 1;
 			ScrollView * scroll_view = dynamic_cast<ScrollView*>(widget->scroll_view());
@@ -650,32 +657,35 @@ Widget * Widget::hovered(const Region & parent_region, const Point & position)
 {
 	Widget * result = 0;
 
-	// Create region with parent
-	Region region(parent_region);
-
-	// Restrict the region with the current widget area
-	region.intersect(m_backclip);
-
-	// If the widget hovered
-	if(region.is_inside(position) != Region::Overlap::OUT)
+	if (hidden() == false)
 	{
-		Widget * result_child = 0;
-		Widget* child = m_children;
+		// Create region with parent
+		Region region(parent_region);
 
-		result = this;
+		// Restrict the region with the current widget area
+		region.intersect(m_backclip);
 
-		// Scan all widget children
-		while (child && result_child == 0)
+		// If the widget hovered
+		if(region.is_inside(position) != Region::Overlap::OUT)
 		{
-			result_child = child->hovered(region, position);
-			child = child->next();
-		}
+			Widget * result_child = 0;
+			Widget* child = m_children;
 
-		// If children hovered
-		if(result_child)
-		{
-			// Select children
-			result = result_child;
+			result = this;
+
+			// Scan all widget children
+			while (child && result_child == 0)
+			{
+				result_child = child->hovered(region, position);
+				child = child->next();
+			}
+
+			// If children hovered
+			if(result_child)
+			{
+				// Select children
+				result = result_child;
+			}
 		}
 	}
 	return result;

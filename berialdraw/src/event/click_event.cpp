@@ -6,7 +6,7 @@ using namespace berialdraw;
 ClickEvent::ClickEvent(const Point & position, Widget * clicked) : 
 	Event(ClickEvent::type_id()),
 	m_position(position),
-	m_clicked(clicked)
+	m_widget(clicked)
 {
 }
 
@@ -31,13 +31,11 @@ const Point & ClickEvent::position() const
 	return m_position;
 }
 
-/** Return the clicked widget */
-Widget * ClickEvent::clicked() const
+/** Return the widget */
+Widget * ClickEvent::widget() const 
 {
-	return m_clicked;
+	return m_widget;
 }
-
-
 
 /** To string */
 void ClickEvent::to_string(String & str) const

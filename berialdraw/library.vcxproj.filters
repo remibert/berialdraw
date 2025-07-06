@@ -546,6 +546,9 @@
     <ClCompile Include="src\vector\side.cpp">
       <Filter>berialdraw\vector</Filter>
     </ClCompile>
+    <ClCompile Include="src\event\focus_event.cpp">
+      <Filter>berialdraw\event</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\berialdraw_imp.hpp">
@@ -1240,6 +1243,9 @@
     </ClInclude>
     <ClInclude Include="inc\vector\side.hpp">
       <Filter>berialdraw\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\event\focus_event.hpp">
+      <Filter>berialdraw\event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,20 +1,20 @@
-#ifndef CheckEvent_hpp_INCLUDED
-#define CheckEvent_hpp_INCLUDED
+#ifndef FocusEvent_hpp_INCLUDED
+#define FocusEvent_hpp_INCLUDED
 
 namespace berialdraw
 {
 	class Widget;
-	/** Check or uncheck event. */
-	class CheckEvent : public Event
+	/** Focused or unfocused event. */
+	class FocusEvent : public Event
 	{
 	public:
 		/** Constructor. 
-		@param checked checked state
-		@param clicked widget which is clicked */
-		CheckEvent(bool checked, Widget * clicked=0);
+		@param focused focused state
+		@param widget widget which is focused */
+		FocusEvent(bool focused, Widget * widget=0);
 
 		/** Destructor. */
-		virtual ~CheckEvent();
+		virtual ~FocusEvent();
 
 		/**  To string.
 		 * @param str String to append to. */
@@ -23,15 +23,15 @@ namespace berialdraw
 		/** Get type. */
 		static uint32_t type_id();
 
-		/** Return the checked state */
-		bool checked() const;
+		/** Return the focused state */
+		bool focused() const;
 
 		/** Return the widget */
 		Widget * widget() const;
 
 	private:
 /// @cond DOXYGEN_IGNORE
-		bool m_checked = false;
+		bool m_focused = false;
 		Widget * m_widget = 0;
 /// @endcond 
 	};

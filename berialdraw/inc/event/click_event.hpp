@@ -21,19 +21,19 @@ namespace berialdraw
 		 * @param str String to append to. */
 		virtual void to_string(String & str) const;
 
+		/** Return the widget */
+		virtual Widget * widget() const;
+
 		/** Get type. */
 		static uint32_t type_id();
 
 		/** Get the position of click. */
 		const Point & position() const;
 
-		/** Return the clicked widget */
-		Widget * clicked() const;
-
 	private:
 /// @cond DOXYGEN_IGNORE
 		Point m_position; ///< Click position.
-		Widget * m_clicked = 0;
+		Widget * m_widget = 0;
 /// @endcond
 	};
 };
