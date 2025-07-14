@@ -6,90 +6,90 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="samples\icon_menu_dialog.cpp">
+    <ClCompile Include="..\..\samples\icon_menu_dialog.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\menu_dialog.cpp">
+    <ClCompile Include="..\..\samples\menu_dialog.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_speedometer.cpp">
+    <ClCompile Include="..\..\samples\sample_speedometer.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\samples.cpp">
+    <ClCompile Include="..\..\samples\samples.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_button.cpp">
+    <ClCompile Include="..\..\samples\sample_button.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_canvas.cpp">
+    <ClCompile Include="..\..\samples\sample_canvas.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_column.cpp">
+    <ClCompile Include="..\..\samples\sample_column.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_edit.cpp">
+    <ClCompile Include="..\..\samples\sample_edit.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_grid.cpp">
+    <ClCompile Include="..\..\samples\sample_grid.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_icon.cpp">
+    <ClCompile Include="..\..\samples\sample_icon.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_keyboard.cpp">
+    <ClCompile Include="..\..\samples\sample_keyboard.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_label.cpp">
+    <ClCompile Include="..\..\samples\sample_label.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_pane.cpp">
+    <ClCompile Include="..\..\samples\sample_pane.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_progress_bar.cpp">
+    <ClCompile Include="..\..\samples\sample_progress_bar.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_row.cpp">
+    <ClCompile Include="..\..\samples\sample_row.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_scrollview.cpp">
+    <ClCompile Include="..\..\samples\sample_scrollview.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_slider.cpp">
+    <ClCompile Include="..\..\samples\sample_slider.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_switch.cpp">
+    <ClCompile Include="..\..\samples\sample_switch.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_window.cpp">
+    <ClCompile Include="..\..\samples\sample_window.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_imp.cpp">
+    <ClCompile Include="..\..\samples\sample_imp.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\dialog.cpp">
+    <ClCompile Include="..\..\samples\dialog.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_theme.cpp">
+    <ClCompile Include="..\..\samples\sample_theme.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_forms.cpp">
+    <ClCompile Include="..\..\samples\sample_forms.cpp">
       <Filter>samples</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample_hello_world.cpp">
+    <ClCompile Include="..\..\samples\sample_hello_world.cpp">
       <Filter>samples</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="samples\icon_menu_dialog.hpp">
+    <ClInclude Include="..\..\samples\icon_menu_dialog.hpp">
       <Filter>samples</Filter>
     </ClInclude>
-    <ClInclude Include="samples\menu_dialog.hpp">
+    <ClInclude Include="..\..\samples\menu_dialog.hpp">
       <Filter>samples</Filter>
     </ClInclude>
-    <ClInclude Include="samples\samples.hpp">
+    <ClInclude Include="..\..\samples\samples.hpp">
       <Filter>samples</Filter>
     </ClInclude>
-    <ClInclude Include="samples\dialog.hpp">
+    <ClInclude Include="..\..\samples\dialog.hpp">
       <Filter>samples</Filter>
     </ClInclude>
   </ItemGroup>

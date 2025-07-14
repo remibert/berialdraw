@@ -7,13 +7,18 @@ set(BD_APP_TEST    app_unitary_test)
 set(BD_APP_SAMPLE  app_sample)
 set(BD_SAMPLE      sample)
 
-set(CMAKE_OSX_ARCHITECTURES "arm64") # "x86_64"ou "arm64" selon ton architecture
+if(APPLE)
+	execute_process(COMMAND uname -m OUTPUT_VARIABLE ARCHITECTURE OUTPUT_STRIP_TRAILING_WHITESPACE)
+	set(CMAKE_OSX_ARCHITECTURES ${ARCHITECTURE})
+	message(STATUS "Architecture selected (${ARCHITECTURE})")
+endif()
 
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_BUILD_RPATH /Library/Frameworks)
 
-find_package(SDL2 REQUIRED COMPONENTS SDL2)
+find_package(SDL3 REQUIRED COMPONENTS SDL3)
+set(SDL3_STATIC ON)
 
 set(SRCS_LIB
 	src/widget/edit.cpp
@@ -133,7 +138,6 @@ set(SRCS_LIB
 	src/chart/line_chart.cpp
 	src/chart/data_set.cpp
 
-
 	../freetype/src/base/ftbase.c
 	../freetype/src/base/ftbitmap.c
 	../freetype/src/base/ftdebug.c
@@ -191,7 +195,7 @@ add_definitions(
 	-DFT_ERR_PREFIX=FT_Err_)
 
 set(INCLUDES_LIB 
-	${SDL2_INCLUDE_DIRS}
+	${SDL3_INCLUDE_DIRS}
 	"${CMAKE_CURRENT_SOURCE_DIR}/../freetype/include;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/../freetype/include/freetype;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/inc;"
@@ -200,13 +204,13 @@ set(INCLUDES_LIB
 )
 
 set(INCLUDES_SAMPLE 
-	${SDL2_INCLUDE_DIRS}
+	${SDL3_INCLUDE_DIRS}
 	"${CMAKE_CURRENT_SOURCE_DIR}/inc;"
 	"${CMAKE_CURRENT_SOURCE_DIR};"
 )
 
 # Static library
-add_library(${BD_LIB} SHARED ${SRCS_LIB} )
+add_library(${BD_LIB} STATIC ${SRCS_LIB} )
 target_include_directories(${BD_LIB} PRIVATE ${INCLUDES_LIB})
 target_compile_definitions(${BD_LIB} PRIVATE
 	"$<$<CONFIG:Debug>:_DEBUG>"
@@ -214,7 +218,7 @@ target_compile_definitions(${BD_LIB} PRIVATE
 	"$<$<PLATFORM_ID:Linux>:LINUX>"
 	"$<$<PLATFORM_ID:Darwin>:OSX>"
 )
-target_link_libraries(${BD_LIB} ${SDL2_LIBRARIES})
+target_link_libraries(${BD_LIB} ${SDL3_LIBRARIES})
 
 # Sample library
 add_library(${BD_SAMPLE} ${SRCS_SAMPLE})
@@ -223,7 +227,7 @@ target_include_directories(${BD_SAMPLE} PRIVATE ${INCLUDES_SAMPLE})
 # Unitary test application
 add_executable(${BD_APP_TEST}  ${SRCS_APP_TEST} )
 target_include_directories(${BD_APP_TEST} PRIVATE ${INCLUDES_LIB})
-target_link_libraries(${BD_APP_TEST} PRIVATE ${BD_LIB} ${BD_SAMPLE} ${SDL2_LIBRARIES})
+target_link_libraries(${BD_APP_TEST} PRIVATE ${BD_LIB} ${BD_SAMPLE} ${SDL3_LIBRARIES})
 target_compile_definitions(${BD_APP_TEST} PRIVATE
 	"$<$<CONFIG:Debug>:_DEBUG>"
 	"$<$<CONFIG:Release>:NDEBUG>"
@@ -234,14 +238,13 @@ target_compile_definitions(${BD_APP_TEST} PRIVATE
 # Unitary test application
 add_executable(${BD_APP_SAMPLE}  ${SRCS_APP_SAMPLE} )
 target_include_directories(${BD_APP_SAMPLE} PRIVATE ${INCLUDES_LIB})
-target_link_libraries(${BD_APP_SAMPLE} PRIVATE ${BD_LIB} ${BD_SAMPLE} ${SDL2_LIBRARIES})
+target_link_libraries(${BD_APP_SAMPLE} PRIVATE ${BD_LIB} ${BD_SAMPLE} ${SDL3_LIBRARIES})
 target_compile_definitions(${BD_APP_SAMPLE} PRIVATE
 	"$<$<CONFIG:Debug>:_DEBUG>"
 	"$<$<CONFIG:Release>:NDEBUG>"
 	"$<$<PLATFORM_ID:Linux>:LINUX>"
 	"$<$<PLATFORM_ID:Darwin>:OSX>"
 )
-
 
 file(COPY "${CMAKE_SOURCE_DIR}/resources" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/")
 # file(GLOB FILES_TO_DELETE "${DIR_TO_CLEAN}/*.tmp" "${DIR_TO_CLEAN}/logs/*.log")

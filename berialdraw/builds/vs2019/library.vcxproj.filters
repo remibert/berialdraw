@@ -1,0 +1,1500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="berialdraw">
+      <UniqueIdentifier>{675f8b9c-fa33-4eb5-b22d-56ceb8f90f14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\shape">
+      <UniqueIdentifier>{a07da261-3492-4b6f-97aa-c52d7912989a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\vector">
+      <UniqueIdentifier>{e8e95c2e-ea2e-4ce0-a163-78b5b5eca5a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\framebuf">
+      <UniqueIdentifier>{9d2d9308-d670-4d32-9796-cdd3a9e79ece}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\font">
+      <UniqueIdentifier>{34375640-9ef2-4d3a-9248-5819343bab07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\chart">
+      <UniqueIdentifier>{99dfce44-8604-4e22-9009-b6d5e0a09203}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\widget">
+      <UniqueIdentifier>{b2bc94bf-9e55-4540-9960-418626e9975a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\tool">
+      <UniqueIdentifier>{b4929c5e-4ca3-4450-ade4-ac88f5e2884d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\tool\json">
+      <UniqueIdentifier>{9221f082-f484-4ccd-80e8-5a65f1a681e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\tool\validator">
+      <UniqueIdentifier>{299c61fc-242b-4650-a976-393b578efc72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\device">
+      <UniqueIdentifier>{0b23961d-7983-405c-8818-4572139657ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\event">
+      <UniqueIdentifier>{70c5c5ee-0629-4211-b5a4-a6b44058547c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\styles">
+      <UniqueIdentifier>{f6fd56d9-3ed0-414f-af2b-ceb407410df4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="freetype">
+      <UniqueIdentifier>{f2bd7b2c-dcac-4c9a-a65c-c04c035f91ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources">
+      <UniqueIdentifier>{32d59020-9b0e-42a6-9aaf-d71905b3148f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\styles">
+      <UniqueIdentifier>{cfac3bea-60bc-4894-aead-57b37b327463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\styles\test">
+      <UniqueIdentifier>{e4d1be2e-7a4d-4888-aebb-38e8f4449dee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\styles\pearl">
+      <UniqueIdentifier>{6f29c167-3b9e-45e7-af6e-98877f076e21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\icons">
+      <UniqueIdentifier>{0b97c5d7-2b00-46ed-a677-c20a52714915}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\fonts">
+      <UniqueIdentifier>{f50b0187-7170-42e3-a17b-5512495babfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\colors">
+      <UniqueIdentifier>{068d7253-dd80-4a2f-b85f-9a9cc9ffa87d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="freetype\base">
+      <UniqueIdentifier>{b1dc4326-5f70-4e29-960f-36262daada74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="freetype\include">
+      <UniqueIdentifier>{39ccf299-9bcb-4d9f-a824-314c44aa280d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\shape\text_box.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\circle.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\compass.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\cross.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\ft_system.c">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\line.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\marker.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\outline.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\pie.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\polygon.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\poly_lines.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\poly_points.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\rect.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\renderer.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\shape.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\square.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\text.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\triangle.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\vectors_script.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vector\align.cpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vector\area.cpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vector\coord.cpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vector\dim.cpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vector\extend.cpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vector\linear.cpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vector\margin.cpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vector\point.cpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vector\region.cpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vector\size.cpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vector\size_policy.cpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\framebuf\argb8888.cpp">
+      <Filter>berialdraw\framebuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\framebuf\framebuf.cpp">
+      <Filter>berialdraw\framebuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\font\font_face.cpp">
+      <Filter>berialdraw\font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\font\glyph.cpp">
+      <Filter>berialdraw\font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\font\font.cpp">
+      <Filter>berialdraw\font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\font\fonts.cpp">
+      <Filter>berialdraw\font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\font\glyphs.cpp">
+      <Filter>berialdraw\font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\font\utf8.cpp">
+      <Filter>berialdraw\font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\chart\data_set.cpp">
+      <Filter>berialdraw\chart</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\chart\line_chart.cpp">
+      <Filter>berialdraw\chart</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\button.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\canvas.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\cells.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\column.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\edit.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\entry.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\grid.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\icon.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\keyboard.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\label.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\progress_bar.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\pane.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\row.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\scroll_view.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\slider.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\switch.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\widget.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\window.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\desktop.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\bd_system.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\directory.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\file.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\hsl.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\memory_leak_tracer.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\svg_out.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\text_stream.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\tools.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\string.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\item_null.cpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\item.cpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\item_array.cpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\item_bool.cpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\item_int.cpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\item_object.cpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\item_string.cpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\json.cpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\json_iterator.cpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\mask_validator.cpp">
+      <Filter>berialdraw\tool\validator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\device_sdl.cpp">
+      <Filter>berialdraw\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\device_win32.cpp">
+      <Filter>berialdraw\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\event\check_event.cpp">
+      <Filter>berialdraw\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\event\click_event.cpp">
+      <Filter>berialdraw\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\event\event.cpp">
+      <Filter>berialdraw\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\event\key_event.cpp">
+      <Filter>berialdraw\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\event\notifier.cpp">
+      <Filter>berialdraw\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\event\scroll_event.cpp">
+      <Filter>berialdraw\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\event\select_event.cpp">
+      <Filter>berialdraw\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\event\slide_event.cpp">
+      <Filter>berialdraw\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\event\touch_event.cpp">
+      <Filter>berialdraw\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\icon_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\progress_bar_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\slider_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\switch_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\border_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\common_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\invalidator.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\edit_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\keys.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\mappings.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\pie_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\shape_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\styles.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\text_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\widget_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\colors.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\uimanager.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\screen_crc.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\berialdraw.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftoutln.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\md5.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftwinfnt.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftutil.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\fttype1.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\fttrigon.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftsynth.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftstroke.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftstream.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftsnames.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftrfork.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftpsprop.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftpfr.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftpatent.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftotval.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftobjs.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftmac.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftlcdfil.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\fthash.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftgxval.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftgloadr.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftgasp.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftfstype.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftfntfmt.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\fterrors.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftdbgmem.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftcolor.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftcid.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftcalc.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftbdf.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftbbox.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftadvanc.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\arc_cache.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vector\side.cpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\event\focus_event.cpp">
+      <Filter>berialdraw\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftbase.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftbitmap.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftdebug.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftglyph.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\smooth\ftgrays.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftinit.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftmm.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\base\ftsystem.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\sfnt\sfdriver.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\sfnt\sfobjs.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\smooth\smooth.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\truetype\truetype.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\sfnt\ttcmap.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\sfnt\ttkern.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\sfnt\ttload.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\freetype\src\sfnt\ttmtx.c">
+      <Filter>freetype\base</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\inc\berialdraw_imp.hpp">
+      <Filter>berialdraw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\config.h">
+      <Filter>berialdraw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\berialdraw.hpp">
+      <Filter>berialdraw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\circle.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\compass.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\cross.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\line.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\marker.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\outline.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\pie.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\polygon.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\poly_lines.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\poly_points.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\rect.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\renderer.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\shape.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\square.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\text.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\text_box.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\triangle.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\vectors_script.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\vector\align.hpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\vector\area.hpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\vector\coord.hpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\vector\dim.hpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\vector\extend.hpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\vector\linear.hpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\vector\margin.hpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\vector\orientation.hpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\vector\point.hpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\vector\region.hpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\vector\size.hpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\vector\size_policy.hpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\framebuf\argb8888.hpp">
+      <Filter>berialdraw\framebuf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\framebuf\framebuf.hpp">
+      <Filter>berialdraw\framebuf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\font\font.hpp">
+      <Filter>berialdraw\font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\font\font_face.hpp">
+      <Filter>berialdraw\font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\font\fonts.hpp">
+      <Filter>berialdraw\font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\font\glyph.hpp">
+      <Filter>berialdraw\font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\font\glyphs.hpp">
+      <Filter>berialdraw\font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\font\utf8.hpp">
+      <Filter>berialdraw\font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\font\_font.hpp">
+      <Filter>berialdraw\font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\chart\data_set.hpp">
+      <Filter>berialdraw\chart</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\chart\line_chart.hpp">
+      <Filter>berialdraw\chart</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\button.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\canvas.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\cells.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\column.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\edit.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\entry.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\grid.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\icon.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\keyboard.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\label.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\progress_bar.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\pane.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\row.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\scroll_view.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\slider.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\switch.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\widget.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\window.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\desktop.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\bd_system.h">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\directory.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\exporter.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\file.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\hsl.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\memory_leak_tracer.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\singleton.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\stream.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\svg_out.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\text_stream.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\tools.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\shared_ptr.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\string.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\vector.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\item.hpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\item_array.hpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\item_bool.hpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\item_collection.hpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\item_int.hpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\item_null.hpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\item_object.hpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\item_string.hpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\item_variant.hpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\json.hpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\json_iterator.hpp">
+      <Filter>berialdraw\tool\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\mask_validator.hpp">
+      <Filter>berialdraw\tool\validator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\validator.hpp">
+      <Filter>berialdraw\tool\validator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\device.hpp">
+      <Filter>berialdraw\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\device_sdl.hpp">
+      <Filter>berialdraw\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\device_win32.hpp">
+      <Filter>berialdraw\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\event\caller.hpp">
+      <Filter>berialdraw\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\event\check_event.hpp">
+      <Filter>berialdraw\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\event\click_event.hpp">
+      <Filter>berialdraw\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\event\event.hpp">
+      <Filter>berialdraw\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\event\key_event.hpp">
+      <Filter>berialdraw\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\event\notifier.hpp">
+      <Filter>berialdraw\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\event\scroll_event.hpp">
+      <Filter>berialdraw\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\event\select_event.hpp">
+      <Filter>berialdraw\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\event\slide_event.hpp">
+      <Filter>berialdraw\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\event\touch_event.hpp">
+      <Filter>berialdraw\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\border_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\icon_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\progress_bar_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\slider_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\switch_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\common_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\invalidator.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\edit_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\keys.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\mappings.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\pie_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\shape_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\styles.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\text_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\widget_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\color.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\colors.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\uimanager.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\screen_crc.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\src\base\ftbase.h">
+      <Filter>freetype\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftadvanc.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\freetype.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftbbox.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftbitmap.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftbdf.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftcache.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftbzip2.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftchapters.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftcolor.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftcid.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftdriver.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\fterrdef.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\fterrors.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftfntfmt.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftgasp.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftglyph.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftgxval.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftgzip.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftimage.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftincrem.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftlcdfil.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftlist.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftlogging.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftlzw.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftmac.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftmm.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftmodapi.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftmoderr.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftotval.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftoutln.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftparams.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftpfr.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftrender.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftsizes.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftsnames.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftstroke.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftsynth.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftsystem.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\fttrigon.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\fttypes.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftwinfnt.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\otsvg.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\src\sfnt\sfdriver.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\src\sfnt\sfobjs.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\t1tables.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\src\sfnt\ttcmap.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\src\sfnt\ttkern.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\src\sfnt\ttload.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\src\sfnt\ttmtx.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\ttnameid.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\tttables.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\tttags.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\autohint.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\cffotypes.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\cfftypes.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\compiler-macros.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftcalc.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftdebug.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftdrv.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftgloadr.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\fthash.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftmemory.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftmmtypes.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftobjs.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftpsprop.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftrfork.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftserv.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftstream.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\fttrace.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftvalid.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\psaux.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\pshints.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\sfnt.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\svginterface.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\t1types.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\tttypes.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\wofftypes.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svbdf.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svcfftl.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svcid.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svfntfmt.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svgldict.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svgxval.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svkern.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svmetric.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svmm.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svotval.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svpfr.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svpostnm.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svprop.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svpscmap.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svpsinfo.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svsfnt.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svttcmap.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svtteng.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svttglyf.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svwinfnt.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftconfig.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftheader.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftmodule.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftoption.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftstdlib.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\config\integer-types.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\config\mac-support.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\freetype\config\public-macros.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\arc_cache.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\vector\side.hpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\event\focus_event.hpp">
+      <Filter>berialdraw\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\freetype\include\ft2build.h">
+      <Filter>freetype\include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\resources\icons\account_circle.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\add.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\calendar_month.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\calendar_view_week.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\close.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\computer.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\construction.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\desktop_windows.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\device_thermostat.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\draw_abstract.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\edit.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\featured_video.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\file_open.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\filter_vintage.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\fingerprint_off.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\format_size.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\grid_on.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\history.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\home.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\image.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\info.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\keyboard.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\lan.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\login.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\logout.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\maison.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\menu.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\perm_media.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\person.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\power_settings_new.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\print.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\refresh.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\save.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\score.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\scrollable_header.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\search.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\select_window.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\sentiment_excited.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\settings.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\sliders.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\sort_by_alpha.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\sound_detection_glass_break.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\speed.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\switches.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\table_rows_narrow.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\text_fields_alt.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\toggle_on.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\tune.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\view_agenda.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\warning.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\wifi.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\colors\dark.json">
+      <Filter>resources\colors</Filter>
+    </None>
+    <None Include="..\..\resources\colors\light.json">
+      <Filter>resources\colors</Filter>
+    </None>
+    <None Include="..\..\resources\colors\test_dark.json">
+      <Filter>resources\colors</Filter>
+    </None>
+    <None Include="..\..\resources\colors\test_light.json">
+      <Filter>resources\colors</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\button.json">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\canvas.json">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\edit.json">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\icon.json">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\keyboard.json">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\label.json">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\pane.json">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\progress_bar.json">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\slider.json">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\switch.json">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\window.json">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\button.json">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\canvas.json">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\edit.json">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\icon.json">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\keyboard.json">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\label.json">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\pane.json">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\progress_bar.json">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\slider.json">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\switch.json">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\window.json">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\..\resources\fonts\Berial.ttf">
+      <Filter>resources\fonts</Filter>
+    </Font>
+    <Font Include="..\..\resources\fonts\Berial-Bold.ttf">
+      <Filter>resources\fonts</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\..\freetype\src\base\ftver.rc">
+      <Filter>freetype\base</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

@@ -8,9 +8,6 @@ const int SCREEN_HEIGHT = 480*ZOOM;
 
 using namespace berialdraw; 
 
-#include <stdio.h>
-#include <freetype/fttrigon.h>
-
 #if defined(WIN32)
 int WINAPI WinMain(HINSTANCE h_instance, HINSTANCE h_prev_instance, LPSTR lp_cmd_line, int i_cmd_show)
 #else

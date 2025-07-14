@@ -98,16 +98,16 @@ namespace berialdraw
 /// @cond DOXYGEN_IGNORE
 		uint32_t count_points();
 		uint32_t count_contours();
-		inline uint32_t to_var(char letter);
-		inline void    set_variable(uint32_t index, Coord value);
-		inline Coord get_variable(uint32_t index);
-		inline void    clear_params();
-		inline Coord operation(char m_operator, Coord param1, Coord param2);
-		inline char    get_char();
-		inline void    next();
-		inline void    first();
-		inline void    set_error(enum Error err);
-		void           parse_command(uint32_t maxparams);
+		uint32_t to_var(char letter);
+		void    set_variable(uint32_t index, Coord value);
+		Coord get_variable(uint32_t index);
+		void    clear_params();
+		Coord operation(char m_operator, Coord param1, Coord param2);
+		char    get_char();
+		void    next();
+		void    first();
+		void    set_error(enum Error err);
+		void    parse_command(uint32_t maxparams);
 		
 		enum { MAX_VARIABLES = (10+26+26)};
 		Coord m_variables[MAX_VARIABLES];

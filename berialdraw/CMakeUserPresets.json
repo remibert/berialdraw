@@ -1,0 +1,9 @@
+{
+    "version": 4,
+    "vendor": {
+        "conan": {}
+    },
+    "include": [
+        "../../../GitHub/berialdraw/berialdraw/build/Release/generators/CMakePresets.json"
+    ]
+}

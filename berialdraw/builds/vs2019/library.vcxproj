@@ -19,75 +19,75 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\freetype\src\base\ftadvanc.c" />
-    <ClCompile Include="..\freetype\src\base\ftbase.c">
+    <ClCompile Include="..\..\..\freetype\src\base\ftadvanc.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftbase.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\freetype\src\base\ftbbox.c" />
-    <ClCompile Include="..\freetype\src\base\ftbdf.c" />
-    <ClCompile Include="..\freetype\src\base\ftbitmap.c" />
-    <ClCompile Include="..\freetype\src\base\ftcalc.c" />
-    <ClCompile Include="..\freetype\src\base\ftcid.c" />
-    <ClCompile Include="..\freetype\src\base\ftcolor.c" />
-    <ClCompile Include="..\freetype\src\base\ftdbgmem.c" />
-    <ClCompile Include="..\freetype\src\base\ftdebug.c" />
-    <ClCompile Include="..\freetype\src\base\fterrors.c" />
-    <ClCompile Include="..\freetype\src\base\ftfntfmt.c" />
-    <ClCompile Include="..\freetype\src\base\ftfstype.c" />
-    <ClCompile Include="..\freetype\src\base\ftgasp.c" />
-    <ClCompile Include="..\freetype\src\base\ftgloadr.c" />
-    <ClCompile Include="..\freetype\src\base\ftglyph.c" />
-    <ClCompile Include="..\freetype\src\base\ftgxval.c" />
-    <ClCompile Include="..\freetype\src\base\fthash.c" />
-    <ClCompile Include="..\freetype\src\base\ftinit.c" />
-    <ClCompile Include="..\freetype\src\base\ftlcdfil.c" />
-    <ClCompile Include="..\freetype\src\base\ftmac.c" />
-    <ClCompile Include="..\freetype\src\base\ftmm.c" />
-    <ClCompile Include="..\freetype\src\base\ftobjs.c" />
-    <ClCompile Include="..\freetype\src\base\ftotval.c" />
-    <ClCompile Include="..\freetype\src\base\ftoutln.c" />
-    <ClCompile Include="..\freetype\src\base\ftpatent.c" />
-    <ClCompile Include="..\freetype\src\base\ftpfr.c" />
-    <ClCompile Include="..\freetype\src\base\ftpsprop.c" />
-    <ClCompile Include="..\freetype\src\base\ftrfork.c" />
-    <ClCompile Include="..\freetype\src\base\ftsnames.c" />
-    <ClCompile Include="..\freetype\src\base\ftstream.c" />
-    <ClCompile Include="..\freetype\src\base\ftstroke.c" />
-    <ClCompile Include="..\freetype\src\base\ftsynth.c" />
-    <ClCompile Include="..\freetype\src\base\ftsystem.c">
+    <ClCompile Include="..\..\..\freetype\src\base\ftbbox.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftbdf.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftbitmap.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftcalc.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftcid.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftcolor.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftdbgmem.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftdebug.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\fterrors.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftfntfmt.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftfstype.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftgasp.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftgloadr.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftglyph.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftgxval.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\fthash.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftinit.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftlcdfil.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftmac.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftmm.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftobjs.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftotval.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftoutln.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftpatent.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftpfr.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftpsprop.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftrfork.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftsnames.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftstream.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftstroke.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftsynth.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftsystem.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\freetype\src\base\fttrigon.c" />
-    <ClCompile Include="..\freetype\src\base\fttype1.c" />
-    <ClCompile Include="..\freetype\src\base\ftutil.c" />
-    <ClCompile Include="..\freetype\src\base\ftwinfnt.c" />
-    <ClCompile Include="..\freetype\src\base\md5.c" />
-    <ClCompile Include="..\freetype\src\sfnt\sfdriver.c" />
-    <ClCompile Include="..\freetype\src\sfnt\sfobjs.c" />
-    <ClCompile Include="..\freetype\src\sfnt\ttcmap.c" />
-    <ClCompile Include="..\freetype\src\sfnt\ttkern.c" />
-    <ClCompile Include="..\freetype\src\sfnt\ttload.c" />
-    <ClCompile Include="..\freetype\src\sfnt\ttmtx.c" />
-    <ClCompile Include="..\freetype\src\smooth\ftgrays.c">
+    <ClCompile Include="..\..\..\freetype\src\base\fttrigon.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\fttype1.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftutil.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\ftwinfnt.c" />
+    <ClCompile Include="..\..\..\freetype\src\base\md5.c" />
+    <ClCompile Include="..\..\..\freetype\src\sfnt\sfdriver.c" />
+    <ClCompile Include="..\..\..\freetype\src\sfnt\sfobjs.c" />
+    <ClCompile Include="..\..\..\freetype\src\sfnt\ttcmap.c" />
+    <ClCompile Include="..\..\..\freetype\src\sfnt\ttkern.c" />
+    <ClCompile Include="..\..\..\freetype\src\sfnt\ttload.c" />
+    <ClCompile Include="..\..\..\freetype\src\sfnt\ttmtx.c" />
+    <ClCompile Include="..\..\..\freetype\src\smooth\ftgrays.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\freetype\src\smooth\smooth.c">
+    <ClCompile Include="..\..\..\freetype\src\smooth\smooth.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\freetype\src\truetype\truetype.c" />
-    <ClCompile Include="src\berialdraw.cpp">
+    <ClCompile Include="..\..\..\freetype\src\truetype\truetype.c" />
+    <ClCompile Include="..\..\src\berialdraw.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -97,7 +97,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\chart\data_set.cpp">
+    <ClCompile Include="..\..\src\chart\data_set.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -107,7 +107,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\chart\line_chart.cpp">
+    <ClCompile Include="..\..\src\chart\line_chart.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -117,13 +117,13 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\device\device_sdl.cpp">
+    <ClCompile Include="..\..\src\device\device_sdl.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\device\device_win32.cpp">
+    <ClCompile Include="..\..\src\device\device_win32.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -133,7 +133,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\event\check_event.cpp">
+    <ClCompile Include="..\..\src\event\check_event.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -143,7 +143,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\event\click_event.cpp">
+    <ClCompile Include="..\..\src\event\click_event.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -153,7 +153,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\event\event.cpp">
+    <ClCompile Include="..\..\src\event\event.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -163,7 +163,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\event\focus_event.cpp">
+    <ClCompile Include="..\..\src\event\focus_event.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
@@ -173,7 +173,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\event\key_event.cpp">
+    <ClCompile Include="..\..\src\event\key_event.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -183,7 +183,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\event\notifier.cpp">
+    <ClCompile Include="..\..\src\event\notifier.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -193,7 +193,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\event\scroll_event.cpp">
+    <ClCompile Include="..\..\src\event\scroll_event.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -203,7 +203,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\event\select_event.cpp">
+    <ClCompile Include="..\..\src\event\select_event.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -213,7 +213,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\event\slide_event.cpp">
+    <ClCompile Include="..\..\src\event\slide_event.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -223,7 +223,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\event\touch_event.cpp">
+    <ClCompile Include="..\..\src\event\touch_event.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -233,7 +233,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\font\font.cpp">
+    <ClCompile Include="..\..\src\font\font.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -243,7 +243,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\font\fonts.cpp">
+    <ClCompile Include="..\..\src\font\fonts.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -253,7 +253,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\font\font_face.cpp">
+    <ClCompile Include="..\..\src\font\font_face.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -263,7 +263,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\font\glyph.cpp">
+    <ClCompile Include="..\..\src\font\glyph.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -273,7 +273,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\font\glyphs.cpp">
+    <ClCompile Include="..\..\src\font\glyphs.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -283,7 +283,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\font\utf8.cpp">
+    <ClCompile Include="..\..\src\font\utf8.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -293,7 +293,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\framebuf\argb8888.cpp">
+    <ClCompile Include="..\..\src\framebuf\argb8888.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -303,7 +303,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\framebuf\framebuf.cpp">
+    <ClCompile Include="..\..\src\framebuf\framebuf.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -313,7 +313,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\circle.cpp">
+    <ClCompile Include="..\..\src\shape\circle.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -323,7 +323,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\compass.cpp">
+    <ClCompile Include="..\..\src\shape\compass.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -333,7 +333,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\cross.cpp">
+    <ClCompile Include="..\..\src\shape\cross.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -343,13 +343,13 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\ft_system.c">
+    <ClCompile Include="..\..\src\shape\ft_system.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\shape\line.cpp">
+    <ClCompile Include="..\..\src\shape\line.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -359,7 +359,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\marker.cpp">
+    <ClCompile Include="..\..\src\shape\marker.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -369,7 +369,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\outline.cpp">
+    <ClCompile Include="..\..\src\shape\outline.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -379,7 +379,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\pie.cpp">
+    <ClCompile Include="..\..\src\shape\pie.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -389,7 +389,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\polygon.cpp">
+    <ClCompile Include="..\..\src\shape\polygon.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -399,7 +399,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\poly_lines.cpp">
+    <ClCompile Include="..\..\src\shape\poly_lines.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -409,7 +409,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\poly_points.cpp">
+    <ClCompile Include="..\..\src\shape\poly_points.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -419,7 +419,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\rect.cpp">
+    <ClCompile Include="..\..\src\shape\rect.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -429,7 +429,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\renderer.cpp">
+    <ClCompile Include="..\..\src\shape\renderer.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -439,7 +439,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\shape.cpp">
+    <ClCompile Include="..\..\src\shape\shape.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -449,7 +449,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\square.cpp">
+    <ClCompile Include="..\..\src\shape\square.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -459,7 +459,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\text.cpp">
+    <ClCompile Include="..\..\src\shape\text.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -469,7 +469,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\text_box.cpp">
+    <ClCompile Include="..\..\src\shape\text_box.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -479,7 +479,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\triangle.cpp">
+    <ClCompile Include="..\..\src\shape\triangle.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -489,7 +489,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\shape\vectors_script.cpp">
+    <ClCompile Include="..\..\src\shape\vectors_script.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -499,7 +499,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\styles\border_style.cpp">
+    <ClCompile Include="..\..\src\styles\border_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -509,7 +509,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\styles\common_style.cpp">
+    <ClCompile Include="..\..\src\styles\common_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -519,7 +519,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\styles\invalidator.cpp">
+    <ClCompile Include="..\..\src\styles\invalidator.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -529,7 +529,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\styles\edit_style.cpp">
+    <ClCompile Include="..\..\src\styles\edit_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -539,7 +539,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\styles\icon_style.cpp">
+    <ClCompile Include="..\..\src\styles\icon_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -549,7 +549,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\styles\keys.cpp">
+    <ClCompile Include="..\..\src\styles\keys.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -559,7 +559,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\styles\mappings.cpp">
+    <ClCompile Include="..\..\src\styles\mappings.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -569,7 +569,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\styles\pie_style.cpp">
+    <ClCompile Include="..\..\src\styles\pie_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -579,7 +579,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\styles\progress_bar_style.cpp">
+    <ClCompile Include="..\..\src\styles\progress_bar_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -589,7 +589,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\styles\shape_style.cpp">
+    <ClCompile Include="..\..\src\styles\shape_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -599,7 +599,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\styles\slider_style.cpp">
+    <ClCompile Include="..\..\src\styles\slider_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -609,7 +609,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\styles\styles.cpp">
+    <ClCompile Include="..\..\src\styles\styles.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -619,7 +619,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\styles\switch_style.cpp">
+    <ClCompile Include="..\..\src\styles\switch_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -629,7 +629,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\styles\text_style.cpp">
+    <ClCompile Include="..\..\src\styles\text_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -639,7 +639,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\styles\widget_style.cpp">
+    <ClCompile Include="..\..\src\styles\widget_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -649,7 +649,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\styles\colors.cpp">
+    <ClCompile Include="..\..\src\styles\colors.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -659,7 +659,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\arc_cache.cpp">
+    <ClCompile Include="..\..\src\tool\arc_cache.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">berialdraw_imp.hpp</PrecompiledHeaderFile>
@@ -669,7 +669,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\bd_system.cpp">
+    <ClCompile Include="..\..\src\tool\bd_system.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -679,7 +679,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\directory.cpp">
+    <ClCompile Include="..\..\src\tool\directory.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -689,7 +689,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\file.cpp">
+    <ClCompile Include="..\..\src\tool\file.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -699,7 +699,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\hsl.cpp">
+    <ClCompile Include="..\..\src\tool\hsl.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -709,7 +709,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\item.cpp">
+    <ClCompile Include="..\..\src\tool\item.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -719,7 +719,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\item_array.cpp">
+    <ClCompile Include="..\..\src\tool\item_array.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -729,7 +729,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\item_bool.cpp">
+    <ClCompile Include="..\..\src\tool\item_bool.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -739,7 +739,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\item_int.cpp">
+    <ClCompile Include="..\..\src\tool\item_int.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -749,7 +749,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\item_null.cpp">
+    <ClCompile Include="..\..\src\tool\item_null.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -759,7 +759,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\item_object.cpp">
+    <ClCompile Include="..\..\src\tool\item_object.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -769,7 +769,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\item_string.cpp">
+    <ClCompile Include="..\..\src\tool\item_string.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -779,7 +779,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\json.cpp">
+    <ClCompile Include="..\..\src\tool\json.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -789,7 +789,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\json_iterator.cpp">
+    <ClCompile Include="..\..\src\tool\json_iterator.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -799,7 +799,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\mask_validator.cpp">
+    <ClCompile Include="..\..\src\tool\mask_validator.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -809,7 +809,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\memory_leak_tracer.cpp">
+    <ClCompile Include="..\..\src\tool\memory_leak_tracer.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -819,7 +819,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\screen_crc.cpp">
+    <ClCompile Include="..\..\src\tool\screen_crc.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
@@ -829,7 +829,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\string.cpp">
+    <ClCompile Include="..\..\src\tool\string.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -839,7 +839,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\svg_out.cpp">
+    <ClCompile Include="..\..\src\tool\svg_out.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -849,7 +849,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\text_stream.cpp">
+    <ClCompile Include="..\..\src\tool\text_stream.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -859,7 +859,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\tool\tools.cpp">
+    <ClCompile Include="..\..\src\tool\tools.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -869,7 +869,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\vector\align.cpp">
+    <ClCompile Include="..\..\src\vector\align.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -879,7 +879,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\vector\area.cpp">
+    <ClCompile Include="..\..\src\vector\area.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -889,7 +889,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\vector\coord.cpp">
+    <ClCompile Include="..\..\src\vector\coord.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -899,7 +899,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\vector\dim.cpp">
+    <ClCompile Include="..\..\src\vector\dim.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -909,7 +909,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\vector\extend.cpp">
+    <ClCompile Include="..\..\src\vector\extend.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -919,7 +919,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\vector\linear.cpp">
+    <ClCompile Include="..\..\src\vector\linear.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -929,7 +929,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\vector\margin.cpp">
+    <ClCompile Include="..\..\src\vector\margin.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -939,7 +939,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\vector\point.cpp">
+    <ClCompile Include="..\..\src\vector\point.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -949,7 +949,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\vector\region.cpp">
+    <ClCompile Include="..\..\src\vector\region.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -959,7 +959,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\vector\side.cpp">
+    <ClCompile Include="..\..\src\vector\side.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
@@ -969,7 +969,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\vector\size.cpp">
+    <ClCompile Include="..\..\src\vector\size.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -979,7 +979,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\vector\size_policy.cpp">
+    <ClCompile Include="..\..\src\vector\size_policy.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -989,7 +989,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\button.cpp">
+    <ClCompile Include="..\..\src\widget\button.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -999,7 +999,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\canvas.cpp">
+    <ClCompile Include="..\..\src\widget\canvas.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1009,7 +1009,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\cells.cpp">
+    <ClCompile Include="..\..\src\widget\cells.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1019,7 +1019,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\column.cpp">
+    <ClCompile Include="..\..\src\widget\column.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1029,7 +1029,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\desktop.cpp">
+    <ClCompile Include="..\..\src\widget\desktop.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1039,7 +1039,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\edit.cpp">
+    <ClCompile Include="..\..\src\widget\edit.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1049,7 +1049,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\entry.cpp">
+    <ClCompile Include="..\..\src\widget\entry.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1059,7 +1059,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\grid.cpp">
+    <ClCompile Include="..\..\src\widget\grid.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1069,7 +1069,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\icon.cpp">
+    <ClCompile Include="..\..\src\widget\icon.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1079,7 +1079,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\keyboard.cpp">
+    <ClCompile Include="..\..\src\widget\keyboard.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1089,7 +1089,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\label.cpp">
+    <ClCompile Include="..\..\src\widget\label.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1099,7 +1099,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\pane.cpp">
+    <ClCompile Include="..\..\src\widget\pane.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1109,7 +1109,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\progress_bar.cpp">
+    <ClCompile Include="..\..\src\widget\progress_bar.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1119,7 +1119,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\row.cpp">
+    <ClCompile Include="..\..\src\widget\row.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1129,7 +1129,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\scroll_view.cpp">
+    <ClCompile Include="..\..\src\widget\scroll_view.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1139,7 +1139,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\slider.cpp">
+    <ClCompile Include="..\..\src\widget\slider.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1149,7 +1149,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\switch.cpp">
+    <ClCompile Include="..\..\src\widget\switch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1159,7 +1159,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\uimanager.cpp">
+    <ClCompile Include="..\..\src\widget\uimanager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
@@ -1169,7 +1169,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\widget.cpp">
+    <ClCompile Include="..\..\src\widget\widget.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1179,7 +1179,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\widget\window.cpp">
+    <ClCompile Include="..\..\src\widget\window.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1191,329 +1191,330 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\freetype\include\freetype\config\ftconfig.h" />
-    <ClInclude Include="..\freetype\include\freetype\config\ftheader.h" />
-    <ClInclude Include="..\freetype\include\freetype\config\ftmodule.h" />
-    <ClInclude Include="..\freetype\include\freetype\config\ftoption.h" />
-    <ClInclude Include="..\freetype\include\freetype\config\ftstdlib.h" />
-    <ClInclude Include="..\freetype\include\freetype\config\integer-types.h" />
-    <ClInclude Include="..\freetype\include\freetype\config\mac-support.h" />
-    <ClInclude Include="..\freetype\include\freetype\config\public-macros.h" />
-    <ClInclude Include="..\freetype\include\freetype\freetype.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftadvanc.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftbbox.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftbdf.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftbitmap.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftbzip2.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftcache.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftchapters.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftcid.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftcolor.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftdriver.h" />
-    <ClInclude Include="..\freetype\include\freetype\fterrdef.h" />
-    <ClInclude Include="..\freetype\include\freetype\fterrors.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftfntfmt.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftgasp.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftglyph.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftgxval.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftgzip.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftimage.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftincrem.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftlcdfil.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftlist.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftlogging.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftlzw.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftmac.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftmm.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftmodapi.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftmoderr.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftotval.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftoutln.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftparams.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftpfr.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftrender.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftsizes.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftsnames.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftstroke.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftsynth.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftsystem.h" />
-    <ClInclude Include="..\freetype\include\freetype\fttrigon.h" />
-    <ClInclude Include="..\freetype\include\freetype\fttypes.h" />
-    <ClInclude Include="..\freetype\include\freetype\ftwinfnt.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\autohint.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\cffotypes.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\cfftypes.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\compiler-macros.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\ftcalc.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\ftdebug.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\ftdrv.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\ftgloadr.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\fthash.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\ftmemory.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\ftmmtypes.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\ftobjs.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\ftpsprop.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\ftrfork.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\ftserv.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\ftstream.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\fttrace.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\ftvalid.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\psaux.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\pshints.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svbdf.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svcfftl.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svcid.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svfntfmt.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svgldict.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svgxval.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svkern.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svmetric.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svmm.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svotval.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svpfr.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svpostnm.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svprop.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svpscmap.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svpsinfo.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svsfnt.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svttcmap.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svtteng.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svttglyf.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\services\svwinfnt.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\sfnt.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\svginterface.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\t1types.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\tttypes.h" />
-    <ClInclude Include="..\freetype\include\freetype\internal\wofftypes.h" />
-    <ClInclude Include="..\freetype\include\freetype\otsvg.h" />
-    <ClInclude Include="..\freetype\include\freetype\t1tables.h" />
-    <ClInclude Include="..\freetype\include\freetype\ttnameid.h" />
-    <ClInclude Include="..\freetype\include\freetype\tttables.h" />
-    <ClInclude Include="..\freetype\include\freetype\tttags.h" />
-    <ClInclude Include="..\freetype\src\base\ftbase.h" />
-    <ClInclude Include="..\freetype\src\sfnt\sfdriver.h" />
-    <ClInclude Include="..\freetype\src\sfnt\sfobjs.h" />
-    <ClInclude Include="..\freetype\src\sfnt\ttcmap.h" />
-    <ClInclude Include="..\freetype\src\sfnt\ttkern.h" />
-    <ClInclude Include="..\freetype\src\sfnt\ttload.h" />
-    <ClInclude Include="..\freetype\src\sfnt\ttmtx.h" />
-    <ClInclude Include="inc\berialdraw.hpp" />
-    <ClInclude Include="inc\berialdraw_imp.hpp" />
-    <ClInclude Include="inc\chart\data_set.hpp" />
-    <ClInclude Include="inc\chart\line_chart.hpp" />
-    <ClInclude Include="inc\config.h" />
-    <ClInclude Include="inc\device\device.hpp" />
-    <ClInclude Include="inc\device\device_sdl.hpp">
+    <ClInclude Include="..\..\..\freetype\include\ft2build.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftconfig.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftheader.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftmodule.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftoption.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftstdlib.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\config\integer-types.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\config\mac-support.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\config\public-macros.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\freetype.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftadvanc.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftbbox.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftbdf.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftbitmap.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftbzip2.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftcache.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftchapters.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftcid.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftcolor.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftdriver.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\fterrdef.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\fterrors.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftfntfmt.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftgasp.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftglyph.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftgxval.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftgzip.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftimage.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftincrem.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftlcdfil.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftlist.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftlogging.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftlzw.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftmac.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftmm.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftmodapi.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftmoderr.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftotval.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftoutln.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftparams.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftpfr.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftrender.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftsizes.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftsnames.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftstroke.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftsynth.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftsystem.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\fttrigon.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\fttypes.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ftwinfnt.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\autohint.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\cffotypes.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\cfftypes.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\compiler-macros.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftcalc.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftdebug.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftdrv.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftgloadr.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\fthash.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftmemory.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftmmtypes.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftobjs.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftpsprop.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftrfork.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftserv.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftstream.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\fttrace.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftvalid.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\psaux.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\pshints.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svbdf.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svcfftl.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svcid.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svfntfmt.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svgldict.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svgxval.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svkern.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svmetric.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svmm.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svotval.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svpfr.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svpostnm.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svprop.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svpscmap.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svpsinfo.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svsfnt.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svttcmap.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svtteng.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svttglyf.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svwinfnt.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\sfnt.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\svginterface.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\t1types.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\tttypes.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\internal\wofftypes.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\otsvg.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\t1tables.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\ttnameid.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\tttables.h" />
+    <ClInclude Include="..\..\..\freetype\include\freetype\tttags.h" />
+    <ClInclude Include="..\..\..\freetype\src\base\ftbase.h" />
+    <ClInclude Include="..\..\..\freetype\src\sfnt\sfdriver.h" />
+    <ClInclude Include="..\..\..\freetype\src\sfnt\sfobjs.h" />
+    <ClInclude Include="..\..\..\freetype\src\sfnt\ttcmap.h" />
+    <ClInclude Include="..\..\..\freetype\src\sfnt\ttkern.h" />
+    <ClInclude Include="..\..\..\freetype\src\sfnt\ttload.h" />
+    <ClInclude Include="..\..\..\freetype\src\sfnt\ttmtx.h" />
+    <ClInclude Include="..\..\inc\berialdraw.hpp" />
+    <ClInclude Include="..\..\inc\berialdraw_imp.hpp" />
+    <ClInclude Include="..\..\inc\chart\data_set.hpp" />
+    <ClInclude Include="..\..\inc\chart\line_chart.hpp" />
+    <ClInclude Include="..\..\inc\config.h" />
+    <ClInclude Include="..\..\inc\device\device.hpp" />
+    <ClInclude Include="..\..\inc\device\device_sdl.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="inc\device\device_win32.hpp" />
-    <ClInclude Include="inc\event\caller.hpp" />
-    <ClInclude Include="inc\event\check_event.hpp" />
-    <ClInclude Include="inc\event\click_event.hpp" />
-    <ClInclude Include="inc\event\event.hpp" />
-    <ClInclude Include="inc\event\focus_event.hpp" />
-    <ClInclude Include="inc\event\key_event.hpp" />
-    <ClInclude Include="inc\event\notifier.hpp" />
-    <ClInclude Include="inc\event\scroll_event.hpp" />
-    <ClInclude Include="inc\event\select_event.hpp" />
-    <ClInclude Include="inc\event\slide_event.hpp" />
-    <ClInclude Include="inc\event\touch_event.hpp" />
-    <ClInclude Include="inc\font\font.hpp" />
-    <ClInclude Include="inc\font\fonts.hpp" />
-    <ClInclude Include="inc\font\font_face.hpp" />
-    <ClInclude Include="inc\font\glyph.hpp" />
-    <ClInclude Include="inc\font\glyphs.hpp" />
-    <ClInclude Include="inc\font\utf8.hpp" />
-    <ClInclude Include="inc\font\_font.hpp" />
-    <ClInclude Include="inc\framebuf\argb8888.hpp" />
-    <ClInclude Include="inc\framebuf\framebuf.hpp" />
-    <ClInclude Include="inc\shape\circle.hpp" />
-    <ClInclude Include="inc\shape\compass.hpp" />
-    <ClInclude Include="inc\shape\cross.hpp" />
-    <ClInclude Include="inc\shape\line.hpp" />
-    <ClInclude Include="inc\shape\marker.hpp" />
-    <ClInclude Include="inc\shape\outline.hpp" />
-    <ClInclude Include="inc\shape\pie.hpp" />
-    <ClInclude Include="inc\shape\polygon.hpp" />
-    <ClInclude Include="inc\shape\poly_lines.hpp" />
-    <ClInclude Include="inc\shape\poly_points.hpp" />
-    <ClInclude Include="inc\shape\rect.hpp" />
-    <ClInclude Include="inc\shape\renderer.hpp" />
-    <ClInclude Include="inc\shape\shape.hpp" />
-    <ClInclude Include="inc\shape\square.hpp" />
-    <ClInclude Include="inc\shape\text.hpp" />
-    <ClInclude Include="inc\shape\text_box.hpp" />
-    <ClInclude Include="inc\shape\triangle.hpp" />
-    <ClInclude Include="inc\shape\vectors_script.hpp" />
-    <ClInclude Include="inc\styles\border_style.hpp" />
-    <ClInclude Include="inc\styles\common_style.hpp" />
-    <ClInclude Include="inc\styles\invalidator.hpp" />
-    <ClInclude Include="inc\styles\edit_style.hpp" />
-    <ClInclude Include="inc\styles\icon_style.hpp" />
-    <ClInclude Include="inc\styles\keys.hpp" />
-    <ClInclude Include="inc\styles\mappings.hpp" />
-    <ClInclude Include="inc\styles\pie_style.hpp" />
-    <ClInclude Include="inc\styles\progress_bar_style.hpp" />
-    <ClInclude Include="inc\styles\shape_style.hpp" />
-    <ClInclude Include="inc\styles\slider_style.hpp" />
-    <ClInclude Include="inc\styles\style.hpp" />
-    <ClInclude Include="inc\styles\styles.hpp" />
-    <ClInclude Include="inc\styles\switch_style.hpp" />
-    <ClInclude Include="inc\styles\text_style.hpp" />
-    <ClInclude Include="inc\styles\widget_style.hpp" />
-    <ClInclude Include="inc\styles\colors.hpp" />
-    <ClInclude Include="inc\tool\arc_cache.hpp" />
-    <ClInclude Include="inc\tool\bd_system.h" />
-    <ClInclude Include="inc\tool\directory.hpp" />
-    <ClInclude Include="inc\tool\exporter.hpp" />
-    <ClInclude Include="inc\tool\file.hpp" />
-    <ClInclude Include="inc\tool\hsl.hpp" />
-    <ClInclude Include="inc\tool\item.hpp" />
-    <ClInclude Include="inc\tool\item_array.hpp" />
-    <ClInclude Include="inc\tool\item_bool.hpp" />
-    <ClInclude Include="inc\tool\item_collection.hpp" />
-    <ClInclude Include="inc\tool\item_int.hpp" />
-    <ClInclude Include="inc\tool\item_null.hpp" />
-    <ClInclude Include="inc\tool\item_object.hpp" />
-    <ClInclude Include="inc\tool\item_string.hpp" />
-    <ClInclude Include="inc\tool\item_variant.hpp" />
-    <ClInclude Include="inc\tool\json.hpp" />
-    <ClInclude Include="inc\tool\json_iterator.hpp" />
-    <ClInclude Include="inc\tool\mask_validator.hpp" />
-    <ClInclude Include="inc\tool\memory_leak_tracer.hpp" />
-    <ClInclude Include="inc\tool\screen_crc.hpp" />
-    <ClInclude Include="inc\tool\shared_ptr.hpp" />
-    <ClInclude Include="inc\tool\singleton.hpp" />
-    <ClInclude Include="inc\tool\stream.hpp" />
-    <ClInclude Include="inc\tool\string.hpp" />
-    <ClInclude Include="inc\tool\svg_out.hpp" />
-    <ClInclude Include="inc\tool\text_stream.hpp" />
-    <ClInclude Include="inc\tool\tools.hpp" />
-    <ClInclude Include="inc\tool\validator.hpp" />
-    <ClInclude Include="inc\tool\vector.hpp" />
-    <ClInclude Include="inc\vector\align.hpp" />
-    <ClInclude Include="inc\vector\area.hpp" />
-    <ClInclude Include="inc\styles\color.hpp" />
-    <ClInclude Include="inc\vector\coord.hpp" />
-    <ClInclude Include="inc\vector\dim.hpp" />
-    <ClInclude Include="inc\vector\extend.hpp" />
-    <ClInclude Include="inc\vector\linear.hpp" />
-    <ClInclude Include="inc\vector\margin.hpp" />
-    <ClInclude Include="inc\vector\orientation.hpp" />
-    <ClInclude Include="inc\vector\point.hpp" />
-    <ClInclude Include="inc\vector\region.hpp" />
-    <ClInclude Include="inc\vector\side.hpp" />
-    <ClInclude Include="inc\vector\size.hpp" />
-    <ClInclude Include="inc\vector\size_policy.hpp" />
-    <ClInclude Include="inc\widget\button.hpp" />
-    <ClInclude Include="inc\widget\canvas.hpp" />
-    <ClInclude Include="inc\widget\cells.hpp" />
-    <ClInclude Include="inc\widget\column.hpp" />
-    <ClInclude Include="inc\widget\desktop.hpp" />
-    <ClInclude Include="inc\widget\edit.hpp" />
-    <ClInclude Include="inc\widget\entry.hpp" />
-    <ClInclude Include="inc\widget\grid.hpp" />
-    <ClInclude Include="inc\widget\icon.hpp" />
-    <ClInclude Include="inc\widget\keyboard.hpp" />
-    <ClInclude Include="inc\widget\label.hpp" />
-    <ClInclude Include="inc\widget\pane.hpp" />
-    <ClInclude Include="inc\widget\progress_bar.hpp" />
-    <ClInclude Include="inc\widget\row.hpp" />
-    <ClInclude Include="inc\widget\scroll_view.hpp" />
-    <ClInclude Include="inc\widget\slider.hpp" />
-    <ClInclude Include="inc\widget\switch.hpp" />
-    <ClInclude Include="inc\widget\uimanager.hpp" />
-    <ClInclude Include="inc\widget\widget.hpp" />
-    <ClInclude Include="inc\widget\window.hpp" />
+    <ClInclude Include="..\..\inc\device\device_win32.hpp" />
+    <ClInclude Include="..\..\inc\event\caller.hpp" />
+    <ClInclude Include="..\..\inc\event\check_event.hpp" />
+    <ClInclude Include="..\..\inc\event\click_event.hpp" />
+    <ClInclude Include="..\..\inc\event\event.hpp" />
+    <ClInclude Include="..\..\inc\event\focus_event.hpp" />
+    <ClInclude Include="..\..\inc\event\key_event.hpp" />
+    <ClInclude Include="..\..\inc\event\notifier.hpp" />
+    <ClInclude Include="..\..\inc\event\scroll_event.hpp" />
+    <ClInclude Include="..\..\inc\event\select_event.hpp" />
+    <ClInclude Include="..\..\inc\event\slide_event.hpp" />
+    <ClInclude Include="..\..\inc\event\touch_event.hpp" />
+    <ClInclude Include="..\..\inc\font\font.hpp" />
+    <ClInclude Include="..\..\inc\font\fonts.hpp" />
+    <ClInclude Include="..\..\inc\font\font_face.hpp" />
+    <ClInclude Include="..\..\inc\font\glyph.hpp" />
+    <ClInclude Include="..\..\inc\font\glyphs.hpp" />
+    <ClInclude Include="..\..\inc\font\utf8.hpp" />
+    <ClInclude Include="..\..\inc\font\_font.hpp" />
+    <ClInclude Include="..\..\inc\framebuf\argb8888.hpp" />
+    <ClInclude Include="..\..\inc\framebuf\framebuf.hpp" />
+    <ClInclude Include="..\..\inc\shape\circle.hpp" />
+    <ClInclude Include="..\..\inc\shape\compass.hpp" />
+    <ClInclude Include="..\..\inc\shape\cross.hpp" />
+    <ClInclude Include="..\..\inc\shape\line.hpp" />
+    <ClInclude Include="..\..\inc\shape\marker.hpp" />
+    <ClInclude Include="..\..\inc\shape\outline.hpp" />
+    <ClInclude Include="..\..\inc\shape\pie.hpp" />
+    <ClInclude Include="..\..\inc\shape\polygon.hpp" />
+    <ClInclude Include="..\..\inc\shape\poly_lines.hpp" />
+    <ClInclude Include="..\..\inc\shape\poly_points.hpp" />
+    <ClInclude Include="..\..\inc\shape\rect.hpp" />
+    <ClInclude Include="..\..\inc\shape\renderer.hpp" />
+    <ClInclude Include="..\..\inc\shape\shape.hpp" />
+    <ClInclude Include="..\..\inc\shape\square.hpp" />
+    <ClInclude Include="..\..\inc\shape\text.hpp" />
+    <ClInclude Include="..\..\inc\shape\text_box.hpp" />
+    <ClInclude Include="..\..\inc\shape\triangle.hpp" />
+    <ClInclude Include="..\..\inc\shape\vectors_script.hpp" />
+    <ClInclude Include="..\..\inc\styles\border_style.hpp" />
+    <ClInclude Include="..\..\inc\styles\common_style.hpp" />
+    <ClInclude Include="..\..\inc\styles\invalidator.hpp" />
+    <ClInclude Include="..\..\inc\styles\edit_style.hpp" />
+    <ClInclude Include="..\..\inc\styles\icon_style.hpp" />
+    <ClInclude Include="..\..\inc\styles\keys.hpp" />
+    <ClInclude Include="..\..\inc\styles\mappings.hpp" />
+    <ClInclude Include="..\..\inc\styles\pie_style.hpp" />
+    <ClInclude Include="..\..\inc\styles\progress_bar_style.hpp" />
+    <ClInclude Include="..\..\inc\styles\shape_style.hpp" />
+    <ClInclude Include="..\..\inc\styles\slider_style.hpp" />
+    <ClInclude Include="..\..\inc\styles\style.hpp" />
+    <ClInclude Include="..\..\inc\styles\styles.hpp" />
+    <ClInclude Include="..\..\inc\styles\switch_style.hpp" />
+    <ClInclude Include="..\..\inc\styles\text_style.hpp" />
+    <ClInclude Include="..\..\inc\styles\widget_style.hpp" />
+    <ClInclude Include="..\..\inc\styles\colors.hpp" />
+    <ClInclude Include="..\..\inc\tool\arc_cache.hpp" />
+    <ClInclude Include="..\..\inc\tool\bd_system.h" />
+    <ClInclude Include="..\..\inc\tool\directory.hpp" />
+    <ClInclude Include="..\..\inc\tool\exporter.hpp" />
+    <ClInclude Include="..\..\inc\tool\file.hpp" />
+    <ClInclude Include="..\..\inc\tool\hsl.hpp" />
+    <ClInclude Include="..\..\inc\tool\item.hpp" />
+    <ClInclude Include="..\..\inc\tool\item_array.hpp" />
+    <ClInclude Include="..\..\inc\tool\item_bool.hpp" />
+    <ClInclude Include="..\..\inc\tool\item_collection.hpp" />
+    <ClInclude Include="..\..\inc\tool\item_int.hpp" />
+    <ClInclude Include="..\..\inc\tool\item_null.hpp" />
+    <ClInclude Include="..\..\inc\tool\item_object.hpp" />
+    <ClInclude Include="..\..\inc\tool\item_string.hpp" />
+    <ClInclude Include="..\..\inc\tool\item_variant.hpp" />
+    <ClInclude Include="..\..\inc\tool\json.hpp" />
+    <ClInclude Include="..\..\inc\tool\json_iterator.hpp" />
+    <ClInclude Include="..\..\inc\tool\mask_validator.hpp" />
+    <ClInclude Include="..\..\inc\tool\memory_leak_tracer.hpp" />
+    <ClInclude Include="..\..\inc\tool\screen_crc.hpp" />
+    <ClInclude Include="..\..\inc\tool\shared_ptr.hpp" />
+    <ClInclude Include="..\..\inc\tool\singleton.hpp" />
+    <ClInclude Include="..\..\inc\tool\stream.hpp" />
+    <ClInclude Include="..\..\inc\tool\string.hpp" />
+    <ClInclude Include="..\..\inc\tool\svg_out.hpp" />
+    <ClInclude Include="..\..\inc\tool\text_stream.hpp" />
+    <ClInclude Include="..\..\inc\tool\tools.hpp" />
+    <ClInclude Include="..\..\inc\tool\validator.hpp" />
+    <ClInclude Include="..\..\inc\tool\vector.hpp" />
+    <ClInclude Include="..\..\inc\vector\align.hpp" />
+    <ClInclude Include="..\..\inc\vector\area.hpp" />
+    <ClInclude Include="..\..\inc\styles\color.hpp" />
+    <ClInclude Include="..\..\inc\vector\coord.hpp" />
+    <ClInclude Include="..\..\inc\vector\dim.hpp" />
+    <ClInclude Include="..\..\inc\vector\extend.hpp" />
+    <ClInclude Include="..\..\inc\vector\linear.hpp" />
+    <ClInclude Include="..\..\inc\vector\margin.hpp" />
+    <ClInclude Include="..\..\inc\vector\orientation.hpp" />
+    <ClInclude Include="..\..\inc\vector\point.hpp" />
+    <ClInclude Include="..\..\inc\vector\region.hpp" />
+    <ClInclude Include="..\..\inc\vector\side.hpp" />
+    <ClInclude Include="..\..\inc\vector\size.hpp" />
+    <ClInclude Include="..\..\inc\vector\size_policy.hpp" />
+    <ClInclude Include="..\..\inc\widget\button.hpp" />
+    <ClInclude Include="..\..\inc\widget\canvas.hpp" />
+    <ClInclude Include="..\..\inc\widget\cells.hpp" />
+    <ClInclude Include="..\..\inc\widget\column.hpp" />
+    <ClInclude Include="..\..\inc\widget\desktop.hpp" />
+    <ClInclude Include="..\..\inc\widget\edit.hpp" />
+    <ClInclude Include="..\..\inc\widget\entry.hpp" />
+    <ClInclude Include="..\..\inc\widget\grid.hpp" />
+    <ClInclude Include="..\..\inc\widget\icon.hpp" />
+    <ClInclude Include="..\..\inc\widget\keyboard.hpp" />
+    <ClInclude Include="..\..\inc\widget\label.hpp" />
+    <ClInclude Include="..\..\inc\widget\pane.hpp" />
+    <ClInclude Include="..\..\inc\widget\progress_bar.hpp" />
+    <ClInclude Include="..\..\inc\widget\row.hpp" />
+    <ClInclude Include="..\..\inc\widget\scroll_view.hpp" />
+    <ClInclude Include="..\..\inc\widget\slider.hpp" />
+    <ClInclude Include="..\..\inc\widget\switch.hpp" />
+    <ClInclude Include="..\..\inc\widget\uimanager.hpp" />
+    <ClInclude Include="..\..\inc\widget\widget.hpp" />
+    <ClInclude Include="..\..\inc\widget\window.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\colors\dark.json" />
-    <None Include="resources\colors\light.json" />
-    <None Include="resources\colors\test_dark.json" />
-    <None Include="resources\colors\test_light.json" />
-    <None Include="resources\icons\account_circle.icn" />
-    <None Include="resources\icons\add.icn" />
-    <None Include="resources\icons\calendar_month.icn" />
-    <None Include="resources\icons\calendar_view_week.icn" />
-    <None Include="resources\icons\close.icn" />
-    <None Include="resources\icons\computer.icn" />
-    <None Include="resources\icons\construction.icn" />
-    <None Include="resources\icons\desktop_windows.icn" />
-    <None Include="resources\icons\device_thermostat.icn" />
-    <None Include="resources\icons\draw_abstract.icn" />
-    <None Include="resources\icons\edit.icn" />
-    <None Include="resources\icons\featured_video.icn" />
-    <None Include="resources\icons\file_open.icn" />
-    <None Include="resources\icons\filter_vintage.icn" />
-    <None Include="resources\icons\fingerprint_off.icn" />
-    <None Include="resources\icons\format_size.icn" />
-    <None Include="resources\icons\grid_on.icn" />
-    <None Include="resources\icons\history.icn" />
-    <None Include="resources\icons\home.icn" />
-    <None Include="resources\icons\image.icn" />
-    <None Include="resources\icons\info.icn" />
-    <None Include="resources\icons\keyboard.icn" />
-    <None Include="resources\icons\lan.icn" />
-    <None Include="resources\icons\login.icn" />
-    <None Include="resources\icons\logout.icn" />
-    <None Include="resources\icons\maison.icn" />
-    <None Include="resources\icons\menu.icn" />
-    <None Include="resources\icons\perm_media.icn" />
-    <None Include="resources\icons\person.icn" />
-    <None Include="resources\icons\power_settings_new.icn" />
-    <None Include="resources\icons\print.icn" />
-    <None Include="resources\icons\refresh.icn" />
-    <None Include="resources\icons\save.icn" />
-    <None Include="resources\icons\score.icn" />
-    <None Include="resources\icons\scrollable_header.icn" />
-    <None Include="resources\icons\search.icn" />
-    <None Include="resources\icons\select_window.icn" />
-    <None Include="resources\icons\sentiment_excited.icn" />
-    <None Include="resources\icons\settings.icn" />
-    <None Include="resources\icons\sliders.icn" />
-    <None Include="resources\icons\sort_by_alpha.icn" />
-    <None Include="resources\icons\sound_detection_glass_break.icn" />
-    <None Include="resources\icons\speed.icn" />
-    <None Include="resources\icons\switches.icn" />
-    <None Include="resources\icons\table_rows_narrow.icn" />
-    <None Include="resources\icons\text_fields_alt.icn" />
-    <None Include="resources\icons\toggle_on.icn" />
-    <None Include="resources\icons\tune.icn" />
-    <None Include="resources\icons\view_agenda.icn" />
-    <None Include="resources\icons\warning.icn" />
-    <None Include="resources\icons\wifi.icn" />
-    <None Include="resources\styles\pearl\button.json" />
-    <None Include="resources\styles\pearl\canvas.json" />
-    <None Include="resources\styles\pearl\edit.json" />
-    <None Include="resources\styles\pearl\icon.json" />
-    <None Include="resources\styles\pearl\keyboard.json" />
-    <None Include="resources\styles\pearl\label.json" />
-    <None Include="resources\styles\pearl\pane.json" />
-    <None Include="resources\styles\pearl\progress_bar.json" />
-    <None Include="resources\styles\pearl\slider.json" />
-    <None Include="resources\styles\pearl\switch.json" />
-    <None Include="resources\styles\pearl\window.json" />
-    <None Include="resources\styles\test\button.json" />
-    <None Include="resources\styles\test\canvas.json" />
-    <None Include="resources\styles\test\edit.json" />
-    <None Include="resources\styles\test\icon.json" />
-    <None Include="resources\styles\test\keyboard.json" />
-    <None Include="resources\styles\test\label.json" />
-    <None Include="resources\styles\test\pane.json" />
-    <None Include="resources\styles\test\progress_bar.json" />
-    <None Include="resources\styles\test\slider.json" />
-    <None Include="resources\styles\test\switch.json" />
-    <None Include="resources\styles\test\window.json" />
+    <None Include="..\..\resources\colors\dark.json" />
+    <None Include="..\..\resources\colors\light.json" />
+    <None Include="..\..\resources\colors\test_dark.json" />
+    <None Include="..\..\resources\colors\test_light.json" />
+    <None Include="..\..\resources\icons\account_circle.icn" />
+    <None Include="..\..\resources\icons\add.icn" />
+    <None Include="..\..\resources\icons\calendar_month.icn" />
+    <None Include="..\..\resources\icons\calendar_view_week.icn" />
+    <None Include="..\..\resources\icons\close.icn" />
+    <None Include="..\..\resources\icons\computer.icn" />
+    <None Include="..\..\resources\icons\construction.icn" />
+    <None Include="..\..\resources\icons\desktop_windows.icn" />
+    <None Include="..\..\resources\icons\device_thermostat.icn" />
+    <None Include="..\..\resources\icons\draw_abstract.icn" />
+    <None Include="..\..\resources\icons\edit.icn" />
+    <None Include="..\..\resources\icons\featured_video.icn" />
+    <None Include="..\..\resources\icons\file_open.icn" />
+    <None Include="..\..\resources\icons\filter_vintage.icn" />
+    <None Include="..\..\resources\icons\fingerprint_off.icn" />
+    <None Include="..\..\resources\icons\format_size.icn" />
+    <None Include="..\..\resources\icons\grid_on.icn" />
+    <None Include="..\..\resources\icons\history.icn" />
+    <None Include="..\..\resources\icons\home.icn" />
+    <None Include="..\..\resources\icons\image.icn" />
+    <None Include="..\..\resources\icons\info.icn" />
+    <None Include="..\..\resources\icons\keyboard.icn" />
+    <None Include="..\..\resources\icons\lan.icn" />
+    <None Include="..\..\resources\icons\login.icn" />
+    <None Include="..\..\resources\icons\logout.icn" />
+    <None Include="..\..\resources\icons\maison.icn" />
+    <None Include="..\..\resources\icons\menu.icn" />
+    <None Include="..\..\resources\icons\perm_media.icn" />
+    <None Include="..\..\resources\icons\person.icn" />
+    <None Include="..\..\resources\icons\power_settings_new.icn" />
+    <None Include="..\..\resources\icons\print.icn" />
+    <None Include="..\..\resources\icons\refresh.icn" />
+    <None Include="..\..\resources\icons\save.icn" />
+    <None Include="..\..\resources\icons\score.icn" />
+    <None Include="..\..\resources\icons\scrollable_header.icn" />
+    <None Include="..\..\resources\icons\search.icn" />
+    <None Include="..\..\resources\icons\select_window.icn" />
+    <None Include="..\..\resources\icons\sentiment_excited.icn" />
+    <None Include="..\..\resources\icons\settings.icn" />
+    <None Include="..\..\resources\icons\sliders.icn" />
+    <None Include="..\..\resources\icons\sort_by_alpha.icn" />
+    <None Include="..\..\resources\icons\sound_detection_glass_break.icn" />
+    <None Include="..\..\resources\icons\speed.icn" />
+    <None Include="..\..\resources\icons\switches.icn" />
+    <None Include="..\..\resources\icons\table_rows_narrow.icn" />
+    <None Include="..\..\resources\icons\text_fields_alt.icn" />
+    <None Include="..\..\resources\icons\toggle_on.icn" />
+    <None Include="..\..\resources\icons\tune.icn" />
+    <None Include="..\..\resources\icons\view_agenda.icn" />
+    <None Include="..\..\resources\icons\warning.icn" />
+    <None Include="..\..\resources\icons\wifi.icn" />
+    <None Include="..\..\resources\styles\pearl\button.json" />
+    <None Include="..\..\resources\styles\pearl\canvas.json" />
+    <None Include="..\..\resources\styles\pearl\edit.json" />
+    <None Include="..\..\resources\styles\pearl\icon.json" />
+    <None Include="..\..\resources\styles\pearl\keyboard.json" />
+    <None Include="..\..\resources\styles\pearl\label.json" />
+    <None Include="..\..\resources\styles\pearl\pane.json" />
+    <None Include="..\..\resources\styles\pearl\progress_bar.json" />
+    <None Include="..\..\resources\styles\pearl\slider.json" />
+    <None Include="..\..\resources\styles\pearl\switch.json" />
+    <None Include="..\..\resources\styles\pearl\window.json" />
+    <None Include="..\..\resources\styles\test\button.json" />
+    <None Include="..\..\resources\styles\test\canvas.json" />
+    <None Include="..\..\resources\styles\test\edit.json" />
+    <None Include="..\..\resources\styles\test\icon.json" />
+    <None Include="..\..\resources\styles\test\keyboard.json" />
+    <None Include="..\..\resources\styles\test\label.json" />
+    <None Include="..\..\resources\styles\test\pane.json" />
+    <None Include="..\..\resources\styles\test\progress_bar.json" />
+    <None Include="..\..\resources\styles\test\slider.json" />
+    <None Include="..\..\resources\styles\test\switch.json" />
+    <None Include="..\..\resources\styles\test\window.json" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="resources\fonts\Berial-Bold.ttf" />
-    <Font Include="resources\fonts\Berial.ttf" />
+    <Font Include="..\..\resources\fonts\Berial-Bold.ttf" />
+    <Font Include="..\..\resources\fonts\Berial.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\freetype\src\base\ftver.rc" />
+    <ResourceCompile Include="..\..\..\freetype\src\base\ftver.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D2B0C9BA-6691-49BC-B111-1945063134EA}</ProjectGuid>
@@ -1593,12 +1594,13 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;PACKAGE;FT2_BUILD_LIBRARY=1;FT_ERR_PREFIX=FT_Err_;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>inc;..\freetype\include;..\freetype\include\freetype;..;.</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\inc;..\..\..\freetype\include;..\..\..\freetype\include\freetype;..\..\..;..\..</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -1616,12 +1618,13 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;PACKAGE;FT2_BUILD_LIBRARY=1;FT_ERR_PREFIX=FT_Err_;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>inc;..\freetype\include;..\freetype\include\freetype;..;.</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\inc;..\..\..\freetype\include;..\..\..\freetype\include\freetype;..\..\..;..\..</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -1641,10 +1644,11 @@
       </PrecompiledHeader>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;PACKAGE;FT2_BUILD_LIBRARY=1;FT_ERR_PREFIX=FT_Err_;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>inc;..\freetype\include;..\freetype\include\freetype;..;.</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\inc;..\..\..\freetype\include;..\..\..\freetype\include\freetype;..\..\..;..\..</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -1666,10 +1670,11 @@
       </PrecompiledHeader>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;PACKAGE;FT2_BUILD_LIBRARY=1;FT_ERR_PREFIX=FT_Err_;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>inc;..\freetype\include;..\freetype\include\freetype;..;.</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\inc;..\..\..\freetype\include;..\..\..\freetype\include\freetype;..\..\..;..\..</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

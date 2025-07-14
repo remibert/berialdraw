@@ -10,7 +10,7 @@ DeviceSdl::DeviceSdl(const char * title, Dim width, Dim height):
 	m_title = title;
 
 	// Initialize SDL
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO) == false)
 	{
 		printf("SDL init failed\n");
 		exit(-1);
@@ -24,26 +24,25 @@ void DeviceSdl::open_window()
 	m_buffer = new uint8_t [m_width * m_height * 3];
 	memset(m_buffer, 0xff, m_width * m_height * 3);
 
-	do
-	{
-		// If succeeded create our window
-		m_window = SDL_CreateWindow(m_title.c_str(), 0, 0, m_width, m_height, SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI);
+		do
+		{
+			// Create window with SDL3 flags
+			m_window = SDL_CreateWindow(m_title.c_str(), m_width, m_height, SDL_WINDOW_HIGH_PIXEL_DENSITY);
 
-		// If the window creation succeeded create our renderer
-		if (m_window == 0)  break;
-		
-		m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
-		if (m_renderer == 0) break;
+			if (m_window == 0)  break;
 
-		m_texture = SDL_CreateTexture(m_renderer, SDL_PIXELFORMAT_RGB24, SDL_TEXTUREACCESS_STREAMING, m_width, m_height);
-		if (m_texture == 0) break;
-		success = true;
-	}
-	while (0);
+			m_renderer = SDL_CreateRenderer(m_window, NULL);
+			if (m_renderer == 0) break;
+
+			m_texture = SDL_CreateTexture(m_renderer, SDL_PIXELFORMAT_RGB24, SDL_TEXTUREACCESS_STREAMING, m_width, m_height);
+			if (m_texture == 0) break;
+			success = true;
+		}
+		while (0);
 
 	// Check if display is high resolution
 	int drawableWidth, drawableHeight;
-	SDL_GL_GetDrawableSize(m_window, &drawableWidth, &drawableHeight);
+	SDL_GetWindowSizeInPixels(m_window, &drawableWidth, &drawableHeight);
 
 	// Display have high resolution
 	if (drawableWidth > m_width && drawableHeight > m_height)
@@ -80,7 +79,7 @@ DeviceSdl::~DeviceSdl()
 
 	// Destroy SDL
 	SDL_Quit(); 
-	SDL_TLSCleanup();
+	SDL_CleanupTLS();
 }
 
 void DeviceSdl::clear()
@@ -107,7 +106,7 @@ wchar_t DeviceSdl::get_key(SDL_Scancode scancode)
 	case SDL_SCANCODE_PAUSE     : result = (wchar_t)ReservedKey::KEY_PAUSE ;    break;
 
 	default:
-		result = SDL_GetKeyFromScancode(scancode);
+		result = SDL_GetKeyFromScancode(scancode, SDL_GetModState(), false);
 		break;
 	}
 	//printf("%04X '%c' %s\n",result,result,SDL_GetKeyName(result));
@@ -120,15 +119,15 @@ wchar_t DeviceSdl::get_key(SDL_Scancode scancode)
 
 KeyEvent::Modifier DeviceSdl::get_modifier()
 {
-	KeyEvent::Modifier modifier = KeyEvent::MODIFIER_NONE;
-	SDL_Keymod mod = SDL_GetModState();
-	if (mod & KMOD_SHIFT)
-		modifier = (KeyEvent::Modifier)(KeyEvent::MODIFIER_SHIFT |modifier); 
-	if (mod & KMOD_CTRL)
-		modifier = (KeyEvent::Modifier)(KeyEvent::MODIFIER_ALT | modifier); 
-	if (mod & KMOD_ALT)
-		modifier = (KeyEvent::Modifier)(KeyEvent::MODIFIER_CONTROL | modifier); 
-	return modifier;
+KeyEvent::Modifier modifier = KeyEvent::MODIFIER_NONE;
+SDL_Keymod mod = SDL_GetModState();
+if (mod & SDL_KMOD_SHIFT)
+	modifier = (KeyEvent::Modifier)(KeyEvent::MODIFIER_SHIFT | modifier);
+if (mod & SDL_KMOD_CTRL)
+	modifier = (KeyEvent::Modifier)(KeyEvent::MODIFIER_CONTROL | modifier);
+if (mod & SDL_KMOD_ALT)
+	modifier = (KeyEvent::Modifier)(KeyEvent::MODIFIER_ALT | modifier);
+return modifier;
 }
 
 /** Adapt the ratio of coordinates */
@@ -146,14 +145,14 @@ bool DeviceSdl::dispatch(bool blocking)
 	// Treat all SDL events
 	SDL_WaitEventTimeout(&m_event, 10);
 
-	switch (m_event.type) 
+	switch (m_event.type)
 	{
-	case SDL_QUIT:
+	case SDL_EVENT_QUIT:
 		UIManager::desktop()->quit();
 		UIManager::notifier()->push_event(new KeyEvent((wchar_t)ReservedKey::KEY_EXIT, KeyEvent::KEY_DOWN));
 		break;
 
-	case SDL_MOUSEBUTTONDOWN:
+	case SDL_EVENT_MOUSE_BUTTON_DOWN:
 		if (m_event.button.button == SDL_BUTTON_LEFT)
 		{
 			Point position(m_event.button.x, m_event.button.y);
@@ -163,7 +162,7 @@ bool DeviceSdl::dispatch(bool blocking)
 		}
 		break;
 
-	case SDL_MOUSEBUTTONUP:
+	case SDL_EVENT_MOUSE_BUTTON_UP:
 		if (m_event.button.button == SDL_BUTTON_LEFT)
 		{
 			Point position(m_event.button.x, m_event.button.y);
@@ -173,18 +172,18 @@ bool DeviceSdl::dispatch(bool blocking)
 		}
 		break;
 
-	case SDL_MOUSEMOTION:
+	case SDL_EVENT_MOUSE_MOTION:
 		{
-			Point position(m_event.button.x, m_event.button.y);
+			Point position(m_event.motion.x, m_event.motion.y);
 			adapt_ratio(position);
 			position.adapt_scale();
 			UIManager::notifier()->push_event(new TouchEvent(position, TouchEvent::TOUCH_MOVE));
 		}
 		break;
 
-	case SDL_KEYDOWN:
+	case SDL_EVENT_KEY_DOWN:
 		{
-			wchar_t key = get_key(m_event.key.keysym.scancode);
+			wchar_t key = get_key(m_event.key.scancode);
 			if (key)
 			{
 				UIManager::notifier()->push_event(new KeyEvent(key, KeyEvent::KEY_DOWN, get_modifier()));
@@ -192,9 +191,9 @@ bool DeviceSdl::dispatch(bool blocking)
 		}
 		break;
 
-	case SDL_KEYUP:
+	case SDL_EVENT_KEY_UP:
 		{
-			wchar_t key = get_key(m_event.key.keysym.scancode);
+			wchar_t key = get_key(m_event.key.scancode);
 			if (key)
 			{
 				UIManager::notifier()->push_event(new KeyEvent(key, KeyEvent::KEY_UP, get_modifier()));
@@ -265,7 +264,7 @@ void DeviceSdl::blit()
 		SDL_UpdateTexture(m_texture, nullptr, m_buffer, m_width * 3);
 
 		// Copie de la texture sur l'ecran
-		SDL_RenderCopy(m_renderer, m_texture, nullptr, nullptr);
+		SDL_RenderTexture(m_renderer, m_texture, nullptr, nullptr);
 
 		// show the window 
 		SDL_RenderPresent(m_renderer); 

@@ -5,8 +5,8 @@ namespace berialdraw
 {
 	void test_widget()
 	{
-		tools_test2();
 	#if _DEBUG
+		tools_test2();
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
 

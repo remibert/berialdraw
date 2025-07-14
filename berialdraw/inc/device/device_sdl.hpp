@@ -1,7 +1,7 @@
 #ifndef DeviceSdl_hpp_INCLUDED
 #define DeviceSdl_hpp_INCLUDED
 
-#include <SDL2/SDL.h> 
+#include <SDL3/SDL.h> 
 
 namespace berialdraw
 {

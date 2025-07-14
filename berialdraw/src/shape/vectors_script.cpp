@@ -44,14 +44,14 @@ VectorsScript::~VectorsScript()
 	}
 }
 
-inline uint32_t VectorsScript::to_var(char letter)
+uint32_t VectorsScript::to_var(char letter)
 {
 	return  ((letter >= '0' && letter <= '9') ? letter - '0' :
 			((letter >= 'A' && letter <= 'Z') ? letter - 'A' + 10 :
 			((letter >= 'a' && letter <= 'z') ? letter - 'a' + 10 + 26 : -1)));
 }
 
-inline Coord VectorsScript::get(char letter)
+Coord VectorsScript::get(char letter)
 {
 	uint32_t index = to_var(letter);
 	if (index < MAX_VARIABLES)
@@ -65,12 +65,12 @@ inline Coord VectorsScript::get(char letter)
 	return 0;
 }
 
-inline void VectorsScript::set(char letter, Coord value)
+void VectorsScript::set(char letter, Coord value)
 {
 	set_variable(to_var(letter), value);
 }
 
-inline void VectorsScript::set_variable(uint32_t index, Coord value)
+void VectorsScript::set_variable(uint32_t index, Coord value)
 {
 	if (index < MAX_VARIABLES)
 	{
@@ -82,7 +82,7 @@ inline void VectorsScript::set_variable(uint32_t index, Coord value)
 	}
 }
 
-inline Coord VectorsScript::get_variable(uint32_t index)
+Coord VectorsScript::get_variable(uint32_t index)
 {
 	if (index < MAX_VARIABLES)
 	{
@@ -95,7 +95,7 @@ inline Coord VectorsScript::get_variable(uint32_t index)
 	return 0;
 }
 
-inline void VectorsScript::clear_params()
+void VectorsScript::clear_params()
 {
 	m_operator = '+';
 	m_separator = 0;
@@ -105,7 +105,7 @@ inline void VectorsScript::clear_params()
 	}
 }
 
-inline Coord VectorsScript::operation(char m_operator, Coord param1, Coord param2)
+Coord VectorsScript::operation(char m_operator, Coord param1, Coord param2)
 {
 	Coord result = param1;
 	switch (m_operator)
@@ -149,22 +149,22 @@ inline Coord VectorsScript::operation(char m_operator, Coord param1, Coord param
 	return result;
 }
 
-inline char VectorsScript::get_char()
+char VectorsScript::get_char()
 {
 	return *m_pos;
 }
 
-inline void VectorsScript::next()
+void VectorsScript::next()
 {
 	m_pos++;
 }
 
-inline void VectorsScript::first()
+void VectorsScript::first()
 {
 	m_pos = m_buffer;
 }
 
-inline void VectorsScript::set_error(enum Error err)
+void VectorsScript::set_error(enum Error err)
 {
 #ifdef TRACE
 	bd_printf("// !!! Error %d\n",err);

@@ -14,7 +14,27 @@
 		"print": "cpp",
 		"streambuf": "cpp",
 		"string": "cpp",
-		"cstdio": "cpp"
+		"cstdio": "cpp",
+		"__assertion_handler": "cpp",
+		"locale": "cpp",
+		"typeinfo": "cpp",
+		"version": "cpp",
+		"__hash_table": "cpp",
+		"__node_handle": "cpp",
+		"bitset": "cpp",
+		"format": "cpp",
+		"fstream": "cpp",
+		"complex": "cpp",
+		"bit": "cpp",
+		"compare": "cpp",
+		"random": "cpp",
+		"functional": "cpp",
+		"istream": "cpp",
+		"limits": "cpp",
+		"mutex": "cpp",
+		"sstream": "cpp",
+		"stop_token": "cpp",
+		"variant": "cpp"
 	},
 	"cmake.configureSettings": {
 		"SDL3_INCLUDE_DIRS": "/Library/Frameworks/SDL3.framework"
