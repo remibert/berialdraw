@@ -1,6 +1,4 @@
-#ifndef Dim_hpp_INCLUDED
-#define Dim_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	typedef uint32_t Dim;
@@ -11,4 +9,3 @@ namespace berialdraw
 	bool unserialize(const char * name, JsonIterator & it, Dim & value);
 	bool unserialize(const char * name, JsonIterator & it, uint16_t & value);
 }
-#endif

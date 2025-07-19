@@ -1,6 +1,4 @@
-#ifndef ProgressBarStyle_hpp_INCLUDED
-#define ProgressBarStyle_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** The ProgressBarStyle class specifies the appearance of progress bars, including the bar's color, 
@@ -19,6 +17,9 @@ namespace berialdraw
 
 		/** Unserialize the content of widget from json */
 		void unserialize(JsonIterator & it);
+
+		/** Copy operator */
+		ProgressBarStyle& operator=(const ProgressBarStyle& other);
 
 		/** Set properties with another */
 		void set(const ProgressBarStyle & other);
@@ -105,4 +106,3 @@ namespace berialdraw
 /// @endcond
 	}; 
 }
-#endif

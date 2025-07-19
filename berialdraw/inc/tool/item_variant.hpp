@@ -1,5 +1,4 @@
-#ifndef ItemVariant_hpp_INCLUDED
-#define ItemVariant_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** Item variant can be integer, long integer, boolean, string */
@@ -97,4 +96,3 @@ namespace berialdraw
 		virtual bool operator!=(bool other) const = 0;
 	};
 }
-#endif

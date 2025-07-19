@@ -1,6 +1,3 @@
-#ifndef Svg_hpp_INCLUDED
-#define Svg_hpp_INCLUDED
-
 struct FT_Outline_;
 typedef struct FT_Outline_ FT_Outline;
 
@@ -115,5 +112,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-
-#endif // Svg_hpp_INCLUDED

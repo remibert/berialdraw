@@ -92,6 +92,7 @@ void SampleSpeedometer::draw_dial(Column * column)
 	m_canvas = new Canvas(column);                                // Create the canvas for the speedometer
 		m_canvas->size(480, 400);                                 // Set the canvas size
 		m_canvas->color(Color::HEADER_COLOR);                     // Set the canvas background color
+		m_canvas->id(1234);
 
 	Circle * border = new Circle(m_canvas);                       // Add a circular border to the speedometer dial
 		border->color(Color::GRAY);                               // Set the border color

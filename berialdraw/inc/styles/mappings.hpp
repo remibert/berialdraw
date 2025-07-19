@@ -1,6 +1,4 @@
-#ifndef Mappings_hpp_INCLUDED
-#define Mappings_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class defines keyboard mapping */
@@ -60,5 +58,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-
-#endif // Mappings_hpp_INCLUDED

@@ -2983,5 +2983,25 @@
 		{
 			"scale_1" : 1733352773,
 			"scale_2" : 3505601747
+		},
+		"test/out/sketch1_1.svg" : 
+		{
+			"scale_1" : 1527923332
+		},
+		"test/out/sketch1_2.svg" : 
+		{
+			"scale_1" : 2657729461
+		},
+		"test/out/sketch1_3.svg" : 
+		{
+			"scale_1" : 1597986546
+		},
+		"test/out/sketch1_4.svg" : 
+		{
+			"scale_1" : 972326987
+		},
+		"test/out/sketch1_5.svg" : 
+		{
+			"scale_1" : 548476753
 		}
 	}

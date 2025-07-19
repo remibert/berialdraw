@@ -1,6 +1,4 @@
-#ifndef FocusEvent_hpp_INCLUDED
-#define FocusEvent_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	class Widget;
@@ -36,4 +34,3 @@ namespace berialdraw
 /// @endcond 
 	};
 };
-#endif

@@ -1,6 +1,4 @@
-#ifndef Triangle_hpp_INCLUDED
-#define Triangle_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class representing a triangle marker.
@@ -21,4 +19,3 @@ namespace berialdraw
 		virtual void paint(const Point & shift);
 	};
 }
-#endif

@@ -1,6 +1,4 @@
-#ifndef PieStyle_hpp_INCLUDED
-#define PieStyle_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** The PieStyle class defines the styling for pie-shaped elements, including angle and rope.
@@ -19,6 +17,9 @@ namespace berialdraw
 
 		/** Unserialize the content of widget from json */
 		void unserialize(JsonIterator & it);
+
+		/** Copy operator */
+		PieStyle& operator=(const PieStyle& other);
 
 		/** Set properties with another */
 		void set(const PieStyle & other);
@@ -68,4 +69,3 @@ namespace berialdraw
 ///< @endcond
 	};
 }
-#endif

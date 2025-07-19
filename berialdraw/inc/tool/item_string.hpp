@@ -1,6 +1,4 @@
-#ifndef ItemString_hpp_INCLUDED
-#define ItemString_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Json string item */
@@ -124,4 +122,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

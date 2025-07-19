@@ -1,6 +1,4 @@
-#ifndef Invalidator_hpp_INCLUDED
-#define Invalidator_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	class Widget;
@@ -41,6 +39,9 @@ namespace berialdraw
 		/** Check if something must be refreshed */
 		bool is_dirty();
 
+		/** Get the status of widget */
+		enum Status status(Widget * object);
+
 		/** Clear all dirties object */
 		void clear(void * object);
 
@@ -59,8 +60,6 @@ namespace berialdraw
 		/** Updates parents that a child widget is invalidate */
 		void update();
 
-	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Add dirty object */
 		void dirty(void * object, enum Status status);
 
@@ -70,6 +69,8 @@ namespace berialdraw
 		/** Return the index in table or -1 if not found */
 		int32_t search(void * object);
 
+	protected:
+/// @cond DOXYGEN_IGNORE
 		/** List of all object required to refresh */
 		struct InvalidatorItem
 		{
@@ -83,4 +84,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

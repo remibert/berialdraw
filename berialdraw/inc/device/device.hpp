@@ -1,6 +1,4 @@
-#ifndef Device_hpp_INCLUDED
-#define Device_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	class Event;
@@ -47,5 +45,3 @@ namespace berialdraw
 		virtual void refresh() = 0;
 	};
 }
-
-#endif // Device_hpp_INCLUDED

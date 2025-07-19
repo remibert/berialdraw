@@ -1,6 +1,4 @@
-#ifndef SizePolicy_hpp_INCLUDED
-#define SizePolicy_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	class JsonIterator;
@@ -25,4 +23,3 @@ namespace berialdraw
 	/** Serialize the content of widget into json */
 	void serialize(JsonIterator & it, SizePolicy size_policy);
 }
-#endif

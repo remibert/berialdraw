@@ -301,6 +301,11 @@ void Widget::dirty_children(enum Invalidator::Status status)
 {
 	Widget* child = m_children;
 	UIManager::invalidator()->dirty(this, status);
+	if (status & Invalidator::GEOMETRY)
+	{
+		m_geometry_modified = 1;
+	}
+
 	while (child)
 	{
 		child->dirty_children(status);

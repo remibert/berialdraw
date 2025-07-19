@@ -1,5 +1,4 @@
-#ifndef Icon_hpp_INCLUDED
-#define Icon_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** The Icon class is a specialized button that combines an image and a text label. 
@@ -57,7 +56,7 @@ namespace berialdraw
 		Area m_icon_foreclip;
 		Area m_text_backclip;
 		TextBox m_text_box;
+		Sketch * m_sketch;
 /// @endcond
 	};
 }
-#endif

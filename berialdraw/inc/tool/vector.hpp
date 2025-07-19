@@ -1,5 +1,4 @@
-#ifndef Vector_hpp_INCLUDED
-#define Vector_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** Specialized vector class allowing you to add an element or remove it at a given location */
@@ -160,4 +159,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

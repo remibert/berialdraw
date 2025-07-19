@@ -1,6 +1,4 @@
-#ifndef Renderer_hpp_INCLUDED
-#define Renderer_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	class Widget;
@@ -111,5 +109,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-
-#endif

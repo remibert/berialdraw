@@ -1,6 +1,4 @@
-#ifndef Orientation_hpp_INCLUDED
-#define Orientation_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	enum Orientation
@@ -11,4 +9,3 @@ namespace berialdraw
 		ORIENTATION_RETURNED = 3  // Rotate 180°
 	};
 }
-#endif

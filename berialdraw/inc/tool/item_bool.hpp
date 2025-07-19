@@ -1,6 +1,4 @@
-#ifndef ItemBool_hpp_INCLUDED
-#define ItemBool_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Json boolean */
@@ -113,4 +111,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

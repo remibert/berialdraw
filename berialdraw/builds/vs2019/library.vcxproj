@@ -449,6 +449,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\..\src\shape\sketch.cpp" />
     <ClCompile Include="..\..\src\shape\square.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
@@ -559,6 +560,16 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\..\src\styles\line_style.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="..\..\src\styles\mappings.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
@@ -589,7 +600,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="..\..\src\styles\shape_style.cpp">
+    <ClCompile Include="..\..\src\styles\round_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -1344,6 +1355,7 @@
     <ClInclude Include="..\..\inc\shape\rect.hpp" />
     <ClInclude Include="..\..\inc\shape\renderer.hpp" />
     <ClInclude Include="..\..\inc\shape\shape.hpp" />
+    <ClInclude Include="..\..\inc\shape\sketch.hpp" />
     <ClInclude Include="..\..\inc\shape\square.hpp" />
     <ClInclude Include="..\..\inc\shape\text.hpp" />
     <ClInclude Include="..\..\inc\shape\text_box.hpp" />
@@ -1355,10 +1367,11 @@
     <ClInclude Include="..\..\inc\styles\edit_style.hpp" />
     <ClInclude Include="..\..\inc\styles\icon_style.hpp" />
     <ClInclude Include="..\..\inc\styles\keys.hpp" />
+    <ClInclude Include="..\..\inc\styles\line_style.hpp" />
     <ClInclude Include="..\..\inc\styles\mappings.hpp" />
     <ClInclude Include="..\..\inc\styles\pie_style.hpp" />
     <ClInclude Include="..\..\inc\styles\progress_bar_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\shape_style.hpp" />
+    <ClInclude Include="..\..\inc\styles\round_style.hpp" />
     <ClInclude Include="..\..\inc\styles\slider_style.hpp" />
     <ClInclude Include="..\..\inc\styles\style.hpp" />
     <ClInclude Include="..\..\inc\styles\styles.hpp" />

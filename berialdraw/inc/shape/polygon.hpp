@@ -1,6 +1,4 @@
-#ifndef Polygon_hpp_INCLUDED
-#define Polygon_hpp_INCLUDED
-
+#pragma once
 struct FT_Outline_;
 
 namespace berialdraw
@@ -147,5 +145,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-
-#endif // Polygon_hpp_INCLUDED

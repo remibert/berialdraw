@@ -1,5 +1,4 @@
-#ifndef Switch_hpp_INCLUDED
-#define Switch_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** The Switch class represents a binary on/off control, similar to a toggle button. 
@@ -57,4 +56,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

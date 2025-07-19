@@ -1,5 +1,4 @@
-#ifndef Desk_hpp_INCLUDED
-#define Desk_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** The Desktop class manages all top-level windows and serves as the root context for the user interface. 
@@ -65,4 +64,3 @@ namespace berialdraw
 /// @endcond 
 	};
 }
-#endif

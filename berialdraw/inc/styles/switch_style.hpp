@@ -1,6 +1,4 @@
-#ifndef SwitchStyle_hpp_INCLUDED
-#define SwitchStyle_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** The SwitchStyle class customizes the visual properties of switches, including the background, 
@@ -19,6 +17,9 @@ namespace berialdraw
 
 		/** Unserialize the content of widget from json */
 		void unserialize(JsonIterator & it);
+
+		/** Copy operator */
+		SwitchStyle& operator=(const SwitchStyle& other);
 
 		/** Set properties with another */
 		void set(const SwitchStyle & other);
@@ -87,4 +88,3 @@ namespace berialdraw
 /// @endcond
 	}; 
 }
-#endif

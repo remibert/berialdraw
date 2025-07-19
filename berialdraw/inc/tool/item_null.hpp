@@ -1,6 +1,4 @@
-#ifndef ItemNull_hpp_INCLUDED
-#define ItemNull_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Json null */
@@ -102,4 +100,3 @@ namespace berialdraw
 		virtual bool operator!=(bool other) const;
 	};
 }
-#endif

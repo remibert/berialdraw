@@ -1,6 +1,4 @@
-#ifndef Point_hpp_INCLUDED
-#define Point_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class that defines a position in a plane */
@@ -139,5 +137,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-
-#endif

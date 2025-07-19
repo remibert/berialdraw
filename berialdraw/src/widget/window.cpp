@@ -908,6 +908,7 @@ void Window::test()
 	if (done == false)
 	{
 		done = true;
+test8();
 		test9();
 		test8();
 		test7();

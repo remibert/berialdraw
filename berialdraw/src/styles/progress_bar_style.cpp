@@ -38,6 +38,16 @@ void ProgressBarStyle::unserialize(JsonIterator & it)
 	check_progress_bar();
 }
 
+/** Copy operator */
+ProgressBarStyle& ProgressBarStyle::operator=(const ProgressBarStyle& other)
+{
+	if (this != &other)
+	{
+		set(other);
+	}
+	return *this;
+}
+
 /** Set properties with another */
 void ProgressBarStyle::set(const ProgressBarStyle & other)
 {

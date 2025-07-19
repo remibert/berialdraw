@@ -11,9 +11,10 @@ Pie::Pie(Canvas * canvas) :
 
 Pie::Pie(const Pie & other):
 	Shape(other),
+	RoundStyle(other),
+	PieStyle(other),
 	m_polygon(0)
 {
-	*((PieStyle*)this) = *(const PieStyle*)&other;
 }
 
 void Pie::get_slice(const Point & center, Dim radius, Coord start_angle, Coord sweep_angle, Point & p1, Point & c1, Point &c2, Point &p2)

@@ -1,6 +1,4 @@
-#ifndef Caller_hpp_INCLUDED
-#define Caller_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	class Event;
@@ -182,6 +180,3 @@ namespace berialdraw
 	};
 
 }
-
-#endif
-

@@ -1,14 +1,15 @@
-#ifndef Line_hpp_INCLUDED
-#define Line_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class drawing a line on a canvas */
-	class Line: public Shape
+	class Line: public Shape, public LineStyle, public RoundStyle
 	{
 	public:
 		/** Constructor */
 		Line(Canvas * canvas);
+
+		/** Copy contructor */
+		Line(const Line & other);
 
 		/** Refresh the line */
 		virtual void paint(const Point & shift);
@@ -34,4 +35,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

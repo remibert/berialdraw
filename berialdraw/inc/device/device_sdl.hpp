@@ -1,6 +1,4 @@
-#ifndef DeviceSdl_hpp_INCLUDED
-#define DeviceSdl_hpp_INCLUDED
-
+#pragma once
 #include <SDL3/SDL.h> 
 
 namespace berialdraw
@@ -90,5 +88,3 @@ namespace berialdraw
 	@return The elapsed time in milliseconds */
 	uint32_t get_elapsed_ms(uint64_t begin, uint64_t end);
 }
-
-#endif // DeviceSdl_hpp_INCLUDED

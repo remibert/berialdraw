@@ -1,6 +1,4 @@
-#ifndef Fonts_h_INCLUDED
-#define Fonts_h_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	typedef SharedPtr<Font> FontPtr;
@@ -58,6 +56,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-
-#endif // Fonts_h_INCLUDED
-

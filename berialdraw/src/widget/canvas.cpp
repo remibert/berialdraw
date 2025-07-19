@@ -24,11 +24,13 @@ void Canvas::copy(const Canvas & canvas)
 /** Return the size of content without marges */
 Size Canvas::content_size()
 {
-	if (m_content_size.is_width_undefined() && m_content_size.is_height_undefined())
+	if ((m_content_size.is_width_undefined() && m_content_size.is_height_undefined()) || m_geometry_modified)
 	{
-		if (m_size.is_height_undefined() && m_size.is_width_undefined())
+		m_geometry_modified = 0;
+		if ((m_size.is_height_undefined() && m_size.is_width_undefined()))
 		{
 			Size size;
+
 			// Compute the content size according to all shapes registered
 			for(uint32_t i = 0; i < m_shapes.size(); i++)
 			{
@@ -110,7 +112,6 @@ void Canvas::paint(const Region & parent_region)
 			exporter->close_group();
 		}
 	}
-
 }
 
 /** Add shape into the canvas (all shapes added will be destroyed when the canvas destroy) */
@@ -173,7 +174,6 @@ void Canvas::clear()
 	}
 	m_shapes.clear();
 }
-
 
 /** Get the widget hovered */
 Widget * Canvas::hovered(const Region & parent_region, const Point & position)
@@ -412,6 +412,7 @@ void Canvas::test()
 	static bool done = false;
 	if (done == false)
 	{
+test3();
 		done = true;
 		test5();
 		test4();

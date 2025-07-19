@@ -1,5 +1,4 @@
-#ifndef Label_hpp_INCLUDED
-#define Label_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** The Label class is used to display non-interactive text in the user interface. 
@@ -52,4 +51,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

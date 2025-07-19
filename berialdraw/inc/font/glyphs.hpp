@@ -1,6 +1,4 @@
-#ifndef Glyphs_hpp_INCLUDED
-#define Glyphs_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	class Glyph;
@@ -39,5 +37,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-
-#endif // Glyphs_hpp_INCLUDED

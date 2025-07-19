@@ -1,6 +1,4 @@
-#ifndef Framebuf_hpp_INCLUDED
-#define Framebuf_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Abstract framebuffer class */
@@ -71,5 +69,3 @@ namespace berialdraw
 	};
 
 }
-
-#endif // Framebuf_hpp_INCLUDED

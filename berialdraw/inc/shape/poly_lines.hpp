@@ -1,10 +1,8 @@
-#ifndef PolyLines_hpp_INCLUDED
-#define PolyLines_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class to represent and manipulate a series of connected lines */
-	class PolyLines : public Shape
+	class PolyLines : public Shape, public RoundStyle
 	{
 	public:
 		/** Constructor
@@ -130,5 +128,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-
-#endif // PolyLines_hpp_INCLUDED

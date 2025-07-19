@@ -1,6 +1,4 @@
-#ifndef Font_h_INCLUDED
-#define Font_h_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	class _Font;
@@ -105,4 +103,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif // Font_h_INCLUDED

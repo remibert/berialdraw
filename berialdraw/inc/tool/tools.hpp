@@ -1,6 +1,4 @@
-#ifndef tools_h_INCLUDED
-#define tools_h_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Converts the initial part of the string in stringptr to a long integer value according to the given base, which must be between 2, 8, 10, 16.
@@ -50,6 +48,4 @@ void tools_test2();
 #endif
 
 	long long clockns();
-
-#endif // tools_h_INCLUDED
 

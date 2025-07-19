@@ -1,6 +1,4 @@
-#ifndef side_hpp_INCLUDED
-#define side_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Define the side visible */
@@ -37,4 +35,3 @@ namespace berialdraw
 	void serialize(JsonIterator & it, Sides side);
 
 }
-#endif

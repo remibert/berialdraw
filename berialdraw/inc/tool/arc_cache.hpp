@@ -1,6 +1,4 @@
-#ifndef arc_cach_hpp_INCLUDED
-#define arc_cach_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Stores the result of an arc-line intersection computation. */
@@ -45,5 +43,3 @@ namespace berialdraw
 	/// @endcond
 	};
 }
-
-#endif

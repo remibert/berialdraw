@@ -1,6 +1,4 @@
-#ifndef Coord_hpp_INCLUDED
-#define Coord_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	typedef int32_t Coord;
@@ -9,4 +7,3 @@ namespace berialdraw
 	Coord multiply_(Coord a, Coord b);
 	bool unserialize(const char * name, JsonIterator & it, Coord & value);
 }
-#endif

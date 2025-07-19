@@ -1,5 +1,4 @@
-#ifndef Item_hpp_INCLUDED
-#define Item_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** Generic json item */
@@ -22,4 +21,3 @@ namespace berialdraw
 		static const char * typestr(Item *item);
 	};
 }
-#endif

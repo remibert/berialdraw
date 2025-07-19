@@ -246,7 +246,8 @@ class SvgToIcn:
 					if segment_type == 'Line':
 						# For Line segments
 						subpath_icn += ".%s;" % self.to_64(segment.start)
-						subpath_icn += ".%s;" % self.to_64(segment.end)
+						if segment.end != segment.start:
+							subpath_icn += ".%s;" % self.to_64(segment.end)
 					elif segment_type == 'CubicBezier':
 						# For Cubic Bezier segments
 						subpath_icn += ".%s;" % self.to_64(segment.start)

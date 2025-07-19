@@ -1,6 +1,4 @@
-#ifndef Square_hpp_INCLUDED
-#define Square_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class representing a square marker.
@@ -22,4 +20,3 @@ namespace berialdraw
 		virtual void paint(const Point & shift);
 	};
 }
-#endif

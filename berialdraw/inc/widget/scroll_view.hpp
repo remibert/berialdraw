@@ -1,5 +1,4 @@
-#ifndef ScrollView_hpp_INCLUDED
-#define ScrollView_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** The ScrollView class provides a scrollable container for content that exceeds the visible area. 
@@ -102,4 +101,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

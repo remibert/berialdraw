@@ -1,6 +1,4 @@
-#ifndef TouchEvent_hpp_INCLUDED
-#define TouchEvent_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Touch event */
@@ -43,4 +41,3 @@ namespace berialdraw
 /// @endcond
 	};
 };
-#endif

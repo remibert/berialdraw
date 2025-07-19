@@ -1,6 +1,4 @@
-#ifndef IconMenuDialog_hpp_INCLUDED
-#define IconMenuDialog_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Dialog box to display a menu with a list of icons, a title and a button to cancel */
@@ -52,4 +50,3 @@ namespace berialdraw
 		uint32_t m_color = Color::FIRST_THEME_COLOR;
 	};
 }
-#endif

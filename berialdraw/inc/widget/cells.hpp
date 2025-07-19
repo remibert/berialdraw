@@ -1,5 +1,4 @@
-#ifndef Cells_hpp_INCLUDED
-#define Cells_hpp_INCLUDED
+#pragma once
 /// @cond DOXYGEN_IGNORE
 namespace berialdraw
 {
@@ -71,5 +70,3 @@ namespace berialdraw
 	};
 }
 /// @endcond 
-
-#endif

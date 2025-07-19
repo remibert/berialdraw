@@ -1,6 +1,4 @@
-#ifndef Text_hpp_INCLUDED
-#define Text_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class representing text as a drawable shape with specific text styling. */
@@ -50,5 +48,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-
-#endif

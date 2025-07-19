@@ -1,6 +1,4 @@
-#ifndef Cross_hpp_INCLUDED
-#define Cross_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class drawing a cross on a canvas */
@@ -18,4 +16,3 @@ namespace berialdraw
 #endif
 	};
 }
-#endif

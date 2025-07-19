@@ -14,6 +14,21 @@ Shape::Shape(Canvas * canvas, size_t shape_size):
 	}
 }
 
+/** Constructor
+@param widget Pointer to the widget object
+@widget_size size of shape instance (required by invalidator) */
+Shape::Shape(Widget * widget, size_t widget_size) :
+	m_widget(widget)
+{
+	m_color = Color::SHAPE_COLOR;
+	
+	if(widget)
+	{
+		UIManager::invalidator()->dirty(m_widget, Invalidator::REDRAW);
+	}
+}
+
+
 Shape::~Shape()
 {
 	if(m_canvas)
@@ -21,14 +36,18 @@ Shape::~Shape()
 		UIManager::invalidator()->dirty(m_canvas, Invalidator::REDRAW);
 		m_canvas->remove(this);
 	}
+	if(m_widget)
+	{
+		UIManager::invalidator()->dirty(m_widget, Invalidator::REDRAW);
+	}
 }
 
 Shape::Shape(const Shape & other)
 {
-	*((ShapeStyle*)this) = *(const ShapeStyle*)&other;
 	*((CommonStyle*)this) = *(const CommonStyle*)&other;
 
 	m_canvas = other.m_canvas;
+	m_widget = other.m_widget;
 	m_repetition = other.m_repetition;
 	m_start = other.m_start;
 	m_end = other.m_end;
@@ -38,6 +57,10 @@ Shape::Shape(const Shape & other)
 	{
 		UIManager::invalidator()->dirty(m_canvas, Invalidator::GEOMETRY);
 		m_canvas->add(this, sizeof(Shape));
+	}
+	if(m_widget)
+	{
+		UIManager::invalidator()->dirty(m_widget, Invalidator::GEOMETRY);
 	}
 }
 
@@ -145,4 +168,3 @@ void Shape::paints(const Point & shift)
 		}
 	}
 }
-

@@ -1,5 +1,4 @@
-#ifndef berialdraw_imp_hpp_INCLUDED
-#define berialdraw_imp_hpp_INCLUDED
+#pragma once
 /// @cond DOXYGEN_IGNORE
 #include <assert.h>
 #include <stddef.h>
@@ -72,4 +71,3 @@ namespace berialdraw
 
 #undef SIZE_MAX
 /// @endcond
-#endif // berialdraw_imp_hpp_INCLUDED

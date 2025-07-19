@@ -1,5 +1,4 @@
-#ifndef ItemArray_hpp_INCLUDED
-#define ItemArray_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** Json array */
@@ -55,4 +54,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

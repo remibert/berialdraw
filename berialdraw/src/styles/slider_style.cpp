@@ -40,19 +40,29 @@ void SliderStyle::unserialize(JsonIterator & it)
 	check_slider();
 }
 
+/** Copy operator */
+SliderStyle& SliderStyle::operator=(const SliderStyle& other)
+{
+	set(other);
+	return *this;
+}
+
 /** Set properties with another */
 void SliderStyle::set(const SliderStyle & other)
 {
-	m_track_color   = other.m_track_color;
-	m_handle_color  = other.m_handle_color;
-	m_track_size    = other.m_track_size;
-	m_handle_size   = other.m_handle_size;
-	m_value         = other.m_value;
-	m_min_value     = other.m_min_value;
-	m_max_value     = other.m_max_value;
-	m_step_value    = other.m_step_value;
-	check_slider();
-	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	if (this != &other)
+	{
+		m_track_color   = other.m_track_color;
+		m_handle_color  = other.m_handle_color;
+		m_track_size    = other.m_track_size;
+		m_handle_size   = other.m_handle_size;
+		m_value         = other.m_value;
+		m_min_value     = other.m_min_value;
+		m_max_value     = other.m_max_value;
+		m_step_value    = other.m_step_value;
+		check_slider();
+		UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	}
 }
 
 Style * SliderStyle::create()

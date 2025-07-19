@@ -1,5 +1,4 @@
-#ifndef Row_hpp_INCLUDED
-#define Row_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** The Row class organizes child widgets in a single horizontal line. 
@@ -51,4 +50,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

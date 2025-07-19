@@ -1,5 +1,4 @@
-#ifndef Utf8_hpp_INCLUDED
-#define Utf8_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** A set of tools for performing UTF-8 conversions. */
@@ -49,4 +48,3 @@ namespace berialdraw
 		static const wchar_t not_a_char = 0xD800;
 	};
 }
-#endif

@@ -1,6 +1,4 @@
-#ifndef Outline_hpp_INCLUDED
-#define Outline_hpp_INCLUDED
-
+#pragma once
 struct FT_Outline_;
 
 namespace berialdraw
@@ -92,5 +90,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-
-#endif // Outline_hpp_INCLUDED

@@ -1,5 +1,4 @@
-#ifndef VectorsScripts_hpp_INCLUDED
-#define VectorsScripts_hpp_INCLUDED
+#pragma once
 
 namespace berialdraw
 {
@@ -124,5 +123,3 @@ namespace berialdraw
 /// @endcond
 	};
 };
-
-#endif // VectorsScripts_hpp_INCLUDED

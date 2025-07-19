@@ -1,6 +1,4 @@
-#ifndef Circle_hpp_INCLUDED
-#define Circle_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Draw circle on canvas */
@@ -17,4 +15,3 @@ namespace berialdraw
 		virtual void paint(const Point & shift);
 	};
 }
-#endif

@@ -1,6 +1,4 @@
-#ifndef Exporter_hpp_INCLUDED
-#define Exporter_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Interface used to export vector graphics. */
@@ -43,5 +41,3 @@ namespace berialdraw
 		virtual void close(uint32_t crc32) = 0;
 	};
 }
-
-#endif

@@ -1,6 +1,4 @@
-#ifndef Keys_hpp_INCLUDED
-#define Keys_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 
@@ -90,6 +88,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-
-#endif // Keys_hpp_INCLUDED
-

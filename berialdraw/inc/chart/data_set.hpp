@@ -1,6 +1,4 @@
-#ifndef DataSet_hpp_INCLUDED
-#define DataSet_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class to store data for charts.
@@ -55,4 +53,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

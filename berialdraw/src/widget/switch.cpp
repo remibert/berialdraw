@@ -30,8 +30,7 @@ void Switch::copy(const Switch & switch_)
 /** Return the size of content without marges */
 Size Switch::content_size()
 {
-	Size result(m_switch_size);
-	return result;
+	return m_switch_size;
 }
 
 

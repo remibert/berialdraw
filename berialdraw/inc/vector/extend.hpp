@@ -1,6 +1,4 @@
-#ifndef Extend_hpp_INCLUDED
-#define Extend_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	enum Extend
@@ -17,4 +15,3 @@ namespace berialdraw
 	/** Serialize the content of extend into json */
 	void serialize(JsonIterator & it, Extend extend);
 }
-#endif

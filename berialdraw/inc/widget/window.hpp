@@ -1,5 +1,4 @@
-#ifndef Window_hpp_INCLUDED
-#define Window_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** The Window class represents a top-level container for UI elements. 
@@ -93,4 +92,3 @@ namespace berialdraw
 /// }
 	};
 }
-#endif

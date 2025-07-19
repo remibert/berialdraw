@@ -1,6 +1,4 @@
-#ifndef TextStream_hpp_INCLUDED
-#define TextStream_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	class String;
@@ -86,4 +84,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

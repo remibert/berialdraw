@@ -1,5 +1,4 @@
-#ifndef Edit_hpp_INCLUDED
-#define Edit_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** The Edit class allows users to enter and modify text. 
@@ -71,5 +70,3 @@ namespace berialdraw
 /// @endcond 
 	};
 }
-#endif
-

@@ -1,10 +1,8 @@
-#ifndef Compass_hpp_INCLUDED
-#define Compass_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class of tools for simulating a compass, which will be used to position shapes at given points */
-	class Compass : public ShapeStyle, public CommonStyle
+	class Compass : public RoundStyle, public CommonStyle
 	{
 	public:
 		/** Constructor */
@@ -18,4 +16,3 @@ namespace berialdraw
 #endif
 	};
 }
-#endif

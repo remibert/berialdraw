@@ -1,5 +1,4 @@
-#ifndef Colors_HPP_INCLUDED
-#define Colors_HPP_INCLUDED
+#pragma once
 // https://www.computerhope.com/htmcolor.htm#color-codes
 namespace berialdraw
 {
@@ -815,4 +814,3 @@ namespace berialdraw
 		WHITE                = 0xFFFFFFFF,
 	} Color;
 }
-#endif

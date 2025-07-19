@@ -1,5 +1,4 @@
-#ifndef Widget_hpp_INCLUDED
-#define Widget_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	class Desktop;
@@ -134,4 +133,3 @@ namespace berialdraw
 /// @endcond 
 	};
 }
-#endif

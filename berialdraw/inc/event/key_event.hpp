@@ -1,6 +1,4 @@
-#ifndef KeyEvent_hpp_INCLUDED
-#define KeyEvent_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Key event */
@@ -55,4 +53,3 @@ namespace berialdraw
 /// @endcond
 	};
 };
-#endif

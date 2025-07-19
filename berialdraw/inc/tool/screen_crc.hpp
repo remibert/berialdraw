@@ -1,6 +1,4 @@
-#ifndef ScreenCrc_hpp_INCLUDED
-#define ScreenCrc_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Manage the screen CRC to check test regressions */
@@ -28,4 +26,3 @@ namespace berialdraw
 /// @endcond 
 	};
 }
-#endif

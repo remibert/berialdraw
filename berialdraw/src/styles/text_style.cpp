@@ -34,25 +34,34 @@ void TextStyle::unserialize(JsonIterator & it)
 	m_padding.unserialize ("padding",it);
 }
 
+/** Copy operator */
+TextStyle& TextStyle::operator=(const TextStyle& other)
+{
+	set(other);
+	return *this;
+}
+
 /** Set properties with another */
 void TextStyle::set(const TextStyle & other)
 {
-	m_padding     = other.m_padding;
-	m_text_align   = other.m_text_align;
-	m_text_color   = other.m_text_color;
-	m_font_familly = other.m_font_familly;
-	m_font_size    = other.m_font_size;
-	m_text        = other.m_text;
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_text_modified = 1;
-	m_font_modified = 1;
+	if (this != &other)
+	{
+		m_padding     = other.m_padding;
+		m_text_align   = other.m_text_align;
+		m_text_color   = other.m_text_color;
+		m_font_familly = other.m_font_familly;
+		m_font_size    = other.m_font_size;
+		m_text        = other.m_text;
+		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+		m_text_modified = 1;
+		m_font_modified = 1;
+	}
 }
 
 Style * TextStyle::create()
 {
 	return new TextStyle;
 }
-
 
 /** Get the text color */
 uint32_t TextStyle::text_color() const
@@ -81,11 +90,11 @@ const String & TextStyle::font_familly()
 }
 
 /** Set the font familly */
-void TextStyle::font_familly(const char * fontFamilly_)
+void TextStyle::font_familly(const char * font_familly_)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_font_modified = 1;
-	m_font_familly = fontFamilly_;
+	m_font_familly = font_familly_;
 }
 
 /** Get the font size */
@@ -220,8 +229,6 @@ void TextStyle::padding(Dim value)
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_padding.set(value,value,value,value);
 }
-
-
 
 /** Get the text align */
 Align TextStyle::text_align() const

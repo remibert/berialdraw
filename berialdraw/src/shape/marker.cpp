@@ -11,6 +11,15 @@ Marker::Marker(Canvas * canvas):
 	m_radius = 5<<6;
 }
 
+/** Copy contructor */
+Marker::Marker(const Marker & other) :
+	Shape(other),
+	RoundStyle(other),
+	m_polygon(0)
+{
+}
+
+
 void Marker::paint(const Point & shift, const char * filled, const char * un_filled)
 {
 	if (UIManager::invalidator()->is_dirty(m_canvas))

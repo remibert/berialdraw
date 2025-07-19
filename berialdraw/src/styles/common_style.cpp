@@ -8,6 +8,7 @@ CommonStyle::CommonStyle()
 	m_align = ALIGN_DEFAULT;
 	m_angle = 0;
 	m_angle_modified = 1;
+	m_geometry_modified = 1;
 	m_sides = ALL_SIDES;
 	m_light = 0;
 	m_hidden = false;
@@ -52,27 +53,11 @@ void CommonStyle::unserialize(JsonIterator & it)
 	m_center.unserialize("center",it);
 	berialdraw::unserialize(it, m_sides);
 	m_angle_modified = 1;
+	m_geometry_modified = 1;
 }
 
 /** Set properties with another */
 void CommonStyle::set(const CommonStyle & other)
-{
-	m_color      = other.m_color;
-	m_margin     = other.m_margin;
-	m_angle      = other.m_angle;
-	m_position   = other.m_position;
-	m_center     = other.m_center;
-	m_size       = other.m_size;
-	m_align      = other.m_align;
-	m_sides      = other.m_sides;
-	m_light      = other.m_light;
-	m_saturation = other.m_saturation;
-	m_hidden     = other.m_hidden;
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
-}
-
-
-CommonStyle& CommonStyle::operator=(const CommonStyle& other)
 {
 	if (this != &other)
 	{
@@ -89,6 +74,12 @@ CommonStyle& CommonStyle::operator=(const CommonStyle& other)
 		m_hidden     = other.m_hidden;
 		UIManager::invalidator()->dirty(this, Invalidator::ALL);
 	}
+}
+
+
+CommonStyle& CommonStyle::operator=(const CommonStyle& other)
+{
+	set(other);
 	return *this;
 }
 
@@ -317,6 +308,7 @@ void CommonStyle::angle(Coord v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_angle_modified = 1;
+	m_geometry_modified = 1;
 	m_angle = v << 6;
 }
 
@@ -325,6 +317,7 @@ void CommonStyle::angle_(Coord v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_angle_modified = 1;
+	m_geometry_modified = 1;
 	m_angle = v;
 }
 
@@ -339,6 +332,7 @@ const Point & CommonStyle::center() const
 void CommonStyle::center(const Point & center_)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_geometry_modified = 1;
 	m_center = center_;
 }
 
@@ -346,6 +340,7 @@ void CommonStyle::center(const Point & center_)
 void CommonStyle::center(Coord x, Coord y)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_geometry_modified = 1;
 	m_center.set(x,y);
 }
 
@@ -353,6 +348,7 @@ void CommonStyle::center(Coord x, Coord y)
 void CommonStyle::center_(Coord x, Coord y)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_geometry_modified = 1;
 	m_center.set_(x,y);
 }
 
@@ -368,6 +364,7 @@ const Point & CommonStyle::position() const
 void CommonStyle::position(const Point & position_)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_geometry_modified = 1;
 	m_position = position_;
 }
 
@@ -375,6 +372,7 @@ void CommonStyle::position(const Point & position_)
 void CommonStyle::position(Coord x, Coord y)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_geometry_modified = 1;
 	m_position.set(x,y);
 }
 
@@ -382,6 +380,7 @@ void CommonStyle::position(Coord x, Coord y)
 void CommonStyle::position_(Coord x, Coord y)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_geometry_modified = 1;
 	m_position.set_(x,y);
 }
 
@@ -461,6 +460,7 @@ const Size & CommonStyle::size() const
 void CommonStyle::size(const Size & size_)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_geometry_modified = 1;
 	m_size = size_;
 }
 
@@ -468,6 +468,7 @@ void CommonStyle::size(const Size & size_)
 void CommonStyle::size(Dim w, Dim h)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_geometry_modified = 1;
 	m_size.set(w,h);
 }
 
@@ -475,6 +476,7 @@ void CommonStyle::size(Dim w, Dim h)
 void CommonStyle::size_(Dim w, Dim h)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_geometry_modified = 1;
 	m_size.set_(w,h);
 }
 
@@ -489,6 +491,7 @@ Align CommonStyle::align() const
 void CommonStyle::align(Align v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_geometry_modified = 1;
 	m_align = (Align)v;
 }
 

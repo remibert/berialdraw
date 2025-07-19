@@ -372,7 +372,7 @@
     <ClCompile Include="..\..\src\styles\pie_style.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\styles\shape_style.cpp">
+    <ClCompile Include="..\..\src\styles\round_style.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\styles\styles.cpp">
@@ -548,6 +548,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\freetype\src\sfnt\ttmtx.c">
       <Filter>freetype\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\line_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\sketch.cpp">
+      <Filter>berialdraw\shape</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -893,7 +899,7 @@
     <ClInclude Include="..\..\inc\styles\pie_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\shape_style.hpp">
+    <ClInclude Include="..\..\inc\styles\round_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\styles\style.hpp">
@@ -1249,6 +1255,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\freetype\include\ft2build.h">
       <Filter>freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\line_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\shape\sketch.hpp">
+      <Filter>berialdraw\shape</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

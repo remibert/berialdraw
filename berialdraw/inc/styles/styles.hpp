@@ -1,6 +1,4 @@
-#ifndef Styles_hpp_INCLUDED
-#define Styles_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	class Desktop;
@@ -86,4 +84,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

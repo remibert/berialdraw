@@ -1,6 +1,4 @@
-#ifndef berialdraw_hpp_INCLUDED
-#define berialdraw_hpp_INCLUDED
-
+#pragma once
 // System includes
 #include <stdint.h>
 #include <stdarg.h>
@@ -50,12 +48,13 @@
 #include "styles/color.hpp"
 #include "styles/invalidator.hpp"
 #include "styles/style.hpp"
+#include "styles/line_style.hpp"
 #include "styles/common_style.hpp"
 #include "styles/edit_style.hpp"
 #include "styles/widget_style.hpp"
 #include "styles/text_style.hpp"
 #include "styles/border_style.hpp"
-#include "styles/shape_style.hpp"
+#include "styles/round_style.hpp"
 #include "styles/slider_style.hpp"
 #include "styles/progress_bar_style.hpp"
 #include "styles/pie_style.hpp"
@@ -97,6 +96,7 @@
 #include "shape/triangle.hpp"
 #include "shape/cross.hpp"
 #include "shape/text.hpp"
+#include "shape/sketch.hpp"
 
 // Chart
 #include "chart/data_set.hpp"
@@ -247,4 +247,3 @@ OS interface class for rendering and events :
 </ul>
 
 */
-#endif // berialdraw_hpp_INCLUDED

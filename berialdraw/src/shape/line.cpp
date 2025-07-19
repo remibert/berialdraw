@@ -10,6 +10,16 @@ Line::Line(Canvas * canvas) :
 	m_color = Color::SHAPE_COLOR;
 }
 
+/** Copy contructor */
+Line::Line(const Line & other) :
+	Shape(other),
+	LineStyle(other),
+	RoundStyle(other),
+	m_polygon(0)
+{
+}
+
+
 void Line::compute_thickness(Coord &dx, Coord &dy)
 {
 	get_thickness(m_point1.x_(), m_point1.y_(), m_point2.x_(), m_point2.y_(), m_thickness, dx, dy);

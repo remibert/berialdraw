@@ -1,5 +1,4 @@
-#ifndef WidgetStyle_hpp_INCLUDED
-#define WidgetStyle_hpp_INCLUDED
+#pragma once
 
 namespace berialdraw
 {
@@ -18,6 +17,9 @@ namespace berialdraw
 
 		/** Unserialize the content of widget from json */
 		void unserialize(JsonIterator & it);
+
+		/** Copy operator */
+		WidgetStyle& operator=(const WidgetStyle& other);
 
 		/** Set properties with another */
 		void set(const WidgetStyle & other);
@@ -170,4 +172,3 @@ namespace berialdraw
 /// @endcond 
 	};
 }
-#endif

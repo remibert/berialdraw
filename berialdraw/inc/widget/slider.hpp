@@ -1,5 +1,4 @@
-#ifndef Slider_hpp_INCLUDED
-#define Slider_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** The Slider class allows users to select a value from a predefined range by dragging a handle. 
@@ -68,4 +67,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

@@ -1,5 +1,4 @@
-#ifndef UIManager_hpp_INCLUDED
-#define UIManager_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	class Window;
@@ -85,4 +84,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

@@ -1,5 +1,4 @@
-#ifndef Button_hpp_INCLUDED
-#define Button_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** The Button class represents a UI element that users can click to trigger actions. 
@@ -65,4 +64,3 @@ namespace berialdraw
 /// @endcond 
 	};
 }
-#endif

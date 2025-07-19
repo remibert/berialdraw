@@ -24,21 +24,21 @@ void DeviceSdl::open_window()
 	m_buffer = new uint8_t [m_width * m_height * 3];
 	memset(m_buffer, 0xff, m_width * m_height * 3);
 
-		do
-		{
-			// Create window with SDL3 flags
-			m_window = SDL_CreateWindow(m_title.c_str(), m_width, m_height, SDL_WINDOW_HIGH_PIXEL_DENSITY);
+	do
+	{
+		// Create window with SDL3 flags
+		m_window = SDL_CreateWindow(m_title.c_str(), m_width, m_height, SDL_WINDOW_HIGH_PIXEL_DENSITY);
 
-			if (m_window == 0)  break;
+		if (m_window == 0)  break;
 
-			m_renderer = SDL_CreateRenderer(m_window, NULL);
-			if (m_renderer == 0) break;
+		m_renderer = SDL_CreateRenderer(m_window, NULL);
+		if (m_renderer == 0) break;
 
-			m_texture = SDL_CreateTexture(m_renderer, SDL_PIXELFORMAT_RGB24, SDL_TEXTUREACCESS_STREAMING, m_width, m_height);
-			if (m_texture == 0) break;
-			success = true;
-		}
-		while (0);
+		m_texture = SDL_CreateTexture(m_renderer, SDL_PIXELFORMAT_RGB24, SDL_TEXTUREACCESS_STREAMING, m_width, m_height);
+		if (m_texture == 0) break;
+		success = true;
+	}
+	while (0);
 
 	// Check if display is high resolution
 	int drawableWidth, drawableHeight;

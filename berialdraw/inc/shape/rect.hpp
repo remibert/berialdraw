@@ -1,12 +1,10 @@
-#ifndef Rect_hpp_INCLUDED
-#define Rect_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 /** This class represents a rectangle shape that can be drawn on a canvas.
 It extends the Shape class and provides methods for rendering and 
 defining the rectangle's outline. */
-class Rect : public Shape 
+class Rect : public Shape, public RoundStyle
 {
 public:
 	/** Constructs a Rect object linked to a specific canvas.
@@ -79,5 +77,3 @@ protected:
 };
 
 }
-#endif // Rect_hpp_INCLUDED
-

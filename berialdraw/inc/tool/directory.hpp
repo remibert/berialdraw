@@ -1,5 +1,4 @@
-#ifndef Directory_hpp_INCLUDED
-#define Directory_hpp_INCLUDED
+#pragma once
 
 	struct bd_DIR;
 	typedef struct bd_DIR bd_DIR;
@@ -76,5 +75,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-
-#endif

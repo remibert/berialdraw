@@ -1,6 +1,4 @@
-#ifndef ReValidator_hpp_INCLUDED
-#define ReValidator_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Mask expression to validate keyboard input on an input field */
@@ -55,4 +53,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

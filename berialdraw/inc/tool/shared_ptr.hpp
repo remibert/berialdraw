@@ -1,6 +1,4 @@
-#ifndef Sharedptr_hpp_INCLUDED
-#define Sharedptr_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Shared pointer implementation */
@@ -119,5 +117,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-
-#endif // Sharedptr_hpp_INCLUDED

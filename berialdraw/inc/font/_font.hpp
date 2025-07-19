@@ -1,5 +1,4 @@
-#ifndef _Font_h_INCLUDED
-#define _Font_h_INCLUDED
+#pragma once
 /// @cond DOXYGEN_IGNORE
 namespace berialdraw
 {
@@ -42,5 +41,3 @@ namespace berialdraw
 	};
 }
 /// @endcond
-#endif
-

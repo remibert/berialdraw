@@ -1,5 +1,4 @@
-#ifndef memory_leak_tracer_hpp_INCLUDED
-#define memory_leak_tracer_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	class MemHeader;
@@ -108,4 +107,3 @@ namespace berialdraw
 #endif
 
 }
-#endif

@@ -1,6 +1,4 @@
-#ifndef ScrollEvent_hpp_INCLUDED
-#define ScrollEvent_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	class ScrollView;
@@ -33,4 +31,3 @@ namespace berialdraw
 /// @endcond
 	};
 };
-#endif

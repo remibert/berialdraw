@@ -1,15 +1,16 @@
-#ifndef Marker_hpp_INCLUDED
-#define Marker_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class representing a generic marker, which is used to place marks on curves and lines.  */
-	class Marker : public Shape
+	class Marker : public Shape, public RoundStyle
 	{
 	public:
 		/** Create a marker
 		@param canvas canvas used to draw marker */
 		Marker(Canvas * canvas);
+
+		/** Copy contructor */
+		Marker(const Marker & other);
 
 		/** Refresh the marker */
 		void paint(const Point & shift, const char * filled, const char * un_filled);
@@ -33,5 +34,3 @@ namespace berialdraw
 /// @endcond 
 	};
 }
-#endif
-

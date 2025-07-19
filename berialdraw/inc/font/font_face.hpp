@@ -1,6 +1,4 @@
-#ifndef FontFace_h_INCLUDED
-#define FontFace_h_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Manage all fonts TTF file */
@@ -41,6 +39,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-
-#endif // FontFace_h_INCLUDED
-

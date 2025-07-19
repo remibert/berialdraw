@@ -1,6 +1,4 @@
-#ifndef Linear_hpp_INCLUDED
-#define Linear_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class representing a linear equation and various related operations */
@@ -143,4 +141,3 @@ namespace berialdraw
 		bool        vertical; /**< Flag indicating if the line is vertical */
 	};
 }
-#endif // Linear_hpp_INCLUDED

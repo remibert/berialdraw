@@ -1,5 +1,4 @@
-#ifndef Stream_hpp_INCLUDED
-#define Stream_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** Class representing a stream. */
@@ -39,4 +38,3 @@ namespace berialdraw
 		virtual uint32_t size() = 0;
 	};
 }
-#endif

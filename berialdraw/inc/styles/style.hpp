@@ -1,6 +1,4 @@
-#ifndef Style_hpp_INCLUDED
-#define Style_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** The Style class serves as the foundational structure for all specific style definitions, 
@@ -23,4 +21,3 @@ namespace berialdraw
 	/** Function pointer definition to create dedicated style */
 	typedef Style * (*StyleCreator_t)();
 }
-#endif

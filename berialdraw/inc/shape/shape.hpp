@@ -1,6 +1,4 @@
-#ifndef Shape_hpp_included
-#define Shape_hpp_included
-
+#pragma once
 namespace berialdraw
 {
 	class Renderer;
@@ -10,13 +8,18 @@ namespace berialdraw
 	class Desktop;	
 
 	/** Abstract class for shared by every shapes */
-	class Shape : public ShapeStyle, public CommonStyle
+	class Shape : public CommonStyle
 	{
 	public:
 		/** Constructor
 		@param canvas Pointer to the Canvas object
 		@shape_size size of shape instance (required by invalidator) */
 		Shape(Canvas * canvas, size_t shape_size);
+
+		/** Constructor
+		@param widget Pointer to the widget object
+		@widget_size size of shape instance (required by invalidator) */
+		Shape(Widget * widget, size_t widget_size);
 
 		/** Copy constructor
 		@param other Reference to another Shape object */
@@ -81,7 +84,7 @@ namespace berialdraw
 		Coord      m_end = 0;                  /**< End value for repetition */
 		Coord      m_step = 0;                 /**< Step value for repetition */
 		Canvas *   m_canvas = 0;               /**< Pointer to the Canvas object */
+		Widget *   m_widget = 0;               /**< Pointer to the Widget object */
 /// @endcond
 	};
 }
-#endif 

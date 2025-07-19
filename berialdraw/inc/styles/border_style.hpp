@@ -1,6 +1,4 @@
-#ifndef BorderStyle_hpp_INCLUDED
-#define BorderStyle_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** The BorderStyle class specifies the properties of a widget's border, including thickness, color, 
@@ -100,4 +98,3 @@ namespace berialdraw
 /// @endcond 
 	};
 }
-#endif

@@ -11,6 +11,7 @@ Rect::Rect(Canvas * canvas) :
 
 Rect::Rect(const Rect & other):
 	Shape(other),
+	RoundStyle(other),
 	m_polygon(0)
 {
 }

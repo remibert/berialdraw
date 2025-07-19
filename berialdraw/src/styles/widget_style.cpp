@@ -58,24 +58,34 @@ void WidgetStyle::unserialize(JsonIterator & it)
 	m_flow       = (int)it["flow"] | m_flow;
 }
 
+/** Copy operator */
+WidgetStyle& WidgetStyle::operator=(const WidgetStyle& other)
+{
+	set(other);
+	return *this;
+}
+
 /** Set properties with another */
 void WidgetStyle::set(const WidgetStyle & other)
 {
-	m_min_size        = other.m_min_size,
-	m_max_size        = other.m_max_size;
-	m_id              = other.m_id;
-	m_row             = other.m_row;
-	m_column          = other.m_column;
-	m_extend          = other.m_extend;
-	m_size_policy     = other.m_size_policy;
-	m_focusable       = other.m_focusable;
-	m_checked         = other.m_checked;
-	m_selectable      = other.m_selectable;
-	m_pressable       = other.m_pressable;
-	m_flow_place      = other.m_flow_place;
-	m_flow            = other.m_flow;
-	m_flow_in_children = other.m_flow_in_children;
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	if (this != &other)
+	{
+		m_min_size        = other.m_min_size,
+		m_max_size        = other.m_max_size;
+		m_id              = other.m_id;
+		m_row             = other.m_row;
+		m_column          = other.m_column;
+		m_extend          = other.m_extend;
+		m_size_policy     = other.m_size_policy;
+		m_focusable       = other.m_focusable;
+		m_checked         = other.m_checked;
+		m_selectable      = other.m_selectable;
+		m_pressable       = other.m_pressable;
+		m_flow_place      = other.m_flow_place;
+		m_flow            = other.m_flow;
+		m_flow_in_children = other.m_flow_in_children;
+		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	}
 }
 
 Style * WidgetStyle::create()

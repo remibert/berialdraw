@@ -26,15 +26,24 @@ void PieStyle::unserialize(JsonIterator & it)
 	m_rope       = (int)(it["rope"]        | (int)(m_rope      ));
 }
 
+/** Copy operator */
+PieStyle& PieStyle::operator=(const PieStyle& other)
+{
+	set(other);
+	return *this;
+}
+
 /** Set properties with another */
 void PieStyle::set(const PieStyle & other)
 {
-	m_start_angle = other.m_start_angle;
-	m_end_angle = other.m_end_angle;
-	m_rope       = other.m_rope;
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	if (this != &other)
+	{
+		m_start_angle = other.m_start_angle;
+		m_end_angle = other.m_end_angle;
+		m_rope       = other.m_rope;
+		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	}
 }
-
 
 Style * PieStyle::create()
 {

@@ -27,15 +27,26 @@ void SwitchStyle::unserialize(JsonIterator & it)
 	berialdraw::unserialize("thumb-padding_"   , it, m_thumb_padding);
 }
 
+/** Copy operator */
+SwitchStyle& SwitchStyle::operator=(const SwitchStyle& other)
+{
+	set(other);
+	return *this;
+}
+
+
 /** Set properties with another */
 void SwitchStyle::set(const SwitchStyle & other)
 {
-	m_thumb_color        = other.m_thumb_color;
-	m_thumb_padding      = other.m_thumb_padding;
-	m_on_track_color     = other.m_on_track_color;
-	m_off_track_color    = other.m_off_track_color;
-	m_switch_size        = other.m_switch_size;
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	if (this != &other)
+	{
+		m_thumb_color        = other.m_thumb_color;
+		m_thumb_padding      = other.m_thumb_padding;
+		m_on_track_color     = other.m_on_track_color;
+		m_off_track_color    = other.m_off_track_color;
+		m_switch_size        = other.m_switch_size;
+		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	}
 }
 
 Style * SwitchStyle::create()

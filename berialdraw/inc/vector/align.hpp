@@ -1,6 +1,4 @@
-#ifndef Align_hpp_INCLUDED
-#define Align_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	enum Align
@@ -30,4 +28,3 @@ namespace berialdraw
 	void unserialize(const char * name, JsonIterator & it, Align & value);
 
 }
-#endif

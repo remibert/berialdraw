@@ -1,6 +1,4 @@
-#ifndef TextBox_hpp_INCLUDED
-#define TextBox_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 /// @cond DOXYGEN_IGNORE
@@ -65,5 +63,3 @@ namespace berialdraw
 	};
 /// @endcond
 }
-
-#endif

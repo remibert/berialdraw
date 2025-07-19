@@ -1,6 +1,4 @@
-#ifndef TextStyle_hpp_INCLUDED
-#define TextStyle_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** The TextStyle class defines the font, size, color, and alignment of text displayed within widgets. 
@@ -19,6 +17,9 @@ namespace berialdraw
 
 		/** Unserialize the content of widget from json */
 		void unserialize(JsonIterator & it);
+
+		/** Copy operator */
+		TextStyle& operator=(const TextStyle& other);
 
 		/** Set properties with another */
 		void set(const TextStyle & other);
@@ -116,4 +117,3 @@ namespace berialdraw
 /// @endcond 
 	};
 }
-#endif

@@ -1,6 +1,4 @@
-#ifndef Region_hpp_INCLUDED
-#define Region_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	class Renderer;
@@ -164,4 +162,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

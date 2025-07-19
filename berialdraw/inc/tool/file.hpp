@@ -1,6 +1,4 @@
-#ifndef File_hpp_INCLUDED
-#define File_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Cross-platform file management */
@@ -95,4 +93,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

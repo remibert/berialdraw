@@ -1,6 +1,4 @@
-#ifndef Event_hpp_INCLUDED
-#define Event_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Abstract class for all events */
@@ -28,4 +26,3 @@ namespace berialdraw
 /// @endcond
 	};
 };
-#endif

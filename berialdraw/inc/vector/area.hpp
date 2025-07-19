@@ -1,6 +1,4 @@
-#ifndef Area_hpp_INCLUDED
-#define Area_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class that defines an area with size and position */
@@ -153,4 +151,3 @@ namespace berialdraw
 /// @endcond 
 	};
 }
-#endif

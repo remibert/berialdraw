@@ -1,6 +1,4 @@
-#ifndef Hsl_hpp_INCLUDED
-#define Hsl_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Conversion from hue saturation light to RGB color and inverse */
@@ -81,4 +79,3 @@ namespace berialdraw
 
 	};
 }
-#endif

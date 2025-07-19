@@ -1,6 +1,4 @@
-#ifndef SelectEvent_hpp_INCLUDED
-#define SelectEvent_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	class Widget;
@@ -50,4 +48,3 @@ namespace berialdraw
 /// @endcond
 	};
 };
-#endif

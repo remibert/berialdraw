@@ -5,6 +5,7 @@ using namespace berialdraw;
 Icon::Icon(Widget * parent):
 	Widget("icon", parent, sizeof(Icon))
 {
+	m_sketch = new Sketch(this);
 	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
 	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
 	UIManager::styles()->apply(m_classname, (BorderStyle*)this);
@@ -14,6 +15,7 @@ Icon::Icon(Widget * parent):
 
 Icon::~Icon()
 {
+	delete m_sketch;
 }
 
 /** Copy all styles of the icon */
@@ -30,7 +32,7 @@ void Icon::copy(const Icon & icon)
 Size Icon::icon_size()
 {
 	Size result;
-	result.set_(compute_zoom(m_resolution.width_(), m_zoom), compute_zoom(m_resolution.height_(), m_zoom));
+	result.set_(compute_zoom(m_sketch->resolution().width_(), zoom_()), compute_zoom(m_sketch->resolution().height_(), zoom_()));
 	result.height_(result.height_() + icon_padding().bottom_() + icon_padding().top_());
 	result.width_ (result.width_()  + icon_padding().left_()   + icon_padding().right_());
 	return result;
@@ -39,7 +41,11 @@ Size Icon::icon_size()
 /** Return the size of content without marges */
 Size Icon::content_size()
 {
-	if (load())
+	if (m_icon_modified)
+	{
+		m_sketch->filename(m_filename);
+	}
+	if (m_sketch->load())
 	{
 		if (m_size.is_height_undefined())
 		{
@@ -50,6 +56,13 @@ Size Icon::content_size()
 			m_size.width_(m_size.width_());
 		}
 	}
+
+	if (m_icon_modified)
+	{
+		m_icon_modified = false;
+		m_sketch->zoom_(m_zoom);
+	}
+
 	Size result = icon_size();
 
 	if(m_text_modified || m_font_modified)
@@ -113,6 +126,7 @@ void Icon::paint(const Region & parent_region)
 		UIManager::renderer()->region(region);
 		Point shift;
 
+		// Paint background rectangle
 		Rect::build_focused_polygon(m_icon_foreclip, 
 			*(CommonStyle*)this,
 			*(BorderStyle*)this,
@@ -122,69 +136,8 @@ void Icon::paint(const Region & parent_region)
 			stated_color(m_focus_color),
 			m_focused);
 
-		// If icon existing
-		if (m_paths.size() > 0)
-		{
-			Canvas canvas(this);
-			canvas.position(m_foreclip.position());
-			canvas.color(0);
-			Point shift(m_foreclip.position());
-			shift.move_(icon_padding().right_(), icon_padding().top_());
-
-			uint32_t custom_color = Color::TRANSPARENT;
-			bool custom_color_set = false;
-			bool one_color = true;
-
-			// Check if icon has only one color
-			for (uint32_t i = 1; i < m_paths.size(); i++)
-			{
-				Path * path = m_paths[i];
-				Path * path_prev = m_paths[i-1];
-				
-				if (path && path_prev)
-				{
-					if (path->color() != path_prev->color())
-					{
-						one_color = false;
-						break;
-					}
-				}
-			}
-
-			// Display icon
-			for (uint32_t i = 0; i < m_paths.size(); i++)
-			{
-				Path * path = m_paths[i];
-
-				if (path)
-				{
-					Polygon polygon(&canvas);
-
-					// If icon color can be changed
-					if (icon_color() != Color::TRANSPARENT && one_color == true)
-					{
-						// Change icon color
-						polygon.color(stated_color(m_icon_color));
-					}
-					else
-					{
-						// Used icon file color
-						polygon.color(path->color());
-					}
-					
-					// Apply icon zoom
-					polygon.zoom_(m_zoom);
-					
-					// Parse icon path
-					VectorsScript vectors_script(polygon);
-					vectors_script.select(path->path());
-					vectors_script.parse();
-
-					// Paint icon path
-					polygon.paint(shift);
-				}
-			}
-		}
+		// Paint icon
+		m_sketch->paint(m_foreclip, icon_padding(), icon_color(), stated_color(m_icon_color));
 
 		// Paint text
 		region.intersect(m_text_backclip);

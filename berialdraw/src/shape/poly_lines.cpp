@@ -11,6 +11,7 @@ PolyLines::PolyLines(Canvas * canvas):
 
 PolyLines::PolyLines(const PolyLines & other):
 	Shape(other),
+	RoundStyle(other),
 	m_polygon(0),
 	m_count(0),
 	m_shape(other.m_shape),

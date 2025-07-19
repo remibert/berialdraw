@@ -1,6 +1,4 @@
-#ifndef SliderStyle_hpp_INCLUDED
-#define SliderStyle_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** The SliderStyle class defines the visual appearance of sliders, including the track color, 
@@ -19,6 +17,9 @@ namespace berialdraw
 
 		/** Unserialize the content of widget from json */
 		void unserialize(JsonIterator & it);
+
+		/** Copy operator */
+		SliderStyle& operator=(const SliderStyle& other);
 
 		/** Set properties with another */
 		void set(const SliderStyle & other);
@@ -108,4 +109,3 @@ namespace berialdraw
 /// @endcond DOXYGEN_IGNORE
 	}; 
 }
-#endif

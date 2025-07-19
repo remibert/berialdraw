@@ -1,5 +1,4 @@
-#ifndef Keyboard_hpp_INCLUDED
-#define Keyboard_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** The Keyboard class represents a virtual keyboard for user input. 
@@ -68,4 +67,3 @@ namespace berialdraw
 #endif
 	};
 }
-#endif

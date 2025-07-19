@@ -1,6 +1,4 @@
-#ifndef Size_hpp_INCLUDED
-#define Size_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	class Margin;
@@ -134,4 +132,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

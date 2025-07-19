@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.26)
 
 project(berialdraw)
 
@@ -15,10 +15,18 @@ endif()
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_BUILD_RPATH /Library/Frameworks)
 
-find_package(SDL3 REQUIRED COMPONENTS SDL3)
 set(SDL3_STATIC ON)
+find_package(SDL3 REQUIRED)
+
+if (${ARCHITECTURE} STREQUAL "arm64")
+	set(SDL3_INCLUDE_DIRS "/opt/homebrew/opt/sdl3/include")
+else()
+	set(SDL3_INCLUDE_DIRS "/usr/local/opt/sdl3/include")
+endif()
+
+message(STATUS "SDL3_LIBRARIES = ${SDL3_LIBRARIES}")
+message(STATUS "SDL3_INCLUDE_DIRS = ${SDL3_INCLUDE_DIRS}")
 
 set(SRCS_LIB
 	src/widget/edit.cpp
@@ -47,7 +55,8 @@ set(SRCS_LIB
 	src/styles/keys.cpp
 	src/styles/mappings.cpp
 	src/styles/pie_style.cpp
-	src/styles/shape_style.cpp
+	src/styles/round_style.cpp
+	src/styles/line_style.cpp
 	src/styles/styles.cpp
 	src/styles/text_style.cpp
 	src/styles/widget_style.cpp
@@ -64,6 +73,7 @@ set(SRCS_LIB
 	src/shape/line.cpp
 	src/shape/pie.cpp
 	src/shape/polygon.cpp
+	src/shape/sketch.cpp
 	src/shape/cross.cpp
 	src/shape/marker.cpp
 	src/shape/outline.cpp
@@ -210,7 +220,7 @@ set(INCLUDES_SAMPLE
 )
 
 # Static library
-add_library(${BD_LIB} STATIC ${SRCS_LIB} )
+add_library               (${BD_LIB} STATIC ${SRCS_LIB} )
 target_include_directories(${BD_LIB} PRIVATE ${INCLUDES_LIB})
 target_compile_definitions(${BD_LIB} PRIVATE
 	"$<$<CONFIG:Debug>:_DEBUG>"
@@ -218,17 +228,17 @@ target_compile_definitions(${BD_LIB} PRIVATE
 	"$<$<PLATFORM_ID:Linux>:LINUX>"
 	"$<$<PLATFORM_ID:Darwin>:OSX>"
 )
-target_link_libraries(${BD_LIB} ${SDL3_LIBRARIES})
+target_link_libraries     (${BD_LIB} ${SDL3_LIBRARIES})
 
 # Sample library
-add_library(${BD_SAMPLE} ${SRCS_SAMPLE})
+add_library               (${BD_SAMPLE} ${SRCS_SAMPLE})
 target_include_directories(${BD_SAMPLE} PRIVATE ${INCLUDES_SAMPLE})
 
 # Unitary test application
-add_executable(${BD_APP_TEST}  ${SRCS_APP_TEST} )
-target_include_directories(${BD_APP_TEST} PRIVATE ${INCLUDES_LIB})
-target_link_libraries(${BD_APP_TEST} PRIVATE ${BD_LIB} ${BD_SAMPLE} ${SDL3_LIBRARIES})
-target_compile_definitions(${BD_APP_TEST} PRIVATE
+add_executable             (${BD_APP_TEST}  ${SRCS_APP_TEST} )
+target_include_directories (${BD_APP_TEST} PRIVATE ${INCLUDES_LIB})
+target_link_libraries      (${BD_APP_TEST} PRIVATE ${BD_LIB} ${BD_SAMPLE} ${SDL3_LIBRARIES})
+target_compile_definitions (${BD_APP_TEST} PRIVATE
 	"$<$<CONFIG:Debug>:_DEBUG>"
 	"$<$<CONFIG:Release>:NDEBUG>"
 	"$<$<PLATFORM_ID:Linux>:LINUX>"
@@ -236,9 +246,9 @@ target_compile_definitions(${BD_APP_TEST} PRIVATE
 )
 
 # Unitary test application
-add_executable(${BD_APP_SAMPLE}  ${SRCS_APP_SAMPLE} )
+add_executable            (${BD_APP_SAMPLE}  ${SRCS_APP_SAMPLE} )
 target_include_directories(${BD_APP_SAMPLE} PRIVATE ${INCLUDES_LIB})
-target_link_libraries(${BD_APP_SAMPLE} PRIVATE ${BD_LIB} ${BD_SAMPLE} ${SDL3_LIBRARIES})
+target_link_libraries     (${BD_APP_SAMPLE} PRIVATE ${BD_LIB} ${BD_SAMPLE} ${SDL3_LIBRARIES})
 target_compile_definitions(${BD_APP_SAMPLE} PRIVATE
 	"$<$<CONFIG:Debug>:_DEBUG>"
 	"$<$<CONFIG:Release>:NDEBUG>"

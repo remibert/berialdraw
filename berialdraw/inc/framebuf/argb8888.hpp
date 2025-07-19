@@ -1,6 +1,4 @@
-#ifndef Argb8888_h_INCLUDED
-#define Argb8888_h_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Framebuffer in ARGB 8888 format */
@@ -69,5 +67,3 @@ namespace berialdraw
 /// @endcond 
 	};
 }
-
-#endif // Argb8888_h_INCLUDED

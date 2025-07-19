@@ -1,6 +1,4 @@
-#ifndef ItemInt_hpp_INCLUDED
-#define ItemInt_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Json integer number */
@@ -110,4 +108,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

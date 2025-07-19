@@ -1,6 +1,4 @@
-#ifndef Validator_hpp_INCLUDED
-#define Validator_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Abstract interface class to validate keyboard input on an input field */
@@ -30,4 +28,3 @@ namespace berialdraw
 
 	};
 }
-#endif

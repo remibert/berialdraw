@@ -1,5 +1,4 @@
-#ifndef ProgressBar_hpp_INCLUDED
-#define ProgressBar_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** The ProgressBar class displays a graphical bar that indicates a task's completion percentage. 
@@ -55,4 +54,3 @@ namespace berialdraw
 
 	};
 }
-#endif

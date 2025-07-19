@@ -1,6 +1,4 @@
-#ifndef BdSytem_h_INCLUDED
-#define BdSytem_h_INCLUDED
-
+#pragma once
 #if defined(__cplusplus)
 /** This file provides a redefined system interface for file operations, 
 adaptable to the hardware platform it is used on.*/
@@ -126,6 +124,4 @@ extern "C"
 	#define _ bd_printf("%s:%d\n",__FILE__,__LINE__);
 #if defined(__cplusplus)
 }
-#endif
-
 #endif

@@ -1,10 +1,8 @@
-#ifndef Pie_hpp_INCLUDED
-#define Pie_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class representing a Pie shape */
-	class Pie : public Shape, public PieStyle
+	class Pie : public Shape, public PieStyle, public RoundStyle
 	{
 	public:
 		/** Constructor for Pie
@@ -60,6 +58,4 @@ namespace berialdraw
 		Polygon m_polygon; /**< Polygon representing the Pie */
 /// @endcond
 	};
-	}
-
-	#endif
+}

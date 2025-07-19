@@ -1,5 +1,4 @@
-#ifndef ItemCollection_hpp_INCLUDED
-#define ItemCollection_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** Generic item collection */
@@ -28,4 +27,3 @@ namespace berialdraw
 		virtual Item * child(int32_t index) = 0;
 	};
 }
-#endif

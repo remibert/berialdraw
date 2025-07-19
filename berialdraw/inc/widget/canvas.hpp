@@ -1,5 +1,4 @@
-#ifndef Canvas_hpp_INCLUDED
-#define Canvas_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** The Canvas class provides a flexible area for custom graphics and rendering. 
@@ -63,4 +62,3 @@ namespace berialdraw
 /// @endcond 
 	};
 }
-#endif

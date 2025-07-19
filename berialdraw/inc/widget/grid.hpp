@@ -1,5 +1,4 @@
-#ifndef Grid_hpp_INCLUDED
-#define Grid_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** The Grid class arranges child widgets in a grid, enabling precise alignment and consistent spacing. 
@@ -48,4 +47,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

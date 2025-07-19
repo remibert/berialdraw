@@ -1,6 +1,4 @@
-#ifndef Margin_hpp_INCLUDED
-#define Margin_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class representing margin dimensions. */
@@ -138,4 +136,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

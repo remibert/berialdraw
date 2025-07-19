@@ -1,6 +1,4 @@
-#ifndef JsonIterator_hpp_INCLUDED
-#define JsonIterator_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	class Item;
@@ -296,5 +294,3 @@ namespace berialdraw
 /// @endcond
 	};
 };
-
-#endif

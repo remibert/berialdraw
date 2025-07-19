@@ -1,6 +1,4 @@
-#ifndef String_hpp_INCLUDED
-#define String_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Utf8 string management */
@@ -264,5 +262,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-
-#endif

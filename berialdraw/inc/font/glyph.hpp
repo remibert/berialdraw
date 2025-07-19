@@ -1,5 +1,4 @@
-#ifndef Glyph_hpp_INCLUDED
-#define Glyph_hpp_INCLUDED
+#pragma once
 /// @cond DOXYGEN_IGNORE
 
 namespace berialdraw
@@ -62,5 +61,3 @@ namespace berialdraw
 	};
 }
 /// @endcond
-
-#endif // Glyph_hpp_INCLUDED

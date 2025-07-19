@@ -104,27 +104,27 @@ void Invalidator::undirty(void * object, enum Status status)
 	}
 }
 
-
-
 /** Check if object is dirty */
 bool Invalidator::is_dirty(Widget * object)
 {
-	bool result = false;
+	return status(object) != NOTHING;
+}
+
+/** Check if object is dirty */
+enum Invalidator::Status Invalidator::status(Widget * object)
+{
+	enum Status result = NOTHING;
 	size_t size = m_widgets.size();
 	for (uint32_t i = 0; i < size; i++)
 	{
 		if (m_widgets[i].widget == object)
 		{
-			if (m_widgets[i].status != NOTHING)
-			{
-				result = true;
-			}
+			result = (enum Status)m_widgets[i].status;
 			break;
 		}
 	}
 	return result;
 }
-
 
 /** Check if something must be refreshed */
 bool Invalidator::is_dirty()
@@ -256,8 +256,6 @@ void Invalidator::remove(Shape * shape)
 		}
 	}
 }
-
-
 
 /** Remove widget from the list */
 void Invalidator::remove(Widget * widget)

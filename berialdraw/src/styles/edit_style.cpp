@@ -49,24 +49,36 @@ void EditStyle::unserialize(JsonIterator & it)
 	}
 }
 
+
+/** Copy operator */
+EditStyle& EditStyle::operator=(const EditStyle& other)
+{
+	set(other);
+	return *this;
+}
+
+
 /** Set properties with another */
 void EditStyle::set(const EditStyle & other)
 {
-	m_max_lines      = other.m_max_lines;
-	m_max_columns    = other.m_max_columns;
-	m_select_color  = other.m_select_color;
-	m_cursor_color  = other.m_cursor_color;
-	m_password      = other.m_password;
+	if (this != &other)
+	{
+		m_max_lines      = other.m_max_lines;
+		m_max_columns    = other.m_max_columns;
+		m_select_color  = other.m_select_color;
+		m_cursor_color  = other.m_cursor_color;
+		m_password      = other.m_password;
 
-	if (other.m_place_holder)
-	{
-		m_place_holder = new String(*m_place_holder);
+		if (other.m_place_holder)
+		{
+			m_place_holder = new String(*m_place_holder);
+		}
+		else
+		{
+			m_place_holder = 0;
+		}
+		UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	}
-	else
-	{
-		m_place_holder = 0;
-	}
-	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 }
 
 Style * EditStyle::create()

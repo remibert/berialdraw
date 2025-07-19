@@ -1,5 +1,4 @@
-#ifndef samples_hpp_INCLUDED
-#define samples_hpp_INCLUDED
+#pragma once
 
 #include "berialdraw.hpp"
 #include "dialog.hpp"
@@ -70,5 +69,3 @@ void sample_forms(berialdraw::Widget * widget, const berialdraw::ClickEvent & ev
 // Simple example of a window displaying a clickable button with the text "hello world",
 // the example contains the initialization of the library, as well as the deinitialization
 void sample_hello_world();
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef Column_hpp_INCLUDED
-#define Column_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** The Column class organizes child widgets in a vertical stack. 
@@ -51,4 +50,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

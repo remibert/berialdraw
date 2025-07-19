@@ -1,6 +1,4 @@
-#ifndef Colors_hpp_INCLUDED
-#define Colors_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	class Desktop;
@@ -52,4 +50,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

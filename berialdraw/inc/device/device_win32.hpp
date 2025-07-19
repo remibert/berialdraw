@@ -1,6 +1,4 @@
-#ifndef DeviceWin32_hpp_INCLUDED
-#define DeviceWin32_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Win32 implementation of the Device class */
@@ -80,5 +78,3 @@ namespace berialdraw
 	@return The elapsed time in milliseconds */
 	uint32_t get_elapsed_ms(uint64_t begin, uint64_t end);
 }
-
-#endif // DeviceWin32_hpp_INCLUDED

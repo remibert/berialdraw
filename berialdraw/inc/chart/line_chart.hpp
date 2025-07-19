@@ -1,6 +1,4 @@
-#ifndef LineChart_hpp_INCLUDED
-#define LineChart_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class representing a line chart.
@@ -65,4 +63,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

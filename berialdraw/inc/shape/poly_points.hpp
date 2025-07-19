@@ -1,6 +1,4 @@
-#ifndef PolyPoints_hpp_INCLUDED
-#define PolyPoints_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Class representing a point in a polyline, inheriting from Point.
@@ -104,4 +102,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

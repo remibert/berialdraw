@@ -1,5 +1,4 @@
-#ifndef Pane_hpp_INCLUDED
-#define Pane_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** The Pane class is a simple container for grouping and managing other widgets. */
@@ -49,4 +48,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

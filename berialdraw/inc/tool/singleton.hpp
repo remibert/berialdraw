@@ -1,5 +1,4 @@
-#ifndef Singleton_hpp_INCLUDED
-#define Singleton_hpp_INCLUDED
+#pragma once
 namespace berialdraw
 {
 	/** Template class implementing a thread-safe Singleton pattern with double-checked locking.
@@ -84,4 +83,3 @@ namespace berialdraw
 	template <typename T> std::recursive_mutex Singleton<T>::m_mutex;
 
 }
-#endif

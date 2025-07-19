@@ -1,6 +1,4 @@
-#ifndef MenuDialog_hpp_INCLUDED
-#define MenuDialog_hpp_INCLUDED
-
+#pragma once
 namespace berialdraw
 {
 	/** Dialog box to display a menu with a list of options, a title and a button to cancel */
@@ -47,4 +45,3 @@ namespace berialdraw
 		Column * m_column = 0;
 	};
 }
-#endif
