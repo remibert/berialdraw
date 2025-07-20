@@ -1471,7 +1471,7 @@
 		},
 		"test/out/window4_1.svg" : 
 		{
-			"scale_1" : 1794322559,
+			"scale_1" : 933338247,
 			"scale_2" : 151214552
 		},
 		"test/out/window3_1.svg" : 
@@ -1486,12 +1486,12 @@
 		},
 		"test/out/window2_1.svg" : 
 		{
-			"scale_1" : 2131426305,
+			"scale_1" : 3850663666,
 			"scale_2" : 2962140029
 		},
 		"test/out/window2_2.svg" : 
 		{
-			"scale_1" : 2546697036,
+			"scale_1" : 2564054941,
 			"scale_2" : 4223367109
 		},
 		"test/out/window1_0.svg" : 
@@ -2986,11 +2986,11 @@
 		},
 		"test/out/sketch1_1.svg" : 
 		{
-			"scale_1" : 1527923332
+			"scale_1" : 1514933430
 		},
 		"test/out/sketch1_2.svg" : 
 		{
-			"scale_1" : 2657729461
+			"scale_1" : 2220036405
 		},
 		"test/out/sketch1_3.svg" : 
 		{
@@ -2998,10 +2998,22 @@
 		},
 		"test/out/sketch1_4.svg" : 
 		{
-			"scale_1" : 972326987
+			"scale_1" : 812010944
 		},
 		"test/out/sketch1_5.svg" : 
 		{
-			"scale_1" : 548476753
+			"scale_1" : 1058187068
+		},
+		"test/out/sketch2_1.svg" : 
+		{
+			"scale_1" : 3855693008
+		},
+		"test/out/sketch2_2.svg" : 
+		{
+			"scale_1" : 4148034041
+		},
+		"test/out/sketch2_3.svg" : 
+		{
+			"scale_1" : 2227327073
 		}
 	}

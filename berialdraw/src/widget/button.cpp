@@ -1281,7 +1281,6 @@ void Button::test()
 	if (done == false)
 	{
 		done = true;
-test10();
 		//test13();
 		test12();
 		test11();

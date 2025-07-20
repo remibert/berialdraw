@@ -85,7 +85,7 @@ Sketch::Sketch(const Sketch & other):
 }
 
 // Render polygon
-void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t color, uint32_t stated_color)
+void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t stated_color)
 {
 	if (m_loaded == false)
 	{
@@ -119,6 +119,7 @@ void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t color
 
 		int zoom = zoom_();
 
+		// Adapt the zoom factor according to the size if it has been defined
 		if (m_size.is_width_undefined() == false || m_size.is_height_undefined() == false)
 		{
 			Point position(m_position);
@@ -169,18 +170,31 @@ void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t color
 
 			if (path)
 			{
-				// If icon color can be changed
-				if (color != Color::TRANSPARENT && one_color == true)
+				uint32_t path_color = path->color();
+
+				// If the main color is defined
+				if (stated_color != Color::TRANSPARENT)
 				{
-					// Change icon color
-					m_polygon.color(stated_color);
+					// If icon color can be changed
+					if (one_color)
+					{
+						// Change icon color
+						path_color = stated_color;
+					}
+					else
+					{
+						// The sketch has many color
+						uint32_t alpha = stated_color >> 24;
+
+						// Change the alpha according to alpha color selected
+						if (alpha < 255)
+						{
+							uint32_t path_alpha = ((path_color >> 24) * alpha) / 255;
+							path_color = (path_color & 0xFFFFFF) | (path_alpha << 24);
+						}
+					}
 				}
-				else
-				{
-					// Used icon file color
-					m_polygon.color(path->color());
-				}
-					
+
 				// Apply icon zoom
 				m_polygon.zoom_(zoom);
 					
@@ -190,7 +204,7 @@ void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t color
 				vectors_script.parse();
 
 				// Paint icon path
-				m_polygon.paint(shift);
+				UIManager::renderer()->draw(m_position, m_margin, shift, m_center, path_color, m_angle, m_polygon.outline());
 			}
 		}
 	}
@@ -203,7 +217,7 @@ void Sketch::paint(const Point & shift)
 	Area foreclip;
 	foreclip.position(shift);
 	const Margin padding;
-	Sketch::paint(foreclip, padding, m_color, m_color);
+	Sketch::paint(foreclip, padding, m_color);
 }
 
 /** Destructor */
@@ -409,6 +423,57 @@ void Sketch::test1()
 }
 void Sketch::test2()
 {
+	Window window;
+
+	Canvas * canvas = new Canvas(&window);
+		canvas->color(Color::GREEN,64);
+		canvas->size(480,480);
+
+	Rect * rect= new Rect(canvas);
+		rect->position(240,240);
+		rect->size(100,100);
+		rect->color(Color::RED,64);
+		rect->repeat(Shape::REPEAT_ANGLE, 0, 359, 30);
+
+	Sketch * maison = new Sketch(canvas);
+		maison->filename("resources/icons/maison.icn");
+		maison->size(rect->size());
+		maison->color(Color::WHITE,128);
+		maison->position(rect->position());
+		maison->repeat(Shape::REPEAT_ANGLE, 0, 359, 30);
+
+
+	Sketch * computer = new Sketch(canvas);
+		computer->position(rect->position());
+		computer->size(rect->size());
+		computer->color(Color::YELLOW);
+		computer->filename("resources/icons/computer.icn");
+		computer->repeat(Shape::REPEAT_ANGLE, 0, 359, 30);
+
+	Coord pos = 0;
+	maison->center(pos,50);
+	rect->center(pos,50);
+	computer->center(pos,50);
+	computer->color(Color::YELLOW,32);
+	UIManager::desktop()->dispatch("test/out/sketch2_1.svg");
+
+	pos -= 100;
+	maison->color(Color::BLUE,64);
+	maison->center(pos,50);
+	rect->center(pos,50);
+	computer->center(pos,50);
+	computer->color(Color::BLUE,64);
+
+	UIManager::desktop()->dispatch("test/out/sketch2_2.svg");
+
+	pos -= 50;
+	maison->center(pos,100);
+	maison->color(Color::RED);
+	rect->center(pos,100);
+	computer->center(pos,100);
+	computer->color(Color::RED);
+
+	UIManager::desktop()->dispatch("test/out/sketch2_3.svg");
 }
 void Sketch::test3()
 {

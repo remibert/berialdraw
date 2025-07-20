@@ -241,6 +241,17 @@ void Renderer::draw(const Point & position, const Margin & margin, const Point &
 	Coord x  = position.x_() + dx + shift.x_();
 	Coord y  = position.y_() + dy + shift.y_();
 
+	// If the polygon must be zoomed
+	if (out.zoom_() != 1<< 6)
+	{
+		FT_Matrix matrix;
+		matrix.xx = (FT_Fixed)out.zoom_() << 10;
+		matrix.xy = 0;
+		matrix.yx = 0;
+		matrix.yy = (FT_Fixed)out.zoom_() << 10;
+		FT_Outline_Transform(&outline, &matrix);
+	}
+
 	// If no rotation
 	if(angle_ == 0)
 	{
@@ -256,17 +267,6 @@ void Renderer::draw(const Point & position, const Margin & margin, const Point &
 
 		// Rotation
 		FT_Outline_Transform (&outline, &rotation);
-	}
-
-	// If the polygon must be zoomed
-	if (out.zoom_() != 1<< 6)
-	{
-		FT_Matrix matrix;
-		matrix.xx = (FT_Fixed)out.zoom_() << 10;
-		matrix.xy = 0;
-		matrix.yx = 0;
-		matrix.yy = (FT_Fixed)out.zoom_() << 10;
-		FT_Outline_Transform(&outline, &matrix);
 	}
 
 	// If shape must be moved

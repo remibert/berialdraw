@@ -2,7 +2,7 @@
 
 using namespace berialdraw;
 
-inline int32_t mapToPercent(int32_t value)
+inline int32_t map_to_percent(int32_t value)
 {
 	if (value > 100)
 	{
@@ -15,7 +15,7 @@ inline int32_t mapToPercent(int32_t value)
 	return value;
 }
 
-inline int32_t mapToRange(int32_t value)
+inline int32_t map_to_range(int32_t value)
 {
 	if (value > 100)
 	{
@@ -68,8 +68,8 @@ uint32_t Hsl::to_rgb(uint32_t hue, uint32_t saturation, uint32_t light)
 	uint32_t res = 0;
 	red = green = blue = 0;
 
-	saturation = mapToPercent(saturation);
-	light = mapToPercent(light);
+	saturation = map_to_percent(saturation);
+	light = map_to_percent(light);
 
 	hue %= 360;
 	v = (light < 50) ? (light * (saturation + 100) / 100) : (light + saturation - (light * saturation / 100));
@@ -200,8 +200,8 @@ uint32_t Hsl::enlighten(uint32_t color, int32_t level)
 	uint32_t saturation;
 	uint32_t light;
 	Hsl::from_rgb(color, hue, saturation, light);
-	level = mapToRange(level);
-	return Hsl::to_rgb(hue, saturation, mapToPercent(light + ((100-light) * level) / 100));
+	level = map_to_range(level);
+	return Hsl::to_rgb(hue, saturation, map_to_percent(light + ((100-light) * level) / 100));
 }
 
 /** Adjust the saturation of selected color */
@@ -211,8 +211,8 @@ uint32_t Hsl::saturate(uint32_t color, int32_t level)
 	uint32_t saturation;
 	uint32_t light;
 	Hsl::from_rgb(color, hue, saturation, light);
-	level = mapToRange(level);
-	return Hsl::to_rgb(hue, mapToPercent(saturation - ((100-saturation) * level) / 100), light);
+	level = map_to_range(level);
+	return Hsl::to_rgb(hue, map_to_percent(saturation - ((100-saturation) * level) / 100), light);
 }
 
 /** Change the color into pastel */
@@ -222,10 +222,10 @@ uint32_t Hsl::pastel(uint32_t color, int32_t level)
 	uint32_t saturation;
 	uint32_t light;
 	Hsl::from_rgb(color, hue, saturation, light);
-	level = mapToRange(level);
+	level = map_to_range(level);
 	return Hsl::to_rgb(hue, 
-		mapToPercent(saturation - ((100-saturation) * level) / 100), 
-		mapToPercent(light      + ((100-light)      * level) / 100));
+		map_to_percent(saturation - ((100-saturation) * level) / 100), 
+		map_to_percent(light      + ((100-light)      * level) / 100));
 }
 
 /** Convert color to gray

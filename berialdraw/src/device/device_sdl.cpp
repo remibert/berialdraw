@@ -48,6 +48,7 @@ void DeviceSdl::open_window()
 	if (drawableWidth > m_width && drawableHeight > m_height)
 	{
 		m_pixel_ratio = drawableWidth/m_width;
+		SDL_SetWindowPosition(m_window,0,0);
 		SDL_SetWindowSize(m_window, m_width / m_pixel_ratio, m_height / m_pixel_ratio);
 	}
 	else
@@ -119,15 +120,15 @@ wchar_t DeviceSdl::get_key(SDL_Scancode scancode)
 
 KeyEvent::Modifier DeviceSdl::get_modifier()
 {
-KeyEvent::Modifier modifier = KeyEvent::MODIFIER_NONE;
-SDL_Keymod mod = SDL_GetModState();
-if (mod & SDL_KMOD_SHIFT)
-	modifier = (KeyEvent::Modifier)(KeyEvent::MODIFIER_SHIFT | modifier);
-if (mod & SDL_KMOD_CTRL)
-	modifier = (KeyEvent::Modifier)(KeyEvent::MODIFIER_CONTROL | modifier);
-if (mod & SDL_KMOD_ALT)
-	modifier = (KeyEvent::Modifier)(KeyEvent::MODIFIER_ALT | modifier);
-return modifier;
+	KeyEvent::Modifier modifier = KeyEvent::MODIFIER_NONE;
+	SDL_Keymod mod = SDL_GetModState();
+	if (mod & SDL_KMOD_SHIFT)
+		modifier = (KeyEvent::Modifier)(KeyEvent::MODIFIER_SHIFT | modifier);
+	if (mod & SDL_KMOD_CTRL)
+		modifier = (KeyEvent::Modifier)(KeyEvent::MODIFIER_CONTROL | modifier);
+	if (mod & SDL_KMOD_ALT)
+		modifier = (KeyEvent::Modifier)(KeyEvent::MODIFIER_ALT | modifier);
+	return modifier;
 }
 
 /** Adapt the ratio of coordinates */

@@ -581,7 +581,7 @@ void Window::test4()
 					arrow->add_point(7,0);
 					arrow->add_point(15,0);
 					arrow->next_contour();
-					arrow->center(-80,0);
+					arrow->center(-160,0);
 					arrow->zoom(2);
 					arrow->angle(0);
 

@@ -137,7 +137,7 @@ void Icon::paint(const Region & parent_region)
 			m_focused);
 
 		// Paint icon
-		m_sketch->paint(m_foreclip, icon_padding(), icon_color(), stated_color(m_icon_color));
+		m_sketch->paint(m_foreclip, icon_padding(), stated_color(m_icon_color));
 
 		// Paint text
 		region.intersect(m_text_backclip);

@@ -20,12 +20,12 @@ set(SDL3_STATIC ON)
 find_package(SDL3 REQUIRED)
 
 if (${ARCHITECTURE} STREQUAL "arm64")
-	set(SDL3_INCLUDE_DIRS "/opt/homebrew/opt/sdl3/include")
+	# set(SDL3_INCLUDE_DIRS "/opt/homebrew/opt/sdl3/include")
 else()
 	set(SDL3_INCLUDE_DIRS "/usr/local/opt/sdl3/include")
 endif()
 
-message(STATUS "SDL3_LIBRARIES = ${SDL3_LIBRARIES}")
+message(STATUS "SDL3_LIBRARIES    = ${SDL3_LIBRARIES}")
 message(STATUS "SDL3_INCLUDE_DIRS = ${SDL3_INCLUDE_DIRS}")
 
 set(SRCS_LIB

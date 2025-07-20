@@ -10,8 +10,8 @@ namespace berialdraw
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
 
+		// Button::test();
 		Sketch::test();
-		Button::test();
 
 		// Widgets
 		Icon::test();

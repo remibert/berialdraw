@@ -126,7 +126,7 @@ namespace berialdraw
 		bool load();
 
 		// Render polygon
-		void paint(const Area & foreclip, const Margin & padding, uint32_t color, uint32_t stated_color);
+		void paint(const Area & foreclip, const Margin & padding, uint32_t stated_color);
 
 	#ifdef _DEBUG
 		static void test();
