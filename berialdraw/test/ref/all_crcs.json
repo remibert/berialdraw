@@ -311,22 +311,22 @@
 		},
 		"test/out/icon3_0.svg" : 
 		{
-			"scale_1" : 2081379950,
+			"scale_1" : 3048583236,
 			"scale_2" : 3582898116
 		},
 		"test/out/icon2_0.svg" : 
 		{
-			"scale_1" : 2404354641,
+			"scale_1" : 2568685804,
 			"scale_2" : 3282160410
 		},
 		"test/out/icon1_1.svg" : 
 		{
-			"scale_1" : 1148278125,
+			"scale_1" : 2751057634,
 			"scale_2" : 2469624330
 		},
 		"test/out/icon1_2.svg" : 
 		{
-			"scale_1" : 63087843,
+			"scale_1" : 289222086,
 			"scale_2" : 1091704324
 		},
 		"test/out/icon1_3.svg" : 
@@ -1341,17 +1341,17 @@
 		},
 		"test/out/window7_16.svg" : 
 		{
-			"scale_1" : 3041553110,
+			"scale_1" : 3181760306,
 			"scale_2" : 16233168
 		},
 		"test/out/window7_17.svg" : 
 		{
-			"scale_1" : 3288244231,
+			"scale_1" : 3181760306,
 			"scale_2" : 371282495
 		},
 		"test/out/window7_18.svg" : 
 		{
-			"scale_1" : 3302062631,
+			"scale_1" : 3181760306,
 			"scale_2" : 2943018252
 		},
 		"test/out/window7_19.svg" : 
@@ -2986,11 +2986,11 @@
 		},
 		"test/out/sketch1_1.svg" : 
 		{
-			"scale_1" : 1514933430
+			"scale_1" : 1527923332
 		},
 		"test/out/sketch1_2.svg" : 
 		{
-			"scale_1" : 2220036405
+			"scale_1" : 2657729461
 		},
 		"test/out/sketch1_3.svg" : 
 		{
@@ -2998,11 +2998,11 @@
 		},
 		"test/out/sketch1_4.svg" : 
 		{
-			"scale_1" : 812010944
+			"scale_1" : 972326987
 		},
 		"test/out/sketch1_5.svg" : 
 		{
-			"scale_1" : 1058187068
+			"scale_1" : 548476753
 		},
 		"test/out/sketch2_1.svg" : 
 		{
@@ -3015,5 +3015,41 @@
 		"test/out/sketch2_3.svg" : 
 		{
 			"scale_1" : 2227327073
+		},
+		"test/out/sketch3_0.svg" : 
+		{
+			"scale_1" : 4138913486
+		},
+		"test/out/sketch3_1.svg" : 
+		{
+			"scale_1" : 77241587
+		},
+		"test/out/sketch3_2.svg" : 
+		{
+			"scale_1" : 1494585301
+		},
+		"test/out/sketch3_3.svg" : 
+		{
+			"scale_1" : 1715326352
+		},
+		"test/out/sketch3_4.svg" : 
+		{
+			"scale_1" : 2023584562
+		},
+		"test/out/sketch3_5.svg" : 
+		{
+			"scale_1" : 4180166182
+		},
+		"test/out/icon4_0.svg" : 
+		{
+			"scale_1" : 1004515938
+		},
+		"test/out/icon4_1.svg" : 
+		{
+			"scale_1" : 3600794363
+		},
+		"test/out/icon4_2.svg" : 
+		{
+			"scale_1" : 103391785
 		}
 	}

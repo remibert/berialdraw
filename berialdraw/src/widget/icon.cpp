@@ -35,6 +35,17 @@ Size Icon::icon_size()
 	result.set_(compute_zoom(m_sketch->resolution().width_(), zoom_()), compute_zoom(m_sketch->resolution().height_(), zoom_()));
 	result.height_(result.height_() + icon_padding().bottom_() + icon_padding().top_());
 	result.width_ (result.width_()  + icon_padding().left_()   + icon_padding().right_());
+
+	// Compute the children with marged size
+	Size children_size = Widget::children_size();
+	if (children_size.width_() > result.width_())
+	{
+		result.width_(children_size.width_());
+	}
+	if (children_size.height_() > result.height_())
+	{
+		result.height_(children_size.height_());
+	}
 	return result;
 }
 
@@ -91,17 +102,10 @@ void Icon::place(const Area & area, bool in_layout)
 	}
 	place_in_area(area, in_layout);
 
-	// If absolute place
-	if (in_layout == false)
-	{
-		Area backclip = m_foreclip;
-		Margin marg;
-		place_in_layout(backclip, content_size(), marg, EXTEND_NONE, m_foreclip, (Align)m_align);
-	}
-
 	Size ico_size = icon_size();
 		m_icon_foreclip = m_foreclip;
 		m_icon_foreclip.height_(ico_size.height_());
+		m_icon_foreclip.width_(ico_size.width_());
 
 	m_text_backclip.position().set_(m_foreclip.x_(), m_foreclip.y_()+ico_size.height_());
 	m_text_backclip.size().set_(m_foreclip.width_(), m_foreclip.height_() - ico_size.height_());
@@ -136,8 +140,10 @@ void Icon::paint(const Region & parent_region)
 			stated_color(m_focus_color),
 			m_focused);
 
+		
 		// Paint icon
-		m_sketch->paint(m_foreclip, icon_padding(), stated_color(m_icon_color));
+		m_sketch->size(m_icon_foreclip.size());
+		m_sketch->paint(m_icon_foreclip, icon_padding(), stated_color(m_icon_color));
 
 		// Paint text
 		region.intersect(m_text_backclip);
@@ -333,6 +339,25 @@ void Icon::test3()
 
 void Icon::test4()
 {
+	Window window;
+		Icon * icon = new Icon(&window);
+			icon->filename("resources/icons/maison.icn");
+			icon->position(10,10);
+			icon->text("Icon");
+
+		Button * button = new Button(&window);
+			button->position(200,200);
+			button->text("Button");
+
+	UIManager::desktop()->dispatch("test/out/icon4_0.svg");
+		icon->zoom(4);
+		button->font_size(30,60);
+
+	UIManager::desktop()->dispatch("test/out/icon4_1.svg");
+		button->size(150,200);
+		icon->size(150,200);
+
+	UIManager::desktop()->dispatch("test/out/icon4_2.svg");
 }
 
 void Icon::test()

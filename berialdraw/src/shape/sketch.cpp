@@ -97,7 +97,8 @@ void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t state
 	if (m_paths.size() > 0)
 	{
 		Point shift(foreclip.position());
-		shift.move_(padding.right_(), padding.top_());
+		Point position(foreclip.position());
+		
 
 		bool one_color = true;
 
@@ -122,46 +123,56 @@ void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t state
 		// Adapt the zoom factor according to the size if it has been defined
 		if (m_size.is_width_undefined() == false || m_size.is_height_undefined() == false)
 		{
-			Point position(m_position);
 			Dim zoom_width = 0;
 			Dim zoom_height = 0;
+			Size size(m_size);
+			size.decrease_(padding.left_() + padding.right_(), padding.top_() + padding.bottom_());
 
-			if (m_size.is_width_undefined() == false && m_size.width_() > 0 && m_resolution.width_() != 0)
+			if (m_size.is_width_undefined() == false && size.width_() > 0 && m_resolution.width_() != 0)
 			{
-				zoom_width = (m_size.width_() << 6)/ m_resolution.width_();
+				zoom_width = (size.width_() << 6)/ m_resolution.width_();
 			}
-			if (m_size.is_height_undefined() == false && m_size.height_() > 0 && m_resolution.height_() != 0)
+			if (m_size.is_height_undefined() == false && size.height_() > 0 && m_resolution.height_() != 0)
 			{
-				zoom_height = (m_size.height_() << 6) / m_resolution.height_();
+				zoom_height = (size.height_() << 6) / m_resolution.height_();
 			}
 
 			if (zoom_width < zoom_height && zoom_width != 0)
 			{
 				zoom = zoom_width;
-				if (m_size.height_() > m_resolution.height_())
+				if (size.height_() > m_resolution.height_())
 				{
-					position.move_(0, (m_size.height_() - m_size.width_())>>1);
+					position.move_(0, (size.height_() - size.width_())>>1);
 				}
 			}
 			else if (zoom_height < zoom_width && zoom_height != 0)
 			{
 				zoom = zoom_height;
-				if (m_size.width_() > m_resolution.width_())
+				if (size.width_() > m_resolution.width_())
 				{
-					position.move_((m_size.width_() - m_size.height_())>>1, 0);
+					position.move_((size.width_() - size.height_())>>1, 0);
 				}
 			}
 			else if (zoom_height == zoom_width && zoom_height != 0)
 			{
 				zoom = zoom_height;
 			}
-		
-			m_polygon.position(position);
+
+			Area foreclip(m_position,m_size);
+			Size content;
+			content.width_ ((m_resolution.width_ () * zoom) >> 6);
+			content.height_((m_resolution.height_() * zoom) >> 6);
+			Area foreclip_sketch;
+
+			place_in_layout(foreclip, content, m_margin, EXTEND_NONE, foreclip_sketch, (Align)m_align);
+			position = foreclip_sketch.position();
 		}
 		else
 		{
-			m_polygon.position(m_position);
+			position = m_position;
+			position.move_(padding.right_(), padding.top_());
 		}
+
 
 		// Display icon
 		for (uint32_t i = 0; i < m_paths.size(); i++)
@@ -204,12 +215,11 @@ void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t state
 				vectors_script.parse();
 
 				// Paint icon path
-				UIManager::renderer()->draw(m_position, m_margin, shift, m_center, path_color, m_angle, m_polygon.outline());
+				UIManager::renderer()->draw(position, 0, shift, m_center, path_color, m_angle, m_polygon.outline());
 			}
 		}
 	}
 }
-
 
 /** Render outline */
 void Sketch::paint(const Point & shift)
@@ -217,7 +227,7 @@ void Sketch::paint(const Point & shift)
 	Area foreclip;
 	foreclip.position(shift);
 	const Margin padding;
-	Sketch::paint(foreclip, padding, m_color);
+	Sketch::paint(foreclip, padding, color());
 }
 
 /** Destructor */
@@ -298,7 +308,7 @@ void Sketch::zoom_(Dim z)
 	UIManager::invalidator()->dirty(m_parent, Invalidator::GEOMETRY);
 	m_zoom = z;
 }
-		
+
 /** Get the zoom ratio for the icon
 @return zoom zoom value shifted by 6 bits */
 Dim Sketch::zoom_() const
@@ -421,6 +431,7 @@ void Sketch::test1()
 	maison->size(rect->size());
 	UIManager::desktop()->dispatch("test/out/sketch1_5.svg");
 }
+
 void Sketch::test2()
 {
 	Window window;
@@ -442,7 +453,6 @@ void Sketch::test2()
 		maison->position(rect->position());
 		maison->repeat(Shape::REPEAT_ANGLE, 0, 359, 30);
 
-
 	Sketch * computer = new Sketch(canvas);
 		computer->position(rect->position());
 		computer->size(rect->size());
@@ -463,7 +473,6 @@ void Sketch::test2()
 	rect->center(pos,50);
 	computer->center(pos,50);
 	computer->color(Color::BLUE,64);
-
 	UIManager::desktop()->dispatch("test/out/sketch2_2.svg");
 
 	pos -= 50;
@@ -472,21 +481,61 @@ void Sketch::test2()
 	rect->center(pos,100);
 	computer->center(pos,100);
 	computer->color(Color::RED);
-
 	UIManager::desktop()->dispatch("test/out/sketch2_3.svg");
 }
+
 void Sketch::test3()
 {
+	Window window;
+
+	Canvas * canvas = new Canvas(&window);
+		canvas->color(Color::RED,64);
+		canvas->extend(Extend::EXTEND_ALL);
+
+	Rect * rect= new Rect(canvas);
+		rect->position(57,31);
+		rect->size(32,360);
+		rect->color(Color::WHITE,64);
+
+	Sketch * maison = new Sketch(canvas);
+		maison->position(rect->position());
+		maison->size(rect->size());
+		maison->filename("resources/icons/maison.icn");
+	UIManager::desktop()->dispatch("test/out/sketch3_0.svg");
+
+	maison->align(Align::ALIGN_BOTTOM);
+	UIManager::desktop()->dispatch("test/out/sketch3_1.svg");
+
+	maison->align(Align::ALIGN_TOP);
+	UIManager::desktop()->dispatch("test/out/sketch3_2.svg");
+
+	maison->align(Align::ALIGN_VERTICAL);
+	UIManager::desktop()->dispatch("test/out/sketch3_3.svg");
+
+	rect->size(360,16);
+	maison->size(rect->size());
+	maison->align(Align::ALIGN_LEFT);
+	UIManager::desktop()->dispatch("test/out/sketch3_3.svg");
+
+	maison->align(Align::ALIGN_RIGHT);
+	UIManager::desktop()->dispatch("test/out/sketch3_4.svg");
+
+	maison->align(Align::ALIGN_HORIZONTAL);
+	UIManager::desktop()->dispatch("test/out/sketch3_5.svg");
 }
+
 void Sketch::test4()
 {
 }
+
 void Sketch::test5()
 {
 }
+
 void Sketch::test6()
 {
 }
+
 void Sketch::test()
 {
 	static bool done = false;

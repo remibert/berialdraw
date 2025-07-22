@@ -3,15 +3,16 @@
 	"border-color"   : 0x00000027, // ICON_BORDER_COLOR 
 	"text-color"     : 0x00000028, // ICON_TEXT_COLOR 
 	"icon-color"     : 0x00000029, // ICON_COLOR
+	"focus-color"    : 0x0000002A, // ICON_FOCUS_COLOR
 	"thickness"      : 0,
 	"radius"         : 20,
 	"margin"         : {"top":4,"left":4,"bottom":6,"right":4},
 	"align"          : "top",
-	"font-size"      : {"width":15,"height":15},
 	"icon-padding"   : {"top":6,"left":6,"bottom":6,"right":6},
-	"padding"        : {"top":5,"left":5,"bottom":5,"right":5},
+	"font-size"      : {"width":15,"height":15},
 	"text-align"     : "center",
-	"focusable"      : true,
+	"padding"        : {"top":5,"left":5,"bottom":5,"right":5},
 	"pressable"      : true,
+	"focusable"      : true,
 	"focus-thickness": 2,
 }
