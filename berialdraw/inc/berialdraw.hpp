@@ -2,10 +2,11 @@
 // System includes
 #include <stdint.h>
 #include <stdarg.h>
-#include <vector>
-#include <mutex>
 #include <stdio.h>
 #include <stdlib.h>
+#include <vector>
+#include <mutex>
+#include <stdexcept>
 
 // Tools
 #include "tool/memory_leak_tracer.hpp"
