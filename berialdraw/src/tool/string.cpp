@@ -583,13 +583,19 @@ String::operator const char *() const
 // To integer
 bool String::to_int(int32_t & integer) const
 {
-	return String::to_int(m_string, integer);
+	int temp;
+	bool result = String::to_int(m_string, temp);
+	if (result) integer = temp;
+	return result;
 }
 
 // To integer
 bool String::to_int(int64_t & integer) const
 {
-	return String::to_int(m_string, integer);
+	long long temp;
+	bool result = String::to_int(m_string, temp);
+	if (result) integer = temp;
+	return result;
 }
 
 // To integer 

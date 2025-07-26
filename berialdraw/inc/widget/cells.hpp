@@ -64,8 +64,8 @@ namespace berialdraw
 		Size m_max_size = {0,0};
 		Size m_marged_size = {0,0};
 
-		Dim m_rows_count;
-		Dim m_columns_count;
+		Dim m_rows_count = 0;
+		Dim m_columns_count = 0;
 /// @endcond
 	};
 }

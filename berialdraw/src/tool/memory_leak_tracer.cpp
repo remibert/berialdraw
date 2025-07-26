@@ -112,7 +112,7 @@ void * MemoryLeakTracer::calloc(std::size_t count, std::size_t size)
 {
 	void * result;
 	result = MemoryLeakTracer::malloc(count * size);
-	std::memset(result, 0, count * size);
+	memset(result, 0, count * size);
 	return result;
 }
 

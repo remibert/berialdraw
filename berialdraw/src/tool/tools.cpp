@@ -509,7 +509,7 @@ Dim compute_zoom(Dim value, Dim zoom)
 #include <time.h>
 	long long clockns()
 	{
-		long long elapsed_time;
+		struct timespec elapsed_time;
 		clock_gettime(CLOCK_MONOTONIC, &elapsed_time);
 		return (elapsed_time.tv_sec) * 1000000000LL + (elapsed_time.tv_nsec);
 	}

@@ -2,6 +2,8 @@
 
 using namespace berialdraw;
 
+
+
 Argb8888::Argb8888(uint32_t width, uint32_t height)
 {
 	m_dirty = true;
@@ -137,17 +139,26 @@ void     Argb8888::fill_rect(int32_t x, int32_t y, uint32_t width, uint32_t heig
 				// If no transparency
 				if (alpha == 0xFF)
 				{
-#if !defined(WIN32) && !defined(OSX)
-					// Init color for fast line
-					uint32_t c1 = red   << 24 | green << 16 | blue  << 8 | red  ;
-					uint32_t c2 = green << 24 | blue  << 16 | red   << 8 | green;
-					uint32_t c3 = blue  << 24 | red   << 16 | green << 8 | blue ;
-#else
-					// Init color for fast line
-					uint32_t c1 = red   << 24 | blue  << 16 | green << 8 | red  ;
-					uint32_t c2 = green << 24 | red   << 16 | blue  << 8 | green;
-					uint32_t c3 = blue  << 24 | green << 16 | red   << 8 | blue ;
-#endif
+					uint32_t c1;
+					uint32_t c2;
+					uint32_t c3;
+					uint16_t number = 0x1;
+					char *ptr = reinterpret_cast<char*>(&number);
+					if (ptr[0] == 1)
+					{
+						// Init color for fast line
+						c1 = red   << 24 | blue  << 16 | green << 8 | red  ;
+						c2 = green << 24 | red   << 16 | blue  << 8 | green;
+						c3 = blue  << 24 | green << 16 | red   << 8 | blue ;
+					}
+					else
+					{
+						// Init color for fast line
+						c1 = red   << 24 | green << 16 | blue  << 8 | red  ;
+						c2 = green << 24 | blue  << 16 | red   << 8 | green;
+						c3 = blue  << 24 | red   << 16 | green << 8 | blue ;
+					}
+					
 					while (height--)
 					{
 						uint32_t width_remaining = width;

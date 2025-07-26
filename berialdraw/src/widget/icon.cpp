@@ -140,7 +140,6 @@ void Icon::paint(const Region & parent_region)
 			stated_color(m_focus_color),
 			m_focused);
 
-		
 		// Paint icon
 		m_sketch->size(m_icon_foreclip.size());
 		m_sketch->paint(m_icon_foreclip, icon_padding(), stated_color(m_icon_color));

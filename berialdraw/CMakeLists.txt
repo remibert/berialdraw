@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.18)
 
 project(berialdraw)
 
@@ -7,10 +7,23 @@ set(BD_APP_TEST    app_unitary_test)
 set(BD_APP_SAMPLE  app_sample)
 set(BD_SAMPLE      sample)
 
+set(COMPILE_DEF
+	"$<$<CONFIG:Debug>:_DEBUG>"
+	"$<$<CONFIG:Release>:NDEBUG>"
+	"$<$<PLATFORM_ID:Linux>:LINUX>"
+	"$<$<PLATFORM_ID:Darwin>:OSX>"
+)
+
 if(APPLE)
 	execute_process(COMMAND uname -m OUTPUT_VARIABLE ARCHITECTURE OUTPUT_STRIP_TRAILING_WHITESPACE)
 	set(CMAKE_OSX_ARCHITECTURES ${ARCHITECTURE})
 	message(STATUS "Architecture selected (${ARCHITECTURE})")
+
+	if (${ARCHITECTURE} STREQUAL "arm64")
+		set(SDL3_INCLUDE_DIRS "/opt/homebrew/opt/sdl3/include")
+	else()
+		set(SDL3_INCLUDE_DIRS "/usr/local/opt/sdl3/include")
+	endif()
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
@@ -19,11 +32,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(SDL3_STATIC ON)
 find_package(SDL3 REQUIRED)
 
-if (${ARCHITECTURE} STREQUAL "arm64")
-	# set(SDL3_INCLUDE_DIRS "/opt/homebrew/opt/sdl3/include")
-else()
-	set(SDL3_INCLUDE_DIRS "/usr/local/opt/sdl3/include")
-endif()
 
 message(STATUS "SDL3_LIBRARIES    = ${SDL3_LIBRARIES}")
 message(STATUS "SDL3_INCLUDE_DIRS = ${SDL3_INCLUDE_DIRS}")
@@ -198,12 +206,6 @@ set(SRCS_APP_SAMPLE
 	samples/main.cpp
 )
 
-add_definitions(
-	-DPACKAGE=1
-	-DHAVE_PTHREAD_SETSPECIFIC=1
-	-DFT2_BUILD_LIBRARY=1
-	-DFT_ERR_PREFIX=FT_Err_)
-
 set(INCLUDES_LIB 
 	${SDL3_INCLUDE_DIRS}
 	"${CMAKE_CURRENT_SOURCE_DIR}/../freetype/include;"
@@ -213,48 +215,27 @@ set(INCLUDES_LIB
 	"${CMAKE_CURRENT_SOURCE_DIR}/..;"
 )
 
-set(INCLUDES_SAMPLE 
-	${SDL3_INCLUDE_DIRS}
-	"${CMAKE_CURRENT_SOURCE_DIR}/inc;"
-	"${CMAKE_CURRENT_SOURCE_DIR};"
-)
-
 # Static library
-add_library               (${BD_LIB} STATIC ${SRCS_LIB} )
-target_include_directories(${BD_LIB} PRIVATE ${INCLUDES_LIB})
-target_compile_definitions(${BD_LIB} PRIVATE
-	"$<$<CONFIG:Debug>:_DEBUG>"
-	"$<$<CONFIG:Release>:NDEBUG>"
-	"$<$<PLATFORM_ID:Linux>:LINUX>"
-	"$<$<PLATFORM_ID:Darwin>:OSX>"
-)
-target_link_libraries     (${BD_LIB} ${SDL3_LIBRARIES})
-
-# Sample library
-add_library               (${BD_SAMPLE} ${SRCS_SAMPLE})
-target_include_directories(${BD_SAMPLE} PRIVATE ${INCLUDES_SAMPLE})
+add_library                (${BD_LIB} STATIC  ${SRCS_LIB} )
+target_include_directories (${BD_LIB} PRIVATE ${INCLUDES_LIB})
+target_compile_definitions (${BD_LIB} PRIVATE ${COMPILE_DEF} 
+	-DPACKAGE=1
+	-DHAVE_PTHREAD_SETSPECIFIC=1
+	-DFT2_BUILD_LIBRARY=1
+	-DFT_ERR_PREFIX=FT_Err_)
+target_link_libraries      (${BD_LIB} ${SDL3_LIBRARIES})
 
 # Unitary test application
-add_executable             (${BD_APP_TEST}  ${SRCS_APP_TEST} )
+add_executable             (${BD_APP_TEST} ${SRCS_APP_TEST} ${SRCS_SAMPLE})
 target_include_directories (${BD_APP_TEST} PRIVATE ${INCLUDES_LIB})
-target_link_libraries      (${BD_APP_TEST} PRIVATE ${BD_LIB} ${BD_SAMPLE} ${SDL3_LIBRARIES})
-target_compile_definitions (${BD_APP_TEST} PRIVATE
-	"$<$<CONFIG:Debug>:_DEBUG>"
-	"$<$<CONFIG:Release>:NDEBUG>"
-	"$<$<PLATFORM_ID:Linux>:LINUX>"
-	"$<$<PLATFORM_ID:Darwin>:OSX>"
-)
+target_compile_definitions (${BD_APP_TEST} PRIVATE ${COMPILE_DEF})
+target_link_libraries      (${BD_APP_TEST} PRIVATE ${BD_LIB} ${SDL3_LIBRARIES})
 
-# Unitary test application
-add_executable            (${BD_APP_SAMPLE}  ${SRCS_APP_SAMPLE} )
+# Unitary sample application
+add_executable            (${BD_APP_SAMPLE} ${SRCS_APP_SAMPLE} ${SRCS_SAMPLE})
 target_include_directories(${BD_APP_SAMPLE} PRIVATE ${INCLUDES_LIB})
-target_link_libraries     (${BD_APP_SAMPLE} PRIVATE ${BD_LIB} ${BD_SAMPLE} ${SDL3_LIBRARIES})
-target_compile_definitions(${BD_APP_SAMPLE} PRIVATE
-	"$<$<CONFIG:Debug>:_DEBUG>"
-	"$<$<CONFIG:Release>:NDEBUG>"
-	"$<$<PLATFORM_ID:Linux>:LINUX>"
-	"$<$<PLATFORM_ID:Darwin>:OSX>"
-)
+target_compile_definitions(${BD_APP_SAMPLE} PRIVATE ${COMPILE_DEF})
+target_link_libraries     (${BD_APP_SAMPLE} PRIVATE ${BD_LIB} ${SDL3_LIBRARIES})
 
 file(COPY "${CMAKE_SOURCE_DIR}/resources" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/")
 # file(GLOB FILES_TO_DELETE "${DIR_TO_CLEAN}/*.tmp" "${DIR_TO_CLEAN}/logs/*.log")
