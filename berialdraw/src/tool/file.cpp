@@ -27,6 +27,7 @@ int File::close()
 	if (m_file)
 	{
 		fclose(m_file);
+		m_file = 0;
 		return 0;
 	}
 	return -1;
