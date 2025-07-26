@@ -4,6 +4,8 @@
 #include <stdarg.h>
 #include <vector>
 #include <mutex>
+#include <stdio.h>
+#include <stdlib.h>
 
 // Tools
 #include "tool/memory_leak_tracer.hpp"
