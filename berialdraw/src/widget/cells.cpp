@@ -52,13 +52,6 @@ void Cells::reallocate(Dim rows_count, Dim columns_count)
 			m_columns_count = columns_count;
 		}
 		
-		if(rows_count > 0 && columns_count > 0)
-		{
-			m_widths       = new Cell[columns_count]();
-			m_heights      = new Cell[rows_count]();
-			m_rows_count    = rows_count;
-			m_columns_count = columns_count;
-		}
 		for (Dim row = 0; row < rows_count; row ++)
 		{
 			m_heights[row].m_marged     = 0;

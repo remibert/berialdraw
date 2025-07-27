@@ -10,7 +10,6 @@ namespace berialdraw
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
 
-		Icon::test();
 		// Button::test();
 		Sketch::test();
 
@@ -32,6 +31,7 @@ namespace berialdraw
 		Sketch::test();
 		Rect::test();
 		Pie::test();
+		Grid::test();
 		Text::test();
 		LineChart::test();
 		Compass::test();

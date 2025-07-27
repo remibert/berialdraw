@@ -585,7 +585,7 @@ bool String::to_int(int32_t & integer) const
 {
 	int temp;
 	bool result = String::to_int(m_string, temp);
-	if (result) integer = temp;
+	integer = temp;
 	return result;
 }
 
@@ -594,7 +594,7 @@ bool String::to_int(int64_t & integer) const
 {
 	long long temp;
 	bool result = String::to_int(m_string, temp);
-	if (result) integer = temp;
+	integer = temp;
 	return result;
 }
 
