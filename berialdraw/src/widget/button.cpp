@@ -1084,7 +1084,6 @@ void test13_on_page(Widget * widget, const FocusEvent & focus_event)
 
 void Button::test13()
 {
-#if 0
 	Window window;
 
 		Column * column = new Column(&window);
@@ -1155,7 +1154,10 @@ void Button::test13()
 //buttonRef->text("O\ne");
 	while(1)
 		UIManager::desktop()->dispatch();
-#else
+}
+
+void Button::test14()
+{
 	UIManager::styles()->style("pearl");            // Select the style pearl
 	UIManager::colors()->appearance("light");       // Select the light appearance
 	UIManager::colors()->theme(Color::THEME_LIME);  // Select the color theme
@@ -1179,16 +1181,18 @@ void Button::test13()
 				button->text("One");
 				button->sides(Sides::LEFT_SIDE|TOP_SIDE|RIGHT_SIDE | Sides::RECTANGULAR_EXTREMITY);
 				button->margin(5,5,0,5);
-				button->radius(6);
+				button->radius(20);
 				button->bind(&test13_on_page);
 				button->id(1);
+				button->focus_gap(0);
 
 			button = new Button(row);
 				//button->copy(row);
 				button->text("Two");
-				button->sides(Sides::LEFT_SIDE|TOP_SIDE|RIGHT_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->sides(TOP_SIDE| Sides::RECTANGULAR_EXTREMITY);
 				button->margin(5,5,0,5);
-				button->radius(6);
+				button->radius(20);
+				button->thickness(0);
 				button->bind(&test13_on_page);
 				button->id(2);
 
@@ -1271,8 +1275,12 @@ paneTwo->hidden(true);
 		UIManager::desktop()->dispatch("test/out/button13.svg");
 	while(1)
 		UIManager::desktop()->dispatch();
-
-#endif
+}
+void Button::test15()
+{
+}
+void Button::test16()
+{
 }
 
 void Button::test()
@@ -1281,7 +1289,10 @@ void Button::test()
 	if (done == false)
 	{
 		done = true;
-		//test13();
+/*		test16();
+		test15();
+		test14();
+		test13();*/
 		test12();
 		test11();
 		test10();

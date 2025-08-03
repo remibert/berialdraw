@@ -8,11 +8,7 @@ const int SCREEN_HEIGHT = 480*ZOOM;
 
 using namespace berialdraw;
 
-#if defined(WIN32)
-int WINAPI WinMain(HINSTANCE h_instance, HINSTANCE h_prev_instance, LPSTR lp_cmd_line, int i_cmd_show)
-#else
 int main(int argc, char* args[])
-#endif
 {
 	// Initializes the UI manager with a new DeviceScreen named "Samples BerialDraw", 
 	// setting the screen width 480, height 480, pixel format, and zoom size
@@ -27,3 +23,13 @@ int main(int argc, char* args[])
 
 	return 0;
 }
+
+#if defined(_WIN32)/* && !defined(_CONSOLE)*/
+#include <windows.h>
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+{
+	int argc = __argc;
+	char** argv = __argv;
+	return main(argc, argv);
+}
+#endif

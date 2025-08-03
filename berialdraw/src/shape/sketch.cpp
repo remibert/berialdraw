@@ -515,7 +515,7 @@ void Sketch::test3()
 	rect->size(360,16);
 	maison->size(rect->size());
 	maison->align(Align::ALIGN_LEFT);
-	UIManager::desktop()->dispatch("test/out/sketch3_3.svg");
+	UIManager::desktop()->dispatch("test/out/sketch3_6.svg");
 
 	maison->align(Align::ALIGN_RIGHT);
 	UIManager::desktop()->dispatch("test/out/sketch3_4.svg");

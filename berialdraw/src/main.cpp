@@ -8,11 +8,7 @@ const int SCREEN_HEIGHT = 480*ZOOM;
 
 using namespace berialdraw; 
 
-#if defined(WIN32)
-int WINAPI WinMain(HINSTANCE h_instance, HINSTANCE h_prev_instance, LPSTR lp_cmd_line, int i_cmd_show)
-#else
 int main(int argc, char* args[])
-#endif
 {
 	// Start memory leak tracer
 	MemoryLeakTracer::start();
@@ -62,6 +58,16 @@ int main(int argc, char* args[])
 	return 0;
 }
 
+
+#if defined(_WIN32)/* && !defined(_CONSOLE)*/
+#include <windows.h>
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+{
+	int argc = __argc;
+	char** argv = __argv;
+	return main(argc, argv);
+}
+#endif
 
 /*
 /Users/remi/Downloads/esp32/firmware/micropython-s3/ports/unix/modsocket.c:466:    return mp_vfs_open(n_args, new_args, (mp_map_t *)&mp_const_empty_map); 

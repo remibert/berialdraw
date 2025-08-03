@@ -29,12 +29,19 @@ endif()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(SDL3_STATIC ON)
-find_package(SDL3 REQUIRED)
+if (WIND32 OR APPLE)
+	set(SDL3_STATIC ON)
+	find_package(SDL3 REQUIRED)
+	set(SRCS_DEVICE src/device/device_sdl.cpp)
 
+	message(STATUS "SDL3_LIBRARIES    = ${SDL3_LIBRARIES}")
+	message(STATUS "SDL3_INCLUDE_DIRS = ${SDL3_INCLUDE_DIRS}")
+else()
+	set(SDL3_INCLUDE_DIRS "")
+	set(SRCS_DEVICE src/device/device_win32.cpp)
+	add_definitions(-DUNICODE -D_UNICODE)
+endif()
 
-message(STATUS "SDL3_LIBRARIES    = ${SDL3_LIBRARIES}")
-message(STATUS "SDL3_INCLUDE_DIRS = ${SDL3_INCLUDE_DIRS}")
 
 set(SRCS_LIB
 	src/widget/edit.cpp
@@ -118,7 +125,6 @@ set(SRCS_LIB
 
 	src/framebuf/argb8888.cpp
 	src/framebuf/framebuf.cpp
-	src/device/device_sdl.cpp
 
 	src/tool/bd_system.cpp
 	src/tool/tools.cpp
@@ -216,7 +222,7 @@ set(INCLUDES_LIB
 )
 
 # Static library
-add_library                (${BD_LIB} STATIC  ${SRCS_LIB} )
+add_library                (${BD_LIB} STATIC  ${SRCS_DEVICE} ${SRCS_LIB} )
 target_include_directories (${BD_LIB} PRIVATE ${INCLUDES_LIB})
 target_compile_definitions (${BD_LIB} PRIVATE ${COMPILE_DEF} 
 	-DPACKAGE=1
