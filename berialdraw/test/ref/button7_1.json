@@ -28,7 +28,7 @@
 			"x" : 0,
 			"y" : 0
 		},
-		"sides" : "all",
+		"borders" : "all",
 		"min-size" : 
 		{
 			"width" : 0,
@@ -109,7 +109,7 @@
 					"x" : 0,
 					"y" : 0
 				},
-				"sides" : "all",
+				"borders" : "all",
 				"children" : 
 				[
 					{
@@ -166,7 +166,7 @@
 							"x" : 0,
 							"y" : 0
 						},
-						"sides" : "all",
+						"borders" : "all",
 						"children" : 
 						[
 							{
@@ -199,7 +199,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -277,7 +277,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -355,7 +355,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -433,7 +433,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -511,7 +511,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -589,7 +589,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -667,7 +667,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -745,7 +745,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -823,7 +823,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -901,7 +901,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -1005,7 +1005,7 @@
 							"x" : 0,
 							"y" : 0
 						},
-						"sides" : "all",
+						"borders" : "all",
 						"children" : 
 						[
 							{
@@ -1038,7 +1038,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -1116,7 +1116,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -1194,7 +1194,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -1272,7 +1272,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -1350,7 +1350,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -1428,7 +1428,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -1506,7 +1506,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -1584,7 +1584,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -1662,7 +1662,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -1740,7 +1740,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -1844,7 +1844,7 @@
 							"x" : 0,
 							"y" : 0
 						},
-						"sides" : "all",
+						"borders" : "all",
 						"children" : 
 						[
 							{
@@ -1877,7 +1877,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -1955,7 +1955,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -2033,7 +2033,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -2111,7 +2111,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -2189,7 +2189,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -2267,7 +2267,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -2345,7 +2345,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -2423,7 +2423,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -2501,7 +2501,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -2605,7 +2605,7 @@
 							"x" : 0,
 							"y" : 0
 						},
-						"sides" : "all",
+						"borders" : "all",
 						"children" : 
 						[
 							{
@@ -2638,7 +2638,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -2716,7 +2716,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,
@@ -2794,7 +2794,7 @@
 									"x" : 0,
 									"y" : 0
 								},
-								"sides" : "all",
+								"borders" : "all",
 								"min-size" : 
 								{
 									"width" : 0,

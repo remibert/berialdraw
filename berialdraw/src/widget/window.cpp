@@ -76,6 +76,22 @@ Size Window::content_size()
 	return result;
 }
 
+
+/** Remove the focus of the widget */
+void Window::remove_focus(Widget * widget)
+{
+	if (m_with_focus == widget)
+	{
+		focus_next(m_with_focus);
+		if (m_with_focus == widget)
+		{
+			m_with_focus = 0;
+			m_refocus = 1;
+		}
+	}
+}
+
+
 void Window::place()
 {
 	if (m_refocus)

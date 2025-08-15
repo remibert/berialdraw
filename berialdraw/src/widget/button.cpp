@@ -843,7 +843,7 @@ static Button * new_menu_item(Widget * parent, uint32_t hue, const char * menu, 
 
 		button->color(Color::WHITE);
 		button->border_color(Color::GRAY);
-		button->sides(BOTTOM_SIDE);
+		button->borders(BOTTOM_BORDER);
 		button->extend(Extend::EXTEND_WIDTH);
 
 		button->margin(1);
@@ -1044,11 +1044,11 @@ void Button::test12()
 			button->focus_gap(gap);
 			button->focus_thickness(thickness);
 
-			button->sides(ALL_SIDES);
+			button->borders(ALL_BORDERS);
 			name.print("test/out/button12_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 
-			button->sides(BOTTOM_SIDE|RIGHT_SIDE|ROUNDED_EXTREMITY);
+			button->borders(BOTTOM_BORDER|RIGHT_BORDER|ROUNDED_END);
 			name.print("test/out/button12_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
@@ -1085,75 +1085,139 @@ void test13_on_page(Widget * widget, const FocusEvent & focus_event)
 void Button::test13()
 {
 	Window window;
+	//UIManager::notifier()->log(Notifier::LOG_KEY);
 
 		Column * column = new Column(&window);
 		Row * row = new Row(column);
 			Button * buttonRef;
 			Button * button;
 	
-
 			buttonRef = new Button(row);
 				buttonRef->text("One");
-				buttonRef->sides(Sides::LEFT_SIDE|BOTTOM_SIDE|RIGHT_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				buttonRef->borders(Borders::LEFT_BORDER|BOTTOM_BORDER|RIGHT_BORDER | Borders::RIGHT_ANGLE_END);
 				buttonRef->color(Color::LIGHT_DAY_BLUE,128);
 				buttonRef->border_color(Color::OCEAN_BLUE,128);
 				buttonRef->text_color(Color::NEW_MIDNIGHT_BLUE);
 				buttonRef->thickness_(1);
-				buttonRef->radius(6);
+				buttonRef->radius(11);
 				buttonRef->align(CENTER);
 				buttonRef->margin(20);
 
 				buttonRef->focus_color(Color::OCEAN_BLUE);
 				buttonRef->focus_gap(0);
-				buttonRef->focus_thickness(2);
+				buttonRef->focus_thickness(7);
 
 
 			button = new Button(row);
 				button->copy(*buttonRef);
 				button->text("Two");
-				button->sides(Sides::LEFT_SIDE|TOP_SIDE|RIGHT_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->borders(Borders::LEFT_BORDER|TOP_BORDER|RIGHT_BORDER | Borders::RIGHT_ANGLE_END);
 
 			button = new Button(row);
 				button->copy(*buttonRef);
 				button->text("Three");
-				button->sides(Sides::LEFT_SIDE|BOTTOM_SIDE|TOP_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->borders(Borders::LEFT_BORDER|BOTTOM_BORDER|TOP_BORDER | Borders::RIGHT_ANGLE_END);
 
 			button = new Button(row);
 				button->copy(*buttonRef);
 				button->text("Four");
-				button->sides(Sides::RIGHT_SIDE|BOTTOM_SIDE|TOP_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->borders(Borders::RIGHT_BORDER|BOTTOM_BORDER|TOP_BORDER | Borders::RIGHT_ANGLE_END);
 
 			row = new Row(column);
 
 			button = new Button(row);
 				button->copy(*buttonRef);
 				button->text("Five");
-				button->sides(LEFT_SIDE|BOTTOM_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->borders(LEFT_BORDER|BOTTOM_BORDER | Borders::RIGHT_ANGLE_END);
 
 			button = new Button(row);
 				button->copy(*buttonRef);
 				button->text("Six");
-				button->sides(Sides::LEFT_SIDE|TOP_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->borders(Borders::LEFT_BORDER|TOP_BORDER | Borders::RIGHT_ANGLE_END);
 
 			button = new Button(row);
 				button->copy(*buttonRef);
 				button->text("Seven");
-				button->sides(Sides::RIGHT_SIDE|TOP_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->borders(Borders::RIGHT_BORDER|TOP_BORDER | Borders::RIGHT_ANGLE_END);
 
 			button = new Button(row);
 				button->copy(*buttonRef);
 				button->text("Height");
-				button->sides(Sides::RIGHT_SIDE|BOTTOM_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->borders(Borders::RIGHT_BORDER|BOTTOM_BORDER | Borders::RIGHT_ANGLE_END);
 
 
-		Pane * pane = new Pane(column);
-			pane->color(Color::WHITE);
-			pane->size_policy(SizePolicy::ENLARGE_ALL);
-	//while(1)
-		//UIManager::desktop()->dispatch("test/out/button13.svg");
-//buttonRef->text("O\ne");
-	while(1)
-		UIManager::desktop()->dispatch();
+			row = new Row(column);
+
+			button = new Button(row);
+				button->copy(*buttonRef);
+				button->text("Nine");
+				button->borders(BOTTOM_BORDER | Borders::RIGHT_ANGLE_END);
+
+			button = new Button(row);
+				button->copy(*buttonRef);
+				button->text("Ten");
+				button->borders(TOP_BORDER | Borders::RIGHT_ANGLE_END);
+
+			button = new Button(row);
+				button->copy(*buttonRef);
+				button->text("Eleven");
+				button->borders(RIGHT_BORDER | Borders::RIGHT_ANGLE_END);
+
+			button = new Button(row);
+				button->copy(*buttonRef);
+				button->text("Thirteen");
+				button->borders(LEFT_BORDER | Borders::RIGHT_ANGLE_END);
+
+	String script(
+	"["
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+		"{'type':'key','key':  9,'state':'down','modifier':''     ,'character':'I'},"
+		"{'type':'key','key':  9,'state':'up'  ,'modifier':''     ,'character':'I'},"
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+		"{'type':'key','key':  9,'state':'down','modifier':''     ,'character':'I'},"
+		"{'type':'key','key':  9,'state':'up'  ,'modifier':''     ,'character':'I'},"
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+		"{'type':'key','key':  9,'state':'down','modifier':''     ,'character':'I'},"
+		"{'type':'key','key':  9,'state':'up'  ,'modifier':''     ,'character':'I'},"
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+		"{'type':'key','key':  9,'state':'down','modifier':''     ,'character':'I'},"
+		"{'type':'key','key':  9,'state':'up'  ,'modifier':''     ,'character':'I'},"
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+		"{'type':'key','key':  9,'state':'down','modifier':''     ,'character':'I'},"
+		"{'type':'key','key':  9,'state':'up'  ,'modifier':''     ,'character':'I'},"
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+		"{'type':'key','key':  9,'state':'down','modifier':''     ,'character':'I'},"
+		"{'type':'key','key':  9,'state':'up'  ,'modifier':''     ,'character':'I'},"
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+		"{'type':'key','key':  9,'state':'down','modifier':''     ,'character':'I'},"
+		"{'type':'key','key':  9,'state':'up'  ,'modifier':''     ,'character':'I'},"
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+		"{'type':'key','key':  9,'state':'down','modifier':''     ,'character':'I'},"
+		"{'type':'key','key':  9,'state':'up'  ,'modifier':''     ,'character':'I'},"
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+		"{'type':'key','key':  9,'state':'down','modifier':''     ,'character':'I'},"
+		"{'type':'key','key':  9,'state':'up'  ,'modifier':''     ,'character':'I'},"
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+		"{'type':'key','key':  9,'state':'down','modifier':''     ,'character':'I'},"
+		"{'type':'key','key':  9,'state':'up'  ,'modifier':''     ,'character':'I'},"
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+		"{'type':'key','key':  9,'state':'down','modifier':''     ,'character':'I'},"
+		"{'type':'key','key':  9,'state':'up'  ,'modifier':''     ,'character':'I'},"
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+	"]");
+	UIManager::notifier()->play_script(script, "test/out/button13_%d.svg");
 }
 
 void Button::test14()
@@ -1172,14 +1236,39 @@ void Button::test14()
 		window.color(0xFFF4F4F4);
 		Column * column = new Column(&window);
 		Row * row = new Row(column);
-			//row->size_policy(SizePolicy::ENLARGE_WIDTH);
+			row->size_policy(SizePolicy::SHRINK_WIDTH);
 			//Button * buttonRef;
 			row->margin(10,10,0,10);
 			Button * button;
 
 			button = new Button(row);
+				button->text("⏴");
+				button->borders(Borders::LEFT_BORDER|TOP_BORDER|RIGHT_BORDER | Borders::RIGHT_ANGLE_END);
+				button->margin(1);
+				button->extend(Extend::EXTEND_HEIGHT);
+				button->size_policy(SizePolicy::SHRINK_WIDTH);
+				button->bind(&test13_on_page);
+				button->id(5);
+				button->focus_gap(0);
+				button->focusable(false);
+				button->radius(2);	
+
+			button = new Button(row);
+				button->text("⏵");
+				button->borders(Borders::LEFT_BORDER|TOP_BORDER|RIGHT_BORDER | Borders::RIGHT_ANGLE_END);
+				button->margin(1);
+				button->extend(Extend::EXTEND_HEIGHT);
+				button->size_policy(SizePolicy::SHRINK_WIDTH);
+				button->bind(&test13_on_page);
+				button->id(6);
+				button->focus_gap(0);
+				button->focusable(false);
+				button->radius(2);	
+
+
+			button = new Button(row);
 				button->text("One");
-				button->sides(Sides::LEFT_SIDE|TOP_SIDE|RIGHT_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->borders(Borders::LEFT_BORDER|TOP_BORDER|RIGHT_BORDER | Borders::RIGHT_ANGLE_END);
 				button->margin(5,5,0,5);
 				button->radius(20);
 				button->bind(&test13_on_page);
@@ -1187,18 +1276,17 @@ void Button::test14()
 				button->focus_gap(0);
 
 			button = new Button(row);
-				//button->copy(row);
 				button->text("Two");
-				button->sides(TOP_SIDE| Sides::RECTANGULAR_EXTREMITY);
+				button->borders(TOP_BORDER| ROUNDED_END | RIGHT_ANGLE_WITHOUT_BORDER);
 				button->margin(5,5,0,5);
-				button->radius(20);
+				button->radius(0);
 				button->thickness(0);
 				button->bind(&test13_on_page);
 				button->id(2);
 
 			button = new Button(row);
 				button->text("Three");
-				button->sides(Sides::LEFT_SIDE|TOP_SIDE|RIGHT_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->borders(Borders::LEFT_BORDER|TOP_BORDER|RIGHT_BORDER | Borders::RIGHT_ANGLE_END);
 				button->margin(5,5,0,5);
 				button->radius(6);
 				button->bind(&test13_on_page);
@@ -1206,7 +1294,7 @@ void Button::test14()
 
 			button = new Button(row);
 				button->text("Four");
-				button->sides(Sides::LEFT_SIDE|TOP_SIDE|RIGHT_SIDE | Sides::RECTANGULAR_EXTREMITY);
+				button->borders(Borders::LEFT_BORDER|TOP_BORDER|RIGHT_BORDER | Borders::RIGHT_ANGLE_END);
 				button->margin(5,5,0,5);
 				button->radius(6);
 				button->bind(&test13_on_page);
@@ -1246,7 +1334,7 @@ void Button::test14()
 				paneTwo->color(Color::WHITE);
 				paneTwo->radius(0);
 				paneTwo->thickness(1);
-paneTwo->hidden(true);
+				paneTwo->hidden(true);
 				col = new Column(paneTwo);
 					label = new Label(col);
 						label->text("First name : ");
@@ -1272,14 +1360,105 @@ paneTwo->hidden(true);
 					spacer = new Label(col);
 						spacer->size_policy(SizePolicy::ENLARGE_ALL);
 
-		UIManager::desktop()->dispatch("test/out/button13.svg");
+		//UIManager::desktop()->dispatch("test/out/button13.svg");
 	while(1)
 		UIManager::desktop()->dispatch();
 }
+
 void Button::test15()
 {
+	Window window;
+		Column * column = new Column(&window);
+		Row * row = new Row(column);
+			Button * button;
+		String name;
+		int id = 0;
+
+		for (Borders border = TOP_BORDER; border <= LEFT_BORDER; border = (Borders)(border << 1))
+		{ 
+			button = new Button(row);
+				button->color(Color::LIGHT_DAY_BLUE,128);
+				button->border_color(Color::RED,128);
+				button->text_color(Color::NEW_MIDNIGHT_BLUE);
+				button->thickness(5);
+				button->radius(60);
+				button->align(CENTER);
+				button->margin(100);
+				button->focus_color(Color::OCEAN_BLUE);
+				button->focus_gap(0);
+				button->focus_thickness(10);
+				button->text("ROUNDED_END \n RIGHT_ANGLE_WITHOUT_BORDER");
+				button->borders(border | ROUNDED_END | RIGHT_ANGLE_WITHOUT_BORDER);
+				name.print("test/out/button15_%d.svg", ++id);
+				UIManager::desktop()->dispatch(name);
+				delete button;
+		}
 }
+
 void Button::test16()
+{
+	Window window;
+		Column * column = new Column(&window);
+		Row * row = new Row(column);
+			Button * button;
+		String name;
+		int id = 0;
+
+		for (Borders border = TOP_BORDER; border <= LEFT_BORDER; border = (Borders)(border << 1))
+		{ 
+			button = new Button(row);
+				button->color(Color::LIGHT_DAY_BLUE,128);
+				button->border_color(Color::RED,128);
+				button->text_color(Color::NEW_MIDNIGHT_BLUE);
+				button->thickness(5);
+				button->radius(60);
+				button->align(CENTER);
+				button->margin(100);
+				button->focus_color(Color::OCEAN_BLUE);
+				button->focus_gap(0);
+				button->focus_thickness(10);
+				button->text("RIGHT_ANGLE_END \n RIGHT_ANGLE_WITHOUT_BORDER");
+				button->borders(border | RIGHT_ANGLE_END | RIGHT_ANGLE_WITHOUT_BORDER);
+				name.print("test/out/button16_%d.svg", ++id);
+				UIManager::desktop()->dispatch(name);
+				delete button;
+		}
+}
+
+void Button::test17()
+{
+	Window window;
+		Column * column = new Column(&window);
+		Row * row = new Row(column);
+			Button * button;
+		String name;
+		int id = 0;
+
+		for (Borders border = TOP_BORDER; border <= LEFT_BORDER; border = (Borders)(border << 1))
+		{ 
+			button = new Button(row);
+				button->text("One");
+
+				button->borders(Borders::LEFT_BORDER|BOTTOM_BORDER|RIGHT_BORDER | Borders::RIGHT_ANGLE_END);
+				button->color(Color::LIGHT_DAY_BLUE,128);
+				button->border_color(Color::RED,128);
+				button->text_color(Color::NEW_MIDNIGHT_BLUE);
+				button->thickness(5);
+				button->radius(60);
+				button->align(CENTER);
+				button->margin(100);
+				button->focus_color(Color::OCEAN_BLUE);
+				button->focus_gap(0);
+				button->focus_thickness(10);
+				button->text("RIGHT_ANGLE_WITHOUT_BORDER");
+				button->borders(border | RIGHT_ANGLE_WITHOUT_BORDER);
+				name.print("test/out/button17_%d.svg", ++id);
+				UIManager::desktop()->dispatch(name);
+				delete button;
+		}
+}
+
+void Button::test18()
 {
 }
 
@@ -1289,10 +1468,14 @@ void Button::test()
 	if (done == false)
 	{
 		done = true;
-/*		test16();
+
+//test14();
+		test18();
+		test17();
+		test16();
 		test15();
-		test14();
-		test13();*/
+		//test14();
+		test13();
 		test12();
 		test11();
 		test10();

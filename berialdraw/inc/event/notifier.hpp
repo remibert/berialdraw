@@ -121,6 +121,9 @@ namespace berialdraw
 		/** Clean up call back according to widget handle */
 		void clean_up_callback(Widget *widget);
 
+		/** Clean up event according to widget handle */
+		void clean_up_event(Widget *widget);
+
 		Vector<Callable *> m_callbacks;
 		Vector<Event *> m_events;
 

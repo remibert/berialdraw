@@ -149,11 +149,11 @@ namespace berialdraw
 		void align(Align v);
 
 
-		/** Select the displayed side of the rectangle */
-		void sides(uint8_t side);
+		/** Select the displayed border of the rectangle */
+		void borders(uint16_t side);
 
-		/** Gets the displayed side of the rectangle */
-		uint8_t sides() const;
+		/** Gets the displayed border of the rectangle */
+		uint16_t borders() const;
 
 
 		/** Get the hidden widget state */
@@ -184,7 +184,7 @@ namespace berialdraw
 		unsigned int m_hidden :1;
 		int m_light:8;
 		int m_saturation:8;
-		Sides m_sides;
+		Borders m_borders;
 /// @endcond 
 	}; 
 }

@@ -95,7 +95,7 @@ void Switch::paint(const Region & parent_region)
 			}
 		}
 		area_thumb.size().width(area_thumb.size().height());
-		Rect::build_polygon(area_thumb, substract(m_radius, m_thumb_padding), 0, 0, ALL_SIDES, stated_color(m_thumb_color), 0);
+		Rect::build_polygon(area_thumb, substract(m_radius, m_thumb_padding), 0, 0, ALL_BORDERS, stated_color(m_thumb_color), 0);
 	}
 }
 

@@ -36,6 +36,9 @@ namespace berialdraw
 /** @internal 
 {
 */
+		/** Remove the focus of the widget because it will be destroyed */
+		void remove_focus(Widget * widget);
+
 		/** Force flow replacement */
 		void force_flow_replacement();
 

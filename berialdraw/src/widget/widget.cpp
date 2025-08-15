@@ -68,6 +68,15 @@ Widget::~Widget()
 		UIManager::invalidator()->remove(this);
 	}
 
+	if (m_focused)
+	{
+		Window * window = dynamic_cast<Window*>(Widget::root());
+		if (window)
+		{
+			window->remove_focus(this);
+		}
+	}
+
 	// Unlink parent
 	if(m_parent)
 	{
@@ -104,6 +113,8 @@ Widget::~Widget()
 			}
 		}
 	}
+
+
 	if (UIManager::notifier())
 	{
 		UIManager::notifier()->remove(this);

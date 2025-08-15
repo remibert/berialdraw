@@ -400,10 +400,30 @@ void Notifier::clean_up_callback(Widget *widget)
 	}
 }
 
+
+/** Clean up event according to widget handle */
+void Notifier::clean_up_event(Widget *widget)
+{
+	for (uint32_t i = 0; i < m_events.size(); i++)
+	{
+		Event * evt = m_events[i];
+		if (is_not_used(evt) && is_not_marked_destroy(evt))
+		{
+			if (evt->widget() == widget)
+			{
+				delete evt;
+				m_events[i] = 0;
+			}
+		}
+	}
+}
+
+
 /** Remove and destroy selected widget */
 void Notifier::remove(Widget * widget)
 {
 	clean_up_callback(widget);
+	clean_up_event(widget);
 	if (m_hovered == widget)
 	{
 		m_hovered = 0;

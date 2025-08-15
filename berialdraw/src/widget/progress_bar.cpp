@@ -244,11 +244,11 @@ void ProgressBar::draw_track()
 
 	// Draw track
 	track_area.nearest_pixel();
-	Rect::build_polygon(track_area, track_radius, track_thickness, 0, m_sides, stated_color(m_track_color), track_border_color);
+	Rect::build_polygon(track_area, track_radius, track_thickness, 0, m_borders, stated_color(m_track_color), track_border_color);
 
 	// Draw fill
 	fill_area.nearest_pixel();
-	Rect::build_polygon(fill_area, fill_radius, fill_thickness, 0, m_sides, stated_color(m_fill_color), fill_border_color);
+	Rect::build_polygon(fill_area, fill_radius, fill_thickness, 0, m_borders, stated_color(m_fill_color), fill_border_color);
 }
 
 void ProgressBar::paint(const Region & parent_region)

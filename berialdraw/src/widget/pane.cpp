@@ -65,7 +65,7 @@ void Pane::paint(const Region & parent_region)
 	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
 	{
 		UIManager::renderer()->region(region);
-		Rect::build_polygon(m_foreclip, m_radius, m_thickness, 0, m_sides, stated_color(m_color), stated_color(m_border_color));
+		Rect::build_polygon(m_foreclip, m_radius, m_thickness, 0, m_borders, stated_color(m_color), stated_color(m_border_color));
 		Widget::paint(region);
 	}
 }

@@ -221,7 +221,7 @@ void Slider::draw_track()
 
 	// Draw track
 	track_area.nearest_pixel();
-	Rect::build_polygon(track_area, track_radius, track_thickness, 0, m_sides, stated_color(m_track_color), track_border_color);
+	Rect::build_polygon(track_area, track_radius, track_thickness, 0, m_borders, stated_color(m_track_color), track_border_color);
 
 	// Draw fill
 	handle_area.nearest_pixel();

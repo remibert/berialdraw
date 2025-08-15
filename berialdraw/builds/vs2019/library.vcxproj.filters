@@ -495,7 +495,7 @@
     <ClCompile Include="..\..\src\tool\arc_cache.cpp">
       <Filter>berialdraw\tool</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\vector\side.cpp">
+    <ClCompile Include="..\..\src\vector\border.cpp">
       <Filter>berialdraw\vector</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\event\focus_event.cpp">
@@ -1247,7 +1247,7 @@
     <ClInclude Include="..\..\inc\tool\arc_cache.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\vector\side.hpp">
+    <ClInclude Include="..\..\inc\vector\border.hpp">
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\event\focus_event.hpp">

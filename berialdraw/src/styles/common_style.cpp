@@ -9,7 +9,7 @@ CommonStyle::CommonStyle()
 	m_angle = 0;
 	m_angle_modified = 1;
 	m_geometry_modified = 1;
-	m_sides = ALL_SIDES;
+	m_borders = ALL_BORDERS;
 	m_light = 0;
 	m_hidden = false;
 	m_saturation = 0;
@@ -29,7 +29,7 @@ void CommonStyle::serialize(JsonIterator & it)
 
 	it["angle_"]       = m_angle;
 	m_center.serialize("center",it);
-	berialdraw::serialize(it, m_sides);
+	berialdraw::serialize(it, m_borders);
 }
 
 /** Unserialize the content of widget from json */
@@ -51,7 +51,7 @@ void CommonStyle::unserialize(JsonIterator & it)
 	berialdraw::unserialize("align",it, align);
 	m_align = align;
 	m_center.unserialize("center",it);
-	berialdraw::unserialize(it, m_sides);
+	berialdraw::unserialize(it, m_borders);
 	m_angle_modified = 1;
 	m_geometry_modified = 1;
 }
@@ -68,7 +68,7 @@ void CommonStyle::set(const CommonStyle & other)
 		m_center     = other.m_center;
 		m_size       = other.m_size;
 		m_align      = other.m_align;
-		m_sides      = other.m_sides;
+		m_borders      = other.m_borders;
 		m_light      = other.m_light;
 		m_saturation = other.m_saturation;
 		m_hidden     = other.m_hidden;
@@ -497,17 +497,17 @@ void CommonStyle::align(Align v)
 
 
 
-/** Select the displayed side of the rectangle */
-void CommonStyle::sides(uint8_t side)
+/** Select the displayed border of the rectangle */
+void CommonStyle::borders(uint16_t side)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
-	m_sides = (Sides)side;
+	m_borders = (Borders)side;
 }
 
-/** Gets the displayed side of the rectangle */
-uint8_t CommonStyle::sides() const
+/** Gets the displayed border of the rectangle */
+uint16_t CommonStyle::borders() const
 {
-	return m_sides;
+	return m_borders;
 }
 
 /** Get the hidden widget state */

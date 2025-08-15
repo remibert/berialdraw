@@ -114,7 +114,7 @@ set(SRCS_LIB
 	src/vector/size_policy.cpp
 	src/vector/extend.cpp
 	src/vector/dim.cpp
-	src/vector/side.cpp
+	src/vector/border.cpp
 
 	src/font/utf8.cpp
 	src/font/font.cpp

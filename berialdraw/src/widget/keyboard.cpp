@@ -377,6 +377,8 @@ void Keyboard::test()
 	if (done == false)
 	{
 		done = true;
+test1();
+
 		test7();
 		test6();
 		test5();

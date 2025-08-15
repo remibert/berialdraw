@@ -40,7 +40,7 @@
 #include "vector/margin.hpp"
 #include "vector/linear.hpp"
 #include "vector/area.hpp"
-#include "vector/side.hpp"
+#include "vector/border.hpp"
 
 // Font
 #include "font/utf8.hpp"

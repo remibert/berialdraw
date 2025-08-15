@@ -22,6 +22,7 @@ public:
 	static void test5();  ///< Test case 5
 	static void test6();  ///< Test case 6
 	static void test7();  ///< Test case 7
+	static void test8();  ///< Test case 7
 #endif
 
 	/** Copy constructor for the Rect class.
@@ -33,10 +34,10 @@ public:
 	@param radius Radius for rounded corners.
 	@param thickness Thickness of the border.
 	@param gap Gap between the border and the fill.
-	@param sides Number of sides of the polygon (approximating a rounded rectangle).
+	@param borders Number of borders of the polygon (approximating a rounded rectangle).
 	@param backcolor Background color of the rectangle.
 	@param bordercolor Border color of the rectangle. */
-	static void build_polygon(const Area & area, Dim radius, Dim thickness, Dim gap, uint8_t sides, uint32_t backcolor, uint32_t bordercolor, Dim focus_thickness=0);
+	static void build_polygon(const Area & area, Dim radius, Dim thickness, Dim gap, uint8_t borders, uint32_t backcolor, uint32_t bordercolor, Dim focus_thickness=0);
 
 
 	static void build_focused_polygon(const Area & area, 
@@ -66,10 +67,15 @@ protected:
 
 	inline void add_corner    (Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags);
 
-	
+	void no_border_rectangle(Coord w, Coord h, Coord R, Coord t);
+
+	void rounded_border_rectangle(Coord w, Coord h, Coord R, Coord r, Coord t);
+	void right_angle_border_rectangle(Coord w, Coord h, Coord R, Coord r, Coord t);
+	void adapt_radius(Coord & radius);
+	void adapt_thickness(Coord & thickness);
+
 	// Render outline
 	void paint(const Point & shift, bool in_widget);
-
 
 	/// Polygon representation of the rectangle's outline.
 	Polygon m_polygon;
