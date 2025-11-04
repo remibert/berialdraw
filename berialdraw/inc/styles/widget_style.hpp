@@ -145,6 +145,7 @@ namespace berialdraw
 
 #define UNDEFINED_CELL 0x7FFF
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Size m_min_size = {0,0};
 		Size m_max_size = {Size::MAX_SIZE,Size::MAX_SIZE};
@@ -170,5 +171,6 @@ namespace berialdraw
 		unsigned int m_flow_in_children:1;
 		unsigned int m_flow       :1;
 /// @endcond 
+#endif
 	};
 }

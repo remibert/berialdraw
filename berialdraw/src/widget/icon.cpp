@@ -28,6 +28,15 @@ void Icon::copy(const Icon & icon)
 	*((IconStyle*)this)   = *(IconStyle*)(&icon);
 }
 
+/** Copy all styles of the icon */
+void Icon::copy(const Icon * icon)
+{
+	if(icon)
+	{
+		copy(*icon);
+	}
+}
+
 /** Return the icon size */
 Size Icon::icon_size()
 {

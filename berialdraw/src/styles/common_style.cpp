@@ -425,6 +425,14 @@ void CommonStyle::color(uint32_t col, uint8_t alpha)
 	m_color = (UIManager::colors()->color(col) & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
+/** Set the color */
+void CommonStyle::color(Color col)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	m_color = (uint32_t)col;
+}
+
+
 /** Enlighten the back color
 @param light value added [-100..100] */
 void CommonStyle::enlighten(int8_t light)

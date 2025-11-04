@@ -55,7 +55,7 @@ namespace berialdraw
 
 		/** Show the console */
 		static void show_console();
-
+#ifndef SWIG
 	private:
 /// @cond DOXYGEN_IGNORE
 		void*     m_instance; /**< Handle to the instance */
@@ -66,8 +66,11 @@ namespace berialdraw
 		Dim  m_height;   /**< Height of the window */
 		uint8_t*  m_buffer;   /**< Buffer */
 /// @endcond
+#endif
 	};
 
+#ifndef SWIG
+/// @cond DOXYGEN_IGNORE
 	/** Get the current clock time
 	@return The current clock time nano seconds */
 	uint64_t get_clock();
@@ -77,4 +80,6 @@ namespace berialdraw
 	@param end The end time
 	@return The elapsed time in milliseconds */
 	uint32_t get_elapsed_ms(uint64_t begin, uint64_t end);
+/// @endcond
+#endif
 }

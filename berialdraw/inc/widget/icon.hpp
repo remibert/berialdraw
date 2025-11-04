@@ -28,6 +28,10 @@ namespace berialdraw
 		/** Copy all styles of the icon */
 		void copy(const Icon & icon);
 
+#ifndef SWIG
+		/** Copy all styles of the icon */
+		void copy(const Icon * icon);
+
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -58,5 +62,6 @@ namespace berialdraw
 		TextBox m_text_box;
 		Sketch * m_sketch;
 /// @endcond
+#endif
 	};
 }

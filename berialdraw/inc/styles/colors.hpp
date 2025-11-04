@@ -30,9 +30,8 @@ namespace berialdraw
 		@return color predefined or id value if not found */
 		uint32_t color(uint32_t id, bool focused=false);
 
-		/** Get style filename according to class name */
-		void filename(const char * classname, String & filename_);
-
+#ifndef SWIG
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -42,11 +41,13 @@ namespace berialdraw
 #endif
 
 	protected:
-/// @cond DOXYGEN_IGNORE
+		/** Get style filename according to class name */
+		void filename(const char * classname, String & filename_);
 		Vector<uint32_t> m_colors_primary;
 		Vector<uint32_t> m_colors_secondary;
 		uint32_t m_theme_values[(Color::LAST_THEME_VALUE-Color::FIRST_THEME_VALUE) + 1];
 		uint32_t m_theme;
 /// @endcond
+#endif
 	};
 }

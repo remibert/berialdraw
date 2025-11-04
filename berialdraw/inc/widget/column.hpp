@@ -26,6 +26,7 @@ namespace berialdraw
 		/** Set the flow */
 		void flow(bool v);
 
+#ifndef SWIG
 	protected:
 /// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
@@ -48,5 +49,6 @@ namespace berialdraw
 
 		Cells m_cells;
 /// @endcond
+#endif
 	};
 }

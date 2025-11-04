@@ -22,6 +22,10 @@ namespace berialdraw
 		/** Copy all styles of the pane */
 		void copy(const Pane & pane);
 
+#ifndef SWIG
+		/** Copy all styles of the pane */
+		void copy(const Pane * pane);
+
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -46,5 +50,6 @@ namespace berialdraw
 		/** Place all widget in area */
 		virtual void place(const Area & area, bool in_layout);
 /// @endcond
+#endif
 	};
 }

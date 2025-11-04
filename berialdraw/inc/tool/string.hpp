@@ -222,6 +222,7 @@ namespace berialdraw
 		static const String empty;
 
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** Allocate temporary string
 		@param length String length to allocate
@@ -260,5 +261,6 @@ namespace berialdraw
 		uint32_t m_size = 0;     /**< Size in bytes of the string buffer */
 		uint32_t m_offset = 0;   /**< Read or write offset in bytes into the string buffer */
 /// @endcond
+#endif
 	};
 }

@@ -53,11 +53,13 @@ namespace berialdraw
 		const String & to() const;
 
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		wchar_t    m_key = 0;
 		String     m_name;
 		String     m_to;
 /// @endcond
+#endif
 	};
 	
 	/** Class defines the behavior of specials keys used in widget keyboard */
@@ -83,8 +85,10 @@ namespace berialdraw
 		static Style * create();
 
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Vector<Key *> m_keys;
 /// @endcond
+#endif
 	};
 }

@@ -2,6 +2,8 @@
 
 using namespace berialdraw;
 
+String File::m_resource_dir = "";
+
 File::File()
 {
 }
@@ -13,7 +15,18 @@ File::~File()
 
 int File::open(const char *pathname, const char *mode)
 {
-	m_file = fopen(pathname, mode);
+	String full_name;
+
+	if (m_resource_dir == "")
+	{
+		full_name = pathname;
+	}
+	else
+	{
+		full_name = m_resource_dir + "/";
+		full_name += pathname;
+	}
+	m_file = fopen(full_name.c_str(), mode);
 
 	if (m_file)
 	{
@@ -131,7 +144,6 @@ uint32_t File::write_string(const char * buffer)
 	return length;
 }
 
-
 /** Clear the content of stream */
 void File::clear()
 {
@@ -206,5 +218,30 @@ void File::tmp_dealloc(char * tmp, uint32_t length)
 @return True if file existing. */
 bool File::exists(const char* file_name)
 {
-	return bd_file_exists(file_name);
+	String full_name;
+	if (m_resource_dir == "")
+	{
+		full_name = file_name;
+	}
+	else
+	{
+		full_name = m_resource_dir + "/";
+		full_name += file_name;
+	}
+
+	return bd_file_exists(full_name.c_str());
 }
+
+/** Get the resource directory */
+const String & File::resource_dir()
+{
+	return m_resource_dir;
+}
+
+/** Set the resource directory
+@param dir resource directory */
+void File::resource_dir(const String & dir)
+{
+	m_resource_dir = dir;
+}
+

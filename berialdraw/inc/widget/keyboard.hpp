@@ -23,6 +23,10 @@ namespace berialdraw
 		/** Copy all styles of the keyboard */
 		void copy(const Keyboard & keyboard);
 
+#ifndef SWIG
+		/** Copy all styles of the keyboard */
+		void copy(const Keyboard * keyboard);
+
 	protected:
 /// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
@@ -64,6 +68,7 @@ namespace berialdraw
 		static void test6();
 		static void test7();
 		static void test8();
+#endif
 #endif
 	};
 }

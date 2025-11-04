@@ -54,9 +54,11 @@ namespace berialdraw
 		void clear();
 
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Vector<ItemString *> m_keys;
 		Vector<Item       *> m_values;
 /// @endcond
+#endif
 	};
 }

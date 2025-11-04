@@ -96,6 +96,7 @@ namespace berialdraw
 		void step_value(uint32_t val);
 
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		void check_slider();
 		uint32_t m_track_color  = 0xFF7D7D7D;
@@ -107,5 +108,6 @@ namespace berialdraw
 		int32_t  m_min_value    = 0;
 		uint32_t  m_step_value   = 1;
 /// @endcond DOXYGEN_IGNORE
+#endif
 	}; 
 }

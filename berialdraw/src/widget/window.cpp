@@ -18,8 +18,8 @@ Window::Window() : Widget("window",0, sizeof(Window))
 
 void* Window::operator new(size_t size)
 {
-	Window* obj = ::new Window();
-	obj->m_allocated = true;
+	void* obj = ::operator new(size);
+	static_cast<Window*>(obj)->m_allocated = true;
 	return obj;
 }
 
@@ -38,6 +38,14 @@ void Window::copy(const Window & window)
 	*((WidgetStyle*)this) = *(WidgetStyle*)(&window);
 }
 
+/** Copy all styles of the window */
+void Window::copy(const Window * window)
+{
+	if (window)
+	{
+		copy(*window);
+	}
+}
 
 bool Window::is_allocated()
 {

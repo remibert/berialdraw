@@ -21,6 +21,15 @@ void Canvas::copy(const Canvas & canvas)
 	*((WidgetStyle*)this) = *(WidgetStyle*)(&canvas);
 }
 
+/** Copy all styles of the canvas */
+void Canvas::copy(const Canvas * canvas)
+{
+	if(canvas)
+	{
+		copy(*canvas);
+	}
+}
+
 /** Return the size of content without marges */
 Size Canvas::content_size()
 {

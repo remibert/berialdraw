@@ -98,8 +98,6 @@ void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t state
 	{
 		Point shift(foreclip.position());
 		Point position(foreclip.position());
-		
-
 		bool one_color = true;
 
 		// Check if icon has only one color

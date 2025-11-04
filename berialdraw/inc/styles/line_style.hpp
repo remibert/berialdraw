@@ -54,11 +54,12 @@ namespace berialdraw
 		void point2_(Coord x, Coord y);
 
 
-
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Point m_point1;
 		Point m_point2;
 /// @endcond 
+#endif
 	};
 }

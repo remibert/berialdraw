@@ -46,10 +46,12 @@ namespace berialdraw
 		static uint32_t type_id();
 
 	private:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		wchar_t m_key = 0;
 		enum KeyState m_state = KEY_UP;
 		enum Modifier m_modifier = MODIFIER_NONE;
 /// @endcond
+#endif
 	};
 };

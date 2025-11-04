@@ -117,8 +117,10 @@ namespace berialdraw
 		@return The converted long long integer. */
 		static long long to_int(const char * str);
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		String m_value;
 /// @endcond
+#endif
 	};
 }

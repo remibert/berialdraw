@@ -89,6 +89,7 @@ namespace berialdraw
 		static Style * create();
 	protected:
 
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		uint16_t m_max_lines = 1;
 		uint16_t m_max_columns = 60;
@@ -98,5 +99,6 @@ namespace berialdraw
 		bool     m_password = false;
 		String * m_place_holder = 0;
 /// @endcond
+#endif
 	};
 }

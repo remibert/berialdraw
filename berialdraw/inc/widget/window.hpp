@@ -33,6 +33,18 @@ namespace berialdraw
 		/** Copy all styles of the window */
 		void copy(const Window & window);
 
+	//protected:
+#ifndef SWIG
+		/** Allocate the window */
+		void* operator new(size_t size);
+#endif
+	public:
+
+
+#ifndef SWIG
+		/** Copy all styles of the window */
+		void copy(const Window * window);
+
 /** @internal 
 {
 */
@@ -74,9 +86,6 @@ namespace berialdraw
 		/** Get the widget hovered */
 		virtual Widget * hovered(const Region & parent_region, const Point & position);
 
-		/** Allocate the window */
-		void* operator new(size_t size);
-
 		/** Indicates if the window is allocated with a new or create on the stack */
 		bool is_allocated();
 
@@ -93,5 +102,6 @@ namespace berialdraw
 		Widget * m_with_focus = 0;
 /// @endcond
 /// }
+#endif
 	};
 }

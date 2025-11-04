@@ -25,8 +25,12 @@ namespace berialdraw
 
 		/** Copy all styles of the progress_bar */
 		void copy(const ProgressBar & progress_bar);
-	
-#ifdef _DEBUG
+
+#ifndef SWIG
+		/** Copy all styles of the progress_bar */
+		void copy(const ProgressBar * progress_bar);
+
+		#ifdef _DEBUG
 		static void test();
 		static void test1();
 		static void test2();
@@ -51,6 +55,6 @@ namespace berialdraw
 		virtual Widget * hovered(const Region & parent_region, const Point & position);
 
 /// @endcond
-
+#endif
 	};
 }

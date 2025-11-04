@@ -263,23 +263,28 @@ void DeviceWin32::refresh()
 
 void DeviceWin32::show_console()
 {
-	FILE* f_dummy;
-	CONSOLE_SCREEN_BUFFER_INFO  screen_info;
+#if defined(_DEBUG)
+	if (AttachConsole(ATTACH_PARENT_PROCESS) || AllocConsole())
+	{
+		FILE* f_dummy;
+		CONSOLE_SCREEN_BUFFER_INFO  screen_info;
 
-	// Allocate console 
-	FreeConsole();
-	AllocConsole();
+		// Allocate console 
+		FreeConsole();
+		AllocConsole();
 
-	// Set the screen buffer 
-	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &screen_info);
-	screen_info.dwSize.Y = 32767;
+		// Set the screen buffer 
+		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &screen_info);
+		screen_info.dwSize.Y = 32767;
 
-	SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), screen_info.dwSize);
-	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &screen_info);
+		SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), screen_info.dwSize);
+		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &screen_info);
 
-	freopen_s(&f_dummy, "CONIN$",  "r", stdin);
-	freopen_s(&f_dummy, "CONOUT$", "w", stderr);
-	freopen_s(&f_dummy, "CONOUT$", "w", stdout);
+		freopen_s(&f_dummy, "CONIN$",  "r", stdin);
+		freopen_s(&f_dummy, "CONOUT$", "w", stderr);
+		freopen_s(&f_dummy, "CONOUT$", "w", stdout);
+	}
+#endif
 }
 
 wchar_t get_key(WPARAM w_param, LPARAM l_param)

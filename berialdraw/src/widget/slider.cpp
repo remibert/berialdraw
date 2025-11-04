@@ -27,6 +27,15 @@ void Slider::copy(const Slider & slider)
 	*((SliderStyle*)this) = *(SliderStyle*)(&slider);
 }
 
+/** Copy all styles of the sliderar */
+void Slider::copy(const Slider * slider)
+{
+	if(slider)
+	{
+		copy(*slider);
+	}
+}
+
 /** Return the size of content without marges */
 Size Slider::content_size()
 {

@@ -1,6 +1,7 @@
 #pragma once
 namespace berialdraw
 {
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 	class Entry;
 	class Region;
@@ -62,4 +63,5 @@ namespace berialdraw
 		Dim   m_cursor_line;
 	};
 /// @endcond
+#endif
 }

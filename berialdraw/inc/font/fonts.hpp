@@ -1,7 +1,7 @@
 #pragma once
 namespace berialdraw
 {
-	typedef SharedPtr<Font> FontPtr;
+	typedef berialdraw::SharedPtr<Font> FontPtr;
 
 	/** Manage all fonts TTF file */
 	class Fonts
@@ -45,6 +45,7 @@ namespace berialdraw
 		bool load_directory(const String & directory);
 		
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** Fonts list */
 		Vector<FontPtr> * m_fonts=0;
@@ -54,5 +55,6 @@ namespace berialdraw
 		/** Mutex for thread-safety */
 		std::recursive_mutex m_mutex;  
 /// @endcond
+#endif
 	};
 }

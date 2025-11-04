@@ -39,7 +39,7 @@ namespace berialdraw
 		/** Resizes the data sets stored in the line chart.
 		@param max Maximum number of data sets. */
 		void resize(uint32_t max);
-
+#ifndef SWIG
 #ifdef _DEBUG
 		/** Unitary test for the LineChart class. */
 		static void test();
@@ -61,5 +61,6 @@ namespace berialdraw
 		uint32_t m_count = 0; ///< Current count of data sets stored.
 		uint32_t m_max = 0; ///< Maximum number of data sets that can be stored before resizing.
 /// @endcond
+#endif
 	};
 }

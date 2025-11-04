@@ -1,4 +1,5 @@
 #pragma once
+#ifndef SWIG
 namespace berialdraw
 {
 	class MemHeader;
@@ -54,6 +55,7 @@ namespace berialdraw
 		static void stat(const char * name = 0);
 
 	protected:
+
 /// @cond DOXYGEN_IGNORE
 		/** Allocates memory.
 		@param size The size in bytes to allocate.
@@ -107,3 +109,4 @@ namespace berialdraw
 #endif
 
 }
+#endif

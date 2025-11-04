@@ -24,6 +24,14 @@ void ProgressBar::copy(const ProgressBar & progress_bar)
 	*((ProgressBarStyle*)this) = *(ProgressBarStyle*)(&progress_bar);
 }
 
+/** Copy all styles of the progress_bar */
+void ProgressBar::copy(const ProgressBar * progress_bar)
+{
+	if(progress_bar)
+	{
+		copy(*progress_bar);
+	}
+}
 /** Return the size of content without marges */
 Size ProgressBar::content_size()
 {

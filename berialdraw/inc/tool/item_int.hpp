@@ -103,8 +103,10 @@ namespace berialdraw
 		virtual void to_string(TextStream & out) const;
 
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		int64_t m_value;
 /// @endcond
+#endif
 	};
 }

@@ -45,6 +45,7 @@ namespace berialdraw
 		/** Remove all windows */
 		void remove_all();
 
+#ifndef SWIG
 	protected:
 /// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
@@ -62,5 +63,6 @@ namespace berialdraw
 		unsigned int m_quit:1;
 		unsigned int m_already_in_dispatch:1;
 /// @endcond 
+#endif
 	};
 }

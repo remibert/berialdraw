@@ -1,4 +1,5 @@
 #pragma once
+#ifndef SWIG
 namespace berialdraw
 {
 	/** Shared pointer implementation */
@@ -8,6 +9,11 @@ namespace berialdraw
 /// @cond DOXYGEN_IGNORE
 		typedef T element_type;
 /// @endcond
+		/** Default constructor */
+		SharedPtr() noexcept : m_ptr(nullptr), m_count(nullptr)
+		{
+		}
+
 
 		/** Copy constructor
 		@param ptr SharedPtr to copy from */
@@ -19,26 +25,37 @@ namespace berialdraw
 
 		/** Constructor
 		@param ptr Raw pointer to manage */
-		explicit SharedPtr(T* ptr = 0)
+		explicit SharedPtr(T* ptr)
 		{
 			m_ptr = 0;
 			m_count = 0; 
 			try
 			{
-				m_count = new uint32_t(1); 
 				m_ptr = ptr;
+				m_count = new uint32_t(1); 
 			}
 			catch(...)
 			{
-				if (ptr)
+				if (m_ptr)
 				{
-					delete ptr;
+					delete m_ptr;
+					m_ptr = 0;
 				}
 				if (m_count)
 				{
 					delete m_count;
+					m_count = 0;
 				}
 			}
+		}
+
+
+		/** Move constructor */
+		SharedPtr(SharedPtr&& other) noexcept
+			: m_ptr(other.m_ptr), m_count(other.m_count)
+		{
+			other.m_ptr = nullptr;
+			other.m_count = nullptr;
 		}
 
 		/** Destructor */
@@ -77,16 +94,16 @@ namespace berialdraw
 			
 		/** Get the raw pointer
 		@return Raw pointer to the managed object */
-		T* get() const
+		T* get() const noexcept
 		{
 			return m_ptr;
 		}
 
 		/** Get the reference count
 		@return Reference count */
-		uint32_t count() const
+		uint32_t count() const noexcept
 		{
-			return *m_count;
+			return m_count ? *m_count : 0;
 		}
 
 	protected:
@@ -94,19 +111,13 @@ namespace berialdraw
 		/** Destroy the managed object and the reference count */
 		void destroy()
 		{
-			if (m_count != 0)
+			if (m_count)
 			{
 				if (--(*m_count) == 0)
 				{
-					if (m_ptr)
-					{
-						delete m_ptr;
-					}
-					if (m_count)
-					{
-						delete m_count;
-					}
+					delete m_ptr;
 					m_ptr   = 0;
+					delete m_count;
 					m_count = 0;
 				}
 			}
@@ -117,3 +128,4 @@ namespace berialdraw
 /// @endcond
 	};
 }
+#endif

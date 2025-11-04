@@ -23,6 +23,14 @@ void Button::copy(const Button & button)
 	*((TextStyle  *)this) = *(TextStyle  *)(&button);
 }
 
+void Button::copy(const Button * button)
+{
+	if(button)
+	{
+		copy(*button);
+	}
+}
+
 Size Button::content_size()
 {
 	Size result;
@@ -1237,66 +1245,50 @@ void Button::test14()
 		Column * column = new Column(&window);
 		Row * row = new Row(column);
 			row->size_policy(SizePolicy::SHRINK_WIDTH);
-			//Button * buttonRef;
+			Button * buttonRef;
 			row->margin(10,10,0,10);
 			Button * button;
 
-			button = new Button(row);
-				button->text("⏴");
-				button->borders(Borders::LEFT_BORDER|TOP_BORDER|RIGHT_BORDER | Borders::RIGHT_ANGLE_END);
-				button->margin(1);
-				button->extend(Extend::EXTEND_HEIGHT);
-				button->size_policy(SizePolicy::SHRINK_WIDTH);
-				button->bind(&test13_on_page);
-				button->id(5);
-				button->focus_gap(0);
-				button->focusable(false);
-				button->radius(2);	
+			buttonRef = new Button(row);
+				buttonRef->text("⏴");
+				buttonRef->borders(ALL_BORDERS| ROUNDED_END | RIGHT_ANGLE_WITHOUT_BORDER);
+				buttonRef->margin(5,1,0,1);
+				buttonRef->radius(0);
+				buttonRef->thickness(1);
+				buttonRef->bind(&test13_on_page);
+				buttonRef->id(5);
+				buttonRef->focusable(false);
+				buttonRef->extend(Extend::EXTEND_HEIGHT);
+				buttonRef->size_policy(SizePolicy::SHRINK_WIDTH);
 
 			button = new Button(row);
+				button->copy(buttonRef);
 				button->text("⏵");
-				button->borders(Borders::LEFT_BORDER|TOP_BORDER|RIGHT_BORDER | Borders::RIGHT_ANGLE_END);
-				button->margin(1);
-				button->extend(Extend::EXTEND_HEIGHT);
-				button->size_policy(SizePolicy::SHRINK_WIDTH);
-				button->bind(&test13_on_page);
-				button->id(6);
-				button->focus_gap(0);
-				button->focusable(false);
-				button->radius(2);	
 
-
-			button = new Button(row);
-				button->text("One");
-				button->borders(Borders::LEFT_BORDER|TOP_BORDER|RIGHT_BORDER | Borders::RIGHT_ANGLE_END);
-				button->margin(5,5,0,5);
-				button->radius(20);
-				button->bind(&test13_on_page);
-				button->id(1);
-				button->focus_gap(0);
+			buttonRef = new Button(row);
+				buttonRef->text("One");
+				buttonRef->borders(TOP_BORDER| ROUNDED_END | RIGHT_ANGLE_WITHOUT_BORDER);
+				buttonRef->margin(5,3,0,3);
+				buttonRef->radius(0);
+				buttonRef->thickness(1);
+				buttonRef->bind(&test13_on_page);
+				buttonRef->id(1);
 
 			button = new Button(row);
+				button->copy(buttonRef);
 				button->text("Two");
-				button->borders(TOP_BORDER| ROUNDED_END | RIGHT_ANGLE_WITHOUT_BORDER);
-				button->margin(5,5,0,5);
-				button->radius(0);
-				button->thickness(0);
 				button->bind(&test13_on_page);
 				button->id(2);
 
 			button = new Button(row);
+				button->copy(*buttonRef);
 				button->text("Three");
-				button->borders(Borders::LEFT_BORDER|TOP_BORDER|RIGHT_BORDER | Borders::RIGHT_ANGLE_END);
-				button->margin(5,5,0,5);
-				button->radius(6);
 				button->bind(&test13_on_page);
 				button->id(3);
 
 			button = new Button(row);
+				button->copy(*buttonRef);
 				button->text("Four");
-				button->borders(Borders::LEFT_BORDER|TOP_BORDER|RIGHT_BORDER | Borders::RIGHT_ANGLE_END);
-				button->margin(5,5,0,5);
-				button->radius(6);
 				button->bind(&test13_on_page);
 				button->id(4);
 

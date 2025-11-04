@@ -47,6 +47,7 @@ namespace berialdraw
 		static void get_slice(const Point & center, Dim radius, Coord start_angle, Coord end_angle, Point & p1, Point & c1, Point & c2, Point & p2);
 
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** Build the filled Pie shape
 		@param radius Radius of the Pie */
@@ -57,5 +58,6 @@ namespace berialdraw
 
 		Polygon m_polygon; /**< Polygon representing the Pie */
 /// @endcond
+#endif
 	};
 }

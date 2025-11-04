@@ -44,10 +44,6 @@ namespace berialdraw
 		@return Reference to the Polygon object */
 		virtual const Polygon & polygon() const = 0;
 
-		/** Check if the shape is dirty
-		@return True if the shape is dirty, otherwise false */
-		bool is_dirty();
-
 		/** Get the marged size of the shape
 		@return Size of the shape with margin */
 		virtual Size marged_size();
@@ -78,6 +74,7 @@ namespace berialdraw
 		void repeat_(Repetition type, int start, int end, int step);
 
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Repetition m_repetition = REPEAT_NONE; /**< Repetition type */
 		Coord      m_start = 0;                /**< Start value for repetition */
@@ -86,5 +83,6 @@ namespace berialdraw
 		Canvas *   m_canvas = 0;               /**< Pointer to the Canvas object */
 		Widget *   m_widget = 0;               /**< Pointer to the Widget object */
 /// @endcond
+#endif
 	};
 }

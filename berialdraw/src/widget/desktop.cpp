@@ -71,9 +71,13 @@ void Desktop::remove(Window * window)
 		{
 			if(m_windows[i]->is_allocated())
 			{
+				m_windows.remove(i);
 				delete window;
 			}
+			else
+			{
 			m_windows.remove(i);
+			}
 			break;
 		}
 	}

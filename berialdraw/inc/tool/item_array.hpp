@@ -49,8 +49,10 @@ namespace berialdraw
 		void clear();
 
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Vector<Item *> m_array;
 /// @endcond
+#endif
 	};
 }

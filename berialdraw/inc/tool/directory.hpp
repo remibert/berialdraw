@@ -66,6 +66,7 @@ namespace berialdraw
 		String full_path() const;
 
 	private:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		String m_directory;               /**< The directory path. */
 		String m_filename;      /**< The current file name. */
@@ -73,5 +74,6 @@ namespace berialdraw
 		// Pointer to the OS-specific directory context
 		bd_DIR* m_dir = 0;
 /// @endcond
+#endif
 	};
 }

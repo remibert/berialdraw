@@ -128,11 +128,13 @@ namespace berialdraw
 		void unserialize(const char * name, JsonIterator & it);
 
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		uint16_t m_top;    ///< Top margin
 		uint16_t m_left;   ///< Left margin
 		uint16_t m_bottom; ///< Bottom margin
 		uint16_t m_right;  ///< Right margin
 /// @endcond
+#endif
 	};
 }

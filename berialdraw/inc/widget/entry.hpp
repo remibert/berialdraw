@@ -91,7 +91,7 @@ namespace berialdraw
 
 		/** Get input mask */
 		const String mask() const;
-
+#ifndef SWIG
 #ifdef _DEBUG
 		// Unitary test
 		static void test1();
@@ -162,6 +162,7 @@ namespace berialdraw
 		// String mask
 		String * m_mask = 0;
 /// @endcond
+#endif
 	};
 }
 /// @endcond

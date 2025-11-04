@@ -14,8 +14,9 @@ namespace berialdraw
 		@param width width in pixels on device
 		@param height height in pixels on device
 		@param type type of framebuffer supported by the display
-		@param scale rendering scale (a number less than 10 is direct, a number greater than 10 is equivalent to a floating point of divide by 64) */
-		static void init(Device * device, Dim width, Dim height, enum Framebuf::Type type, uint32_t scale=1);
+		@param scale rendering scale (a number less than 10 is direct, a number greater than 10 is equivalent to a floating point of divide by 64) 
+		@param resource_dir resource directory */
+		static void init(Device * device, Dim width, Dim height, enum Framebuf::Type type, uint32_t scale=1, const berialdraw::String & resource_dir="");
 
 		/** Deinitialize the ui manager */
 		static void deinit();
@@ -55,8 +56,10 @@ namespace berialdraw
 		/** Return the desktop */
 		static Desktop * desktop();
 
+#ifndef SWIG
 		/** Return screen crc */
 		static ScreenCrc * screen_crc();
+#endif
 
 		/** Return the arc cache handle */
 		static ArcCache * arc_cache();
@@ -64,6 +67,7 @@ namespace berialdraw
 		/** Indicates if the uimanager is initialized or not */
 		static bool is_initialized();
 
+#ifndef SWIG
 	protected:
 /// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
@@ -82,5 +86,6 @@ namespace berialdraw
 		static ScreenCrc   * m_screen_crc;
 		static ArcCache    * m_arc_cache;
 /// @endcond
+#endif
 	};
 }

@@ -26,6 +26,14 @@ void Switch::copy(const Switch & switch_)
 	*((SwitchStyle*)this) = *(SwitchStyle*)(&switch_);
 }
 
+/** Copy all styles of the switchar */
+void Switch::copy(const Switch * switch_)
+{
+	if(switch_)
+	{
+		copy(*switch_);
+	}
+}
 
 /** Return the size of content without marges */
 Size Switch::content_size()

@@ -20,6 +20,7 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		virtual void unserialize(JsonIterator & it);
 
+#ifndef SWIG
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -45,5 +46,6 @@ namespace berialdraw
 
 		Cells m_cells;
 /// @endcond
+#endif
 	};
 }

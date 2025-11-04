@@ -22,7 +22,14 @@ void Pane::copy(const Pane & pane)
 	*((BorderStyle*)this)   = *(BorderStyle*)(&pane);
 }
 
-
+/** Copy all styles of the pane */
+void Pane::copy(const Pane * pane)
+{
+	if(pane)
+	{
+		copy(*pane);
+	}
+}
 /** Return the size of content without marges */
 Size Pane::content_size()
 {

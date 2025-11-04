@@ -29,13 +29,6 @@ namespace berialdraw
 		/** Create new shape style */
 		static Style * create();
 
-		/** Place the widget in absolute coordinates on the window */
-		void place_absolutly(const Point & root, const Size & content, Area & foreclip, const Size & min_size, const Size & max_size);
-
-		/** Place the widget in the layout cell */
-		void place_in_layout(const Area & area, const Size & content, const Margin & margin, Extend extend, Area & foreclip, Align align);
-
-
 		/** Get the margin */
 		const Margin & margin() const;
 		
@@ -107,14 +100,17 @@ namespace berialdraw
 		void position_(Coord x, Coord y=0);
 
 
-		/** Get the back color */
+		/** Get the color */
 		uint32_t color() const;
 
-		/** Set the back color */
+		/** Set the color */
 		void color(uint32_t col);
 
-		/** Set the back color with alpha */
+		/** Set the color with alpha */
 		void color(uint32_t col, uint8_t alpha);
+
+		/** Set the color */
+		void color(Color col);
 
 		/** Enlighten the back color
 		@param level value added [-100..100] */
@@ -162,9 +158,16 @@ namespace berialdraw
 		/** Set the hidden widget state */
 		void hidden(bool v);
 
+#ifndef SWIG
+/// @cond DOXYGEN_IGNORE
+		/** Place the widget in absolute coordinates on the window */
+		void place_absolutly(const Point & root, const Size & content, Area & foreclip, const Size & min_size, const Size & max_size);
+
+		/** Place the widget in the layout cell */
+		void place_in_layout(const Area & area, const Size & content, const Margin & margin, Extend extend, Area & foreclip, Align align);
+
 
 	protected:
-/// @cond DOXYGEN_IGNORE
 		Dim reduce(Dim  dimension, Dim reduction);
 
 		Coord get_position(Coord position, Coord size, Coord marge_begin, Coord marge_end, Coord area, Align align);
@@ -186,5 +189,6 @@ namespace berialdraw
 		int m_saturation:8;
 		Borders m_borders;
 /// @endcond 
+#endif
 	}; 
 }

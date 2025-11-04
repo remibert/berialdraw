@@ -106,8 +106,10 @@ namespace berialdraw
 		static bool is_true(const char * other);
 
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		bool m_value;
 /// @endcond
+#endif
 	};
 }

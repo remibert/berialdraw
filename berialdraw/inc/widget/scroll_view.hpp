@@ -63,6 +63,7 @@ namespace berialdraw
 		/** Compute the scroll area */
 		void scroll_area(Area & area);
 
+#ifndef SWIG
 #ifdef _DEBUG
 	public:
 		static void test();
@@ -99,5 +100,6 @@ namespace berialdraw
 		Point m_scroll_position;
 		Size m_viewport_size;
 /// @endcond
+#endif
 	};
 }

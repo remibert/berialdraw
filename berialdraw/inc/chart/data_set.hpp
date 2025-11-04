@@ -39,7 +39,7 @@ namespace berialdraw
 
 		/** Return the min value in data set */
 		int32_t min();
-
+#ifndef SWIG
 	protected:
 /// @cond DOXYGEN_IGNORE
 		/** Data set allocated */
@@ -51,5 +51,6 @@ namespace berialdraw
 		/** Max data can be stored before resizing */
 		uint32_t m_max = 0;
 /// @endcond
+#endif
 	};
 }

@@ -102,6 +102,7 @@ namespace berialdraw
 		void text_align(Align v);
 
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		uint32_t m_text_color   = 0xFF000000;
 		String  m_font_familly;
@@ -115,5 +116,6 @@ namespace berialdraw
 		unsigned int m_text_modified:1;
 		unsigned int m_text_align:4;
 /// @endcond 
+#endif
 	};
 }

@@ -93,6 +93,7 @@ namespace berialdraw
 		Size size() const;
 
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		uint32_t         m_color = 0;     /**< Current color */
 		uint8_t*         m_pool = 0;      /**< Pointer to the memory pool */
@@ -107,5 +108,6 @@ namespace berialdraw
 		Dim              m_scale = 1*64;    /**< Scale factor for screen resolution. A value of 64 corresponds to a scale factor of 1 (1 << 6). */
 		Size             m_size;          /**< Renderer size in points */
 /// @endcond
+#endif
 	};
 }

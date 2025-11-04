@@ -51,8 +51,8 @@ namespace berialdraw
 
 		/** Blit the buffer to the window */
 		virtual void blit();
-
 	private:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		void open_window();
 		void close_window();
@@ -76,8 +76,11 @@ namespace berialdraw
 		uint8_t       m_pixel_ratio;
 		String        m_title;
 /// @endcond
+#endif
 	};
 
+#ifndef SWIG
+/// @cond DOXYGEN_IGNORE
 	/** Get the current clock time
 	@return The current clock time nano second */
 	uint64_t get_clock();
@@ -87,4 +90,6 @@ namespace berialdraw
 	@param end The end time
 	@return The elapsed time in milliseconds */
 	uint32_t get_elapsed_ms(uint64_t begin, uint64_t end);
+/// @endcond
+#endif
 }

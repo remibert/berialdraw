@@ -46,8 +46,6 @@ namespace berialdraw
 		@return size of data in bytes in stream */
 		virtual uint32_t size();
 
-
-
 		/** Write a string buffer to the end of the current text stream
 		@param buffer text to append
 		@return the number of bytes written, or 0 if an error occurred */
@@ -76,8 +74,15 @@ namespace berialdraw
 		@return True if file existing. */
 		static bool exists(const char* file_name);
 
+		/** Get the resource directory */
+		static const String & resource_dir();
+
+		/** Set the resource directory
+		@param dir resource directory */
+		static void resource_dir(const String & dir);
 
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** Allocate temporary string
 		@param length string length to allocate
@@ -90,6 +95,9 @@ namespace berialdraw
 		virtual void tmp_dealloc(char * tmp, uint32_t length);
 
 		FILE * m_file = 0;
+
+		static String m_resource_dir;
 /// @endcond
+#endif
 	};
 }

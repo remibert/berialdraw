@@ -145,9 +145,11 @@ namespace berialdraw
 		void print(const char * name) const;
 
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Point m_position;
 		Size m_size;
 /// @endcond 
+#endif
 	};
 }

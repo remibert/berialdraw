@@ -91,7 +91,7 @@ namespace berialdraw
 		{
 			return m_widget;
 		}
-			
+#ifndef SWIG
 ///< @cond DOXYGEN_IGNORE
 	protected:
 		/** Instance of widget */
@@ -106,6 +106,7 @@ namespace berialdraw
 		/** Identier of event */
 		uint32_t m_type;
 ///< @endcond 
+#endif
 	};
 
 
@@ -165,7 +166,7 @@ namespace berialdraw
 		{
 			return m_widget;
 		}
-			
+#ifndef SWIG
 ///< @cond DOXYGEN_IGNORE
 	protected:
 		/** Instance of widget */
@@ -177,6 +178,7 @@ namespace berialdraw
 		/** Identier of event */
 		uint32_t m_type;
 ///< @endcond
+#endif
 	};
 
 }

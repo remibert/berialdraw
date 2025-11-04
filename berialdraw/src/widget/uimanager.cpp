@@ -26,10 +26,11 @@ inline Dim adapt_size(Dim size, uint32_t scale)
 	return ((size << 6) / scale);
 }
 
-void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type type, uint32_t scale)
+void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type type, uint32_t scale, const berialdraw::String & resource_dir)
 {
 	if(device && m_device == 0)
 	{
+		File::resource_dir(resource_dir);
 		m_notifier     = new Notifier;
 		m_invalidator  = new Invalidator;
 		m_styles       = new Styles;
@@ -185,5 +186,4 @@ ArcCache * UIManager::arc_cache()
 	if (m_arc_cache == 0) bd_printf("UIManager::arc_cache no existing");
 	return m_arc_cache;
 }
-
 

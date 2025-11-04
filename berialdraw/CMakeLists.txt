@@ -6,6 +6,7 @@ set(BD_LIB         berialdraw)
 set(BD_APP_TEST    app_unitary_test)
 set(BD_APP_SAMPLE  app_sample)
 set(BD_SAMPLE      sample)
+set(BD_PY11_LIB    pyberialdraw)
 
 set(COMPILE_DEF
 	"$<$<CONFIG:Debug>:_DEBUG>"
@@ -212,6 +213,85 @@ set(SRCS_APP_SAMPLE
 	samples/main.cpp
 )
 
+set(SRCS_PYBIND11_LIB
+	pybind/src/pyberialdraw.cpp
+	pybind/src/pybind/styles/colors.cpp
+	pybind/src/pybind/styles/styles.cpp
+	pybind/src/pybind/device/device.cpp
+	pybind/src/pybind/device/device_screen.cpp
+	pybind/src/pybind/event/touch_event.cpp
+	pybind/src/pybind/event/event.cpp
+	pybind/src/pybind/event/scroll_event.cpp
+	pybind/src/pybind/event/check_event.cpp
+	pybind/src/pybind/event/select_event.cpp
+	pybind/src/pybind/event/event_managers.cpp
+	pybind/src/pybind/event/notifier.cpp
+	pybind/src/pybind/event/click_event.cpp
+	pybind/src/pybind/event/focus_event.cpp
+	pybind/src/pybind/event/slide_event.cpp
+	pybind/src/pybind/event/key_event.cpp
+	pybind/src/pybind/font/font.cpp
+	pybind/src/pybind/font/fonts.cpp
+	pybind/src/pybind/vector/size.cpp
+	pybind/src/pybind/vector/size_policy.cpp
+	pybind/src/pybind/vector/point.cpp
+	pybind/src/pybind/vector/margin.cpp
+	pybind/src/pybind/vector/area.cpp
+	pybind/src/pybind/framebuf/framebuf.cpp
+	pybind/src/pybind/framebuf/argb8888.cpp
+	pybind/src/pybind/shape/circle.cpp
+	pybind/src/pybind/shape/compass.cpp
+	pybind/src/pybind/shape/cross.cpp
+	pybind/src/pybind/shape/line.cpp
+	pybind/src/pybind/shape/marker.cpp
+	pybind/src/pybind/shape/pie.cpp
+	pybind/src/pybind/shape/polygon.cpp
+	pybind/src/pybind/shape/poly_lines.cpp
+	pybind/src/pybind/shape/poly_points.cpp
+	pybind/src/pybind/shape/rect.cpp
+	pybind/src/pybind/shape/shape.cpp
+	pybind/src/pybind/shape/sketch.cpp
+	pybind/src/pybind/shape/square.cpp
+	pybind/src/pybind/shape/text.cpp
+	pybind/src/pybind/shape/triangle.cpp
+	pybind/src/pybind/styles/border_style.cpp
+	pybind/src/pybind/styles/color.cpp
+	pybind/src/pybind/styles/common_style.cpp
+	pybind/src/pybind/styles/edit_style.cpp
+	pybind/src/pybind/styles/icon_style.cpp
+	pybind/src/pybind/styles/line_style.cpp
+	pybind/src/pybind/styles/pie_style.cpp
+	pybind/src/pybind/styles/progress_bar_style.cpp
+	pybind/src/pybind/styles/round_style.cpp
+	pybind/src/pybind/styles/slider_style.cpp
+	pybind/src/pybind/styles/style.cpp
+	pybind/src/pybind/styles/switch_style.cpp
+	pybind/src/pybind/styles/text_style.cpp
+	pybind/src/pybind/styles/widget_style.cpp
+	pybind/src/pybind/tool/directory.cpp
+	pybind/src/pybind/tool/file.cpp
+	pybind/src/pybind/tool/string.cpp
+	pybind/src/pybind/widget/widget.cpp
+	pybind/src/pybind/widget/button.cpp
+	pybind/src/pybind/widget/canvas.cpp
+	pybind/src/pybind/widget/column.cpp
+	pybind/src/pybind/widget/desktop.cpp
+	pybind/src/pybind/widget/edit.cpp
+	pybind/src/pybind/widget/entry.cpp
+	pybind/src/pybind/widget/grid.cpp
+	pybind/src/pybind/widget/icon.cpp
+	pybind/src/pybind/widget/keyboard.cpp
+	pybind/src/pybind/widget/label.cpp
+	pybind/src/pybind/widget/pane.cpp
+	pybind/src/pybind/widget/progress_bar.cpp
+	pybind/src/pybind/widget/row.cpp
+	pybind/src/pybind/widget/scroll_view.cpp
+	pybind/src/pybind/widget/slider.cpp
+	pybind/src/pybind/widget/switch.cpp
+	pybind/src/pybind/widget/uimanager.cpp
+	pybind/src/pybind/widget/window.cpp
+)
+
 set(INCLUDES_LIB 
 	${SDL3_INCLUDE_DIRS}
 	"${CMAKE_CURRENT_SOURCE_DIR}/../freetype/include;"
@@ -220,6 +300,18 @@ set(INCLUDES_LIB
 	"${CMAKE_CURRENT_SOURCE_DIR};"
 	"${CMAKE_CURRENT_SOURCE_DIR}/..;"
 )
+
+set(INCLUDES_PYBIND11
+	${SDL3_INCLUDE_DIRS}
+	"${CMAKE_CURRENT_SOURCE_DIR}/../freetype/include;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../freetype/include/freetype;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/inc;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/pybind/inc;"
+	"${CMAKE_CURRENT_SOURCE_DIR};"
+	"${CMAKE_CURRENT_SOURCE_DIR}/..;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../pybind11/include;"
+)
+
 
 # Static library
 add_library                (${BD_LIB} STATIC  ${SRCS_DEVICE} ${SRCS_LIB} )
@@ -230,6 +322,55 @@ target_compile_definitions (${BD_LIB} PRIVATE ${COMPILE_DEF}
 	-DFT2_BUILD_LIBRARY=1
 	-DFT_ERR_PREFIX=FT_Err_)
 target_link_libraries      (${BD_LIB} ${SDL3_LIBRARIES})
+
+# pybind11 Python wrapper library
+if(WIN32)
+	find_package(Python COMPONENTS Interpreter Development REQUIRED)
+	set(PYTHON_INCLUDE_PATH "C:/Development/Python314/include")
+	set(PYTHON_LIBRARIES "C:/Development/Python314/libs/python314.lib")
+elseif(APPLE)
+	find_package(Python COMPONENTS Interpreter Development REQUIRED)
+	set(PYTHON_INCLUDE_PATH ${Python_INCLUDE_DIRS})
+	set(PYTHON_LIBRARIES ${Python_LIBRARIES})
+else()
+	find_package(Python COMPONENTS Interpreter Development REQUIRED)
+	set(PYTHON_INCLUDE_PATH ${Python_INCLUDE_DIRS})
+	set(PYTHON_LIBRARIES ${Python_LIBRARIES})
+endif()
+
+add_library                (${BD_PY11_LIB} SHARED ${SRCS_DEVICE} ${SRCS_LIB} ${SRCS_PYBIND11_LIB})
+target_include_directories (${BD_PY11_LIB} PRIVATE ${INCLUDES_PYBIND11} ${PYTHON_INCLUDE_PATH})
+target_compile_definitions (${BD_PY11_LIB} PRIVATE ${COMPILE_DEF} 
+	-DPACKAGE=1
+	-DHAVE_PTHREAD_SETSPECIFIC=1
+	-DFT2_BUILD_LIBRARY=1
+	-DFT_ERR_PREFIX=FT_Err_)
+
+if(APPLE)
+	target_compile_definitions(${BD_PY11_LIB} PRIVATE -DVERSION_INFO=\"dev\")
+	set_target_properties(${BD_PY11_LIB} PROPERTIES
+		CXX_VISIBILITY_PRESET "hidden"
+		VISIBILITY_INLINES_HIDDEN ON
+	)
+endif()
+
+target_link_libraries      (${BD_PY11_LIB} ${SDL3_LIBRARIES} ${PYTHON_LIBRARIES})
+
+if(WIN32)
+	set_target_properties(${BD_PY11_LIB} PROPERTIES SUFFIX ".pyd")
+elseif(APPLE)
+	set_target_properties(${BD_PY11_LIB} PROPERTIES 
+		SUFFIX ".so"
+		PREFIX ""
+		LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+	)
+else()
+	set_target_properties(${BD_PY11_LIB} PROPERTIES 
+		SUFFIX ".so"
+		PREFIX ""
+	)
+endif()
+
 
 # Unitary test application
 add_executable             (${BD_APP_TEST} ${SRCS_APP_TEST} ${SRCS_SAMPLE})

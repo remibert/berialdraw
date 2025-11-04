@@ -117,6 +117,7 @@ namespace berialdraw
 		/** Substract b to a and avoid negative value */
 		static Dim subs(Dim a, Dim b);
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** width coordinate with a precision of 64th of a pixel  */
 		unsigned int m_width:31;
@@ -130,5 +131,6 @@ namespace berialdraw
 		/** Indicates that height is not yet defined */
 		unsigned int m_height_undefined:1;
 /// @endcond
+#endif
 	};
 }

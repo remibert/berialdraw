@@ -22,6 +22,15 @@ void Label::copy(const Label & label)
 	*((TextStyle*)this)   = *(TextStyle*)(&label);
 }
 
+/** Copy all styles of the label */
+void Label::copy(const Label * label)
+{
+	if(label)
+	{
+		copy(*label);
+	}
+}
+
 Size Label::content_size()
 {
 	Size result;

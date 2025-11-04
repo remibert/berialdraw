@@ -20,12 +20,23 @@ Directory::~Directory()
 
 bool Directory::open(const String& path)
 {
+	String full_name;
 	if (m_dir)
 	{
 		bd_dir_close(m_dir);
 	}
 
-	m_dir = bd_dir_open(path.c_str());
+	if (File::resource_dir() == "")
+	{
+		full_name = path;
+	}
+	else
+	{
+		full_name = File::resource_dir() + "/";
+		full_name += path;
+	}
+
+	m_dir = bd_dir_open(full_name.c_str());
 	m_directory = path;
 	return m_dir != 0;
 }

@@ -140,8 +140,10 @@ namespace berialdraw
 #endif
 
 	protected:
+#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Outline * m_outline; /**< Pointer to the Outline object associated with the polygon */
 /// @endcond
+#endif
 	};
 }

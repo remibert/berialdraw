@@ -1,4 +1,5 @@
 #pragma once
+#ifndef SWIG
 namespace berialdraw
 {
 	class Renderer;
@@ -66,6 +67,7 @@ namespace berialdraw
 		static void test2();
 #endif
 	protected:
+
 /// @cond DOXYGEN_IGNORE
 		struct RegionData 
 		{
@@ -162,3 +164,4 @@ namespace berialdraw
 /// @endcond
 	};
 }
+#endif

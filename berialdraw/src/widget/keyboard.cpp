@@ -31,6 +31,16 @@ void Keyboard::copy(const Keyboard & keyboard)
 	*((BorderStyle*)this) = *(BorderStyle*)(&keyboard);
 	*((TextStyle*)this)   = *(TextStyle*)(&keyboard);
 }
+
+/** Copy all styles of the keyboard */
+void Keyboard::copy(const Keyboard * keyboard)
+{
+	if(keyboard)
+	{
+		copy(*keyboard);
+	}
+}
+
 void Keyboard::place(const Area & area, bool in_layout)
 {
 	place_in_area(area, in_layout);

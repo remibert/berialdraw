@@ -100,6 +100,7 @@ namespace berialdraw
 		/** Return the stated color */
 		uint32_t stated_color(uint32_t color);
 
+#ifndef SWIG
 	protected:
 /// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
@@ -131,5 +132,6 @@ namespace berialdraw
 		
 		void place_in_area(const Area & area, bool in_layout);
 /// @endcond 
+#endif
 	};
 }

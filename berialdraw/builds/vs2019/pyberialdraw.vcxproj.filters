@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\pybind\README.md" />
+    <None Include="..\..\pybind\test.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="device">
+      <UniqueIdentifier>{387afaf6-b8c7-409c-b392-dc839cdf9e74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framebuf">
+      <UniqueIdentifier>{e0796e2e-8332-42e9-bdf0-76a29d11e7d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shape">
+      <UniqueIdentifier>{5a6d570d-b319-4ffa-9c2b-f140d6631ca1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="styles">
+      <UniqueIdentifier>{e229ad69-ee98-44af-80f6-8639a6c98879}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tool">
+      <UniqueIdentifier>{fb84da7e-6ad3-4ac3-9df3-dfa54b265dbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vector">
+      <UniqueIdentifier>{b5d2c9d7-8d41-4f09-93f4-0487e08539df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="widget">
+      <UniqueIdentifier>{95fbee52-3a0b-4ee9-b699-fe96bfd974c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="font">
+      <UniqueIdentifier>{4b101bdb-3c73-4a25-b35b-6a41da1397eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="event">
+      <UniqueIdentifier>{55e592ea-7e41-4042-9c50-b52377c87217}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\widget.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\button.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\canvas.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\column.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\desktop.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\edit.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\grid.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\icon.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\keyboard.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\label.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\pane.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\progress_bar.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\row.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\scroll_view.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\slider.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\switch.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\uimanager.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\window.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\device\device.cpp">
+      <Filter>device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\framebuf\argb8888.cpp">
+      <Filter>framebuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\framebuf\framebuf.cpp">
+      <Filter>framebuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\font\font.cpp">
+      <Filter>font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\font\fonts.cpp">
+      <Filter>font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\shape\circle.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\shape\cross.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\shape\line.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\shape\marker.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\shape\pie.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\shape\polygon.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\shape\rect.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\shape\square.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\shape\text.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\shape\triangle.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\border_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\color.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\common_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\edit_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\icon_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\line_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\pie_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\progress_bar_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\round_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\slider_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\switch_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\text_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\widget_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\tool\directory.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\tool\file.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\tool\string.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\vector\area.cpp">
+      <Filter>vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\vector\margin.cpp">
+      <Filter>vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\vector\point.cpp">
+      <Filter>vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\vector\size.cpp">
+      <Filter>vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\vector\size_policy.cpp">
+      <Filter>vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pyberialdraw.cpp" />
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\colors.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\styles.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\entry.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\event\click_event.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\event\event.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\event\key_event.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\event\event_managers.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\event\check_event.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\event\focus_event.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\event\scroll_event.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\event\select_event.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\event\slide_event.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\event\touch_event.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\shape\compass.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\shape\poly_lines.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\shape\poly_points.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\shape\sketch.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\device\device_screen.cpp">
+      <Filter>device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\shape\shape.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\event\notifier.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\\..\\pybind\\inc\\pybind\pyberialdraw.hpp" />
+    <ClInclude Include="..\\..\\pybind\\inc\\pybind\event_system.hpp">
+      <Filter>event</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

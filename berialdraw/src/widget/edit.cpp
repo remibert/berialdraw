@@ -33,6 +33,15 @@ void Edit::copy(const Edit & edit)
 	*((EditStyle*)this)   = *(EditStyle*)(&edit);
 }
 
+/** Copy all styles of the edit */
+void Edit::copy(const Edit * edit)
+{
+	if(edit)
+	{
+		copy(*edit);
+	}
+}
+
 Size Edit::content_size()
 {
 	Size result;
