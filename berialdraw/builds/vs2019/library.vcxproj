@@ -860,6 +860,10 @@
     <ClInclude Include="..\..\inc\chart\line_chart.hpp" />
     <ClInclude Include="..\..\inc\config.h" />
     <ClInclude Include="..\..\inc\device\device.hpp" />
+    <ClInclude Include="..\..\inc\device\device_cocoa.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\..\inc\device\device_sdl.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -1064,6 +1068,10 @@
     <None Include="..\..\resources\styles\test\slider.json" />
     <None Include="..\..\resources\styles\test\switch.json" />
     <None Include="..\..\resources\styles\test\window.json" />
+    <None Include="..\..\src\device\device_cocoa.mm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\..\resources\fonts\Berial-Bold.ttf" />

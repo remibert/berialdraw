@@ -6,7 +6,6 @@ void bind_window(pybind11::module_& m) {
         .def(pybind11::init<>())
         .def("back", &berialdraw::Window::back)
         .def("front", &berialdraw::Window::front)
-        .def("copy", static_cast<void (berialdraw::Window::*)(const berialdraw::Window&)>(&berialdraw::Window::copy))
         
         // Event system integration (useful for background interactions)
         BIND_EVENT_PROPERTY(berialdraw::Window, berialdraw::ClickEvent, on_click)

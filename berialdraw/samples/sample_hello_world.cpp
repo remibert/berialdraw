@@ -14,7 +14,7 @@ void sample_hello_world()
 {
 	// Initializes the UI manager with a new DeviceScreen named "BerialDraw", 
 	// setting the screen width 320, height 480, pixel format, and zoom size
-	UIManager::init(new DeviceScreen("Sample"), 320, 480, Framebuf::ARGB8888, 2);
+	UIManager::init(new DeviceScreen("Sample"), 320, 480, Framebuf::ARGB8888, 2,"../resources;resources");
 
 		Window window;                                  // Creates a new window
 			window.size(150,100);                       // Sizes the window (without a defined position it will be centered on the screen)

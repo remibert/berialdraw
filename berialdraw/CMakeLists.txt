@@ -5,7 +5,6 @@ project(berialdraw)
 set(BD_LIB         berialdraw)
 set(BD_APP_TEST    app_unitary_test)
 set(BD_APP_SAMPLE  app_sample)
-set(BD_SAMPLE      sample)
 set(BD_PY11_LIB    pyberialdraw)
 
 set(COMPILE_DEF
@@ -15,34 +14,35 @@ set(COMPILE_DEF
 	"$<$<PLATFORM_ID:Darwin>:OSX>"
 )
 
-if(APPLE)
-	execute_process(COMMAND uname -m OUTPUT_VARIABLE ARCHITECTURE OUTPUT_STRIP_TRAILING_WHITESPACE)
-	set(CMAKE_OSX_ARCHITECTURES ${ARCHITECTURE})
-	message(STATUS "Architecture selected (${ARCHITECTURE})")
-
-	if (${ARCHITECTURE} STREQUAL "arm64")
-		set(SDL3_INCLUDE_DIRS "/opt/homebrew/opt/sdl3/include")
-	else()
-		set(SDL3_INCLUDE_DIRS "/usr/local/opt/sdl3/include")
-	endif()
-endif()
-
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if (WIND32 OR APPLE)
+if(WIN32)
+	message(STATUS "Architecture Windows")
+	set(SRCS_DEVICE src/device/device_win32.cpp)
+	set(DEVICE_LIBRARIES "")
+	add_definitions(-DUNICODE -D_UNICODE)
+elseif(APPLE)
+	execute_process(COMMAND uname -m OUTPUT_VARIABLE ARCHITECTURE OUTPUT_STRIP_TRAILING_WHITESPACE)
+	set(CMAKE_OSX_ARCHITECTURES ${ARCHITECTURE})
+	message(STATUS "Architecture Apple (${ARCHITECTURE})")
+
+	# Use native Cocoa device implementation on macOS
+	set(SRCS_DEVICE src/device/device_cocoa.mm)
+	set(DEVICE_LIBRARIES "-framework Cocoa -framework CoreGraphics")
+
+	# Set proper compilation flags for .mm files
+	set_source_files_properties(src/device/device_cocoa.mm PROPERTIES COMPILE_FLAGS "-fobjc-arc")
+
+	# Add the preprocessor definition for pybind code
+	add_definitions(-DUSE_COCOA_DEVICE=1)
+else()
+	message(STATUS "Architecture Linux")
 	set(SDL3_STATIC ON)
 	find_package(SDL3 REQUIRED)
 	set(SRCS_DEVICE src/device/device_sdl.cpp)
-
-	message(STATUS "SDL3_LIBRARIES    = ${SDL3_LIBRARIES}")
-	message(STATUS "SDL3_INCLUDE_DIRS = ${SDL3_INCLUDE_DIRS}")
-else()
-	set(SDL3_INCLUDE_DIRS "")
-	set(SRCS_DEVICE src/device/device_win32.cpp)
-	add_definitions(-DUNICODE -D_UNICODE)
+	set(DEVICE_LIBRARIES ${SDL3_LIBRARIES})
 endif()
-
 
 set(SRCS_LIB
 	src/widget/edit.cpp
@@ -178,120 +178,6 @@ set(SRCS_LIB
 	../freetype/src/truetype/truetype.c
 )
 
-set(SRCS_SAMPLE
-	samples/sample_speedometer.cpp
-	samples/dialog.cpp
-	samples/icon_menu_dialog.cpp
-	samples/menu_dialog.cpp
-	samples/samples.cpp
-	samples/sample_button.cpp
-	samples/sample_column.cpp
-	samples/sample_row.cpp
-	samples/sample_canvas.cpp
-	samples/sample_progress_bar.cpp
-	samples/sample_slider.cpp
-	samples/sample_grid.cpp
-	samples/sample_label.cpp
-	samples/sample_edit.cpp
-	samples/sample_icon.cpp
-	samples/sample_pane.cpp
-	samples/sample_switch.cpp
-	samples/sample_keyboard.cpp
-	samples/sample_scrollview.cpp
-	samples/sample_theme.cpp
-	samples/sample_forms.cpp
-	samples/sample_window.cpp
-	samples/sample_hello_world.cpp
-)
-
-set(SRCS_APP_TEST
-	src/main.cpp
-	src/tool/test.cpp
-)
-
-set(SRCS_APP_SAMPLE
-	samples/main.cpp
-)
-
-set(SRCS_PYBIND11_LIB
-	pybind/src/pyberialdraw.cpp
-	pybind/src/pybind/styles/colors.cpp
-	pybind/src/pybind/styles/styles.cpp
-	pybind/src/pybind/device/device.cpp
-	pybind/src/pybind/device/device_screen.cpp
-	pybind/src/pybind/event/touch_event.cpp
-	pybind/src/pybind/event/event.cpp
-	pybind/src/pybind/event/scroll_event.cpp
-	pybind/src/pybind/event/check_event.cpp
-	pybind/src/pybind/event/select_event.cpp
-	pybind/src/pybind/event/event_managers.cpp
-	pybind/src/pybind/event/notifier.cpp
-	pybind/src/pybind/event/click_event.cpp
-	pybind/src/pybind/event/focus_event.cpp
-	pybind/src/pybind/event/slide_event.cpp
-	pybind/src/pybind/event/key_event.cpp
-	pybind/src/pybind/font/font.cpp
-	pybind/src/pybind/font/fonts.cpp
-	pybind/src/pybind/vector/size.cpp
-	pybind/src/pybind/vector/size_policy.cpp
-	pybind/src/pybind/vector/point.cpp
-	pybind/src/pybind/vector/margin.cpp
-	pybind/src/pybind/vector/area.cpp
-	pybind/src/pybind/framebuf/framebuf.cpp
-	pybind/src/pybind/framebuf/argb8888.cpp
-	pybind/src/pybind/shape/circle.cpp
-	pybind/src/pybind/shape/compass.cpp
-	pybind/src/pybind/shape/cross.cpp
-	pybind/src/pybind/shape/line.cpp
-	pybind/src/pybind/shape/marker.cpp
-	pybind/src/pybind/shape/pie.cpp
-	pybind/src/pybind/shape/polygon.cpp
-	pybind/src/pybind/shape/poly_lines.cpp
-	pybind/src/pybind/shape/poly_points.cpp
-	pybind/src/pybind/shape/rect.cpp
-	pybind/src/pybind/shape/shape.cpp
-	pybind/src/pybind/shape/sketch.cpp
-	pybind/src/pybind/shape/square.cpp
-	pybind/src/pybind/shape/text.cpp
-	pybind/src/pybind/shape/triangle.cpp
-	pybind/src/pybind/styles/border_style.cpp
-	pybind/src/pybind/styles/color.cpp
-	pybind/src/pybind/styles/common_style.cpp
-	pybind/src/pybind/styles/edit_style.cpp
-	pybind/src/pybind/styles/icon_style.cpp
-	pybind/src/pybind/styles/line_style.cpp
-	pybind/src/pybind/styles/pie_style.cpp
-	pybind/src/pybind/styles/progress_bar_style.cpp
-	pybind/src/pybind/styles/round_style.cpp
-	pybind/src/pybind/styles/slider_style.cpp
-	pybind/src/pybind/styles/style.cpp
-	pybind/src/pybind/styles/switch_style.cpp
-	pybind/src/pybind/styles/text_style.cpp
-	pybind/src/pybind/styles/widget_style.cpp
-	pybind/src/pybind/tool/directory.cpp
-	pybind/src/pybind/tool/file.cpp
-	pybind/src/pybind/tool/string.cpp
-	pybind/src/pybind/widget/widget.cpp
-	pybind/src/pybind/widget/button.cpp
-	pybind/src/pybind/widget/canvas.cpp
-	pybind/src/pybind/widget/column.cpp
-	pybind/src/pybind/widget/desktop.cpp
-	pybind/src/pybind/widget/edit.cpp
-	pybind/src/pybind/widget/entry.cpp
-	pybind/src/pybind/widget/grid.cpp
-	pybind/src/pybind/widget/icon.cpp
-	pybind/src/pybind/widget/keyboard.cpp
-	pybind/src/pybind/widget/label.cpp
-	pybind/src/pybind/widget/pane.cpp
-	pybind/src/pybind/widget/progress_bar.cpp
-	pybind/src/pybind/widget/row.cpp
-	pybind/src/pybind/widget/scroll_view.cpp
-	pybind/src/pybind/widget/slider.cpp
-	pybind/src/pybind/widget/switch.cpp
-	pybind/src/pybind/widget/uimanager.cpp
-	pybind/src/pybind/widget/window.cpp
-)
-
 set(INCLUDES_LIB 
 	${SDL3_INCLUDE_DIRS}
 	"${CMAKE_CURRENT_SOURCE_DIR}/../freetype/include;"
@@ -299,17 +185,6 @@ set(INCLUDES_LIB
 	"${CMAKE_CURRENT_SOURCE_DIR}/inc;"
 	"${CMAKE_CURRENT_SOURCE_DIR};"
 	"${CMAKE_CURRENT_SOURCE_DIR}/..;"
-)
-
-set(INCLUDES_PYBIND11
-	${SDL3_INCLUDE_DIRS}
-	"${CMAKE_CURRENT_SOURCE_DIR}/../freetype/include;"
-	"${CMAKE_CURRENT_SOURCE_DIR}/../freetype/include/freetype;"
-	"${CMAKE_CURRENT_SOURCE_DIR}/inc;"
-	"${CMAKE_CURRENT_SOURCE_DIR}/pybind/inc;"
-	"${CMAKE_CURRENT_SOURCE_DIR};"
-	"${CMAKE_CURRENT_SOURCE_DIR}/..;"
-	"${CMAKE_CURRENT_SOURCE_DIR}/../pybind11/include;"
 )
 
 
@@ -321,68 +196,92 @@ target_compile_definitions (${BD_LIB} PRIVATE ${COMPILE_DEF}
 	-DHAVE_PTHREAD_SETSPECIFIC=1
 	-DFT2_BUILD_LIBRARY=1
 	-DFT_ERR_PREFIX=FT_Err_)
-target_link_libraries      (${BD_LIB} ${SDL3_LIBRARIES})
+target_link_libraries      (${BD_LIB} ${DEVICE_LIBRARIES})
 
-# pybind11 Python wrapper library
-if(WIN32)
-	find_package(Python COMPONENTS Interpreter Development REQUIRED)
-	set(PYTHON_INCLUDE_PATH "C:/Development/Python314/include")
-	set(PYTHON_LIBRARIES "C:/Development/Python314/libs/python314.lib")
-elseif(APPLE)
-	find_package(Python COMPONENTS Interpreter Development REQUIRED)
-	set(PYTHON_INCLUDE_PATH ${Python_INCLUDE_DIRS})
-	set(PYTHON_LIBRARIES ${Python_LIBRARIES})
-else()
-	find_package(Python COMPONENTS Interpreter Development REQUIRED)
-	set(PYTHON_INCLUDE_PATH ${Python_INCLUDE_DIRS})
-	set(PYTHON_LIBRARIES ${Python_LIBRARIES})
+# Add subdirectories for modular build
+add_subdirectory(pybind)
+add_subdirectory(samples)
+
+# Write the Python script as a template in the source directory
+set(COPY_DELIVERY_PY_IN "${CMAKE_CURRENT_SOURCE_DIR}/copy_delivery.py.in")
+file(WRITE "${COPY_DELIVERY_PY_IN}" "
+import os
+import shutil
+import glob
+import platform
+import stat
+
+copy_jobs = [
+    ('@CMAKE_SOURCE_DIR@/resources',              'delivery/resources', '**/*', lambda path, name: 'test' not in path.split(os.sep) and not name.startswith('test_')),
+    ('@CMAKE_CURRENT_SOURCE_DIR@/inc',            'delivery/inc', '**/*', None),
+    ('@CMAKE_CURRENT_BINARY_DIR@/lib@BD_LIB@.a',  'delivery/lib/' + (platform.system().lower().replace('darwin','macos')), None, None),
+    ('@CMAKE_CURRENT_BINARY_DIR@/samples',        'delivery/app', '*', lambda path, name: os.access(os.path.join(path, name), os.X_OK) and os.path.isfile(os.path.join(path, name))),
+    # Only copy .so files, skip CMakeFiles directory
+    ('@CMAKE_CURRENT_BINARY_DIR@/pybind',         'delivery/python', 'pyberialdraw*.so', lambda path, name: 'CMakeFiles' not in path.split(os.sep)),
+    ('@CMAKE_CURRENT_SOURCE_DIR@/pybind/test.py', 'delivery/python/test.py', None, None),
+]
+
+def copy_with_filter(src, dst, wildcard=None, filter_func=None):
+    if os.path.isdir(src):
+        if wildcard is None:
+            wildcard = '**/*'
+        for root, dirs, files in os.walk(src):
+            # Skip CMakeFiles directory for all jobs
+            dirs[:] = [d for d in dirs if d != 'CMakeFiles']
+            rel_root = os.path.relpath(root, src)
+            for name in files:
+                src_file = os.path.join(root, name)
+                rel_path = os.path.normpath(os.path.join(rel_root, name))
+                dst_file = os.path.join(dst, rel_path)
+                if filter_func is None or filter_func(root, name):
+                    os.makedirs(os.path.dirname(dst_file), exist_ok=True)
+                    shutil.copy2(src_file, dst_file)
+    elif wildcard:
+        for src_file in glob.glob(os.path.join(src, wildcard), recursive=True):
+            # Skip any file inside CMakeFiles
+            if 'CMakeFiles' in src_file.split(os.sep):
+                continue
+            if os.path.isfile(src_file):
+                rel_path = os.path.relpath(src_file, src)
+                dst_file = os.path.join(dst, rel_path)
+                os.makedirs(os.path.dirname(dst_file), exist_ok=True)
+                shutil.copy2(src_file, dst_file)
+    else:
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        shutil.copy2(src, dst)
+
+for job in copy_jobs:
+    src, dst, wildcard, filter_func = job
+    if os.path.exists(src):
+        copy_with_filter(src, dst, wildcard, filter_func)
+")
+
+# Configure the script into the build directory at every configure step
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/copy_delivery.py.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/copy_delivery.py"
+    @ONLY
+)
+
+# Always remove the stamp file at configure time to force the copy at every build
+file(REMOVE "${CMAKE_CURRENT_BINARY_DIR}/delivery/.copy_delivery_stamp")
+
+add_custom_command(
+    OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/delivery/.copy_delivery_stamp"
+    COMMAND python3 "${CMAKE_CURRENT_BINARY_DIR}/copy_delivery.py"
+    #COMMAND ${CMAKE_COMMAND} -E touch "${CMAKE_CURRENT_BINARY_DIR}/delivery/.copy_delivery_stamp"
+    #COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_CURRENT_BINARY_DIR}/copy_delivery.py"
+    WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+    DEPENDS ${BD_LIB} ${BD_PY11_LIB}
+    COMMENT "Copying resources and testing ARM64 after build completion"
+    VERBATIM
+)
+
+add_custom_target(copy_delivery ALL
+    DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/delivery/.copy_delivery_stamp"
+)
+
+add_dependencies(copy_delivery ${BD_PY11_LIB})
+if(TARGET ${BD_APP_SAMPLE})
+    add_dependencies(copy_delivery ${BD_APP_SAMPLE})
 endif()
-
-add_library                (${BD_PY11_LIB} SHARED ${SRCS_DEVICE} ${SRCS_LIB} ${SRCS_PYBIND11_LIB})
-target_include_directories (${BD_PY11_LIB} PRIVATE ${INCLUDES_PYBIND11} ${PYTHON_INCLUDE_PATH})
-target_compile_definitions (${BD_PY11_LIB} PRIVATE ${COMPILE_DEF} 
-	-DPACKAGE=1
-	-DHAVE_PTHREAD_SETSPECIFIC=1
-	-DFT2_BUILD_LIBRARY=1
-	-DFT_ERR_PREFIX=FT_Err_)
-
-if(APPLE)
-	target_compile_definitions(${BD_PY11_LIB} PRIVATE -DVERSION_INFO=\"dev\")
-	set_target_properties(${BD_PY11_LIB} PROPERTIES
-		CXX_VISIBILITY_PRESET "hidden"
-		VISIBILITY_INLINES_HIDDEN ON
-	)
-endif()
-
-target_link_libraries      (${BD_PY11_LIB} ${SDL3_LIBRARIES} ${PYTHON_LIBRARIES})
-
-if(WIN32)
-	set_target_properties(${BD_PY11_LIB} PROPERTIES SUFFIX ".pyd")
-elseif(APPLE)
-	set_target_properties(${BD_PY11_LIB} PROPERTIES 
-		SUFFIX ".so"
-		PREFIX ""
-		LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
-	)
-else()
-	set_target_properties(${BD_PY11_LIB} PROPERTIES 
-		SUFFIX ".so"
-		PREFIX ""
-	)
-endif()
-
-
-# Unitary test application
-add_executable             (${BD_APP_TEST} ${SRCS_APP_TEST} ${SRCS_SAMPLE})
-target_include_directories (${BD_APP_TEST} PRIVATE ${INCLUDES_LIB})
-target_compile_definitions (${BD_APP_TEST} PRIVATE ${COMPILE_DEF})
-target_link_libraries      (${BD_APP_TEST} PRIVATE ${BD_LIB} ${SDL3_LIBRARIES})
-
-# Unitary sample application
-add_executable            (${BD_APP_SAMPLE} ${SRCS_APP_SAMPLE} ${SRCS_SAMPLE})
-target_include_directories(${BD_APP_SAMPLE} PRIVATE ${INCLUDES_LIB})
-target_compile_definitions(${BD_APP_SAMPLE} PRIVATE ${COMPILE_DEF})
-target_link_libraries     (${BD_APP_SAMPLE} PRIVATE ${BD_LIB} ${SDL3_LIBRARIES})
-
-file(COPY "${CMAKE_SOURCE_DIR}/resources" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/")
-# file(GLOB FILES_TO_DELETE "${DIR_TO_CLEAN}/*.tmp" "${DIR_TO_CLEAN}/logs/*.log")

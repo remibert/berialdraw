@@ -84,7 +84,7 @@ public:
 					col->size_policy(SizePolicy::SHRINK_WIDTH);                  // Sets the size policy to shrink width
 					Icon * icon = new Icon(col);                                 // Creates a new icon within the column
 						icon->text("Icon");                                      // Sets the text of the icon
-						icon->filename("resources/icons/sentiment_excited.icn"); // Sets the filename of the icon
+						icon->filename("icons/sentiment_excited.icn"); // Sets the filename of the icon
 		}
 		Keyboard * keyboard = new Keyboard(column);     // Create keyboard
 

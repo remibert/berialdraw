@@ -65,6 +65,11 @@ namespace berialdraw
 		@return The full path of the current file. */
 		String full_path() const;
 
+		/** Check if a directory exists
+		@param path directory path to check
+		@return true if directory exists */
+		static bool exists(const char* path);
+
 	private:
 #ifndef SWIG
 /// @cond DOXYGEN_IGNORE

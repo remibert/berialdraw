@@ -782,7 +782,7 @@ void window_test7(Widget * widget, int &id)
 
 	if (dynamic_cast<IconStyle*>(widget))
 	{
-		(dynamic_cast<IconStyle*>(widget))->filename("resources/icons/computer.icn");
+		(dynamic_cast<IconStyle*>(widget))->filename("icons/computer.icn");
 	}
 
 	String name;
@@ -876,7 +876,7 @@ static void window_all_widgets(Window & window)
 					keyboard_text->text_align(Align::ALIGN_LEFT);
 
 				Icon * icon = new Icon(scroll_layout);
-					icon->filename("resources/icons/person.icn");
+					icon->filename("icons/person.icn");
 					icon->text("Icon");
 
 				Keyboard * keyboard = new Keyboard(scroll_layout);

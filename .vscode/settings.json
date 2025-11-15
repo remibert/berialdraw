@@ -4,6 +4,7 @@
 		"cwd": "${workspaceFolder}/berialdraw"
 	},
 	"cmake.buildDirectory": "${env:HOME}/Downloads/build",
+	"cmake.parallelJobs": 4,
 	"files.associations": {
 		"ios": "cpp",
 		"__config": "cpp",
@@ -50,6 +51,7 @@
 		"cmath": "cpp",
 		"new": "cpp"
 	},
+	"cmake.configureArgs": ["-DUSE_COCOA_DEVICE=ON"],
 	"cmake.configureSettings": {
 		"SDL3_INCLUDE_DIRS": "/Library/Frameworks/SDL3.framework"
 	},

@@ -1,11 +1,12 @@
 #include "pybind/pyberialdraw.hpp"
 #include "pybind/event_system.hpp"
 
-// Définition de la variable statique EventSystemManager pour éviter les erreurs de linkage
+// Static variable definition for EventSystemManager to avoid linkage errors
 bool EventSystemManager::is_shutting_down = false;
 
-// Spécialisation de bridge_callback pour les événements clavier
-// Définie ici pour éviter les définitions multiples
+// Explicit instantiations of bridge_callback for all event types
+// This ensures all needed symbols are generated during compilation
+
 template<> void bridge_callback<berialdraw::KeyEvent>(berialdraw::Widget* widget, const berialdraw::KeyEvent& event) {
     auto manager = EventSystemManager::instance().get_manager<berialdraw::KeyEvent>(widget);
     if (manager && !manager->empty()) {
@@ -16,9 +17,10 @@ template<> void bridge_callback<berialdraw::KeyEvent>(berialdraw::Widget* widget
     }
 }
 
-// Fonction de nettoyage automatique appelée par Python à la fermeture
+
+// Automatic cleanup function called by Python at shutdown
 void automatic_cleanup() {
-    // Marquer le système comme fermé pour éviter les nouvelles opérations
+    // Mark the system as shutting down to prevent new operations
     EventSystemManager::instance().mark_shutdown();
 }
 
@@ -74,11 +76,11 @@ void bind_event_managers(pybind11::module_& m) {
         .def("__len__", &CallbackManager<berialdraw::TouchEvent>::size)
         .def("__bool__", [](const CallbackManager<berialdraw::TouchEvent>& self) { return !self.empty(); });
         
-    // Enregistrer automatiquement le nettoyage à la fermeture de Python
-    // Utilisation de Py_AtExit pour s'assurer que le nettoyage se fait avant la fermeture de Python
+    // Automatically register cleanup on Python shutdown
+    // Using Py_AtExit to ensure cleanup happens before Python shutdown
     if (Py_IsInitialized()) {
         if (Py_AtExit(automatic_cleanup) != 0) {
-            // Si l'enregistrement échoue, afficher un avertissement
+            // If registration fails, display a warning
             pybind11::print("Warning: Could not register automatic cleanup");
         }
     }

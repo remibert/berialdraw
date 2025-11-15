@@ -21,7 +21,7 @@ int main(int argc, char* args[])
 		test_unitary();
 
 		// Start and init berial draw library
-		UIManager::init(new DeviceScreen("Test BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888,ZOOM);
+		UIManager::init(new DeviceScreen("Test BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888,ZOOM, "../resources;./resources");
 
 		// Select the CRC checks for the screens to verify whether the tests are successful or not.
 		UIManager::screen_crc()->open("test/out/all_crcs.json","test/ref/all_crcs.json");

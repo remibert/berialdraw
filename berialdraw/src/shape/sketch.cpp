@@ -403,13 +403,13 @@ void Sketch::test1()
 		maison->position(rect->position());
 		maison->size(rect->size());
 		maison->color(Color::YELLOW);
-		maison->filename("resources/icons/maison.icn");
+		maison->filename("icons/maison.icn");
 
 	Sketch * computer = new Sketch(canvas);
 		computer->position(rect->position());
 		computer->size(rect->size());
 		computer->color(Color::YELLOW);
-		computer->filename("resources/icons/computer.icn");
+		computer->filename("icons/computer.icn");
 
 	UIManager::desktop()->dispatch("test/out/sketch1_1.svg");
 	rect->size(360,10);
@@ -445,7 +445,7 @@ void Sketch::test2()
 		rect->repeat(Shape::REPEAT_ANGLE, 0, 359, 30);
 
 	Sketch * maison = new Sketch(canvas);
-		maison->filename("resources/icons/maison.icn");
+		maison->filename("icons/maison.icn");
 		maison->size(rect->size());
 		maison->color(Color::WHITE,128);
 		maison->position(rect->position());
@@ -455,7 +455,7 @@ void Sketch::test2()
 		computer->position(rect->position());
 		computer->size(rect->size());
 		computer->color(Color::YELLOW);
-		computer->filename("resources/icons/computer.icn");
+		computer->filename("icons/computer.icn");
 		computer->repeat(Shape::REPEAT_ANGLE, 0, 359, 30);
 
 	Coord pos = 0;
@@ -498,7 +498,7 @@ void Sketch::test3()
 	Sketch * maison = new Sketch(canvas);
 		maison->position(rect->position());
 		maison->size(rect->size());
-		maison->filename("resources/icons/maison.icn");
+		maison->filename("icons/maison.icn");
 	UIManager::desktop()->dispatch("test/out/sketch3_0.svg");
 
 	maison->align(Align::ALIGN_BOTTOM);

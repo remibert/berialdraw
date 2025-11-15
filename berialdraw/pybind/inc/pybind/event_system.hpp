@@ -5,25 +5,25 @@
 #include <vector>
 #include <typeindex>
 
-// Gestionnaire générique de callbacks pour n'importe quel type d'événement
+// Generic callback manager for any event type
 template<typename EventType>
 class CallbackManager {
 private:
     std::vector<pybind11::function> callbacks;
     
 public:
-    // Destructeur simple - ne fait rien pour éviter les crashes
+    // Simple destructor - does nothing to avoid crashes
     ~CallbackManager() {
-        // Le nettoyage automatique via Py_AtExit s'occupe de tout
+        // Automatic cleanup via Py_AtExit handles everything
     }
     
-    // Assignation d'une callback simple
+    // Assign a single callback
     void assign(const pybind11::function& callback) {
         callbacks.clear();
         callbacks.push_back(callback);
     }
     
-    // Assignation d'une liste de callbacks
+    // Assign a list of callbacks
     void assign_list(const pybind11::list& callback_list) {
         callbacks.clear();
         for (auto item : callback_list) {
@@ -31,13 +31,13 @@ public:
         }
     }
     
-    // Ajouter une callback (opérateur +=)
+    // Add a callback (operator +=)
     CallbackManager& add(const pybind11::function& callback) {
         callbacks.push_back(callback);
         return *this;
     }
     
-    // Appeler toutes les callbacks
+    // Call all callbacks
     void trigger(berialdraw::Widget* widget, const EventType& event) {
         if (!Py_IsInitialized()) return;
         
@@ -56,26 +56,26 @@ public:
     size_t size() const { return callbacks.size(); }
 };
 
-// Système centralisé pour gérer les callbacks de tous widgets et événements
+// Centralized system to manage callbacks for all widgets and events
 class EventSystemManager {
 private:
-    // Map [Widget*][TypeIndex] -> CallbackManager* (pointeurs bruts pour éviter les crashes de shared_ptr)
+    // Map [Widget*][TypeIndex] -> CallbackManager* (raw pointers to avoid shared_ptr crashes)
     std::map<berialdraw::Widget*, std::map<std::type_index, void*>> widget_callbacks;
     static bool is_shutting_down;
     
 public:
-    // Destructor qui ne fait absolument rien
+    // Destructor that does absolutely nothing
     ~EventSystemManager() {
-        // NE RIEN FAIRE - laisse les pointeurs bruts en place
-        // pour éviter tout crash lors du shutdown
+        // DO NOTHING - leave raw pointers in place
+        // to avoid any crash during shutdown
     }
     
-    // Marquer le système comme en cours de shutdown
+    // Mark the system as shutting down
     static void mark_shutdown() {
         is_shutting_down = true;
     }
     
-    // Obtenir le gestionnaire de callbacks pour un widget et un type d'événement
+    // Get the callback manager for a widget and an event type
     template<typename EventType>
     CallbackManager<EventType>* get_manager(berialdraw::Widget* widget) {
         if (is_shutting_down) {
@@ -85,30 +85,30 @@ public:
         auto type_idx = std::type_index(typeid(EventType));
         
         if (widget_callbacks[widget].find(type_idx) == widget_callbacks[widget].end()) {
-            // Créer avec new et stocker le pointeur brut
+            // Create with new and store the raw pointer
             widget_callbacks[widget][type_idx] = new CallbackManager<EventType>();
         }
         
         return static_cast<CallbackManager<EventType>*>(widget_callbacks[widget][type_idx]);
     }
     
-    // Nettoyer les callbacks d'un widget (ne fait rien lors du shutdown)
+    // Clean up callbacks for a widget (does nothing during shutdown)
     void cleanup_widget(berialdraw::Widget* widget) {
         if (!is_shutting_down) {
-            // Optionnel: supprimer les managers de ce widget
-            // Mais on peut aussi les laisser car ça sera nettoyé globalement
+            // Optional: delete managers for this widget
+            // But we can also leave them as they will be cleaned up globally
             widget_callbacks.erase(widget);
         }
     }
     
-    // Instance singleton simple
+    // Simple singleton instance
     static EventSystemManager& instance() {
         static EventSystemManager manager;
         return manager;
     }
 };
 
-// Fonctions de pont génériques pour chaque type d'événement
+// Generic bridge functions for each event type
 template<typename EventType>
 void bridge_callback(berialdraw::Widget* widget, const EventType& event) {
     auto manager = EventSystemManager::instance().get_manager<EventType>(widget);
@@ -117,11 +117,11 @@ void bridge_callback(berialdraw::Widget* widget, const EventType& event) {
     }
 }
 
-// Déclaration de la spécialisation pour KeyEvent (définie dans event_managers.cpp)
+// Declaration of specialization for KeyEvent (defined in event_managers.cpp)
 template<>
 void bridge_callback<berialdraw::KeyEvent>(berialdraw::Widget* widget, const berialdraw::KeyEvent& event);
 
-// Macros pour simplifier la création de propriétés d'événements
+// Macros to simplify creation of event properties
 #define BIND_EVENT_PROPERTY(WidgetClass, EventType, property_name) \
     .def_property(#property_name, \
         [](WidgetClass& self) -> CallbackManager<EventType>* { \

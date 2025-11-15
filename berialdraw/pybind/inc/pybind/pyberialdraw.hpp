@@ -8,7 +8,7 @@
 
 namespace py = pybind11;
 
-// Font bindings
+// Font bindings 
 void bind_font(py::module& m);
 void bind_fonts(py::module& m);
 

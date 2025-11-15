@@ -109,3 +109,11 @@ bool Directory::match(const char *pattern, bool ignore_case)
 {
 	return (match_pattern(pattern, m_filename.c_str()));
 }
+
+/** Check if a directory exists
+@param path directory path to check
+@return true if directory exists */
+bool Directory::exists(const char* path)
+{
+	return bd_is_directory(path);
+}

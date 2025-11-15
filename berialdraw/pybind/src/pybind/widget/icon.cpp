@@ -4,7 +4,6 @@
 void bind_icon(pybind11::module_& m) {
     pybind11::class_<berialdraw::Icon, berialdraw::Widget, berialdraw::BorderStyle, berialdraw::IconStyle, berialdraw::TextStyle>(m, "Icon")
         .def(pybind11::init<berialdraw::Widget*>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>())
-        .def("copy", static_cast<void (berialdraw::Icon::*)(const berialdraw::Icon&)>(&berialdraw::Icon::copy))
         
         // Event system integration (Icon is described as a specialized button)
         BIND_EVENT_PROPERTY(berialdraw::Icon, berialdraw::ClickEvent, on_click)

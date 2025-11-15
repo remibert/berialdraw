@@ -133,6 +133,12 @@ void * MemoryLeakTracer::realloc(void * ptr, std::size_t size)
 		{
 			MemHeader * header = (MemHeader*)ptr;
 			header--;
+			
+			if (header->tag != 0xCAFEFADE)
+			{
+				return std::realloc(ptr, size);
+			}
+			
 			previous_size = header->size;
 		}
 
@@ -245,6 +251,13 @@ void MemoryLeakTracer::unalloc(void* ptr) noexcept
 		if (MemoryLeakTracer::m_started) m_mutex.lock();
 		MemHeader * header = (MemHeader*)ptr;
 		header--;
+
+		if (header->tag != 0xCAFEFADE)
+		{
+			if (MemoryLeakTracer::m_started) m_mutex.unlock();
+			std::free(ptr);
+			return;
+		}
 
 		size_t alloc_size = header->size + sizeof(MemHeader);
 

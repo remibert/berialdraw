@@ -8,7 +8,7 @@ Fonts::Fonts()
 	m_fonts = new Vector<FontPtr>;
 	m_fonts_faces = new Vector<FontFacePtr>;
 	m_familly = "Berial";
-	load_directory("resources/fonts");
+	load_directory("fonts");
 }
 
 /** Destroy fonts */
@@ -205,6 +205,7 @@ bool Fonts::load_directory(const String & dir)
 	}
 	else
 	{
+		bd_printf("No font found, you need to provide an existing directory in UIManager::init\n");
 		result = false;
 	}
 	return result;

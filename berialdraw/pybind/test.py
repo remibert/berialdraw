@@ -2,49 +2,21 @@
 import atexit
 import sys
 import os
-
-# Add current directory to Python path for module discovery
-current_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, current_dir)
-
-# Try different possible paths for the compiled module
-possible_paths = [
-    current_dir,  # Current directory
-    os.path.join(current_dir, "build"),  # build subdirectory
-    os.path.join(current_dir, "..", "build"),  # parent build directory
-    r"Z:\tmp\pyberialdraw\x64\Debug",  # Windows debug path
-]
-
-# Add all possible paths
-for path in possible_paths:
-    if os.path.exists(path):
-        sys.path.insert(0, path)
-
-try:
-    from pyberialdraw import *
-    print("Successfully imported pyberialdraw module")
-except ImportError as e:
-    print(f"Failed to import pyberialdraw: {e}")
-    print("Current working directory:", os.getcwd())
-    print("Python path:", sys.path[:5])  # Show first 5 paths
-    print("Looking for module files:")
-    for path in possible_paths:
-        if os.path.exists(path):
-            files = [f for f in os.listdir(path) if 'pyberialdraw' in f]
-            if files:
-                print(f"  {path}: {files}")
-    sys.exit(1)
-
 def cleanup_on_exit():
 	print("end")
 	time.sleep(1)
 
 atexit.register(cleanup_on_exit)
 
+
+sys.path.insert(0, r"Z:\tmp\pyberialdraw\x64\Debug")
+from pyberialdraw import *
+
+
+
 device = DeviceScreen("Sample python")
 
-UIManager.init(device, 480, 880, Framebuf.ARGB8888, 2, "B:/berialdraw")
-
+UIManager.init(device, 480, 880, Framebuf.ARGB8888, 2, "./resources;../resources")
 UIManager.style = "pearl"
 UIManager.appearance = "light"
 UIManager.theme = THEME_LIME
@@ -58,48 +30,49 @@ def key_to_str(key):
 	except:
 		return f"[{key}]"
 
-def on_click_button(widget, event):
-	print(f"Click! Button '{widget.text}' at position {event.position}")
+class Dialog:
+	def __init__(self):
 
-def on_key_pressed(widget, event):
-	print(f"Key on {widget.classname} {key_to_str(event.key)} {event.state} {event.modifier}")
+		self.window = Window()
+		self.layout = Column(self.window)
+		self.label = Label(self.layout)
+		self.label.text = "hello"
 
+		self.first_name = Edit(self.layout)
+		self.first_name.text = ""
+		self.first_name.place_holder = "Test first name"
+		self.first_name.on_key_down = self.on_key_pressed
 
-window = Window()
-layout = Column(window)
-label = Label(layout)
-label.text = "hello"
+		self.last_name = Edit(self.layout)
+		self.last_name.text = ""
+		self.last_name.place_holder = "Test last name"
+		self.last_name.on_key_down = self.on_key_pressed
 
-first_name = Edit(layout)
-first_name.text = ""
-first_name.place_holder = "Test first name"
-first_name.on_key_down = on_key_pressed
+		self.age = Edit(self.layout)
+		self.age.text = "Age"
+		self.age.place_holder = ""
+		self.age.on_key_down = self.on_key_pressed
 
-last_name = Edit(layout)
-last_name.text = ""
-last_name.place_holder = "Test last name"
-last_name.on_key_down = on_key_pressed
+		self.slider = Slider(self.layout)
+		self.slider.on_click = lambda widget, event: print(f"Slider clicked at {event.position}")
+		self.slider.on_key_down = self.on_key_pressed
 
-age = Edit(layout)
-age.text = "Age"
-age.place_holder = ""
-age.on_key_down = on_key_pressed
+		self.button = Button(self.layout)
+		self.button.text = "hello\nworld"
+		self.button.margin = (20,10)
+		self.button.on_click = self.on_click_button
+		self.button.on_key_down = self.on_key_pressed
 
-slider = Slider(layout)
-slider.on_click = lambda widget, event: print(f"Slider clicked at {event.position}")
-slider.on_key_down = on_key_pressed
+		self.switch = Switch(self.layout)
+		self.switch.on_click = lambda widget, event: print(f"Switch clicked")
+		self.switch.on_key_down = self.on_key_pressed
+		
+	def on_click_button(self, widget, event):
+		print(f"Click! Button '{widget.text}' at position {event.position}")
 
-button = Button(layout)
-button.text = "world"
-button.margin = (20,10)
-button.on_click = on_click_button
-button.on_key_down = on_key_pressed
+	def on_key_pressed(self, widget, event):
+		print(f"Key on {widget.classname} {key_to_str(event.key)} {event.state} {event.modifier}")
 
-switch = Switch(layout)
-switch.on_click = lambda widget, event: print(f"Switch clicked")
-switch.on_key_down = on_key_pressed
+dlg = Dialog()
 
-#for i  in range(100):
-#	UIManager.desktop().dispatch()
 UIManager.desktop().mainloop()
-

@@ -9,34 +9,6 @@ void bind_entry(pybind11::module_& m) {
     // No need to rebind it here
 
     pybind11::class_<berialdraw::Entry>(m, "Entry")
-        // Factory methods for safer creation from Python
-        .def_static("create", [](const std::string& text) {
-            // Create a new String object that Entry will manage
-            auto* str = new berialdraw::String(text.c_str());
-            auto* entry = new berialdraw::Entry(str);
-            return entry;
-        }, pybind11::arg("text") = "", 
-           pybind11::return_value_policy::take_ownership,
-           "Create an Entry with initial text")
-        
-        .def_static("create_with_string", [](berialdraw::String& str) {
-            // Use existing String object
-            auto* entry = new berialdraw::Entry(&str);
-            return entry;
-        }, pybind11::arg("str"), 
-           pybind11::return_value_policy::take_ownership,
-           pybind11::keep_alive<0, 1>(),
-           "Create an Entry with existing String object")
-        
-        // Copy constructor as factory method
-        .def_static("copy", [](const berialdraw::Entry& entry, berialdraw::String& inp) {
-            auto* new_entry = new berialdraw::Entry(entry, &inp);
-            return new_entry;
-        }, pybind11::arg("entry"), pybind11::arg("inp"), 
-           pybind11::return_value_policy::take_ownership,
-           pybind11::keep_alive<0, 2>(),
-           "Copy constructor with new input string")
-        
         // Properties with explicit method casting
         .def_property("typing_mode", 
             static_cast<berialdraw::Entry::TypingMode (berialdraw::Entry::*)() const>(&berialdraw::Entry::typing_mode),

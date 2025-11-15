@@ -1262,6 +1262,9 @@
     <ClInclude Include="..\..\inc\shape\sketch.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\inc\device\device_cocoa.hpp">
+      <Filter>berialdraw\device</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\resources\icons\account_circle.icn">
@@ -1494,6 +1497,9 @@
     </None>
     <None Include="..\..\resources\styles\pearl\window.json">
       <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\src\device\device_cocoa.mm">
+      <Filter>berialdraw\device</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

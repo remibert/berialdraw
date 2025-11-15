@@ -12,7 +12,7 @@ int main(int argc, char* args[])
 {
 	// Initializes the UI manager with a new DeviceScreen named "Samples BerialDraw", 
 	// setting the screen width 480, height 480, pixel format, and zoom size
-	UIManager::init(new DeviceScreen("Samples BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888, ZOOM);
+	UIManager::init(new DeviceScreen("Samples BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888, ZOOM, "../resources;./resources");
 
 	// Execute menu with all samples
 	sample_icon_menu();

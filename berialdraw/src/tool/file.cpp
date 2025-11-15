@@ -26,6 +26,7 @@ int File::open(const char *pathname, const char *mode)
 		full_name = m_resource_dir + "/";
 		full_name += pathname;
 	}
+
 	m_file = fopen(full_name.c_str(), mode);
 
 	if (m_file)
@@ -239,9 +240,28 @@ const String & File::resource_dir()
 }
 
 /** Set the resource directory
-@param dir resource directory */
+@param dir resource directory or list of directories separated by semicolons */
 void File::resource_dir(const String & dir)
 {
-	m_resource_dir = dir;
+	// Split the input by semicolons and find first existing directory
+	String current_path = "";
+	int32_t start = 0;
+	int32_t end = 0;
+
+	m_resource_dir = ".";
+	do
+	{
+		end = dir.find(";",start);	
+		dir.slice(start, end, current_path);
+		start = end + 1;
+		
+		// Check if this directory exists
+		if (Directory::exists(current_path.c_str()))
+		{
+			m_resource_dir = current_path;
+			break;
+		}
+	}
+	while (end != INT32_MAX);
 }
 

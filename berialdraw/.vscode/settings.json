@@ -19,6 +19,26 @@
 	"cmake.debugConfig":{"cwd": "${workspaceFolder}"},
 	"cmake.sourceDirectory": "${workspaceFolder}", 
 	"cmake.buildDirectory": "/Users/remi/Downloads/berialdraw",
+	"cmake.configureArgs": ["-DUSE_COCOA_DEVICE=ON"],
+	"cmake.buildTask": true,
+	"cmake.defaultVariants": {
+		"buildType": {
+			"default": "debug",
+			"choices": {
+				"debug": {
+					"short": "Debug",
+					"long": "Emit debug information without performing optimizations",
+					"buildType": "Debug"
+				},
+				"release": {
+					"short": "Release", 
+					"long": "Enable optimizations, omit debug information",
+					"buildType": "Release"
+				}
+			}
+		}
+	},
+	"cmake.buildBeforeRun": true,
 	"files.associations": {
 		"__bit_reference": "cpp",
 		"__hash_table": "cpp",

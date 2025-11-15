@@ -899,7 +899,7 @@ void Button::test10()
 
 	uint32_t hue = 0;
 
-	for (Directory directory("resources/icons"); directory.exist(); directory.next())
+	for (Directory directory("icons"); directory.exist(); directory.next())
 	{
 		if (directory.match("*.icn"))
 		{

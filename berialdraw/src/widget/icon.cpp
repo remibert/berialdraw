@@ -208,7 +208,7 @@ void Icon::test1()
 		window.size(480,480);
 
 	Directory directory;
-		directory.open("resources/icons");
+		directory.open("icons");
 
 	if (directory.first())
 	{
@@ -288,7 +288,7 @@ void Icon::test2()
 		main->flow(true);
 
 	int angle = 0;
-	for (Directory directory("resources/icons"); directory.exist(); directory.next())
+	for (Directory directory("icons"); directory.exist(); directory.next())
 	{
 		if (directory.match("*.icn"))
 		{
@@ -323,7 +323,7 @@ void Icon::test3()
 		main->flow(true);
 
 	int angle = 0;
-	for (Directory directory("resources/icons"); directory.exist(); directory.next())
+	for (Directory directory("icons"); directory.exist(); directory.next())
 	{
 		if (directory.match("*.icn"))
 		{
@@ -349,7 +349,7 @@ void Icon::test4()
 {
 	Window window;
 		Icon * icon = new Icon(&window);
-			icon->filename("resources/icons/maison.icn");
+			icon->filename("icons/maison.icn");
 			icon->position(10,10);
 			icon->text("Icon");
 

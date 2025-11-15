@@ -154,6 +154,9 @@
 	#undef sep
 	#include "device/device_win32.hpp"
 	#define DeviceScreen DeviceWin32
+#elif defined(OSX) && defined(USE_COCOA_DEVICE)
+	#include "device/device_cocoa.hpp"
+	#define DeviceScreen DeviceCocoa
 #else
 	//#include <SDL3/SDL.h> 
 	#include "device/device_sdl.hpp"
