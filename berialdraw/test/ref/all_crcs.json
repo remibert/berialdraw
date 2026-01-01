@@ -7830,5 +7830,25 @@
 		"${tests}/out/sample_theme_40.svg" : 
 		{
 			"scale_2" : 3664752691
+		},
+		"${tests}/out/scroll5_1.svg" : 
+		{
+			"scale_2" : 2770025267
+		},
+		"${tests}/out/scroll5_2.svg" : 
+		{
+			"scale_2" : 1757403424
+		},
+		"${tests}/out/scroll5_3.svg" : 
+		{
+			"scale_2" : 158951912
+		},
+		"${tests}/out/scroll5_4.svg" : 
+		{
+			"scale_2" : 854990345
+		},
+		"${tests}/out/scroll5_5.svg" : 
+		{
+			"scale_2" : 4167418220
 		}
 	}

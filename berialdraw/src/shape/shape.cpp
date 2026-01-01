@@ -99,8 +99,7 @@ Size Shape::content_size()
 Size Shape::marged_size()
 {
 	Size result = content_size();
-	result.height_( result.height_() + m_margin.bottom_() + m_margin.top_());
-	result.width_(  result.width_ () + m_margin.left_() + m_margin.right_());
+	result.increase_(m_margin.left_() + m_margin.right_(), m_margin.bottom_() + m_margin.top_());
 	return result;
 }
 

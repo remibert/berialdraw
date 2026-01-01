@@ -22,11 +22,11 @@ Size ScrollView::content_size()
 	Size result = Widget::content_size();
 	if (!m_viewport_size.is_width_undefined())
 	{
-		result.width(m_viewport_size.width());
+		result.width_(m_viewport_size.width_());
 	}
 	if (!m_viewport_size.is_height_undefined())
 	{
-		result.height(m_viewport_size.height());
+		result.height_(m_viewport_size.height_());
 	}
 	return result;
 }
@@ -35,8 +35,18 @@ Size ScrollView::content_size()
 Size ScrollView::marged_size()
 {
 	Size result;
-	result.height_( result.height_() + m_margin.bottom_() + m_margin.top_());
-	result.width_(  result.width_ () + m_margin.left_() + m_margin.right_());
+
+	// If size not defined, set null size
+	if (m_viewport_size.is_width_undefined() == false)
+	{
+		result.width_(m_viewport_size.width_());
+	}
+	if (m_viewport_size.is_height_undefined() == false)
+	{
+		result.height_(m_viewport_size.height_());
+	}
+
+	result.increase_(m_margin.left_() + m_margin.right_(), m_margin.bottom_() + m_margin.top_());
 	return result;
 }
 
@@ -677,7 +687,7 @@ void ScrollView::test5()
 	ScrollView * scroll_view = new ScrollView(&window);
 		scroll_view->scroll_direction(ScrollVertical);
 		scroll_view->id(123);
-	Grid * grid = new Grid(scroll_view);
+	Column * grid = new Column(scroll_view);
 	Button * button;
 	int id = 1000;
 	for (int i = 0; i < 11; i++)
@@ -685,19 +695,16 @@ void ScrollView::test5()
 		if (i == 5)
 		{
 			ScrollView * imbricated_scrollview = new ScrollView(grid);
-				imbricated_scrollview->cell(i,0);
-			imbricated_scrollview->scroll_direction(ScrollVertical);
+				imbricated_scrollview->scroll_direction(ScrollVertical);
 				imbricated_scrollview->id(456);
 				imbricated_scrollview->viewport_size(Size::MAX_SIZE, 60);
-				//imbricated_scrollview->scroll_size(160,100);
+				imbricated_scrollview->margin(5);
 
-			Grid * imbricated_grid = new Grid(imbricated_scrollview);
+			Column * imbricated_grid = new Column(imbricated_scrollview);
 			for (int  j = 0; j < 5; j++)
 			{
 				button = new Button(imbricated_grid);
 					button->text("%c",0x41 + j);
-					button->cell(j,0);
-					button->extend(Extend::EXTEND_WIDTH);
 					button->id(id++);
 			}
 		}
@@ -706,15 +713,13 @@ void ScrollView::test5()
 			button = new Button(grid);
 				button->margin(20,4);
 				button->text("%d",i);
-				button->cell(i,0);
 				button->color(Color::BLUE_WHALE);
 				button->border_color(Color::TYRIAN_PURPLE);
-				button->extend(Extend::EXTEND_WIDTH);
 				button->id(id++);
 		}
 	}
 
-	while(true) UIManager::desktop()->dispatch();
+	//while(true) UIManager::desktop()->dispatch();
 	String script(
 	"["
 
@@ -722,14 +727,44 @@ void ScrollView::test5()
 		"{'type':'touch','x':249,'y':277,'state':'move'},"
 		"{'type':'touch','x':250,'y':192,'state':'move'},"
 		"{'type':'touch','x':250,'y':190,'state':'up'},"
-		"{'type':'touch','x':252,'y':210,'state':'move'},"
-		"{'type':'touch','x':252,'y':223,'state':'move'},"
-		"{'type':'touch','x':252,'y':225,'state':'down'},"
-		"{'type':'touch','x':251,'y':216,'state':'move'},"
-		"{'type':'touch','x':248,'y':180,'state':'move'},"
-		"{'type':'touch','x':247,'y':176,'state':'up'},"
+
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+
+		"{'type':'touch','x':249,'y':288,'state':'down'},"
+		"{'type':'touch','x':249,'y':277,'state':'move'},"
+		"{'type':'touch','x':250,'y':192,'state':'move'},"
+		"{'type':'touch','x':250,'y':190,'state':'up'},"
+
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+
+		"{'type':'touch','x':249,'y':288,'state':'down'},"
+		"{'type':'touch','x':249,'y':277,'state':'move'},"
+		"{'type':'touch','x':250,'y':192,'state':'move'},"
+		"{'type':'touch','x':250,'y':190,'state':'up'},"
+
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+
+		"{'type':'touch','x':249,'y':288,'state':'down'},"
+		"{'type':'touch','x':249,'y':277,'state':'move'},"
+		"{'type':'touch','x':250,'y':192,'state':'move'},"
+		"{'type':'touch','x':250,'y':190,'state':'up'},"
+
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+
+		"{'type':'touch','x':249,'y':288,'state':'down'},"
+		"{'type':'touch','x':249,'y':277,'state':'move'},"
+		"{'type':'touch','x':250,'y':192,'state':'move'},"
+		"{'type':'touch','x':250,'y':190,'state':'up'},"
+
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+
 	"]");
-	UIManager::notifier()->play_script(script,"");// "${tests}/out/scroll5_%d.svg");
+	UIManager::notifier()->play_script(script,"${tests}/out/scroll5_%d.svg");
 }
 
 void ScrollView::test6()
@@ -782,7 +817,7 @@ void ScrollView::test()
 		done = true;
 		test7();
 		test6();
-		//test5();
+		test5();
 		test4();
 		test3();
 		test2();
