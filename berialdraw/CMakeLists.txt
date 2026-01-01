@@ -5,6 +5,7 @@ project(berialdraw)
 set(BD_LIB         berialdraw)
 set(BD_APP_TEST    app_unitary_test)
 set(BD_APP_SAMPLE  app_sample)
+set(BD_SAMPLE_LIB  berialdraw_samples)
 set(BD_PY11_LIB    pyberialdraw)
 
 set(COMPILE_DEF
@@ -24,8 +25,15 @@ if(WIN32)
 	add_definitions(-DUNICODE -D_UNICODE)
 elseif(APPLE)
 	execute_process(COMMAND uname -m OUTPUT_VARIABLE ARCHITECTURE OUTPUT_STRIP_TRAILING_WHITESPACE)
-	set(CMAKE_OSX_ARCHITECTURES ${ARCHITECTURE})
-	message(STATUS "Architecture Apple (${ARCHITECTURE})")
+	# Universal binary only for Release builds (not for Debug)
+	if(CMAKE_BUILD_TYPE STREQUAL "Release")
+		set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
+		message(STATUS "Architecture Apple (Universal: x86_64 + arm64) [Release]")
+	else()
+		# For Debug or other, use native architecture
+		unset(CMAKE_OSX_ARCHITECTURES)
+		message(STATUS "Architecture Apple (Native arch only) [Debug]")
+	endif()
 
 	# Use native Cocoa device implementation on macOS
 	set(SRCS_DEVICE src/device/device_cocoa.mm)
@@ -82,6 +90,7 @@ set(SRCS_LIB
 	src/styles/slider_style.cpp
 	src/styles/progress_bar_style.cpp
 	src/styles/icon_style.cpp
+	src/styles/scroll_view_style.cpp
 	src/styles/colors.cpp
 
 	src/shape/shape.cpp
@@ -148,6 +157,7 @@ set(SRCS_LIB
 	src/tool/directory.cpp
 	src/tool/screen_crc.cpp
 	src/tool/arc_cache.cpp
+	src/tool/settings.cpp
 
 	src/event/event.cpp
 	src/event/key_event.cpp
@@ -214,7 +224,7 @@ import stat
 copy_jobs = [
     ('@CMAKE_SOURCE_DIR@/resources',              'delivery/resources', '**/*', lambda path, name: 'test' not in path.split(os.sep) and not name.startswith('test_')),
     ('@CMAKE_CURRENT_SOURCE_DIR@/inc',            'delivery/inc', '**/*', None),
-    ('@CMAKE_CURRENT_BINARY_DIR@/lib@BD_LIB@.a',  'delivery/lib/' + (platform.system().lower().replace('darwin','macos')), None, None),
+    ('@CMAKE_CURRENT_BINARY_DIR@/lib@BD_LIB@.a',  'delivery/lib/%s/' % (platform.system().lower().replace('darwin','macos')), None, None),
     ('@CMAKE_CURRENT_BINARY_DIR@/samples',        'delivery/app', '*', lambda path, name: os.access(os.path.join(path, name), os.X_OK) and os.path.isfile(os.path.join(path, name))),
     # Only copy .so files, skip CMakeFiles directory
     ('@CMAKE_CURRENT_BINARY_DIR@/pybind',         'delivery/python', 'pyberialdraw*.so', lambda path, name: 'CMakeFiles' not in path.split(os.sep)),

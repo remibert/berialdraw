@@ -74,12 +74,10 @@ namespace berialdraw
 		@return True if file existing. */
 		static bool exists(const char* file_name);
 
-		/** Get the resource directory */
-		static const String & resource_dir();
-
 		/** Set the resource directory
-		@param dir resource directory */
-		static void resource_dir(const String & dir);
+		@param dir resource directory 
+		@return the resource directory existing */
+		static String resource_dir(const String & dir);
 
 	protected:
 #ifndef SWIG
@@ -95,8 +93,6 @@ namespace berialdraw
 		virtual void tmp_dealloc(char * tmp, uint32_t length);
 
 		FILE * m_file = 0;
-
-		static String m_resource_dir;
 /// @endcond
 #endif
 	};

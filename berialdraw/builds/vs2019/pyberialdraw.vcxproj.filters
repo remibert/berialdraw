@@ -160,6 +160,9 @@
     <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\round_style.cpp">
       <Filter>styles</Filter>
     </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\scroll_view_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
     <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\slider_style.cpp">
       <Filter>styles</Filter>
     </ClCompile>
@@ -182,6 +185,9 @@
       <Filter>tool</Filter>
     </ClCompile>
     <ClCompile Include="..\\..\\pybind\\src\\pybind\tool\string.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\tool\settings.cpp">
       <Filter>tool</Filter>
     </ClCompile>
     <ClCompile Include="..\\..\\pybind\\src\\pybind\vector\area.cpp">

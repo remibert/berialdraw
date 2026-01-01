@@ -70,9 +70,12 @@ void bind_string(py::module& m) {
         .def("insert", py::overload_cast<const berialdraw::String&, int32_t>(&berialdraw::String::insert),
              py::arg("string"), py::arg("index"),
              "Insert string at position")
-        .def("replace", &berialdraw::String::replace,
+        .def("replace", py::overload_cast<wchar_t, int32_t>(&berialdraw::String::replace),
              py::arg("character"), py::arg("index"),
              "Replace character at position")
+        .def("replace", py::overload_cast<const char*, const char*>(&berialdraw::String::replace),
+             py::arg("searched"), py::arg("replaced"),
+             "Replace all occurrences of a substring with another substring")
         .def("remove", py::overload_cast<int32_t>(&berialdraw::String::remove),
              py::arg("index"),
              "Remove character at position")

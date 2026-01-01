@@ -367,7 +367,7 @@ void Button::test4()
 				button->cell(3,2);
 				button->text_align(Align::ALIGN_TOP_LEFT);
 				button->extend(Extend::EXTEND_NONE);
-	UIManager::desktop()->dispatch("test/out/button4.svg");
+	UIManager::desktop()->dispatch("${tests}/out/button4.svg");
 }
 
 void Button::test5()
@@ -383,13 +383,13 @@ void Button::test5()
 			button->text("Press key");
 			button->id(123);
 
-		UIManager::desktop()->dispatch("test/out/button5_1.svg");
+		UIManager::desktop()->dispatch("${tests}/out/button5_1.svg");
 		button->text("Press");
-		UIManager::desktop()->dispatch("test/out/button5_2.svg");
+		UIManager::desktop()->dispatch("${tests}/out/button5_2.svg");
 		button->font_size(30);
-		UIManager::desktop()->dispatch("test/out/button5_3.svg");
+		UIManager::desktop()->dispatch("${tests}/out/button5_3.svg");
 		button->pressed(true);
-		UIManager::desktop()->dispatch("test/out/button5_4.svg");
+		UIManager::desktop()->dispatch("${tests}/out/button5_4.svg");
 
 		button->color(Color::GREEN);
 		button->border_color(Color::BOTTLE_GREEN);
@@ -406,7 +406,7 @@ void Button::test5()
 		button->color(Color::RED);
 		button->border_color(Color::RED_BLOOD);
 	}
-	UIManager::desktop()->dispatch("test/out/button5_5.svg");
+	UIManager::desktop()->dispatch("${tests}/out/button5_5.svg");
 }
 
 void Button::test6()
@@ -433,7 +433,7 @@ void Button::test6()
 					row += 2;
 					column = 0;
 				}
-	UIManager::desktop()->dispatch("test/out/button6.svg");
+	UIManager::desktop()->dispatch("${tests}/out/button6.svg");
 }
 
 void test_keyboard(Grid * grid, String & keyboard)
@@ -589,7 +589,7 @@ void Button::test7()
 	//while(1)
 	{
 		test_keyboard(grid, keyboard_minus);
-		UIManager::desktop()->dispatch("test/out/button7_1.svg");
+		UIManager::desktop()->dispatch("${tests}/out/button7_1.svg");
 
 		{
 			Json json;
@@ -598,22 +598,22 @@ void Button::test7()
 			window.serialize(win);
 			{
 				File out;
-				out.open("test/out/button7_1.json","w");
+				out.open("${tests}/out/button7_1.json","w");
 				json.serialize(out,1);
 			}
 		}
 
 		grid->clear(); 
 		test_keyboard(grid, keyboard_caps);
-		UIManager::desktop()->dispatch("test/out/button7_2.svg");
+		UIManager::desktop()->dispatch("${tests}/out/button7_2.svg");
 		grid->clear(); 
 
 		test_keyboard(grid, keyboardNum1);
-		UIManager::desktop()->dispatch("test/out/button7_3.svg");
+		UIManager::desktop()->dispatch("${tests}/out/button7_3.svg");
 		grid->clear(); 
 
 		test_keyboard(grid, keyboardNum2);
-		UIManager::desktop()->dispatch("test/out/button7_4.svg");
+		UIManager::desktop()->dispatch("${tests}/out/button7_4.svg");
 		grid->clear(); 
 	}
 }
@@ -830,7 +830,7 @@ void Button::test9()
 			button->text_align(Align::CENTER);
 			button->extend(Extend::EXTEND_NONE);
 
-	UIManager::desktop()->dispatch("test/out/button9_1.svg");
+	UIManager::desktop()->dispatch("${tests}/out/button9_1.svg");
 }
 
 static Button * new_menu_item(Widget * parent, uint32_t hue, const char * menu, const char * icon = 0)
@@ -892,14 +892,13 @@ void Button::test10()
 
 	ScrollView * scroll = new ScrollView(&window);
 		scroll->align(Align::ALIGN_TOP);
-		scroll->extend(Extend::EXTEND_HEIGHT);
-		// scroll->margin(10,0);
+		scroll->scroll_direction(ScrollDirection::ScrollVertical);
 
 	Column * main = new Column(scroll);
 
 	uint32_t hue = 0;
 
-	for (Directory directory("icons"); directory.exist(); directory.next())
+	for (Directory directory("${icons}"); directory.exist(); directory.next())
 	{
 		if (directory.match("*.icn"))
 		{
@@ -917,7 +916,7 @@ void Button::test10()
 		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
 		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 	"]");
-	UIManager::notifier()->play_script(script, "test/out/button10_%d.svg");
+	UIManager::notifier()->play_script(script, "${tests}/out/button10_%d.svg");
 }
 
 void Button::test11()
@@ -949,7 +948,7 @@ void Button::test11()
 	
 	String script(
 	"["
-		"{'type':'snapshot','filename':'test/out/button11_%d.svg'},"
+		"{'type':'snapshot','filename':'${tests}/out/button11_%d.svg'},"
 		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
 		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 		"{'type':'key','key':  9,'state':'down','modifier':''     ,'character':'I'},"
@@ -1053,11 +1052,11 @@ void Button::test12()
 			button->focus_thickness(thickness);
 
 			button->borders(ALL_BORDERS);
-			name.print("test/out/button12_%d.svg", ++id);
+			name.print("${tests}/out/button12_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 
 			button->borders(BOTTOM_BORDER|RIGHT_BORDER|ROUNDED_END);
-			name.print("test/out/button12_%d.svg", ++id);
+			name.print("${tests}/out/button12_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
 	}
@@ -1225,7 +1224,7 @@ void Button::test13()
 		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
 		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 	"]");
-	UIManager::notifier()->play_script(script, "test/out/button13_%d.svg");
+	UIManager::notifier()->play_script(script, "${tests}/out/button13_%d.svg");
 }
 
 void Button::test14()
@@ -1352,7 +1351,7 @@ void Button::test14()
 					spacer = new Label(col);
 						spacer->size_policy(SizePolicy::ENLARGE_ALL);
 
-		//UIManager::desktop()->dispatch("test/out/button13.svg");
+		//UIManager::desktop()->dispatch("${tests}/out/button13.svg");
 	while(1)
 		UIManager::desktop()->dispatch();
 }
@@ -1381,7 +1380,7 @@ void Button::test15()
 				button->focus_thickness(10);
 				button->text("ROUNDED_END \n RIGHT_ANGLE_WITHOUT_BORDER");
 				button->borders(border | ROUNDED_END | RIGHT_ANGLE_WITHOUT_BORDER);
-				name.print("test/out/button15_%d.svg", ++id);
+				name.print("${tests}/out/button15_%d.svg", ++id);
 				UIManager::desktop()->dispatch(name);
 				delete button;
 		}
@@ -1411,7 +1410,7 @@ void Button::test16()
 				button->focus_thickness(10);
 				button->text("RIGHT_ANGLE_END \n RIGHT_ANGLE_WITHOUT_BORDER");
 				button->borders(border | RIGHT_ANGLE_END | RIGHT_ANGLE_WITHOUT_BORDER);
-				name.print("test/out/button16_%d.svg", ++id);
+				name.print("${tests}/out/button16_%d.svg", ++id);
 				UIManager::desktop()->dispatch(name);
 				delete button;
 		}
@@ -1444,7 +1443,7 @@ void Button::test17()
 				button->focus_thickness(10);
 				button->text("RIGHT_ANGLE_WITHOUT_BORDER");
 				button->borders(border | RIGHT_ANGLE_WITHOUT_BORDER);
-				name.print("test/out/button17_%d.svg", ++id);
+				name.print("${tests}/out/button17_%d.svg", ++id);
 				UIManager::desktop()->dispatch(name);
 				delete button;
 		}
@@ -1461,7 +1460,7 @@ void Button::test()
 	{
 		done = true;
 
-//test14();
+test9();
 		test18();
 		test17();
 		test16();

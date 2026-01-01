@@ -65,7 +65,7 @@ void Text::test1()
 			text->text("        |%3d°|",i);
 	}
 
-	UIManager::desktop()->dispatch("test/out/text1.svg");
+	UIManager::desktop()->dispatch("${tests}/out/text1.svg");
 }
 
 void Text::test2()
@@ -145,7 +145,7 @@ void Text::test2()
 		}
 	}
 
-	UIManager::desktop()->dispatch("test/out/text2.svg");
+	UIManager::desktop()->dispatch("${tests}/out/text2.svg");
 }
 
 void Text::test3()
@@ -187,7 +187,7 @@ void Text::test3()
 		text->position(10,10);
 		text->color(Color::BLUE, 32);
 
-	UIManager::desktop()->dispatch("test/out/text3.svg");
+	UIManager::desktop()->dispatch("${tests}/out/text3.svg");
 }
 
 

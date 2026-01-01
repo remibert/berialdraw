@@ -16,6 +16,7 @@ void bind_fonts(py::module& m);
 void bind_string(py::module& m);
 void bind_file(py::module& m);
 void bind_directory(py::module& m);
+void bind_settings(py::module& m);
 
 
 // Vector bindings
@@ -42,6 +43,7 @@ void bind_switch_style(py::module& m);
 void bind_progress_bar_style(py::module& m);
 void bind_edit_style(py::module& m);
 void bind_pie_style(py::module& m);
+void bind_scroll_view_style(py::module& m);
 
 // Framebuf bindings
 void bind_framebuf(py::module& m);

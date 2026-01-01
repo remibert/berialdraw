@@ -555,6 +555,12 @@
     <ClCompile Include="..\..\src\shape\sketch.cpp">
       <Filter>berialdraw\shape</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\styles\scroll_view_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\settings.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\berialdraw_imp.hpp">
@@ -1264,6 +1270,12 @@
     </ClInclude>
     <ClInclude Include="..\..\inc\device\device_cocoa.hpp">
       <Filter>berialdraw\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\scroll_view_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\settings.hpp">
+      <Filter>berialdraw\tool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

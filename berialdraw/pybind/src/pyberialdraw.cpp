@@ -11,6 +11,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_string(m);
     bind_file(m);
     bind_directory(m);
+    bind_settings(m);
     
     // Bind vector classes next (fundamental classes)
     bind_point(m);
@@ -36,6 +37,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_progress_bar_style(m);
     bind_edit_style(m);
     bind_pie_style(m);
+    bind_scroll_view_style(m);
     
     // Bind framebuf classes
     bind_framebuf(m);

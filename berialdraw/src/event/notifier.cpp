@@ -553,13 +553,13 @@ void Notifier::push_event(Event * evt)
 		log(evt);
 
 		// If a space in events list
-		if (m_events.size() < 16)
+		if (m_events.size() < 128)
 		{
 			// Push the event
 			m_events.push_or_reuse(evt);
 		}
 		// If the space not saturated
-		else if (m_events.size() < 32)
+		else if (m_events.size() < 256)
 		{
 			bool collapse = false;
 

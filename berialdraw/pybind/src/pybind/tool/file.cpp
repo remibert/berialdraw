@@ -37,9 +37,9 @@ void bind_file(py::module& m) {
              "Write a wide character to the end of the current text stream")
         .def("clear", &berialdraw::File::clear,
              "Clear the content of stream")
-        .def("offset", py::overload_cast<>(&berialdraw::File::offset),
+        .def("offset", static_cast<uint32_t (berialdraw::File::*)()>(&berialdraw::File::offset),
              "Get the current offset in buffer")
-        .def("offset", py::overload_cast<uint32_t>(&berialdraw::File::offset),
+        .def("offset", static_cast<void (berialdraw::File::*)(uint32_t)>(&berialdraw::File::offset),
              py::arg("val"),
              "Set the offset in buffer")
         .def("read_char", &berialdraw::File::read_char,
@@ -47,10 +47,7 @@ void bind_file(py::module& m) {
         .def_static("exists", &berialdraw::File::exists,
                    py::arg("file_name"),
                    "Indicates if the files exists")
-        .def_static("resource_dir", py::overload_cast<>(&berialdraw::File::resource_dir),
-                   py::return_value_policy::reference,
-                   "Get the resource directory")
-        .def_static("resource_dir", py::overload_cast<const berialdraw::String&>(&berialdraw::File::resource_dir),
+        .def_static("resource_dir", static_cast<berialdraw::String (*)(const berialdraw::String&)>(&berialdraw::File::resource_dir),
                    py::arg("dir"),
-                   "Set the resource directory");
+                   "Set the resource directory and return the resource directory existing");
 }

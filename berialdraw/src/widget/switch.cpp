@@ -367,7 +367,7 @@ void Switch::test1()
 		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 	"]");
 
-	UIManager::notifier()->play_script(script, "test/out/switch1_%d.svg");
+	UIManager::notifier()->play_script(script, "${tests}/out/switch1_%d.svg");
 }
 
 
@@ -432,7 +432,7 @@ void Switch::test2()
 		"{'type':'touch','x':121,'y': 58,'state':'move'},"
 	"]");
 
-	UIManager::notifier()->play_script(script, "test/out/switch2_%d.svg");
+	UIManager::notifier()->play_script(script, "${tests}/out/switch2_%d.svg");
 	assert(test_switch.m_checked == 4 && test_switch.m_unchecked == 4);
 }
 

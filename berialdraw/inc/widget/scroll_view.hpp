@@ -3,7 +3,7 @@ namespace berialdraw
 {
 	/** The ScrollView class provides a scrollable container for content that exceeds the visible area. 
 	It supports both vertical and horizontal scrolling. */
-	class ScrollView: public Widget
+	class ScrollView: public Widget, public ScrollViewStyle
 	{
 	/** @image html sample_scroll_1.svg "example" width=200px height=200px
 	@example sample_scrollview.cpp*/
@@ -96,9 +96,6 @@ namespace berialdraw
 		Point compute_scroll_view(const Area & area, Point & scroll_position, Size & scroll_size);
 		Coord compute_scroll(Coord & scroll_position, Coord & m_scroll_position, Dim scroll_size, Dim area, Align align);
 		Coord calc_shift_focus(Coord widget_position,   Dim widget_size, Coord viewport_position, Dim viewport_size);
-		Size m_scroll_size;
-		Point m_scroll_position;
-		Size m_viewport_size;
 /// @endcond
 #endif
 	};

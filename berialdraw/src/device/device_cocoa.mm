@@ -494,7 +494,12 @@ void berialdraw::DeviceCocoaImpl::open_window()
 		if (m_window)
 		{
 			[m_window setTitle:[NSString stringWithUTF8String:m_title.c_str()]];
-			[m_window center];
+			
+			// Position window in top-left corner respecting menu bar and dock
+			NSRect screenFrame = [[NSScreen mainScreen] visibleFrame];
+			CGFloat x = screenFrame.origin.x;
+			CGFloat y = NSMaxY(screenFrame) - display_height;
+			[m_window setFrameOrigin:NSMakePoint(x, y)];
 
 			// Create and configure the view
 			BerialView* view = [[BerialView alloc] initWithFrame:frame];
@@ -537,7 +542,7 @@ void berialdraw::DeviceCocoaImpl::open_window()
                 
 				CGFloat display_width = fmax(m_width / m_scale_factor, 100.0);
 				CGFloat display_height = fmax(m_height / m_scale_factor, 100.0);
-				NSRect frame = NSMakeRect(100, 100, display_width, display_height);
+				NSRect frame = NSMakeRect(0, 0, display_width, display_height);
 
 				m_window = [[NSWindow alloc] initWithContentRect:frame
 														styleMask:(NSWindowStyleMaskTitled | 
@@ -549,7 +554,12 @@ void berialdraw::DeviceCocoaImpl::open_window()
 				if (m_window)
 				{
 					[m_window setTitle:[NSString stringWithUTF8String:m_title.c_str()]];
-					[m_window center];
+					
+					// Position window in top-left corner respecting menu bar and dock
+					NSRect screenFrame = [[NSScreen mainScreen] visibleFrame];
+					CGFloat x = screenFrame.origin.x;
+					CGFloat y = NSMaxY(screenFrame) - display_height;
+					[m_window setFrameOrigin:NSMakePoint(x, y)];
 
 					BerialView* view = [[BerialView alloc] initWithFrame:frame];
 					[view setDevice:this];
@@ -601,13 +611,16 @@ void berialdraw::DeviceCocoaImpl::close_window()
 {
 	if (m_window)
 	{
-		if ([NSThread isMainThread])
+		if ([m_window isKindOfClass:[NSWindow class]])
 		{
-			[(id)m_window close];
-		}
-		else
-		{
-			dispatch_sync(dispatch_get_main_queue(), ^{[(id)m_window close];});
+			if ([NSThread isMainThread])
+			{
+				[(id)m_window close];
+			}
+			else
+			{
+				dispatch_sync(dispatch_get_main_queue(), ^{[(id)m_window close];});
+			}
 		}
 		m_window = nullptr;
 	}

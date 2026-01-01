@@ -26,6 +26,12 @@ set(SRCS_SAMPLE
 	sample_hello_world.cpp
 )
 
+# Static library for samples (used by pybind)
+add_library(${BD_SAMPLE_LIB} STATIC ${SRCS_SAMPLE})
+target_include_directories(${BD_SAMPLE_LIB} PRIVATE ${INCLUDES_LIB})
+target_compile_definitions(${BD_SAMPLE_LIB} PRIVATE ${COMPILE_DEF})
+target_link_libraries(${BD_SAMPLE_LIB} PRIVATE ${BD_LIB} ${DEVICE_LIBRARIES})
+
 # Unitary test application
 add_executable(${BD_APP_TEST} ../src/main.cpp ../src/tool/test.cpp ${SRCS_SAMPLE})
 target_include_directories(${BD_APP_TEST} PRIVATE ${INCLUDES_LIB})

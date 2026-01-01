@@ -54,6 +54,7 @@
 #include "tool/item_null.hpp"
 #include "tool/item_array.hpp"
 #include "tool/item_object.hpp"
+#include "tool/settings.hpp"
 #include "tool/bd_system.h"
 
 

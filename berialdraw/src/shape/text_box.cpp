@@ -374,6 +374,15 @@ Coord TextBox::vertical_shift(Area & cursor_clip, Point & cursor_shift, const Ar
 	{
 		movey -= (cursor_clip.position().y() + cursor_shift.y() + cursor_clip.size().height()) - (text_area.position().y() + text_area.size().height());
 
+		if ((text_area.position().y() - (cursor_clip.position().y() + cursor_shift.y())) == 0)
+		{
+			if (movey == 1 || movey == -1)
+			{
+				// Avoid text jittering during mouse selection
+				movey = 0;
+			} 
+		}
+
 		// If the height of edit field is smaller than cursor height
 		if (text_area.size().height() < cursor_clip.size().height())
 		{

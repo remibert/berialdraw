@@ -14,6 +14,9 @@
     <ProjectReference Include="library.vcxproj">
       <Project>{d2b0c9ba-6691-49bc-b111-1945063134ea}</Project>
     </ProjectReference>
+    <ProjectReference Include="samples.vcxproj">
+      <Project>{868545b8-87b3-42d0-abab-e22335eaab0e}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\pybind\README.md" />
@@ -284,6 +287,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\scroll_view_style.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\slider_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
@@ -327,6 +336,12 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="..\\..\\pybind\\src\\pybind\tool\string.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\tool\settings.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>

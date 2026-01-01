@@ -110,7 +110,7 @@ void Circle::test()
 			fillcircle->thickness(0);
 		}
 
-		UIManager::desktop()->dispatch("test/out/circle.svg");
+		UIManager::desktop()->dispatch("${tests}/out/circle.svg");
 	}
 }
 #endif

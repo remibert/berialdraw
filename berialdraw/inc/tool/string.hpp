@@ -146,6 +146,11 @@ namespace berialdraw
 		@param index Position to replace at */
 		void replace(wchar_t character, int32_t index);
 
+		/** Replace all occurrences of a substring with another substring
+		@param searched String to search for
+		@param replaced String to replace with */
+		void replace(const char * searched, const char * replaced);
+
 		/** Remove character at position
 		@param index Position to remove from */
 		void remove(int32_t index);
@@ -208,15 +213,23 @@ namespace berialdraw
 		@return Wide character read or null if it ends */
 		virtual wchar_t read_char();
 
+		/** Search for variable pattern ${name} starting from position
+		@param var String to store the variable name (without ${})
+		@param pos Starting position to search from
+		@return Index where the variable was found or INT32_MAX if not found */
+		int32_t search_var(String & var, int32_t pos = 0) const;
+
 #ifdef _DEBUG
 		/** Unitary test */
-		static void test(); 
-		static void test1(); 
-		static void test2(); 
-		static void test3(); 
-		static void test4(); 
-		static void test5(); 
-		static void test6(); 
+		static void test();
+		static void test1();
+		static void test2();
+		static void test3();
+		static void test4();
+		static void test5();
+		static void test6();
+		static void test7();
+		static void test8();
 #endif
 		/** Empty string */
 		static const String empty;

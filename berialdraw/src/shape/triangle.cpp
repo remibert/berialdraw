@@ -78,7 +78,7 @@ void Triangle::test()
 			filltriangle->thickness(0);
 		}
 
-		UIManager::desktop()->dispatch("test/out/triangle.svg");
+		UIManager::desktop()->dispatch("${tests}/out/triangle.svg");
 	}
 }
 #endif

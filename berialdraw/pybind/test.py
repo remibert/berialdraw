@@ -16,10 +16,13 @@ from pyberialdraw import *
 
 device = DeviceScreen("Sample python")
 
-UIManager.init(device, 480, 880, Framebuf.ARGB8888, 2, "./resources;../resources")
+UIManager.init(device, 480*2+100, 880*2+300, Framebuf.ARGB8888, 8, "./resources;../resources")
+
+#UIManager.init(device, (480*2+100)//8, (880*2+300)//8, Framebuf.ARGB8888, 1, "./resources;../resources")
+
 UIManager.style = "pearl"
-UIManager.appearance = "light"
-UIManager.theme = THEME_LIME
+UIManager.appearance = "dark"
+UIManager.theme = THEME_AZURE
 
 # Helper function to safely convert key to string
 def key_to_str(key):
@@ -42,6 +45,7 @@ class Dialog:
 		self.first_name.text = ""
 		self.first_name.place_holder = "Test first name"
 		self.first_name.on_key_down = self.on_key_pressed
+		self.id = 1234
 
 		self.last_name = Edit(self.layout)
 		self.last_name.text = ""

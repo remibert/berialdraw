@@ -2,8 +2,6 @@
 
 using namespace berialdraw;
 
-String File::m_resource_dir = "";
-
 File::File()
 {
 }
@@ -13,25 +11,23 @@ File::~File()
 	close();
 }
 
-int File::open(const char *pathname, const char *mode)
+int File::open(const char *path, const char *mode)
 {
-	String full_name;
-
-	if (m_resource_dir == "")
+	String p(path);
+	if (UIManager::settings())
 	{
-		full_name = pathname;
-	}
-	else
-	{
-		full_name = m_resource_dir + "/";
-		full_name += pathname;
+		p = UIManager::settings()->resolve(path);
 	}
 
-	m_file = fopen(full_name.c_str(), mode);
+	m_file = fopen(p, mode);
 
 	if (m_file)
 	{
 		return 0;
+	}
+	else
+	{
+		bd_printf("Cannot open file '%s'\n",p.c_str());
 	}
 	return -1;
 }
@@ -219,36 +215,25 @@ void File::tmp_dealloc(char * tmp, uint32_t length)
 @return True if file existing. */
 bool File::exists(const char* file_name)
 {
-	String full_name;
-	if (m_resource_dir == "")
+	String p(file_name);
+	if (UIManager::settings())
 	{
-		full_name = file_name;
-	}
-	else
-	{
-		full_name = m_resource_dir + "/";
-		full_name += file_name;
+		p = UIManager::settings()->resolve(file_name);
 	}
 
-	return bd_file_exists(full_name.c_str());
-}
-
-/** Get the resource directory */
-const String & File::resource_dir()
-{
-	return m_resource_dir;
+	return bd_file_exists(p.c_str());
 }
 
 /** Set the resource directory
 @param dir resource directory or list of directories separated by semicolons */
-void File::resource_dir(const String & dir)
+String File::resource_dir(const String & dir)
 {
 	// Split the input by semicolons and find first existing directory
 	String current_path = "";
 	int32_t start = 0;
 	int32_t end = 0;
 
-	m_resource_dir = ".";
+	String result = ".";
 	do
 	{
 		end = dir.find(";",start);	
@@ -258,10 +243,11 @@ void File::resource_dir(const String & dir)
 		// Check if this directory exists
 		if (Directory::exists(current_path.c_str()))
 		{
-			m_resource_dir = current_path;
+			result = current_path;
 			break;
 		}
 	}
 	while (end != INT32_MAX);
+	return result;
 }
 

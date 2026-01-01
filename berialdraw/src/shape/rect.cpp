@@ -822,7 +822,7 @@ void Rect::test1()
 		rect->size(200, 200);
 		rect->color(0x3F0000FF);
 
-	UIManager::desktop()->dispatch("test/out/rect1.svg");
+	UIManager::desktop()->dispatch("${tests}/out/rect1.svg");
 }
 
 void Rect::test2()
@@ -880,7 +880,7 @@ void Rect::test2()
 			background->thickness(2);
 			background->color(Color::BLUE);
 	}
-	UIManager::desktop()->dispatch("test/out/rect2.svg");
+	UIManager::desktop()->dispatch("${tests}/out/rect2.svg");
 }
 
 void Rect::test3()
@@ -1046,7 +1046,7 @@ void Rect::test3()
 			square->angle(90);
 	}
  
-	UIManager::desktop()->dispatch("test/out/rect3.svg");
+	UIManager::desktop()->dispatch("${tests}/out/rect3.svg");
 }
 
 void Rect::test4()
@@ -1086,7 +1086,7 @@ void Rect::test4()
 		rect->radius(40);
 		rect->color(Color::BLUE,32);
 
-	UIManager::desktop()->dispatch("test/out/rect4.svg");
+	UIManager::desktop()->dispatch("${tests}/out/rect4.svg");
 }
 
 void Rect::test5()
@@ -1157,7 +1157,7 @@ void Rect::test5()
 			}
 			{
 				String name;
-				name.print("test/out/rect5_%d.svg", ++id);
+				name.print("${tests}/out/rect5_%d.svg", ++id);
 				UIManager::desktop()->dispatch(name);
 			}
 			canvas->clear();
@@ -1222,7 +1222,7 @@ void Rect::test6()
 			}
 			{
 				String name;
-				name.print("test/out/rect6_%d.svg", ++id);
+				name.print("${tests}/out/rect6_%d.svg", ++id);
 				UIManager::desktop()->dispatch(name);
 			}
 			canvas->clear();
@@ -1287,7 +1287,7 @@ void Rect::test7()
 			}
 			{
 				String name;
-				name.print("test/out/rect7_%d.svg", ++id);
+				name.print("${tests}/out/rect7_%d.svg", ++id);
 				UIManager::desktop()->dispatch(name);
 			}
 			canvas->clear();
@@ -1352,7 +1352,7 @@ void Rect::test8()
 			}
 			{
 				String name;
-				name.print("test/out/rect8_%d.svg", ++id);
+				name.print("${tests}/out/rect8_%d.svg", ++id);
 				UIManager::desktop()->dispatch(name);
 			}
 			canvas->clear();

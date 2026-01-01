@@ -6,11 +6,9 @@ ScrollView::ScrollView(Widget * parent):
 	Widget("scroll_view", parent, sizeof(ScrollView))
 {
 	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
+	UIManager::styles()->apply(m_classname, (ScrollViewStyle*)this);
 	m_color = Color::TRANSPARENT;
-	m_scroll_size.clean();
-	m_scroll_position.set(0,0);
 	m_size.clean();
-	m_viewport_size.clean();
 	bind(this, &ScrollView::on_scroll);
 }
 
@@ -36,7 +34,10 @@ Size ScrollView::content_size()
 /** Return the size of content with its marges */
 Size ScrollView::marged_size()
 {
-	return Widget::children_size();
+	Size result;
+	result.height_( result.height_() + m_margin.bottom_() + m_margin.top_());
+	result.width_(  result.width_ () + m_margin.left_() + m_margin.right_());
+	return result;
 }
 
 Coord ScrollView::calc_shift_focus(Coord widget_position, Dim widget_size, Coord viewport_position, Dim viewport_size)
@@ -176,19 +177,18 @@ Point ScrollView::compute_scroll_view(const Area & area, Point & scroll_position
 			m_size.height_(fixed_area.height_());
 		}
 
-		// If the scrolled content can be extend only to the width
-		if (m_extend == Extend::EXTEND_WIDTH)
+		// If the scrolled content can extend only to the width (vertical scroll)
+		if (m_scroll_direction == ScrollVertical)
+		{
+			// Reduce the scrolled content width to the viewport width
+			m_size.width(area.width());
+		}
+		// If the scrolled content can extend only to the height (horizontal scroll)
+		else if (m_scroll_direction == ScrollHorizontal)
 		{
 			// Reduce the scrolled content height to the viewport height
 			m_size.height(area.height());
 		}
-		// If the scrolled content can be extend only to the height
-		else if (m_extend == Extend::EXTEND_HEIGHT)
-		{
-			// Reduce the scrolled content height to the viewport width
-			m_size.width(area.width());
-		}
-
 		scroll_size = m_size;
 	}
 	Coord scroll_position_x   = scroll_position.x();
@@ -279,6 +279,7 @@ void ScrollView::serialize(JsonIterator & it)
 	it["type"] = m_classname;
 	CommonStyle::serialize(it);
 	WidgetStyle::serialize(it);
+	ScrollViewStyle::serialize(it);
 }
 
 /** Unserialize the content of widget from json */
@@ -286,6 +287,7 @@ void ScrollView::unserialize(JsonIterator & it)
 {
 	CommonStyle::unserialize(it);
 	WidgetStyle::unserialize(it);
+	ScrollViewStyle::unserialize(it);
 }
 
 /** Set scroll size */
@@ -441,7 +443,7 @@ void ScrollView::test1()
 			if (i % 11 == 0)
 			{
 				String name;
-				name.print("test/out/scroll1_%d.svg", ++id);
+				name.print("${tests}/out/scroll1_%d.svg", ++id);
 				UIManager::desktop()->dispatch(name);
 			}
 			else
@@ -462,7 +464,7 @@ void ScrollView::test_create_window(Window & window)
 
 	ScrollView * scroll_view = new ScrollView(&window);
 
-	scroll_view->extend(Extend::EXTEND_HEIGHT);
+	scroll_view->scroll_direction(ScrollVertical);
 	scroll_view->id(1);
 
 	Grid * grid = new Grid(scroll_view);
@@ -518,8 +520,6 @@ void ScrollView::test2()
 		window.color(Color::ALICE_BLUE);
 
 	test_create_window(window);
-
-//	while(1) UIManager::desktop()->dispatch();
 
 	String script(
 	"["
@@ -598,7 +598,7 @@ void ScrollView::test2()
 		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
 		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 	"]");
-	UIManager::notifier()->play_script(script, "test/out/scroll2_%d.svg");
+	UIManager::notifier()->play_script(script, "${tests}/out/scroll2_%d.svg");
 
 }
 
@@ -624,15 +624,15 @@ void ScrollView::test3()
 		label->text("1");
 		label->cell(1,0);
 
-	UIManager::desktop()->dispatch("test/out/scroll3_1.svg");
+	UIManager::desktop()->dispatch("${tests}/out/scroll3_1.svg");
 	scroll_view->align(Align::ALIGN_BOTTOM);
-	UIManager::desktop()->dispatch("test/out/scroll3_2.svg");
+	UIManager::desktop()->dispatch("${tests}/out/scroll3_2.svg");
 	scroll_view->align(Align::ALIGN_TOP);
-	UIManager::desktop()->dispatch("test/out/scroll3_3.svg");
+	UIManager::desktop()->dispatch("${tests}/out/scroll3_3.svg");
 	scroll_view->align(Align::ALIGN_LEFT);
-	UIManager::desktop()->dispatch("test/out/scroll3_4.svg");
+	UIManager::desktop()->dispatch("${tests}/out/scroll3_4.svg");
 	scroll_view->align(Align::ALIGN_RIGHT);
-	UIManager::desktop()->dispatch("test/out/scroll3_5.svg");
+	UIManager::desktop()->dispatch("${tests}/out/scroll3_5.svg");
 }
 
 void ScrollView::test4()
@@ -657,13 +657,13 @@ void ScrollView::test4()
 		}
 	}
 
-	UIManager::desktop()->dispatch("test/out/scroll4_1.svg");
-	scroll_view->extend(Extend::EXTEND_HEIGHT);
-	UIManager::desktop()->dispatch("test/out/scroll4_2.svg");
-	scroll_view->extend(Extend::EXTEND_WIDTH);
-	UIManager::desktop()->dispatch("test/out/scroll4_3.svg");
-	scroll_view->extend(Extend::EXTEND_ALL);
-	UIManager::desktop()->dispatch("test/out/scroll4_4.svg");
+	UIManager::desktop()->dispatch("${tests}/out/scroll4_1.svg");
+	scroll_view->scroll_direction(ScrollVertical);
+	UIManager::desktop()->dispatch("${tests}/out/scroll4_2.svg");
+	scroll_view->scroll_direction(ScrollHorizontal);
+	UIManager::desktop()->dispatch("${tests}/out/scroll4_3.svg");
+	scroll_view->scroll_direction(ScrollAllDirections);
+	UIManager::desktop()->dispatch("${tests}/out/scroll4_4.svg");
 }
 
 void ScrollView::test5()
@@ -673,10 +673,9 @@ void ScrollView::test5()
 		window.position(140,140);
 		window.size(160,180);
 		window.color(Color::ALICE_BLUE);
-	//int id = 0;
 
 	ScrollView * scroll_view = new ScrollView(&window);
-		scroll_view->extend(Extend::EXTEND_HEIGHT);
+		scroll_view->scroll_direction(ScrollVertical);
 		scroll_view->id(123);
 	Grid * grid = new Grid(scroll_view);
 	Button * button;
@@ -687,7 +686,7 @@ void ScrollView::test5()
 		{
 			ScrollView * imbricated_scrollview = new ScrollView(grid);
 				imbricated_scrollview->cell(i,0);
-				imbricated_scrollview->extend(Extend::EXTEND_HEIGHT);
+			imbricated_scrollview->scroll_direction(ScrollVertical);
 				imbricated_scrollview->id(456);
 				imbricated_scrollview->viewport_size(Size::MAX_SIZE, 60);
 				//imbricated_scrollview->scroll_size(160,100);
@@ -730,11 +729,41 @@ void ScrollView::test5()
 		"{'type':'touch','x':248,'y':180,'state':'move'},"
 		"{'type':'touch','x':247,'y':176,'state':'up'},"
 	"]");
-	UIManager::notifier()->play_script(script,"");// "test/out/scroll5_%d.svg");
+	UIManager::notifier()->play_script(script,"");// "${tests}/out/scroll5_%d.svg");
 }
 
 void ScrollView::test6()
 {
+	Window window;
+	Column *	m_content = new Column(&window);
+
+		Label * label = new Label(m_content);
+			label->text("Horizontal scroll view");
+
+		ScrollView * horizontal_scroll_view = new ScrollView(m_content);
+			horizontal_scroll_view->scroll_direction(ScrollHorizontal);
+			horizontal_scroll_view->size_policy(SizePolicy::ENLARGE_ALL);
+			Row * horizontal_layout = new Row(horizontal_scroll_view);
+				for (int i = 0; i < 26; i++)
+				{
+					Button *button  = new Button(horizontal_layout);
+						button->text("%c",i+0x41);
+				}
+
+		label = new Label(m_content);
+			label->text("Vertical scroll view");
+
+		ScrollView * vertical_scroll_view = new ScrollView(m_content);
+			vertical_scroll_view->scroll_direction(ScrollVertical);
+			vertical_scroll_view->size_policy(SizePolicy::ENLARGE_ALL);
+			Column  * vertical_scroll_layout = new Column(vertical_scroll_view);
+				for (int i = 0; i < 26; i++)
+				{
+					Button *button  = new Button(vertical_scroll_layout);
+						button->text("%c",i+0x41);
+				}
+	
+	UIManager::desktop()->dispatch("${tests}/out/scroll6_0.svg");
 }
 
 void ScrollView::test7()
@@ -753,7 +782,7 @@ void ScrollView::test()
 		done = true;
 		test7();
 		test6();
-	//test5();
+		//test5();
 		test4();
 		test3();
 		test2();

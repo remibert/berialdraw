@@ -20,23 +20,22 @@ Directory::~Directory()
 
 bool Directory::open(const String& path)
 {
-	String full_name;
+	String p(path);
+	if (UIManager::settings())
+	{
+		p = UIManager::settings()->resolve(path);
+	}
+
 	if (m_dir)
 	{
 		bd_dir_close(m_dir);
 	}
 
-	if (File::resource_dir() == "")
+	m_dir = bd_dir_open(p.c_str());
+	if (m_dir == 0)
 	{
-		full_name = path;
+		bd_printf("Cannot open directory '%s'\n",p.c_str());
 	}
-	else
-	{
-		full_name = File::resource_dir() + "/";
-		full_name += path;
-	}
-
-	m_dir = bd_dir_open(full_name.c_str());
 	m_directory = path;
 	return m_dir != 0;
 }

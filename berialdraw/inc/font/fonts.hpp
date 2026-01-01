@@ -51,6 +51,7 @@ namespace berialdraw
 		Vector<FontPtr> * m_fonts=0;
 		Vector<FontFacePtr> * m_fonts_faces=0;
 		String m_familly;
+		bool m_loaded = false;
 
 		/** Mutex for thread-safety */
 		std::recursive_mutex m_mutex;  

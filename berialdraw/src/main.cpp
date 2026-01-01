@@ -2,7 +2,7 @@
 #include "samples/samples.hpp"
 
 // Screen resolution
-const int ZOOM =2;
+const int ZOOM = 2;
 const int SCREEN_WIDTH  = 480*ZOOM;
 const int SCREEN_HEIGHT = 480*ZOOM;
 
@@ -15,7 +15,7 @@ int main(int argc, char* args[])
 
 	// Stop the debugger while allocating the memory block with the specified id.
 	// Very useful for finding a memory leak
-	//MemoryLeakTracer::break_at(5587);
+	//MemoryLeakTracer::break_at(1128779);
 	{
 		// Execute unitary test
 		test_unitary();
@@ -24,7 +24,7 @@ int main(int argc, char* args[])
 		UIManager::init(new DeviceScreen("Test BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888,ZOOM, "../resources;./resources");
 
 		// Select the CRC checks for the screens to verify whether the tests are successful or not.
-		UIManager::screen_crc()->open("test/out/all_crcs.json","test/ref/all_crcs.json");
+		UIManager::screen_crc()->open("${tests}/out/all_crcs.json","${tests}/ref/all_crcs.json");
 
 		// Starts the user event logger, useful if you want to script user interface tests
 		//UIManager::notifier()->log();

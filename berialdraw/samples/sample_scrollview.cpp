@@ -17,8 +17,8 @@ public:
 			label->text("Horizontal scroll view");                              // Set text to label 
 
 		ScrollView * horizontal_scroll_view = new ScrollView(m_content);        // Create scroll view
-			horizontal_scroll_view->extend(Extend::EXTEND_WIDTH);               // Set the scroll view in horizontal mode
-			horizontal_scroll_view->size(0, 200);                               // Set the height to 200 to avoid a small horizontal scroll view
+			horizontal_scroll_view->scroll_direction(ScrollHorizontal);         // Set the scroll view in horizontal mode
+			horizontal_scroll_view->size_policy(SizePolicy::ENLARGE_ALL);       // 
 			Row * horizontal_layout = new Row(horizontal_scroll_view);          // Creates a content row within the scroll view
 				for (int i = 0; i < 26; i++)
 				{
@@ -30,7 +30,8 @@ public:
 			label->text("Vertical scroll view");                                // Set text to label 
 
 		ScrollView * vertical_scroll_view = new ScrollView(m_content);          // Create scroll view
-			vertical_scroll_view->extend(Extend::EXTEND_HEIGHT);                // Set the scroll view in vertical mode
+			vertical_scroll_view->scroll_direction(ScrollVertical);             // Set the scroll view in vertical mode
+			vertical_scroll_view->size_policy(SizePolicy::ENLARGE_ALL);         // 
 			Column  * vertical_scroll_layout = new Column(vertical_scroll_view);// Creates a content column within the scroll view
 				for (int i = 0; i < 26; i++)
 				{

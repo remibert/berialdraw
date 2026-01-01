@@ -391,6 +391,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\..\src\styles\scroll_view_style.cpp" />
     <ClCompile Include="..\..\src\styles\slider_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -529,6 +530,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\..\src\tool\settings.cpp" />
     <ClCompile Include="..\..\src\tool\string.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -919,6 +921,7 @@
     <ClInclude Include="..\..\inc\styles\pie_style.hpp" />
     <ClInclude Include="..\..\inc\styles\progress_bar_style.hpp" />
     <ClInclude Include="..\..\inc\styles\round_style.hpp" />
+    <ClInclude Include="..\..\inc\styles\scroll_view_style.hpp" />
     <ClInclude Include="..\..\inc\styles\slider_style.hpp" />
     <ClInclude Include="..\..\inc\styles\style.hpp" />
     <ClInclude Include="..\..\inc\styles\styles.hpp" />
@@ -946,6 +949,7 @@
     <ClInclude Include="..\..\inc\tool\mask_validator.hpp" />
     <ClInclude Include="..\..\inc\tool\memory_leak_tracer.hpp" />
     <ClInclude Include="..\..\inc\tool\screen_crc.hpp" />
+    <ClInclude Include="..\..\inc\tool\settings.hpp" />
     <ClInclude Include="..\..\inc\tool\shared_ptr.hpp" />
     <ClInclude Include="..\..\inc\tool\singleton.hpp" />
     <ClInclude Include="..\..\inc\tool\stream.hpp" />

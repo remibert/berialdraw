@@ -386,7 +386,7 @@ void Polygon::test()
 					clone->angle(i);
 			}
 		}
-		UIManager::desktop()->dispatch("test/out/polygon1.svg");
+		UIManager::desktop()->dispatch("${tests}/out/polygon1.svg");
 	}
 }
 #endif

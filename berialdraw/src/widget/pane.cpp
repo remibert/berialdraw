@@ -124,7 +124,7 @@ void Pane::test1()
 		if (i % 3 == 0)
 		{
 			String name;
-			name.print("test/out/pane1_%d.svg", ++id);
+			name.print("${tests}/out/pane1_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
 		else
@@ -168,7 +168,7 @@ void Pane::test2()
 		label->text_color(Color::DODGER_BLUE);
 		pane->size(label->marged_size());
 
-	UIManager::desktop()->dispatch("test/out/pane2.svg");
+	UIManager::desktop()->dispatch("${tests}/out/pane2.svg");
 }
 
 void Pane::test3()
@@ -244,7 +244,7 @@ void Pane::test3()
 		if ((i >= 0 && i <=15)||(i>=39 && i<=48))
 		{
 			String name;
-			name.print("test/out/pane3_%d.svg", ++id);
+			name.print("${tests}/out/pane3_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
 		else
@@ -290,7 +290,7 @@ void Pane::test4()
 			if (radius < 15) radius++;
 		}
 	}
-	UIManager::desktop()->dispatch("test/out/pane4_1.svg");
+	UIManager::desktop()->dispatch("${tests}/out/pane4_1.svg");
 }
 
 void Pane::test5()
@@ -377,7 +377,7 @@ void Pane::test5()
 			label->text_color(Color::BLUE);
 		
 	// UIManager::desktop()->mainloop();
-	UIManager::desktop()->dispatch("test/out/pane5_1.svg");
+	UIManager::desktop()->dispatch("${tests}/out/pane5_1.svg");
 }
 
 void Pane::test6()

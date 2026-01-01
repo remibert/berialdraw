@@ -435,6 +435,36 @@ void String::replace(wchar_t character, int32_t index)
 	}
 }
 
+// Replace all occurrences of a substring with another substring
+void String::replace(const char * searched, const char * replaced)
+{
+	if (!searched || searched[0] == '\0')
+		return;
+
+	if (!replaced)
+		replaced = "";
+
+	int32_t pos = 0;
+	int32_t found;
+	uint32_t search_length = Utf8::count(searched);
+
+	while (true)
+	{
+		found = find(searched, pos);
+		if (found == INT32_MAX)
+			break;
+
+		// Remove the searched string
+		remove(found, found + (int32_t)search_length);
+
+		// Insert the replacement string
+		insert(replaced, found);
+
+		// Continue after the inserted string
+		pos = found + (int32_t)Utf8::count(replaced);
+	}
+}
+
 // Remove character at position
 void String::remove(int32_t index)
 {
@@ -679,6 +709,32 @@ wchar_t String::read_char()
 	return result;
 }
 
+
+
+/** Search for variable pattern ${name} starting from position
+@param var String to store the variable name (without ${})
+@param pos Starting position to search from
+@return Index where the variable was found or INT32_MAX if not found */
+int32_t String::search_var(String & var, int32_t pos) const
+{
+	int32_t result = INT32_MAX;
+	var.clear();
+	
+	int32_t start_pos = find("${", pos);
+	if (start_pos != INT32_MAX)
+	{
+		// Search for the closing }
+		int32_t end_pos = find("}", start_pos + 2);
+		if (end_pos != INT32_MAX)
+		{
+			// Extract the variable name between ${ and }
+			slice(start_pos + 2, end_pos, var);
+			result = start_pos;
+		}
+	}
+	
+	return result;
+}
 
 
 #ifdef _DEBUG
@@ -1046,13 +1102,160 @@ void String::test6()
 }
 
 
+void String::test7()
+{
+	// Test basic replace
+	String str("hello world");
+	str.replace("world", "universe");
+	check(str, "hello universe");
+
+	// Test replace multiple occurrences
+	str = "cat bat cat dog cat";
+	str.replace("cat", "mouse");
+	check(str, "mouse bat mouse dog mouse");
+
+	// Test replace with longer string
+	str = "a b c";
+	str.replace("b", "hello");
+	check(str, "a hello c");
+
+	// Test replace with shorter string
+	str = "hello world hello";
+	str.replace("hello", "hi");
+	check(str, "hi world hi");
+
+	// Test replace with empty string (remove)
+	str = "a,b,c,d";
+	str.replace(",", "");
+	check(str, "abcd");
+
+	// Test replace with UTF-8 characters
+	str = "café café café";
+	str.replace("café", "thé");
+	check(str, "thé thé thé");
+
+	// Test replace when substring not found
+	str = "hello world";
+	str.replace("xyz", "abc");
+	check(str, "hello world");
+
+	// Test replace empty search (should do nothing)
+	str = "hello";
+	str.replace("", "x");
+	check(str, "hello");
+
+	// Test replace with null replaced (should treat as empty)
+	str = "a-b-c";
+	str.replace("-", "");
+	check(str, "abc");
+
+	// Test single character replace
+	str = "aaa";
+	str.replace("a", "b");
+	check(str, "bbb");
+
+	// Test overlapping patterns don't cause infinite loops
+	str = "aaaa";
+	str.replace("aa", "bb");
+	check(str, "bbbb");
+}
+
 void String::test()
 {
+	test8();
+	test7();
 	test6();
 	test5();
 	test4();
 	test3();
 	test2();
 	test1();
+}
+#endif
+
+#ifdef _DEBUG
+void String::test8()
+{
+	// Test basic variable search
+	String str("Hello ${name}, welcome!");
+	String var;
+	int32_t pos = str.search_var(var);
+	assert(pos == 6);
+	assert(var == "name");
+
+	// Test search with starting position
+	str = "Hello ${first}, this is ${second} test";
+	pos = str.search_var(var, 0);
+	assert(pos == 6);
+	assert(var == "first");
+	
+	pos = str.search_var(var, pos + 1);
+	assert(pos == 24);
+	assert(var == "second");
+
+	// Test no variable found
+	str = "Hello world";
+	pos = str.search_var(var);
+	assert(pos == INT32_MAX);
+
+	// Test unclosed variable
+	str = "Hello ${name world";
+	pos = str.search_var(var);
+	assert(pos == INT32_MAX);
+
+	// Test variable without opening
+	str = "Hello name}";
+	pos = str.search_var(var);
+	assert(pos == INT32_MAX);
+
+	// Test variable with UTF-8 characters
+	str = "Bonjour ${prénom}, bienvenue!";
+	pos = str.search_var(var);
+	assert(pos == 8);
+	assert(var == "prénom");
+
+	// Test multiple variables with UTF-8
+	str = "Hello ${éléphant} and ${ours}";
+	pos = str.search_var(var, 0);
+	assert(pos == 6);
+	assert(var == "éléphant");
+	
+	pos = str.search_var(var, pos + 1);
+	assert(pos == 22);
+	assert(var == "ours");
+
+	// Test variable at the beginning
+	str = "${var} is at start";
+	pos = str.search_var(var);
+	assert(pos == 0);
+	assert(var == "var");
+
+	// Test variable at the end
+	str = "This is ${var}";
+	pos = str.search_var(var);
+	assert(pos == 8);
+	assert(var == "var");
+
+	// Test consecutive variables
+	str = "${first}${second}";
+	pos = str.search_var(var, 0);
+	assert(pos == 0);
+	assert(var == "first");
+	
+	pos = str.search_var(var, pos + 1);
+	assert(pos == 8);
+	assert(var == "second");
+
+	// Test variable with numbers and underscore
+	str = "Config: ${var_name_123}";
+	pos = str.search_var(var);
+	assert(pos == 8);
+	assert(var == "var_name_123");
+
+	// Test empty variable name
+	str = "Empty: ${}";
+	pos = str.search_var(var);
+	assert(pos == 7);
+	assert(var == "");
 }
 #endif

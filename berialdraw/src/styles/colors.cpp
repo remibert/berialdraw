@@ -6,7 +6,6 @@ using namespace berialdraw;
 Colors::Colors()
 {
 	m_theme = Color::THEME_LIME;
-	appearance(0);
 }
 
 /** Destroy widget */
@@ -84,6 +83,7 @@ bool Colors::appearance(const char * name)
 					}
 				}
 				
+				m_loaded = true;
 				theme(m_theme);
 				result = true;
 			}
@@ -98,6 +98,7 @@ bool Colors::appearance(const char * name)
 /** Redefine predefined color */
 void Colors::color(uint32_t id, uint32_t color, bool focused)
 {
+	load();
 	if (focused)
 	{
 		if (id < m_colors_secondary.size())
@@ -121,6 +122,7 @@ void Colors::color(uint32_t id, uint32_t color, bool focused)
 uint32_t Colors::color(uint32_t id, bool focused)
 {
 	uint32_t result = id;
+	load();
 	if (id <= LAST_THEME_VALUE && id != Color::TRANSPARENT)
 	{
 		if (focused)
@@ -160,8 +162,18 @@ uint32_t Colors::color(uint32_t id, bool focused)
 /** Get style filename according to class name */
 void Colors::filename(const char * classname, String & filename_)
 {
-	filename_.print("colors/%s.json",classname);
+	filename_.print("${colors}/%s.json",classname);
 }
+
+void Colors::load()
+{
+	if (m_loaded == false)
+	{
+		m_loaded = true;
+		appearance(0);
+	}
+}
+
 
 #ifdef _DEBUG
 

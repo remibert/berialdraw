@@ -149,6 +149,17 @@ bool Styles::apply(const char * classname, IconStyle * properties)
 	return true;
 }
 
+/** Apply scrollview properties */
+bool Styles::apply(const char * classname, ScrollViewStyle * properties)
+{
+	ScrollViewStyle *style = dynamic_cast<ScrollViewStyle*>(select(classname, "scrollview", ScrollViewStyle::create));
+	if (properties && style)
+	{
+		*properties = *style;
+	}
+	return true;
+}
+
 /** Get mappings properties */
 const Mappings * Styles::mappings(const char * classname)
 {
@@ -187,7 +198,7 @@ Style * Styles::select(const char * classname, const char * properties, StyleCre
 /** Get style filename according to class name */
 void Styles::filename(const char * classname, String & filename_)
 {
-	filename_.print("styles/%s/%s.json",m_style.c_str(),classname);
+	filename_.print("${styles}/%s/%s.json",m_style.c_str(),classname);
 }
 
 /** Load the style according to the name specified */

@@ -14,6 +14,7 @@ Fonts       * UIManager::m_fonts  = 0;
 Desktop     * UIManager::m_desktop = 0;
 ScreenCrc   * UIManager::m_screen_crc = 0;
 ArcCache    * UIManager::m_arc_cache = 0;
+Settings    * UIManager::m_settings = 0;
 bool          UIManager::m_initialized= false;
 
 
@@ -30,7 +31,18 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 {
 	if(device && m_device == 0)
 	{
-		File::resource_dir(resource_dir);
+		
+		m_settings     = new Settings;
+		String resource = File::resource_dir(resource_dir);
+		if (resource == "")
+		{
+			resource = ".";
+		}
+		(*m_settings)["fonts"]     = resource + "/fonts";
+		(*m_settings)["styles"]    = resource + "/styles";
+		(*m_settings)["icons"]     = resource + "/icons";
+		(*m_settings)["colors"]    = resource + "/colors";
+		(*m_settings)["tests"]     = resource + "/../test";
 		m_notifier     = new Notifier;
 		m_invalidator  = new Invalidator;
 		m_styles       = new Styles;
@@ -65,6 +77,7 @@ void UIManager::deinit()
 	delete m_fonts;
 	delete m_screen_crc;
 	delete m_arc_cache;
+	delete m_settings;
 
 	m_initialized = false;
 	m_device      = 0;
@@ -79,6 +92,7 @@ void UIManager::deinit()
 	m_desktop     = 0;
 	m_screen_crc  = 0;
 	m_arc_cache   = 0;
+	m_settings    = 0;
 }
 
 /** Indicates if the uimanager is initialized or not */
@@ -185,5 +199,12 @@ ArcCache * UIManager::arc_cache()
 {
 	if (m_arc_cache == 0) bd_printf("UIManager::arc_cache no existing");
 	return m_arc_cache;
+}
+
+/** Return the settings manager */
+Settings * UIManager::settings()
+{
+	if (m_settings == 0) bd_printf("UIManager::settings no existing");
+	return m_settings;
 }
 

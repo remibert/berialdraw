@@ -18,6 +18,7 @@
 #include "tool/vector.hpp"
 #include "tool/json_iterator.hpp"
 #include "tool/json.hpp"
+#include "tool/settings.hpp"
 #include "tool/validator.hpp"
 #include "tool/mask_validator.hpp"
 #include "tool/singleton.hpp"
@@ -66,6 +67,7 @@
 #include "styles/keys.hpp"
 #include "styles/icon_style.hpp"
 #include "styles/colors.hpp"
+#include "styles/scroll_view_style.hpp"
 #include "styles/styles.hpp"
 
 // Event 

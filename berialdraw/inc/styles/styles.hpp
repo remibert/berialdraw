@@ -46,7 +46,8 @@ namespace berialdraw
 
 		/** Apply icon properties */
 		bool apply(const char * classname, IconStyle * properties);
-
+	/** Apply scrollview properties */
+	bool apply(const char * classname, ScrollViewStyle * properties);
 		/** Get mappings properties */
 		const Mappings * mappings(const char * classname);
 

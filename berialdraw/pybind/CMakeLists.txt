@@ -65,6 +65,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/styles/pie_style.cpp
 	src/pybind/styles/progress_bar_style.cpp
 	src/pybind/styles/round_style.cpp
+	src/pybind/styles/scroll_view_style.cpp
 	src/pybind/styles/slider_style.cpp
 	src/pybind/styles/style.cpp
 	src/pybind/styles/switch_style.cpp
@@ -73,6 +74,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/tool/directory.cpp
 	src/pybind/tool/file.cpp
 	src/pybind/tool/string.cpp
+	src/pybind/tool/settings.cpp
 	src/pybind/widget/widget.cpp
 	src/pybind/widget/button.cpp
 	src/pybind/widget/canvas.cpp
@@ -130,7 +132,7 @@ if(APPLE)
 endif()
 
 # Link against the static library
-target_link_libraries(${BD_PY11_LIB} ${BD_LIB} ${DEVICE_LIBRARIES} ${PYTHON_LIBRARIES})
+target_link_libraries(${BD_PY11_LIB} ${BD_LIB} ${DEVICE_LIBRARIES} ${PYTHON_LIBRARIES} ${BD_SAMPLE_LIB})
 
 # Platform-specific output settings
 if(WIN32)

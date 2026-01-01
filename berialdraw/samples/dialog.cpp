@@ -10,9 +10,10 @@ Dialog::Dialog()
 	m_header->color(Color::HEADER_COLOR);                 // Sets header background color to medium blue
 	m_header->size_policy(SizePolicy::SHRINK_HEIGHT);     // Configures header to shrink in height based on content
 
-	m_content = new ScrollView(m_main_layout);            // Adds a scrollable view for menu items
+	ScrollView * scroll = new ScrollView(m_main_layout);  // Adds a scrollable view for menu items
+	scroll->scroll_direction(ScrollVertical);             // Scroll view height to fill available space
+	m_content = scroll;
 	m_content->align(Align::ALIGN_TOP);                   // Aligns scroll view to the top
-	m_content->extend(Extend::EXTEND_HEIGHT);             // Extends scroll view height to fill available space
 }
 
 void Dialog::on_menu_quit(Widget * widget, const ClickEvent & evt)

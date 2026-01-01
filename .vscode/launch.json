@@ -1,7 +1,6 @@
 {
     "version": "0.2.0",
-    "configurations": 
-    [
+    "configurations": [
         {
             "name": "Berialdraw",
             "type": "cppdbg",
@@ -13,6 +12,19 @@
             "cwd": "${workspaceFolder}",
             "environment": [],
             "MIMode": "lldb"
+        },
+        {
+            "name": "C/C++: clang Générer et déboguer le fichier actif",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "C/C++: clang générer le fichier actif"
         }
     ]
 }

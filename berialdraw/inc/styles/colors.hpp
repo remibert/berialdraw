@@ -41,12 +41,14 @@ namespace berialdraw
 #endif
 
 	protected:
+		void load();
 		/** Get style filename according to class name */
 		void filename(const char * classname, String & filename_);
 		Vector<uint32_t> m_colors_primary;
 		Vector<uint32_t> m_colors_secondary;
 		uint32_t m_theme_values[(Color::LAST_THEME_VALUE-Color::FIRST_THEME_VALUE) + 1];
 		uint32_t m_theme;
+		bool m_loaded = false;
 /// @endcond
 #endif
 	};

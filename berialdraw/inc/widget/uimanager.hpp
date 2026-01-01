@@ -3,6 +3,7 @@ namespace berialdraw
 {
 	class Window;
 	class Renderer;
+	class Settings;
 
 	/** The UIManager class coordinates the display and behavior of widgets. 
 	It handles events, manages widget lifecycles, and ensures consistent rendering across the application. */
@@ -64,6 +65,9 @@ namespace berialdraw
 		/** Return the arc cache handle */
 		static ArcCache * arc_cache();
 
+		/** Return the settings manager */
+		static Settings * settings();
+
 		/** Indicates if the uimanager is initialized or not */
 		static bool is_initialized();
 
@@ -85,6 +89,7 @@ namespace berialdraw
 		static Desktop     * m_desktop;
 		static ScreenCrc   * m_screen_crc;
 		static ArcCache    * m_arc_cache;
+		static Settings    * m_settings;
 /// @endcond
 #endif
 	};

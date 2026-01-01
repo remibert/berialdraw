@@ -10,10 +10,7 @@ namespace berialdraw
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
 
-		//Keyboard::test();
-		//Rect::test();
-		Button::test();
-		Sketch::test();
+		ScrollView::test();
 
 		// Widgets
 		Icon::test();
@@ -56,11 +53,11 @@ namespace berialdraw
 
 			String script(
 			"["
-				"{'type':'snapshot','filename':'test/out/sample_icon_list_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_icon_list_%d.svg'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
 				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 
-				"{'type':'snapshot','filename':'test/out/sample_buton_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_buton_%d.svg'},"
 				"{'type':'touch','x': 81,'y': 93,'state':'down'},"
 				"{'type':'touch','x': 81,'y': 93,'state':'up'},"
 				"{'type':'touch','x':229,'y':134,'state':'down'},"
@@ -71,7 +68,7 @@ namespace berialdraw
 				"{'type':'touch','x': 59,'y': 26,'state':'down'},"
 				"{'type':'touch','x': 59,'y': 26,'state':'up'},"
 
-				"{'type':'snapshot','filename':'test/out/sample_canvas_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_canvas_%d.svg'},"
 				"{'type':'touch','x':181,'y': 81,'state':'down'},"
 				"{'type':'touch','x':181,'y': 81,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
@@ -80,7 +77,7 @@ namespace berialdraw
 				"{'type':'touch','x': 43,'y': 24,'state':'down'},"
 				"{'type':'touch','x': 43,'y': 24,'state':'up'},"
 
-				"{'type':'snapshot','filename':'test/out/sample_column_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_column_%d.svg'},"
 				"{'type':'touch','x':296,'y': 68,'state':'down'},"
 				"{'type':'touch','x':296,'y': 68,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
@@ -105,7 +102,7 @@ namespace berialdraw
 				"{'type':'touch','x': 59,'y': 15,'state':'down'},"
 				"{'type':'touch','x': 59,'y': 15,'state':'up'},"
 
-				"{'type':'snapshot','filename':'test/out/sample_edit_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_edit_%d.svg'},"
 				"{'type':'touch','x':401,'y': 90,'state':'down'},"
 				"{'type':'touch','x':401,'y': 90,'state':'up'},"
 				"{'type':'key','key': 72,'state':'down','modifier':'shift','character':'H'},"
@@ -213,7 +210,7 @@ namespace berialdraw
 				"{'type':'touch','x': 71,'y':221,'state':'down'},"
 				"{'type':'touch','x': 71,'y':221,'state':'up'},"
 
-				"{'type':'snapshot','filename':'test/out/sample_grid_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_grid_%d.svg'},"
 				"{'type':'touch','x':360,'y':453,'state':'down'},"
 				"{'type':'touch','x':358,'y':447,'state':'move'},"
 				"{'type':'touch','x':313,'y':318,'state':'move'},"
@@ -226,7 +223,7 @@ namespace berialdraw
 				"{'type':'touch','x': 48,'y': 14,'state':'down'},"
 				"{'type':'touch','x': 48,'y': 14,'state':'up'},"
 
-				"{'type':'snapshot','filename':'test/out/sample_icon_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_icon_%d.svg'},"
 				"{'type':'touch','x':196,'y':211,'state':'down'},"
 				"{'type':'touch','x':196,'y':211,'state':'up'},"
 				"{'type':'touch','x':248,'y': 77,'state':'down'},"
@@ -237,7 +234,7 @@ namespace berialdraw
 				"{'type':'touch','x': 53,'y': 27,'state':'down'},"
 				"{'type':'touch','x': 52,'y': 26,'state':'up'},"
 
-				"{'type':'snapshot','filename':'test/out/sample_keyboard_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_keyboard_%d.svg'},"
 				"{'type':'touch','x':322,'y':214,'state':'down'},"
 				"{'type':'touch','x':322,'y':214,'state':'up'},"
 				"{'type':'touch','x':251,'y':351,'state':'down'},"
@@ -272,7 +269,7 @@ namespace berialdraw
 				"{'type':'touch','x': 39,'y': 28,'state':'down'},"
 				"{'type':'touch','x': 39,'y': 28,'state':'up'},"
 
-				"{'type':'snapshot','filename':'test/out/sample_label_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_label_%d.svg'},"
 				"{'type':'touch','x':388,'y':231,'state':'down'},"
 				"{'type':'touch','x':388,'y':230,'state':'up'},"
 				"{'type':'touch','x':379,'y':230,'state':'down'},"
@@ -283,7 +280,7 @@ namespace berialdraw
 				"{'type':'touch','x': 62,'y': 12,'state':'down'},"
 				"{'type':'touch','x': 62,'y': 12,'state':'up'},"
 
-				"{'type':'snapshot','filename':'test/out/sample_pane_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_pane_%d.svg'},"
 				"{'type':'touch','x': 62,'y':339,'state':'down'},"
 				"{'type':'touch','x': 62,'y':339,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
@@ -298,7 +295,7 @@ namespace berialdraw
 				"{'type':'touch','x': 39,'y': 17,'state':'down'},"
 				"{'type':'touch','x': 39,'y': 17,'state':'up'},"
 
-				"{'type':'snapshot','filename':'test/out/sample_progress_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_progress_%d.svg'},"
 				"{'type':'touch','x':197,'y':327,'state':'down'},"
 				"{'type':'touch','x':197,'y':327,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
@@ -316,7 +313,7 @@ namespace berialdraw
 				"{'type':'touch','x': 33,'y': 10,'state':'down'},"
 				"{'type':'touch','x': 33,'y': 10,'state':'up'},"
 
-				"{'type':'snapshot','filename':'test/out/sample_row_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_row_%d.svg'},"
 				"{'type':'touch','x':315,'y':332,'state':'down'},"
 				"{'type':'touch','x':315,'y':332,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
@@ -333,7 +330,7 @@ namespace berialdraw
 				"{'type':'touch','x': 26,'y': 14,'state':'down'},"
 				"{'type':'touch','x': 26,'y': 14,'state':'up'},"
 
-				"{'type':'snapshot','filename':'test/out/sample_scroll_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_scroll_%d.svg'},"
 				"{'type':'touch','x':424,'y':379,'state':'down'},"
 				"{'type':'touch','x':423,'y':378,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
@@ -360,7 +357,7 @@ namespace berialdraw
 				"{'type':'touch','x': 57,'y': 14,'state':'down'},"
 				"{'type':'touch','x': 57,'y': 14,'state':'up'},"
 
-				"{'type':'snapshot','filename':'test/out/sample_slider_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_slider_%d.svg'},"
 				"{'type':'touch','x': 69,'y':429,'state':'down'},"
 				"{'type':'touch','x': 69,'y':429,'state':'up'},"
 				"{'type':'touch','x':114,'y':196,'state':'down'},"
@@ -377,7 +374,7 @@ namespace berialdraw
 				"{'type':'touch','x': 27,'y': 23,'state':'down'},"
 				"{'type':'touch','x': 27,'y': 23,'state':'up'},"
 
-				"{'type':'snapshot','filename':'test/out/sample_switch_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_switch_%d.svg'},"
 				"{'type':'touch','x':181,'y':450,'state':'down'},"
 				"{'type':'touch','x':181,'y':450,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
@@ -392,7 +389,7 @@ namespace berialdraw
 				"{'type':'touch','x': 51,'y': 22,'state':'down'},"
 				"{'type':'touch','x': 51,'y': 22,'state':'up'},"
 
-				"{'type':'snapshot','filename':'test/out/sample_window_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_window_%d.svg'},"
 				"{'type':'touch','x':298,'y':460,'state':'down'},"
 				"{'type':'touch','x':298,'y':460,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
@@ -401,7 +398,7 @@ namespace berialdraw
 				"{'type':'touch','x': 45,'y': 30,'state':'down'},"
 				"{'type':'touch','x': 45,'y': 30,'state':'up'},"
 
-				"{'type':'snapshot','filename':'test/out/sample_speed_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_speed_%d.svg'},"
 				"{'type':'touch','x':433,'y':452,'state':'down'},"
 				"{'type':'touch','x':433,'y':452,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
@@ -421,7 +418,7 @@ namespace berialdraw
 				"{'type':'touch','x': 54,'y': 20,'state':'down'},"
 				"{'type':'touch','x': 54,'y': 20,'state':'up'},"
 
-				"{'type':'snapshot','filename':'test/out/sample_theme_%d.svg'},"
+				"{'type':'snapshot','filename':'${tests}/out/sample_theme_%d.svg'},"
 				"{'type':'touch','x':313,'y':356,'state':'down'},"
 				"{'type':'touch','x':313,'y':347,'state':'move'},"
 				"{'type':'touch','x':306,'y':287,'state':'move'},"
@@ -606,7 +603,7 @@ namespace berialdraw
 				"{'type':'touch','x': 54,'y': 20,'state':'down'},"
 				"{'type':'touch','x': 54,'y': 20,'state':'up'},"
 			"]");
-			UIManager::notifier()->start_script(script, "test/out/sample_%d.svg");
+			UIManager::notifier()->start_script(script, "${tests}/out/sample_%d.svg");
 			{
 				UIManager::styles()->style("pearl");
 				UIManager::colors()->appearance("light");
@@ -626,6 +623,7 @@ namespace berialdraw
 			MaskValidator::test();
 			Entry::test(); 
 			String::test();
+			Settings::test();
 			TextStream::test();
 			Json::test();
 			WidgetStyle::test();

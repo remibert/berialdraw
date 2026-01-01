@@ -384,7 +384,7 @@ void PolyLines::test0()
 			if (++c % 3 == 0)
 			{
 				String name;
-				name.print("test/out/polyline0_%d.svg", ++id);
+				name.print("${tests}/out/polyline0_%d.svg", ++id);
 				UIManager::desktop()->dispatch(name);
 			}
 			UIManager::desktop()->dispatch();
@@ -432,7 +432,7 @@ void PolyLines::test1()
 			}
 
 			String name;
-			name.print("test/out/polylines1_%d.svg", ++id);
+			name.print("${tests}/out/polylines1_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 			delete poly;
 		}
@@ -529,7 +529,7 @@ void PolyLines::test2()
 		}
 	}
 
-	UIManager::desktop()->dispatch("test/out/polyline2.svg");
+	UIManager::desktop()->dispatch("${tests}/out/polyline2.svg");
 }
 
 void PolyLines::test3()

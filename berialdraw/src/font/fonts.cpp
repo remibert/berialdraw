@@ -8,7 +8,6 @@ Fonts::Fonts()
 	m_fonts = new Vector<FontPtr>;
 	m_fonts_faces = new Vector<FontFacePtr>;
 	m_familly = "Berial";
-	load_directory("fonts");
 }
 
 /** Destroy fonts */
@@ -76,6 +75,12 @@ void Fonts::unload(const String & filename)
 FontPtr Fonts::select(const String & familly, const Size & size, enum Font::Style style)
 {
 	FontPtr result;
+
+	if (m_loaded == false)
+	{
+		m_loaded = true;
+		load_directory("${fonts}");
+	}
 
 	std::lock_guard<std::recursive_mutex> lock(m_mutex);
 	if (m_fonts && m_fonts_faces)
@@ -164,6 +169,7 @@ void Fonts::clear_cach()
 	{
 		(*m_fonts)[i]->clear();
 	}
+	m_loaded = false;
 }
 
 /** Get default familly font name */
@@ -186,6 +192,7 @@ bool Fonts::load_directory(const String & dir)
 	bool result = true;
 	std::lock_guard<std::recursive_mutex> lock(m_mutex);
 	Directory directory; 
+
 	if (directory.open(dir))
 	{
 		if (directory.first())
