@@ -185,8 +185,8 @@ void Renderer::draw(Coord x_, Coord y_, const uint8_t * buffer, Dim width, Dim h
 	uint32_t col   = color & 0x00FFFFFF;
 	uint32_t alpha = color >> 24;
 
-	Coord x = (x_*m_scale)>>12;
-	Coord y = (y_*m_scale)>>12;
+	Coord x = (x_ * (Coord)m_scale) >> 12;
+	Coord y = (y_ * (Coord)m_scale) >> 12;
 
 	// If the buffer is visible
 	if(m_region->is_inside_scale(x, y, width, height, m_scale) != Region::OUT)

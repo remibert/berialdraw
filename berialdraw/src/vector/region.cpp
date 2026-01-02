@@ -1552,7 +1552,7 @@ Region::Overlap Region::is_inside_scale(Coord x, Coord y, Dim width, Dim height,
 		// Set the minimal height
 		h = 1;
 	}
-	return Region::is_inside((x<<6)/scale, (y<<6)/scale, w, h, true);
+	return Region::is_inside((x<<6)/(Coord)scale, (y<<6)/(Coord)scale, w, h, true);
 }
 
 /** Test if a region contains a point */
