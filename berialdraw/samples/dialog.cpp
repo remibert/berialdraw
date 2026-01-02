@@ -11,7 +11,7 @@ Dialog::Dialog()
 	m_header->size_policy(SizePolicy::SHRINK_HEIGHT);     // Configures header to shrink in height based on content
 
 	ScrollView * scroll = new ScrollView(m_main_layout);  // Adds a scrollable view for menu items
-	scroll->scroll_direction(ScrollVertical);             // Scroll view height to fill available space
+	scroll->scroll_direction(SCROLL_VERTICAL);             // Scroll view height to fill available space
 	m_content = scroll;
 	m_content->align(Align::ALIGN_TOP);                   // Aligns scroll view to the top
 }

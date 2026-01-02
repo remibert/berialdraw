@@ -74,10 +74,10 @@ namespace berialdraw
 		@return True if file existing. */
 		static bool exists(const char* file_name);
 
-		/** Set the resource directory
-		@param dir resource directory 
-		@return the resource directory existing */
-		static String resource_dir(const String & dir);
+		/** Select the directory existing in the list and return it
+		@param dir directory 
+		@return the directory existing */
+		static String resolve(const String & dir);
 
 	protected:
 #ifndef SWIG

@@ -188,13 +188,13 @@ Point ScrollView::compute_scroll_view(const Area & area, Point & scroll_position
 		}
 
 		// If the scrolled content can extend only to the width (vertical scroll)
-		if (m_scroll_direction == ScrollVertical)
+		if (m_scroll_direction == SCROLL_VERTICAL)
 		{
 			// Reduce the scrolled content width to the viewport width
 			m_size.width(area.width());
 		}
 		// If the scrolled content can extend only to the height (horizontal scroll)
-		else if (m_scroll_direction == ScrollHorizontal)
+		else if (m_scroll_direction == SCROLL_HORIZONTAL)
 		{
 			// Reduce the scrolled content height to the viewport height
 			m_size.height(area.height());
@@ -453,7 +453,7 @@ void ScrollView::test1()
 			if (i % 11 == 0)
 			{
 				String name;
-				name.print("${tests}/out/scroll1_%d.svg", ++id);
+				name.print("${ui.tests}/out/scroll1_%d.svg", ++id);
 				UIManager::desktop()->dispatch(name);
 			}
 			else
@@ -474,7 +474,7 @@ void ScrollView::test_create_window(Window & window)
 
 	ScrollView * scroll_view = new ScrollView(&window);
 
-	scroll_view->scroll_direction(ScrollVertical);
+	scroll_view->scroll_direction(SCROLL_VERTICAL);
 	scroll_view->id(1);
 
 	Grid * grid = new Grid(scroll_view);
@@ -608,7 +608,7 @@ void ScrollView::test2()
 		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
 		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 	"]");
-	UIManager::notifier()->play_script(script, "${tests}/out/scroll2_%d.svg");
+	UIManager::notifier()->play_script(script, "${ui.tests}/out/scroll2_%d.svg");
 
 }
 
@@ -634,15 +634,15 @@ void ScrollView::test3()
 		label->text("1");
 		label->cell(1,0);
 
-	UIManager::desktop()->dispatch("${tests}/out/scroll3_1.svg");
+	UIManager::desktop()->dispatch("${ui.tests}/out/scroll3_1.svg");
 	scroll_view->align(Align::ALIGN_BOTTOM);
-	UIManager::desktop()->dispatch("${tests}/out/scroll3_2.svg");
+	UIManager::desktop()->dispatch("${ui.tests}/out/scroll3_2.svg");
 	scroll_view->align(Align::ALIGN_TOP);
-	UIManager::desktop()->dispatch("${tests}/out/scroll3_3.svg");
+	UIManager::desktop()->dispatch("${ui.tests}/out/scroll3_3.svg");
 	scroll_view->align(Align::ALIGN_LEFT);
-	UIManager::desktop()->dispatch("${tests}/out/scroll3_4.svg");
+	UIManager::desktop()->dispatch("${ui.tests}/out/scroll3_4.svg");
 	scroll_view->align(Align::ALIGN_RIGHT);
-	UIManager::desktop()->dispatch("${tests}/out/scroll3_5.svg");
+	UIManager::desktop()->dispatch("${ui.tests}/out/scroll3_5.svg");
 }
 
 void ScrollView::test4()
@@ -667,13 +667,13 @@ void ScrollView::test4()
 		}
 	}
 
-	UIManager::desktop()->dispatch("${tests}/out/scroll4_1.svg");
-	scroll_view->scroll_direction(ScrollVertical);
-	UIManager::desktop()->dispatch("${tests}/out/scroll4_2.svg");
-	scroll_view->scroll_direction(ScrollHorizontal);
-	UIManager::desktop()->dispatch("${tests}/out/scroll4_3.svg");
-	scroll_view->scroll_direction(ScrollAllDirections);
-	UIManager::desktop()->dispatch("${tests}/out/scroll4_4.svg");
+	UIManager::desktop()->dispatch("${ui.tests}/out/scroll4_1.svg");
+	scroll_view->scroll_direction(SCROLL_VERTICAL);
+	UIManager::desktop()->dispatch("${ui.tests}/out/scroll4_2.svg");
+	scroll_view->scroll_direction(SCROLL_HORIZONTAL);
+	UIManager::desktop()->dispatch("${ui.tests}/out/scroll4_3.svg");
+	scroll_view->scroll_direction(SCROLL_ALL_DIRECTIONS);
+	UIManager::desktop()->dispatch("${ui.tests}/out/scroll4_4.svg");
 }
 
 void ScrollView::test5()
@@ -685,7 +685,7 @@ void ScrollView::test5()
 		window.color(Color::ALICE_BLUE);
 
 	ScrollView * scroll_view = new ScrollView(&window);
-		scroll_view->scroll_direction(ScrollVertical);
+		scroll_view->scroll_direction(SCROLL_VERTICAL);
 		scroll_view->id(123);
 	Column * grid = new Column(scroll_view);
 	Button * button;
@@ -695,7 +695,7 @@ void ScrollView::test5()
 		if (i == 5)
 		{
 			ScrollView * imbricated_scrollview = new ScrollView(grid);
-				imbricated_scrollview->scroll_direction(ScrollVertical);
+				imbricated_scrollview->scroll_direction(SCROLL_VERTICAL);
 				imbricated_scrollview->id(456);
 				imbricated_scrollview->viewport_size(Size::MAX_SIZE, 60);
 				imbricated_scrollview->margin(5);
@@ -764,7 +764,7 @@ void ScrollView::test5()
 		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 
 	"]");
-	UIManager::notifier()->play_script(script,"${tests}/out/scroll5_%d.svg");
+	UIManager::notifier()->play_script(script,"${ui.tests}/out/scroll5_%d.svg");
 }
 
 void ScrollView::test6()
@@ -776,7 +776,7 @@ void ScrollView::test6()
 			label->text("Horizontal scroll view");
 
 		ScrollView * horizontal_scroll_view = new ScrollView(m_content);
-			horizontal_scroll_view->scroll_direction(ScrollHorizontal);
+			horizontal_scroll_view->scroll_direction(SCROLL_HORIZONTAL);
 			horizontal_scroll_view->size_policy(SizePolicy::ENLARGE_ALL);
 			Row * horizontal_layout = new Row(horizontal_scroll_view);
 				for (int i = 0; i < 26; i++)
@@ -789,7 +789,7 @@ void ScrollView::test6()
 			label->text("Vertical scroll view");
 
 		ScrollView * vertical_scroll_view = new ScrollView(m_content);
-			vertical_scroll_view->scroll_direction(ScrollVertical);
+			vertical_scroll_view->scroll_direction(SCROLL_VERTICAL);
 			vertical_scroll_view->size_policy(SizePolicy::ENLARGE_ALL);
 			Column  * vertical_scroll_layout = new Column(vertical_scroll_view);
 				for (int i = 0; i < 26; i++)
@@ -798,7 +798,7 @@ void ScrollView::test6()
 						button->text("%c",i+0x41);
 				}
 	
-	UIManager::desktop()->dispatch("${tests}/out/scroll6_0.svg");
+	UIManager::desktop()->dispatch("${ui.tests}/out/scroll6_0.svg");
 }
 
 void ScrollView::test7()

@@ -181,7 +181,7 @@ void Grid::test1()
 		if (i % 30 == 0)
 		{
 			String name;
-			name.print("${tests}/out/grid1_%d.svg", ++id);
+			name.print("${ui.tests}/out/grid1_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 			window.size(i+1, i+2);
 			window.size(i+1, i+1);
@@ -285,7 +285,7 @@ void Grid::test2()
 		if (j%2 == 0)
 		{
 			String name;
-			name.print("${tests}/out/grid2_%d.svg", ++id);
+			name.print("${ui.tests}/out/grid2_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
 		else
@@ -388,7 +388,7 @@ void Grid::test3()
 		if (j%2 == 0)
 		{
 			String name;
-			name.print("${tests}/out/grid3_%d.svg", ++id);
+			name.print("${ui.tests}/out/grid3_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
 		else
@@ -471,7 +471,7 @@ void Grid::test4()
 		if (j%2 == 0)
 		{
 			String name;
-			name.print("${tests}/out/grid4_%d.svg", ++id);
+			name.print("${ui.tests}/out/grid4_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
 		else
@@ -491,7 +491,7 @@ void Grid::test4()
 		if (j%2 == 0)
 		{
 			String name;
-			name.print("${tests}/out/grid4_%d.svg", ++id);
+			name.print("${ui.tests}/out/grid4_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
 		else
@@ -574,7 +574,7 @@ void Grid::test5()
 		if (j%2 == 0)
 		{
 			String name;
-			name.print("${tests}/out/grid5_%d.svg", ++id);
+			name.print("${ui.tests}/out/grid5_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
 		else
@@ -594,7 +594,7 @@ void Grid::test5()
 		if (j%2 == 0)
 		{
 			String name;
-			name.print("${tests}/out/grid5_%d.svg", ++id);
+			name.print("${ui.tests}/out/grid5_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
 		else

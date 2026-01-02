@@ -180,7 +180,7 @@ void LineChart::test()
 			chart->add(data1);
 			chart->add(data2);
 
-		UIManager::desktop()->dispatch("${tests}/out/linechart.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/linechart.svg");
 	}
 }
 #endif

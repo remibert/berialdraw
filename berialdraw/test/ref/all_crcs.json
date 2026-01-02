@@ -7850,5 +7850,3521 @@
 		"${tests}/out/scroll5_5.svg" : 
 		{
 			"scale_2" : 4167418220
+		},
+		"${ui.tests}/out/scroll6_0.svg" : 
+		{
+			"scale_2" : 1153638743
+		},
+		"${ui.tests}/out/scroll5_1.svg" : 
+		{
+			"scale_2" : 2770025267
+		},
+		"${ui.tests}/out/scroll5_2.svg" : 
+		{
+			"scale_2" : 1757403424
+		},
+		"${ui.tests}/out/scroll5_3.svg" : 
+		{
+			"scale_2" : 158951912
+		},
+		"${ui.tests}/out/scroll5_4.svg" : 
+		{
+			"scale_2" : 854990345
+		},
+		"${ui.tests}/out/scroll5_5.svg" : 
+		{
+			"scale_2" : 4167418220
+		},
+		"${ui.tests}/out/scroll4_1.svg" : 
+		{
+			"scale_2" : 2169652280
+		},
+		"${ui.tests}/out/scroll4_2.svg" : 
+		{
+			"scale_2" : 2169652280
+		},
+		"${ui.tests}/out/scroll4_3.svg" : 
+		{
+			"scale_2" : 1168211035
+		},
+		"${ui.tests}/out/scroll4_4.svg" : 
+		{
+			"scale_2" : 4123915358
+		},
+		"${ui.tests}/out/scroll3_1.svg" : 
+		{
+			"scale_2" : 1389436464
+		},
+		"${ui.tests}/out/scroll3_2.svg" : 
+		{
+			"scale_2" : 2671041641
+		},
+		"${ui.tests}/out/scroll3_3.svg" : 
+		{
+			"scale_2" : 3672848569
+		},
+		"${ui.tests}/out/scroll3_4.svg" : 
+		{
+			"scale_2" : 3455789841
+		},
+		"${ui.tests}/out/scroll3_5.svg" : 
+		{
+			"scale_2" : 1353544108
+		},
+		"${ui.tests}/out/scroll2_1.svg" : 
+		{
+			"scale_2" : 2798586661
+		},
+		"${ui.tests}/out/scroll2_2.svg" : 
+		{
+			"scale_2" : 2935435177
+		},
+		"${ui.tests}/out/scroll2_3.svg" : 
+		{
+			"scale_2" : 2798586661
+		},
+		"${ui.tests}/out/scroll2_4.svg" : 
+		{
+			"scale_2" : 2851242286
+		},
+		"${ui.tests}/out/scroll2_5.svg" : 
+		{
+			"scale_2" : 1428488050
+		},
+		"${ui.tests}/out/scroll2_6.svg" : 
+		{
+			"scale_2" : 1777537296
+		},
+		"${ui.tests}/out/scroll2_7.svg" : 
+		{
+			"scale_2" : 820245668
+		},
+		"${ui.tests}/out/scroll2_8.svg" : 
+		{
+			"scale_2" : 2131898470
+		},
+		"${ui.tests}/out/scroll2_9.svg" : 
+		{
+			"scale_2" : 820245668
+		},
+		"${ui.tests}/out/scroll1_1.svg" : 
+		{
+			"scale_2" : 2106993597
+		},
+		"${ui.tests}/out/scroll1_2.svg" : 
+		{
+			"scale_2" : 397522697
+		},
+		"${ui.tests}/out/icon4_0.svg" : 
+		{
+			"scale_2" : 128331896
+		},
+		"${ui.tests}/out/icon4_1.svg" : 
+		{
+			"scale_2" : 2696420938
+		},
+		"${ui.tests}/out/icon4_2.svg" : 
+		{
+			"scale_2" : 3775797385
+		},
+		"${ui.tests}/out/icon3_0.svg" : 
+		{
+			"scale_2" : 1827562220
+		},
+		"${ui.tests}/out/icon2_0.svg" : 
+		{
+			"scale_2" : 4113033202
+		},
+		"${ui.tests}/out/icon1_1.svg" : 
+		{
+			"scale_2" : 323615382
+		},
+		"${ui.tests}/out/icon1_2.svg" : 
+		{
+			"scale_2" : 2779999732
+		},
+		"${ui.tests}/out/icon1_3.svg" : 
+		{
+			"scale_2" : 2957668039
+		},
+		"${ui.tests}/out/icon1_4.svg" : 
+		{
+			"scale_2" : 3465807073
+		},
+		"${ui.tests}/out/progress_bar3_1.svg" : 
+		{
+			"scale_2" : 514147209
+		},
+		"${ui.tests}/out/progress_bar3_2.svg" : 
+		{
+			"scale_2" : 1151133675
+		},
+		"${ui.tests}/out/progress_bar3_3.svg" : 
+		{
+			"scale_2" : 2316152337
+		},
+		"${ui.tests}/out/progress_bar3_4.svg" : 
+		{
+			"scale_2" : 267353187
+		},
+		"${ui.tests}/out/progress_bar3_5.svg" : 
+		{
+			"scale_2" : 3981300829
+		},
+		"${ui.tests}/out/progress_bar3_6.svg" : 
+		{
+			"scale_2" : 895112797
+		},
+		"${ui.tests}/out/progress_bar3_7.svg" : 
+		{
+			"scale_2" : 1355700088
+		},
+		"${ui.tests}/out/progress_bar3_8.svg" : 
+		{
+			"scale_2" : 576604444
+		},
+		"${ui.tests}/out/progress_bar2_1.svg" : 
+		{
+			"scale_2" : 2179254832
+		},
+		"${ui.tests}/out/progress_bar2_2.svg" : 
+		{
+			"scale_2" : 794644540
+		},
+		"${ui.tests}/out/progress_bar2_3.svg" : 
+		{
+			"scale_2" : 500706036
+		},
+		"${ui.tests}/out/progress_bar2_4.svg" : 
+		{
+			"scale_2" : 1978666934
+		},
+		"${ui.tests}/out/progress_bar2_5.svg" : 
+		{
+			"scale_2" : 2969968089
+		},
+		"${ui.tests}/out/progress_bar2_6.svg" : 
+		{
+			"scale_2" : 1452535178
+		},
+		"${ui.tests}/out/progress_bar2_7.svg" : 
+		{
+			"scale_2" : 2379919964
+		},
+		"${ui.tests}/out/progress_bar2_8.svg" : 
+		{
+			"scale_2" : 3820674108
+		},
+		"${ui.tests}/out/progress_bar1_1.svg" : 
+		{
+			"scale_2" : 1777172884
+		},
+		"${ui.tests}/out/progress_bar1_2.svg" : 
+		{
+			"scale_2" : 3771989733
+		},
+		"${ui.tests}/out/progress_bar1_3.svg" : 
+		{
+			"scale_2" : 3507471960
+		},
+		"${ui.tests}/out/progress_bar1_4.svg" : 
+		{
+			"scale_2" : 3870726475
+		},
+		"${ui.tests}/out/progress_bar1_5.svg" : 
+		{
+			"scale_2" : 2232955497
+		},
+		"${ui.tests}/out/progress_bar1_6.svg" : 
+		{
+			"scale_2" : 4268586246
+		},
+		"${ui.tests}/out/progress_bar1_7.svg" : 
+		{
+			"scale_2" : 4218886795
+		},
+		"${ui.tests}/out/progress_bar1_8.svg" : 
+		{
+			"scale_2" : 544374814
+		},
+		"${ui.tests}/out/slider4_1.svg" : 
+		{
+			"scale_2" : 1867025031
+		},
+		"${ui.tests}/out/slider4_2.svg" : 
+		{
+			"scale_2" : 3906563366
+		},
+		"${ui.tests}/out/slider3_1.svg" : 
+		{
+			"scale_2" : 2246511382
+		},
+		"${ui.tests}/out/slider3_2.svg" : 
+		{
+			"scale_2" : 992321167
+		},
+		"${ui.tests}/out/slider3_3.svg" : 
+		{
+			"scale_2" : 1470609136
+		},
+		"${ui.tests}/out/slider3_4.svg" : 
+		{
+			"scale_2" : 562110502
+		},
+		"${ui.tests}/out/slider3_5.svg" : 
+		{
+			"scale_2" : 1586446825
+		},
+		"${ui.tests}/out/slider3_6.svg" : 
+		{
+			"scale_2" : 2022487878
+		},
+		"${ui.tests}/out/slider3_7.svg" : 
+		{
+			"scale_2" : 2022487878
+		},
+		"${ui.tests}/out/slider3_8.svg" : 
+		{
+			"scale_2" : 2022487878
+		},
+		"${ui.tests}/out/slider2_1.svg" : 
+		{
+			"scale_2" : 3137496571
+		},
+		"${ui.tests}/out/slider2_2.svg" : 
+		{
+			"scale_2" : 4047676631
+		},
+		"${ui.tests}/out/slider2_3.svg" : 
+		{
+			"scale_2" : 1516880543
+		},
+		"${ui.tests}/out/slider1_1.svg" : 
+		{
+			"scale_2" : 866562732
+		},
+		"${ui.tests}/out/slider1_2.svg" : 
+		{
+			"scale_2" : 639600703
+		},
+		"${ui.tests}/out/slider1_3.svg" : 
+		{
+			"scale_2" : 3484641307
+		},
+		"${ui.tests}/out/edit7_1.svg" : 
+		{
+			"scale_2" : 2736201773
+		},
+		"${ui.tests}/out/edit6_1.svg" : 
+		{
+			"scale_2" : 1983831637
+		},
+		"${ui.tests}/out/edit5_1.svg" : 
+		{
+			"scale_2" : 3587943190
+		},
+		"${ui.tests}/out/edit4_1.svg" : 
+		{
+			"scale_2" : 1260777402
+		},
+		"${ui.tests}/out/edit4_2.svg" : 
+		{
+			"scale_2" : 692488053
+		},
+		"${ui.tests}/out/edit3_1.svg" : 
+		{
+			"scale_2" : 723506473
+		},
+		"${ui.tests}/out/edit3_2.svg" : 
+		{
+			"scale_2" : 1980645001
+		},
+		"${ui.tests}/out/edit3_3.svg" : 
+		{
+			"scale_2" : 470003769
+		},
+		"${ui.tests}/out/edit3_4.svg" : 
+		{
+			"scale_2" : 3027161716
+		},
+		"${ui.tests}/out/edit3_5.svg" : 
+		{
+			"scale_2" : 4206165628
+		},
+		"${ui.tests}/out/edit3_6.svg" : 
+		{
+			"scale_2" : 3746156243
+		},
+		"${ui.tests}/out/edit3_7.svg" : 
+		{
+			"scale_2" : 1222868873
+		},
+		"${ui.tests}/out/edit3_8.svg" : 
+		{
+			"scale_2" : 2678628283
+		},
+		"${ui.tests}/out/edit3_9.svg" : 
+		{
+			"scale_2" : 361925908
+		},
+		"${ui.tests}/out/edit3_10.svg" : 
+		{
+			"scale_2" : 1939201839
+		},
+		"${ui.tests}/out/edit2_1.svg" : 
+		{
+			"scale_2" : 1972176253
+		},
+		"${ui.tests}/out/edit2_2.svg" : 
+		{
+			"scale_2" : 3322010171
+		},
+		"${ui.tests}/out/edit2_3.svg" : 
+		{
+			"scale_2" : 1072071737
+		},
+		"${ui.tests}/out/edit2_4.svg" : 
+		{
+			"scale_2" : 1703703652
+		},
+		"${ui.tests}/out/edit2_5.svg" : 
+		{
+			"scale_2" : 1346118370
+		},
+		"${ui.tests}/out/edit2_6.svg" : 
+		{
+			"scale_2" : 2873409766
+		},
+		"${ui.tests}/out/edit2_7.svg" : 
+		{
+			"scale_2" : 3788868499
+		},
+		"${ui.tests}/out/edit2_8.svg" : 
+		{
+			"scale_2" : 2883375705
+		},
+		"${ui.tests}/out/edit2_9.svg" : 
+		{
+			"scale_2" : 606352047
+		},
+		"${ui.tests}/out/edit2_10.svg" : 
+		{
+			"scale_2" : 2412685802
+		},
+		"${ui.tests}/out/edit2_11.svg" : 
+		{
+			"scale_2" : 4149569434
+		},
+		"${ui.tests}/out/edit2_12.svg" : 
+		{
+			"scale_2" : 3676324710
+		},
+		"${ui.tests}/out/edit2_13.svg" : 
+		{
+			"scale_2" : 2586887911
+		},
+		"${ui.tests}/out/edit2_14.svg" : 
+		{
+			"scale_2" : 3157103493
+		},
+		"${ui.tests}/out/edit2_15.svg" : 
+		{
+			"scale_2" : 4000680427
+		},
+		"${ui.tests}/out/edit2_16.svg" : 
+		{
+			"scale_2" : 2769715029
+		},
+		"${ui.tests}/out/edit2_17.svg" : 
+		{
+			"scale_2" : 838336696
+		},
+		"${ui.tests}/out/edit2_18.svg" : 
+		{
+			"scale_2" : 4054739334
+		},
+		"${ui.tests}/out/edit2_19.svg" : 
+		{
+			"scale_2" : 2542960226
+		},
+		"${ui.tests}/out/edit2_20.svg" : 
+		{
+			"scale_2" : 3466284578
+		},
+		"${ui.tests}/out/edit1_1.svg" : 
+		{
+			"scale_2" : 3963864325
+		},
+		"${ui.tests}/out/edit1_2.svg" : 
+		{
+			"scale_2" : 3981321178
+		},
+		"${ui.tests}/out/edit1_3.svg" : 
+		{
+			"scale_2" : 2351776842
+		},
+		"${ui.tests}/out/edit1_4.svg" : 
+		{
+			"scale_2" : 1658555198
+		},
+		"${ui.tests}/out/edit1_5.svg" : 
+		{
+			"scale_2" : 4192509491
+		},
+		"${ui.tests}/out/edit1_6.svg" : 
+		{
+			"scale_2" : 1570528625
+		},
+		"${ui.tests}/out/edit1_7.svg" : 
+		{
+			"scale_2" : 4262505817
+		},
+		"${ui.tests}/out/edit1_8.svg" : 
+		{
+			"scale_2" : 2443170350
+		},
+		"${ui.tests}/out/edit1_9.svg" : 
+		{
+			"scale_2" : 1597449428
+		},
+		"${ui.tests}/out/edit1_10.svg" : 
+		{
+			"scale_2" : 2465243498
+		},
+		"${ui.tests}/out/switch1_1.svg" : 
+		{
+			"scale_2" : 2332051363
+		},
+		"${ui.tests}/out/switch1_2.svg" : 
+		{
+			"scale_2" : 3764766678
+		},
+		"${ui.tests}/out/switch1_3.svg" : 
+		{
+			"scale_2" : 3300484675
+		},
+		"${ui.tests}/out/switch1_4.svg" : 
+		{
+			"scale_2" : 1266479088
+		},
+		"${ui.tests}/out/switch1_5.svg" : 
+		{
+			"scale_2" : 1872776805
+		},
+		"${ui.tests}/out/button9_1.svg" : 
+		{
+			"scale_2" : 4099126481
+		},
+		"${ui.tests}/out/button17_1.svg" : 
+		{
+			"scale_2" : 2116459027
+		},
+		"${ui.tests}/out/button17_2.svg" : 
+		{
+			"scale_2" : 2129317050
+		},
+		"${ui.tests}/out/button17_3.svg" : 
+		{
+			"scale_2" : 1676110425
+		},
+		"${ui.tests}/out/button17_4.svg" : 
+		{
+			"scale_2" : 2046666530
+		},
+		"${ui.tests}/out/button16_1.svg" : 
+		{
+			"scale_2" : 518987202
+		},
+		"${ui.tests}/out/button16_2.svg" : 
+		{
+			"scale_2" : 384742262
+		},
+		"${ui.tests}/out/button16_3.svg" : 
+		{
+			"scale_2" : 1655681796
+		},
+		"${ui.tests}/out/button16_4.svg" : 
+		{
+			"scale_2" : 3580964369
+		},
+		"${ui.tests}/out/button15_1.svg" : 
+		{
+			"scale_2" : 2538900678
+		},
+		"${ui.tests}/out/button15_2.svg" : 
+		{
+			"scale_2" : 95292497
+		},
+		"${ui.tests}/out/button15_3.svg" : 
+		{
+			"scale_2" : 1364988433
+		},
+		"${ui.tests}/out/button15_4.svg" : 
+		{
+			"scale_2" : 3719791342
+		},
+		"${ui.tests}/out/button13_1.svg" : 
+		{
+			"scale_2" : 1353984092
+		},
+		"${ui.tests}/out/button13_2.svg" : 
+		{
+			"scale_2" : 4168707630
+		},
+		"${ui.tests}/out/button13_3.svg" : 
+		{
+			"scale_2" : 766910423
+		},
+		"${ui.tests}/out/button13_4.svg" : 
+		{
+			"scale_2" : 3070295673
+		},
+		"${ui.tests}/out/button13_5.svg" : 
+		{
+			"scale_2" : 2013244382
+		},
+		"${ui.tests}/out/button13_6.svg" : 
+		{
+			"scale_2" : 1440139801
+		},
+		"${ui.tests}/out/button13_7.svg" : 
+		{
+			"scale_2" : 3044881732
+		},
+		"${ui.tests}/out/button13_8.svg" : 
+		{
+			"scale_2" : 3822173156
+		},
+		"${ui.tests}/out/button13_9.svg" : 
+		{
+			"scale_2" : 2931752167
+		},
+		"${ui.tests}/out/button13_10.svg" : 
+		{
+			"scale_2" : 741103230
+		},
+		"${ui.tests}/out/button13_11.svg" : 
+		{
+			"scale_2" : 1746787903
+		},
+		"${ui.tests}/out/button13_12.svg" : 
+		{
+			"scale_2" : 3036949591
+		},
+		"${ui.tests}/out/button12_1.svg" : 
+		{
+			"scale_2" : 1685706905
+		},
+		"${ui.tests}/out/button12_2.svg" : 
+		{
+			"scale_2" : 669189179
+		},
+		"${ui.tests}/out/button12_3.svg" : 
+		{
+			"scale_2" : 2908598484
+		},
+		"${ui.tests}/out/button12_4.svg" : 
+		{
+			"scale_2" : 86171696
+		},
+		"${ui.tests}/out/button12_5.svg" : 
+		{
+			"scale_2" : 1323269609
+		},
+		"${ui.tests}/out/button12_6.svg" : 
+		{
+			"scale_2" : 1784240568
+		},
+		"${ui.tests}/out/button12_7.svg" : 
+		{
+			"scale_2" : 2692452631
+		},
+		"${ui.tests}/out/button12_8.svg" : 
+		{
+			"scale_2" : 4046684633
+		},
+		"${ui.tests}/out/button12_9.svg" : 
+		{
+			"scale_2" : 1685706905
+		},
+		"${ui.tests}/out/button12_10.svg" : 
+		{
+			"scale_2" : 669189179
+		},
+		"${ui.tests}/out/button12_11.svg" : 
+		{
+			"scale_2" : 2775331804
+		},
+		"${ui.tests}/out/button12_12.svg" : 
+		{
+			"scale_2" : 554607139
+		},
+		"${ui.tests}/out/button12_13.svg" : 
+		{
+			"scale_2" : 1271455522
+		},
+		"${ui.tests}/out/button12_14.svg" : 
+		{
+			"scale_2" : 2681427524
+		},
+		"${ui.tests}/out/button12_15.svg" : 
+		{
+			"scale_2" : 1342499056
+		},
+		"${ui.tests}/out/button12_16.svg" : 
+		{
+			"scale_2" : 3512737690
+		},
+		"${ui.tests}/out/button12_17.svg" : 
+		{
+			"scale_2" : 1685706905
+		},
+		"${ui.tests}/out/button12_18.svg" : 
+		{
+			"scale_2" : 669189179
+		},
+		"${ui.tests}/out/button12_19.svg" : 
+		{
+			"scale_2" : 3877282307
+		},
+		"${ui.tests}/out/button12_20.svg" : 
+		{
+			"scale_2" : 2295843951
+		},
+		"${ui.tests}/out/button12_21.svg" : 
+		{
+			"scale_2" : 4241921489
+		},
+		"${ui.tests}/out/button12_22.svg" : 
+		{
+			"scale_2" : 690388674
+		},
+		"${ui.tests}/out/button12_23.svg" : 
+		{
+			"scale_2" : 1633232523
+		},
+		"${ui.tests}/out/button12_24.svg" : 
+		{
+			"scale_2" : 4249240857
+		},
+		"${ui.tests}/out/button12_25.svg" : 
+		{
+			"scale_2" : 1685706905
+		},
+		"${ui.tests}/out/button12_26.svg" : 
+		{
+			"scale_2" : 669189179
+		},
+		"${ui.tests}/out/button12_27.svg" : 
+		{
+			"scale_2" : 3947928644
+		},
+		"${ui.tests}/out/button12_28.svg" : 
+		{
+			"scale_2" : 3193490088
+		},
+		"${ui.tests}/out/button12_29.svg" : 
+		{
+			"scale_2" : 1994338078
+		},
+		"${ui.tests}/out/button12_30.svg" : 
+		{
+			"scale_2" : 7386809
+		},
+		"${ui.tests}/out/button12_31.svg" : 
+		{
+			"scale_2" : 3977393827
+		},
+		"${ui.tests}/out/button12_32.svg" : 
+		{
+			"scale_2" : 1972302950
+		},
+		"${ui.tests}/out/button11_1.svg" : 
+		{
+			"scale_2" : 2945033575
+		},
+		"${ui.tests}/out/button11_2.svg" : 
+		{
+			"scale_2" : 1008075698
+		},
+		"${ui.tests}/out/button11_3.svg" : 
+		{
+			"scale_2" : 92055527
+		},
+		"${ui.tests}/out/button11_4.svg" : 
+		{
+			"scale_2" : 2689972697
+		},
+		"${ui.tests}/out/button11_5.svg" : 
+		{
+			"scale_2" : 836268835
+		},
+		"${ui.tests}/out/button11_6.svg" : 
+		{
+			"scale_2" : 3413331365
+		},
+		"${ui.tests}/out/button11_7.svg" : 
+		{
+			"scale_2" : 4128459509
+		},
+		"${ui.tests}/out/button11_8.svg" : 
+		{
+			"scale_2" : 2577548472
+		},
+		"${ui.tests}/out/button11_9.svg" : 
+		{
+			"scale_2" : 2166203644
+		},
+		"${ui.tests}/out/button11_10.svg" : 
+		{
+			"scale_2" : 2085181740
+		},
+		"${ui.tests}/out/button11_11.svg" : 
+		{
+			"scale_2" : 1275508427
+		},
+		"${ui.tests}/out/button11_12.svg" : 
+		{
+			"scale_2" : 1916577055
+		},
+		"${ui.tests}/out/button11_13.svg" : 
+		{
+			"scale_2" : 4229210005
+		},
+		"${ui.tests}/out/button11_14.svg" : 
+		{
+			"scale_2" : 940209194
+		},
+		"${ui.tests}/out/button11_15.svg" : 
+		{
+			"scale_2" : 734076056
+		},
+		"${ui.tests}/out/button11_16.svg" : 
+		{
+			"scale_2" : 1994612293
+		},
+		"${ui.tests}/out/button10_1.svg" : 
+		{
+			"scale_2" : 3434306735
+		},
+		"${ui.tests}/out/button10_2.svg" : 
+		{
+			"scale_2" : 3737187665
+		},
+		"${ui.tests}/out/button7_1.svg" : 
+		{
+			"scale_2" : 2582588964
+		},
+		"${ui.tests}/out/button7_2.svg" : 
+		{
+			"scale_2" : 3794443083
+		},
+		"${ui.tests}/out/button7_3.svg" : 
+		{
+			"scale_2" : 2053301570
+		},
+		"${ui.tests}/out/button7_4.svg" : 
+		{
+			"scale_2" : 727658512
+		},
+		"${ui.tests}/out/button6.svg" : 
+		{
+			"scale_2" : 3737284370
+		},
+		"${ui.tests}/out/button5_1.svg" : 
+		{
+			"scale_2" : 3197342444
+		},
+		"${ui.tests}/out/button5_2.svg" : 
+		{
+			"scale_2" : 284058930
+		},
+		"${ui.tests}/out/button5_3.svg" : 
+		{
+			"scale_2" : 521492944
+		},
+		"${ui.tests}/out/button5_4.svg" : 
+		{
+			"scale_2" : 2278516942
+		},
+		"${ui.tests}/out/button5_5.svg" : 
+		{
+			"scale_2" : 318853698
+		},
+		"${ui.tests}/out/button4.svg" : 
+		{
+			"scale_2" : 735202121
+		},
+		"${ui.tests}/out/canvas3.svg" : 
+		{
+			"scale_2" : 1007612813
+		},
+		"${ui.tests}/out/canvas4.svg" : 
+		{
+			"scale_2" : 235724008
+		},
+		"${ui.tests}/out/canvas1_1.svg" : 
+		{
+			"scale_2" : 64092350
+		},
+		"${ui.tests}/out/canvas1_2.svg" : 
+		{
+			"scale_2" : 415189844
+		},
+		"${ui.tests}/out/canvas1_3.svg" : 
+		{
+			"scale_2" : 1992728398
+		},
+		"${ui.tests}/out/canvas1_4.svg" : 
+		{
+			"scale_2" : 2548464271
+		},
+		"${ui.tests}/out/canvas1_5.svg" : 
+		{
+			"scale_2" : 4194832889
+		},
+		"${ui.tests}/out/canvas1_6.svg" : 
+		{
+			"scale_2" : 3493553684
+		},
+		"${ui.tests}/out/canvas1_7.svg" : 
+		{
+			"scale_2" : 2860984443
+		},
+		"${ui.tests}/out/canvas1_8.svg" : 
+		{
+			"scale_2" : 4080369889
+		},
+		"${ui.tests}/out/canvas1_9.svg" : 
+		{
+			"scale_2" : 434972810
+		},
+		"${ui.tests}/out/canvas1_10.svg" : 
+		{
+			"scale_2" : 3044742785
+		},
+		"${ui.tests}/out/canvas1_11.svg" : 
+		{
+			"scale_2" : 2319772295
+		},
+		"${ui.tests}/out/canvas1_12.svg" : 
+		{
+			"scale_2" : 2223282236
+		},
+		"${ui.tests}/out/canvas1_13.svg" : 
+		{
+			"scale_2" : 64092350
+		},
+		"${ui.tests}/out/pane5_1.svg" : 
+		{
+			"scale_2" : 140401469
+		},
+		"${ui.tests}/out/pane4_1.svg" : 
+		{
+			"scale_2" : 556642321
+		},
+		"${ui.tests}/out/pane3_1.svg" : 
+		{
+			"scale_2" : 2790665937
+		},
+		"${ui.tests}/out/pane3_2.svg" : 
+		{
+			"scale_2" : 3684122243
+		},
+		"${ui.tests}/out/pane3_3.svg" : 
+		{
+			"scale_2" : 3048471166
+		},
+		"${ui.tests}/out/pane3_4.svg" : 
+		{
+			"scale_2" : 3392709298
+		},
+		"${ui.tests}/out/pane3_5.svg" : 
+		{
+			"scale_2" : 1401828131
+		},
+		"${ui.tests}/out/pane3_6.svg" : 
+		{
+			"scale_2" : 1846086216
+		},
+		"${ui.tests}/out/pane3_7.svg" : 
+		{
+			"scale_2" : 2889886291
+		},
+		"${ui.tests}/out/pane3_8.svg" : 
+		{
+			"scale_2" : 3410689499
+		},
+		"${ui.tests}/out/pane3_9.svg" : 
+		{
+			"scale_2" : 3267976490
+		},
+		"${ui.tests}/out/pane3_10.svg" : 
+		{
+			"scale_2" : 3110255822
+		},
+		"${ui.tests}/out/pane2.svg" : 
+		{
+			"scale_2" : 3706864603
+		},
+		"${ui.tests}/out/pane1_1.svg" : 
+		{
+			"scale_2" : 2997629761
+		},
+		"${ui.tests}/out/pane1_2.svg" : 
+		{
+			"scale_2" : 2330219053
+		},
+		"${ui.tests}/out/pane1_3.svg" : 
+		{
+			"scale_2" : 1950597849
+		},
+		"${ui.tests}/out/pane1_4.svg" : 
+		{
+			"scale_2" : 3373094826
+		},
+		"${ui.tests}/out/pane1_5.svg" : 
+		{
+			"scale_2" : 993891761
+		},
+		"${ui.tests}/out/pane1_6.svg" : 
+		{
+			"scale_2" : 3852095342
+		},
+		"${ui.tests}/out/pane1_7.svg" : 
+		{
+			"scale_2" : 4233924247
+		},
+		"${ui.tests}/out/pane1_8.svg" : 
+		{
+			"scale_2" : 3590376535
+		},
+		"${ui.tests}/out/pane1_9.svg" : 
+		{
+			"scale_2" : 1311056850
+		},
+		"${ui.tests}/out/pane1_10.svg" : 
+		{
+			"scale_2" : 4149772946
+		},
+		"${ui.tests}/out/pane1_11.svg" : 
+		{
+			"scale_2" : 3439605982
+		},
+		"${ui.tests}/out/pane1_12.svg" : 
+		{
+			"scale_2" : 4153778076
+		},
+		"${ui.tests}/out/pane1_13.svg" : 
+		{
+			"scale_2" : 1929394307
+		},
+		"${ui.tests}/out/pane1_14.svg" : 
+		{
+			"scale_2" : 1636997662
+		},
+		"${ui.tests}/out/label2_1.svg" : 
+		{
+			"scale_2" : 2650960469
+		},
+		"${ui.tests}/out/label1_1.svg" : 
+		{
+			"scale_2" : 1531705262
+		},
+		"${ui.tests}/out/label1_2.svg" : 
+		{
+			"scale_2" : 4274824430
+		},
+		"${ui.tests}/out/label1_3.svg" : 
+		{
+			"scale_2" : 3376466333
+		},
+		"${ui.tests}/out/label1_4.svg" : 
+		{
+			"scale_2" : 1671000267
+		},
+		"${ui.tests}/out/label1_5.svg" : 
+		{
+			"scale_2" : 496039896
+		},
+		"${ui.tests}/out/label1_6.svg" : 
+		{
+			"scale_2" : 4178610741
+		},
+		"${ui.tests}/out/window9_1.svg" : 
+		{
+			"scale_2" : 2702867193
+		},
+		"${ui.tests}/out/window9_2.svg" : 
+		{
+			"scale_2" : 1779487555
+		},
+		"${ui.tests}/out/window9_3.svg" : 
+		{
+			"scale_2" : 2161222508
+		},
+		"${ui.tests}/out/window9_4.svg" : 
+		{
+			"scale_2" : 1662502016
+		},
+		"${ui.tests}/out/window9_5.svg" : 
+		{
+			"scale_2" : 3609174390
+		},
+		"${ui.tests}/out/window9_6.svg" : 
+		{
+			"scale_2" : 77492835
+		},
+		"${ui.tests}/out/window9_7.svg" : 
+		{
+			"scale_2" : 61750774
+		},
+		"${ui.tests}/out/window9_8.svg" : 
+		{
+			"scale_2" : 2995275273
+		},
+		"${ui.tests}/out/window9_9.svg" : 
+		{
+			"scale_2" : 3586146504
+		},
+		"${ui.tests}/out/window9_10.svg" : 
+		{
+			"scale_2" : 3265563091
+		},
+		"${ui.tests}/out/window9_11.svg" : 
+		{
+			"scale_2" : 1298699973
+		},
+		"${ui.tests}/out/window9_12.svg" : 
+		{
+			"scale_2" : 3456752658
+		},
+		"${ui.tests}/out/window9_13.svg" : 
+		{
+			"scale_2" : 1480811155
+		},
+		"${ui.tests}/out/window9_14.svg" : 
+		{
+			"scale_2" : 2341165415
+		},
+		"${ui.tests}/out/window9_15.svg" : 
+		{
+			"scale_2" : 1837533848
+		},
+		"${ui.tests}/out/window9_16.svg" : 
+		{
+			"scale_2" : 1999444431
+		},
+		"${ui.tests}/out/window9_17.svg" : 
+		{
+			"scale_2" : 1853783404
+		},
+		"${ui.tests}/out/window9_18.svg" : 
+		{
+			"scale_2" : 214241388
+		},
+		"${ui.tests}/out/window9_19.svg" : 
+		{
+			"scale_2" : 2160712213
+		},
+		"${ui.tests}/out/window9_20.svg" : 
+		{
+			"scale_2" : 3098327875
+		},
+		"${ui.tests}/out/window8_1.svg" : 
+		{
+			"scale_2" : 673959983
+		},
+		"${ui.tests}/out/window8_2.svg" : 
+		{
+			"scale_2" : 2691118879
+		},
+		"${ui.tests}/out/window8_3.svg" : 
+		{
+			"scale_2" : 673959983
+		},
+		"${ui.tests}/out/window7_1.svg" : 
+		{
+			"scale_2" : 2121211804
+		},
+		"${ui.tests}/out/window7_2.svg" : 
+		{
+			"scale_2" : 2121211804
+		},
+		"${ui.tests}/out/window7_3.svg" : 
+		{
+			"scale_2" : 2121211804
+		},
+		"${ui.tests}/out/window7_4.svg" : 
+		{
+			"scale_2" : 2848357906
+		},
+		"${ui.tests}/out/window7_5.svg" : 
+		{
+			"scale_2" : 2936838445
+		},
+		"${ui.tests}/out/window7_6.svg" : 
+		{
+			"scale_2" : 954232164
+		},
+		"${ui.tests}/out/window7_7.svg" : 
+		{
+			"scale_2" : 3807462202
+		},
+		"${ui.tests}/out/window7_8.svg" : 
+		{
+			"scale_2" : 3807462202
+		},
+		"${ui.tests}/out/window7_9.svg" : 
+		{
+			"scale_2" : 3807462202
+		},
+		"${ui.tests}/out/window7_10.svg" : 
+		{
+			"scale_2" : 1685575331
+		},
+		"${ui.tests}/out/window7_11.svg" : 
+		{
+			"scale_2" : 3206068444
+		},
+		"${ui.tests}/out/window7_12.svg" : 
+		{
+			"scale_2" : 2711594076
+		},
+		"${ui.tests}/out/window7_13.svg" : 
+		{
+			"scale_2" : 865425170
+		},
+		"${ui.tests}/out/window7_14.svg" : 
+		{
+			"scale_2" : 865425170
+		},
+		"${ui.tests}/out/window7_15.svg" : 
+		{
+			"scale_2" : 865425170
+		},
+		"${ui.tests}/out/window7_16.svg" : 
+		{
+			"scale_2" : 1655947610
+		},
+		"${ui.tests}/out/window7_17.svg" : 
+		{
+			"scale_2" : 1655947610
+		},
+		"${ui.tests}/out/window7_18.svg" : 
+		{
+			"scale_2" : 1655947610
+		},
+		"${ui.tests}/out/window7_19.svg" : 
+		{
+			"scale_2" : 1559511446
+		},
+		"${ui.tests}/out/window7_20.svg" : 
+		{
+			"scale_2" : 2702728742
+		},
+		"${ui.tests}/out/window7_21.svg" : 
+		{
+			"scale_2" : 745941554
+		},
+		"${ui.tests}/out/window7_22.svg" : 
+		{
+			"scale_2" : 3124083621
+		},
+		"${ui.tests}/out/window7_23.svg" : 
+		{
+			"scale_2" : 3124083621
+		},
+		"${ui.tests}/out/window7_24.svg" : 
+		{
+			"scale_2" : 3124083621
+		},
+		"${ui.tests}/out/window7_25.svg" : 
+		{
+			"scale_2" : 2622349969
+		},
+		"${ui.tests}/out/window7_26.svg" : 
+		{
+			"scale_2" : 2622349969
+		},
+		"${ui.tests}/out/window7_27.svg" : 
+		{
+			"scale_2" : 2622349969
+		},
+		"${ui.tests}/out/window7_28.svg" : 
+		{
+			"scale_2" : 2168746923
+		},
+		"${ui.tests}/out/window7_29.svg" : 
+		{
+			"scale_2" : 1907111962
+		},
+		"${ui.tests}/out/window7_30.svg" : 
+		{
+			"scale_2" : 2842592624
+		},
+		"${ui.tests}/out/window6_1.svg" : 
+		{
+			"scale_2" : 2612693746
+		},
+		"${ui.tests}/out/window5_1.svg" : 
+		{
+			"scale_2" : 3711023929
+		},
+		"${ui.tests}/out/window5_2.svg" : 
+		{
+			"scale_2" : 3711023929
+		},
+		"${ui.tests}/out/window5_3.svg" : 
+		{
+			"scale_2" : 602830184
+		},
+		"${ui.tests}/out/window5_4.svg" : 
+		{
+			"scale_2" : 1975605035
+		},
+		"${ui.tests}/out/window5_6.svg" : 
+		{
+			"scale_2" : 321137522
+		},
+		"${ui.tests}/out/window5_7.svg" : 
+		{
+			"scale_2" : 1606600767
+		},
+		"${ui.tests}/out/window5_8.svg" : 
+		{
+			"scale_2" : 1744942323
+		},
+		"${ui.tests}/out/window5_9.svg" : 
+		{
+			"scale_2" : 2770984769
+		},
+		"${ui.tests}/out/window5_10.svg" : 
+		{
+			"scale_2" : 875793934
+		},
+		"${ui.tests}/out/window5_11.svg" : 
+		{
+			"scale_2" : 2897409801
+		},
+		"${ui.tests}/out/window4_1.svg" : 
+		{
+			"scale_2" : 419705967
+		},
+		"${ui.tests}/out/window3_1.svg" : 
+		{
+			"scale_2" : 3879657613
+		},
+		"${ui.tests}/out/window3_2.svg" : 
+		{
+			"scale_2" : 1854726964
+		},
+		"${ui.tests}/out/window2_1.svg" : 
+		{
+			"scale_2" : 133235717
+		},
+		"${ui.tests}/out/window2_2.svg" : 
+		{
+			"scale_2" : 1446680991
+		},
+		"${ui.tests}/out/window1_0.svg" : 
+		{
+			"scale_2" : 1359056319
+		},
+		"${ui.tests}/out/window1_1.svg" : 
+		{
+			"scale_2" : 3983898449
+		},
+		"${ui.tests}/out/window1_2.svg" : 
+		{
+			"scale_2" : 1359056319
+		},
+		"${ui.tests}/out/window1_3.svg" : 
+		{
+			"scale_2" : 2080570815
+		},
+		"${ui.tests}/out/sketch3_0.svg" : 
+		{
+			"scale_2" : 289580045
+		},
+		"${ui.tests}/out/sketch3_1.svg" : 
+		{
+			"scale_2" : 496377471
+		},
+		"${ui.tests}/out/sketch3_2.svg" : 
+		{
+			"scale_2" : 1504617662
+		},
+		"${ui.tests}/out/sketch3_3.svg" : 
+		{
+			"scale_2" : 289580045
+		},
+		"${ui.tests}/out/sketch3_6.svg" : 
+		{
+			"scale_2" : 1528433074
+		},
+		"${ui.tests}/out/sketch3_4.svg" : 
+		{
+			"scale_2" : 681312737
+		},
+		"${ui.tests}/out/sketch3_5.svg" : 
+		{
+			"scale_2" : 4208902480
+		},
+		"${ui.tests}/out/sketch2_1.svg" : 
+		{
+			"scale_2" : 1430275382
+		},
+		"${ui.tests}/out/sketch2_2.svg" : 
+		{
+			"scale_2" : 1196300999
+		},
+		"${ui.tests}/out/sketch2_3.svg" : 
+		{
+			"scale_2" : 548832719
+		},
+		"${ui.tests}/out/sketch1_1.svg" : 
+		{
+			"scale_2" : 1791042352
+		},
+		"${ui.tests}/out/sketch1_2.svg" : 
+		{
+			"scale_2" : 1826056121
+		},
+		"${ui.tests}/out/sketch1_3.svg" : 
+		{
+			"scale_2" : 3571712933
+		},
+		"${ui.tests}/out/sketch1_4.svg" : 
+		{
+			"scale_2" : 378735692
+		},
+		"${ui.tests}/out/sketch1_5.svg" : 
+		{
+			"scale_2" : 2446522510
+		},
+		"${ui.tests}/out/rect5_1.svg" : 
+		{
+			"scale_2" : 2668232321
+		},
+		"${ui.tests}/out/rect5_2.svg" : 
+		{
+			"scale_2" : 472469466
+		},
+		"${ui.tests}/out/rect5_3.svg" : 
+		{
+			"scale_2" : 3830333420
+		},
+		"${ui.tests}/out/rect5_4.svg" : 
+		{
+			"scale_2" : 1310852282
+		},
+		"${ui.tests}/out/rect5_5.svg" : 
+		{
+			"scale_2" : 2812559159
+		},
+		"${ui.tests}/out/rect5_6.svg" : 
+		{
+			"scale_2" : 1989348033
+		},
+		"${ui.tests}/out/rect5_7.svg" : 
+		{
+			"scale_2" : 1789731232
+		},
+		"${ui.tests}/out/rect5_8.svg" : 
+		{
+			"scale_2" : 1723016869
+		},
+		"${ui.tests}/out/rect5_9.svg" : 
+		{
+			"scale_2" : 2787729436
+		},
+		"${ui.tests}/out/rect5_10.svg" : 
+		{
+			"scale_2" : 3036943711
+		},
+		"${ui.tests}/out/rect5_11.svg" : 
+		{
+			"scale_2" : 2109119678
+		},
+		"${ui.tests}/out/rect5_12.svg" : 
+		{
+			"scale_2" : 109848767
+		},
+		"${ui.tests}/out/rect5_13.svg" : 
+		{
+			"scale_2" : 3593377259
+		},
+		"${ui.tests}/out/rect5_14.svg" : 
+		{
+			"scale_2" : 920271366
+		},
+		"${ui.tests}/out/rect5_15.svg" : 
+		{
+			"scale_2" : 2125929911
+		},
+		"${ui.tests}/out/rect5_16.svg" : 
+		{
+			"scale_2" : 1724743102
+		},
+		"${ui.tests}/out/rect5_17.svg" : 
+		{
+			"scale_2" : 1631173494
+		},
+		"${ui.tests}/out/rect5_18.svg" : 
+		{
+			"scale_2" : 1542755394
+		},
+		"${ui.tests}/out/rect5_19.svg" : 
+		{
+			"scale_2" : 1229850954
+		},
+		"${ui.tests}/out/rect5_20.svg" : 
+		{
+			"scale_2" : 3535406562
+		},
+		"${ui.tests}/out/rect5_21.svg" : 
+		{
+			"scale_2" : 2414537486
+		},
+		"${ui.tests}/out/rect5_22.svg" : 
+		{
+			"scale_2" : 3340934557
+		},
+		"${ui.tests}/out/rect5_23.svg" : 
+		{
+			"scale_2" : 1818870
+		},
+		"${ui.tests}/out/rect5_24.svg" : 
+		{
+			"scale_2" : 3019132316
+		},
+		"${ui.tests}/out/rect5_25.svg" : 
+		{
+			"scale_2" : 1353891206
+		},
+		"${ui.tests}/out/rect5_26.svg" : 
+		{
+			"scale_2" : 4052669570
+		},
+		"${ui.tests}/out/rect5_27.svg" : 
+		{
+			"scale_2" : 404726288
+		},
+		"${ui.tests}/out/rect5_28.svg" : 
+		{
+			"scale_2" : 1815625568
+		},
+		"${ui.tests}/out/rect5_29.svg" : 
+		{
+			"scale_2" : 4021102563
+		},
+		"${ui.tests}/out/rect5_30.svg" : 
+		{
+			"scale_2" : 3196133467
+		},
+		"${ui.tests}/out/rect5_31.svg" : 
+		{
+			"scale_2" : 2992188416
+		},
+		"${ui.tests}/out/rect5_32.svg" : 
+		{
+			"scale_2" : 1527561434
+		},
+		"${ui.tests}/out/rect5_33.svg" : 
+		{
+			"scale_2" : 1927437759
+		},
+		"${ui.tests}/out/rect5_34.svg" : 
+		{
+			"scale_2" : 3986881641
+		},
+		"${ui.tests}/out/rect5_35.svg" : 
+		{
+			"scale_2" : 1149537
+		},
+		"${ui.tests}/out/rect5_36.svg" : 
+		{
+			"scale_2" : 69895690
+		},
+		"${ui.tests}/out/rect8_1.svg" : 
+		{
+			"scale_2" : 3725423322
+		},
+		"${ui.tests}/out/rect8_2.svg" : 
+		{
+			"scale_2" : 716459353
+		},
+		"${ui.tests}/out/rect8_3.svg" : 
+		{
+			"scale_2" : 2462269802
+		},
+		"${ui.tests}/out/rect8_4.svg" : 
+		{
+			"scale_2" : 3579319023
+		},
+		"${ui.tests}/out/rect8_5.svg" : 
+		{
+			"scale_2" : 1274759163
+		},
+		"${ui.tests}/out/rect8_6.svg" : 
+		{
+			"scale_2" : 2958598754
+		},
+		"${ui.tests}/out/rect8_7.svg" : 
+		{
+			"scale_2" : 198289167
+		},
+		"${ui.tests}/out/rect8_8.svg" : 
+		{
+			"scale_2" : 3385169824
+		},
+		"${ui.tests}/out/rect8_9.svg" : 
+		{
+			"scale_2" : 1129191298
+		},
+		"${ui.tests}/out/rect8_10.svg" : 
+		{
+			"scale_2" : 446723972
+		},
+		"${ui.tests}/out/rect8_11.svg" : 
+		{
+			"scale_2" : 1231876282
+		},
+		"${ui.tests}/out/rect8_12.svg" : 
+		{
+			"scale_2" : 4212042247
+		},
+		"${ui.tests}/out/rect8_13.svg" : 
+		{
+			"scale_2" : 1289236162
+		},
+		"${ui.tests}/out/rect8_14.svg" : 
+		{
+			"scale_2" : 303505763
+		},
+		"${ui.tests}/out/rect8_15.svg" : 
+		{
+			"scale_2" : 1322087470
+		},
+		"${ui.tests}/out/rect8_16.svg" : 
+		{
+			"scale_2" : 2393738544
+		},
+		"${ui.tests}/out/rect8_17.svg" : 
+		{
+			"scale_2" : 778707147
+		},
+		"${ui.tests}/out/rect8_18.svg" : 
+		{
+			"scale_2" : 3260405767
+		},
+		"${ui.tests}/out/rect8_19.svg" : 
+		{
+			"scale_2" : 2845431276
+		},
+		"${ui.tests}/out/rect8_20.svg" : 
+		{
+			"scale_2" : 3133728034
+		},
+		"${ui.tests}/out/rect8_21.svg" : 
+		{
+			"scale_2" : 190217248
+		},
+		"${ui.tests}/out/rect8_22.svg" : 
+		{
+			"scale_2" : 509833194
+		},
+		"${ui.tests}/out/rect8_23.svg" : 
+		{
+			"scale_2" : 2767998139
+		},
+		"${ui.tests}/out/rect8_24.svg" : 
+		{
+			"scale_2" : 3317724006
+		},
+		"${ui.tests}/out/rect8_25.svg" : 
+		{
+			"scale_2" : 3010123945
+		},
+		"${ui.tests}/out/rect8_26.svg" : 
+		{
+			"scale_2" : 2439130624
+		},
+		"${ui.tests}/out/rect8_27.svg" : 
+		{
+			"scale_2" : 1900228400
+		},
+		"${ui.tests}/out/rect8_28.svg" : 
+		{
+			"scale_2" : 2757048385
+		},
+		"${ui.tests}/out/rect8_29.svg" : 
+		{
+			"scale_2" : 3509387207
+		},
+		"${ui.tests}/out/rect8_30.svg" : 
+		{
+			"scale_2" : 614829692
+		},
+		"${ui.tests}/out/rect8_31.svg" : 
+		{
+			"scale_2" : 3025934100
+		},
+		"${ui.tests}/out/rect8_32.svg" : 
+		{
+			"scale_2" : 2713018516
+		},
+		"${ui.tests}/out/rect8_33.svg" : 
+		{
+			"scale_2" : 769924292
+		},
+		"${ui.tests}/out/rect8_34.svg" : 
+		{
+			"scale_2" : 663543351
+		},
+		"${ui.tests}/out/rect8_35.svg" : 
+		{
+			"scale_2" : 3057617917
+		},
+		"${ui.tests}/out/rect8_36.svg" : 
+		{
+			"scale_2" : 3129311299
+		},
+		"${ui.tests}/out/rect8_37.svg" : 
+		{
+			"scale_2" : 4027160882
+		},
+		"${ui.tests}/out/rect8_38.svg" : 
+		{
+			"scale_2" : 2498369284
+		},
+		"${ui.tests}/out/rect8_39.svg" : 
+		{
+			"scale_2" : 2528313947
+		},
+		"${ui.tests}/out/rect8_40.svg" : 
+		{
+			"scale_2" : 1048788338
+		},
+		"${ui.tests}/out/rect8_41.svg" : 
+		{
+			"scale_2" : 1364505563
+		},
+		"${ui.tests}/out/rect8_42.svg" : 
+		{
+			"scale_2" : 468824317
+		},
+		"${ui.tests}/out/rect8_43.svg" : 
+		{
+			"scale_2" : 225541249
+		},
+		"${ui.tests}/out/rect8_44.svg" : 
+		{
+			"scale_2" : 2648163648
+		},
+		"${ui.tests}/out/rect8_45.svg" : 
+		{
+			"scale_2" : 2504250561
+		},
+		"${ui.tests}/out/rect8_46.svg" : 
+		{
+			"scale_2" : 748893519
+		},
+		"${ui.tests}/out/rect8_47.svg" : 
+		{
+			"scale_2" : 2971170865
+		},
+		"${ui.tests}/out/rect8_48.svg" : 
+		{
+			"scale_2" : 2856038904
+		},
+		"${ui.tests}/out/rect8_49.svg" : 
+		{
+			"scale_2" : 3596122322
+		},
+		"${ui.tests}/out/rect8_50.svg" : 
+		{
+			"scale_2" : 3121218024
+		},
+		"${ui.tests}/out/rect8_51.svg" : 
+		{
+			"scale_2" : 3010832421
+		},
+		"${ui.tests}/out/rect8_52.svg" : 
+		{
+			"scale_2" : 1764347023
+		},
+		"${ui.tests}/out/rect8_53.svg" : 
+		{
+			"scale_2" : 723648236
+		},
+		"${ui.tests}/out/rect8_54.svg" : 
+		{
+			"scale_2" : 1170267167
+		},
+		"${ui.tests}/out/rect8_55.svg" : 
+		{
+			"scale_2" : 2372130431
+		},
+		"${ui.tests}/out/rect8_56.svg" : 
+		{
+			"scale_2" : 543307659
+		},
+		"${ui.tests}/out/rect8_57.svg" : 
+		{
+			"scale_2" : 2330018577
+		},
+		"${ui.tests}/out/rect8_58.svg" : 
+		{
+			"scale_2" : 3065919717
+		},
+		"${ui.tests}/out/rect8_59.svg" : 
+		{
+			"scale_2" : 297680439
+		},
+		"${ui.tests}/out/rect8_60.svg" : 
+		{
+			"scale_2" : 1498754503
+		},
+		"${ui.tests}/out/rect8_61.svg" : 
+		{
+			"scale_2" : 4075819237
+		},
+		"${ui.tests}/out/rect8_62.svg" : 
+		{
+			"scale_2" : 682056068
+		},
+		"${ui.tests}/out/rect8_63.svg" : 
+		{
+			"scale_2" : 457414628
+		},
+		"${ui.tests}/out/rect8_64.svg" : 
+		{
+			"scale_2" : 124297159
+		},
+		"${ui.tests}/out/rect8_65.svg" : 
+		{
+			"scale_2" : 188018473
+		},
+		"${ui.tests}/out/rect8_66.svg" : 
+		{
+			"scale_2" : 1673590295
+		},
+		"${ui.tests}/out/rect8_67.svg" : 
+		{
+			"scale_2" : 190765402
+		},
+		"${ui.tests}/out/rect8_68.svg" : 
+		{
+			"scale_2" : 3357831793
+		},
+		"${ui.tests}/out/rect8_69.svg" : 
+		{
+			"scale_2" : 316493984
+		},
+		"${ui.tests}/out/rect8_70.svg" : 
+		{
+			"scale_2" : 2406408818
+		},
+		"${ui.tests}/out/rect8_71.svg" : 
+		{
+			"scale_2" : 882090327
+		},
+		"${ui.tests}/out/rect8_72.svg" : 
+		{
+			"scale_2" : 3322745960
+		},
+		"${ui.tests}/out/rect8_73.svg" : 
+		{
+			"scale_2" : 1705950806
+		},
+		"${ui.tests}/out/rect8_74.svg" : 
+		{
+			"scale_2" : 2183256446
+		},
+		"${ui.tests}/out/rect8_75.svg" : 
+		{
+			"scale_2" : 1854081679
+		},
+		"${ui.tests}/out/rect8_76.svg" : 
+		{
+			"scale_2" : 489857550
+		},
+		"${ui.tests}/out/rect8_77.svg" : 
+		{
+			"scale_2" : 4254966344
+		},
+		"${ui.tests}/out/rect8_78.svg" : 
+		{
+			"scale_2" : 1564301256
+		},
+		"${ui.tests}/out/rect8_79.svg" : 
+		{
+			"scale_2" : 3408380257
+		},
+		"${ui.tests}/out/rect8_80.svg" : 
+		{
+			"scale_2" : 493246384
+		},
+		"${ui.tests}/out/rect8_81.svg" : 
+		{
+			"scale_2" : 1264172303
+		},
+		"${ui.tests}/out/rect8_82.svg" : 
+		{
+			"scale_2" : 2798190350
+		},
+		"${ui.tests}/out/rect8_83.svg" : 
+		{
+			"scale_2" : 1148817634
+		},
+		"${ui.tests}/out/rect8_84.svg" : 
+		{
+			"scale_2" : 2318288979
+		},
+		"${ui.tests}/out/rect8_85.svg" : 
+		{
+			"scale_2" : 2549196605
+		},
+		"${ui.tests}/out/rect8_86.svg" : 
+		{
+			"scale_2" : 416091531
+		},
+		"${ui.tests}/out/rect8_87.svg" : 
+		{
+			"scale_2" : 1604424068
+		},
+		"${ui.tests}/out/rect8_88.svg" : 
+		{
+			"scale_2" : 1012833566
+		},
+		"${ui.tests}/out/rect8_89.svg" : 
+		{
+			"scale_2" : 1390973811
+		},
+		"${ui.tests}/out/rect8_90.svg" : 
+		{
+			"scale_2" : 732833610
+		},
+		"${ui.tests}/out/rect7_1.svg" : 
+		{
+			"scale_2" : 3725423322
+		},
+		"${ui.tests}/out/rect7_2.svg" : 
+		{
+			"scale_2" : 3624941440
+		},
+		"${ui.tests}/out/rect7_3.svg" : 
+		{
+			"scale_2" : 1880921522
+		},
+		"${ui.tests}/out/rect7_4.svg" : 
+		{
+			"scale_2" : 2316330359
+		},
+		"${ui.tests}/out/rect7_5.svg" : 
+		{
+			"scale_2" : 1869612207
+		},
+		"${ui.tests}/out/rect7_6.svg" : 
+		{
+			"scale_2" : 1382791461
+		},
+		"${ui.tests}/out/rect7_7.svg" : 
+		{
+			"scale_2" : 3206241848
+		},
+		"${ui.tests}/out/rect7_8.svg" : 
+		{
+			"scale_2" : 1245588325
+		},
+		"${ui.tests}/out/rect7_9.svg" : 
+		{
+			"scale_2" : 3515377432
+		},
+		"${ui.tests}/out/rect7_10.svg" : 
+		{
+			"scale_2" : 859744906
+		},
+		"${ui.tests}/out/rect7_11.svg" : 
+		{
+			"scale_2" : 1231876282
+		},
+		"${ui.tests}/out/rect7_12.svg" : 
+		{
+			"scale_2" : 4212042247
+		},
+		"${ui.tests}/out/rect7_13.svg" : 
+		{
+			"scale_2" : 3032658217
+		},
+		"${ui.tests}/out/rect7_14.svg" : 
+		{
+			"scale_2" : 601378119
+		},
+		"${ui.tests}/out/rect7_15.svg" : 
+		{
+			"scale_2" : 97477544
+		},
+		"${ui.tests}/out/rect7_16.svg" : 
+		{
+			"scale_2" : 149009391
+		},
+		"${ui.tests}/out/rect7_17.svg" : 
+		{
+			"scale_2" : 2054894723
+		},
+		"${ui.tests}/out/rect7_18.svg" : 
+		{
+			"scale_2" : 755540114
+		},
+		"${ui.tests}/out/rect7_19.svg" : 
+		{
+			"scale_2" : 3903074007
+		},
+		"${ui.tests}/out/rect7_20.svg" : 
+		{
+			"scale_2" : 2127029201
+		},
+		"${ui.tests}/out/rect7_21.svg" : 
+		{
+			"scale_2" : 190217248
+		},
+		"${ui.tests}/out/rect7_22.svg" : 
+		{
+			"scale_2" : 509833194
+		},
+		"${ui.tests}/out/rect7_23.svg" : 
+		{
+			"scale_2" : 463072920
+		},
+		"${ui.tests}/out/rect7_24.svg" : 
+		{
+			"scale_2" : 1059169908
+		},
+		"${ui.tests}/out/rect7_25.svg" : 
+		{
+			"scale_2" : 1359516512
+		},
+		"${ui.tests}/out/rect7_26.svg" : 
+		{
+			"scale_2" : 2241701389
+		},
+		"${ui.tests}/out/rect7_27.svg" : 
+		{
+			"scale_2" : 3505318464
+		},
+		"${ui.tests}/out/rect7_28.svg" : 
+		{
+			"scale_2" : 1625346308
+		},
+		"${ui.tests}/out/rect7_29.svg" : 
+		{
+			"scale_2" : 3382853629
+		},
+		"${ui.tests}/out/rect7_30.svg" : 
+		{
+			"scale_2" : 1918952858
+		},
+		"${ui.tests}/out/rect7_31.svg" : 
+		{
+			"scale_2" : 3025934100
+		},
+		"${ui.tests}/out/rect7_32.svg" : 
+		{
+			"scale_2" : 2713018516
+		},
+		"${ui.tests}/out/rect7_33.svg" : 
+		{
+			"scale_2" : 769924292
+		},
+		"${ui.tests}/out/rect7_34.svg" : 
+		{
+			"scale_2" : 3263623548
+		},
+		"${ui.tests}/out/rect7_35.svg" : 
+		{
+			"scale_2" : 989079130
+		},
+		"${ui.tests}/out/rect7_36.svg" : 
+		{
+			"scale_2" : 107017021
+		},
+		"${ui.tests}/out/rect7_37.svg" : 
+		{
+			"scale_2" : 1896542362
+		},
+		"${ui.tests}/out/rect7_38.svg" : 
+		{
+			"scale_2" : 2088572334
+		},
+		"${ui.tests}/out/rect7_39.svg" : 
+		{
+			"scale_2" : 1792819043
+		},
+		"${ui.tests}/out/rect7_40.svg" : 
+		{
+			"scale_2" : 769304282
+		},
+		"${ui.tests}/out/rect7_41.svg" : 
+		{
+			"scale_2" : 1364505563
+		},
+		"${ui.tests}/out/rect7_42.svg" : 
+		{
+			"scale_2" : 468824317
+		},
+		"${ui.tests}/out/rect7_43.svg" : 
+		{
+			"scale_2" : 225541249
+		},
+		"${ui.tests}/out/rect7_44.svg" : 
+		{
+			"scale_2" : 966452787
+		},
+		"${ui.tests}/out/rect7_45.svg" : 
+		{
+			"scale_2" : 3553822944
+		},
+		"${ui.tests}/out/rect7_46.svg" : 
+		{
+			"scale_2" : 2524724938
+		},
+		"${ui.tests}/out/rect7_47.svg" : 
+		{
+			"scale_2" : 382444299
+		},
+		"${ui.tests}/out/rect7_48.svg" : 
+		{
+			"scale_2" : 3846256358
+		},
+		"${ui.tests}/out/rect7_49.svg" : 
+		{
+			"scale_2" : 1686117961
+		},
+		"${ui.tests}/out/rect7_50.svg" : 
+		{
+			"scale_2" : 3977879932
+		},
+		"${ui.tests}/out/rect7_51.svg" : 
+		{
+			"scale_2" : 3010832421
+		},
+		"${ui.tests}/out/rect7_52.svg" : 
+		{
+			"scale_2" : 1764347023
+		},
+		"${ui.tests}/out/rect7_53.svg" : 
+		{
+			"scale_2" : 723648236
+		},
+		"${ui.tests}/out/rect7_54.svg" : 
+		{
+			"scale_2" : 1170267167
+		},
+		"${ui.tests}/out/rect7_55.svg" : 
+		{
+			"scale_2" : 1460978154
+		},
+		"${ui.tests}/out/rect7_56.svg" : 
+		{
+			"scale_2" : 204305030
+		},
+		"${ui.tests}/out/rect7_57.svg" : 
+		{
+			"scale_2" : 2296802700
+		},
+		"${ui.tests}/out/rect7_58.svg" : 
+		{
+			"scale_2" : 519654806
+		},
+		"${ui.tests}/out/rect7_59.svg" : 
+		{
+			"scale_2" : 2765829320
+		},
+		"${ui.tests}/out/rect7_60.svg" : 
+		{
+			"scale_2" : 3934015336
+		},
+		"${ui.tests}/out/rect7_61.svg" : 
+		{
+			"scale_2" : 4075819237
+		},
+		"${ui.tests}/out/rect7_62.svg" : 
+		{
+			"scale_2" : 682056068
+		},
+		"${ui.tests}/out/rect7_63.svg" : 
+		{
+			"scale_2" : 457414628
+		},
+		"${ui.tests}/out/rect7_64.svg" : 
+		{
+			"scale_2" : 124297159
+		},
+		"${ui.tests}/out/rect7_65.svg" : 
+		{
+			"scale_2" : 2798911277
+		},
+		"${ui.tests}/out/rect7_66.svg" : 
+		{
+			"scale_2" : 1921189362
+		},
+		"${ui.tests}/out/rect7_67.svg" : 
+		{
+			"scale_2" : 651960577
+		},
+		"${ui.tests}/out/rect7_68.svg" : 
+		{
+			"scale_2" : 3809412850
+		},
+		"${ui.tests}/out/rect7_69.svg" : 
+		{
+			"scale_2" : 1187336611
+		},
+		"${ui.tests}/out/rect7_70.svg" : 
+		{
+			"scale_2" : 768132991
+		},
+		"${ui.tests}/out/rect7_71.svg" : 
+		{
+			"scale_2" : 882090327
+		},
+		"${ui.tests}/out/rect7_72.svg" : 
+		{
+			"scale_2" : 3322745960
+		},
+		"${ui.tests}/out/rect7_73.svg" : 
+		{
+			"scale_2" : 1705950806
+		},
+		"${ui.tests}/out/rect7_74.svg" : 
+		{
+			"scale_2" : 2183256446
+		},
+		"${ui.tests}/out/rect7_75.svg" : 
+		{
+			"scale_2" : 1854081679
+		},
+		"${ui.tests}/out/rect7_76.svg" : 
+		{
+			"scale_2" : 1283121061
+		},
+		"${ui.tests}/out/rect7_77.svg" : 
+		{
+			"scale_2" : 509603683
+		},
+		"${ui.tests}/out/rect7_78.svg" : 
+		{
+			"scale_2" : 3825688102
+		},
+		"${ui.tests}/out/rect7_79.svg" : 
+		{
+			"scale_2" : 840046869
+		},
+		"${ui.tests}/out/rect7_80.svg" : 
+		{
+			"scale_2" : 598319969
+		},
+		"${ui.tests}/out/rect7_81.svg" : 
+		{
+			"scale_2" : 1264172303
+		},
+		"${ui.tests}/out/rect7_82.svg" : 
+		{
+			"scale_2" : 2798190350
+		},
+		"${ui.tests}/out/rect7_83.svg" : 
+		{
+			"scale_2" : 1148817634
+		},
+		"${ui.tests}/out/rect7_84.svg" : 
+		{
+			"scale_2" : 2318288979
+		},
+		"${ui.tests}/out/rect7_85.svg" : 
+		{
+			"scale_2" : 2549196605
+		},
+		"${ui.tests}/out/rect7_86.svg" : 
+		{
+			"scale_2" : 416091531
+		},
+		"${ui.tests}/out/rect7_87.svg" : 
+		{
+			"scale_2" : 1604424068
+		},
+		"${ui.tests}/out/rect7_88.svg" : 
+		{
+			"scale_2" : 1012833566
+		},
+		"${ui.tests}/out/rect7_89.svg" : 
+		{
+			"scale_2" : 1390973811
+		},
+		"${ui.tests}/out/rect7_90.svg" : 
+		{
+			"scale_2" : 105853367
+		},
+		"${ui.tests}/out/rect6_1.svg" : 
+		{
+			"scale_2" : 3725423322
+		},
+		"${ui.tests}/out/rect6_2.svg" : 
+		{
+			"scale_2" : 1583534828
+		},
+		"${ui.tests}/out/rect6_3.svg" : 
+		{
+			"scale_2" : 3453711795
+		},
+		"${ui.tests}/out/rect6_4.svg" : 
+		{
+			"scale_2" : 584627570
+		},
+		"${ui.tests}/out/rect6_5.svg" : 
+		{
+			"scale_2" : 2930592206
+		},
+		"${ui.tests}/out/rect6_6.svg" : 
+		{
+			"scale_2" : 698191488
+		},
+		"${ui.tests}/out/rect6_7.svg" : 
+		{
+			"scale_2" : 3695613814
+		},
+		"${ui.tests}/out/rect6_8.svg" : 
+		{
+			"scale_2" : 3794150232
+		},
+		"${ui.tests}/out/rect6_9.svg" : 
+		{
+			"scale_2" : 3204171637
+		},
+		"${ui.tests}/out/rect6_10.svg" : 
+		{
+			"scale_2" : 3364763314
+		},
+		"${ui.tests}/out/rect6_11.svg" : 
+		{
+			"scale_2" : 1501747808
+		},
+		"${ui.tests}/out/rect6_12.svg" : 
+		{
+			"scale_2" : 1231876282
+		},
+		"${ui.tests}/out/rect6_13.svg" : 
+		{
+			"scale_2" : 49336515
+		},
+		"${ui.tests}/out/rect6_14.svg" : 
+		{
+			"scale_2" : 3416936448
+		},
+		"${ui.tests}/out/rect6_15.svg" : 
+		{
+			"scale_2" : 3709684145
+		},
+		"${ui.tests}/out/rect6_16.svg" : 
+		{
+			"scale_2" : 1792905960
+		},
+		"${ui.tests}/out/rect6_17.svg" : 
+		{
+			"scale_2" : 506380619
+		},
+		"${ui.tests}/out/rect6_18.svg" : 
+		{
+			"scale_2" : 599792085
+		},
+		"${ui.tests}/out/rect6_19.svg" : 
+		{
+			"scale_2" : 335077968
+		},
+		"${ui.tests}/out/rect6_20.svg" : 
+		{
+			"scale_2" : 2020017099
+		},
+		"${ui.tests}/out/rect6_21.svg" : 
+		{
+			"scale_2" : 3783675266
+		},
+		"${ui.tests}/out/rect6_22.svg" : 
+		{
+			"scale_2" : 3647593200
+		},
+		"${ui.tests}/out/rect6_23.svg" : 
+		{
+			"scale_2" : 190217248
+		},
+		"${ui.tests}/out/rect6_24.svg" : 
+		{
+			"scale_2" : 4227933219
+		},
+		"${ui.tests}/out/rect6_25.svg" : 
+		{
+			"scale_2" : 517634240
+		},
+		"${ui.tests}/out/rect6_26.svg" : 
+		{
+			"scale_2" : 3316533532
+		},
+		"${ui.tests}/out/rect6_27.svg" : 
+		{
+			"scale_2" : 4094067921
+		},
+		"${ui.tests}/out/rect6_28.svg" : 
+		{
+			"scale_2" : 133870638
+		},
+		"${ui.tests}/out/rect6_29.svg" : 
+		{
+			"scale_2" : 2545234486
+		},
+		"${ui.tests}/out/rect6_30.svg" : 
+		{
+			"scale_2" : 257894588
+		},
+		"${ui.tests}/out/rect6_31.svg" : 
+		{
+			"scale_2" : 417585330
+		},
+		"${ui.tests}/out/rect6_32.svg" : 
+		{
+			"scale_2" : 2110387924
+		},
+		"${ui.tests}/out/rect6_33.svg" : 
+		{
+			"scale_2" : 1900414030
+		},
+		"${ui.tests}/out/rect6_34.svg" : 
+		{
+			"scale_2" : 3025934100
+		},
+		"${ui.tests}/out/rect6_35.svg" : 
+		{
+			"scale_2" : 3535595025
+		},
+		"${ui.tests}/out/rect6_36.svg" : 
+		{
+			"scale_2" : 2011270643
+		},
+		"${ui.tests}/out/rect6_37.svg" : 
+		{
+			"scale_2" : 4037684789
+		},
+		"${ui.tests}/out/rect6_38.svg" : 
+		{
+			"scale_2" : 3778840264
+		},
+		"${ui.tests}/out/rect6_39.svg" : 
+		{
+			"scale_2" : 918760927
+		},
+		"${ui.tests}/out/rect6_40.svg" : 
+		{
+			"scale_2" : 450477962
+		},
+		"${ui.tests}/out/rect6_41.svg" : 
+		{
+			"scale_2" : 531822838
+		},
+		"${ui.tests}/out/rect6_42.svg" : 
+		{
+			"scale_2" : 2727269866
+		},
+		"${ui.tests}/out/rect6_43.svg" : 
+		{
+			"scale_2" : 159900693
+		},
+		"${ui.tests}/out/rect6_44.svg" : 
+		{
+			"scale_2" : 3907878719
+		},
+		"${ui.tests}/out/rect6_45.svg" : 
+		{
+			"scale_2" : 1364505563
+		},
+		"${ui.tests}/out/rect6_46.svg" : 
+		{
+			"scale_2" : 3156372423
+		},
+		"${ui.tests}/out/rect6_47.svg" : 
+		{
+			"scale_2" : 1108081567
+		},
+		"${ui.tests}/out/rect6_48.svg" : 
+		{
+			"scale_2" : 1058723055
+		},
+		"${ui.tests}/out/rect6_49.svg" : 
+		{
+			"scale_2" : 3374066851
+		},
+		"${ui.tests}/out/rect6_50.svg" : 
+		{
+			"scale_2" : 133575589
+		},
+		"${ui.tests}/out/rect6_51.svg" : 
+		{
+			"scale_2" : 225868216
+		},
+		"${ui.tests}/out/rect6_52.svg" : 
+		{
+			"scale_2" : 2149608679
+		},
+		"${ui.tests}/out/rect6_53.svg" : 
+		{
+			"scale_2" : 1760494850
+		},
+		"${ui.tests}/out/rect6_54.svg" : 
+		{
+			"scale_2" : 1211939976
+		},
+		"${ui.tests}/out/rect6_55.svg" : 
+		{
+			"scale_2" : 819696022
+		},
+		"${ui.tests}/out/rect6_56.svg" : 
+		{
+			"scale_2" : 3010832421
+		},
+		"${ui.tests}/out/rect6_57.svg" : 
+		{
+			"scale_2" : 1031393724
+		},
+		"${ui.tests}/out/rect6_58.svg" : 
+		{
+			"scale_2" : 2655319059
+		},
+		"${ui.tests}/out/rect6_59.svg" : 
+		{
+			"scale_2" : 305117214
+		},
+		"${ui.tests}/out/rect6_60.svg" : 
+		{
+			"scale_2" : 3882915254
+		},
+		"${ui.tests}/out/rect6_61.svg" : 
+		{
+			"scale_2" : 59263721
+		},
+		"${ui.tests}/out/rect6_62.svg" : 
+		{
+			"scale_2" : 3592240462
+		},
+		"${ui.tests}/out/rect6_63.svg" : 
+		{
+			"scale_2" : 3504018720
+		},
+		"${ui.tests}/out/rect6_64.svg" : 
+		{
+			"scale_2" : 2739458846
+		},
+		"${ui.tests}/out/rect6_65.svg" : 
+		{
+			"scale_2" : 2435567581
+		},
+		"${ui.tests}/out/rect6_66.svg" : 
+		{
+			"scale_2" : 90679180
+		},
+		"${ui.tests}/out/rect6_67.svg" : 
+		{
+			"scale_2" : 4075819237
+		},
+		"${ui.tests}/out/rect6_68.svg" : 
+		{
+			"scale_2" : 2092914823
+		},
+		"${ui.tests}/out/rect6_69.svg" : 
+		{
+			"scale_2" : 2333089848
+		},
+		"${ui.tests}/out/rect6_70.svg" : 
+		{
+			"scale_2" : 979919754
+		},
+		"${ui.tests}/out/rect6_71.svg" : 
+		{
+			"scale_2" : 3637008731
+		},
+		"${ui.tests}/out/rect6_72.svg" : 
+		{
+			"scale_2" : 413802610
+		},
+		"${ui.tests}/out/rect6_73.svg" : 
+		{
+			"scale_2" : 3048024352
+		},
+		"${ui.tests}/out/rect6_74.svg" : 
+		{
+			"scale_2" : 2423890416
+		},
+		"${ui.tests}/out/rect6_75.svg" : 
+		{
+			"scale_2" : 3469093339
+		},
+		"${ui.tests}/out/rect6_76.svg" : 
+		{
+			"scale_2" : 3576632141
+		},
+		"${ui.tests}/out/rect6_77.svg" : 
+		{
+			"scale_2" : 1445526462
+		},
+		"${ui.tests}/out/rect6_78.svg" : 
+		{
+			"scale_2" : 882090327
+		},
+		"${ui.tests}/out/rect6_79.svg" : 
+		{
+			"scale_2" : 664565091
+		},
+		"${ui.tests}/out/rect6_80.svg" : 
+		{
+			"scale_2" : 3344029333
+		},
+		"${ui.tests}/out/rect6_81.svg" : 
+		{
+			"scale_2" : 2911775446
+		},
+		"${ui.tests}/out/rect6_82.svg" : 
+		{
+			"scale_2" : 2034927328
+		},
+		"${ui.tests}/out/rect6_83.svg" : 
+		{
+			"scale_2" : 1678714473
+		},
+		"${ui.tests}/out/rect6_84.svg" : 
+		{
+			"scale_2" : 3578139783
+		},
+		"${ui.tests}/out/rect6_85.svg" : 
+		{
+			"scale_2" : 3159697530
+		},
+		"${ui.tests}/out/rect6_86.svg" : 
+		{
+			"scale_2" : 242493184
+		},
+		"${ui.tests}/out/rect6_87.svg" : 
+		{
+			"scale_2" : 3111771593
+		},
+		"${ui.tests}/out/rect6_88.svg" : 
+		{
+			"scale_2" : 3600805213
+		},
+		"${ui.tests}/out/rect6_89.svg" : 
+		{
+			"scale_2" : 1264172303
+		},
+		"${ui.tests}/out/rect6_90.svg" : 
+		{
+			"scale_2" : 4038493923
+		},
+		"${ui.tests}/out/rect6_91.svg" : 
+		{
+			"scale_2" : 4259176153
+		},
+		"${ui.tests}/out/rect6_92.svg" : 
+		{
+			"scale_2" : 286781413
+		},
+		"${ui.tests}/out/rect6_93.svg" : 
+		{
+			"scale_2" : 50241276
+		},
+		"${ui.tests}/out/rect6_94.svg" : 
+		{
+			"scale_2" : 3939018197
+		},
+		"${ui.tests}/out/rect6_95.svg" : 
+		{
+			"scale_2" : 2508231147
+		},
+		"${ui.tests}/out/rect6_96.svg" : 
+		{
+			"scale_2" : 1878381020
+		},
+		"${ui.tests}/out/rect6_97.svg" : 
+		{
+			"scale_2" : 3368149784
+		},
+		"${ui.tests}/out/rect6_98.svg" : 
+		{
+			"scale_2" : 3175652701
+		},
+		"${ui.tests}/out/rect6_99.svg" : 
+		{
+			"scale_2" : 1165108265
+		},
+		"${ui.tests}/out/rect6_100.svg" : 
+		{
+			"scale_2" : 3049206024
+		},
+		"${ui.tests}/out/rect6_101.svg" : 
+		{
+			"scale_2" : 289824497
+		},
+		"${ui.tests}/out/rect6_102.svg" : 
+		{
+			"scale_2" : 249725653
+		},
+		"${ui.tests}/out/rect6_103.svg" : 
+		{
+			"scale_2" : 3562238147
+		},
+		"${ui.tests}/out/rect6_104.svg" : 
+		{
+			"scale_2" : 197611331
+		},
+		"${ui.tests}/out/rect6_105.svg" : 
+		{
+			"scale_2" : 1664351402
+		},
+		"${ui.tests}/out/rect6_106.svg" : 
+		{
+			"scale_2" : 1869741078
+		},
+		"${ui.tests}/out/rect6_107.svg" : 
+		{
+			"scale_2" : 375300456
+		},
+		"${ui.tests}/out/rect6_108.svg" : 
+		{
+			"scale_2" : 533270828
+		},
+		"${ui.tests}/out/rect6_109.svg" : 
+		{
+			"scale_2" : 1716286095
+		},
+		"${ui.tests}/out/rect6_110.svg" : 
+		{
+			"scale_2" : 2147057262
+		},
+		"${ui.tests}/out/rect4.svg" : 
+		{
+			"scale_2" : 3726126237
+		},
+		"${ui.tests}/out/rect3.svg" : 
+		{
+			"scale_2" : 2169364120
+		},
+		"${ui.tests}/out/rect2.svg" : 
+		{
+			"scale_2" : 1327042460
+		},
+		"${ui.tests}/out/rect1.svg" : 
+		{
+			"scale_2" : 2488324352
+		},
+		"${ui.tests}/out/pie4_1.svg" : 
+		{
+			"scale_2" : 3418711443
+		},
+		"${ui.tests}/out/pie4_2.svg" : 
+		{
+			"scale_2" : 359225551
+		},
+		"${ui.tests}/out/pie4_3.svg" : 
+		{
+			"scale_2" : 2055710254
+		},
+		"${ui.tests}/out/pie4_4.svg" : 
+		{
+			"scale_2" : 2179566211
+		},
+		"${ui.tests}/out/pie4_5.svg" : 
+		{
+			"scale_2" : 1436832243
+		},
+		"${ui.tests}/out/pie4_6.svg" : 
+		{
+			"scale_2" : 1549242989
+		},
+		"${ui.tests}/out/pie4_7.svg" : 
+		{
+			"scale_2" : 589102145
+		},
+		"${ui.tests}/out/pie3.svg" : 
+		{
+			"scale_2" : 1453223287
+		},
+		"${ui.tests}/out/pie2_1.svg" : 
+		{
+			"scale_2" : 2851945952
+		},
+		"${ui.tests}/out/pie2_2.svg" : 
+		{
+			"scale_2" : 425675168
+		},
+		"${ui.tests}/out/pie2_3.svg" : 
+		{
+			"scale_2" : 2380557324
+		},
+		"${ui.tests}/out/pie2_4.svg" : 
+		{
+			"scale_2" : 3388406345
+		},
+		"${ui.tests}/out/pie2_5.svg" : 
+		{
+			"scale_2" : 1125752284
+		},
+		"${ui.tests}/out/pie2_6.svg" : 
+		{
+			"scale_2" : 596307287
+		},
+		"${ui.tests}/out/pie2_7.svg" : 
+		{
+			"scale_2" : 2014098774
+		},
+		"${ui.tests}/out/pie2_8.svg" : 
+		{
+			"scale_2" : 1067828885
+		},
+		"${ui.tests}/out/pie2_9.svg" : 
+		{
+			"scale_2" : 3372374912
+		},
+		"${ui.tests}/out/pie2_10.svg" : 
+		{
+			"scale_2" : 3437413935
+		},
+		"${ui.tests}/out/pie2_11.svg" : 
+		{
+			"scale_2" : 2164194034
+		},
+		"${ui.tests}/out/pie1_0.svg" : 
+		{
+			"scale_2" : 1853220559
+		},
+		"${ui.tests}/out/pie1_1.svg" : 
+		{
+			"scale_2" : 852619336
+		},
+		"${ui.tests}/out/pie1_2.svg" : 
+		{
+			"scale_2" : 1242169471
+		},
+		"${ui.tests}/out/pie1_3.svg" : 
+		{
+			"scale_2" : 2940520863
+		},
+		"${ui.tests}/out/pie1_4.svg" : 
+		{
+			"scale_2" : 3273487813
+		},
+		"${ui.tests}/out/pie1_5.svg" : 
+		{
+			"scale_2" : 2955482981
+		},
+		"${ui.tests}/out/pie1_6.svg" : 
+		{
+			"scale_2" : 3426635971
+		},
+		"${ui.tests}/out/grid5_1.svg" : 
+		{
+			"scale_2" : 4227168691
+		},
+		"${ui.tests}/out/grid5_2.svg" : 
+		{
+			"scale_2" : 60243856
+		},
+		"${ui.tests}/out/grid5_3.svg" : 
+		{
+			"scale_2" : 2891932867
+		},
+		"${ui.tests}/out/grid5_4.svg" : 
+		{
+			"scale_2" : 819635920
+		},
+		"${ui.tests}/out/grid5_5.svg" : 
+		{
+			"scale_2" : 4228049914
+		},
+		"${ui.tests}/out/grid5_6.svg" : 
+		{
+			"scale_2" : 623277823
+		},
+		"${ui.tests}/out/grid5_7.svg" : 
+		{
+			"scale_2" : 1775658068
+		},
+		"${ui.tests}/out/grid5_8.svg" : 
+		{
+			"scale_2" : 855635511
+		},
+		"${ui.tests}/out/grid5_9.svg" : 
+		{
+			"scale_2" : 4227168691
+		},
+		"${ui.tests}/out/grid5_10.svg" : 
+		{
+			"scale_2" : 60243856
+		},
+		"${ui.tests}/out/grid5_11.svg" : 
+		{
+			"scale_2" : 180778998
+		},
+		"${ui.tests}/out/grid5_12.svg" : 
+		{
+			"scale_2" : 4208791406
+		},
+		"${ui.tests}/out/grid5_13.svg" : 
+		{
+			"scale_2" : 3611183890
+		},
+		"${ui.tests}/out/grid5_14.svg" : 
+		{
+			"scale_2" : 1597336274
+		},
+		"${ui.tests}/out/grid5_15.svg" : 
+		{
+			"scale_2" : 3970622731
+		},
+		"${ui.tests}/out/grid5_16.svg" : 
+		{
+			"scale_2" : 4081421995
+		},
+		"${ui.tests}/out/grid4_1.svg" : 
+		{
+			"scale_2" : 4227168691
+		},
+		"${ui.tests}/out/grid4_2.svg" : 
+		{
+			"scale_2" : 60243856
+		},
+		"${ui.tests}/out/grid4_3.svg" : 
+		{
+			"scale_2" : 180778998
+		},
+		"${ui.tests}/out/grid4_4.svg" : 
+		{
+			"scale_2" : 232728343
+		},
+		"${ui.tests}/out/grid4_5.svg" : 
+		{
+			"scale_2" : 1005126609
+		},
+		"${ui.tests}/out/grid4_6.svg" : 
+		{
+			"scale_2" : 1411825378
+		},
+		"${ui.tests}/out/grid4_7.svg" : 
+		{
+			"scale_2" : 1094915443
+		},
+		"${ui.tests}/out/grid4_8.svg" : 
+		{
+			"scale_2" : 3907405742
+		},
+		"${ui.tests}/out/grid4_9.svg" : 
+		{
+			"scale_2" : 4227168691
+		},
+		"${ui.tests}/out/grid4_10.svg" : 
+		{
+			"scale_2" : 60243856
+		},
+		"${ui.tests}/out/grid4_11.svg" : 
+		{
+			"scale_2" : 2241898136
+		},
+		"${ui.tests}/out/grid4_12.svg" : 
+		{
+			"scale_2" : 879856806
+		},
+		"${ui.tests}/out/grid4_13.svg" : 
+		{
+			"scale_2" : 4127358123
+		},
+		"${ui.tests}/out/grid4_14.svg" : 
+		{
+			"scale_2" : 2084257316
+		},
+		"${ui.tests}/out/grid4_15.svg" : 
+		{
+			"scale_2" : 1244217547
+		},
+		"${ui.tests}/out/grid4_16.svg" : 
+		{
+			"scale_2" : 3370629387
+		},
+		"${ui.tests}/out/grid3_1.svg" : 
+		{
+			"scale_2" : 2052949069
+		},
+		"${ui.tests}/out/grid3_2.svg" : 
+		{
+			"scale_2" : 54760005
+		},
+		"${ui.tests}/out/grid3_3.svg" : 
+		{
+			"scale_2" : 741781073
+		},
+		"${ui.tests}/out/grid3_4.svg" : 
+		{
+			"scale_2" : 3700490844
+		},
+		"${ui.tests}/out/grid3_5.svg" : 
+		{
+			"scale_2" : 2881569907
+		},
+		"${ui.tests}/out/grid3_6.svg" : 
+		{
+			"scale_2" : 2109931860
+		},
+		"${ui.tests}/out/grid3_7.svg" : 
+		{
+			"scale_2" : 2552518214
+		},
+		"${ui.tests}/out/grid3_8.svg" : 
+		{
+			"scale_2" : 1022947475
+		},
+		"${ui.tests}/out/grid2_1.svg" : 
+		{
+			"scale_2" : 1307489742
+		},
+		"${ui.tests}/out/grid2_2.svg" : 
+		{
+			"scale_2" : 2788842546
+		},
+		"${ui.tests}/out/grid2_3.svg" : 
+		{
+			"scale_2" : 3639495406
+		},
+		"${ui.tests}/out/grid2_4.svg" : 
+		{
+			"scale_2" : 23969551
+		},
+		"${ui.tests}/out/grid2_5.svg" : 
+		{
+			"scale_2" : 753600738
+		},
+		"${ui.tests}/out/grid2_6.svg" : 
+		{
+			"scale_2" : 2865561467
+		},
+		"${ui.tests}/out/grid2_7.svg" : 
+		{
+			"scale_2" : 965500091
+		},
+		"${ui.tests}/out/grid2_8.svg" : 
+		{
+			"scale_2" : 3566511994
+		},
+		"${ui.tests}/out/grid1_1.svg" : 
+		{
+			"scale_2" : 747847024
+		},
+		"${ui.tests}/out/grid1_2.svg" : 
+		{
+			"scale_2" : 3090447692
+		},
+		"${ui.tests}/out/grid1_3.svg" : 
+		{
+			"scale_2" : 2636552249
+		},
+		"${ui.tests}/out/grid1_4.svg" : 
+		{
+			"scale_2" : 947746159
+		},
+		"${ui.tests}/out/grid1_5.svg" : 
+		{
+			"scale_2" : 2267727234
+		},
+		"${ui.tests}/out/grid1_6.svg" : 
+		{
+			"scale_2" : 366638987
+		},
+		"${ui.tests}/out/grid1_7.svg" : 
+		{
+			"scale_2" : 2837196541
+		},
+		"${ui.tests}/out/grid1_8.svg" : 
+		{
+			"scale_2" : 1422776404
+		},
+		"${ui.tests}/out/grid1_9.svg" : 
+		{
+			"scale_2" : 1671178632
+		},
+		"${ui.tests}/out/text1.svg" : 
+		{
+			"scale_2" : 3620913351
+		},
+		"${ui.tests}/out/text2.svg" : 
+		{
+			"scale_2" : 119147256
+		},
+		"${ui.tests}/out/text3.svg" : 
+		{
+			"scale_2" : 3900143496
+		},
+		"${ui.tests}/out/linechart.svg" : 
+		{
+			"scale_2" : 2328479071
+		},
+		"${ui.tests}/out/compass1.svg" : 
+		{
+			"scale_2" : 3792829993
+		},
+		"${ui.tests}/out/line1.svg" : 
+		{
+			"scale_2" : 2621795062
+		},
+		"${ui.tests}/out/circle.svg" : 
+		{
+			"scale_2" : 1153323831
+		},
+		"${ui.tests}/out/triangle.svg" : 
+		{
+			"scale_2" : 3829514848
+		},
+		"${ui.tests}/out/square.svg" : 
+		{
+			"scale_2" : 909439535
+		},
+		"${ui.tests}/out/cross.svg" : 
+		{
+			"scale_2" : 2135297302
+		},
+		"${ui.tests}/out/polyline2.svg" : 
+		{
+			"scale_2" : 3024907053
+		},
+		"${ui.tests}/out/polylines1_1.svg" : 
+		{
+			"scale_2" : 3721593319
+		},
+		"${ui.tests}/out/polylines1_2.svg" : 
+		{
+			"scale_2" : 1873164117
+		},
+		"${ui.tests}/out/polylines1_3.svg" : 
+		{
+			"scale_2" : 3239192286
+		},
+		"${ui.tests}/out/polylines1_4.svg" : 
+		{
+			"scale_2" : 3315650346
+		},
+		"${ui.tests}/out/polylines1_5.svg" : 
+		{
+			"scale_2" : 731683628
+		},
+		"${ui.tests}/out/polylines1_6.svg" : 
+		{
+			"scale_2" : 1007746401
+		},
+		"${ui.tests}/out/polylines1_7.svg" : 
+		{
+			"scale_2" : 16360964
+		},
+		"${ui.tests}/out/polylines1_8.svg" : 
+		{
+			"scale_2" : 1761884245
+		},
+		"${ui.tests}/out/polylines1_9.svg" : 
+		{
+			"scale_2" : 3503644874
+		},
+		"${ui.tests}/out/polylines1_10.svg" : 
+		{
+			"scale_2" : 462534630
+		},
+		"${ui.tests}/out/polyline0_1.svg" : 
+		{
+			"scale_2" : 336658233
+		},
+		"${ui.tests}/out/polyline0_2.svg" : 
+		{
+			"scale_2" : 3327723164
+		},
+		"${ui.tests}/out/polyline0_3.svg" : 
+		{
+			"scale_2" : 3335050106
+		},
+		"${ui.tests}/out/polyline0_4.svg" : 
+		{
+			"scale_2" : 2834301031
+		},
+		"${ui.tests}/out/polyline0_5.svg" : 
+		{
+			"scale_2" : 2338843114
+		},
+		"${ui.tests}/out/polyline0_6.svg" : 
+		{
+			"scale_2" : 192741841
+		},
+		"${ui.tests}/out/polyline0_7.svg" : 
+		{
+			"scale_2" : 3748703830
+		},
+		"${ui.tests}/out/polyline0_8.svg" : 
+		{
+			"scale_2" : 1735769124
+		},
+		"${ui.tests}/out/polyline0_9.svg" : 
+		{
+			"scale_2" : 1472680670
+		},
+		"${ui.tests}/out/polyline0_10.svg" : 
+		{
+			"scale_2" : 2610235587
+		},
+		"${ui.tests}/out/polyline0_11.svg" : 
+		{
+			"scale_2" : 1160889963
+		},
+		"${ui.tests}/out/polyline0_12.svg" : 
+		{
+			"scale_2" : 2742594098
+		},
+		"${ui.tests}/out/polyline0_13.svg" : 
+		{
+			"scale_2" : 911148328
+		},
+		"${ui.tests}/out/polyline0_14.svg" : 
+		{
+			"scale_2" : 170659230
+		},
+		"${ui.tests}/out/polyline0_15.svg" : 
+		{
+			"scale_2" : 1797492772
+		},
+		"${ui.tests}/out/polyline0_16.svg" : 
+		{
+			"scale_2" : 2586886181
+		},
+		"${ui.tests}/out/polyline0_17.svg" : 
+		{
+			"scale_2" : 3868380531
+		},
+		"${ui.tests}/out/polyline0_18.svg" : 
+		{
+			"scale_2" : 2403889242
+		},
+		"${ui.tests}/out/polyline0_19.svg" : 
+		{
+			"scale_2" : 3412309666
+		},
+		"${ui.tests}/out/polyline0_20.svg" : 
+		{
+			"scale_2" : 576447910
+		},
+		"${ui.tests}/out/polyline0_21.svg" : 
+		{
+			"scale_2" : 1783273872
+		},
+		"${ui.tests}/out/polyline0_22.svg" : 
+		{
+			"scale_2" : 684207889
+		},
+		"${ui.tests}/out/polyline0_23.svg" : 
+		{
+			"scale_2" : 3961689115
+		},
+		"${ui.tests}/out/polyline0_24.svg" : 
+		{
+			"scale_2" : 4097060424
+		},
+		"${ui.tests}/out/polyline0_25.svg" : 
+		{
+			"scale_2" : 1285420160
+		},
+		"${ui.tests}/out/polyline0_26.svg" : 
+		{
+			"scale_2" : 1680844716
+		},
+		"${ui.tests}/out/polyline0_27.svg" : 
+		{
+			"scale_2" : 3181610565
+		},
+		"${ui.tests}/out/polyline0_28.svg" : 
+		{
+			"scale_2" : 949454876
+		},
+		"${ui.tests}/out/polygon1.svg" : 
+		{
+			"scale_2" : 1134227560
+		},
+		"${ui.tests}/out/font_1.svg" : 
+		{
+			"scale_2" : 1819152655
+		},
+		"${ui.tests}/out/sample_icon_list_1.svg" : 
+		{
+			"scale_2" : 4169505804
+		},
+		"${ui.tests}/out/sample_buton_1.svg" : 
+		{
+			"scale_2" : 3609315985
+		},
+		"${ui.tests}/out/sample_canvas_1.svg" : 
+		{
+			"scale_2" : 1604886463
+		},
+		"${ui.tests}/out/sample_column_1.svg" : 
+		{
+			"scale_2" : 3264829398
+		},
+		"${ui.tests}/out/sample_column_2.svg" : 
+		{
+			"scale_2" : 1941728264
+		},
+		"${ui.tests}/out/sample_edit_1.svg" : 
+		{
+			"scale_2" : 1892185294
+		},
+		"${ui.tests}/out/sample_edit_2.svg" : 
+		{
+			"scale_2" : 1892185294
+		},
+		"${ui.tests}/out/sample_edit_3.svg" : 
+		{
+			"scale_2" : 1300526526
+		},
+		"${ui.tests}/out/sample_grid_1.svg" : 
+		{
+			"scale_2" : 2211601738
+		},
+		"${ui.tests}/out/sample_icon_1.svg" : 
+		{
+			"scale_2" : 1549667730
+		},
+		"${ui.tests}/out/sample_keyboard_1.svg" : 
+		{
+			"scale_2" : 951226827
+		},
+		"${ui.tests}/out/sample_label_1.svg" : 
+		{
+			"scale_2" : 1910886502
+		},
+		"${ui.tests}/out/sample_pane_1.svg" : 
+		{
+			"scale_2" : 1105232483
+		},
+		"${ui.tests}/out/sample_pane_2.svg" : 
+		{
+			"scale_2" : 968150152
+		},
+		"${ui.tests}/out/sample_progress_1.svg" : 
+		{
+			"scale_2" : 2438023594
+		},
+		"${ui.tests}/out/sample_progress_2.svg" : 
+		{
+			"scale_2" : 194946796
+		},
+		"${ui.tests}/out/sample_row_1.svg" : 
+		{
+			"scale_2" : 1154133470
+		},
+		"${ui.tests}/out/sample_row_2.svg" : 
+		{
+			"scale_2" : 3930788833
+		},
+		"${ui.tests}/out/sample_scroll_1.svg" : 
+		{
+			"scale_2" : 1753287908
+		},
+		"${ui.tests}/out/sample_scroll_2.svg" : 
+		{
+			"scale_2" : 3510061729
+		},
+		"${ui.tests}/out/sample_scroll_3.svg" : 
+		{
+			"scale_2" : 666286924
+		},
+		"${ui.tests}/out/sample_slider_1.svg" : 
+		{
+			"scale_2" : 721410932
+		},
+		"${ui.tests}/out/sample_switch_1.svg" : 
+		{
+			"scale_2" : 1301508504
+		},
+		"${ui.tests}/out/sample_switch_2.svg" : 
+		{
+			"scale_2" : 3291281136
+		},
+		"${ui.tests}/out/sample_window_1.svg" : 
+		{
+			"scale_2" : 1815983418
+		},
+		"${ui.tests}/out/sample_speed_1.svg" : 
+		{
+			"scale_2" : 234955036
+		},
+		"${ui.tests}/out/sample_speed_2.svg" : 
+		{
+			"scale_2" : 3323991700
+		},
+		"${ui.tests}/out/sample_theme_1.svg" : 
+		{
+			"scale_2" : 3634191371
+		},
+		"${ui.tests}/out/sample_theme_2.svg" : 
+		{
+			"scale_2" : 3308039121
+		},
+		"${ui.tests}/out/sample_theme_3.svg" : 
+		{
+			"scale_2" : 565075319
+		},
+		"${ui.tests}/out/sample_theme_4.svg" : 
+		{
+			"scale_2" : 1205650557
+		},
+		"${ui.tests}/out/sample_theme_5.svg" : 
+		{
+			"scale_2" : 2866567904
+		},
+		"${ui.tests}/out/sample_theme_6.svg" : 
+		{
+			"scale_2" : 458912045
+		},
+		"${ui.tests}/out/sample_theme_7.svg" : 
+		{
+			"scale_2" : 1521338955
+		},
+		"${ui.tests}/out/sample_theme_8.svg" : 
+		{
+			"scale_2" : 2911012877
+		},
+		"${ui.tests}/out/sample_theme_9.svg" : 
+		{
+			"scale_2" : 14458558
+		},
+		"${ui.tests}/out/sample_theme_10.svg" : 
+		{
+			"scale_2" : 422959574
+		},
+		"${ui.tests}/out/sample_theme_11.svg" : 
+		{
+			"scale_2" : 3637173210
+		},
+		"${ui.tests}/out/sample_theme_12.svg" : 
+		{
+			"scale_2" : 3883006315
+		},
+		"${ui.tests}/out/sample_theme_13.svg" : 
+		{
+			"scale_2" : 2768013493
+		},
+		"${ui.tests}/out/sample_theme_14.svg" : 
+		{
+			"scale_2" : 117072580
+		},
+		"${ui.tests}/out/sample_theme_15.svg" : 
+		{
+			"scale_2" : 1544335698
+		},
+		"${ui.tests}/out/sample_theme_16.svg" : 
+		{
+			"scale_2" : 3227571170
+		},
+		"${ui.tests}/out/sample_theme_17.svg" : 
+		{
+			"scale_2" : 2821154484
+		},
+		"${ui.tests}/out/sample_theme_18.svg" : 
+		{
+			"scale_2" : 1765590765
+		},
+		"${ui.tests}/out/sample_theme_19.svg" : 
+		{
+			"scale_2" : 1295435338
+		},
+		"${ui.tests}/out/sample_theme_20.svg" : 
+		{
+			"scale_2" : 2033922520
+		},
+		"${ui.tests}/out/sample_theme_21.svg" : 
+		{
+			"scale_2" : 2111504422
+		},
+		"${ui.tests}/out/sample_theme_22.svg" : 
+		{
+			"scale_2" : 2435160879
+		},
+		"${ui.tests}/out/sample_theme_23.svg" : 
+		{
+			"scale_2" : 26224268
+		},
+		"${ui.tests}/out/sample_theme_24.svg" : 
+		{
+			"scale_2" : 1597738827
+		},
+		"${ui.tests}/out/sample_theme_25.svg" : 
+		{
+			"scale_2" : 3543950593
+		},
+		"${ui.tests}/out/sample_theme_26.svg" : 
+		{
+			"scale_2" : 3786377331
+		},
+		"${ui.tests}/out/sample_theme_27.svg" : 
+		{
+			"scale_2" : 1612883905
+		},
+		"${ui.tests}/out/sample_theme_28.svg" : 
+		{
+			"scale_2" : 1739039298
+		},
+		"${ui.tests}/out/sample_theme_29.svg" : 
+		{
+			"scale_2" : 3745505030
+		},
+		"${ui.tests}/out/sample_theme_30.svg" : 
+		{
+			"scale_2" : 4286175543
+		},
+		"${ui.tests}/out/sample_theme_31.svg" : 
+		{
+			"scale_2" : 2172608363
+		},
+		"${ui.tests}/out/sample_theme_32.svg" : 
+		{
+			"scale_2" : 1125468793
+		},
+		"${ui.tests}/out/sample_theme_33.svg" : 
+		{
+			"scale_2" : 948474716
+		},
+		"${ui.tests}/out/sample_theme_34.svg" : 
+		{
+			"scale_2" : 3374650254
+		},
+		"${ui.tests}/out/sample_theme_35.svg" : 
+		{
+			"scale_2" : 3462919795
+		},
+		"${ui.tests}/out/sample_theme_36.svg" : 
+		{
+			"scale_2" : 850099944
+		},
+		"${ui.tests}/out/sample_theme_37.svg" : 
+		{
+			"scale_2" : 4140634609
+		},
+		"${ui.tests}/out/sample_theme_38.svg" : 
+		{
+			"scale_2" : 707032845
+		},
+		"${ui.tests}/out/sample_theme_39.svg" : 
+		{
+			"scale_2" : 3203981641
+		},
+		"${ui.tests}/out/sample_theme_40.svg" : 
+		{
+			"scale_2" : 3664752691
 		}
 	}

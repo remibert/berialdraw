@@ -224,9 +224,8 @@ bool File::exists(const char* file_name)
 	return bd_file_exists(p.c_str());
 }
 
-/** Set the resource directory
-@param dir resource directory or list of directories separated by semicolons */
-String File::resource_dir(const String & dir)
+/** Select the directory existing in the list and return it */
+String File::resolve(const String & dir)
 {
 	// Split the input by semicolons and find first existing directory
 	String current_path = "";
@@ -234,20 +233,23 @@ String File::resource_dir(const String & dir)
 	int32_t end = 0;
 
 	String result = ".";
-	do
+	if (dir.size() > 0)
 	{
-		end = dir.find(";",start);	
-		dir.slice(start, end, current_path);
-		start = end + 1;
-		
-		// Check if this directory exists
-		if (Directory::exists(current_path.c_str()))
+		do
 		{
-			result = current_path;
-			break;
+			end = dir.find(";",start);	
+			dir.slice(start, end, current_path);
+			start = end + 1;
+		
+			// Check if this directory exists
+			if (Directory::exists(current_path.c_str()))
+			{
+				result = current_path;
+				break;
+			}
 		}
+		while (end != INT32_MAX);
 	}
-	while (end != INT32_MAX);
 	return result;
 }
 

@@ -4,9 +4,9 @@ namespace berialdraw
 	/** Enumeration for scroll direction */
 	enum ScrollDirection
 	{
-		ScrollHorizontal = 0,
-		ScrollVertical = 1,
-		ScrollAllDirections = 2
+		SCROLL_HORIZONTAL = 0,
+		SCROLL_VERTICAL = 1,
+		SCROLL_ALL_DIRECTIONS = 2
 	};
 
 	/** The ScrollViewStyle class specifies the appearance of scrollviews, including the scroll 
@@ -47,7 +47,7 @@ namespace berialdraw
 /// @cond DOXYGEN_IGNORE
 		Size             m_scroll_size;
 		Point            m_scroll_position;
-		ScrollDirection  m_scroll_direction = ScrollVertical;
+		ScrollDirection  m_scroll_direction = SCROLL_VERTICAL;
 		Size             m_viewport_size;
 /// @endcond
 #endif

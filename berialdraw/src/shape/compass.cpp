@@ -61,7 +61,7 @@ void Compass::test()
 			text->center(text->content_size().middle());
 			text->position(compass.position());
 		}
-		UIManager::desktop()->dispatch("${tests}/out/compass1.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/compass1.svg");
 	}
 }
 #endif

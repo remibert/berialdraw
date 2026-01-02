@@ -251,7 +251,7 @@ void String::remove(int32_t start, int32_t end)
 int32_t String::find(const char * str, int32_t pos) const
 {
 	int32_t result = INT32_MAX;
-	if (str && str[0] != '\0')
+	if (str && str[0] != '\0' && m_string)
 	{
 		int32_t index = pos;
 		uint32_t byte_index = 0;
@@ -1160,20 +1160,6 @@ void String::test7()
 	check(str, "bbbb");
 }
 
-void String::test()
-{
-	test8();
-	test7();
-	test6();
-	test5();
-	test4();
-	test3();
-	test2();
-	test1();
-}
-#endif
-
-#ifdef _DEBUG
 void String::test8()
 {
 	// Test basic variable search
@@ -1257,5 +1243,17 @@ void String::test8()
 	pos = str.search_var(var);
 	assert(pos == 7);
 	assert(var == "");
+}
+
+void String::test()
+{
+	test8();
+	test7();
+	test6();
+	test5();
+	test4();
+	test3();
+	test2();
+	test1();
 }
 #endif

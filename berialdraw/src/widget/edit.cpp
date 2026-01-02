@@ -398,7 +398,7 @@ void Edit::test1()
 	{
 		spacer->font_size(i);
 		String name;
-		name.print("${tests}/out/edit1_%d.svg", ++id);
+		name.print("${ui.tests}/out/edit1_%d.svg", ++id);
 		UIManager::desktop()->dispatch(name);
 	}
 }
@@ -750,7 +750,7 @@ void Edit::test2()
 		"{'type':'touch','x':305,'y':138,'state':'move'},"
 		"{'type':'touch','x':475,'y':264,'state':'move'},"
 	"]");
-	UIManager::notifier()->play_script(script, "${tests}/out/edit2_%d.svg");
+	UIManager::notifier()->play_script(script, "${ui.tests}/out/edit2_%d.svg");
 }
 
 void Edit::test3()
@@ -994,7 +994,7 @@ void Edit::test3()
 		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 	"]");
 
-	UIManager::notifier()->play_script(script, "${tests}/out/edit3_%d.svg");
+	UIManager::notifier()->play_script(script, "${ui.tests}/out/edit3_%d.svg");
 }
 
 void Edit::test4()
@@ -1178,7 +1178,7 @@ void Edit::test4()
 		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 	"]");
 
-	UIManager::notifier()->play_script(script, "${tests}/out/edit4_%d.svg");
+	UIManager::notifier()->play_script(script, "${ui.tests}/out/edit4_%d.svg");
 }
 
 void Edit::test5()
@@ -1272,7 +1272,7 @@ void Edit::test5()
 			{
 				if (events[i].par2 == KeyEvent::KEY_DOWN)
 				{
-					test_name.print("${tests}/out/edit5_%d.svg", ++id);
+					test_name.print("${ui.tests}/out/edit5_%d.svg", ++id);
 				}
 			}
 		}
@@ -1516,7 +1516,7 @@ void Edit::test6()
 			"{'type':'touch','x':485,'y':484,'state':'move'},"
 		"]");
 
-	UIManager::notifier()->play_script(script, "${tests}/out/edit6_%d.svg");
+	UIManager::notifier()->play_script(script, "${ui.tests}/out/edit6_%d.svg");
 }
 
 void Edit::test7()
@@ -1538,7 +1538,7 @@ void Edit::test7()
 			"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 		"]");
 
-	UIManager::notifier()->play_script(script, "${tests}/out/edit7_%d.svg");
+	UIManager::notifier()->play_script(script, "${ui.tests}/out/edit7_%d.svg");
 }
 
 void Edit::test8()

@@ -239,7 +239,7 @@ void Pie::test1()
 		if (angle %60 == 0)
 		{
 			String test_name;
-			test_name.print("${tests}/out/pie1_%d.svg",angle/60);
+			test_name.print("${ui.tests}/out/pie1_%d.svg",angle/60);
 			UIManager::desktop()->dispatch(test_name);
 		}
 		else
@@ -320,7 +320,7 @@ void Pie::test2()
 	{
 		indicator->angle(angle);
 		String name;
-		name.print("${tests}/out/pie2_%d.svg", ++id);
+		name.print("${ui.tests}/out/pie2_%d.svg", ++id);
 		UIManager::desktop()->dispatch(name);
 	}
 }
@@ -355,7 +355,7 @@ void Pie::test3()
 			pie->color(color, 196);
 			pie->thickness(0);
 	}
-	UIManager::desktop()->dispatch("${tests}/out/pie3.svg");
+	UIManager::desktop()->dispatch("${ui.tests}/out/pie3.svg");
 }
 
 void Pie::test4()
@@ -479,7 +479,7 @@ void Pie::test4()
 		if (speed % 40 == 0)
 		{
 			String name;
-			name.print("${tests}/out/pie4_%d.svg", ++id);
+			name.print("${ui.tests}/out/pie4_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
 		else

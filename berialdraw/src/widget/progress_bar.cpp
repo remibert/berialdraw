@@ -368,7 +368,7 @@ void ProgressBar::test1()
 		if (value % 13 == 0)
 		{
 			String name;
-			name.print("${tests}/out/progress_bar1_%d.svg", ++id);
+			name.print("${ui.tests}/out/progress_bar1_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
 		else
@@ -456,7 +456,7 @@ void ProgressBar::test2()
 		if (value % 13 == 0)
 		{
 			String name;
-			name.print("${tests}/out/progress_bar2_%d.svg", ++id);
+			name.print("${ui.tests}/out/progress_bar2_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
 		else
@@ -537,7 +537,7 @@ void ProgressBar::test3()
 		if (value % 13 == 0)
 		{
 			String name;
-			name.print("${tests}/out/progress_bar3_%d.svg", ++id);
+			name.print("${ui.tests}/out/progress_bar3_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
 		else

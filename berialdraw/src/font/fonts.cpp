@@ -79,7 +79,7 @@ FontPtr Fonts::select(const String & familly, const Size & size, enum Font::Styl
 	if (m_loaded == false)
 	{
 		m_loaded = true;
-		load_directory("${fonts}");
+		load_directory("${ui.fonts}");
 	}
 
 	std::lock_guard<std::recursive_mutex> lock(m_mutex);

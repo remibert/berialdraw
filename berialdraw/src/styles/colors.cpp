@@ -162,7 +162,7 @@ uint32_t Colors::color(uint32_t id, bool focused)
 /** Get style filename according to class name */
 void Colors::filename(const char * classname, String & filename_)
 {
-	filename_.print("${colors}/%s.json",classname);
+	filename_.print("${ui.colors}/%s.json",classname);
 }
 
 void Colors::load()

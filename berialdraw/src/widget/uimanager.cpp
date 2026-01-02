@@ -27,22 +27,23 @@ inline Dim adapt_size(Dim size, uint32_t scale)
 	return ((size << 6) / scale);
 }
 
-void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type type, uint32_t scale, const berialdraw::String & resource_dir)
+void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type type, uint32_t scale, const berialdraw::String & root_dir)
 {
 	if(device && m_device == 0)
 	{
 		
 		m_settings     = new Settings;
-		String resource = File::resource_dir(resource_dir);
-		if (resource == "")
+		String dir = File::resolve(root_dir);
+		if (dir == "")
 		{
-			resource = ".";
+			dir = ".";
 		}
-		(*m_settings)["fonts"]     = resource + "/fonts";
-		(*m_settings)["styles"]    = resource + "/styles";
-		(*m_settings)["icons"]     = resource + "/icons";
-		(*m_settings)["colors"]    = resource + "/colors";
-		(*m_settings)["tests"]     = resource + "/../test";
+		(*m_settings)["ui"]["root-dir"]  = dir;
+		(*m_settings)["ui"]["fonts"]     = "${ui.root-dir}/fonts";
+		(*m_settings)["ui"]["styles"]    = "${ui.root-dir}/styles";
+		(*m_settings)["ui"]["icons"]     = "${ui.root-dir}/icons";
+		(*m_settings)["ui"]["colors"]    = "${ui.root-dir}/colors";
+		(*m_settings)["ui"]["tests"]     = "${ui.root-dir}/../test";
 		m_notifier     = new Notifier;
 		m_invalidator  = new Invalidator;
 		m_styles       = new Styles;

@@ -47,7 +47,7 @@ void bind_file(py::module& m) {
         .def_static("exists", &berialdraw::File::exists,
                    py::arg("file_name"),
                    "Indicates if the files exists")
-        .def_static("resource_dir", static_cast<berialdraw::String (*)(const berialdraw::String&)>(&berialdraw::File::resource_dir),
+        .def_static("resolve", static_cast<berialdraw::String (*)(const berialdraw::String&)>(&berialdraw::File::resolve),
                    py::arg("dir"),
-                   "Set the resource directory and return the resource directory existing");
+                   "Select the directory existing in the list and return it");
 }

@@ -7,7 +7,7 @@ void bind_uimanager(pybind11::module_& m) {
                     pybind11::arg("height"), 
                     pybind11::arg("type"), 
                     pybind11::arg("scale") = 1, 
-                    pybind11::arg("resource_dir") = berialdraw::String(""))
+                    pybind11::arg("root_dir") = berialdraw::String(""))
         .def_static("deinit", &berialdraw::UIManager::deinit)
         // .def_static("exporter", static_cast<void (*)(berialdraw::Exporter*)>(&berialdraw::UIManager::exporter))
         // .def_static("exporter", static_cast<berialdraw::Exporter* (*)()>(&berialdraw::UIManager::exporter), pybind11::return_value_policy::reference_internal)

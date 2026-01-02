@@ -35,14 +35,21 @@ namespace berialdraw
 		@return Resolved string with all placeholders replaced */
 		String resolve(const char * template_str);
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		/** Unitary test */
 		static void test(); 
+		static void test8();
+		static void test7();
+		static void test6();
+		static void test5();
+		static void test4();
+		static void test3();
+		static void test2();
+		static void test1();
 #endif
-
 	protected:
 #ifndef SWIG
-/// @cond DOXYGEN_IGNORE
 
 /// @endcond
 #endif

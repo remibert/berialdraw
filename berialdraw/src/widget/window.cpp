@@ -334,16 +334,16 @@ void Window::test1()
 			label3->text("Window 3");
 			label3->font_size(20);
 
-	UIManager::desktop()->dispatch("${tests}/out/window1_0.svg");
+	UIManager::desktop()->dispatch("${ui.tests}/out/window1_0.svg");
 	
 	window1.front();
-	UIManager::desktop()->dispatch("${tests}/out/window1_1.svg");
+	UIManager::desktop()->dispatch("${ui.tests}/out/window1_1.svg");
 
 	window1.back();
-	UIManager::desktop()->dispatch("${tests}/out/window1_2.svg");
+	UIManager::desktop()->dispatch("${ui.tests}/out/window1_2.svg");
 
 	window2.front();
-	UIManager::desktop()->dispatch("${tests}/out/window1_3.svg");
+	UIManager::desktop()->dispatch("${ui.tests}/out/window1_3.svg");
 }
 
 void Window::test2()
@@ -509,7 +509,7 @@ void Window::test2()
 			line->angle(angle);
 		}
 		
-		UIManager::desktop()->dispatch("${tests}/out/window2_1.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/window2_1.svg");
 
 		for(int i = 100; i > 0; i-=10)
 		{
@@ -525,7 +525,7 @@ void Window::test2()
 			pie->angle(angle);
 			line->angle(angle);
 		}
-		UIManager::desktop()->dispatch("${tests}/out/window2_2.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/window2_2.svg");
 	}
 }
 
@@ -570,7 +570,7 @@ void Window::test3()
 			text->angle(angle);
 			//text->text("hello\nworld");
 		}
-		UIManager::desktop()->dispatch("${tests}/out/window3_1.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/window3_1.svg");
 		for(int i = 280; i > 0; i-=10)
 		{
 			angle++;
@@ -578,7 +578,7 @@ void Window::test3()
 			UIManager::desktop()->dispatch();
 			text->angle(angle);
 		}
-		UIManager::desktop()->dispatch("${tests}/out/window3_2.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/window3_2.svg");
 	}
 }
 
@@ -614,7 +614,7 @@ void Window::test4()
 					arrow = new Polygon(*arrow);
 						arrow->angle(i*24);
 				}
-	UIManager::desktop()->dispatch("${tests}/out/window4_1.svg");
+	UIManager::desktop()->dispatch("${ui.tests}/out/window4_1.svg");
 }
 
 static void window_test5(Window & window)
@@ -667,7 +667,7 @@ void Window::test5()
 	{
 		Window window;
 		window_test5(window);
-		UIManager::desktop()->dispatch("${tests}/out/window5_1.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/window5_1.svg");
 	}
 
 	// Only position defined
@@ -675,7 +675,7 @@ void Window::test5()
 		Window window;
 		window.position(140,140);
 		window_test5(window);
-		UIManager::desktop()->dispatch("${tests}/out/window5_2.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/window5_2.svg");
 	}
 
 	// Size defined
@@ -683,7 +683,7 @@ void Window::test5()
 		Window window;
 		window.size(160,180);
 		window_test5(window);
-		UIManager::desktop()->dispatch("${tests}/out/window5_3.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/window5_3.svg");
 	}
 
 	// Size and position defined
@@ -692,7 +692,7 @@ void Window::test5()
 		window.position(100,100);
 		window.size(160,180);
 		window_test5(window);
-		UIManager::desktop()->dispatch("${tests}/out/window5_4.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/window5_4.svg");
 	}
 
 	// No geometry defined align
@@ -701,13 +701,13 @@ void Window::test5()
 		window_test5(window);
 		window.size(160,180);
 		window.align(Align::ALIGN_BOTTOM);
-		UIManager::desktop()->dispatch("${tests}/out/window5_6.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/window5_6.svg");
 		window.align(Align::ALIGN_TOP);
-		UIManager::desktop()->dispatch("${tests}/out/window5_7.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/window5_7.svg");
 		window.align(Align::ALIGN_LEFT);
-		UIManager::desktop()->dispatch("${tests}/out/window5_8.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/window5_8.svg");
 		window.align(Align::ALIGN_RIGHT);
-		UIManager::desktop()->dispatch("${tests}/out/window5_9.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/window5_9.svg");
 	}
 
 	// No geometry defined extend
@@ -716,9 +716,9 @@ void Window::test5()
 		window_test5(window);
 		window.size(160,180);
 		window.extend(Extend::EXTEND_WIDTH);
-		UIManager::desktop()->dispatch("${tests}/out/window5_10.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/window5_10.svg");
 		window.extend(Extend::EXTEND_HEIGHT);
-		UIManager::desktop()->dispatch("${tests}/out/window5_11.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/window5_11.svg");
 	}
 }
 
@@ -752,7 +752,7 @@ void Window::test6()
 					arrow->angle(i);
 			}
 
-		UIManager::desktop()->dispatch("${tests}/out/window6_1.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/window6_1.svg");
 }
 
 void window_test7(Widget * widget, int &id)
@@ -782,19 +782,19 @@ void window_test7(Widget * widget, int &id)
 
 	if (dynamic_cast<IconStyle*>(widget))
 	{
-		(dynamic_cast<IconStyle*>(widget))->filename("${icons}/computer.icn");
+		(dynamic_cast<IconStyle*>(widget))->filename("${ui.icons}/computer.icn");
 	}
 
 	String name;
-	name.print("${tests}/out/window7_%d.svg",id++);
+	name.print("${ui.tests}/out/window7_%d.svg",id++);
 	UIManager::desktop()->dispatch(name);
 
 	widget->align(Align::ALIGN_TOP_LEFT);
-	name.print("${tests}/out/window7_%d.svg",id++);
+	name.print("${ui.tests}/out/window7_%d.svg",id++);
 	UIManager::desktop()->dispatch(name);
 
 	widget->align(Align::ALIGN_BOTTOM_LEFT);
-	name.print("${tests}/out/window7_%d.svg",id++);
+	name.print("${ui.tests}/out/window7_%d.svg",id++);
 	UIManager::desktop()->dispatch(name);
 
 	delete widget;
@@ -831,7 +831,7 @@ static void window_all_widgets(Window & window)
 	Column * main_layout = new Column(&window);
 
 		ScrollView * scroll_view = new ScrollView(main_layout);
-			scroll_view->scroll_direction(ScrollVertical);
+			scroll_view->scroll_direction(SCROLL_VERTICAL);
 			scroll_view->align(Align::ALIGN_TOP);
 			scroll_view->margin(5);
 
@@ -876,7 +876,7 @@ static void window_all_widgets(Window & window)
 					keyboard_text->text_align(Align::ALIGN_LEFT);
 
 				Icon * icon = new Icon(scroll_layout);
-					icon->filename("${icons}/person.icn");
+					icon->filename("${ui.icons}/person.icn");
 					icon->text("Icon");
 
 				Keyboard * keyboard = new Keyboard(scroll_layout);
@@ -887,11 +887,11 @@ void Window::test8()
 {
 	Window window;
 	window_all_widgets(window);
-	UIManager::desktop()->dispatch("${tests}/out/window8_1.svg");
+	UIManager::desktop()->dispatch("${ui.tests}/out/window8_1.svg");
 	UIManager::colors()->appearance("test_dark");
-	UIManager::desktop()->dispatch("${tests}/out/window8_2.svg");
+	UIManager::desktop()->dispatch("${ui.tests}/out/window8_2.svg");
 	UIManager::colors()->appearance("test_light");
-	UIManager::desktop()->dispatch("${tests}/out/window8_3.svg");
+	UIManager::desktop()->dispatch("${ui.tests}/out/window8_3.svg");
 }
 
 void Window::test9()
@@ -921,7 +921,7 @@ void Window::test9()
 		window1.position(i, i);
 		UIManager::desktop()->dispatch();
 		String name;
-		name.print("${tests}/out/window9_%d.svg", ++id);
+		name.print("${ui.tests}/out/window9_%d.svg", ++id);
 		UIManager::desktop()->dispatch(name);
 	}
 }

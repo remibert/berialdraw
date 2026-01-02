@@ -71,7 +71,7 @@ void Cross::test()
 			fillcross->thickness(0);
 		}
 
-		UIManager::desktop()->dispatch("${tests}/out/cross.svg");
+		UIManager::desktop()->dispatch("${ui.tests}/out/cross.svg");
 	}
 }
 #endif

@@ -11,7 +11,7 @@ public:
 		Dialog()  // Initializes m_window as the main application window
 	{
 		ScrollView * scroll = dynamic_cast<ScrollView*>(m_content);
-		scroll->scroll_direction(ScrollDirection::ScrollHorizontal); // Set the scroll view in horizontal mode
+		scroll->scroll_direction(ScrollDirection::SCROLL_HORIZONTAL); // Set the scroll view in horizontal mode
 		Row * row = new Row(m_content);                 // Creates a content row within the scroll view
 		for (int i = 0; i < 26; i++)
 		{

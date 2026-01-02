@@ -266,6 +266,9 @@
     <ClCompile Include="..\\..\\pybind\\src\\pybind\event\notifier.cpp">
       <Filter>event</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\tool\json.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\\..\\pybind\\inc\\pybind\pyberialdraw.hpp" />
