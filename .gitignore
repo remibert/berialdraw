@@ -5,3 +5,4 @@ berialdraw/test/out/*
 berialdraw/out/*
 berialdraw/build/*
 pybind11
+*/*.py.in

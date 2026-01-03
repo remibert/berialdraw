@@ -79,11 +79,14 @@ public:
 										NSTrackingActiveAlways |
 										NSTrackingMouseMoved |
 										NSTrackingInVisibleRect;
-		NSTrackingArea *trackingArea = [[NSTrackingArea alloc] initWithRect:NSZeroRect
+		
+		// Create tracking area with __strong attribute to manage ownership properly under ARC
+		__strong NSTrackingArea *trackingArea = [[NSTrackingArea alloc] initWithRect:NSZeroRect
 																	options:options
 																		owner:self
 																	userInfo:nil];
 		[self addTrackingArea:trackingArea];
+		 // ARC will automatically release trackingArea when it goes out of scope
 	}
 	return self;
 }
@@ -136,8 +139,14 @@ public:
 			CGFloat viewHeight = bounds.size.height;
             
 			// Create a data provider from the buffer
-			CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, self.buffer, 
-																	self.bufferWidth * self.bufferHeight * 3, NULL);
+			// Use CGDataProviderCreateWithData with proper cleanup callback
+			CGDataProviderRef provider = CGDataProviderCreateWithData(
+				NULL,
+				self.buffer,
+				self.bufferWidth * self.bufferHeight * 3,
+				NULL  // No cleanup callback needed since buffer is managed elsewhere
+			);
+			
 			if (provider)
 			{
 				// Create RGB color space
@@ -145,9 +154,19 @@ public:
 				if (colorSpace)
 				{
 					// Create image from buffer data
-					CGImageRef image = CGImageCreate(self.bufferWidth, self.bufferHeight, 8, 24, self.bufferWidth * 3,
-													colorSpace, kCGBitmapByteOrderDefault,
-													provider, NULL, false, kCGRenderingIntentDefault);
+					CGImageRef image = CGImageCreate(
+						self.bufferWidth,
+						self.bufferHeight,
+						8,  // bits per component
+						24,  // bits per pixel
+						self.bufferWidth * 3,  // bytes per row
+						colorSpace,
+						kCGBitmapByteOrderDefault,
+						provider,
+						NULL,  // decode array
+						false,  // should interpolate
+						kCGRenderingIntentDefault
+					);
                     
 					if (image)
 					{
@@ -156,9 +175,10 @@ public:
 						CGContextDrawImage(context, drawRect, image);
 						CGImageRelease(image);
 					}
-
+					// Always release colorSpace, even if CGImageCreate fails
 					CGColorSpaceRelease(colorSpace);
 				}
+				// Always release provider, even if colorSpace creation fails
 				CGDataProviderRelease(provider);
 			}
 		}
@@ -421,15 +441,18 @@ berialdraw::DeviceCocoaImpl::~DeviceCocoaImpl()
 bool berialdraw::DeviceCocoaImpl::initialize_app()
 {
 	bool result = false;
-    
+
+	MemoryLeakTracer::suspend();
+
 	if (![NSThread isMainThread])
 	{
 		NSLog(@"Warning: DeviceCocoa should be created on the main thread");
 	}
-    
+
 	if (!NSApp)
 	{
 		[NSApplication sharedApplication];
+		
 		if (!NSApp)
 		{
 			NSLog(@"Failed to create NSApplication");
@@ -451,183 +474,199 @@ bool berialdraw::DeviceCocoaImpl::initialize_app()
 		result = true;
 	}
 
+	MemoryLeakTracer::resume();
+
 	return result;
 }
 
 // Create and configure the window on the main thread
 void berialdraw::DeviceCocoaImpl::open_window()
 {
-	if (!m_app_initialized)
+	MemoryLeakTracer::suspend();
+
+	if (m_app_initialized)
 	{
-		return;
-	}
-    
-	// Allocate and clear buffer with proper ARM64 alignment
-	size_t buffer_size = m_width * m_height * 3;
-	// Ensure 16-byte alignment for ARM64 SIMD operations
-	posix_memalign((void**)&m_buffer, 16, ((buffer_size + 15) / 16) * 16);
-	memset(m_buffer, 0xff, buffer_size);
-    
-	if ([NSThread isMainThread])
-	{
-		// Get display scale factor with safety check for ARM64
-		m_scale_factor = [[NSScreen mainScreen] backingScaleFactor];
-		if (m_scale_factor <= 0.0 || !isfinite(m_scale_factor))
+		// Allocate and clear buffer with proper ARM64 alignment
+		size_t buffer_size = m_width * m_height * 3;
+		// Ensure 16-byte alignment for ARM64 SIMD operations
+		posix_memalign((void**)&m_buffer, 16, ((buffer_size + 15) / 16) * 16);
+		memset(m_buffer, 0xff, buffer_size);
+        
+		if ([NSThread isMainThread])
 		{
-			NSLog(@"Warning: Invalid scale factor %.2f, using 1.0", m_scale_factor);
-			m_scale_factor = 1.0; // Fallback for ARM64 edge cases
-		}
-
-		// Ensure minimum window size to avoid division issues
-		CGFloat display_width = fmax(m_width / m_scale_factor, 100.0);
-		CGFloat display_height = fmax(m_height / m_scale_factor, 100.0);
-		NSRect frame = NSMakeRect(100, 100, display_width, display_height);
-
-		// Create window with title bar, close, and minimize buttons
-		m_window = [[NSWindow alloc] initWithContentRect:frame
-											styleMask:(NSWindowStyleMaskTitled | 
-														NSWindowStyleMaskClosable | 
-														NSWindowStyleMaskMiniaturizable)
-												backing:NSBackingStoreBuffered
-												defer:NO];
-
-		if (m_window)
-		{
-			[m_window setTitle:[NSString stringWithUTF8String:m_title.c_str()]];
-			
-			// Position window in top-left corner respecting menu bar and dock
-			NSRect screenFrame = [[NSScreen mainScreen] visibleFrame];
-			CGFloat x = screenFrame.origin.x;
-			CGFloat y = NSMaxY(screenFrame) - display_height;
-			[m_window setFrameOrigin:NSMakePoint(x, y)];
-
-			// Create and configure the view
-			BerialView* view = [[BerialView alloc] initWithFrame:frame];
-			[view setDevice:this];
-			m_view = (__bridge void*)view;
-
-			[m_window setContentView:view];
-			[m_window setDelegate:view];
-
-			// CRITICAL: Force window visibility on ARM64/M1
-			[m_window makeKeyAndOrderFront:nil];
-			[m_window orderFrontRegardless];
-			[NSApp activateIgnoringOtherApps:YES];
-
-			// Update scale factor from window with validation
-			CGFloat window_scale = [m_window backingScaleFactor];
-			if (window_scale > 0.0 && isfinite(window_scale)) {
-				m_scale_factor = window_scale;
+			// Get display scale factor with safety check for ARM64
+			m_scale_factor = [[NSScreen mainScreen] backingScaleFactor];
+			if (m_scale_factor <= 0.0 || !isfinite(m_scale_factor))
+			{
+				NSLog(@"Warning: Invalid scale factor %.2f, using 1.0", m_scale_factor);
+				m_scale_factor = 1.0; // Fallback for ARM64 edge cases
 			}
-			[view setScaleFactor:m_scale_factor];
+
+			// Ensure minimum window size to avoid division issues
+			CGFloat display_width = fmax(m_width / m_scale_factor, 100.0);
+			CGFloat display_height = fmax(m_height / m_scale_factor, 100.0);
+			NSRect frame = NSMakeRect(100, 100, display_width, display_height);
+
+			// Create window with title bar, close, and minimize buttons
+			m_window = [[NSWindow alloc] initWithContentRect:frame
+												styleMask:(NSWindowStyleMaskTitled | 
+															NSWindowStyleMaskClosable | 
+															NSWindowStyleMaskMiniaturizable)
+													backing:NSBackingStoreBuffered
+													defer:NO];
+
+			if (m_window)
+			{
+				[m_window setTitle:[NSString stringWithUTF8String:m_title.c_str()]];
+				
+				// Position window in top-left corner respecting menu bar and dock
+				NSRect screenFrame = [[NSScreen mainScreen] visibleFrame];
+				CGFloat x = screenFrame.origin.x;
+				CGFloat y = NSMaxY(screenFrame) - display_height;
+				[m_window setFrameOrigin:NSMakePoint(x, y)];
+
+				// Create and configure the view
+				BerialView* view = [[BerialView alloc] initWithFrame:frame];
+				[view setDevice:this];
+				m_view = (__bridge void*)view;
+
+				[m_window setContentView:view];
+				[m_window setDelegate:view];
+
+				// CRITICAL: Force window visibility on ARM64/M1
+				[m_window makeKeyAndOrderFront:nil];
+				[m_window orderFrontRegardless];
+				[NSApp activateIgnoringOtherApps:YES];
+
+				// Update scale factor from window with validation
+				CGFloat window_scale = [m_window backingScaleFactor];
+				if (window_scale > 0.0 && isfinite(window_scale)) {
+					m_scale_factor = window_scale;
+				}
+				[view setScaleFactor:m_scale_factor];
+			}
+			else
+			{
+				NSLog(@"Failed to create NSWindow");
+			}
 		}
 		else
 		{
-			NSLog(@"Failed to create NSWindow");
-		}
-	}
-	else
-	{
-		// Use async dispatch instead of sync to avoid deadlocks on ARM64
-		__block BOOL window_created = NO;
-		__block NSException* creation_exception = nil;
+			// Use async dispatch instead of sync to avoid deadlocks on ARM64
+			__block BOOL window_created = NO;
+			__block NSException* creation_exception = nil;
 
-		dispatch_async(dispatch_get_main_queue(), ^{
-			@try {
-				m_scale_factor = [[NSScreen mainScreen] backingScaleFactor];
-				if (m_scale_factor <= 0.0 || !isfinite(m_scale_factor)) {
-					NSLog(@"Warning: Invalid scale factor %.2f, using 1.0", m_scale_factor);
-					m_scale_factor = 1.0;
-				}
-                
-				CGFloat display_width = fmax(m_width / m_scale_factor, 100.0);
-				CGFloat display_height = fmax(m_height / m_scale_factor, 100.0);
-				NSRect frame = NSMakeRect(0, 0, display_width, display_height);
-
-				m_window = [[NSWindow alloc] initWithContentRect:frame
-														styleMask:(NSWindowStyleMaskTitled | 
-																NSWindowStyleMaskClosable | 
-																NSWindowStyleMaskMiniaturizable)
-														backing:NSBackingStoreBuffered
-															defer:NO];
-
-				if (m_window)
-				{
-					[m_window setTitle:[NSString stringWithUTF8String:m_title.c_str()]];
-					
-					// Position window in top-left corner respecting menu bar and dock
-					NSRect screenFrame = [[NSScreen mainScreen] visibleFrame];
-					CGFloat x = screenFrame.origin.x;
-					CGFloat y = NSMaxY(screenFrame) - display_height;
-					[m_window setFrameOrigin:NSMakePoint(x, y)];
-
-					BerialView* view = [[BerialView alloc] initWithFrame:frame];
-					[view setDevice:this];
-					m_view = (__bridge void*)view;
-
-					[m_window setContentView:view];
-					[m_window setDelegate:view];
-
-					// CRITICAL: Force window visibility on ARM64/M1
-					[m_window makeKeyAndOrderFront:nil];
-					[m_window orderFrontRegardless];
-					[NSApp activateIgnoringOtherApps:YES];
-
-					CGFloat window_scale = [m_window backingScaleFactor];
-					if (window_scale > 0.0 && isfinite(window_scale)) {
-						m_scale_factor = window_scale;
+			dispatch_async(dispatch_get_main_queue(), ^{
+				@try {
+					m_scale_factor = [[NSScreen mainScreen] backingScaleFactor];
+					if (m_scale_factor <= 0.0 || !isfinite(m_scale_factor)) {
+						NSLog(@"Warning: Invalid scale factor %.2f, using 1.0", m_scale_factor);
+						m_scale_factor = 1.0;
 					}
-					[view setScaleFactor:m_scale_factor];
+                
+					CGFloat display_width = fmax(m_width / m_scale_factor, 100.0);
+					CGFloat display_height = fmax(m_height / m_scale_factor, 100.0);
+					NSRect frame = NSMakeRect(0, 0, display_width, display_height);
+
+					m_window = [[NSWindow alloc] initWithContentRect:frame
+															styleMask:(NSWindowStyleMaskTitled | 
+																	NSWindowStyleMaskClosable | 
+																	NSWindowStyleMaskMiniaturizable)
+															backing:NSBackingStoreBuffered
+																defer:NO];
+
+					if (m_window)
+					{
+						[m_window setTitle:[NSString stringWithUTF8String:m_title.c_str()]];
+						
+						// Position window in top-left corner respecting menu bar and dock
+						NSRect screenFrame = [[NSScreen mainScreen] visibleFrame];
+						CGFloat x = screenFrame.origin.x;
+						CGFloat y = NSMaxY(screenFrame) - display_height;
+						[m_window setFrameOrigin:NSMakePoint(x, y)];
+
+						BerialView* view = [[BerialView alloc] initWithFrame:frame];
+						[view setDevice:this];
+						m_view = (__bridge void*)view;
+
+						[m_window setContentView:view];
+						[m_window setDelegate:view];
+
+						// CRITICAL: Force window visibility on ARM64/M1
+						[m_window makeKeyAndOrderFront:nil];
+						[m_window orderFrontRegardless];
+						[NSApp activateIgnoringOtherApps:YES];
+
+						CGFloat window_scale = [m_window backingScaleFactor];
+						if (window_scale > 0.0 && isfinite(window_scale)) {
+							m_scale_factor = window_scale;
+						}
+						[view setScaleFactor:m_scale_factor];
+					}
+					window_created = YES;
 				}
-				window_created = YES;
+				@catch (NSException *exception) {
+					creation_exception = exception;
+					window_created = YES; // Set to YES to exit the wait loop
+				}
+			});
+
+			// Wait for completion with timeout to avoid infinite blocking on ARM64
+			int timeout_count = 0;
+			while (!window_created && timeout_count < 100) {
+				usleep(10000); // 10ms
+				timeout_count++;
 			}
-			@catch (NSException *exception) {
-				creation_exception = exception;
-				window_created = YES; // Set to YES to exit the wait loop
+
+			if (creation_exception)
+			{
+				NSLog(@"Exception during window creation: %@", creation_exception);
 			}
-		});
 
-		// Wait for completion with timeout to avoid infinite blocking on ARM64
-		int timeout_count = 0;
-		while (!window_created && timeout_count < 100) {
-			usleep(10000); // 10ms
-			timeout_count++;
-		}
-
-		if (creation_exception)
-		{
-			NSLog(@"Exception during window creation: %@", creation_exception);
-		}
-
-		if (timeout_count >= 100)
-		{
-			NSLog(@"Timeout waiting for window creation on ARM64");
+			if (timeout_count >= 100)
+			{
+				NSLog(@"Timeout waiting for window creation on ARM64");
+			}
 		}
 	}
+
+	MemoryLeakTracer::resume();
 }
 
 // Close and cleanup the window
 void berialdraw::DeviceCocoaImpl::close_window()
 {
+	if (m_view)
+	{
+		// Properly release the BerialView before closing window
+		BerialView* view = (__bridge BerialView*)m_view;
+		[view setDevice:nullptr];  // Nullify device reference to break cycles
+		view = nil;
+		m_view = nullptr;
+	}
+
 	if (m_window)
 	{
 		if ([m_window isKindOfClass:[NSWindow class]])
 		{
+			// Set delegate to nil BEFORE closing to break retain cycle
+			[m_window setDelegate:nil];
+			[m_window setContentView:nil];  // Release content view explicitly
+			
 			if ([NSThread isMainThread])
 			{
 				[(id)m_window close];
 			}
 			else
 			{
-				dispatch_sync(dispatch_get_main_queue(), ^{[(id)m_window close];});
+				dispatch_sync(dispatch_get_main_queue(), ^{
+					[m_window setDelegate:nil];
+					[m_window setContentView:nil];
+					[(id)m_window close];
+				});
 			}
 		}
 		m_window = nullptr;
-	}
-
-	if (m_view)
-	{
-		m_view = nullptr;
 	}
 
 	if (m_buffer)

@@ -269,6 +269,12 @@
     <ClCompile Include="..\..\pybind\src\pybind\tool\json.cpp">
       <Filter>tool</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\vector\align.cpp">
+      <Filter>vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\vector\extend.cpp">
+      <Filter>vector</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\\..\\pybind\\inc\\pybind\pyberialdraw.hpp" />

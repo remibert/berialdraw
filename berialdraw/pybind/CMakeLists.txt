@@ -36,6 +36,8 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/font/fonts.cpp
 	src/pybind/vector/size.cpp
 	src/pybind/vector/size_policy.cpp
+	src/pybind/vector/extend.cpp
+	src/pybind/vector/align.cpp
 	src/pybind/vector/point.cpp
 	src/pybind/vector/margin.cpp
 	src/pybind/vector/area.cpp

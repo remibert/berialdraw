@@ -70,6 +70,17 @@ namespace berialdraw
 		@return true if directory exists */
 		static bool exists(const char* path);
 
+		/** Matches a string against a pattern containing wildcards
+		This function matches a string against a pattern that may contain wildcards.
+		The pattern may contain the following wildcards:
+		- * : Matches zero or more characters
+		- ? : Matches a single character
+		@param pattern The pattern to match against
+		@param string String to check
+		@param ignore_case true to ignore uppercase and lowercase letters
+		@return true if the pattern matches the string, 0 otherwise */ 
+		static bool match_pattern(const char *pattern, const char *string, bool ignore_case=false);
+
 	private:
 #ifndef SWIG
 /// @cond DOXYGEN_IGNORE

@@ -12,14 +12,60 @@ void bind_widget_style(pybind11::module_& m) {
         .def_property("size_policy", 
             static_cast<berialdraw::SizePolicy (berialdraw::WidgetStyle::*)() const>(&berialdraw::WidgetStyle::size_policy),
             static_cast<void (berialdraw::WidgetStyle::*)(berialdraw::SizePolicy)>(&berialdraw::WidgetStyle::size_policy), "Size policy")
-        .def_property("min_size", 
-            static_cast<const berialdraw::Size& (berialdraw::WidgetStyle::*)() const>(&berialdraw::WidgetStyle::min_size),
-            static_cast<void (berialdraw::WidgetStyle::*)(const berialdraw::Size&)>(&berialdraw::WidgetStyle::min_size), 
-            "Minimum size", pybind11::return_value_policy::reference_internal)
-        .def_property("max_size", 
-            static_cast<const berialdraw::Size& (berialdraw::WidgetStyle::*)() const>(&berialdraw::WidgetStyle::max_size),
-            static_cast<void (berialdraw::WidgetStyle::*)(const berialdraw::Size&)>(&berialdraw::WidgetStyle::max_size), 
-            "Maximum size", pybind11::return_value_policy::reference_internal)
+        .def_property("min_size",
+            [](berialdraw::WidgetStyle& self) -> pybind11::tuple {
+                const auto& s = self.min_size();
+                return pybind11::make_tuple(s.width(), s.height());
+            },
+            [](berialdraw::WidgetStyle& self, pybind11::object value) {
+                if (pybind11::isinstance<pybind11::int_>(value) || pybind11::isinstance<pybind11::float_>(value)) {
+                    // min_size = 100 -> (100, 0)
+                    auto w = value.cast<berialdraw::Dim>();
+                    self.min_size(berialdraw::Size(w, 0));
+                } else if (pybind11::isinstance<pybind11::tuple>(value) || pybind11::isinstance<pybind11::list>(value)) {
+                    auto seq = value.cast<pybind11::sequence>();
+                    if (pybind11::len(seq) == 2) {
+                        auto w = seq[0].cast<berialdraw::Dim>();
+                        auto h = seq[1].cast<berialdraw::Dim>();
+                        self.min_size(berialdraw::Size(w, h));
+                    } else {
+                        throw std::invalid_argument("min_size tuple/list must have 2 values (width, height)");
+                    }
+                } else if (pybind11::isinstance<pybind11::object>(value) && pybind11::hasattr(value, "width") && pybind11::hasattr(value, "height")) {
+                    // Accepts pyberialdraw.Size
+                    auto w = value.attr("width")().cast<berialdraw::Dim>();
+                    auto h = value.attr("height")().cast<berialdraw::Dim>();
+                    self.min_size(berialdraw::Size(w, h));
+                } else {
+                    throw std::invalid_argument("min_size must be int, tuple/list of 2 values, or Size object");
+                }
+            }, "Minimum size: int, (w,h), or Size")
+        .def_property("max_size",
+            [](berialdraw::WidgetStyle& self) -> pybind11::tuple {
+                const auto& s = self.max_size();
+                return pybind11::make_tuple(s.width(), s.height());
+            },
+            [](berialdraw::WidgetStyle& self, pybind11::object value) {
+                if (pybind11::isinstance<pybind11::int_>(value) || pybind11::isinstance<pybind11::float_>(value)) {
+                    auto w = value.cast<berialdraw::Dim>();
+                    self.max_size(berialdraw::Size(w, 0));
+                } else if (pybind11::isinstance<pybind11::tuple>(value) || pybind11::isinstance<pybind11::list>(value)) {
+                    auto seq = value.cast<pybind11::sequence>();
+                    if (pybind11::len(seq) == 2) {
+                        auto w = seq[0].cast<berialdraw::Dim>();
+                        auto h = seq[1].cast<berialdraw::Dim>();
+                        self.max_size(berialdraw::Size(w, h));
+                    } else {
+                        throw std::invalid_argument("max_size tuple/list must have 2 values (width, height)");
+                    }
+                } else if (pybind11::isinstance<pybind11::object>(value) && pybind11::hasattr(value, "width") && pybind11::hasattr(value, "height")) {
+                    auto w = value.attr("width")().cast<berialdraw::Dim>();
+                    auto h = value.attr("height")().cast<berialdraw::Dim>();
+                    self.max_size(berialdraw::Size(w, h));
+                } else {
+                    throw std::invalid_argument("max_size must be int, tuple/list of 2 values, or Size object");
+                }
+            }, "Maximum size: int, (w,h), or Size")
         .def_property("id", 
             static_cast<uint16_t (berialdraw::WidgetStyle::*)() const>(&berialdraw::WidgetStyle::id),
             static_cast<void (berialdraw::WidgetStyle::*)(uint16_t)>(&berialdraw::WidgetStyle::id), "Widget ID")

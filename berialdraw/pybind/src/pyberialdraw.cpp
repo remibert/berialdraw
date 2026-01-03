@@ -20,6 +20,8 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_area(m);
     bind_margin(m);
     bind_size_policy(m);
+    bind_extend(m);
+    bind_align(m);
     
     // Bind styles next (base classes)
     bind_style(m);

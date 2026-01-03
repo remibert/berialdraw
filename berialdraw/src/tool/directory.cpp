@@ -109,6 +109,64 @@ bool Directory::match(const char *pattern, bool ignore_case)
 	return (match_pattern(pattern, m_filename.c_str()));
 }
 
+bool Directory::match_pattern(const char *pattern, const char *string, bool ignore_case)
+{
+	size_t pattern_len = strlen(pattern);
+	size_t string_len = strlen(string);
+
+	size_t i = 0;
+	size_t j = 0;
+
+	while (i < pattern_len && j < string_len)
+	{
+		if (pattern[i] == '*')
+		{
+			// Match zero or more characters
+			while (i < pattern_len && pattern[i] == '*')
+			{
+				i++;
+			}
+			if (i == pattern_len)
+			{
+				return true; // Pattern matches if it ends with *
+			}
+
+			if (ignore_case)
+			{
+				while (j < string_len && Strnicmp(pattern + i, string + j, 1) != 0)
+				{
+					j++;
+				}
+			}
+			else
+			{
+				while (j < string_len && strncmp(pattern + i, string + j, 1) != 0)
+				{
+					j++;
+				}
+			}
+		}
+		else if (pattern[i] == '?')
+		{
+			// Match a single character
+			i++;
+			j++;
+		}
+		else if (pattern[i] == string[j])
+		{
+			// Match a single character
+			i++;
+			j++;
+		}
+		else
+		{
+			return false; // Pattern does not match
+		}
+	}
+	return i == pattern_len && j == string_len;
+}
+
+
 /** Check if a directory exists
 @param path directory path to check
 @return true if directory exists */

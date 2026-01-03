@@ -8,18 +8,12 @@ def cleanup_on_exit():
 
 atexit.register(cleanup_on_exit)
 
-
 sys.path.insert(0, r"Z:\tmp\pyberialdraw\x64\Debug")
 from pyberialdraw import *
-
-
 
 device = DeviceScreen("Sample python")
 
 UIManager.init(device, 480, 880, Framebuf.ARGB8888, 4, "./resources;../resources")
-
-#UIManager.init(device, (480*2+100)//8, (880*2+300)//8, Framebuf.ARGB8888, 1, "./resources;../resources")
-
 UIManager.style = "pearl"
 UIManager.appearance = "light"
 UIManager.theme = THEME_LIME
@@ -40,7 +34,7 @@ class Dialog:
 		self.scroll = ScrollView(self.window)
 		self.layout = Column(self.scroll)
 		self.label = Label(self.layout)
-		self.label.text = "h||l||"
+		self.label.text = "hello"
 
 		self.first_name = Edit(self.layout)
 		self.first_name.text = ""
@@ -61,6 +55,12 @@ class Dialog:
 		self.slider = Slider(self.layout)
 		self.slider.on_click = lambda widget, event: print(f"Slider clicked at {event.position}")
 		self.slider.on_key_down = self.on_key_pressed
+
+		self.sliderv = Slider(self.layout)
+		self.sliderv.on_click = lambda widget, event: print(f"Slider clicked at {event.position}")
+		self.sliderv.on_key_down = self.on_key_pressed
+		self.sliderv.extend = Extend.EXTEND_HEIGHT
+		self.sliderv.min_size = (100,100)
 
 		self.button = Button(self.layout)
 		self.button.text = "hello\nworld"

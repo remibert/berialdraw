@@ -21,6 +21,7 @@ namespace berialdraw
 
 	std::mutex m_mutex;
 	bool MemoryLeakTracer::m_started = false;
+	bool MemoryLeakTracer::m_suspended = false;
 	MemHeader *  MemoryLeakTracer::m_allocated = 0;
 }
 using namespace berialdraw;
@@ -59,6 +60,7 @@ void MemoryLeakTracer::show()
 		bd_printf("Id:%lu, size:%lu, ptr:0x%08llX\n",(long)current->id, (long)current->size, (long long)(&(current[1])));
 		current = current->next;
 	}
+	bd_printf("Not freed count:%lu, size:%lu, last_id:%lu\n",(long)MemoryLeakTracer::m_count, (long) MemoryLeakTracer::m_size, (long)MemoryLeakTracer::m_base_id);
 }
 
 void size_to_string(int32_t size, size_t width = 7)
@@ -93,6 +95,18 @@ void MemoryLeakTracer::stat(const char * name)
 	}
 	m_stat_size = m_size;
 	m_stat_count = m_count;
+}
+
+/** Suspend memory tracking without stopping it */
+void MemoryLeakTracer::suspend()
+{
+	MemoryLeakTracer::m_suspended = true;
+}
+
+/** Resume memory tracking after being suspended */
+void MemoryLeakTracer::resume()
+{
+	MemoryLeakTracer::m_suspended = false;
 }
 
 /** Count of blocks yet allocated */
@@ -219,21 +233,25 @@ void * MemoryLeakTracer::alloc(std::size_t size)
 			// If analysis started
 			if (MemoryLeakTracer::m_started)
 			{
-				// Set header
-				header->id   = ++MemoryLeakTracer::m_base_id;
-				header->size = size;
-				header->next = MemoryLeakTracer::m_allocated;
-				header->tag  = 0xCAFEFADE;
-
-				// Increase counters
-				MemoryLeakTracer::m_count ++;
-				MemoryLeakTracer::m_size += size;
-				MemoryLeakTracer::m_allocated = header;
-				
-				// If block id is searched
-				if (header->id == MemoryLeakTracer::m_break_at)
+				 // Only track if not suspended
+				if (!MemoryLeakTracer::m_suspended)
 				{
-					breakpoint();
+					// Set header
+					header->id   = ++MemoryLeakTracer::m_base_id;
+					header->size = size;
+					header->next = MemoryLeakTracer::m_allocated;
+					header->tag  = 0xCAFEFADE;
+
+					// Increase counters
+					MemoryLeakTracer::m_count ++;
+					MemoryLeakTracer::m_size += size;
+					MemoryLeakTracer::m_allocated = header;
+					
+					// If block id is searched
+					if (header->id == MemoryLeakTracer::m_break_at)
+					{
+						breakpoint();
+					}
 				}
 			}
 		}
@@ -298,32 +316,22 @@ void MemoryLeakTracer::unalloc(void* ptr) noexcept
 					}
 					else
 					{
-						MemHeader * next    = MemoryLeakTracer::m_allocated->next;
+						// Corrected list traversal logic
 						MemHeader * current = MemoryLeakTracer::m_allocated;
 				
-						// Search the block in list
-						while (current)
+						// Search the block in list by iterating through the chain
+						while (current && current->next)
 						{
-							// If next block is the block searched
-							if (next == header)
+							// If the next block is the one we're looking for
+							if (current->next == header)
 							{
-								// Remove the block from the list
-								current->next = next->next;
+								// Remove it from the list
+								current->next = header->next;
 								break;
 							}
 
-							// If next existing
-							if (next)
-							{
-								// Select next block
-								current = next;
-								next = next->next;
-							}
-							else
-							{
-								// Exit
-								break;
-							}
+							// Move to next block
+							current = current->next;
 						}
 					}
 				}

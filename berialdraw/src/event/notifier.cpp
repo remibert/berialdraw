@@ -167,22 +167,46 @@ void Notifier::treat_touch_move(TouchEvent & evt)
 	// Move on same widget
 	if (m_clicked && (m_hovered == m_clicked))
 	{
-		if (m_move_count <= 6)
+		if (m_move_count <= 2)
 		{
 			m_move_count ++;
 		}
 		else
 		{
-			if (m_clicked->focused() || m_clicked->selectable())
+			bool scroll = true;
+		
+			if (m_clicked->selectable())
 			{
-				push_event(new SelectEvent(SelectEvent::SELECT_START, m_down_position,m_clicked));
-				m_selected = m_clicked;
+				Coord move_x = abs(m_down_position.x_() - evt.position().x_());
+				Coord move_y = abs(m_down_position.y_() - evt.position().y_());
+
+				if (m_clicked->classname() == "slider")
+				{
+					if (m_clicked->extend() == Extend::EXTEND_HEIGHT)
+					{
+						if (move_x < move_y*2) scroll = false;
+					}
+					else 
+					{
+						if (move_y < move_x*2) scroll = false;
+					}
+				}
+				else if (move_y < move_x*2)
+				{
+					scroll = false;
+				}
+			}
+
+			if (scroll)
+			{
+				m_scrolled = m_clicked;
 				m_clicked->pressed(false);
 				m_clicked = 0;
 			}
 			else
 			{
-				m_scrolled = m_clicked;
+				push_event(new SelectEvent(SelectEvent::SELECT_START, m_down_position,m_clicked));
+				m_selected = m_clicked;
 				m_clicked->pressed(false);
 				m_clicked = 0;
 			}

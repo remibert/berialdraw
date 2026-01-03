@@ -41,6 +41,8 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
+		Dim compute_zoom(Dim value, Dim zoom);
+
 		/** Remove operator = */
 		Icon& operator=(const Icon& other) = delete;
 

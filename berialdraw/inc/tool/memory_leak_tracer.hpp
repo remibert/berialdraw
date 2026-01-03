@@ -54,6 +54,13 @@ namespace berialdraw
 		@param name An optional name for the statistics. */
 		static void stat(const char * name = 0);
 
+		/** Suspends memory tracking without stopping it.
+		Allocations made while suspended won't be tracked. */
+		static void suspend();
+
+		/** Resumes memory tracking after being suspended. */
+		static void resume();
+
 	protected:
 
 /// @cond DOXYGEN_IGNORE
@@ -86,6 +93,9 @@ namespace berialdraw
 
 		/** Indicates whether memory analysis has started. */
 		static bool m_started;
+
+		 /** Indicates whether memory tracking is currently suspended. */
+		static bool m_suspended;
 
 		/** List of currently allocated memory blocks. */
 		static MemHeader * m_allocated;

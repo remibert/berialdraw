@@ -2,7 +2,7 @@
 
 namespace berialdraw
 {
-static const unsigned long  crc32Poly[] = 
+static const unsigned long  crc32_poly[] = 
 {
 	0x00000000, 0x77073096, 0xEE0E612C, 0x990951BA, 0x076DC419, 0x706AF48F, 0xE963A535, 0x9E6495A3,
 	0x0EDB8832, 0x79DCB8A4, 0xE0D5E91E, 0x97D2D988, 0x09B64C2B, 0x7EB17CBD, 0xE7B82D07, 0x90BF1D91,
@@ -66,7 +66,7 @@ uint32_t compute_crc32(const void * buffer, uint32_t size, uint32_t & initial)
 
 	while (size--)
 	{
-		result = crc32Poly [(result ^ *current++) & 0xFF] ^ (result >> 8);
+		result = crc32_poly [(result ^ *current++) & 0xFF] ^ (result >> 8);
 	}
 
 	result ^= ~0U;
@@ -370,74 +370,6 @@ FT_Matrix vector_matrix(int32_t angle)
 	}
 }
 
-void calc_point(Point & p, Dim radius, FT_Vector & sincos)
-{
-	p.x_(p.x_() + (Coord)((((int64_t)(sincos.x)*(int64_t)(radius)) + (1 << 15))>>16));
-	p.y_(p.y_() + (Coord)((((int64_t)(sincos.y)*(int64_t)(radius)) + (1 << 15))>>16));
-}
-
-void calc_cubic(Point & p, Dim radius, FT_Vector & sincos)
-{
-	p.x_(p.x_() + (Coord)((((int64_t)(sincos.y)*(int64_t)(radius)) + (1 << 15))>>16));
-	p.y_(p.y_() + (Coord)((((int64_t)(sincos.x)*(int64_t)(radius)) + (1 << 15))>>16));
-}
-
-bool match_pattern(const char *pattern, const char *string, bool ignore_case)
-{
-	size_t pattern_len = strlen(pattern);
-	size_t string_len = strlen(string);
-
-	size_t i = 0;
-	size_t j = 0;
-
-	while (i < pattern_len && j < string_len)
-	{
-		if (pattern[i] == '*')
-		{
-			// Match zero or more characters
-			while (i < pattern_len && pattern[i] == '*')
-			{
-				i++;
-			}
-			if (i == pattern_len)
-			{
-				return true; // Pattern matches if it ends with *
-			}
-
-			if (ignore_case)
-			{
-				while (j < string_len && Strnicmp(pattern + i, string + j, 1) != 0)
-				{
-					j++;
-				}
-			}
-			else
-			{
-				while (j < string_len && strncmp(pattern + i, string + j, 1) != 0)
-				{
-					j++;
-				}
-			}
-		}
-		else if (pattern[i] == '?')
-		{
-			// Match a single character
-			i++;
-			j++;
-		}
-		else if (pattern[i] == string[j])
-		{
-			// Match a single character
-			i++;
-			j++;
-		}
-		else
-		{
-			return false; // Pattern does not match
-		}
-	}
-	return i == pattern_len && j == string_len;
-}
 
 #define A 1664525
 #define C 1013904223
@@ -463,10 +395,6 @@ int32_t get_rand(int32_t mini, int32_t maxi)
 }
 
 
-Dim compute_zoom(Dim value, Dim zoom)
-{
-	return (Dim)((((uint64_t)value * (uint64_t)zoom)) >> 6);
-}
 
 }
 

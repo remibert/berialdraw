@@ -37,6 +37,12 @@ void Icon::copy(const Icon * icon)
 	}
 }
 
+Dim Icon::compute_zoom(Dim value, Dim zoom)
+{
+	return (Dim)((((uint64_t)value * (uint64_t)zoom)) >> 6);
+}
+
+
 /** Return the icon size */
 Size Icon::icon_size()
 {

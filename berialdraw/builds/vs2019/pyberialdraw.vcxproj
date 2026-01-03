@@ -24,6 +24,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\pybind\src\pybind\tool\json.cpp" />
+    <ClCompile Include="..\..\pybind\src\pybind\vector\align.cpp" />
+    <ClCompile Include="..\..\pybind\src\pybind\vector\extend.cpp" />
     <ClCompile Include="..\\..\\pybind\\src\\pyberialdraw.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>

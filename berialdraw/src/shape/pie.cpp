@@ -2,6 +2,18 @@
 
 using namespace berialdraw;
 
+inline void calc_point(Point & p, Dim radius, FT_Vector & sincos)
+{
+	p.x_(p.x_() + (Coord)((((int64_t)(sincos.x)*(int64_t)(radius)) + (1 << 15))>>16));
+	p.y_(p.y_() + (Coord)((((int64_t)(sincos.y)*(int64_t)(radius)) + (1 << 15))>>16));
+}
+
+inline void calc_cubic(Point & p, Dim radius, FT_Vector & sincos)
+{
+	p.x_(p.x_() + (Coord)((((int64_t)(sincos.y)*(int64_t)(radius)) + (1 << 15))>>16));
+	p.y_(p.y_() + (Coord)((((int64_t)(sincos.x)*(int64_t)(radius)) + (1 << 15))>>16));
+}
+
 Pie::Pie(Canvas * canvas) : 
 	Shape(canvas, sizeof(Pie)),
 	m_polygon(0)

@@ -1460,7 +1460,6 @@ void Button::test()
 	{
 		done = true;
 
-test9();
 		test18();
 		test17();
 		test16();
