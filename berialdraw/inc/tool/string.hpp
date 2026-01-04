@@ -213,8 +213,8 @@ namespace berialdraw
 		@return Wide character read or null if it ends */
 		virtual wchar_t read_char();
 
-		/** Search for variable pattern ${name} starting from position
-		@param var String to store the variable name (without ${})
+		/** Search for variable pattern $(name) starting from position
+		@param var String to store the variable name (without $())
 		@param pos Starting position to search from
 		@return Index where the variable was found or INT32_MAX if not found */
 		int32_t search_var(String & var, int32_t pos = 0) const;

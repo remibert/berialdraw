@@ -115,7 +115,7 @@ void Line::test()
 			line->point2(compass.position());
 		}
 
-		UIManager::desktop()->dispatch("${ui.tests}/out/line1.svg");
+		UIManager::desktop()->dispatch("$(ui.tests)/out/line1.svg");
 	}
 }
 #endif

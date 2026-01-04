@@ -682,7 +682,7 @@ void Slider::test1()
 		"{'type':'touch','x':270,'y':483,'state':'move'},"
 	"]");
 
-	UIManager::notifier()->play_script(script, "${ui.tests}/out/slider1_%d.svg");
+	UIManager::notifier()->play_script(script, "$(ui.tests)/out/slider1_%d.svg");
 }
 
 void Slider::test2()
@@ -1006,7 +1006,7 @@ void Slider::test2()
 		"{'type':'touch','x':270,'y':483,'state':'move'},"
 	"]");
 
-	UIManager::notifier()->play_script(script, "${ui.tests}/out/slider2_%d.svg");
+	UIManager::notifier()->play_script(script, "$(ui.tests)/out/slider2_%d.svg");
 }
 
 class TestSlider
@@ -1290,7 +1290,7 @@ void Slider::test3()
 
 	"]");
 
-	UIManager::notifier()->play_script(script, "${ui.tests}/out/slider3_%d.svg");
+	UIManager::notifier()->play_script(script, "$(ui.tests)/out/slider3_%d.svg");
 }
 
 void Slider::test4()
@@ -1340,7 +1340,7 @@ void Slider::test4()
 			vertical[i]->value(i*25);
 	}
 
-	UIManager::desktop()->dispatch("${ui.tests}/out/slider4_1.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/slider4_1.svg");
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -1349,7 +1349,7 @@ void Slider::test4()
 		vertical[i]->track_size(4);
 		vertical[i]->handle_size(20);
 	}
-	UIManager::desktop()->dispatch("${ui.tests}/out/slider4_2.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/slider4_2.svg");
 }
 
 void Slider::test5()

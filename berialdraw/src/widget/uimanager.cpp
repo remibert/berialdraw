@@ -39,11 +39,11 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 			dir = ".";
 		}
 		(*m_settings)["ui"]["root-dir"]  = dir;
-		(*m_settings)["ui"]["fonts"]     = "${ui.root-dir}/fonts";
-		(*m_settings)["ui"]["styles"]    = "${ui.root-dir}/styles";
-		(*m_settings)["ui"]["icons"]     = "${ui.root-dir}/icons";
-		(*m_settings)["ui"]["colors"]    = "${ui.root-dir}/colors";
-		(*m_settings)["ui"]["tests"]     = "${ui.root-dir}/../test";
+		(*m_settings)["ui"]["fonts"]     = "$(ui.root-dir)/fonts";
+		(*m_settings)["ui"]["styles"]    = "$(ui.root-dir)/styles";
+		(*m_settings)["ui"]["icons"]     = "$(ui.root-dir)/icons";
+		(*m_settings)["ui"]["colors"]    = "$(ui.root-dir)/colors";
+		(*m_settings)["ui"]["tests"]     = "$(ui.root-dir)/../test";
 		m_notifier     = new Notifier;
 		m_invalidator  = new Invalidator;
 		m_styles       = new Styles;

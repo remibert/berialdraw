@@ -24,7 +24,7 @@ int main(int argc, char* args[])
 		UIManager::init(new DeviceScreen("Test BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888,ZOOM, "../resources;./resources");
 
 		// Select the CRC checks for the screens to verify whether the tests are successful or not.
-		UIManager::screen_crc()->open("${ui.tests}/out/all_crcs.json","${ui.tests}/ref/all_crcs.json");
+		UIManager::screen_crc()->open("$(ui.tests)/out/all_crcs.json","$(ui.tests)/ref/all_crcs.json");
 
 		// Starts the user event logger, useful if you want to script user interface tests
 		//UIManager::notifier()->log();

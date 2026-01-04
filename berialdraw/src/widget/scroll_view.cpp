@@ -453,7 +453,7 @@ void ScrollView::test1()
 			if (i % 11 == 0)
 			{
 				String name;
-				name.print("${ui.tests}/out/scroll1_%d.svg", ++id);
+				name.print("$(ui.tests)/out/scroll1_%d.svg", ++id);
 				UIManager::desktop()->dispatch(name);
 			}
 			else
@@ -608,7 +608,7 @@ void ScrollView::test2()
 		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
 		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 	"]");
-	UIManager::notifier()->play_script(script, "${ui.tests}/out/scroll2_%d.svg");
+	UIManager::notifier()->play_script(script, "$(ui.tests)/out/scroll2_%d.svg");
 
 }
 
@@ -634,15 +634,15 @@ void ScrollView::test3()
 		label->text("1");
 		label->cell(1,0);
 
-	UIManager::desktop()->dispatch("${ui.tests}/out/scroll3_1.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/scroll3_1.svg");
 	scroll_view->align(Align::ALIGN_BOTTOM);
-	UIManager::desktop()->dispatch("${ui.tests}/out/scroll3_2.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/scroll3_2.svg");
 	scroll_view->align(Align::ALIGN_TOP);
-	UIManager::desktop()->dispatch("${ui.tests}/out/scroll3_3.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/scroll3_3.svg");
 	scroll_view->align(Align::ALIGN_LEFT);
-	UIManager::desktop()->dispatch("${ui.tests}/out/scroll3_4.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/scroll3_4.svg");
 	scroll_view->align(Align::ALIGN_RIGHT);
-	UIManager::desktop()->dispatch("${ui.tests}/out/scroll3_5.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/scroll3_5.svg");
 }
 
 void ScrollView::test4()
@@ -667,13 +667,13 @@ void ScrollView::test4()
 		}
 	}
 
-	UIManager::desktop()->dispatch("${ui.tests}/out/scroll4_1.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/scroll4_1.svg");
 	scroll_view->scroll_direction(SCROLL_VERTICAL);
-	UIManager::desktop()->dispatch("${ui.tests}/out/scroll4_2.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/scroll4_2.svg");
 	scroll_view->scroll_direction(SCROLL_HORIZONTAL);
-	UIManager::desktop()->dispatch("${ui.tests}/out/scroll4_3.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/scroll4_3.svg");
 	scroll_view->scroll_direction(SCROLL_ALL_DIRECTIONS);
-	UIManager::desktop()->dispatch("${ui.tests}/out/scroll4_4.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/scroll4_4.svg");
 }
 
 void ScrollView::test5()
@@ -764,7 +764,7 @@ void ScrollView::test5()
 		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 
 	"]");
-	UIManager::notifier()->play_script(script,"${ui.tests}/out/scroll5_%d.svg");
+	UIManager::notifier()->play_script(script,"$(ui.tests)/out/scroll5_%d.svg");
 }
 
 void ScrollView::test6()
@@ -798,7 +798,7 @@ void ScrollView::test6()
 						button->text("%c",i+0x41);
 				}
 	
-	UIManager::desktop()->dispatch("${ui.tests}/out/scroll6_0.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/scroll6_0.svg");
 }
 
 void ScrollView::test7()

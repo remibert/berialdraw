@@ -81,7 +81,7 @@ void Square::test()
 			fillsquare->thickness(0);
 		}
 
-		UIManager::desktop()->dispatch("${ui.tests}/out/square.svg");
+		UIManager::desktop()->dispatch("$(ui.tests)/out/square.svg");
 	}
 }
 #endif

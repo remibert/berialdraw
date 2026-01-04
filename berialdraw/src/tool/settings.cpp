@@ -97,15 +97,15 @@ String Settings::resolve(const String & template_str)
 					String value_str = (String)it;
 
 					// Create placeholder and replace in result
-					String placeholder("${");
+					String placeholder("$(");
 					placeholder += var_name;
-					placeholder += "}";
+					placeholder += ")";
 					result.replace(placeholder.c_str(), value_str.c_str());
 					found = true;
 				}
 			
 				// Move past the current variable for next search
-				pos += 2; // Move past ${
+				pos += 2; // Move past $(
 			}
 		}
 		while (pos != INT32_MAX);
@@ -202,23 +202,23 @@ void Settings::test4()
 	// Test resolve with simple and multiple placeholders
 	Settings s;
 	s["user"] = "Alice";
-	String resolved = s.resolve("Hello ${user}");
+	String resolved = s.resolve("Hello $(user)");
 	assert(resolved == "Hello Alice");
 
 	// Test resolve with multiple placeholders
 	s["greeting"] = "Welcome";
-	resolved = s.resolve("${greeting} ${user}!");
+	resolved = s.resolve("$(greeting) $(user)!");
 	assert(resolved == "Welcome Alice!");
 
 	// Test resolve with UTF-8 characters
 	s["city"] = "Paris";
-	resolved = s.resolve("Je suis à ${city}");
+	resolved = s.resolve("Je suis à $(city)");
 	assert(resolved == "Je suis à Paris");
 
 	// Test resolve complex template
 	s["year"] = 2025;
 	s["month"] = 12;
-	resolved = s.resolve("Date: ${year}-${month}");
+	resolved = s.resolve("Date: $(year)-$(month)");
 	assert(resolved == "Date: 2025-12");
 }
 
@@ -299,7 +299,7 @@ void Settings::test7()
 
 void Settings::test8()
 {
-	// Test nested JSON with dotted notation ${toto.titi.tata}
+	// Test nested JSON with dotted notation $(toto.titi.tata)
 	Settings config;
 	
 	// Create nested structure: config["database"]["host"] = "localhost"
@@ -319,38 +319,38 @@ void Settings::test8()
 	config["server"]["ssl"]["key"] = "/path/to/key.pem";
 	
 	// Test single level access (still works)
-	String resolved = config.resolve("Database: ${database}");
+	String resolved = config.resolve("Database: $(database)");
 	// Note: This will not replace since database is an object, not a scalar
 	
 	// Test two-level nested access
-	resolved = config.resolve("Host: ${database.host}");
+	resolved = config.resolve("Host: $(database.host)");
 	assert(resolved == "Host: localhost");
 	
-	resolved = config.resolve("Port: ${database.port}");
+	resolved = config.resolve("Port: $(database.port)");
 	assert(resolved == "Port: 5432");
 	
 	// Test three-level nested access
-	resolved = config.resolve("SSL Enabled: ${server.ssl.enabled}");
+	resolved = config.resolve("SSL Enabled: $(server.ssl.enabled)");
 	assert(resolved == "SSL Enabled: true"); // boolean converted to "1"
 	
-	resolved = config.resolve("Cert Path: ${server.ssl.cert}");
+	resolved = config.resolve("Cert Path: $(server.ssl.cert)");
 	assert(resolved == "Cert Path: /path/to/cert.pem");
 	
 	// Test multiple placeholders with different nesting levels
-	resolved = config.resolve("Connecting to ${database.username}@${database.host}:${database.port}");
+	resolved = config.resolve("Connecting to $(database.username)@$(database.host):$(database.port)");
 	assert(resolved == "Connecting to admin@localhost:5432");
 	
 	// Test complex template with mixed nesting
-	resolved = config.resolve("${app.name} v${app.version} - DB: ${database.host} (SSL: ${server.ssl.enabled})");
+	resolved = config.resolve("$(app.name) v$(app.version) - DB: $(database.host) (SSL: $(server.ssl.enabled))");
 	assert(resolved == "MyApp v1.0 - DB: localhost (SSL: true)");
 	
 	// Test missing nested path (should not replace)
-	resolved = config.resolve("Missing: ${database.missing.path}");
-	assert(resolved == "Missing: ${database.missing.path}"); // Placeholder unchanged
+	resolved = config.resolve("Missing: $(database.missing.path)");
+	assert(resolved == "Missing: $(database.missing.path)"); // Placeholder unchanged
 	
 	// Test partial missing path (should not replace)
-	resolved = config.resolve("Partial: ${database.nonexistent}");
-	assert(resolved == "Partial: ${database.nonexistent}"); // Placeholder unchanged
+	resolved = config.resolve("Partial: $(database.nonexistent)");
+	assert(resolved == "Partial: $(database.nonexistent)"); // Placeholder unchanged
 }
 
 void Settings::test()

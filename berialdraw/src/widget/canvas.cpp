@@ -248,7 +248,7 @@ void Canvas::test2()
 	{
 		text->angle(angle);
 		String name;
-		name.print("${ui.tests}/out/canvas1_%d.svg", ++id);
+		name.print("$(ui.tests)/out/canvas1_%d.svg", ++id);
 		UIManager::desktop()->dispatch(name);
 	}
 }
@@ -375,7 +375,7 @@ void Canvas::test3()
 		line = new Line(*line);
 			line->position(line->position().x()+10,line->position().y());
 
-	UIManager::desktop()->dispatch("${ui.tests}/out/canvas3.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/canvas3.svg");
 }
 
 void Canvas::test4()
@@ -409,7 +409,7 @@ void Canvas::test4()
 				polygon->zoom(i);
 		}
 	}
-	UIManager::desktop()->dispatch("${ui.tests}/out/canvas4.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/canvas4.svg");
 }
 
 void Canvas::test5()

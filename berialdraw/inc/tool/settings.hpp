@@ -25,13 +25,13 @@ namespace berialdraw
 		@return Reference to this Settings */
 		Settings& operator=(const Settings& other);
 
-		/** Resolve a string by replacing ${name} placeholders with setting values
-		@param template_str String containing ${name} placeholders
+		/** Resolve a string by replacing $(name) placeholders with setting values
+		@param template_str String containing $(name) placeholders
 		@return Resolved string with all placeholders replaced */
 		String resolve(const String & template_str);
 
-		/** Resolve a string by replacing ${name} placeholders with setting values
-		@param template_str C-string containing ${name} placeholders
+		/** Resolve a string by replacing $(name) placeholders with setting values
+		@param template_str C-string containing $(name) placeholders
 		@return Resolved string with all placeholders replaced */
 		String resolve(const char * template_str);
 

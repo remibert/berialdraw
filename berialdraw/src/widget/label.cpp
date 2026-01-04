@@ -177,7 +177,7 @@ void Label::test1()
 		if (s % 18 == 0)
 		{
 			String name;
-			name.print("${ui.tests}/out/label1_%d.svg", ++id);
+			name.print("$(ui.tests)/out/label1_%d.svg", ++id);
 			UIManager::desktop()->dispatch(name);
 		}
 		else
@@ -218,7 +218,7 @@ void Label::test2()
 			label->text_align(Align::CENTER);
 			label->extend(Extend::EXTEND_NONE);
 
-	UIManager::desktop()->dispatch("${ui.tests}/out/label2_1.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/label2_1.svg");
 }
 
 void Label::test3()

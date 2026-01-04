@@ -14,25 +14,25 @@ void sample_icon_menu()
 	dialog.title("Samples");
 	dialog.add_back_button("Back");
 
-	//dialog.bind("Form"       , "${ui.icons}/view_agenda.icn"       ,sample_forms      );
+	//dialog.bind("Form"       , "$(ui.icons)/view_agenda.icn"       ,sample_forms      );
 
-	dialog.bind("Button"     , "${ui.icons}/view_agenda.icn"       ,sample_button      );
-	dialog.bind("Canvas"     , "${ui.icons}/draw_abstract.icn"     ,sample_canvas      );
-	dialog.bind("Column"     , "${ui.icons}/table_rows_narrow.icn" ,sample_column      );
-	dialog.bind("Edit"       , "${ui.icons}/text_fields_alt.icn"   ,sample_edit        );
-	dialog.bind("Grid"       , "${ui.icons}/grid_on.icn"           ,sample_grid        );
-	dialog.bind("Icon"       , "${ui.icons}/image.icn"             ,sample_icon        );
-	dialog.bind("Keyboard"   , "${ui.icons}/keyboard.icn"          ,sample_keyboard    );
-	dialog.bind("Label"      , "${ui.icons}/format_size.icn"       ,sample_label       );
-	dialog.bind("Pane"       , "${ui.icons}/featured_video.icn"    ,sample_pane        );
-	dialog.bind("ProgressBar", "${ui.icons}/sliders.icn"           ,sample_progress_bar);
-	dialog.bind("Row"        , "${ui.icons}/calendar_view_week.icn",sample_row         );
-	dialog.bind("ScrollView" , "${ui.icons}/scrollable_header.icn" ,sample_scroll_view );
-	dialog.bind("Slider"     , "${ui.icons}/tune.icn"              ,sample_slider      );
-	dialog.bind("Switch"     , "${ui.icons}/toggle_on.icn"         ,sample_switch      );
-	dialog.bind("Window"     , "${ui.icons}/select_window.icn"     ,sample_window      );
-	dialog.bind("Speedometer", "${ui.icons}/speed.icn"             ,sample_speedometer );
-	dialog.bind("Theme"      , "${ui.icons}/filter_vintage.icn"    ,sample_theme       );
+	dialog.bind("Button"     , "$(ui.icons)/view_agenda.icn"       ,sample_button      );
+	dialog.bind("Canvas"     , "$(ui.icons)/draw_abstract.icn"     ,sample_canvas      );
+	dialog.bind("Column"     , "$(ui.icons)/table_rows_narrow.icn" ,sample_column      );
+	dialog.bind("Edit"       , "$(ui.icons)/text_fields_alt.icn"   ,sample_edit        );
+	dialog.bind("Grid"       , "$(ui.icons)/grid_on.icn"           ,sample_grid        );
+	dialog.bind("Icon"       , "$(ui.icons)/image.icn"             ,sample_icon        );
+	dialog.bind("Keyboard"   , "$(ui.icons)/keyboard.icn"          ,sample_keyboard    );
+	dialog.bind("Label"      , "$(ui.icons)/format_size.icn"       ,sample_label       );
+	dialog.bind("Pane"       , "$(ui.icons)/featured_video.icn"    ,sample_pane        );
+	dialog.bind("ProgressBar", "$(ui.icons)/sliders.icn"           ,sample_progress_bar);
+	dialog.bind("Row"        , "$(ui.icons)/calendar_view_week.icn",sample_row         );
+	dialog.bind("ScrollView" , "$(ui.icons)/scrollable_header.icn" ,sample_scroll_view );
+	dialog.bind("Slider"     , "$(ui.icons)/tune.icn"              ,sample_slider      );
+	dialog.bind("Switch"     , "$(ui.icons)/toggle_on.icn"         ,sample_switch      );
+	dialog.bind("Window"     , "$(ui.icons)/select_window.icn"     ,sample_window      );
+	dialog.bind("Speedometer", "$(ui.icons)/speed.icn"             ,sample_speedometer );
+	dialog.bind("Theme"      , "$(ui.icons)/filter_vintage.icn"    ,sample_theme       );
 	while (dialog.exec() != "<quit>");
 }
 

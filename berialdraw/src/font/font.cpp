@@ -260,7 +260,7 @@ void Font::test()
 				label->font_size(20,60);
 		}
 
-		UIManager::desktop()->dispatch("${ui.tests}/out/font_1.svg");
+		UIManager::desktop()->dispatch("$(ui.tests)/out/font_1.svg");
 	}
 }
 #endif

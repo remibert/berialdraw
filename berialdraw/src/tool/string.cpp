@@ -711,8 +711,8 @@ wchar_t String::read_char()
 
 
 
-/** Search for variable pattern ${name} starting from position
-@param var String to store the variable name (without ${})
+/** Search for variable pattern $(name) starting from position
+@param var String to store the variable name (without $())
 @param pos Starting position to search from
 @return Index where the variable was found or INT32_MAX if not found */
 int32_t String::search_var(String & var, int32_t pos) const
@@ -720,14 +720,14 @@ int32_t String::search_var(String & var, int32_t pos) const
 	int32_t result = INT32_MAX;
 	var.clear();
 	
-	int32_t start_pos = find("${", pos);
+	int32_t start_pos = find("$(", pos);
 	if (start_pos != INT32_MAX)
 	{
-		// Search for the closing }
-		int32_t end_pos = find("}", start_pos + 2);
+		// Search for the closing )
+		int32_t end_pos = find(")", start_pos + 2);
 		if (end_pos != INT32_MAX)
 		{
-			// Extract the variable name between ${ and }
+			// Extract the variable name between $( and )
 			slice(start_pos + 2, end_pos, var);
 			result = start_pos;
 		}
@@ -1163,14 +1163,14 @@ void String::test7()
 void String::test8()
 {
 	// Test basic variable search
-	String str("Hello ${name}, welcome!");
+	String str("Hello $(name), welcome!");
 	String var;
 	int32_t pos = str.search_var(var);
 	assert(pos == 6);
 	assert(var == "name");
 
 	// Test search with starting position
-	str = "Hello ${first}, this is ${second} test";
+	str = "Hello $(first), this is $(second) test";
 	pos = str.search_var(var, 0);
 	assert(pos == 6);
 	assert(var == "first");
@@ -1185,7 +1185,7 @@ void String::test8()
 	assert(pos == INT32_MAX);
 
 	// Test unclosed variable
-	str = "Hello ${name world";
+	str = "Hello $(name world";
 	pos = str.search_var(var);
 	assert(pos == INT32_MAX);
 
@@ -1195,13 +1195,13 @@ void String::test8()
 	assert(pos == INT32_MAX);
 
 	// Test variable with UTF-8 characters
-	str = "Bonjour ${prénom}, bienvenue!";
+	str = "Bonjour $(prénom), bienvenue!";
 	pos = str.search_var(var);
 	assert(pos == 8);
 	assert(var == "prénom");
 
 	// Test multiple variables with UTF-8
-	str = "Hello ${éléphant} and ${ours}";
+	str = "Hello $(éléphant) and $(ours)";
 	pos = str.search_var(var, 0);
 	assert(pos == 6);
 	assert(var == "éléphant");
@@ -1211,19 +1211,19 @@ void String::test8()
 	assert(var == "ours");
 
 	// Test variable at the beginning
-	str = "${var} is at start";
+	str = "$(var) is at start";
 	pos = str.search_var(var);
 	assert(pos == 0);
 	assert(var == "var");
 
 	// Test variable at the end
-	str = "This is ${var}";
+	str = "This is $(var)";
 	pos = str.search_var(var);
 	assert(pos == 8);
 	assert(var == "var");
 
 	// Test consecutive variables
-	str = "${first}${second}";
+	str = "$(first)$(second)";
 	pos = str.search_var(var, 0);
 	assert(pos == 0);
 	assert(var == "first");
@@ -1233,13 +1233,13 @@ void String::test8()
 	assert(var == "second");
 
 	// Test variable with numbers and underscore
-	str = "Config: ${var_name_123}";
+	str = "Config: $(var_name_123)";
 	pos = str.search_var(var);
 	assert(pos == 8);
 	assert(var == "var_name_123");
 
 	// Test empty variable name
-	str = "Empty: ${}";
+	str = "Empty: $()";
 	pos = str.search_var(var);
 	assert(pos == 7);
 	assert(var == "");

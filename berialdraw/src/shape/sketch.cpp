@@ -403,31 +403,31 @@ void Sketch::test1()
 		maison->position(rect->position());
 		maison->size(rect->size());
 		maison->color(Color::YELLOW);
-		maison->filename("${ui.icons}/maison.icn");
+		maison->filename("$(ui.icons)/maison.icn");
 
 	Sketch * computer = new Sketch(canvas);
 		computer->position(rect->position());
 		computer->size(rect->size());
 		computer->color(Color::YELLOW);
-		computer->filename("${ui.icons}/computer.icn");
+		computer->filename("$(ui.icons)/computer.icn");
 
-	UIManager::desktop()->dispatch("${ui.tests}/out/sketch1_1.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/sketch1_1.svg");
 	rect->size(360,10);
 	computer->size(rect->size());
 	maison->size(rect->size());
-	UIManager::desktop()->dispatch("${ui.tests}/out/sketch1_2.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/sketch1_2.svg");
 	rect->size(360,360);
 	computer->size(rect->size());
 	maison->size(rect->size());
-	UIManager::desktop()->dispatch("${ui.tests}/out/sketch1_3.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/sketch1_3.svg");
 	rect->size(60,360);
 	computer->size(rect->size());
 	maison->size(rect->size());
-	UIManager::desktop()->dispatch("${ui.tests}/out/sketch1_4.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/sketch1_4.svg");
 	rect->size(360,60);
 	computer->size(rect->size());
 	maison->size(rect->size());
-	UIManager::desktop()->dispatch("${ui.tests}/out/sketch1_5.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/sketch1_5.svg");
 }
 
 void Sketch::test2()
@@ -445,7 +445,7 @@ void Sketch::test2()
 		rect->repeat(Shape::REPEAT_ANGLE, 0, 359, 30);
 
 	Sketch * maison = new Sketch(canvas);
-		maison->filename("${ui.icons}/maison.icn");
+		maison->filename("$(ui.icons)/maison.icn");
 		maison->size(rect->size());
 		maison->color(Color::WHITE,128);
 		maison->position(rect->position());
@@ -455,7 +455,7 @@ void Sketch::test2()
 		computer->position(rect->position());
 		computer->size(rect->size());
 		computer->color(Color::YELLOW);
-		computer->filename("${ui.icons}/computer.icn");
+		computer->filename("$(ui.icons)/computer.icn");
 		computer->repeat(Shape::REPEAT_ANGLE, 0, 359, 30);
 
 	Coord pos = 0;
@@ -463,7 +463,7 @@ void Sketch::test2()
 	rect->center(pos,50);
 	computer->center(pos,50);
 	computer->color(Color::YELLOW,32);
-	UIManager::desktop()->dispatch("${ui.tests}/out/sketch2_1.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/sketch2_1.svg");
 
 	pos -= 100;
 	maison->color(Color::BLUE,64);
@@ -471,7 +471,7 @@ void Sketch::test2()
 	rect->center(pos,50);
 	computer->center(pos,50);
 	computer->color(Color::BLUE,64);
-	UIManager::desktop()->dispatch("${ui.tests}/out/sketch2_2.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/sketch2_2.svg");
 
 	pos -= 50;
 	maison->center(pos,100);
@@ -479,7 +479,7 @@ void Sketch::test2()
 	rect->center(pos,100);
 	computer->center(pos,100);
 	computer->color(Color::RED);
-	UIManager::desktop()->dispatch("${ui.tests}/out/sketch2_3.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/sketch2_3.svg");
 }
 
 void Sketch::test3()
@@ -498,28 +498,28 @@ void Sketch::test3()
 	Sketch * maison = new Sketch(canvas);
 		maison->position(rect->position());
 		maison->size(rect->size());
-		maison->filename("${ui.icons}/maison.icn");
-	UIManager::desktop()->dispatch("${ui.tests}/out/sketch3_0.svg");
+		maison->filename("$(ui.icons)/maison.icn");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/sketch3_0.svg");
 
 	maison->align(Align::ALIGN_BOTTOM);
-	UIManager::desktop()->dispatch("${ui.tests}/out/sketch3_1.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/sketch3_1.svg");
 
 	maison->align(Align::ALIGN_TOP);
-	UIManager::desktop()->dispatch("${ui.tests}/out/sketch3_2.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/sketch3_2.svg");
 
 	maison->align(Align::ALIGN_VERTICAL);
-	UIManager::desktop()->dispatch("${ui.tests}/out/sketch3_3.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/sketch3_3.svg");
 
 	rect->size(360,16);
 	maison->size(rect->size());
 	maison->align(Align::ALIGN_LEFT);
-	UIManager::desktop()->dispatch("${ui.tests}/out/sketch3_6.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/sketch3_6.svg");
 
 	maison->align(Align::ALIGN_RIGHT);
-	UIManager::desktop()->dispatch("${ui.tests}/out/sketch3_4.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/sketch3_4.svg");
 
 	maison->align(Align::ALIGN_HORIZONTAL);
-	UIManager::desktop()->dispatch("${ui.tests}/out/sketch3_5.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/sketch3_5.svg");
 }
 
 void Sketch::test4()

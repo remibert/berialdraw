@@ -14,7 +14,7 @@ void bind_settings(py::module& m) {
                 return (std::string)(berialdraw::String)self.resolve(template_str.c_str());
              },
              py::arg("template_str"),
-             "Resolve a string by replacing ${name} placeholders with setting values")
+             "Resolve a string by replacing $(name) placeholders with setting values")
         .def("set_bool", [](berialdraw::Settings& self, const std::string& name, bool value) {
                 berialdraw::JsonIterator it(self);
                 it[name.c_str()] = value;

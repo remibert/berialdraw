@@ -198,7 +198,7 @@ Style * Styles::select(const char * classname, const char * properties, StyleCre
 /** Get style filename according to class name */
 void Styles::filename(const char * classname, String & filename_)
 {
-	filename_.print("${ui.styles}/%s/%s.json",m_style.c_str(),classname);
+	filename_.print("$(ui.styles)/%s/%s.json",m_style.c_str(),classname);
 }
 
 /** Load the style according to the name specified */

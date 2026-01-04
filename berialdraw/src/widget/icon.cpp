@@ -214,7 +214,7 @@ void Icon::test1()
 		window.size(480,480);
 
 	Directory directory;
-		directory.open("${ui.icons}");
+		directory.open("$(ui.icons)");
 
 	if (directory.first())
 	{
@@ -276,7 +276,7 @@ void Icon::test1()
 	"]");
 
 	//UIManager::desktop()->mainloop();
-	UIManager::notifier()->play_script(script, "${ui.tests}/out/icon1_%d.svg");
+	UIManager::notifier()->play_script(script, "$(ui.tests)/out/icon1_%d.svg");
 }
 
 void Icon::test2()
@@ -294,7 +294,7 @@ void Icon::test2()
 		main->flow(true);
 
 	int angle = 0;
-	for (Directory directory("${ui.icons}"); directory.exist(); directory.next())
+	for (Directory directory("$(ui.icons)"); directory.exist(); directory.next())
 	{
 		if (directory.match("*.icn"))
 		{
@@ -312,7 +312,7 @@ void Icon::test2()
 			angle += 30;
 		}
 	}
-	UIManager::desktop()->dispatch("${ui.tests}/out/icon2_0.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/icon2_0.svg");
 }
 
 void Icon::test3()
@@ -329,7 +329,7 @@ void Icon::test3()
 		main->flow(true);
 
 	int angle = 0;
-	for (Directory directory("${ui.icons}"); directory.exist(); directory.next())
+	for (Directory directory("$(ui.icons)"); directory.exist(); directory.next())
 	{
 		if (directory.match("*.icn"))
 		{
@@ -348,14 +348,14 @@ void Icon::test3()
 	}
 
 	//UIManager::desktop()->mainloop();
-	UIManager::desktop()->dispatch("${ui.tests}/out/icon3_0.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/icon3_0.svg");
 }
 
 void Icon::test4()
 {
 	Window window;
 		Icon * icon = new Icon(&window);
-			icon->filename("${ui.icons}/maison.icn");
+			icon->filename("$(ui.icons)/maison.icn");
 			icon->position(10,10);
 			icon->text("Icon");
 
@@ -363,15 +363,15 @@ void Icon::test4()
 			button->position(200,200);
 			button->text("Button");
 
-	UIManager::desktop()->dispatch("${ui.tests}/out/icon4_0.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/icon4_0.svg");
 		icon->zoom(4);
 		button->font_size(30,60);
 
-	UIManager::desktop()->dispatch("${ui.tests}/out/icon4_1.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/icon4_1.svg");
 		button->size(150,200);
 		icon->size(150,200);
 
-	UIManager::desktop()->dispatch("${ui.tests}/out/icon4_2.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/icon4_2.svg");
 }
 
 void Icon::test()
