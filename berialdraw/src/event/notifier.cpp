@@ -180,7 +180,7 @@ void Notifier::treat_touch_move(TouchEvent & evt)
 				Coord move_x = abs(m_down_position.x_() - evt.position().x_());
 				Coord move_y = abs(m_down_position.y_() - evt.position().y_());
 
-				if (m_clicked->classname() == "slider")
+				if (String(m_clicked->classname()) == "slider")
 				{
 					if (m_clicked->extend() == Extend::EXTEND_HEIGHT)
 					{

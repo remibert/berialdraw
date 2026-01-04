@@ -4,9 +4,103 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <functional>
 #include "berialdraw.hpp"
 
 namespace py = pybind11;
+
+// Generic helper templates to factorize repeated property bindings
+// These avoid lambda capture issues by using member pointers directly and a simple setter lambda
+
+// Helper: bind a property that returns a 2-element tuple (x, y) from a Point-like getter
+// and accepts tuple/list setter
+template<typename C, typename... Extra>
+void bind_point_property(pybind11::class_<C, Extra...>& cls, const char* name,
+                         const berialdraw::Point& (C::*getter)() const,
+                         void (C::*setter)(berialdraw::Coord, berialdraw::Coord),
+                         const char* doc) {
+    cls.def_property(name,
+        [getter](C& self) -> py::tuple {
+            const auto& p = (self.*getter)();
+            return py::make_tuple(p.x(), p.y());
+        },
+        [setter](C& self, py::object value) {
+            if (py::isinstance<py::tuple>(value) || py::isinstance<py::list>(value)) {
+                auto seq = value.cast<py::sequence>();
+                if (py::len(seq) == 2) {
+                    (self.*setter)(seq[0].cast<berialdraw::Coord>(), seq[1].cast<berialdraw::Coord>());
+                } else {
+                    throw std::invalid_argument("Point property must be tuple/list of 2 values (x, y)");
+                }
+            } else {
+                throw std::invalid_argument("Point property must be tuple/list of 2 values");
+            }
+        }, doc);
+}
+
+// Helper: bind a property that returns a 2-element tuple (width, height) from a Size-like getter
+// and accepts tuple/list setter or single value
+template<typename C, typename... Extra>
+void bind_size_property(pybind11::class_<C, Extra...>& cls, const char* name,
+                        const berialdraw::Size& (C::*getter)() const,
+                        void (C::*setter)(berialdraw::Dim, berialdraw::Dim),
+                        const char* doc) {
+    cls.def_property(name,
+        [getter](C& self) -> py::tuple {
+            const auto& s = (self.*getter)();
+            return py::make_tuple(s.width(), s.height());
+        },
+        [setter](C& self, py::object value) {
+            if (py::isinstance<py::int_>(value) || py::isinstance<py::float_>(value)) {
+                auto dim = value.cast<berialdraw::Dim>();
+                (self.*setter)(dim, dim);
+            } else if (py::isinstance<py::tuple>(value) || py::isinstance<py::list>(value)) {
+                auto seq = value.cast<py::sequence>();
+                if (py::len(seq) == 2) {
+                    (self.*setter)(seq[0].cast<berialdraw::Dim>(), seq[1].cast<berialdraw::Dim>());
+                } else {
+                    throw std::invalid_argument("Size property tuple/list must have 2 values (width, height)");
+                }
+            } else {
+                throw std::invalid_argument("Size property must be int/float or tuple/list of 2 values");
+            }
+        }, doc);
+}
+
+// Helper: bind a property that returns a 4-element tuple (top,right,bottom,left) from a Margin-like getter
+// and accepts single value or tuple/list setter
+template<typename C, typename... Extra>
+void bind_margin_property(pybind11::class_<C, Extra...>& cls, const char* name,
+                          const berialdraw::Margin& (C::*getter)() const,
+                          void (C::*setter1)(berialdraw::Dim),
+                          void (C::*setter2)(berialdraw::Dim, berialdraw::Dim),
+                          void (C::*setter4)(berialdraw::Dim, berialdraw::Dim, berialdraw::Dim, berialdraw::Dim),
+                          const char* doc) {
+    cls.def_property(name,
+        [getter](C& self) -> py::tuple {
+            const auto& m = (self.*getter)();
+            return py::make_tuple(m.top(), m.right(), m.bottom(), m.left());
+        },
+        [setter1, setter2, setter4](C& self, py::object value) {
+            if (py::isinstance<py::int_>(value) || py::isinstance<py::float_>(value)) {
+                auto dim = value.cast<berialdraw::Dim>();
+                (self.*setter1)(dim);
+            } else if (py::isinstance<py::tuple>(value) || py::isinstance<py::list>(value)) {
+                auto seq = value.cast<py::sequence>();
+                auto len = py::len(seq);
+                if (len == 2) {
+                    (self.*setter2)(seq[0].cast<berialdraw::Dim>(), seq[1].cast<berialdraw::Dim>());
+                } else if (len == 4) {
+                    (self.*setter4)(seq[0].cast<berialdraw::Dim>(), seq[1].cast<berialdraw::Dim>(),
+                                   seq[2].cast<berialdraw::Dim>(), seq[3].cast<berialdraw::Dim>());
+                } else {
+                    throw std::invalid_argument("Margin property tuple/list must have 2 or 4 values");
+                }
+            } else {
+                throw std::invalid_argument("Margin property must be int/float or tuple/list");
+            }
+        }, doc);
+}
 
 // Font bindings 
 void bind_font(py::module& m);
@@ -38,14 +132,14 @@ void bind_widget_style(pybind11::module_& m);
 void bind_text_style(pybind11::module_& m);
 void bind_border_style(pybind11::module_& m);
 void bind_line_style(py::module& m);
-void bind_icon_style(py::module& m);
+void bind_icon_style(pybind11::module_& m);
 void bind_round_style(py::module& m);
-void bind_slider_style(py::module& m);
-void bind_switch_style(py::module& m);
-void bind_progress_bar_style(py::module& m);
-void bind_edit_style(py::module& m);
-void bind_pie_style(py::module& m);
-void bind_scroll_view_style(py::module& m);
+void bind_slider_style(pybind11::module_& m);
+void bind_switch_style(pybind11::module_& m);
+void bind_progress_bar_style(pybind11::module_& m);
+void bind_edit_style(pybind11::module_& m);
+void bind_pie_style(pybind11::module_& m);
+void bind_scroll_view_style(pybind11::module_& m);
 
 // Framebuf bindings
 void bind_framebuf(py::module& m);
@@ -90,7 +184,7 @@ void bind_widget(pybind11::module_& m);
 void bind_button(pybind11::module_& m);
 void bind_label(pybind11::module_& m);
 void bind_window(pybind11::module_& m);
-void bind_canvas(pybind11::module_& m);
+void bind_canvas(pybind11::module& m);
 void bind_entry(pybind11::module_& m);
 void bind_edit(pybind11::module_& m);
 void bind_slider(pybind11::module_& m);

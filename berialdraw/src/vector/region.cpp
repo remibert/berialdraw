@@ -1537,14 +1537,14 @@ Region::Overlap Region::is_inside_scale(Coord x, Coord y, Dim width, Dim height,
 
 	if ((width<<6) % scale)
 	{
-		w+=1;
+		w += (scale>>6);
 	}
 
 	// If the scale completely overwrites the value
-	if (w == 0 && width != 0)
+	if (w < (scale >> 6) && width != 0)
 	{
 		// Set the minimal width
-		w = 1;
+		w = (scale >> 6);
 	}
 	// If the scale completely overwrites the value
 	if (h == 0 && height != 0)
