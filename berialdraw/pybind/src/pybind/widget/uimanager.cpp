@@ -9,8 +9,6 @@ void bind_uimanager(pybind11::module_& m) {
                     pybind11::arg("scale") = 1, 
                     pybind11::arg("root_dir") = berialdraw::String(""))
         .def_static("deinit", &berialdraw::UIManager::deinit)
-        // .def_static("exporter", static_cast<void (*)(berialdraw::Exporter*)>(&berialdraw::UIManager::exporter))
-        // .def_static("exporter", static_cast<berialdraw::Exporter* (*)()>(&berialdraw::UIManager::exporter), pybind11::return_value_policy::reference_internal)
         .def_static("framebuf", &berialdraw::UIManager::framebuf, pybind11::return_value_policy::reference)
         .def_static("notifier", &berialdraw::UIManager::notifier, pybind11::return_value_policy::reference)
         .def_static("device", &berialdraw::UIManager::device, pybind11::return_value_policy::reference)
