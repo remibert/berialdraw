@@ -84,9 +84,19 @@ void Renderer::draw_line(Coord x, Coord y, uint32_t length, uint32_t coverage, u
 	{
 		// Combine the base color with the computed alpha value
 		uint32_t pixel_color = color | (compute_alpha(alpha, coverage) << 24);
+		Dim add = 0;
+
+		if ((x<<6) % m_scale)
+		{
+			add = m_scale>>6;
+		}
+		if ((length <<6)%m_scale)
+		{
+			add += m_scale>>6;
+		}
 
 		// Check if the horizontal line is fully within the drawable region
-		Region::Overlap draw = m_region->is_inside_scale(x, y, length, m_scale >> 6, m_scale);
+		Region::Overlap draw = m_region->is_inside_scale(x, y, length+add, m_scale >> 6, m_scale);
 
 		if (draw == Region::IN)
 		{
@@ -110,7 +120,7 @@ void Renderer::draw_line(Coord x, Coord y, uint32_t length, uint32_t coverage, u
 				}
 
 				// Check if the current segment is fully visible
-				draw = m_region->is_inside_scale(x + pos, y, len, m_scale >> 6, m_scale);
+				draw = m_region->is_inside_scale(x + pos, y, len+add, m_scale >> 6, m_scale);
 				if (draw == Region::IN)
 				{
 					// Draw the visible segment
@@ -179,7 +189,7 @@ void Renderer::paint(int y, int count, const FT_Span* spans)
 	}
 }
 
-void Renderer::draw(Coord x_, Coord y_, const uint8_t * buffer, Dim width, Dim height, uint32_t color)
+void Renderer::draw_buffer(Coord x_, Coord y_, const uint8_t * buffer, Dim width, Dim height, uint32_t color)
 {
 	// Get color and alpha
 	uint32_t col   = color & 0x00FFFFFF;
@@ -198,7 +208,7 @@ void Renderer::draw(Coord x_, Coord y_, const uint8_t * buffer, Dim width, Dim h
 			{
 				uint8_t coverage = buffer[(row * width) + column];
 
-				// If pixel is visible
+				// If pixel is not transparent
 				if(coverage)
 				{
 					uint32_t length = 1;
@@ -212,7 +222,7 @@ void Renderer::draw(Coord x_, Coord y_, const uint8_t * buffer, Dim width, Dim h
 					}
 
 					// Draw line
-					draw_line(x+column, y+/*height-*/row, length, coverage, alpha, col);
+					draw_line(x+column, y+row, length, coverage, alpha, col);
 					column += (length-1);
 				}
 			}

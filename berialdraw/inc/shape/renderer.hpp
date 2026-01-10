@@ -38,7 +38,7 @@ namespace berialdraw
 		@param width Width of the buffer
 		@param height Height of the buffer
 		@param color Color for drawing */
-		void draw(Coord x_, Coord y_, const uint8_t * buffer, Dim width, Dim height, uint32_t color);
+		void draw_buffer(Coord x_, Coord y_, const uint8_t * buffer, Dim width, Dim height, uint32_t color);
 
 		/** Draw freetype outline object
 		@param position Position for drawing

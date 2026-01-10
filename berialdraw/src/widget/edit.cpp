@@ -1545,17 +1545,19 @@ void Edit::test8()
 {
 	//UIManager::notifier()->log();
 	Window window;
-		window.position(10,10);
+		window.position(0,0);
 		window.size(50,50);
-		window.color(Color::LIGHT_RED);
+		//window.color(Color::LIGHT_RED);
 
-	Dim row = 0;
-	Grid * scroll_layout = new Grid(&window);
-		Edit * edit = new Edit(scroll_layout);
-			edit->cell(row++,0);
-			edit->text("");
-			edit->border_color(Color::LIGHT_GREEN);
-			edit->focus_color(Color::LIGHT_BLUE);
+	Column * layout = new Column(&window);
+		Edit * edit = new Edit(layout);
+			edit->text("    e ");
+			edit->text_color(Color::RED);
+			//edit->border_color(Color::TRANSPARENT);
+			//edit->color(Color::TRANSPARENT);
+			//edit->focus_color(Color::TRANSPARENT);
+			// edit->border_color(Color::LIGHT_GREEN);
+			// edit->focus_color(Color::LIGHT_BLUE);
 			//edit->margin(4);
 			//edit->place_holder("Enter text");
 
@@ -1563,6 +1565,7 @@ void Edit::test8()
 		//	edit->cell(row++,0);
 		//	edit->text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.");
 		//	edit->place_holder("Enter text");
+	while(1)
 	UIManager::desktop()->dispatch();
 edit->margin(3);
 UIManager::desktop()->dispatch();
@@ -1580,7 +1583,7 @@ void Edit::test()
 	if (done == false)
 	{
 		done = true;
-		test8();
+		//test8();
 		test7();
 		test6();
 		test5();

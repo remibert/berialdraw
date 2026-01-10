@@ -124,7 +124,7 @@ void Glyph::paint(Point & position, const Point & center, const Margin & margin,
 		m_baseliney = vec.y;
 
 		// Draw glyph
-		UIManager::renderer()->draw((xx+m_baselinex), (yy+m_baseliney), m_bitmap->buffer, m_bitmap->width, m_bitmap->rows, color);
+		UIManager::renderer()->draw_buffer((xx+m_baselinex), (yy+m_baseliney), m_bitmap->buffer, m_bitmap->width, m_bitmap->rows, color);
 	}
 
 	// Move position to next character

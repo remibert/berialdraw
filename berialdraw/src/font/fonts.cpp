@@ -115,15 +115,25 @@ FontPtr Fonts::select(const String & familly, const Size & size, enum Font::Styl
 			// Search the font face equal to font choosed
 			for(uint32_t i = 0; i < m_fonts_faces->size(); i++)
 			{
-				if ((*m_fonts_faces)[i]->familly() == *searched_familly&& 
-				  (((*m_fonts_faces)[i]->style()   == style) || style == Font::UNDEFINED))
+				if ((*m_fonts_faces)[i]->familly() == *searched_familly)
 				{
-					font_face = (*m_fonts_faces)[i];
-					break;
-				}
-				if (first_face.get() == 0)
-				{
-					first_face = (*m_fonts_faces)[i];
+					// If specific style requested, look for exact match
+					if ((*m_fonts_faces)[i]->style() == style)
+					{
+						font_face = (*m_fonts_faces)[i];
+						break;
+					}
+					// If style is UNDEFINED, prefer NORMAL style first
+					else if (style == Font::UNDEFINED && (*m_fonts_faces)[i]->style() == Font::NORMAL)
+					{
+						font_face = (*m_fonts_faces)[i];
+						break;
+					}
+					// Keep first match as fallback
+					if (first_face.get() == 0)
+					{
+						first_face = (*m_fonts_faces)[i];
+					}
 				}
 			}
 
