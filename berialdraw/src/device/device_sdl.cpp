@@ -160,6 +160,9 @@ bool DeviceSdl::dispatch(bool blocking)
 			adapt_ratio(position);
 			position.adapt_scale();
 			UIManager::notifier()->push_event(new TouchEvent(position, TouchEvent::TOUCH_DOWN));
+			m_mouse_down = true;
+			// Capture mouse movements outside the window
+			SDL_CaptureMouse(SDL_TRUE);
 		}
 		break;
 
@@ -170,6 +173,9 @@ bool DeviceSdl::dispatch(bool blocking)
 			adapt_ratio(position);
 			position.adapt_scale();
 			UIManager::notifier()->push_event(new TouchEvent(position, TouchEvent::TOUCH_UP));
+			m_mouse_down = false;
+			// Release mouse capture
+			SDL_CaptureMouse(SDL_FALSE);
 		}
 		break;
 

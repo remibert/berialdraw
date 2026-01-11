@@ -30,9 +30,10 @@ void bind_common_style(pybind11::module_& m) {
         "Size: int (square) or (width, height)");
 
     // The remaining simple properties
-    cls.def_property("color",
-        [](berialdraw::CommonStyle& self) -> uint32_t { return self.color(); },
-        [](berialdraw::CommonStyle& self, uint32_t value) { self.color(value); }, "Color");
+    bind_color_property(cls, "color",
+        &berialdraw::CommonStyle::color,
+        static_cast<void (berialdraw::CommonStyle::*)(uint32_t)>(&berialdraw::CommonStyle::color),
+        "Color (accepts both uint32_t and Color enum)");
     cls.def_property("angle",
         [](berialdraw::CommonStyle& self) -> berialdraw::Coord { return self.angle(); },
         [](berialdraw::CommonStyle& self, berialdraw::Coord value) { self.angle(value); }, "Rotation angle");

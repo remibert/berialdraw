@@ -399,6 +399,8 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM w_param, LPARAM 
 				position.adapt_scale();
 				UIManager::notifier()->push_event(new TouchEvent(position, TouchEvent::TOUCH_DOWN));
 				mouse_down = true;
+				// Capture mouse movements outside the window
+				SetCapture(hwnd);
 			}
 			break;
 
@@ -409,6 +411,8 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM w_param, LPARAM 
 				position.adapt_scale();
 				UIManager::notifier()->push_event(new TouchEvent(position, TouchEvent::TOUCH_UP));
 				mouse_down = false;
+				// Release mouse capture
+				ReleaseCapture();
 			}
 			break;
 

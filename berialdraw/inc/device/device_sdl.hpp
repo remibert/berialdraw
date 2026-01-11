@@ -75,6 +75,7 @@ namespace berialdraw
 		uint8_t*      m_buffer=0;   /**< Buffer */
 		uint8_t       m_pixel_ratio;
 		String        m_title;
+		bool          m_mouse_down=false; /**< Track mouse button state for capture */
 /// @endcond
 #endif
 	};

@@ -102,6 +102,41 @@ void bind_margin_property(pybind11::class_<C, Extra...>& cls, const char* name,
         }, doc);
 }
 
+// Helper: bind a property that accepts both uint32_t color values and Color enum
+// Accepts both 0xFFFFFFFF and Color.RED style values
+template<typename C, typename... Extra>
+void bind_color_property(pybind11::class_<C, Extra...>& cls, const char* name,
+                         uint32_t (C::*getter)() const,
+                         void (C::*setter)(uint32_t),
+                         const char* doc) {
+    cls.def_property(name,
+        [getter](C& self) -> uint32_t { return (self.*getter)(); },
+        [setter](C& self, const pybind11::object& value) {
+            if (pybind11::isinstance<pybind11::int_>(value)) {
+                (self.*setter)(pybind11::cast<uint32_t>(value));
+            } else {
+                try {
+                    auto color_enum = pybind11::cast<berialdraw::Color>(value);
+                    (self.*setter)(static_cast<uint32_t>(color_enum));
+                } catch (const pybind11::cast_error&) {
+                    throw std::invalid_argument("Color property must be an integer or Color enum value");
+                }
+            }
+        }, doc);
+}
+
+// Helper: convert Python string to berialdraw::String
+inline berialdraw::String py_to_string(const pybind11::object& value) {
+    if (pybind11::isinstance<pybind11::str>(value)) {
+        std::string str = pybind11::cast<std::string>(value);
+        return berialdraw::String(str.c_str());
+    } else if (pybind11::isinstance<berialdraw::String>(value)) {
+        return pybind11::cast<berialdraw::String>(value);
+    } else {
+        throw std::invalid_argument("Expected string or berialdraw.String");
+    }
+}
+
 // Font bindings 
 void bind_font(py::module& m);
 void bind_fonts(py::module& m);

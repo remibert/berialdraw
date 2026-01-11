@@ -58,7 +58,8 @@ void bind_icon_style(pybind11::module_& m) {
     cls.def_property("filename",
         [](berialdraw::IconStyle& self) -> std::string { return std::string(self.filename().c_str()); },
         [](berialdraw::IconStyle& self, const std::string& value) { self.filename(value.c_str()); }, "Icon filename");
-    cls.def_property("icon_color",
-        [](berialdraw::IconStyle& self) -> uint32_t { return self.icon_color(); },
-        [](berialdraw::IconStyle& self, uint32_t value) { self.icon_color(value); }, "Icon color");
+    bind_color_property(cls, "icon_color",
+        &berialdraw::IconStyle::icon_color,
+        static_cast<void (berialdraw::IconStyle::*)(uint32_t)>(&berialdraw::IconStyle::icon_color),
+        "Icon color");
 }

@@ -1,15 +1,18 @@
 #include "pybind/pyberialdraw.hpp"
 void bind_slider_style(py::module& m) {
-    py::class_<berialdraw::SliderStyle, berialdraw::Style>(m, "SliderStyle")
-        .def(py::init<>(), "Constructor")
-
-        .def_property("track_color",
-            [](berialdraw::SliderStyle& self) -> uint32_t { return self.track_color(); },
-            [](berialdraw::SliderStyle& self, uint32_t value) { self.track_color(value); }, "Track color")
-        .def_property("handle_color",
-            [](berialdraw::SliderStyle& self) -> uint32_t { return self.handle_color(); },
-            [](berialdraw::SliderStyle& self, uint32_t value) { self.handle_color(value); }, "Handle color")
-        .def_property("handle_size",
+    py::class_<berialdraw::SliderStyle, berialdraw::Style> cls(m, "SliderStyle");
+    cls.def(py::init<>(), "Constructor");
+    
+    bind_color_property(cls, "track_color",
+        &berialdraw::SliderStyle::track_color,
+        static_cast<void (berialdraw::SliderStyle::*)(uint32_t)>(&berialdraw::SliderStyle::track_color),
+        "Track color");
+    bind_color_property(cls, "handle_color",
+        &berialdraw::SliderStyle::handle_color,
+        static_cast<void (berialdraw::SliderStyle::*)(uint32_t)>(&berialdraw::SliderStyle::handle_color),
+        "Handle color");
+    
+    cls.def_property("handle_size",
             [](berialdraw::SliderStyle& self) -> berialdraw::Dim { return self.handle_size(); },
             [](berialdraw::SliderStyle& self, py::object value) {
                 if (py::isinstance<py::int_>(value)) {

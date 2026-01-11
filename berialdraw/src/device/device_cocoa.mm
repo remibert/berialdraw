@@ -48,6 +48,7 @@ public:
 @property (nonatomic, assign) CGFloat scaleFactor;
 @property (nonatomic, assign) BOOL mouseDown;
 @property (nonatomic, assign) BOOL appStarted;
+@property (nonatomic, strong) id globalEventMonitor;
 - (void)updateBuffer:(uint8_t*)buffer width:(Dim)width height:(Dim)height;
 - (void)keyDown:(NSEvent *)event;
 - (void)keyUp:(NSEvent *)event;
@@ -57,6 +58,8 @@ public:
 - (berialdraw::Point)getMousePositionFromEvent:(NSEvent *)event;
 - (void)sendMouseEventWithType:(int)touchType position:(berialdraw::Point)position;
 - (void)sendKeyEventWithKey:(wchar_t)key keyEventType:(int)keyEventType modifier:(berialdraw::KeyEvent::Modifier)modifier;
+- (void)startGlobalMouseTracking;
+- (void)stopGlobalMouseTracking;
 @end
 
 @implementation BerialView
@@ -193,6 +196,8 @@ public:
 		self.mouseDown = YES;
 		berialdraw::Point position = [self getMousePositionFromEvent:event];
 		[self sendMouseEventWithType:TouchEvent::TOUCH_DOWN position:position];
+		// Start tracking mouse movements outside the window
+		[self startGlobalMouseTracking];
 	}
 }
 
@@ -204,6 +209,8 @@ public:
 		self.mouseDown = NO;
 		berialdraw::Point position = [self getMousePositionFromEvent:event];
 		[self sendMouseEventWithType:TouchEvent::TOUCH_UP position:position];
+		// Stop tracking global mouse movements
+		[self stopGlobalMouseTracking];
 	}
 }
 
@@ -265,15 +272,66 @@ public:
 	}
 }
 
-// Handle mouse exit event (when cursor leaves the view while button pressed)
+// Start global mouse tracking to track dragging outside the window
+- (void)startGlobalMouseTracking
+{
+	// Stop any existing monitor first
+	[self stopGlobalMouseTracking];
+	
+	// Create a global event monitor for mouse moved events
+	self.globalEventMonitor = [NSEvent addGlobalMonitorForEventsMatchingMask:NSEventMaskMouseMoved | NSEventMaskLeftMouseDragged
+		handler:^(NSEvent *event) {
+			if (self.mouseDown && self.device && UIManager::notifier())
+			{
+				// Get mouse position in window coordinates
+				NSWindow *window = [self window];
+				if (window)
+				{
+					NSPoint screenLocation = [NSEvent mouseLocation];
+					NSPoint windowLocation = [window convertPointFromScreen:screenLocation];
+					NSPoint viewLocation = [self convertPoint:windowLocation fromView:nil];
+					
+					// Convert to buffer coordinates
+					viewLocation.y = self.bounds.size.height - viewLocation.y;
+					float scaleX = (float)self.bufferWidth / self.bounds.size.width;
+					float scaleY = (float)self.bufferHeight / self.bounds.size.height;
+					
+					berialdraw::Point position(viewLocation.x * scaleX, viewLocation.y * scaleY);
+					position.adapt_scale();
+					
+					// Send touch move event
+					[self sendMouseEventWithType:TouchEvent::TOUCH_MOVE position:position];
+				}
+			}
+		}];
+}
+
+// Stop global mouse tracking
+- (void)stopGlobalMouseTracking
+{
+	if (self.globalEventMonitor)
+	{
+		[NSEvent removeMonitor:self.globalEventMonitor];
+		self.globalEventMonitor = nil;
+	}
+}
+
+// Handle mouse exit event (when cursor leaves the view)
 - (void)mouseExited:(NSEvent *)event
 {
-	// If mouse exits with button down, force a touch up event
-	if (self.mouseDown && self.device && UIManager::notifier())
+	// Don't send TOUCH_UP here - keep tracking the drag outside the window
+	// The drag will continue to be tracked by OS-level mouse tracking
+	// Only release tracking when the button is actually released
+}
+
+// Handle mouse enter event (when cursor returns to the view while dragging)
+- (void)mouseEntered:(NSEvent *)event
+{
+	// If we're in a drag operation, continue sending move events
+	if (self.mouseDown && self.device)
 	{
 		berialdraw::Point position = [self getMousePositionFromEvent:event];
-		[self sendMouseEventWithType:TouchEvent::TOUCH_UP position:position];
-		self.mouseDown = NO;
+		[self sendMouseEventWithType:TouchEvent::TOUCH_MOVE position:position];
 	}
 }
 
@@ -399,7 +457,6 @@ public:
 				if (chars && chars.length > 0)
 				{
 					unichar keyChar = [chars characterAtIndex:0];
-
 					// Only send event for printable characters (ASCII 32 and above)
 					if (keyChar >= 32)
 					{
@@ -409,6 +466,13 @@ public:
 			}
 		}
 	}
+}
+
+// Cleanup when view is deallocated
+- (void)dealloc
+{
+	[self stopGlobalMouseTracking];
+	// ARC will automatically call [super dealloc] with automatic reference counting
 }
 
 @end

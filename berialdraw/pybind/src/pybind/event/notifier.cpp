@@ -27,19 +27,58 @@ void bind_notifier(pybind11::module_& m) {
              pybind11::arg("value"), pybind11::arg("widget"))
         .def("log", static_cast<void(berialdraw::Notifier::*)(berialdraw::Notifier::LogEvent)>(&berialdraw::Notifier::log),
              pybind11::arg("value") = berialdraw::Notifier::LogEvent::LOG_USER)
-        .def("play_script", [](berialdraw::Notifier& self, const std::string& script_text, const std::string& snapshot_name) {
-            // Convertir les std::string en berialdraw::String
-            berialdraw::String script_str(script_text.c_str());
-            berialdraw::String snapshot_str(snapshot_name.c_str());
+        .def("play_script", [](berialdraw::Notifier& self, const pybind11::object& script_input, const pybind11::object& snapshot_name = pybind11::none()) {
+            berialdraw::String script_str;
             
-            // Créer un TextStream temporaire à partir de la chaîne
-            // Pour l'instant, on utilise une approche simplifiée
-            // TODO: Implémenter une version qui accepte directement des strings
-            // self.play_script(script_stream, snapshot_str);
-        }, pybind11::arg("script_text"), pybind11::arg("snapshot_name"))
-        .def("snapshot", [](berialdraw::Notifier& self, const std::string& filename) {
-            // Convertir std::string en berialdraw::String
-            berialdraw::String filename_str(filename.c_str());
+            // Handle script_input as either string or list of dicts
+            if (pybind11::isinstance<pybind11::str>(script_input)) {
+                // Direct JSON string
+                script_str = py_to_string(script_input);
+            } else if (pybind11::isinstance<pybind11::list>(script_input)) {
+                // Convert list of dicts to JSON string
+                auto script_list = pybind11::cast<pybind11::list>(script_input);
+                
+                // Build JSON array string
+                std::string json_str = "[";
+                for (size_t i = 0; i < pybind11::len(script_list); ++i) {
+                    if (i > 0) json_str += ",";
+                    
+                    auto dict = pybind11::cast<pybind11::dict>(script_list[i]);
+                    json_str += "{";
+                    
+                    bool first = true;
+                    for (auto item : dict) {
+                        if (!first) json_str += ",";
+                        first = false;
+                        
+                        auto key = pybind11::cast<std::string>(item.first);
+                        json_str += "\"" + key + "\":";
+                        
+                        auto value = item.second;
+                        if (pybind11::isinstance<pybind11::str>(value)) {
+                            auto str_val = pybind11::cast<std::string>(value);
+                            json_str += "\"" + str_val + "\"";
+                        } else if (pybind11::isinstance<pybind11::int_>(value)) {
+                            auto int_val = pybind11::cast<int>(value);
+                            json_str += std::to_string(int_val);
+                        } else if (pybind11::isinstance<pybind11::bool_>(value)) {
+                            auto bool_val = pybind11::cast<bool>(value);
+                            json_str += bool_val ? "true" : "false";
+                        }
+                    }
+                    json_str += "}";
+                }
+                json_str += "]";
+                script_str = berialdraw::String(json_str.c_str());
+            } else {
+                throw std::invalid_argument("script must be a string or a list of dictionaries");
+            }
+            
+            berialdraw::String snapshot_str = snapshot_name.is_none() ? berialdraw::String("") : py_to_string(snapshot_name);
+            self.play_script(script_str, snapshot_str);
+        }, pybind11::arg("script_input"), pybind11::arg("snapshot_name") = pybind11::none())
+        .def("snapshot", [](berialdraw::Notifier& self, const pybind11::object& filename) {
+            berialdraw::String filename_str = py_to_string(filename);
             self.snapshot(filename_str);
         }, pybind11::arg("filename"));
 }

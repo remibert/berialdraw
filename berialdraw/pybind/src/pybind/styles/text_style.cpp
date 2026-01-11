@@ -25,9 +25,10 @@ void bind_text_style(pybind11::module_& m) {
     cls.def_property("text",
         [](berialdraw::TextStyle& self) -> std::string { return std::string(self.text().c_str()); },
         [](berialdraw::TextStyle& self, const std::string& value) { self.text(value.c_str()); }, "Text content");
-    cls.def_property("text_color",
-        [](berialdraw::TextStyle& self) -> uint32_t { return self.text_color(); },
-        [](berialdraw::TextStyle& self, uint32_t value) { self.text_color(value); }, "Text color");
+    bind_color_property(cls, "text_color",
+        &berialdraw::TextStyle::text_color,
+        static_cast<void (berialdraw::TextStyle::*)(uint32_t)>(&berialdraw::TextStyle::text_color),
+        "Text color");
     cls.def_property("text_align",
         [](berialdraw::TextStyle& self) -> berialdraw::Align { return self.text_align(); },
         [](berialdraw::TextStyle& self, berialdraw::Align value) { self.text_align(value); }, "Text alignment");

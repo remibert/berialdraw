@@ -17,13 +17,21 @@ ArcCache    * UIManager::m_arc_cache = 0;
 Settings    * UIManager::m_settings = 0;
 bool          UIManager::m_initialized= false;
 
+inline Dim adapt_scale(uint32_t scale)
+{
+	if (scale == 0)
+	{
+		scale = 1<<6;
+	}
+	else if (scale <= 31)
+	{
+		scale = scale << 6;
+	}
+	return scale;
+}
 
 inline Dim adapt_size(Dim size, uint32_t scale)
 {
-	if (scale < 10)
-	{
-		scale <<= 6;
-	}
 	return ((size << 6) / scale);
 }
 
@@ -31,8 +39,8 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 {
 	if(device && m_device == 0)
 	{
-		
 		m_settings     = new Settings;
+		scale = adapt_scale(scale);
 		String dir = File::resolve(root_dir);
 		if (dir == "")
 		{

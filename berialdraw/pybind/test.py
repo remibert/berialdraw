@@ -13,7 +13,8 @@ from pyberialdraw import *
 
 device = DeviceScreen("Sample python")
 
-UIManager.init(device, 480, 880, Framebuf.ARGB8888, 4, "./resources;../resources")
+#UIManager.init(device, 1080, 1200, Framebuf.ARGB8888, 30, "./resources;../resources")
+UIManager.init(device, 480, 800, Framebuf.ARGB8888, 4, "./resources;../resources")
 UIManager.style = "pearl"
 UIManager.appearance = "light"
 UIManager.theme = THEME_LIME
@@ -77,6 +78,24 @@ class Dialog:
 
 	def on_key_pressed(self, widget, event):
 		print(f"Key on {widget.classname} {key_to_str(event.key)} {event.state} {event.modifier}")
+
+
+class Dialog2:
+	def __init__(self):
+		self.window = Window()
+		self.window.color = Color.RED
+		self.first_name = Edit(self.window)
+		self.first_name.text = "afa"
+		#UIManager.notifier().log()
+		script = [
+			{'type':'key','key':8592,'state':'down'},
+			{'type':'key','key':8592,'state':'up'  },
+			{'type':'key','key':8594,'state':'down'},
+			{'type':'key','key':8594,'state':'up'  },
+			{'type':'key','key':8594,'state':'down'},
+			{'type':'key','key':8594,'state':'up'  }
+		]
+		UIManager.notifier().play_script(script)
 
 dlg = Dialog()
 

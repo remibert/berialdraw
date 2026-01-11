@@ -23,20 +23,7 @@ Renderer::Renderer(Dim width, Dim height, Dim scale, uint32_t pool_size)
 {
 	m_color = 0;
 	m_region = new Region;
-
-	if (scale == 0)
-	{
-		m_scale = 1<<6;
-	}
-	else if (scale <= 15)
-	{
-		m_scale = scale << 6;
-	}
-	else
-	{
-		m_scale = scale;
-	}
-
+	m_scale = scale;
 	m_size.set(width, height);
 
 	m_pool = new uint8_t[sizeof(gray_TWorker) + pool_size]();
@@ -141,7 +128,7 @@ void Renderer::draw_line(Coord x, Coord y, uint32_t length, uint32_t coverage, u
 				else
 				{
 					// Check if the rest of the line is completely outside the drawable region
-					draw = m_region->is_inside_scale(x + pos, y, length - pos, m_scale >> 6, m_scale);
+					draw = m_region->is_inside_scale(x + pos, y, length - pos+add, m_scale >> 6, m_scale);
 
 					// If so, stop drawing
 					if (draw == Region::OUT)

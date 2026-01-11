@@ -1,16 +1,18 @@
 #include "pybind/pyberialdraw.hpp"
 void bind_progress_bar_style(py::module& m) {
-    py::class_<berialdraw::ProgressBarStyle, berialdraw::Style>(m, "ProgressBarStyle")
-        .def(py::init<>(), "Constructor")
-        
-        // Propriétés Python avec précision automatique
-        .def_property("track_color",
-            [](berialdraw::ProgressBarStyle& self) -> uint32_t { return self.track_color(); },
-            [](berialdraw::ProgressBarStyle& self, uint32_t value) { self.track_color(value); }, "Track color")
-        .def_property("fill_color",
-            [](berialdraw::ProgressBarStyle& self) -> uint32_t { return self.fill_color(); },
-            [](berialdraw::ProgressBarStyle& self, uint32_t value) { self.fill_color(value); }, "Fill color")
-        .def_property("fill_size",
+    py::class_<berialdraw::ProgressBarStyle, berialdraw::Style> cls(m, "ProgressBarStyle");
+    cls.def(py::init<>(), "Constructor");
+    
+    bind_color_property(cls, "track_color",
+        &berialdraw::ProgressBarStyle::track_color,
+        static_cast<void (berialdraw::ProgressBarStyle::*)(uint32_t)>(&berialdraw::ProgressBarStyle::track_color),
+        "Track color");
+    bind_color_property(cls, "fill_color",
+        &berialdraw::ProgressBarStyle::fill_color,
+        static_cast<void (berialdraw::ProgressBarStyle::*)(uint32_t)>(&berialdraw::ProgressBarStyle::fill_color),
+        "Fill color");
+    
+    cls.def_property("fill_size",
             [](berialdraw::ProgressBarStyle& self) -> berialdraw::Dim { return self.fill_size(); },
             [](berialdraw::ProgressBarStyle& self, py::object value) {
                 if (py::isinstance<py::int_>(value)) {
@@ -45,3 +47,4 @@ void bind_progress_bar_style(py::module& m) {
             [](berialdraw::ProgressBarStyle& self) -> uint32_t { return self.step_value(); },
             [](berialdraw::ProgressBarStyle& self, uint32_t value) { self.step_value(value); }, "Step value");
 }
+

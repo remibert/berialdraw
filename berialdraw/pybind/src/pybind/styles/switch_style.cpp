@@ -9,15 +9,18 @@ void bind_switch_style(py::module& m) {
         static_cast<void (berialdraw::SwitchStyle::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::SwitchStyle::switch_size),
         "Switch size: int/float (same w/h) or (width, height) with automatic precision");
 
-    cls.def_property("on_track_color",
-        [](berialdraw::SwitchStyle& self) -> uint32_t { return self.on_track_color(); },
-        [](berialdraw::SwitchStyle& self, uint32_t value) { self.on_track_color(value); }, "On track color");
-    cls.def_property("off_track_color",
-        [](berialdraw::SwitchStyle& self) -> uint32_t { return self.off_track_color(); },
-        [](berialdraw::SwitchStyle& self, uint32_t value) { self.off_track_color(value); }, "Off track color");
-    cls.def_property("thumb_color",
-        [](berialdraw::SwitchStyle& self) -> uint32_t { return self.thumb_color(); },
-        [](berialdraw::SwitchStyle& self, uint32_t value) { self.thumb_color(value); }, "Thumb color");
+    bind_color_property(cls, "on_track_color",
+        &berialdraw::SwitchStyle::on_track_color,
+        static_cast<void (berialdraw::SwitchStyle::*)(uint32_t)>(&berialdraw::SwitchStyle::on_track_color),
+        "On track color");
+    bind_color_property(cls, "off_track_color",
+        &berialdraw::SwitchStyle::off_track_color,
+        static_cast<void (berialdraw::SwitchStyle::*)(uint32_t)>(&berialdraw::SwitchStyle::off_track_color),
+        "Off track color");
+    bind_color_property(cls, "thumb_color",
+        &berialdraw::SwitchStyle::thumb_color,
+        static_cast<void (berialdraw::SwitchStyle::*)(uint32_t)>(&berialdraw::SwitchStyle::thumb_color),
+        "Thumb color");
     cls.def_property("thumb_padding",
         [](berialdraw::SwitchStyle& self) -> berialdraw::Dim { return self.thumb_padding(); },
         [](berialdraw::SwitchStyle& self, berialdraw::Dim value) { self.thumb_padding(value); }, "Thumb padding");
