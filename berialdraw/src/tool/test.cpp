@@ -622,6 +622,7 @@ namespace berialdraw
 #if _DEBUG
 			MaskValidator::test();
 			Entry::test(); 
+//			Tar::test();
 			String::test();
 			Settings::test();
 			TextStream::test();

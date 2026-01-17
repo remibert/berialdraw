@@ -1,5 +1,4 @@
 #pragma once
-#ifndef SWIG
 namespace berialdraw
 {
 	/** Shared pointer implementation */
@@ -128,4 +127,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

@@ -39,7 +39,6 @@ namespace berialdraw
 		static void test();
 #endif
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Validator::ValidResult check_char(wchar_t mask_char, wchar_t text_char);
 		Validator::ValidResult get_mask_char(uint32_t & pos);
@@ -52,6 +51,5 @@ namespace berialdraw
 		int32_t m_min = INT32_MIN;
 		int32_t m_max = INT32_MAX;
 /// @endcond
-#endif
 	};
 }

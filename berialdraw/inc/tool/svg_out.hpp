@@ -104,13 +104,11 @@ namespace berialdraw
 		static int cubic_to(const FT_Vector* control1, const FT_Vector* control2, const FT_Vector* to, void* user);
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		String  m_content;        /**< Content of the SVG */
 		bool    m_closed = false; /**< Flag to indicate if SVG is closed */
 		String  m_filename;       /**< Filename for the SVG export */
 		int32_t m_id = 0;         /**< ID counter for elements in the SVG */
 /// @endcond
-#endif
 	};
 }

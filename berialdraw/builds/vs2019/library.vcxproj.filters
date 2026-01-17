@@ -70,6 +70,18 @@
     <Filter Include="freetype\include">
       <UniqueIdentifier>{39ccf299-9bcb-4d9f-a824-314c44aa280d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="berialdraw\tool\file">
+      <UniqueIdentifier>{d4f9dedc-2fd9-43a0-92d8-5b32182766a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\tool\directory">
+      <UniqueIdentifier>{21898b5e-8e36-4616-b60b-c67ad3e72884}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="zlib">
+      <UniqueIdentifier>{8a7d4cda-1a5c-49bc-bd5e-1f8c7e9a0d3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="minizip">
+      <UniqueIdentifier>{9b8e5deb-2b6d-50cd-ce6f-2g9d8f0b1e4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\shape\text_box.cpp">
@@ -250,12 +262,6 @@
       <Filter>berialdraw\widget</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\tool\bd_system.cpp">
-      <Filter>berialdraw\tool</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\tool\directory.cpp">
-      <Filter>berialdraw\tool</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\tool\file.cpp">
       <Filter>berialdraw\tool</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\tool\hsl.cpp">
@@ -561,6 +567,101 @@
     <ClCompile Include="..\..\src\tool\settings.cpp">
       <Filter>berialdraw\tool</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\tool\file.cpp">
+      <Filter>berialdraw\tool\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\local_file.cpp">
+      <Filter>berialdraw\tool\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\directory.cpp">
+      <Filter>berialdraw\tool\directory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\local_directory.cpp">
+      <Filter>berialdraw\tool\directory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\tar.cpp">
+      <Filter>berialdraw\tool\file</Filter>
+    </ClCompile>
+    <!-- zlib files -->
+    <ClCompile Include="..\..\..\zlib\adler32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\zlib\compress.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\zlib\crc32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\zlib\deflate.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\zlib\inflate.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\zlib\infback.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\zlib\inftrees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\zlib\inffast.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\zlib\trees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\zlib\uncompr.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\zlib\zutil.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <!-- minizip files -->
+    <ClCompile Include="..\..\..\minizip\mz_crypt.c">
+      <Filter>minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\minizip\mz_os.c">
+      <Filter>minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\minizip\mz_strm.c">
+      <Filter>minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\minizip\mz_strm_buf.c">
+      <Filter>minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\minizip\mz_strm_mem.c">
+      <Filter>minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\minizip\mz_strm_split.c">
+      <Filter>minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\minizip\mz_strm_zlib.c">
+      <Filter>minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\minizip\mz_strm_pkcrypt.c">
+      <Filter>minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\minizip\mz_zip.c">
+      <Filter>minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\minizip\mz_zip_rw.c">
+      <Filter>minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\minizip\compat\unzip.c">
+      <Filter>minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\minizip\compat\ioapi.c">
+      <Filter>minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\zip_directory.cpp">
+      <Filter>berialdraw\tool\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\zip_file.cpp">
+      <Filter>berialdraw\tool\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\mz_stream_os_berialdraw.c">
+      <Filter>minizip</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\berialdraw_imp.hpp">
@@ -755,13 +856,7 @@
     <ClInclude Include="..\..\inc\tool\bd_system.h">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\directory.hpp">
-      <Filter>berialdraw\tool</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\inc\tool\exporter.hpp">
-      <Filter>berialdraw\tool</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\inc\tool\file.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\tool\hsl.hpp">
@@ -1276,6 +1371,36 @@
     </ClInclude>
     <ClInclude Include="..\..\inc\tool\settings.hpp">
       <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\file.hpp">
+      <Filter>berialdraw\tool\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\file_interface.hpp">
+      <Filter>berialdraw\tool\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\local_file.hpp">
+      <Filter>berialdraw\tool\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\directory_interface.hpp">
+      <Filter>berialdraw\tool\directory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\directory.hpp">
+      <Filter>berialdraw\tool\directory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\local_directory.hpp">
+      <Filter>berialdraw\tool\directory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\tar.hpp">
+      <Filter>berialdraw\tool\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\zip_directory.hpp">
+      <Filter>berialdraw\tool\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\zip_file.hpp">
+      <Filter>berialdraw\tool\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\buffer.hpp">
+      <Filter>berialdraw\tool\file</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

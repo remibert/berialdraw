@@ -154,10 +154,8 @@ namespace berialdraw
 		}
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		std::vector<T> m_vector;
 /// @endcond
-#endif
 	};
 }

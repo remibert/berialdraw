@@ -22,6 +22,10 @@
 #include "tool/validator.hpp"
 #include "tool/mask_validator.hpp"
 #include "tool/singleton.hpp"
+#include "tool/file_interface.hpp"
+#include "tool/directory_interface.hpp"
+#include "tool/local_file.hpp"
+#include "tool/local_directory.hpp"
 #include "tool/directory.hpp"
 #include "tool/screen_crc.hpp"
 

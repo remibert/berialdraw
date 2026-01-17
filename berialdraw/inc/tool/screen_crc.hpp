@@ -20,11 +20,9 @@ namespace berialdraw
 		/** Close screen crc file */
 		void close();
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Json        * m_crcs = 0;
 		String      * m_out_filename = 0;
 /// @endcond 
-#endif
 	};
 }

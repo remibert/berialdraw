@@ -1,22 +1,23 @@
 #pragma once
+
 namespace berialdraw
 {
-	/** Cross-platform file management */
-	class File : public Stream, public TextStream
+	/** ZIP archive file management with random access support */
+	class ZipFile : public FileInterface
 	{
 	public:
-		File();
-		virtual ~File();
+		ZipFile();
+		virtual ~ZipFile();
 
-		/** Open file with mode
-		@param pathname path and filename
-		@param mode "r" to read "w" to write 
+		/** Open file in ZIP archive with mode
+		@param zip_path path to the ZIP file followed by @file_path (e.g., "archive.zip@path/file.txt")
+		@param mode "r" to read, "w" to write 
 		@return 0 success, -1 failed */
-		virtual int open(const char *pathname, const char *mode);
+		int open(const char *zip_path, const char *mode);
 
 		/** Close file
 		@return 0 success, -1 failed */
-		virtual int close();
+		int close();
 
 		/** Read data from the stream.
 		@param ptr pointer on data
@@ -27,7 +28,7 @@ namespace berialdraw
 		/** Writes data into the stream.
 		@param data pointer on data
 		@param size size in bytes of data
-		@return the number of bytes read, or -1 if an error occurred */
+		@return the number of bytes written, or -1 if an error occurred */
 		virtual int write(const void *data, uint32_t size);
 
 		/** Give the position into stream.
@@ -69,22 +70,15 @@ namespace berialdraw
 		@return the wide character read or null if it ends */
 		virtual wchar_t read_char();
 
-		/** Indicates if the files exists
-		@param file_name Name of the file.
-		@return True if file existing. */
-		static bool exists(const char* file_name);
+		/** Indicates if the file exists in the ZIP archive
+		@param zip_path ZIP archive path with file (e.g., "archive.zip@path/file.txt")
+		@return True if file existing in archive. */
+		static bool exists(const char* zip_path);
 
-		/** Select the directory existing in the list and return it
-		@param dir directory 
-		@return the directory existing */
-		static String resolve(const String & dir);
-
-		/** Match a filename pattern
-		@param pattern Pattern with * (match any) and ? (match single char)
-		@param string String to match against
-		@param ignore_case Ignore case when comparing
-		@return True if pattern matches string */
-		static bool match_pattern(const char *pattern, const char *string, bool ignore_case = false);
+		/** Set sequential mode for reduced memory consumption
+		In sequential mode, seek is not possible but memory usage is minimal.
+		By default, files are opened in buffered (non-sequential) mode. */
+		void set_sequential(bool sequential = true);
 
 	protected:
 /// @cond DOXYGEN_IGNORE
@@ -98,7 +92,16 @@ namespace berialdraw
 		@param length string length to allocate */
 		virtual void tmp_dealloc(char * tmp, uint32_t length);
 
-		std::unique_ptr<FileInterface> m_file;
+	private:
+		/** Decompress the entire file into buffer for random access
+		Used when sequential mode is disabled (default) */
+		void uncompress();
+
+		void* m_zip_file = nullptr;    // unzFile handle
+		Buffer m_buffer;               // Cache for decompressed data
+		uint32_t m_file_size = 0;
+		bool m_sequential = false;     // Sequential vs buffered mode
+		bool m_zip_opened = false;     // Is file open in ZIP
 /// @endcond
 	};
 }

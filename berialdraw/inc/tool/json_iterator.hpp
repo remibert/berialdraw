@@ -264,7 +264,6 @@ namespace berialdraw
 		JsonIterator(const JsonIterator& other);
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** Check if the key is accurate
 		@param key Key to check
@@ -293,6 +292,5 @@ namespace berialdraw
 		unsigned int m_destroyed : 1;
 		unsigned int m_accurate : 1;
 /// @endcond
-#endif
 	};
 };

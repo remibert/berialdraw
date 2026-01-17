@@ -1,26 +1,23 @@
 #pragma once
 
-	struct bd_DIR;
-	typedef struct bd_DIR bd_DIR;
-
 namespace berialdraw
 {
-	/** Class to manage directory operations, scanning files one by one.*/
-	class Directory
+	/** ZIP archive directory management */
+	class ZipDirectory : public DirectoryInterface
 	{
 	public:
-		/** Constructor that initializes the directory with a given path.*/
-		Directory(const char * path=0);
+		/** Constructor that initializes the directory with a given ZIP path.*/
+		ZipDirectory(const char * zip_path=0);
 
 		/** Destructor that closes the directory if opened. */
-		~Directory();
+		~ZipDirectory();
 
-		/** Opens the directory specified in the constructor.
-		@param path The path to the directory.
+		/** Opens the ZIP archive directory specified in the constructor.
+		@param zip_path The path to the ZIP archive (e.g., "archive.zip@path/")
 		@return True if the directory was opened successfully, false otherwise. */
-		bool open(const String& path);
+		bool open(const String& zip_path);
 
-		/** Closes the currently opened directory.*/
+		/** Closes the currently opened ZIP archive.*/
 		void close();
 
 		/** Resets to the first file in the directory.
@@ -33,17 +30,7 @@ namespace berialdraw
 
 		/** Indicates if file or directory existing
 		@return True if the file existing, false otherwise. */
-		bool exist();
-
-		/** Matches a string against a pattern containing wildcards
-		This function matches a string against a pattern that may contain wildcards.
-		The pattern may contain the following wildcards:
-		- * : Matches zero or more characters
-		- ? : Matches a single character
-		@param pattern The pattern to match against
-		@param ignore_case true to ignore uppercase and lowercase letters
-		@return true if the pattern matches the string, 0 otherwise */ 
-		bool match(const char *pattern, bool ignore_case=false);
+		bool exist() const;
 
 		/** Gets the size of the current file.
 		@return The size of the current file in bytes. */
@@ -65,14 +52,26 @@ namespace berialdraw
 		@return The full path of the current file. */
 		String full_path() const;
 
-		/** Check if a directory exists
-		@param path directory path to check
-		@return true if directory exists */
-		static bool exists(const char* path);
+		/** Matches a string against a pattern containing wildcards
+		@param pattern The pattern to match against
+		@param ignore_case true to ignore uppercase and lowercase letters
+		@return true if the pattern matches the string, false otherwise */ 
+		bool match(const char *pattern, bool ignore_case=false);
+
+		/** Check if a ZIP archive exists
+		@param zip_path ZIP archive path to check
+		@return true if archive exists */
+		static bool exists(const char* zip_path);
 
 	private:
 /// @cond DOXYGEN_IGNORE
-		std::unique_ptr<DirectoryInterface> m_directory;
+		String m_zip_path;        /**< The ZIP archive path. */
+		String m_directory_path;  /**< The directory path within the archive. */
+		String m_current_filename;/**< The current file name. */
+
+		// Pointer to the ZIP archive context
+		void* m_zip_file = nullptr;  // unzFile handle
+		long m_current_index = -1;
 /// @endcond
 	};
 }

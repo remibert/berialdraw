@@ -8,12 +8,10 @@ namespace berialdraw
 	class JsonUnserializeError : public std::exception
 	{
 	public:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		int32_t m_line = 0;
 		int32_t m_column = 0;
 /// @endcond
-#endif
 	};
 
 	/** Itermediate iterator destroyed */
@@ -65,7 +63,7 @@ namespace berialdraw
 		static const int32_t LAST;
 		/** First element of a json array */
 		static const int32_t FIRST;
-#ifndef SWIG
+
 	#ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -104,6 +102,6 @@ namespace berialdraw
 		ItemCollection * m_json = 0;
 		JsonIterator m_iterator;
 /// @endcond
-#endif
+
 	};
 }

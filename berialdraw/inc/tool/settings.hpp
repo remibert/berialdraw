@@ -49,9 +49,6 @@ namespace berialdraw
 		static void test1();
 #endif
 	protected:
-#ifndef SWIG
-
 /// @endcond
-#endif
 	};
 }

@@ -158,6 +158,10 @@ set(SRCS_LIB
 	src/tool/screen_crc.cpp
 	src/tool/arc_cache.cpp
 	src/tool/settings.cpp
+	src/tool/local_file.cpp
+	src/tool/local_directory.cpp
+	src/tool/zip_file.cpp
+	src/tool/zip_directory.cpp
 
 	src/event/event.cpp
 	src/event/key_event.cpp
@@ -186,12 +190,43 @@ set(SRCS_LIB
 	../freetype/src/sfnt/ttload.c
 	../freetype/src/sfnt/ttmtx.c
 	../freetype/src/truetype/truetype.c
+
+	# zlib compression library
+	../zlib/adler32.c
+	../zlib/compress.c
+	../zlib/crc32.c
+	../zlib/deflate.c
+	../zlib/infback.c
+	../zlib/inffast.c
+	../zlib/inflate.c
+	../zlib/inftrees.c
+	../zlib/trees.c
+	../zlib/uncompr.c
+	../zlib/zutil.c
+
+	# minizip archive library
+	../minizip/mz_crypt.c
+	../minizip/mz_os.c
+	../minizip/mz_strm.c
+	../minizip/mz_strm_buf.c
+	../minizip/mz_strm_mem.c
+	../minizip/mz_strm_split.c
+	../minizip/mz_strm_zlib.c
+	../minizip/mz_strm_pkcrypt.c
+	../minizip/mz_zip.c
+	../minizip/mz_zip_rw.c
+	../minizip/compat/unzip.c
+	../minizip/compat/ioapi.c
+	src/tool/mz_stream_os_berialdraw.c
 )
 
 set(INCLUDES_LIB 
 	${SDL3_INCLUDE_DIRS}
 	"${CMAKE_CURRENT_SOURCE_DIR}/../freetype/include;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/../freetype/include/freetype;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../zlib;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../minizip;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../minizip/compat;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/inc;"
 	"${CMAKE_CURRENT_SOURCE_DIR};"
 	"${CMAKE_CURRENT_SOURCE_DIR}/..;"
@@ -205,8 +240,10 @@ target_compile_definitions (${BD_LIB} PRIVATE ${COMPILE_DEF}
 	-DPACKAGE=1
 	-DHAVE_PTHREAD_SETSPECIFIC=1
 	-DFT2_BUILD_LIBRARY=1
-	-DFT_ERR_PREFIX=FT_Err_)
-target_link_libraries      (${BD_LIB} ${DEVICE_LIBRARIES})
+	-DFT_ERR_PREFIX=FT_Err_
+	-D_DEFAULT_SOURCE
+	-DHAVE_ZLIB
+	-DZLIB_COMPAT)
 
 # Add subdirectories for modular build
 add_subdirectory(pybind)

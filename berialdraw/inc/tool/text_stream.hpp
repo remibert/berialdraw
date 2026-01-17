@@ -71,7 +71,6 @@ namespace berialdraw
 #endif
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** Allocate temporary string (reserved for internal implementation)
 		@param length string length to allocate
@@ -83,6 +82,5 @@ namespace berialdraw
 		@param length string length to allocate */
 		virtual void tmp_dealloc(char * tmp, uint32_t length) = 0;
 /// @endcond
-#endif
 	};
 }

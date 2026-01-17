@@ -1,5 +1,4 @@
 #pragma once
-#ifndef SWIG
 namespace berialdraw
 {
 	/** Template class implementing a thread-safe Singleton pattern with double-checked locking.
@@ -84,4 +83,3 @@ namespace berialdraw
 	template <typename T> std::recursive_mutex Singleton<T>::m_mutex;
 
 }
-#endif

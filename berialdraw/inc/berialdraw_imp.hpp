@@ -7,8 +7,21 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <cctype>
+#include <cwctype>
 #include <typeinfo>
 #include <new>
+#include <map>
+#include <memory>
+#include <cstdint>
+#include <cstring>
+#include <algorithm>
+#include "zlib.h"
+#include "zconf.h"
+#include "unzip.h"
+
+
+
 #if defined(WIN32)
 	#define Strnicmp _strnicmp
 #else
@@ -45,6 +58,7 @@
 #include "vector/region.hpp"
 
 #include "tool/tools.hpp"
+#include "tool/tar.hpp"
 #include "tool/item.hpp"
 #include "tool/item_collection.hpp"
 #include "tool/item_variant.hpp"
@@ -55,6 +69,9 @@
 #include "tool/item_array.hpp"
 #include "tool/item_object.hpp"
 #include "tool/settings.hpp"
+#include "tool/buffer.hpp"
+#include "tool/zip_file.hpp"
+#include "tool/zip_directory.hpp"
 #include "tool/bd_system.h"
 
 

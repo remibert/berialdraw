@@ -1,22 +1,22 @@
 #pragma once
 namespace berialdraw
 {
-	/** Cross-platform file management */
-	class File : public Stream, public TextStream
+	/** Local filesystem file management */
+	class LocalFile : public FileInterface
 	{
 	public:
-		File();
-		virtual ~File();
+		LocalFile();
+		virtual ~LocalFile();
 
 		/** Open file with mode
 		@param pathname path and filename
 		@param mode "r" to read "w" to write 
 		@return 0 success, -1 failed */
-		virtual int open(const char *pathname, const char *mode);
+		int open(const char *pathname, const char *mode);
 
 		/** Close file
 		@return 0 success, -1 failed */
-		virtual int close();
+		int close();
 
 		/** Read data from the stream.
 		@param ptr pointer on data
@@ -79,13 +79,6 @@ namespace berialdraw
 		@return the directory existing */
 		static String resolve(const String & dir);
 
-		/** Match a filename pattern
-		@param pattern Pattern with * (match any) and ? (match single char)
-		@param string String to match against
-		@param ignore_case Ignore case when comparing
-		@return True if pattern matches string */
-		static bool match_pattern(const char *pattern, const char *string, bool ignore_case = false);
-
 	protected:
 /// @cond DOXYGEN_IGNORE
 		/** Allocate temporary string
@@ -98,7 +91,7 @@ namespace berialdraw
 		@param length string length to allocate */
 		virtual void tmp_dealloc(char * tmp, uint32_t length);
 
-		std::unique_ptr<FileInterface> m_file;
+		FILE * m_file = 0;
 /// @endcond
 	};
 }

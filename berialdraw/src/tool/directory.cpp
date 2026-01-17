@@ -21,156 +21,71 @@ Directory::~Directory()
 bool Directory::open(const String& path)
 {
 	String p(path);
-	if (UIManager::settings())
+	
+	// Dispatcher: sélectionne le backend approprié
+	if (p.find("tar://", 0) == 0)
 	{
-		p = UIManager::settings()->resolve(path);
+		//m_backend = std::make_unique<TarDirectory>();
 	}
-
-	if (m_dir)
+	else
 	{
-		bd_dir_close(m_dir);
+		m_directory = std::make_unique<LocalDirectory>();
 	}
-
-	m_dir = bd_dir_open(p.c_str());
-	if (m_dir == 0)
-	{
-		bd_printf("Cannot open directory '%s'\n",p.c_str());
-	}
-	m_directory = path;
-	return m_dir != 0;
+	
+	return m_directory ? m_directory->open(path) : false;
 }
 
 void Directory::close()
 {
-	bd_dir_close(m_dir);
-	m_dir = 0;
+	if (m_directory) m_directory->close();
 }
 
 bool Directory::first()
 {
-	const char* first_file_name = bd_dir_first(m_dir);
-	if (first_file_name)
-	{
-		m_filename = first_file_name;
-		return true;
-	}
-	return false;
+	return m_directory ? m_directory->first() : false;
 }
 
 bool Directory::next()
 {
-	const char* next_file_name = bd_dir_next(m_dir);
-	if (next_file_name)
-	{
-		m_filename = next_file_name;
-		return true;
-	}
-	m_filename = "";
-	return false;
+	return m_directory ? m_directory->next() : false;
 }
 
 bool Directory::exist()
 {
-	if (m_filename == "")
-	{
-		return false;
-	}
-	return true;
+	return m_directory ? m_directory->exist() : false;
 }
 
 size_t Directory::file_size() const
 {
-	return bd_file_size(m_filename.c_str());
+	return m_directory ? m_directory->file_size() : 0;
 }
 
 bool Directory::is_directory() const
 {
-	return bd_is_directory(m_filename.c_str());
+	return m_directory ? m_directory->is_directory() : false;
 }
 
 bool Directory::is_file() const
 {
-	return !is_directory();
+	return m_directory ? m_directory->is_file() : false;
 }
 
 String Directory::filename() const
 {
-	return m_filename;
+	return m_directory ? m_directory->filename() : String("");
 }
 
 String Directory::full_path() const
 {
-	return m_directory + "/" + m_filename;
+	return m_directory ? m_directory->full_path() : String("");
 }
 
-/** Matches a string against a pattern containing wildcards */ 
 bool Directory::match(const char *pattern, bool ignore_case)
 {
-	return (match_pattern(pattern, m_filename.c_str()));
+	return m_directory ? m_directory->match(pattern, ignore_case) : false;
 }
 
-bool Directory::match_pattern(const char *pattern, const char *string, bool ignore_case)
-{
-	size_t pattern_len = strlen(pattern);
-	size_t string_len = strlen(string);
-
-	size_t i = 0;
-	size_t j = 0;
-
-	while (i < pattern_len && j < string_len)
-	{
-		if (pattern[i] == '*')
-		{
-			// Match zero or more characters
-			while (i < pattern_len && pattern[i] == '*')
-			{
-				i++;
-			}
-			if (i == pattern_len)
-			{
-				return true; // Pattern matches if it ends with *
-			}
-
-			if (ignore_case)
-			{
-				while (j < string_len && Strnicmp(pattern + i, string + j, 1) != 0)
-				{
-					j++;
-				}
-			}
-			else
-			{
-				while (j < string_len && strncmp(pattern + i, string + j, 1) != 0)
-				{
-					j++;
-				}
-			}
-		}
-		else if (pattern[i] == '?')
-		{
-			// Match a single character
-			i++;
-			j++;
-		}
-		else if (pattern[i] == string[j])
-		{
-			// Match a single character
-			i++;
-			j++;
-		}
-		else
-		{
-			return false; // Pattern does not match
-		}
-	}
-	return i == pattern_len && j == string_len;
-}
-
-
-/** Check if a directory exists
-@param path directory path to check
-@return true if directory exists */
 bool Directory::exists(const char* path)
 {
-	return bd_is_directory(path);
+	return LocalDirectory::exists(path);
 }

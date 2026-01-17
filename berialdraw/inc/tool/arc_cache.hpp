@@ -36,12 +36,10 @@ namespace berialdraw
 		void compute(Coord radius, Dim thickness, Dim & width, Coord & vec_x, Coord & vec_y, Coord & handle, Coord & intersection);
 
 	protected:
-#ifndef SWIG
 	/// @cond DOXYGEN_IGNORE
 		static const int CACHE_SIZE = 16; ///< Maximum number of cached entries.
 		int m_index = 0;                  ///< Current index in the circular cache.
 		ArcItem m_items[CACHE_SIZE];      ///< Fixed-size array of cached items.
 	/// @endcond
-#endif
 	};
 }

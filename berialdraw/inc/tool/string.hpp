@@ -19,6 +19,11 @@ namespace berialdraw
 		@param string String buffer to initialize from */
 		String(const char * string);
 
+		/** Constructor with string buffer and length
+		@param string String buffer to initialize from
+		@param length Number of characters to copy */
+		String(const char * string, size_t length);
+
 		/** Assign operator redefinition
 		@param other String to assign from
 		@return Reference to this String */
@@ -198,6 +203,14 @@ namespace berialdraw
 		@return Number of bytes written, or 0 if an error occurred */
 		virtual uint32_t write_string(const char * buffer);
 
+		/** Convert string to uppercase (UTF-8 aware)
+		@return Reference to this String */
+		String& to_upper();
+
+		/** Convert string to lowercase (UTF-8 aware)
+		@return Reference to this String */
+		String& to_lower();
+
 		/** Clear the content of stream */
 		virtual void clear();
 
@@ -230,12 +243,13 @@ namespace berialdraw
 		static void test6();
 		static void test7();
 		static void test8();
+		static void test9();
 #endif
 		/** Empty string */
 		static const String empty;
 
 	protected:
-#ifndef SWIG
+
 /// @cond DOXYGEN_IGNORE
 		/** Allocate temporary string
 		@param length String length to allocate
@@ -274,6 +288,5 @@ namespace berialdraw
 		uint32_t m_size = 0;     /**< Size in bytes of the string buffer */
 		uint32_t m_offset = 0;   /**< Read or write offset in bytes into the string buffer */
 /// @endcond
-#endif
 	};
 }

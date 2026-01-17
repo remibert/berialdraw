@@ -65,6 +65,23 @@ String::String(const char * string)
 	}
 }
 
+String::String(const char * string, size_t length)
+{
+	if(string && length > 0)
+	{
+		// Create a temporary null-terminated string
+		char* temp = new char[length + 1];
+		memcpy(temp, string, length);
+		temp[length] = '\0';
+		append(temp);
+		delete[] temp;
+	}
+	else
+	{
+		append("");
+	}
+}
+
 String& String::operator=(const String& other)
 {
 	if (this != &other)
@@ -709,6 +726,74 @@ wchar_t String::read_char()
 	return result;
 }
 
+/** Convert string to uppercase (UTF-8 aware)
+@return Reference to this String */
+String& String::to_upper()
+{
+	String result;
+	uint32_t pos = 0;
+
+	while (pos < m_size)
+	{
+		wchar_t character = (unsigned char)m_string[pos];
+		if (character > 0x7f)
+		{
+			uint32_t char_width;
+			character = Utf8::read(&m_string[pos], char_width);
+			if (character != 0 && character != Utf8::not_a_char)
+			{
+				character = (wchar_t)std::towupper(character);
+				result.append(character);
+				pos += char_width;
+				continue;
+			}
+		}
+		else
+		{
+			character = (wchar_t)std::toupper((unsigned char)m_string[pos]);
+			result.append(character);
+			pos++;
+		}
+	}
+
+	*this = result;
+	return *this;
+}
+
+/** Convert string to lowercase (UTF-8 aware)
+@return Reference to this String */
+String& String::to_lower()
+{
+	String result;
+	uint32_t pos = 0;
+
+	while (pos < m_size)
+	{
+		wchar_t character = (unsigned char)m_string[pos];
+		if (character > 0x7f)
+		{
+			uint32_t char_width;
+			character = Utf8::read(&m_string[pos], char_width);
+			if (character != 0 && character != Utf8::not_a_char)
+			{
+				character = (wchar_t)std::towlower(character);
+				result.append(character);
+				pos += char_width;
+				continue;
+			}
+		}
+		else
+		{
+			character = (wchar_t)std::tolower((unsigned char)m_string[pos]);
+			result.append(character);
+			pos++;
+		}
+	}
+
+	*this = result;
+	return *this;
+}
+
 
 
 /** Search for variable pattern $(name) starting from position
@@ -1245,8 +1330,96 @@ void String::test8()
 	assert(var == "");
 }
 
+void String::test9()
+{
+	// Test to_upper with ASCII
+	String str("hello world");
+	str.to_upper();
+	assert(str == "HELLO WORLD");
+
+	// Test to_lower with ASCII
+	str = "HELLO WORLD";
+	str.to_lower();
+	assert(str == "hello world");
+
+	// Test to_upper with mixed case
+	str = "HeLLo WoRLD";
+	str.to_upper();
+	assert(str == "HELLO WORLD");
+
+	// Test to_lower with mixed case
+	str = "HeLLo WoRLD";
+	str.to_lower();
+	assert(str == "hello world");
+
+	// Test to_upper with UTF-8 accented characters
+	str = "café français";
+	str.to_upper();
+	assert(str == "CAFé FRANçAIS");
+
+	// Test to_lower with UTF-8 accented characters
+	str = "CAFÉ FRANÇAIS";
+	str.to_lower();
+	assert(str == "cafÉ franÇais");
+
+	// Test to_upper preserves numbers and special characters
+	str = "test123!@# ABC";
+	str.to_upper();
+	assert(str == "TEST123!@# ABC");
+
+	// Test to_lower preserves numbers and special characters
+	str = "TEST123!@# abc";
+	str.to_lower();
+	assert(str == "test123!@# abc");
+
+	// Test to_upper with empty string
+	str = "";
+	str.to_upper();
+	assert(str == "");
+
+	// Test to_lower with empty string
+	str = "";
+	str.to_lower();
+	assert(str == "");
+
+	// Test to_upper with single character
+	str = "a";
+	str.to_upper();
+	assert(str == "A");
+
+	// Test to_lower with single character
+	str = "Z";
+	str.to_lower();
+	assert(str == "z");
+
+	// Test to_upper with accented single character
+	str = "é";
+	str.to_upper();
+	assert(str == "é");
+
+	// Test to_lower with accented single character
+	str = "É";
+	str.to_lower();
+	assert(str == "É");
+
+	// Test chain operations
+	str = "HeLLo WoRLD";
+	str.to_upper().to_lower().to_upper();
+	assert(str == "HELLO WORLD");
+
+	// Test with mixed ASCII and UTF-8
+	str = "Hello Café World";
+	str.to_upper();
+	assert(str == "HELLO CAFé WORLD");
+
+	str = "HELLO CAFÉ WORLD";
+	str.to_lower();
+	assert(str == "hello cafÉ world");
+}
+
 void String::test()
 {
+	test9();
 	test8();
 	test7();
 	test6();

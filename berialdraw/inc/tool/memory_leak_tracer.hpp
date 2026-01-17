@@ -1,5 +1,4 @@
 #pragma once
-#ifndef SWIG
 namespace berialdraw
 {
 	class MemHeader;
@@ -119,4 +118,3 @@ namespace berialdraw
 #endif
 
 }
-#endif
