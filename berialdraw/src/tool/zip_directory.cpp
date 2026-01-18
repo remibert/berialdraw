@@ -2,45 +2,6 @@
 
 using namespace berialdraw;
 
-// Helper function to split "archive.zip@path/" format
-static bool split_zip_path(const char* full_path, String& zip_path, String& dir_path)
-{
-	if (!full_path) return false;
-	
-	const char* at_pos = strchr(full_path, '@');
-	if (!at_pos)
-	{
-		// No @ sign, assume entire path is ZIP archive
-		zip_path = String(full_path);
-		dir_path = String("");
-		return true;
-	}
-	
-	zip_path = String(full_path, at_pos - full_path);
-	dir_path = String(at_pos + 1);
-	
-	return true;
-}
-
-// Helper to check if a filename matches the directory prefix
-static bool is_in_directory(const char* filename, const char* dir_prefix)
-{
-	if (!dir_prefix || strlen(dir_prefix) == 0)
-	{
-		// Root directory - accept all files that don't have subdirs
-		return strchr(filename, '/') == nullptr;
-	}
-	
-	if (strncmp(filename, dir_prefix, strlen(dir_prefix)) != 0)
-	{
-		return false;
-	}
-	
-	// Check if it's a direct child of the directory
-	const char* after_prefix = filename + strlen(dir_prefix);
-	return strchr(after_prefix, '/') == nullptr;
-}
-
 ZipDirectory::ZipDirectory(const char * zip_path)
 	: m_zip_file(nullptr)
 	, m_current_index(-1)
@@ -58,110 +19,82 @@ ZipDirectory::~ZipDirectory()
 
 bool ZipDirectory::open(const String& zip_path)
 {
+	bool result = false;
+	
 	close();
 	
 	String archive_path;
-	String dir_path;
+	String file_path;
 	
-	if (!split_zip_path(zip_path.c_str(), archive_path, dir_path))
+	if (FileTools::split_path(zip_path.c_str(), archive_path, file_path))
 	{
-		return false;
+		// Open the ZIP archive using ZipArchive (centralized management)
+		void* zip_handle = m_zip_archive.open(archive_path.c_str());
+		if (zip_handle)
+		{
+			m_zip_file = zip_handle;
+			m_zip_path = archive_path;
+			m_current_index = -1;
+			result = true;
+		}
 	}
 	
-	// Open the ZIP archive
-	unzFile zip_handle = unzOpen(archive_path.c_str());
-	if (!zip_handle)
-	{
-		return false;
-	}
-	
-	m_zip_file = zip_handle;
-	m_zip_path = archive_path;
-	m_directory_path = dir_path;
-	m_current_index = -1;
-	
-	return true;
+	return result;
 }
 
 void ZipDirectory::close()
 {
 	if (m_zip_file)
 	{
-		unzClose((unzFile)m_zip_file);
 		m_zip_file = nullptr;
 		m_current_index = -1;
 	}
+	
+	// Close the archive via ZipArchive
+	m_zip_archive.close();
 }
 
 bool ZipDirectory::first()
 {
-	if (!m_zip_file)
-	{
-		return false;
-	}
+	bool result = false;
 	
-	// Reset to the first file
-	int result = unzGoToFirstFile((unzFile)m_zip_file);
-	if (result != UNZ_OK)
+	if (m_zip_file)
 	{
-		return false;
-	}
-	
-	// Find the first file in our directory
-	while (true)
-	{
-		char filename[256];
-		unzGetCurrentFileInfo((unzFile)m_zip_file, nullptr, filename, sizeof(filename) - 1, nullptr, 0, nullptr, 0);
-		filename[255] = '\0';
-		
-		if (is_in_directory(filename, m_directory_path.c_str()))
+		// Reset to the first file
+		if (m_zip_archive.go_first_file())
 		{
-			m_current_filename = filename;
-			m_current_index = 0;
-			return true;
-		}
-		
-		result = unzGoToNextFile((unzFile)m_zip_file);
-		if (result != UNZ_OK)
-		{
-			return false;
+			String filename = m_zip_archive.get_current_filename();
+			if (filename.size() > 0)
+			{
+				m_current_filename = filename;
+				m_current_index = 0;
+				result = true;
+			}
 		}
 	}
+	
+	return result;
 }
 
 bool ZipDirectory::next()
 {
-	if (!m_zip_file || m_current_index < 0)
-	{
-		return false;
-	}
+	bool result = false;
 	
-	int result = unzGoToNextFile((unzFile)m_zip_file);
-	if (result != UNZ_OK)
+	if (m_zip_file && m_current_index >= 0)
 	{
-		return false;
-	}
-	
-	// Find the next file in our directory
-	while (true)
-	{
-		char filename[256];
-		unzGetCurrentFileInfo((unzFile)m_zip_file, nullptr, filename, sizeof(filename) - 1, nullptr, 0, nullptr, 0);
-		filename[255] = '\0';
-		
-		if (is_in_directory(filename, m_directory_path.c_str()))
+		if (m_zip_archive.go_next_file())
 		{
-			m_current_filename = filename;
-			m_current_index++;
-			return true;
-		}
-		
-		result = unzGoToNextFile((unzFile)m_zip_file);
-		if (result != UNZ_OK)
-		{
-			return false;
+			String filename = m_zip_archive.get_current_filename();
+			if (filename.size() > 0)
+			{
+				m_current_filename = filename;
+				m_current_index++;
+				result = true;
+			}
 		}
 	}
+	
+	return result;
 }
 
 bool ZipDirectory::exist() const
@@ -171,11 +104,14 @@ bool ZipDirectory::exist() const
 
 bool ZipDirectory::match(const char *pattern, bool ignore_case)
 {
-	if (!exist())
+	bool result = false;
+	
+	if (exist())
 	{
-		return false;
+		result = FileTools::match_pattern(pattern, m_current_filename.c_str(), ignore_case);
 	}
-	return File::match_pattern(pattern, m_current_filename.c_str(), ignore_case);
+	
+	return result;
 }
 
 size_t ZipDirectory::file_size() const
@@ -186,22 +122,37 @@ size_t ZipDirectory::file_size() const
 	}
 	
 	unz_file_info file_info;
-	unzGetCurrentFileInfo((unzFile)m_zip_file, &file_info, nullptr, 0, nullptr, 0, nullptr, 0);
+	if (m_zip_archive.get_current_file_info(file_info))
+	{
+		return file_info.uncompressed_size;
+	}
 	
-	return file_info.uncompressed_size;
+	return 0;
 }
 
 bool ZipDirectory::is_directory() const
 {
-	if (!exist())
+	bool result = false;
+	
+	if (exist())
 	{
-		return false;
+		unz_file_info file_info;
+		if (m_zip_archive.get_current_file_info(file_info))
+		{
+			// Check external file attributes for directory flag
+			// Unix attributes are in upper 16 bits, DOS attributes in lower 16 bits
+			uint32_t attr = file_info.external_fa >> 16;
+			if (attr == 0)
+			{
+				// Fallback to DOS attributes
+				attr = file_info.external_fa & 0xFFFF;
+			}
+			// Directory flag is 0x10 in both Unix and DOS
+			result = ((attr & 0x10) != 0);
+		}
 	}
 	
-	// In ZIP archives, directories end with a '/'
-	const char* name = m_current_filename.c_str();
-	size_t len = strlen(name);
-	return len > 0 && name[len - 1] == '/';
+	return result;
 }
 
 bool ZipDirectory::is_file() const
@@ -211,21 +162,30 @@ bool ZipDirectory::is_file() const
 
 String ZipDirectory::filename() const
 {
-	if (!exist())
+	String result("");
+	
+	if (exist())
 	{
-		return String("");
+		result = m_current_filename;
+		
+		// Find the last slash using String::rfind (supports both / and \)
+		int32_t last_slash_pos = result.rfind("/");
+		if (last_slash_pos == INT32_MAX)
+		{
+			// Try backslash as fallback
+			last_slash_pos = result.rfind("\\");
+		}
+		
+		if (last_slash_pos != INT32_MAX)
+		{
+			// Extract filename after the last slash using String::slice
+			String filename_part;
+			result.slice(last_slash_pos + 1, (int32_t)result.size(), filename_part);
+			result = filename_part;
+		}
 	}
 	
-	const char* name = m_current_filename.c_str();
-	
-	// Extract just the filename without directory path
-	const char* last_slash = strrchr(name, '/');
-	if (last_slash)
-	{
-		return String(last_slash + 1);
-	}
-	
-	return String(name);
+	return result;
 }
 
 String ZipDirectory::full_path() const
@@ -240,23 +200,22 @@ String ZipDirectory::full_path() const
 
 bool ZipDirectory::exists(const char* zip_path)
 {
+	bool result = false;
+	
 	String archive_path;
 	String dir_path;
 	
-	if (!split_zip_path(zip_path, archive_path, dir_path))
+	if (FileTools::split_path(zip_path, archive_path, dir_path))
 	{
-		return false;
+		// Check if ZIP file exists using ZipArchive
+		ZipArchive temp_archive;
+		if (temp_archive.open(archive_path.c_str()))
+		{
+			result = true;
+		}
 	}
 	
-	// Check if ZIP file exists
-	unzFile zip_handle = unzOpen(archive_path.c_str());
-	if (!zip_handle)
-	{
-		return false;
-	}
-	
-	unzClose(zip_handle);
-	return true;
+	return result;
 }
 
 

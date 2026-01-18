@@ -1,6 +1,4 @@
 #pragma once
-#include <vector>
-#include <cstring>
 
 namespace berialdraw
 {

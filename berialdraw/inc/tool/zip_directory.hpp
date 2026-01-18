@@ -65,12 +65,13 @@ namespace berialdraw
 
 	private:
 /// @cond DOXYGEN_IGNORE
-		String m_zip_path;        /**< The ZIP archive path. */
-		String m_directory_path;  /**< The directory path within the archive. */
-		String m_current_filename;/**< The current file name. */
+		ZipArchive m_zip_archive;     /**< Centralized ZIP archive management */
+		String m_zip_path;            /**< The ZIP archive path. */
+		String m_directory_path;      /**< The directory path within the archive. */
+		String m_current_filename;    /**< The current file name. */
 
 		// Pointer to the ZIP archive context
-		void* m_zip_file = nullptr;  // unzFile handle
+		void* m_zip_file = nullptr;   // unzFile handle
 		long m_current_index = -1;
 /// @endcond
 	};

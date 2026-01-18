@@ -452,6 +452,12 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\..\src\tool\file_tools.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="..\..\src\tool\hsl.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -580,6 +586,12 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="..\..\src\tool\zip_file.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\zip_archive.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
@@ -1095,6 +1107,8 @@
     <ClInclude Include="..\..\inc\tool\vector.hpp" />
     <ClInclude Include="..\..\inc\tool\zip_directory.hpp" />
     <ClInclude Include="..\..\inc\tool\zip_file.hpp" />
+    <ClInclude Include="..\..\inc\tool\zip_archive.hpp" />
+    <ClInclude Include="..\..\inc\tool\file_tools.hpp" />
     <ClInclude Include="..\..\inc\vector\align.hpp" />
     <ClInclude Include="..\..\inc\vector\area.hpp" />
     <ClInclude Include="..\..\inc\styles\color.hpp" />

@@ -1,7 +1,7 @@
 #pragma once
 
-	struct bd_DIR;
-	typedef struct bd_DIR bd_DIR;
+struct bd_DIR;
+typedef struct bd_DIR bd_DIR;
 
 namespace berialdraw
 {
@@ -33,7 +33,7 @@ namespace berialdraw
 
 		/** Indicates if file or directory existing
 		@return True if the file existing, false otherwise. */
-		bool exist();
+		bool exist() const;
 
 		/** Gets the size of the current file.
 		@return The size of the current file in bytes. */
@@ -68,7 +68,7 @@ namespace berialdraw
 
 	private:
 /// @cond DOXYGEN_IGNORE
-		String m_directory;               /**< The directory path. */
+		String m_directory;     /**< The directory path. */
 		String m_filename;      /**< The current file name. */
 
 		// Pointer to the OS-specific directory context

@@ -1,8 +1,5 @@
 #pragma once
 
-	struct bd_DIR;
-	typedef struct bd_DIR bd_DIR;
-
 namespace berialdraw
 {
 	/** Class to manage directory operations, scanning files one by one.*/
@@ -69,6 +66,19 @@ namespace berialdraw
 		@param path directory path to check
 		@return true if directory exists */
 		static bool exists(const char* path);
+
+#ifdef _DEBUG
+	public:
+		/** Unit tests for Directory class - only available in Debug mode */
+		static void test();
+		static void test1();
+		static void test2();
+		static void test3();
+		static void test4();
+		static void test5();
+		static void test6();
+		static void test7();
+#endif
 
 	private:
 /// @cond DOXYGEN_IGNORE

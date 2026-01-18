@@ -1,8 +1,5 @@
 #pragma once
 
-	struct bd_DIR;
-	typedef struct bd_DIR bd_DIR;
-
 namespace berialdraw
 {
 	/** Abstract interface for directory implementations */
@@ -30,7 +27,7 @@ namespace berialdraw
 
 		/** Indicates if file or directory existing
 		@return True if the file existing, false otherwise. */
-		virtual bool exist() = 0;
+		virtual bool exist() const = 0;
 
 		/** Gets the size of the current file.
 		@return The size of the current file in bytes. */

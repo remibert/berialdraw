@@ -662,6 +662,12 @@
     <ClCompile Include="..\..\src\tool\mz_stream_os_berialdraw.c">
       <Filter>minizip</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\tool\file_tools.cpp">
+      <Filter>berialdraw\tool\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\zip_archive.cpp">
+      <Filter>berialdraw\tool\file</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\berialdraw_imp.hpp">
@@ -1400,6 +1406,12 @@
       <Filter>berialdraw\tool\file</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\tool\buffer.hpp">
+      <Filter>berialdraw\tool\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\file_tools.hpp">
+      <Filter>berialdraw\tool\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\zip_archive.hpp">
       <Filter>berialdraw\tool\file</Filter>
     </ClInclude>
   </ItemGroup>

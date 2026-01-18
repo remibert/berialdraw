@@ -100,5 +100,19 @@ namespace berialdraw
 
 		std::unique_ptr<FileInterface> m_file;
 /// @endcond
+
+#ifdef _DEBUG
+	public:
+		/** Unit tests for File class - only available in Debug mode */
+		static void test();
+		static void test1();
+		static void test2();
+		static void test3();
+		static void test4();
+		static void test5();
+		static void test6();
+		static void test7();
+		static void test8();
+#endif
 	};
 }

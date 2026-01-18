@@ -162,6 +162,8 @@ set(SRCS_LIB
 	src/tool/local_directory.cpp
 	src/tool/zip_file.cpp
 	src/tool/zip_directory.cpp
+	src/tool/zip_archive.cpp
+	src/tool/file_tools.cpp
 
 	src/event/event.cpp
 	src/event/key_event.cpp

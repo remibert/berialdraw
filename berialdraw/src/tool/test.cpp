@@ -620,6 +620,8 @@ namespace berialdraw
 		{
 			done = true;
 #if _DEBUG
+			File::test();
+			Directory::test();
 			MaskValidator::test();
 			Entry::test(); 
 //			Tar::test();

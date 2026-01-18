@@ -97,7 +97,8 @@ namespace berialdraw
 		Used when sequential mode is disabled (default) */
 		void uncompress();
 
-		void* m_zip_file = nullptr;    // unzFile handle
+		ZipArchive m_zip_archive;      // Centralized ZIP archive management
+		void* m_zip_file = nullptr;    // Current file handle in archive
 		Buffer m_buffer;               // Cache for decompressed data
 		uint32_t m_file_size = 0;
 		bool m_sequential = false;     // Sequential vs buffered mode

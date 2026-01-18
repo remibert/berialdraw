@@ -20,6 +20,8 @@ LocalDirectory::~LocalDirectory()
 
 bool LocalDirectory::open(const String& path)
 {
+	bool result = false;
+	
 	String p(path);
 	if (UIManager::settings())
 	{
@@ -36,8 +38,13 @@ bool LocalDirectory::open(const String& path)
 	{
 		bd_printf("Cannot open directory '%s'\n",p.c_str());
 	}
+	else
+	{
+		result = true;
+	}
+	
 	m_directory = path;
-	return m_dir != 0;
+	return result;
 }
 
 void LocalDirectory::close()
@@ -48,34 +55,40 @@ void LocalDirectory::close()
 
 bool LocalDirectory::first()
 {
+	bool result = false;
+	
 	const char* first_file_name = bd_dir_first(m_dir);
 	if (first_file_name)
 	{
 		m_filename = first_file_name;
-		return true;
+		result = true;
 	}
-	return false;
+	
+	return result;
 }
 
 bool LocalDirectory::next()
 {
+	bool result = false;
+	
 	const char* next_file_name = bd_dir_next(m_dir);
 	if (next_file_name)
 	{
 		m_filename = next_file_name;
-		return true;
+		result = true;
 	}
-	m_filename = "";
-	return false;
+	else
+	{
+		m_filename = "";
+	}
+	
+	return result;
 }
 
-bool LocalDirectory::exist()
+bool LocalDirectory::exist() const
 {
-	if (m_filename == "")
-	{
-		return false;
-	}
-	return true;
+	bool result = (m_filename != "");
+	return result;
 }
 
 size_t LocalDirectory::file_size() const
@@ -106,7 +119,8 @@ String LocalDirectory::full_path() const
 /** Matches a string against a pattern containing wildcards */ 
 bool LocalDirectory::match(const char *pattern, bool ignore_case)
 {
-	return File::match_pattern(pattern, m_filename.c_str());
+	bool result = File::match_pattern(pattern, m_filename.c_str(), ignore_case);
+	return result;
 }
 
 

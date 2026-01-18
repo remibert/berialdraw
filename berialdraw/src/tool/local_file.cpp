@@ -13,6 +13,8 @@ LocalFile::~LocalFile()
 
 int LocalFile::open(const char *path, const char *mode)
 {
+	int result = -1;
+	
 	String p(path);
 	if (UIManager::settings())
 	{
@@ -23,24 +25,28 @@ int LocalFile::open(const char *path, const char *mode)
 
 	if (m_file)
 	{
-		return 0;
+		result = 0;
 	}
 	else
 	{
 		bd_printf("Cannot open file '%s'\n",p.c_str());
 	}
-	return -1;
+	
+	return result;
 }
 
 int LocalFile::close()
 {
+	int result = -1;
+	
 	if (m_file)
 	{
 		fclose(m_file);
 		m_file = 0;
-		return 0;
+		result = 0;
 	}
-	return -1;
+	
+	return result;
 }
 
 int LocalFile::read(void *ptr, uint32_t size)
@@ -50,7 +56,7 @@ int LocalFile::read(void *ptr, uint32_t size)
 	{
 		uint32_t res = (uint32_t)fread(ptr,1,size,m_file);
 		result = (int)res;
-		if (res < size)
+		if (res < 0)
 		{
 			if (feof(m_file) != 0)
 			{
@@ -90,11 +96,14 @@ long LocalFile::tell()
 
 int LocalFile::seek(long offset, int whence)
 {
+	int result = -1;
+	
 	if (m_file)
 	{
-		return fseek(m_file,offset,whence);
+		result = fseek(m_file,offset,whence);
 	}
-	return -1;
+	
+	return result;
 }
 
 uint32_t LocalFile::size()
@@ -129,16 +138,16 @@ uint32_t LocalFile::write_char(wchar_t character)
 
 uint32_t LocalFile::write_string(const char * buffer)
 {
+	uint32_t result = 0;
+	
 	uint32_t length = (uint32_t)strlen(buffer);
 	if(Utf8::is_correct(buffer))
 	{
 		write((void*)buffer, length);
+		result = length;
 	}
-	else
-	{
-		length = 0;
-	}
-	return length;
+	
+	return result;
 }
 
 /** Clear the content of stream */

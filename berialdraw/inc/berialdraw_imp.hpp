@@ -70,6 +70,8 @@
 #include "tool/item_object.hpp"
 #include "tool/settings.hpp"
 #include "tool/buffer.hpp"
+#include "tool/file_tools.hpp"
+#include "tool/zip_archive.hpp"
 #include "tool/zip_file.hpp"
 #include "tool/zip_directory.hpp"
 #include "tool/bd_system.h"
