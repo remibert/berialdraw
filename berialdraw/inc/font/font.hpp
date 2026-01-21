@@ -33,6 +33,10 @@ namespace berialdraw
 		/** Destructor that destroys the font instance */
 		virtual ~Font();
 
+		/** Prevent copying to avoid dangling pointer issues */
+		Font(const Font&) = delete;
+		Font& operator=(const Font&) = delete;
+
 		/** Get the selected font size
 		@return The pixel size of the font */
 		const Size & pixel_size() const;

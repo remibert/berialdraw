@@ -176,7 +176,10 @@ void Edit::paint(const Region & parent_region)
 			}
 		}
 
-		m_text_box.parse(m_text_foreclip, *m_font, display, m_cursor_position, m_selection_start, m_selection_end, (Align)m_text_align);
+		if (m_font.get())
+		{
+			m_text_box.parse(m_text_foreclip, *m_font, display, m_cursor_position, m_selection_start, m_selection_end, (Align)m_text_align);
+		}
 		
 		Rect::build_focused_polygon(m_foreclip, 
 			*(CommonStyle*)this,

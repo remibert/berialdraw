@@ -21,7 +21,11 @@ Directory::~Directory()
 bool Directory::open(const String& path)
 {
 	String p(path);
-	
+	if (strchr(path.c_str(),'$') != 0 && UIManager::settings())
+	{
+		p = UIManager::settings()->resolve(path);
+	}
+
 	if (p.find("zip://", 0) == 0)
 	{
 		m_directory = std::make_unique<ZipDirectory>();
@@ -31,7 +35,7 @@ bool Directory::open(const String& path)
 		m_directory = std::make_unique<LocalDirectory>();
 	}
 	
-	return m_directory ? m_directory->open(path) : false;
+	return m_directory ? m_directory->open(p) : false;
 }
 
 void Directory::close()
@@ -86,7 +90,20 @@ bool Directory::match(const char *pattern, bool ignore_case)
 
 bool Directory::exists(const char* path)
 {
-	return LocalDirectory::exists(path);
+	if (path == nullptr)
+	{
+		return false;
+	}
+
+	String p(path);
+	if (p.find("zip://", 0) == 0)
+	{
+		return ZipDirectory::exists(path);
+	}
+	else
+	{
+		return LocalDirectory::exists(path);
+	}
 }
 
 #ifdef _DEBUG

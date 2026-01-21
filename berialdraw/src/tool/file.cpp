@@ -13,9 +13,13 @@ File::~File()
 
 int File::open(const char *pathname, const char *mode)
 {
-	String path(pathname);
-	
-	if (path.find("zip://", 0) == 0)
+	String p(pathname);
+	if (strchr(pathname,'$') != 0 && UIManager::settings())
+	{
+		p = UIManager::settings()->resolve(pathname);
+	}
+
+	if (p.find("zip://", 0) == 0)
 	{
 		m_file = std::make_unique<ZipFile>();
 	}
@@ -24,7 +28,7 @@ int File::open(const char *pathname, const char *mode)
 		m_file = std::make_unique<LocalFile>();
 	}
 	
-	return m_file ? m_file->open(pathname, mode) : -1;
+	return m_file ? m_file->open(p.c_str(), mode) : -1;
 }
 
 int File::close()
@@ -89,7 +93,25 @@ wchar_t File::read_char()
 
 bool File::exists(const char* file_name)
 {
-	return LocalFile::exists(file_name);
+	if (file_name == nullptr)
+	{
+		return false;
+	}
+
+	String p(file_name);
+	if (strchr(file_name,'$') != 0 && UIManager::settings())
+	{
+		p = UIManager::settings()->resolve(file_name);
+	}
+
+	if (p.find("zip://", 0) == 0)
+	{
+		return ZipFile::exists(p);
+	}
+	else
+	{
+		return LocalFile::exists(p);
+	}
 }
 
 String File::resolve(const String & dir)

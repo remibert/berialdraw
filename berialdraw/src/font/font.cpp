@@ -28,7 +28,14 @@ void _Font::unload_ft_lib()
 Font::Font(FontFacePtr & font_face, const Size & sz)
 {
 	m_font = new _Font(font_face, this);
-	size(sz);
+	if (m_font)
+	{
+		// Initialize with safe default values
+		m_font->m_pixel_size = sz;
+		m_font->m_real_size = sz;
+		// Try to set actual size if font face is valid
+		size(sz);
+	}
 }
 
 void Font::clear()
@@ -58,6 +65,9 @@ Font::~Font()
 @return The pixel size of the font */
 const Size & Font::pixel_size() const
 {
+	static const Size invalid_size = {0, 0};
+	if (m_font == 0)
+		return invalid_size;
 	return m_font->m_pixel_size;
 }
 
@@ -65,12 +75,17 @@ const Size & Font::pixel_size() const
 @return The real size of the font */
 const Size & Font::real_size() const
 {
+	static const Size invalid_size = {0, 0};
+	if (m_font == 0)
+		return invalid_size;
 	return m_font->m_real_size;
 }
 
 /** Get the familly */
 const String & Font::familly() const
 {
+	if (m_font == 0 || m_font->m_fontface.get() == 0)
+		return String::empty;
 	return m_font->m_fontface->familly();
 }
 
@@ -87,6 +102,8 @@ enum Font::Style Font::style()
 /** Get the filename */
 const String & Font::filename()
 {
+	if (m_font == 0 || m_font->m_fontface.get() == 0)
+		return String::empty;
 	return m_font->m_fontface->filename();
 }
 
@@ -123,11 +140,15 @@ void Font::size(const Size & size)
 
 Coord Font::baseline() const
 {
+	if (m_font == 0)
+		return 0;
 	return m_font->m_baseline>>6 ;
 }
 
 Coord Font::baseline_() const
 {
+	if (m_font == 0)
+		return 0;
 	return m_font->m_baseline;
 }
 
@@ -136,6 +157,8 @@ Coord Font::baseline_() const
 @return true if monospaced else return false */
 bool Font::is_monospaced() const
 {
+	if (m_font == 0 || m_font->m_fontface.get() == 0)
+		return false;
 	return m_font->m_fontface->is_monospaced();
 }
 

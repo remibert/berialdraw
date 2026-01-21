@@ -95,7 +95,10 @@ Size Icon::content_size()
 	{
 		Area area;
 		select_font();
-		m_text_box.parse(area, *m_font, m_text, UINT32_MAX, UINT32_MAX, UINT32_MAX, (Align)m_text_align);
+		if (m_font.get())
+		{
+			m_text_box.parse(area, *m_font, m_text, UINT32_MAX, UINT32_MAX, UINT32_MAX, (Align)m_text_align);
+		}
 		m_text_modified = m_font_modified = 0;
 		m_text_size = m_text_box.content_size();
 	}

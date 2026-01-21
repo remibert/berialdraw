@@ -13,8 +13,8 @@ from pyberialdraw import *
 
 device = DeviceScreen("Sample python")
 
-#UIManager.init(device, 1080, 1200, Framebuf.ARGB8888, 30, "./resources;../resources")
-UIManager.init(device, 480, 800, Framebuf.ARGB8888, 4, "./resources;../resources")
+#UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "./resources;../resources")
+UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "zip://resources.zip/resources")
 UIManager.style = "pearl"
 UIManager.appearance = "light"
 UIManager.theme = THEME_LIME
@@ -30,7 +30,6 @@ def key_to_str(key):
 
 class Dialog:
 	def __init__(self):
-
 		self.window = Window()
 		self.scroll = ScrollView(self.window)
 		self.layout = Column(self.scroll)
@@ -98,5 +97,5 @@ class Dialog2:
 		UIManager.notifier().play_script(script)
 
 dlg = Dialog()
-
+print("hello")
 UIManager.desktop().mainloop()

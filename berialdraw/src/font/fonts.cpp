@@ -200,6 +200,7 @@ void Fonts::familly(const String & name)
 bool Fonts::load_directory(const String & dir)
 {
 	bool result = true;
+	bool found = false;
 	std::lock_guard<std::recursive_mutex> lock(m_mutex);
 	Directory directory; 
 
@@ -209,18 +210,24 @@ bool Fonts::load_directory(const String & dir)
 		{
 			do
 			{
-				if (directory.match("*.ttf",true))
+				String full_path = directory.full_path();
+				if (File::match_pattern("*.ttf", full_path.c_str(), false) == true && 
+					File::match_pattern("*/._*.ttf", full_path.c_str(), false) == false)
 				{
-					if (load(directory.full_path()) == false)
+					if (load(full_path) == false)
 					{
 						result = false;
+					}
+					else
+					{
+						found = true;
 					}
 				}
 			}
 			while(directory.next());
 		}
 	}
-	else
+	if (found == false)
 	{
 		bd_printf("No font found, you need to provide an existing directory in UIManager::init\n");
 		result = false;

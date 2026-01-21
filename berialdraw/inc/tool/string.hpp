@@ -232,6 +232,11 @@ namespace berialdraw
 		@return Index where the variable was found or INT32_MAX if not found */
 		int32_t search_var(String & var, int32_t pos = 0) const;
 
+		/** Convert filename to UTF-8, handling different encodings (UTF-8, CP437, etc.)
+		@param src Source filename string which may be in CP437, Latin-1, or already UTF-8
+		@return UTF-8 encoded string */
+		static String convert_filename_encoding(const char * src);
+
 #ifdef _DEBUG
 		/** Unitary test */
 		static void test();

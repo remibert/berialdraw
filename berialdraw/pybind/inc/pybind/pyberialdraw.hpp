@@ -5,6 +5,9 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <functional>
+#include <cstdarg>
+#include <cstdio>
+#include <string>
 #include "berialdraw.hpp"
 
 namespace py = pybind11;
@@ -234,3 +237,4 @@ void bind_icon(pybind11::module_& m);
 void bind_keyboard(pybind11::module_& m);
 void bind_desktop(pybind11::module_& m);
 void bind_uimanager(pybind11::module_& m);
+void redirect_print();

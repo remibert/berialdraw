@@ -24,6 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\pybind\src\pybind\tool\json.cpp" />
+    <ClCompile Include="..\..\pybind\src\pybind\tool\bd_system.cpp" />
     <ClCompile Include="..\..\pybind\src\pybind\vector\align.cpp" />
     <ClCompile Include="..\..\pybind\src\pybind\vector\extend.cpp" />
     <ClCompile Include="..\\..\\pybind\\src\\pyberialdraw.cpp">

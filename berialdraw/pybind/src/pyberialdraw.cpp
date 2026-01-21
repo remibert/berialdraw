@@ -3,6 +3,9 @@
 PYBIND11_MODULE(pyberialdraw, m) {
     m.doc() = "Berialdraw Python bindings";
     
+    // Initialize bd_printf to redirect to Python's print automatically
+    redirect_print();
+    
     // Bind font classes first (fundamental classes)
     bind_font(m);
     bind_fonts(m);

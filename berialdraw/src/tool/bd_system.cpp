@@ -99,11 +99,34 @@ int bd_fseek(bd_FILE *stream, long offset, int whence)
 	return result;
 }
 
+// Default implementation (standard vprintf)
+static void bd_default_printf(const char* format, va_list args)
+{
+	vprintf(format, args);
+	fflush(stdout);
+}
+
+// Typedef for printf function pointer
+typedef void (*PrintfRedirection)(const char* format, va_list args);
+
+// Global function pointer
+static PrintfRedirection bd_current_printf = bd_default_printf;
+
+// Function to initialize callback
+void bd_redirect_printf(void (*callback)(const char* format, va_list args))
+{
+	bd_current_printf = callback;
+}
+
 void bd_printf(const char* format, ...)
 {
 	va_list args;
 	va_start(args, format);
-	vprintf(format, args);
+	
+	if (bd_current_printf)
+	{
+		bd_current_printf(format, args);
+	}
 	va_end(args);
 }
 

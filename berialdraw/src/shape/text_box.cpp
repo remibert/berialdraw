@@ -17,13 +17,15 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 {
 	uint32_t count = text.count();
 	wchar_t character;
-	Dim line_height = font.real_size().height_();
+	Dim line_height = 0;
 	Dim line_width = 0;
+	Size space_size;
 	uint32_t i;
 	LineInfo info;
 	bool selection = false;
 
-	Size space_size = font.char_size(' ');
+	line_height = font.real_size().height_();
+	space_size = font.char_size(' ');
 
 	m_lines.clear();
 	m_lines_size.set(0,0);

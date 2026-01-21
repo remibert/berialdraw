@@ -15,13 +15,7 @@ int LocalFile::open(const char *path, const char *mode)
 {
 	int result = -1;
 	
-	String p(path);
-	if (UIManager::settings())
-	{
-		p = UIManager::settings()->resolve(path);
-	}
-
-	m_file = fopen(p, mode);
+	m_file = fopen(path, mode);
 
 	if (m_file)
 	{
@@ -29,7 +23,8 @@ int LocalFile::open(const char *path, const char *mode)
 	}
 	else
 	{
-		bd_printf("Cannot open file '%s'\n",p.c_str());
+		//bd_printf("Cannot open file '%s'\n",p.c_str());
+		bd_printf("Cannot open file '%s'\n",path);
 	}
 	
 	return result;
@@ -224,13 +219,7 @@ void LocalFile::tmp_dealloc(char * tmp, uint32_t length)
 @return True if file existing. */
 bool LocalFile::exists(const char* file_name)
 {
-	String p(file_name);
-	if (UIManager::settings())
-	{
-		p = UIManager::settings()->resolve(file_name);
-	}
-
-	return bd_file_exists(p.c_str());
+	return bd_file_exists(file_name);
 }
 
 /** Select the directory existing in the list and return it */

@@ -653,9 +653,6 @@
     <ClCompile Include="..\..\..\minizip\compat\ioapi.c">
       <Filter>minizip</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\tool\zip_directory.cpp">
-      <Filter>berialdraw\tool\file</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\tool\zip_file.cpp">
       <Filter>berialdraw\tool\file</Filter>
     </ClCompile>
@@ -667,6 +664,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\tool\zip_archive.cpp">
       <Filter>berialdraw\tool\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\zip_directory.cpp">
+      <Filter>berialdraw\tool\directory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1399,9 +1399,6 @@
     <ClInclude Include="..\..\inc\tool\tar.hpp">
       <Filter>berialdraw\tool\file</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\zip_directory.hpp">
-      <Filter>berialdraw\tool\file</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\inc\tool\zip_file.hpp">
       <Filter>berialdraw\tool\file</Filter>
     </ClInclude>
@@ -1413,6 +1410,9 @@
     </ClInclude>
     <ClInclude Include="..\..\inc\tool\zip_archive.hpp">
       <Filter>berialdraw\tool\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\tool\zip_directory.hpp">
+      <Filter>berialdraw\tool\directory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

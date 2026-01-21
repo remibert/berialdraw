@@ -190,12 +190,8 @@ String ZipDirectory::filename() const
 
 String ZipDirectory::full_path() const
 {
-	if (!exist())
-	{
-		return String("");
-	}
-	
-	return String(m_current_filename.c_str());
+	String result = String("zip://") + m_zip_path + "/" + m_current_filename;
+	return result;
 }
 
 bool ZipDirectory::exists(const char* zip_path)

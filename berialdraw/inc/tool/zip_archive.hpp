@@ -55,15 +55,21 @@ namespace berialdraw
 
 		/** Go to first file in archive
 		@return true if successful, false otherwise */
-		bool go_first_file();
+		bool go_first_file() const;
 
 		/** Go to next file in archive
 		@return true if successful, false otherwise */
-		bool go_next_file();
+		bool go_next_file() const;
 
 		/** Get current filename from archive position
 		@return String with filename, empty string if no file or error */
 		String get_current_filename() const;
+
+		/** Find a file in the archive with flexible matching
+		Handles different encodings (UTF-8, CP437) and case sensitivity
+		@param filename Filename to find
+		@return true if file found and positioned, false otherwise */
+		bool find_file(const char* filename) const;
 
 	private:
 		void* m_handle;

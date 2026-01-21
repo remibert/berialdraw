@@ -21,22 +21,16 @@ LocalDirectory::~LocalDirectory()
 bool LocalDirectory::open(const String& path)
 {
 	bool result = false;
-	
-	String p(path);
-	if (UIManager::settings())
-	{
-		p = UIManager::settings()->resolve(path);
-	}
 
 	if (m_dir)
 	{
 		bd_dir_close(m_dir);
 	}
 
-	m_dir = bd_dir_open(p.c_str());
+	m_dir = bd_dir_open(path.c_str());
 	if (m_dir == 0)
 	{
-		bd_printf("Cannot open directory '%s'\n",p.c_str());
+		bd_printf("Cannot open directory '%s'\n",path.c_str());
 	}
 	else
 	{
