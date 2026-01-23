@@ -45,7 +45,6 @@ namespace berialdraw
 		bool load_directory(const String & directory);
 		
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** Fonts list */
 		Vector<FontPtr> * m_fonts=0;
@@ -56,6 +55,5 @@ namespace berialdraw
 		/** Mutex for thread-safety */
 		std::recursive_mutex m_mutex;  
 /// @endcond
-#endif
 	};
 }

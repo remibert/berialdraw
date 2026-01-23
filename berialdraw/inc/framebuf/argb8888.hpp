@@ -1,5 +1,4 @@
 #pragma once
-#ifndef SWIG
 namespace berialdraw
 {
 	/** Framebuffer in ARGB 8888 format */
@@ -59,7 +58,6 @@ namespace berialdraw
 		virtual uint32_t crc32();
  
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		void to_bmp(const char * filename);
 		uint8_t* m_buffer;   /**< Pointer to the buffer */
@@ -67,7 +65,5 @@ namespace berialdraw
 		uint32_t m_height;   /**< Height of the framebuffer */
 		bool m_dirty;        /**< Dirty flag */
 /// @endcond 
-#endif
 	};
 }
-#endif

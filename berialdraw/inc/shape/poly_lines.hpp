@@ -74,7 +74,6 @@ namespace berialdraw
 #endif
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** Add a point to the right side of the polyline
 		@param p Point object to add */
@@ -127,6 +126,5 @@ namespace berialdraw
 		PolyPoints m_shape;    /**< Shape of the polyline */
 		uint32_t     m_count = 0; /**< Number of points in the polyline */
 /// @endcond
-#endif
 	};
 }

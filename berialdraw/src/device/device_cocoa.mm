@@ -24,7 +24,7 @@ public:
 	String        m_title;
 	bool          m_app_initialized;
 
-	DeviceCocoaImpl(const char* title, Dim width, Dim height);
+	DeviceCocoaImpl(const char* title, Dim width, Dim height, Coord x, Coord y);
 	~DeviceCocoaImpl();
 	bool initialize_app();
 	void open_window();
@@ -36,6 +36,8 @@ public:
 	void refresh();
 	void size(Dim width, Dim height);
 	berialdraw::Size size() const;
+	void position(Coord x, Coord y);
+	berialdraw::Point position() const;
 	void quit();
 };
 
@@ -478,7 +480,7 @@ public:
 @end
 
 // DeviceCocoaImpl method implementations
-berialdraw::DeviceCocoaImpl::DeviceCocoaImpl(const char* title, Dim width, Dim height)
+berialdraw::DeviceCocoaImpl::DeviceCocoaImpl(const char* title, Dim width, Dim height, Coord x, Coord y)
 	: m_window(nullptr)
 	, m_view(nullptr)
 	, m_event(nullptr)
@@ -493,6 +495,11 @@ berialdraw::DeviceCocoaImpl::DeviceCocoaImpl(const char* title, Dim width, Dim h
 	if (initialize_app())
 	{
 		open_window();
+		// Set initial position after window creation
+		if (x != 0 || y != 0)
+		{
+			position(x, y);
+		}
 	}
 }
 
@@ -896,10 +903,52 @@ berialdraw::Size berialdraw::DeviceCocoaImpl::size() const
 	return berialdraw::Size(m_width, m_height);
 }
 
+// Get window position
+berialdraw::Point berialdraw::DeviceCocoaImpl::position() const
+{
+	if (!m_window) {
+		return berialdraw::Point(0, 0, true);
+	}
+	
+	NSRect frame = [m_window frame];
+	// Cocoa coordinates: origin at bottom-left, need to convert
+	NSScreen* screen = [m_window screen];
+	if (!screen) {
+		screen = [NSScreen mainScreen];
+	}
+	
+	NSRect screenFrame = [screen frame];
+	Coord x = static_cast<Coord>(frame.origin.x);
+	Coord y = static_cast<Coord>(screenFrame.size.height - frame.origin.y - frame.size.height);
+	
+	return berialdraw::Point(x, y, true);
+}
+
+// Set window position
+void berialdraw::DeviceCocoaImpl::position(Coord x, Coord y)
+{
+	if (!m_window) return;
+	
+	NSScreen* screen = [m_window screen];
+	if (!screen) {
+		screen = [NSScreen mainScreen];
+	}
+	
+	NSRect screenFrame = [screen frame];
+	// Convert from standard coordinates (origin at top-left) to Cocoa (origin at bottom-left)
+	CGFloat cocoa_y = screenFrame.size.height - (y + m_height);
+	
+	NSRect newFrame = [m_window frame];
+	newFrame.origin.x = x;
+	newFrame.origin.y = cocoa_y;
+	
+	[m_window setFrame:newFrame display:YES animate:NO];
+}
+
 // DeviceCocoa public interface implementation
 // Constructor: create the implementation
-DeviceCocoa::DeviceCocoa(const char* title, Dim width, Dim height)
-	: m_impl(new DeviceCocoaImpl(title, width, height))
+DeviceCocoa::DeviceCocoa(const char* title, Dim width, Dim height, Coord x, Coord y)
+	: m_impl(new DeviceCocoaImpl(title, width, height, x, y))
 {
 }
 
@@ -942,6 +991,24 @@ void DeviceCocoa::size(const berialdraw::Size& s)
 void DeviceCocoa::size(Dim width, Dim height)
 {
 	m_impl->size(width, height);
+}
+
+// Get window position
+berialdraw::Point DeviceCocoa::position() const
+{
+	return m_impl->position();
+}
+
+// Set window position from Point object
+void DeviceCocoa::position(const berialdraw::Point& p)
+{
+	position(p.x(), p.y());
+}
+
+// Set window position from x and y
+void DeviceCocoa::position(Coord x, Coord y)
+{
+	m_impl->position(x, y);
 }
 
 // Clear the display

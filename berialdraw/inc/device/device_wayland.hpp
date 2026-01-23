@@ -8,8 +8,10 @@ namespace berialdraw
 		/** Constructor
 		@param title window title 
 		@param width The width of the window
-		@param height The height of the window */
-		DeviceWayland(const char * title, Dim width=0, Dim height=0);
+		@param height The height of the window
+		@param x The x position of the window
+		@param y The y position of the window */
+		DeviceWayland(const char * title, Dim width=0, Dim height=0, Coord x=0, Coord y=0);
 
 		/** Destructor */
 		virtual ~DeviceWayland();
@@ -34,6 +36,19 @@ namespace berialdraw
 		@param width The new width of the window
 		@param height The new height of the window */
 		virtual void size(Dim width, Dim height);
+
+		/** Get the position of the window
+		@return the position as a Point */
+		virtual Point position() const;
+
+		/** Set the position of the window
+		@param p position of the window */
+		virtual void position(const Point & p);
+
+		/** Move the window
+		@param x The x position of the window
+		@param y The y position of the window */
+		virtual void position(Coord x, Coord y);
 
 		/** Clear the window */
 		virtual void clear();

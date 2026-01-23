@@ -24,7 +24,6 @@ namespace berialdraw
 		/** Copy all styles of the button */
 		void copy(const Button & button);
 
-#ifndef SWIG
 		/** Copy all styles of the button */
 		void copy(const Button * button);
 
@@ -52,7 +51,6 @@ namespace berialdraw
 		static void test18();
 #endif
 	protected:
-
 /// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		Button& operator=(const Button& other) = delete;
@@ -73,6 +71,5 @@ namespace berialdraw
 		Area m_text_backclip;
 		TextBox m_text_box;
 /// @endcond 
-#endif
 	};
 }

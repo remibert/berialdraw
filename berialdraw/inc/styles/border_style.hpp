@@ -88,7 +88,6 @@ namespace berialdraw
 		void focus_thickness(Dim v);
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		uint32_t m_border_color  = 0xFF7F7F7F;
 		uint32_t m_focus_color   = 0xFF7F7F7F;
@@ -97,6 +96,5 @@ namespace berialdraw
 		uint16_t m_focus_gap = 0;
 		uint16_t m_focus_thickness = 0;
 /// @endcond 
-#endif
 	};
 }

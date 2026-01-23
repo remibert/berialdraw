@@ -70,7 +70,6 @@ namespace berialdraw
 		int32_t search(void * object);
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** List of all object required to refresh */
 		struct InvalidatorItem
@@ -83,6 +82,5 @@ namespace berialdraw
 		};
 		Vector<struct InvalidatorItem> m_widgets;
 /// @endcond
-#endif
 	};
 }

@@ -29,11 +29,9 @@ namespace berialdraw
 		const Point & position() const;
 
 	private:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Point m_position; ///< Click position.
 		Widget * m_widget = 0;
 /// @endcond
-#endif
 	};
 };

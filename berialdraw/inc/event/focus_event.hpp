@@ -28,11 +28,9 @@ namespace berialdraw
 		Widget * widget() const;
 
 	private:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		bool m_focused = false;
 		Widget * m_widget = 0;
 /// @endcond 
-#endif
 	};
 };

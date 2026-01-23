@@ -1,5 +1,4 @@
 #pragma once
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 
 namespace berialdraw
@@ -62,4 +61,3 @@ namespace berialdraw
 	};
 }
 /// @endcond
-#endif

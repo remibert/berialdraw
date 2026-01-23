@@ -98,7 +98,6 @@ namespace berialdraw
 #endif
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** Set font size in pixels
 		@param size The size object containing width and height */
@@ -106,6 +105,5 @@ namespace berialdraw
 
 		_Font * m_font = 0; /**< Internal font object */
 /// @endcond
-#endif
 	};
 }

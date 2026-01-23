@@ -62,12 +62,10 @@ namespace berialdraw
 		void rope(bool v);
 
 	protected:
-#ifndef SWIG
 ///< @cond DOXYGEN_IGNORE
 		Coord m_end_angle = 0;
 		Coord m_start_angle = 0;
 		unsigned int m_rope:1;
 ///< @endcond
-#endif
 	};
 }

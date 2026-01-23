@@ -30,7 +30,6 @@ namespace berialdraw
 		@return color predefined or id value if not found */
 		uint32_t color(uint32_t id, bool focused=false);
 
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
@@ -50,6 +49,5 @@ namespace berialdraw
 		uint32_t m_theme;
 		bool m_loaded = false;
 /// @endcond
-#endif
 	};
 }

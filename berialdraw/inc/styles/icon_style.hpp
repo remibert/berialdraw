@@ -69,7 +69,6 @@ namespace berialdraw
 		void icon_color(uint32_t col, uint8_t alpha);
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Margin m_icon_padding;
 		uint32_t m_icon_color = Color::TRANSPARENT;
@@ -77,6 +76,5 @@ namespace berialdraw
 		String m_filename;
 		bool m_icon_modified = true;
 /// @endcond
-#endif
 	};
 }

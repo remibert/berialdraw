@@ -21,10 +21,8 @@ namespace berialdraw
 		virtual Widget * widget() const = 0;
 
 	private:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		uint32_t m_type;
 /// @endcond
-#endif
 	};
 };

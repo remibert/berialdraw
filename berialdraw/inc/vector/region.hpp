@@ -1,5 +1,4 @@
 #pragma once
-#ifndef SWIG
 namespace berialdraw
 {
 	class Renderer;
@@ -164,4 +163,3 @@ namespace berialdraw
 /// @endcond
 	};
 }
-#endif

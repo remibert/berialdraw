@@ -8,8 +8,10 @@ namespace berialdraw
 		/** Constructor
 		@param title window title 
 		@param width The width of the window
-		@param height The height of the window */
-		DeviceWin32(const char * title, Dim width=0, Dim height=0);
+		@param height The height of the window
+		@param x The x position of the window
+		@param y The y position of the window */
+		DeviceWin32(const char * title, Dim width=0, Dim height=0, Coord x=0, Coord y=0);
 
 		/** Destructor */
 		virtual ~DeviceWin32();
@@ -35,6 +37,19 @@ namespace berialdraw
 		@param height The new height of the window */
 		virtual void size(Dim width, Dim height);
 
+		/** Get the position of the window
+		@return the position as a Point */
+		virtual Point position() const;
+
+		/** Set the position of the window
+		@param p position of the window */
+		virtual void position(const Point & p);
+
+		/** Move the window
+		@param x The x position of the window
+		@param y The y position of the window */
+		virtual void position(Coord x, Coord y);
+
 		/** Clear the window */
 		virtual void clear();
 
@@ -55,7 +70,6 @@ namespace berialdraw
 
 		/** Show the console */
 		static void show_console();
-#ifndef SWIG
 	private:
 /// @cond DOXYGEN_IGNORE
 		void*     m_instance; /**< Handle to the instance */
@@ -66,10 +80,8 @@ namespace berialdraw
 		Dim  m_height;   /**< Height of the window */
 		uint8_t*  m_buffer;   /**< Buffer */
 /// @endcond
-#endif
 	};
 
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 	/** Get the current clock time
 	@return The current clock time nano seconds */
@@ -81,5 +93,4 @@ namespace berialdraw
 	@return The elapsed time in milliseconds */
 	uint32_t get_elapsed_ms(uint64_t begin, uint64_t end);
 /// @endcond
-#endif
 }

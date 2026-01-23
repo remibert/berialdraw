@@ -32,6 +32,19 @@ namespace berialdraw
 		@param height The new height of the window */
 		virtual void size(Dim width, Dim height) = 0;
 
+		/** Get the position of the window
+		@return the position as a Point */
+		virtual Point position() const = 0;
+
+		/** Set the position of the window
+		@param p position of the window */
+		virtual void position(const Point & p) = 0;
+
+		/** Move the window
+		@param x The x position of the window
+		@param y The y position of the window */
+		virtual void position(Coord x, Coord y) = 0;
+
 		/** Clear the device */
 		virtual void clear() = 0;
 

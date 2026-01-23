@@ -54,11 +54,9 @@ namespace berialdraw
 		void radius_(Dim v);
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Dim m_thickness = 0;
 		Dim m_radius = 0;
 /// @endcond 
-#endif
 	};
 }

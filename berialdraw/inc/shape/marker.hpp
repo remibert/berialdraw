@@ -29,10 +29,8 @@ namespace berialdraw
 #endif
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Polygon m_polygon;
 /// @endcond 
-#endif
 	};
 }

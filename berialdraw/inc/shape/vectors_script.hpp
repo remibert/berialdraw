@@ -94,7 +94,6 @@ namespace berialdraw
 		@param buffer buffer to load */
 		void select(const char * buffer);
 	private:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		uint32_t count_points();
 		uint32_t count_contours();
@@ -122,6 +121,5 @@ namespace berialdraw
 
 		Polygon & m_polygon;
 /// @endcond
-#endif
 	};
 };

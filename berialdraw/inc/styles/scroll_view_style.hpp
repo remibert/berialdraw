@@ -43,13 +43,11 @@ namespace berialdraw
 		void scroll_direction(ScrollDirection dir);
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Size             m_scroll_size;
 		Point            m_scroll_position;
 		ScrollDirection  m_scroll_direction = SCROLL_VERTICAL;
 		Size             m_viewport_size;
 /// @endcond
-#endif
 	}; 
 }

@@ -32,7 +32,6 @@ namespace berialdraw
 		/** Copy all styles of the canvas */
 		void copy(const Canvas & canvas);
 
-#ifndef SWIG
 		/** Copy all styles of the canvas */
 		void copy(const Canvas * canvas);
 
@@ -65,6 +64,5 @@ namespace berialdraw
 		Vector<Shape *> m_shapes;
 		Size  m_content_size;
 /// @endcond 
-#endif
 	};
 }

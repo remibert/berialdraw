@@ -23,7 +23,6 @@ namespace berialdraw
 		/** Copy all styles of the edit */
 		void copy(const Edit & edit);
 
-#ifndef SWIG
 		/** Copy all styles of the edit */
 		void copy(const Edit * edit);
 
@@ -71,6 +70,5 @@ namespace berialdraw
 		TextBox m_text_box;
 		uint32_t m_select_from = UINT32_MAX;
 /// @endcond 
-#endif
 	};
 }

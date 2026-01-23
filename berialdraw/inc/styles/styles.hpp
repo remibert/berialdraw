@@ -70,7 +70,6 @@ namespace berialdraw
 		static void test3();
 #endif
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** Select the style according to the name specified, load it if not yet existing */
 		Style * select(const char * name, const char * properties, StyleCreator_t creator);
@@ -84,6 +83,5 @@ namespace berialdraw
 		String m_json_name;
 		String m_style;
 /// @endcond
-#endif
 	};
 }

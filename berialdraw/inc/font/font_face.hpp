@@ -32,12 +32,10 @@ namespace berialdraw
 		FT_Face face();
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		FT_Face           m_face = 0;             ///< The FreeType face object for the font.
 		String            m_familly;              ///< The family name of the font.
 		String            m_filename;             ///< The filename of the font file.
 /// @endcond
-#endif
 	};
 }

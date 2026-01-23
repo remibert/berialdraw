@@ -9,7 +9,7 @@ using namespace berialdraw;
 
 static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM w_param, LPARAM l_param);
 
-DeviceWin32::DeviceWin32(const char * title, Dim width, Dim height):
+DeviceWin32::DeviceWin32(const char * title, Dim width, Dim height, Coord x, Coord y):
 	m_width(width),
 	m_height(height)
 {
@@ -54,8 +54,8 @@ DeviceWin32::DeviceWin32(const char * title, Dim width, Dim height):
 		sz_app_name,
 		sz_app_name,         // Window title
 		WS_OVERLAPPEDWINDOW & ~WS_SIZEBOX & ~WS_MAXIMIZEBOX, // Window style
-		0,                    // x position
-		0,                    // y position
+		(int)x,              // x position - now using parameter
+		(int)y,              // y position - now using parameter
 		0,                    // Width
 		0,                    // Height
 		NULL,                 // Parent window
@@ -81,10 +81,10 @@ DeviceWin32::DeviceWin32(const char * title, Dim width, Dim height):
 	SystemParametersInfo(SPI_GETWORKAREA, 0, &work_area_rect, 0);
 
 	// Calculate the position to place the window at the bottom above the taskbar
-	int x_pos = 0;
-	int y_pos = 0;//work_area_rect.bottom - window_height - 40;
+	int x_pos = (int)x;
+	int y_pos = (int)y;
 
-	// Move the window to the bottom center above the taskbar
+	// Move the window to the specified position
 	SetWindowPos(hwnd, HWND_TOP, x_pos, y_pos, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
 	if (!hwnd)
@@ -188,6 +188,36 @@ void DeviceWin32::size(Dim width, Dim height)
 	SetWindowPos((HWND)m_hwnd, NULL, 0, 0, window_width + (width - client_width), window_height + (height - client_height), SWP_NOMOVE | SWP_NOZORDER);
 	UpdateWindow((HWND)m_hwnd);
 	clear();
+}
+
+/** Get the position of the window
+@return the position as a Point */
+Point DeviceWin32::position() const
+{
+	RECT window_rect;
+	GetWindowRect((HWND)m_hwnd, &window_rect);
+	
+	Coord x = static_cast<Coord>(window_rect.left);
+	Coord y = static_cast<Coord>(window_rect.top);
+	
+	Point result(x, y, true);
+	return result;
+}
+
+/** Set the position of the window
+@param p position of the window */
+void DeviceWin32::position(const Point & p)
+{
+	position(p.x(), p.y());
+}
+
+/** Move the window
+@param x The x position of the window
+@param y The y position of the window */
+void DeviceWin32::position(Coord x, Coord y)
+{
+	SetWindowPos((HWND)m_hwnd, NULL, (int)x, (int)y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+	UpdateWindow((HWND)m_hwnd);
 }
 
 void DeviceWin32::copy(const uint8_t* buffer, Dim width, Dim height)

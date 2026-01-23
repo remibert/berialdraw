@@ -55,7 +55,7 @@ Coord ScrollView::calc_shift_focus(Coord widget_position, Dim widget_size, Coord
 	Coord result = 0;
 
 	// shift to center widget in view
-	Coord shift = (viewport_size - (Coord)widget_size) / 2;
+	Coord shift = ((Coord)viewport_size - (Coord)widget_size) / 2;
 
 	// If shift is greater than the widget
 	if (shift > (Coord)widget_size)

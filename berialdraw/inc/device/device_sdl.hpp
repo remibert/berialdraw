@@ -10,8 +10,10 @@ namespace berialdraw
 		/** Constructor
 		@param title window title
 		@param width The width of the window
-		@param height The height of the window */
-		DeviceSdl(const char * title, Dim width=0, Dim height=0);
+		@param height The height of the window
+		@param x The x position of the window
+		@param y The y position of the window */
+		DeviceSdl(const char * title, Dim width=0, Dim height=0, Coord x=0, Coord y=0);
 
 		/** Destructor */
 		virtual ~DeviceSdl();
@@ -37,6 +39,19 @@ namespace berialdraw
 		@param height The new height of the window */
 		virtual void size(Dim width, Dim height);
 
+		/** Get the position of the window
+		@return the position as a Point */
+		virtual Point position() const;
+
+		/** Set the position of the window
+		@param p position of the window */
+		virtual void position(const Point & p);
+
+		/** Move the window
+		@param x The x position of the window
+		@param y The y position of the window */
+		virtual void position(Coord x, Coord y);
+
 		/** Clear the window */
 		virtual void clear();
 
@@ -52,7 +67,6 @@ namespace berialdraw
 		/** Blit the buffer to the window */
 		virtual void blit();
 	private:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		void open_window();
 		void close_window();
@@ -77,10 +91,8 @@ namespace berialdraw
 		String        m_title;
 		bool          m_mouse_down=false; /**< Track mouse button state for capture */
 /// @endcond
-#endif
 	};
 
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 	/** Get the current clock time
 	@return The current clock time nano second */
@@ -92,5 +104,4 @@ namespace berialdraw
 	@return The elapsed time in milliseconds */
 	uint32_t get_elapsed_ms(uint64_t begin, uint64_t end);
 /// @endcond
-#endif
 }

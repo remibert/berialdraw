@@ -57,10 +57,8 @@ namespace berialdraw
 		/** Return the desktop */
 		static Desktop * desktop();
 
-#ifndef SWIG
 		/** Return screen crc */
 		static ScreenCrc * screen_crc();
-#endif
 
 		/** Return the arc cache handle */
 		static ArcCache * arc_cache();
@@ -71,7 +69,6 @@ namespace berialdraw
 		/** Indicates if the uimanager is initialized or not */
 		static bool is_initialized();
 
-#ifndef SWIG
 	protected:
 /// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
@@ -91,6 +88,5 @@ namespace berialdraw
 		static ArcCache    * m_arc_cache;
 		static Settings    * m_settings;
 /// @endcond
-#endif
 	};
 }

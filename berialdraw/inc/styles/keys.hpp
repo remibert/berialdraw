@@ -9,7 +9,7 @@ namespace berialdraw
 		KEY_NUMERIC     = 0x0002,
 
 		KEY_SHIFT       = 0x2B06,
-		KEY_ENTER       = 0x000D,
+		KEY_ENTER       = 0x000A,
 		KEY_ESCAPE      = 0x001B,
 		KEY_BACKSPACE   = 0x0008,
 		KEY_TABULATION  = 0x0009,
@@ -53,13 +53,11 @@ namespace berialdraw
 		const String & to() const;
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		wchar_t    m_key = 0;
 		String     m_name;
 		String     m_to;
 /// @endcond
-#endif
 	};
 	
 	/** Class defines the behavior of specials keys used in widget keyboard */
@@ -85,10 +83,8 @@ namespace berialdraw
 		static Style * create();
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Vector<Key *> m_keys;
 /// @endcond
-#endif
 	};
 }

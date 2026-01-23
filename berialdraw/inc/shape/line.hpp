@@ -28,12 +28,10 @@ namespace berialdraw
 #endif
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** Compute the line tickness */
 		void compute_thickness(Coord & dx, Coord & dy);
 		Polygon m_polygon;
 /// @endcond
-#endif
 	};
 }

@@ -3,7 +3,7 @@
 
 using namespace berialdraw; 
 
-DeviceSdl::DeviceSdl(const char * title, Dim width, Dim height):
+DeviceSdl::DeviceSdl(const char * title, Dim width, Dim height, Coord x, Coord y):
 	m_width(width),
 	m_height(height)
 {
@@ -15,6 +15,9 @@ DeviceSdl::DeviceSdl(const char * title, Dim width, Dim height):
 		printf("SDL init failed\n");
 		exit(-1);
 	}
+
+	// Store the initial position (will be used in open_window)
+	// Note: SDL window position will be set after window creation
 }
 
 void DeviceSdl::open_window()
@@ -243,6 +246,35 @@ void DeviceSdl::size(Dim width, Dim height)
 	m_height = height;
 	close_window();
 	open_window();
+}
+
+/** Get the position of the window
+@return the position as a Point */
+Point DeviceSdl::position() const
+{
+	int x, y;
+	SDL_GetWindowPosition(m_window, &x, &y);
+	
+	Coord pos_x = static_cast<Coord>(x);
+	Coord pos_y = static_cast<Coord>(y);
+	
+	Point result(pos_x, pos_y, true);
+	return result;
+}
+
+/** Set the position of the window
+@param p position of the window */
+void DeviceSdl::position(const Point & p)
+{
+	position(p.x(), p.y());
+}
+
+/** Move the window
+@param x The x position of the window
+@param y The y position of the window */
+void DeviceSdl::position(Coord x, Coord y)
+{
+	SDL_SetWindowPosition(m_window, (int)x, (int)y);
 }
 
 void DeviceSdl::copy(const uint8_t* buffer, Dim width, Dim height)

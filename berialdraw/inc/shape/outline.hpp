@@ -75,7 +75,6 @@ namespace berialdraw
 #endif
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** Add a point to the FreeType FT_Outline object
 		@param x X-coordinate of the point
@@ -89,6 +88,5 @@ namespace berialdraw
 		bool       m_contour_opened = true; /**< Flag indicating if the contour is open */
 		uint32_t   m_zoom           = 1<<6; /**< the zoom ratio for the polygon shifted by 6 bits */
 /// @endcond
-#endif
 	};
 }

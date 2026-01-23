@@ -26,7 +26,6 @@ namespace berialdraw
 		/** Copy all styles of the switchar */
 		void copy(const Switch & switch_);
 
-#ifndef SWIG
 		/** Copy all styles of the switchar */
 		void copy(const Switch * switch_);
 #ifdef _DEBUG
@@ -57,6 +56,5 @@ namespace berialdraw
 		virtual Widget * hovered(const Region & parent_region, const Point & position);
 
 /// @endcond
-#endif
 	};
 }

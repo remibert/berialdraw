@@ -79,7 +79,6 @@ namespace berialdraw
 		void thumb_padding(Dim pad);
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Size m_switch_size;
 		uint32_t m_on_track_color = 0xFF00DF00;
@@ -87,6 +86,5 @@ namespace berialdraw
 		uint32_t m_thumb_color   = 0xFFFFFFFF;
 		Dim      m_thumb_padding = 1;
 /// @endcond
-#endif
 	}; 
 }

@@ -35,13 +35,11 @@ namespace berialdraw
 		void color(uint32_t col, uint8_t alpha);
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		String     m_path;
 		void * m_parent;
 		uint32_t   m_color = 0xFF000000;
 /// @endcond
-#endif
 	};
 
 	/**  */
@@ -140,7 +138,6 @@ namespace berialdraw
 		static void test6();
 	#endif
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Polygon m_polygon; /**< Polygon representing the sketch*/
 		Vector<Path*> m_paths;
@@ -150,6 +147,5 @@ namespace berialdraw
 		bool m_loaded = false;
 		void * m_parent = 0;
 /// @endcond
-#endif
 	};
 }

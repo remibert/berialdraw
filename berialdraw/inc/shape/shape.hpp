@@ -74,7 +74,6 @@ namespace berialdraw
 		void repeat_(Repetition type, int start, int end, int step);
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Repetition m_repetition = REPEAT_NONE; /**< Repetition type */
 		Coord      m_start = 0;                /**< Start value for repetition */
@@ -83,6 +82,5 @@ namespace berialdraw
 		Canvas *   m_canvas = 0;               /**< Pointer to the Canvas object */
 		Widget *   m_widget = 0;               /**< Pointer to the Widget object */
 /// @endcond
-#endif
 	};
 }

@@ -158,7 +158,6 @@ namespace berialdraw
 		/** Set the hidden widget state */
 		void hidden(bool v);
 
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** Place the widget in absolute coordinates on the window */
 		void place_absolutly(const Point & root, const Size & content, Area & foreclip, const Size & min_size, const Size & max_size);
@@ -189,6 +188,5 @@ namespace berialdraw
 		int m_saturation:8;
 		Borders m_borders;
 /// @endcond 
-#endif
 	}; 
 }

@@ -24,12 +24,10 @@ namespace berialdraw
 		void unserialize(JsonIterator & it);
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		String m_name;
 		String m_mapping;
 /// @endcond
-#endif
 	};
 
 	/** Class defines the list of all mapping of keyboard */
@@ -55,10 +53,8 @@ namespace berialdraw
 		static Style * create();
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Vector<Mapping*> m_mappings;
 /// @endcond
-#endif
 	};
 }

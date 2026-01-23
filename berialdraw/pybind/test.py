@@ -4,7 +4,7 @@ import sys
 import os
 def cleanup_on_exit():
 	print("end")
-	time.sleep(1)
+	#time.sleep(1)
 
 atexit.register(cleanup_on_exit)
 
@@ -24,7 +24,10 @@ def key_to_str(key):
 	if isinstance(key, str):
 		return key
 	try:
-		return chr(key) if 32 <= key <= 126 else f"[{key}]"
+		if 32 <= key <= 126:
+			return chr(key)
+		else:
+			return f"[U+{key:04X}]"
 	except:
 		return f"[{key}]"
 
@@ -76,7 +79,10 @@ class Dialog:
 		print(f"Click! Button '{widget.text}' at position {event.position}")
 
 	def on_key_pressed(self, widget, event):
-		print(f"Key on {widget.classname} {key_to_str(event.key)} {event.state} {event.modifier}")
+		classname_hex = ''.join(f'U+{ord(c):04X}' if ord(c) > 127 else c for c in widget.classname)
+		state_hex = ''.join(f'U+{ord(c):04X}' if ord(c) > 127 else c for c in str(event.state))
+		modifier_hex = ''.join(f'U+{ord(c):04X}' if ord(c) > 127 else c for c in str(event.modifier))
+		print(f"Key on {classname_hex} {key_to_str(event.key)} {state_hex} {modifier_hex}")
 
 
 class Dialog2:

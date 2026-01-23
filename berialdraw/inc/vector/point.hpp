@@ -122,7 +122,6 @@ namespace berialdraw
 		void adapt_scale();
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** x coordinate with a precision of 64th of a pixel */
 		int m_x:31;
@@ -136,6 +135,5 @@ namespace berialdraw
 		/** Indicates that y is not yet defined */
 		unsigned int m_y_undefined:1;
 /// @endcond
-#endif
 	};
 }

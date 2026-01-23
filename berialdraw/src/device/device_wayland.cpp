@@ -224,6 +224,37 @@ void DeviceWayland::size(Dim width, Dim height)
 	}
 }
 
+/** Get the position of the window
+@return the position as a Point */
+Point DeviceWayland::position() const
+{
+	// Wayland doesn't provide window positioning API in the core protocol
+	// This is a limitation of Wayland - we return (0,0) as default
+	// Clients cannot reliably query or set window position in Wayland
+	Coord x = 0;
+	Coord y = 0;
+	Point result(x, y, true);
+	return result;
+}
+
+/** Set the position of the window
+@param p position of the window */
+void DeviceWayland::position(const Point & p)
+{
+	position(p.x(), p.y());
+}
+
+/** Move the window
+@param x The x position of the window
+@param y The y position of the window */
+void DeviceWayland::position(Coord x, Coord y)
+{
+	// Wayland doesn't provide window positioning API in the core protocol
+	// This is a limitation of Wayland - window positioning is controlled by the compositor
+	// Log a message if needed, but the operation cannot be performed
+	// printf("Note: Window positioning not supported in Wayland (controlled by compositor)\n");
+}
+
 void DeviceWayland::clear()
 {
 	WaylandContext* ctx = static_cast<WaylandContext*>(m_display);

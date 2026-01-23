@@ -34,14 +34,11 @@ namespace berialdraw
 		void copy(const Window & window);
 
 	//protected:
-#ifndef SWIG
 		/** Allocate the window */
 		void* operator new(size_t size);
-#endif
 	public:
 
 
-#ifndef SWIG
 		/** Copy all styles of the window */
 		void copy(const Window * window);
 
@@ -102,6 +99,5 @@ namespace berialdraw
 		Widget * m_with_focus = 0;
 /// @endcond
 /// }
-#endif
 	};
 }

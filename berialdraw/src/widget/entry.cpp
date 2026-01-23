@@ -768,7 +768,7 @@ void Entry::on_key_down(wchar_t key, KeyEvent::Modifier modifier)
 			break;
 
 		case (wchar_t)ReservedKey::KEY_ENTER      :
-			//append_key(evt.key());
+			append_key((wchar_t)ReservedKey::KEY_ENTER);
 			break;
 
 		case (wchar_t)ReservedKey::KEY_HOME:

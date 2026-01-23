@@ -239,9 +239,12 @@ void Edit::on_key(Widget * widget, const KeyEvent & evt)
 	{
 		if (evt.state() == KeyEvent::KEY_DOWN)
 		{
-			on_key_down(evt.key(), evt.modifier());
-			m_text_modified = 1;
-			UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+			if (!(evt.key() == (wchar_t)ReservedKey::KEY_ENTER && m_max_lines <= 1))
+			{
+				on_key_down(evt.key(), evt.modifier());
+				m_text_modified = 1;
+				UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+			}
 		}
 	}
 }
@@ -1548,36 +1551,19 @@ void Edit::test8()
 {
 	//UIManager::notifier()->log();
 	Window window;
-		window.position(0,0);
-		window.size(50,50);
-		//window.color(Color::LIGHT_RED);
 
-	Column * layout = new Column(&window);
-		Edit * edit = new Edit(layout);
-			edit->text("    e ");
-			edit->text_color(Color::RED);
-			//edit->border_color(Color::TRANSPARENT);
-			//edit->color(Color::TRANSPARENT);
-			//edit->focus_color(Color::TRANSPARENT);
-			// edit->border_color(Color::LIGHT_GREEN);
-			// edit->focus_color(Color::LIGHT_BLUE);
-			//edit->margin(4);
-			//edit->place_holder("Enter text");
+	Column * column = new Column(&window);
 
-		//edit = new Edit(scroll_layout);
-		//	edit->cell(row++,0);
-		//	edit->text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.");
-		//	edit->place_holder("Enter text");
-	while(1)
+		Label * label = new Label(column);
+			label->text("Enter text with keyboard");
+
+		Edit * edit = new Edit(column);
+			edit->margin(10);
+			edit->max_lines(7);
+
+		Keyboard * keyboard = new Keyboard(column);
+while(1)
 	UIManager::desktop()->dispatch();
-edit->margin(3);
-UIManager::desktop()->dispatch();
-edit->margin(2);
-UIManager::desktop()->dispatch();
-edit->margin(1);
-UIManager::desktop()->dispatch();
-edit->margin(0);
-UIManager::desktop()->dispatch();
 }
 
 void Edit::test()

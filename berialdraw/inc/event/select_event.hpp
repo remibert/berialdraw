@@ -41,12 +41,10 @@ namespace berialdraw
 		Widget * widget() const;
 
 	private:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Point m_position; ///< Selection position.
 		Widget * m_widget = 0;
 		Status  m_status = Status::SELECT_START; ///< Selection status
 /// @endcond
-#endif
 	};
 };

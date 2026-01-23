@@ -26,7 +26,6 @@ namespace berialdraw
 		/** Copy all styles of the slider */
 		void copy(const Slider & slider);
 
-#ifndef SWIG
 		/** Copy all styles of the slider */
 		void copy(const Slider * slider);
 #ifdef _DEBUG
@@ -68,6 +67,5 @@ namespace berialdraw
 		virtual Widget * hovered(const Region & parent_region, const Point & position);
 
 /// @endcond
-#endif
 	};
 }

@@ -30,12 +30,10 @@ namespace berialdraw
 		Glyph* load(wchar_t character, Coord angle);
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Vector<Glyph*> m_glyphs; /**< List of glyphs */
 		Font* m_font;            /**< Pointer to the font */
 		Coord m_angle = 0;       /**< Angle for the glyphs */
 /// @endcond
-#endif
 	};
 }

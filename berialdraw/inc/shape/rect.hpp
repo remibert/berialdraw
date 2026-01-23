@@ -61,7 +61,6 @@ public:
 	}
 
 protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 	/** Creates a part of the rectangle's polygon representation. */
 	void create_part();
@@ -81,7 +80,6 @@ protected:
 	/// Polygon representation of the rectangle's outline.
 	Polygon m_polygon;
 /// @endcond
-#endif
 };
 
 }

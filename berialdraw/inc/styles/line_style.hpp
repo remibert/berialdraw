@@ -55,11 +55,9 @@ namespace berialdraw
 
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Point m_point1;
 		Point m_point2;
 /// @endcond 
-#endif
 	};
 }

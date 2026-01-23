@@ -42,11 +42,9 @@ namespace berialdraw
 #endif
 
 	protected:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		Polygon * m_polygon = 0; /**< Pointer to the Polygon object used for the text (not typically used) */
 		TextBox   m_text_box;
 /// @endcond
-#endif
 	};
 }

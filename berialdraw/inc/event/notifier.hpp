@@ -87,7 +87,6 @@ namespace berialdraw
 		/** Set the snapshot filename when the pause is pressed, the file will be saved */
 		void snapshot(const String & filename);
 	private:
-#ifndef SWIG
 /// @cond DOXYGEN_IGNORE
 		/** Log event */
 		void log(Event * evt);
@@ -146,6 +145,5 @@ namespace berialdraw
 		unsigned int     m_log:4;
 		unsigned int     m_move_count:6;
 /// @endcond
-#endif
 	};
 };
