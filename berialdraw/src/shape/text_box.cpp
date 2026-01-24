@@ -195,6 +195,9 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 	{
 		// Save cursor position
 		m_cursor_size = space_size;
+
+		// Add the height of line in the line size
+		m_lines_size.height_(m_lines_size.height_() + font.real_size().height_());
 	}
 	
 	Coord movex = 0;

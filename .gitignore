@@ -6,3 +6,7 @@ berialdraw/out/*
 berialdraw/build/*
 pybind11
 */*.py.in
+cmake.db
+*/resources.zip
+requirements.txt
+todo.txt
