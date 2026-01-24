@@ -1,5 +1,6 @@
 #include "berialdraw.hpp"
 #include "device/device_sdl.hpp"
+#include "device/clipboard_sdl.hpp"
 
 using namespace berialdraw; 
 
@@ -145,6 +146,20 @@ bool DeviceSdl::dispatch(bool blocking)
 {
 	// Repaint
 	blit();
+
+	// Register SDL clipboard provider with UIManager (only once)
+	static bool clipboard_initialized = false;
+	if (!clipboard_initialized && UIManager::is_initialized())
+	{
+		UIManager::clipboard()->set_provider(new ClipboardProviderSDL());
+		clipboard_initialized = true;
+	}
+
+	// Sync clipboard from system (bidirectional clipboard support)
+	if (UIManager::clipboard())
+	{
+		UIManager::clipboard()->sync_from_system();
+	}
 
 	// Treat all SDL events
 	SDL_WaitEventTimeout(&m_event, 10);

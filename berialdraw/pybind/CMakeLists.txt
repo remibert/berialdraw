@@ -76,6 +76,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/tool/directory.cpp
 	src/pybind/tool/file.cpp
 	src/pybind/tool/string.cpp
+	src/pybind/tool/clipboard.cpp
 	src/pybind/tool/json.cpp
 	src/pybind/tool/settings.cpp
 	src/pybind/tool/bd_system.cpp

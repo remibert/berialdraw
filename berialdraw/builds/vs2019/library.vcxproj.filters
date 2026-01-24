@@ -282,6 +282,9 @@
     <ClCompile Include="..\..\src\tool\string.cpp">
       <Filter>berialdraw\tool</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\tool\clipboard.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\tool\item_null.cpp">
       <Filter>berialdraw\tool\json</Filter>
     </ClCompile>
@@ -316,6 +319,9 @@
       <Filter>berialdraw\device</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\device\device_win32.cpp">
+      <Filter>berialdraw\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\clipboard_win32.cpp">
       <Filter>berialdraw\device</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\event\check_event.cpp">
@@ -862,6 +868,9 @@
     <ClInclude Include="..\..\inc\tool\bd_system.h">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\inc\tool\clipboard.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\inc\tool\exporter.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
@@ -941,6 +950,9 @@
       <Filter>berialdraw\device</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\device\device_win32.hpp">
+      <Filter>berialdraw\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\clipboard_win32.hpp">
       <Filter>berialdraw\device</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\event\caller.hpp">

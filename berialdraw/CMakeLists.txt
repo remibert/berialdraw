@@ -20,7 +20,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(WIN32)
 	message(STATUS "Architecture Windows")
-	set(SRCS_DEVICE src/device/device_win32.cpp)
+	set(SRCS_DEVICE src/device/device_win32.cpp src/device/clipboard_win32.cpp)
 	set(DEVICE_LIBRARIES "")
 	add_definitions(-DUNICODE -D_UNICODE)
 elseif(APPLE)
@@ -36,11 +36,12 @@ elseif(APPLE)
 	endif()
 
 	# Use native Cocoa device implementation on macOS
-	set(SRCS_DEVICE src/device/device_cocoa.mm)
+	set(SRCS_DEVICE src/device/device_cocoa.mm src/device/clipboard_cocoa.mm)
 	set(DEVICE_LIBRARIES "-framework Cocoa -framework CoreGraphics")
 
 	# Set proper compilation flags for .mm files
 	set_source_files_properties(src/device/device_cocoa.mm PROPERTIES COMPILE_FLAGS "-fobjc-arc")
+	set_source_files_properties(src/device/clipboard_cocoa.mm PROPERTIES COMPILE_FLAGS "-fobjc-arc")
 
 	# Add the preprocessor definition for pybind code
 	add_definitions(-DUSE_COCOA_DEVICE=1)
@@ -48,7 +49,7 @@ else()
 	message(STATUS "Architecture Linux")
 	set(SDL3_STATIC ON)
 	find_package(SDL3 REQUIRED)
-	set(SRCS_DEVICE src/device/device_sdl.cpp)
+	set(SRCS_DEVICE src/device/device_sdl.cpp src/device/clipboard_sdl.cpp)
 	set(DEVICE_LIBRARIES ${SDL3_LIBRARIES})
 endif()
 
@@ -157,6 +158,7 @@ set(SRCS_LIB
 	src/tool/directory.cpp
 	src/tool/screen_crc.cpp
 	src/tool/arc_cache.cpp
+	src/tool/clipboard.cpp
 	src/tool/settings.cpp
 	src/tool/local_file.cpp
 	src/tool/local_directory.cpp

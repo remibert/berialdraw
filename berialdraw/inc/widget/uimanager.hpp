@@ -66,6 +66,9 @@ namespace berialdraw
 		/** Return the settings manager */
 		static Settings * settings();
 
+		/** Return the clipboard manager */
+		static Clipboard * clipboard();
+
 		/** Indicates if the uimanager is initialized or not */
 		static bool is_initialized();
 
@@ -87,6 +90,7 @@ namespace berialdraw
 		static ScreenCrc   * m_screen_crc;
 		static ArcCache    * m_arc_cache;
 		static Settings    * m_settings;
+		static Clipboard   * m_clipboard;
 /// @endcond
 	};
 }

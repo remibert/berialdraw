@@ -850,6 +850,66 @@ void Entry::on_key_down(wchar_t key, KeyEvent::Modifier modifier)
 			}
 			break;
 
+		case (wchar_t)ReservedKey::KEY_CTRL_X:
+			// Cut: Ctrl+X
+			{
+				// Get selected text
+				String selected;
+				text_selected(selected);
+				
+				// Copy to clipboard
+				if (UIManager::is_initialized() && selected.size() > 0)
+				{
+					UIManager::clipboard()->cut_text(selected);
+					// Delete selected text
+					erase_text_selected();
+					accept = false;
+				}
+			}
+			break;
+
+		case (wchar_t)ReservedKey::KEY_CTRL_A:
+			// Select All: Ctrl+A
+			select_all();
+			accept = false;
+			break;
+
+		case (wchar_t)ReservedKey::KEY_CTRL_C:
+			// Copy: Ctrl+C
+			{
+				// Get selected text
+				String selected;
+				text_selected(selected);
+				
+				// Copy to clipboard
+				if (UIManager::is_initialized() && selected.size() > 0)
+				{
+					UIManager::clipboard()->copy_text(selected);
+					accept = false;
+				}
+			}
+			break;
+
+		case (wchar_t)ReservedKey::KEY_CTRL_V:
+			// Paste: Ctrl+V
+			{
+				// Get text from clipboard
+				String pasted;
+				if (UIManager::is_initialized() && UIManager::clipboard()->paste_text(pasted))
+				{
+					// Erase any selected text first
+					erase_text_selected();
+					
+					// Insert pasted text
+					for (uint32_t i = 0; i < pasted.count(); i++)
+					{
+						append_key(pasted.get(i));
+					}
+					accept = false;
+				}
+			}
+			break;
+
 		default:
 			// If a validator existing
 			if (m_mask)

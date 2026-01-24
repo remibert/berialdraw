@@ -1,5 +1,6 @@
 #include "berialdraw_imp.hpp"
 #include "device/device_wayland.hpp"
+#include "device/clipboard_wayland.hpp"
 
 #include <wayland-client.h>
 #include <cstring>
@@ -185,11 +186,27 @@ bool DeviceWayland::dispatch(bool blocking)
 {
 	WaylandContext* ctx = static_cast<WaylandContext*>(m_display);
 	if (!ctx || !ctx->display) return false;
+
+	// Register Wayland clipboard provider with UIManager (only once)
+	static bool clipboard_initialized = false;
+	if (!clipboard_initialized && UIManager::is_initialized())
+	{
+		UIManager::clipboard()->set_provider(new ClipboardProviderWayland());
+		clipboard_initialized = true;
+	}
+
 	if (blocking) {
 		wl_display_dispatch(ctx->display);
 	} else {
 		wl_display_dispatch_pending(ctx->display);
 	}
+
+	// Sync clipboard from system (bidirectional clipboard support)
+	if (UIManager::clipboard())
+	{
+		UIManager::clipboard()->sync_from_system();
+	}
+
 	return ctx->running;
 }
 

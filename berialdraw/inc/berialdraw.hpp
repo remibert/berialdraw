@@ -28,6 +28,7 @@
 #include "tool/local_directory.hpp"
 #include "tool/directory.hpp"
 #include "tool/screen_crc.hpp"
+#include "tool/clipboard.hpp"
 /** Sets a callback function for printf output.
 @param callback Function pointer to handle printf calls. */
 extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list args));

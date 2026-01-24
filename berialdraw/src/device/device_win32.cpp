@@ -1,5 +1,6 @@
 ﻿#include "berialdraw_imp.hpp"
 #include "device/device_win32.hpp"
+#include "device/clipboard_win32.hpp"
 #include "shellscalingapi.h"
 
 #ifndef GWL_USERDATA
@@ -125,6 +126,14 @@ bool DeviceWin32::dispatch(bool blocking)
 	BOOL message_received = FALSE;
 	uint32_t count = 0;
 
+	// Register Win32 clipboard provider with UIManager (only once)
+	static bool clipboard_initialized = false;
+	if (!clipboard_initialized && UIManager::is_initialized())
+	{
+		UIManager::clipboard()->set_provider(new ClipboardProviderWin32());
+		clipboard_initialized = true;
+	}
+
 	do
 	{
 		message_received = PeekMessage(&msg, NULL, 0, 0, PM_REMOVE);
@@ -136,6 +145,12 @@ bool DeviceWin32::dispatch(bool blocking)
 		}
 	}
 	while (message_received);
+
+	// Sync clipboard from system (bidirectional clipboard support)
+	if (UIManager::clipboard())
+	{
+		UIManager::clipboard()->sync_from_system();
+	}
 
 	if (count == 0)
 	{

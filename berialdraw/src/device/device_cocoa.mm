@@ -3,8 +3,55 @@
 
 #include "berialdraw.hpp"
 #include "device/device_cocoa.hpp"
+#include "device/clipboard_cocoa.hpp"
 
 using namespace berialdraw;
+
+// macOS Key Code Constants (from Carbon/HIToolbox)
+// These are the virtual key codes used by NSEvent.keyCode
+namespace MacOSKeyCode {
+	// Letter keys (alphabetical order)
+	// constexpr uint16_t KEY_A               = 12;     // A key
+	constexpr uint16_t KEY_B               = 11;    // B key
+	constexpr uint16_t KEY_C               = 8;     // C key (Copy)
+	constexpr uint16_t KEY_D               = 2;     // D key
+	constexpr uint16_t KEY_E               = 14;    // E key
+	constexpr uint16_t KEY_F               = 3;     // F key
+	constexpr uint16_t KEY_G               = 5;     // G key
+	constexpr uint16_t KEY_H               = 4;     // H key
+	constexpr uint16_t KEY_I               = 34;    // I key
+	constexpr uint16_t KEY_J               = 38;    // J key
+	constexpr uint16_t KEY_K               = 40;    // K key
+	constexpr uint16_t KEY_L               = 37;    // L key
+	constexpr uint16_t KEY_M               = 46;    // M key
+	constexpr uint16_t KEY_N               = 45;    // N key
+	constexpr uint16_t KEY_O               = 31;    // O key
+	constexpr uint16_t KEY_P               = 35;    // P key
+	constexpr uint16_t KEY_Q               = 12;    // Q key
+	constexpr uint16_t KEY_R               = 15;    // R key
+	constexpr uint16_t KEY_S               = 1;     // S key
+	constexpr uint16_t KEY_T               = 17;    // T key
+	constexpr uint16_t KEY_U               = 32;    // U key
+	constexpr uint16_t KEY_V               = 9;     // V key (Paste)
+	constexpr uint16_t KEY_W               = 13;    // W key
+	constexpr uint16_t KEY_X               = 7;     // X key (Cut)
+	constexpr uint16_t KEY_Y               = 16;    // Y key
+	constexpr uint16_t KEY_Z               = 6;     // Z key
+	
+	// Special keys
+	constexpr uint16_t KEY_TAB             = 48;    // Tab key
+	constexpr uint16_t KEY_SPACE           = 49;    // Space bar
+	constexpr uint16_t KEY_BACKSPACE       = 51;    // Backspace/Delete
+	constexpr uint16_t KEY_ESCAPE          = 53;    // Escape key
+	constexpr uint16_t KEY_RETURN          = 36;    // Return/Enter key
+	constexpr uint16_t KEY_DELETE          = 117;   // Delete (Forward Delete)
+	constexpr uint16_t KEY_LEFT_ARROW      = 123;   // Left arrow
+	constexpr uint16_t KEY_RIGHT_ARROW     = 124;   // Right arrow
+	constexpr uint16_t KEY_DOWN_ARROW      = 125;   // Down arrow
+	constexpr uint16_t KEY_UP_ARROW        = 126;   // Up arrow
+	constexpr uint16_t KEY_HOME            = 115;   // Home key
+	constexpr uint16_t KEY_END             = 119;   // End key
+}
 
 // Forward declare
 @class BerialView;
@@ -172,7 +219,7 @@ public:
 						false,  // should interpolate
 						kCGRenderingIntentDefault
 					);
-                    
+
 					if (image)
 					{
 						// Draw image scaled to view size
@@ -363,49 +410,95 @@ public:
 - (wchar_t)convertKeyFromEvent:(NSEvent*)event
 {
 	wchar_t result = 0;
+	NSEventModifierFlags flags = event.modifierFlags;
+	BOOL hasCmd = (flags & NSEventModifierFlagCommand) != 0;
+	BOOL hasCtrl = (flags & NSEventModifierFlagControl) != 0;
+	BOOL hasShift = (flags & NSEventModifierFlagShift) != 0;
 
+	// First switch: handle special keys (arrows, Enter, etc.) that are always recognized
 	switch(event.keyCode)
 	{
-	case 36:
+	case MacOSKeyCode::KEY_RETURN:
 		result = (wchar_t)ReservedKey::KEY_ENTER;
 		break;
-	case 53:
+	case MacOSKeyCode::KEY_ESCAPE:
 		result = (wchar_t)ReservedKey::KEY_ESCAPE;
 		break;
-	case 51:
+	case MacOSKeyCode::KEY_BACKSPACE:
 		result = (wchar_t)ReservedKey::KEY_BACKSPACE;
 		break;
-	case 117:
+	case MacOSKeyCode::KEY_DELETE:
 		result = (wchar_t)ReservedKey::KEY_DELETE;
 		break;
-	case 124:
+	case MacOSKeyCode::KEY_RIGHT_ARROW:
 		result = (wchar_t)ReservedKey::KEY_RIGHT;
 		break;
-	case 123:
+	case MacOSKeyCode::KEY_LEFT_ARROW:
 		result = (wchar_t)ReservedKey::KEY_LEFT;
 		break;
-	case 125:
+	case MacOSKeyCode::KEY_DOWN_ARROW:
 		result = (wchar_t)ReservedKey::KEY_DOWN;
 		break;
-	case 126:
+	case MacOSKeyCode::KEY_UP_ARROW:
 		result = (wchar_t)ReservedKey::KEY_UP;
 		break;
-	case 115:
+	case MacOSKeyCode::KEY_HOME:
 		result = (wchar_t)ReservedKey::KEY_HOME;
 		break;
-	case 119:
+	case MacOSKeyCode::KEY_END:
 		result = (wchar_t)ReservedKey::KEY_END;
 		break;
-	case 49:
+	case MacOSKeyCode::KEY_SPACE:
 		result = ' ';  // Space
 		break;
-	case 48:
+	case MacOSKeyCode::KEY_TAB:
 		result = '\t'; // Tab
 		break;
-	default:
-		result = 0;
-		break;
 	}
+
+	// Second switch: handle Cmd/Ctrl key combinations
+	// Use the actual character from the keyboard layout (handles AZERTY, QWERTY, etc.)
+	if ((hasCmd || hasCtrl) && !result)
+	{
+		NSString *chars = [event charactersIgnoringModifiers];
+		if (chars && chars.length > 0)
+		{
+			unichar ch = [[chars lowercaseString] characterAtIndex:0];
+			
+			// Map character to ReservedKey
+			switch (ch)
+			{
+			case 'a': result = (wchar_t)ReservedKey::KEY_CTRL_A; break;
+			case 'b': result = (wchar_t)ReservedKey::KEY_CTRL_B; break;
+			case 'c': result = (wchar_t)ReservedKey::KEY_CTRL_C; break;
+			case 'd': result = (wchar_t)ReservedKey::KEY_CTRL_D; break;
+			case 'e': result = (wchar_t)ReservedKey::KEY_CTRL_E; break;
+			case 'f': result = (wchar_t)ReservedKey::KEY_CTRL_F; break;
+			case 'g': result = (wchar_t)ReservedKey::KEY_CTRL_G; break;
+			case 'h': result = (wchar_t)ReservedKey::KEY_CTRL_H; break;
+			case 'i': result = (wchar_t)ReservedKey::KEY_CTRL_I; break;
+			case 'j': result = (wchar_t)ReservedKey::KEY_CTRL_J; break;
+			case 'k': result = (wchar_t)ReservedKey::KEY_CTRL_K; break;
+			case 'l': result = (wchar_t)ReservedKey::KEY_CTRL_L; break;
+			case 'm': result = (wchar_t)ReservedKey::KEY_CTRL_M; break;
+			case 'n': result = (wchar_t)ReservedKey::KEY_CTRL_N; break;
+			case 'o': result = (wchar_t)ReservedKey::KEY_CTRL_O; break;
+			case 'p': result = (wchar_t)ReservedKey::KEY_CTRL_P; break;
+			case 'q': result = (wchar_t)ReservedKey::KEY_CTRL_Q; break;
+			case 'r': result = (wchar_t)ReservedKey::KEY_CTRL_R; break;
+			case 's': result = (wchar_t)ReservedKey::KEY_CTRL_S; break;
+			case 't': result = (wchar_t)ReservedKey::KEY_CTRL_T; break;
+			case 'u': result = (wchar_t)ReservedKey::KEY_CTRL_U; break;
+			case 'v': result = (wchar_t)ReservedKey::KEY_CTRL_V; break;
+			case 'w': result = (wchar_t)ReservedKey::KEY_CTRL_W; break;
+			case 'x': result = (wchar_t)ReservedKey::KEY_CTRL_X; break;
+			case 'y': result = (wchar_t)ReservedKey::KEY_CTRL_Y; break;
+			case 'z': result = (wchar_t)ReservedKey::KEY_CTRL_Z; break;
+			}
+		}
+	}
+
+	//printf("[KEY] keyCode=%u, cmd=%d, ctrl=%d, shift=%d -> %d\n", event.keyCode, hasCmd, hasCtrl, hasShift, result);
 
 	return result;
 }
@@ -768,6 +861,14 @@ bool berialdraw::DeviceCocoaImpl::dispatch(bool blocking)
 		view.appStarted = YES;
 	}
 
+	// Register Cocoa clipboard provider with UIManager (only once)
+	static bool clipboard_initialized = false;
+	if (!clipboard_initialized && UIManager::is_initialized())
+	{
+		UIManager::clipboard()->set_provider(new ClipboardProviderCocoa());
+		clipboard_initialized = true;
+	}
+
 	if (!m_app_initialized || !NSApp)
 	{
 		return result;
@@ -799,6 +900,12 @@ bool berialdraw::DeviceCocoaImpl::dispatch(bool blocking)
         
 		[NSApp updateWindows];
         
+		// Sync clipboard from system (bidirectional clipboard support)
+		if (UIManager::clipboard())
+		{
+			UIManager::clipboard()->sync_from_system();
+		}
+
 		// If no events were processed and blocking is requested, sleep briefly
 		if (count == 0 && blocking)
 		{
@@ -952,7 +1059,7 @@ DeviceCocoa::DeviceCocoa(const char* title, Dim width, Dim height, Coord x, Coor
 {
 }
 
-// Destructor: cleanup implementation
+// Destructor
 DeviceCocoa::~DeviceCocoa()
 {
 	delete m_impl;
