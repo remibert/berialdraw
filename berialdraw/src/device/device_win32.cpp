@@ -130,7 +130,7 @@ bool DeviceWin32::dispatch(bool blocking)
 	static bool clipboard_initialized = false;
 	if (!clipboard_initialized && UIManager::is_initialized())
 	{
-		UIManager::clipboard()->set_provider(new ClipboardProviderWin32());
+		UIManager::clipboard()->set_provider(std::make_unique<ClipboardProviderWin32>());
 		clipboard_initialized = true;
 	}
 

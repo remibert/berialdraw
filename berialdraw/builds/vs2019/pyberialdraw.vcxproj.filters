@@ -275,6 +275,7 @@
     <ClCompile Include="..\..\pybind\src\pybind\vector\extend.cpp">
       <Filter>vector</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\tool\bd_system.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\\..\\pybind\\inc\\pybind\pyberialdraw.hpp" />

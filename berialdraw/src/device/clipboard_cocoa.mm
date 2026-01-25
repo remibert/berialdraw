@@ -44,32 +44,29 @@ void berialdraw::ClipboardProviderCocoa::set_text(const String & text)
 /** Get text from system clipboard */
 bool berialdraw::ClipboardProviderCocoa::get_text(String & text) const
 {
+	bool success = false;
+
 	@autoreleasepool
 	{
 		NSPasteboard * pasteboard = [NSPasteboard generalPasteboard];
 		
-		NSArray * classes = @[[NSString class]];
-		NSDictionary * options = @{};
-		
 		NSPasteboardType availableType = [pasteboard availableTypeFromArray:@[NSPasteboardTypeString]];
-		if (availableType == nil)
+		if (availableType != nil)
 		{
-			return false;
-		}
-		
-		NSString * nsText = [pasteboard stringForType:NSPasteboardTypeString];
-		if (nsText != nil)
-		{
-			const char * cStr = [nsText UTF8String];
-			if (cStr != nullptr)
+			NSString * nsText = [pasteboard stringForType:NSPasteboardTypeString];
+			if (nsText != nil)
 			{
-				text = cStr;
-				return true;
+				const char * cStr = [nsText UTF8String];
+				if (cStr != nullptr)
+				{
+					text = cStr;
+					success = true;
+				}
 			}
 		}
 	}
 	
-	return false;
+	return success;
 }
 
 /** Check if system clipboard has changed since last read */

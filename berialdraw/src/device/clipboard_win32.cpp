@@ -25,43 +25,36 @@ void berialdraw::ClipboardProviderWin32::set_text(const String & text)
 		return;
 	}
 
-	// Clear clipboard
 	EmptyClipboard();
 
 	// Convert string to UTF-16 for Windows
 	const char * utf8_str = (const char *)text;
 	int length = MultiByteToWideChar(CP_UTF8, 0, utf8_str, -1, nullptr, 0);
 	
-	if (length <= 0)
+	if (length > 0)
 	{
-		CloseClipboard();
-		return;
-	}
-
-	// Allocate memory for clipboard (Unicode)
-	HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE, length * sizeof(wchar_t));
-	if (hMem == nullptr)
-	{
-		CloseClipboard();
-		return;
-	}
-
-	wchar_t * pMem = (wchar_t*)GlobalLock(hMem);
-	if (pMem == nullptr)
-	{
-		GlobalFree(hMem);
-		CloseClipboard();
-		return;
-	}
-
-	MultiByteToWideChar(CP_UTF8, 0, utf8_str, -1, pMem, length);
-	GlobalUnlock(hMem);
-	
-	// Set Unicode version
-	HANDLE hResult = SetClipboardData(CF_UNICODETEXT, hMem);
-	if (hResult == nullptr)
-	{
-		GlobalFree(hMem);
+		// Allocate memory for clipboard (Unicode)
+		HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE, length * sizeof(wchar_t));
+		if (hMem != nullptr)
+		{
+			wchar_t * pMem = (wchar_t*)GlobalLock(hMem);
+			if (pMem != nullptr)
+			{
+				MultiByteToWideChar(CP_UTF8, 0, utf8_str, -1, pMem, length);
+				GlobalUnlock(hMem);
+				
+				// Set Unicode version
+				HANDLE hResult = SetClipboardData(CF_UNICODETEXT, hMem);
+				if (hResult == nullptr)
+				{
+					GlobalFree(hMem);
+				}
+			}
+			else
+			{
+				GlobalFree(hMem);
+			}
+		}
 	}
 
 	CloseClipboard();
@@ -70,41 +63,33 @@ void berialdraw::ClipboardProviderWin32::set_text(const String & text)
 /** Get text from clipboard */
 bool berialdraw::ClipboardProviderWin32::get_text(String & text) const
 {
-	if (!OpenClipboard(nullptr))
-	{
-		return false;
-	}
+	bool success = false;
 
-	HANDLE hData = GetClipboardData(CF_UNICODETEXT);
-	if (hData == nullptr)
+	if (OpenClipboard(nullptr))
 	{
+		HANDLE hData = GetClipboardData(CF_UNICODETEXT);
+		if (hData != nullptr)
+		{
+			wchar_t * pszText = (wchar_t*)GlobalLock(hData);
+			if (pszText != nullptr)
+			{
+				// Convert from UTF-16 to UTF-8
+				int length = WideCharToMultiByte(CP_UTF8, 0, pszText, -1, nullptr, 0, nullptr, nullptr);
+				if (length > 0)
+				{
+					char * utf8_buffer = new char[length];
+					WideCharToMultiByte(CP_UTF8, 0, pszText, -1, utf8_buffer, length, nullptr, nullptr);
+					text = utf8_buffer;
+					delete[] utf8_buffer;
+					success = true;
+				}
+				GlobalUnlock(hData);
+			}
+		}
 		CloseClipboard();
-		return false;
 	}
 
-	wchar_t * pszText = (wchar_t*)GlobalLock(hData);
-	if (pszText == nullptr)
-	{
-		CloseClipboard();
-		return false;
-	}
-
-	// Convert from UTF-16 to UTF-8
-	int length = WideCharToMultiByte(CP_UTF8, 0, pszText, -1, nullptr, 0, nullptr, nullptr);
-	if (length > 0)
-	{
-		char * utf8_buffer = new char[length];
-		WideCharToMultiByte(CP_UTF8, 0, pszText, -1, utf8_buffer, length, nullptr, nullptr);
-		text = utf8_buffer;
-		delete[] utf8_buffer;
-		GlobalUnlock(hData);
-		CloseClipboard();
-		return true;
-	}
-
-	GlobalUnlock(hData);
-	CloseClipboard();
-	return false;
+	return success;
 }
 
 /** Check if clipboard has changed */

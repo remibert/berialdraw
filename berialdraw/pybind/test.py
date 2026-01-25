@@ -38,6 +38,7 @@ class Dialog:
 		self.layout = Column(self.scroll)
 		self.label = Label(self.layout)
 		self.label.text = "hello"
+		#UIManager.clipboard = "toto-"
 
 		self.first_name = Edit(self.layout)
 		self.first_name.text = ""
@@ -77,6 +78,7 @@ class Dialog:
 		
 	def on_click_button(self, widget, event):
 		print(f"Click! Button '{widget.text}' at position {event.position}")
+		
 
 	def on_key_pressed(self, widget, event):
 		classname_hex = ''.join(f'U+{ord(c):04X}' if ord(c) > 127 else c for c in widget.classname)

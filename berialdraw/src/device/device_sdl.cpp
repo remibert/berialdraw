@@ -151,7 +151,7 @@ bool DeviceSdl::dispatch(bool blocking)
 	static bool clipboard_initialized = false;
 	if (!clipboard_initialized && UIManager::is_initialized())
 	{
-		UIManager::clipboard()->set_provider(new ClipboardProviderSDL());
+		UIManager::clipboard()->set_provider(std::make_unique<ClipboardProviderSDL>());
 		clipboard_initialized = true;
 	}
 

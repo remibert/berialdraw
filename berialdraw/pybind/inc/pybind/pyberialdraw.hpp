@@ -146,7 +146,6 @@ void bind_fonts(py::module& m);
 
 // Tool bindings
 void bind_string(py::module& m);
-void bind_clipboard(py::module& m);
 void bind_file(py::module& m);
 void bind_directory(py::module& m);
 void bind_json(py::module& m);

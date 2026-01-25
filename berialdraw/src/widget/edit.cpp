@@ -1550,21 +1550,141 @@ void Edit::test7()
 void Edit::test8()
 {
 	//UIManager::notifier()->log();
+	// Test clipboard functionality: copy, cut, paste
 	Window window;
+		window.position(0, 0);
+		window.size(480, 100);
+		Edit * edit;
+		edit = new Edit(&window);
+		edit->max_columns(20);
+		edit->max_lines(3);
+		edit->text("Hello World");
 
-	Column * column = new Column(&window);
+	UIManager::desktop()->dispatch(0);
 
-		Label * label = new Label(column);
-			label->text("Enter text with keyboard");
+	UIManager::clipboard()->text("toto");
+	assert(UIManager::clipboard()->text() == "toto");
 
-		Edit * edit = new Edit(column);
-			edit->margin(10);
-			edit->max_lines(7);
+	String pasted;
+	UIManager::clipboard()->paste_text(pasted);
+	assert(pasted == "toto");
 
-		Keyboard * keyboard = new Keyboard(column);
-while(1)
-	UIManager::desktop()->dispatch();
+	UIManager::clipboard()->clear();
+	assert(UIManager::clipboard()->text() == "");
+	
+
+	String script(
+	"["
+		// Step 1: Screenshot initial state with text "Hello World"
+		"{'type':'key','key':0x23F8,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x23F8,'state':'up'  ,'modifier':''     ,'character':' '},"
+		
+		// Step 2: Move to beginning of text using HOME
+		"{'type':'key','key':0x21E4,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x21E4,'state':'up'  ,'modifier':''     ,'character':' '},"
+		
+		// Step 3: Select word "Hello" with Shift+Right Arrow (5 times)
+		"{'type':'key','key':0x2B06,'state':'down','modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'down','modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'up'  ,'modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'down','modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'up'  ,'modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'down','modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'up'  ,'modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'down','modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'up'  ,'modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'down','modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'up'  ,'modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2B06,'state':'up'  ,'modifier':''     ,'character':' '},"
+		
+		// Step 4: Screenshot with "Hello" selected
+		"{'type':'key','key':0x23F8,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x23F8,'state':'up'  ,'modifier':''     ,'character':' '},"
+		
+		// Step 5: Cut the selected word (Ctrl+X)
+		"{'type':'key','key':0x0018,'state':'down','modifier':'ctrl'     ,'character':' '},"
+		"{'type':'key','key':0x0018,'state':'up'  ,'modifier':'ctrl'     ,'character':' '},"
+		
+		// Step 6: Screenshot after cut
+		"{'type':'key','key':0x23F8,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x23F8,'state':'up'  ,'modifier':''     ,'character':' '},"
+		
+		// Step 7: Move to middle of remaining text " World" (3 right arrows to position after "Wor")
+		"{'type':'key','key':0x2192,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'up'  ,'modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'up'  ,'modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'up'  ,'modifier':''     ,'character':' '},"
+		
+		// Step 8: Screenshot at middle position
+		"{'type':'key','key':0x23F8,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x23F8,'state':'up'  ,'modifier':''     ,'character':' '},"
+		
+		// Step 9: Paste the cut word (Ctrl+V)
+		"{'type':'key','key':0x0016,'state':'down','modifier':'ctrl'     ,'character':' '},"
+		"{'type':'key','key':0x0016,'state':'up'  ,'modifier':'ctrl'     ,'character':' '},"
+		
+		// Step 10: Screenshot after paste
+		"{'type':'key','key':0x23F8,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x23F8,'state':'up'  ,'modifier':''     ,'character':' '},"
+		
+		// Step 11: Move to near end of text (End key)
+		"{'type':'key','key':0x21E5,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x21E5,'state':'up'  ,'modifier':''     ,'character':' '},"
+		
+		// Step 12: Move left 2 positions to position before last character
+		"{'type':'key','key':0x2190,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x2190,'state':'up'  ,'modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x2190,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x2190,'state':'up'  ,'modifier':''     ,'character':' '},"
+		
+		// Step 13: Screenshot at position near end
+		"{'type':'key','key':0x23F8,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x23F8,'state':'up'  ,'modifier':''     ,'character':' '},"
+		
+		// Step 14: Select word at end with Shift+Right Arrow (3 times to select "rld" or similar)
+		"{'type':'key','key':0x2B06,'state':'down','modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'down','modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'up'  ,'modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'down','modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'up'  ,'modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'down','modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2192,'state':'up'  ,'modifier':'shift'     ,'character':' '},"
+		"{'type':'key','key':0x2B06,'state':'up'  ,'modifier':''     ,'character':' '},"
+		
+		// Step 15: Screenshot with word selected
+		"{'type':'key','key':0x23F8,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x23F8,'state':'up'  ,'modifier':''     ,'character':' '},"
+		
+		// Step 16: Copy the selected word (Ctrl+C)
+		"{'type':'key','key':0x0003,'state':'down','modifier':'ctrl'     ,'character':' '},"
+		"{'type':'key','key':0x0003,'state':'up'  ,'modifier':'ctrl'     ,'character':' '},"
+		
+		// Step 17: Screenshot after copy
+		"{'type':'key','key':0x23F8,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x23F8,'state':'up'  ,'modifier':''     ,'character':' '},"
+		
+		// Step 18: Move to beginning of text (Home key)
+		"{'type':'key','key':0x21E4,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x21E4,'state':'up'  ,'modifier':''     ,'character':' '},"
+		
+		// Step 19: Screenshot at beginning
+		"{'type':'key','key':0x23F8,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x23F8,'state':'up'  ,'modifier':''     ,'character':' '},"
+		
+		// Step 20: Paste the copied word (Ctrl+V)
+		"{'type':'key','key':0x0016,'state':'down','modifier':'ctrl'     ,'character':' '},"
+		"{'type':'key','key':0x0016,'state':'up'  ,'modifier':'ctrl'     ,'character':' '},"
+		
+		// Step 21: Final screenshot with pasted content at beginning
+		"{'type':'key','key':0x23F8,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':0x23F8,'state':'up'  ,'modifier':''     ,'character':' '}"
+	"]");
+
+	UIManager::notifier()->play_script(script, "$(ui.tests)/out/edit9_%d.svg");
 }
+
 
 void Edit::test()
 {
@@ -1572,7 +1692,7 @@ void Edit::test()
 	if (done == false)
 	{
 		done = true;
-		//test8();
+		test8();
 		test7();
 		test6();
 		test5();

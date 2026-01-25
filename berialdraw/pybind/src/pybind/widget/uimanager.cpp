@@ -18,7 +18,6 @@ void bind_uimanager(pybind11::module_& m) {
         .def_static("colors", &berialdraw::UIManager::colors, pybind11::return_value_policy::reference)
         .def_static("desktop", &berialdraw::UIManager::desktop, pybind11::return_value_policy::reference)
         .def_static("settings", &berialdraw::UIManager::settings, pybind11::return_value_policy::reference)
-        .def_static("clipboard", &berialdraw::UIManager::clipboard, pybind11::return_value_policy::reference)
         .def_static("is_initialized", &berialdraw::UIManager::is_initialized)
         
         // Propriétés avec getters/setters pour une API plus Pythonique
@@ -50,5 +49,27 @@ void bind_uimanager(pybind11::module_& m) {
             // Setter
             [](pybind11::object, uint32_t color) {
                 berialdraw::UIManager::colors()->theme(color);
-            }, "Color theme");
+            }, "Color theme")
+            
+        .def_property_static("clipboard",
+            // Getter
+            [](pybind11::object) -> pybind11::object {
+                const berialdraw::String& text = berialdraw::UIManager::clipboard()->text();
+                if (text.size() > 0) {
+                    return pybind11::cast(std::string(text.c_str()));
+                } else {
+                    return pybind11::none();
+                }
+            },
+            // Setter - accepte string ou None pour effacer
+            [](pybind11::object, pybind11::object value) {
+                if (value.is_none()) {
+                    // Effacer le clipboard en mettant du texte vide
+                    berialdraw::UIManager::clipboard()->text(berialdraw::String(""));
+                } else {
+                    // Copier le texte
+                    std::string text = pybind11::cast<std::string>(value);
+                    berialdraw::UIManager::clipboard()->text(berialdraw::String(text.c_str()));
+                }
+            }, "Clipboard content (string or None to clear)");
 }

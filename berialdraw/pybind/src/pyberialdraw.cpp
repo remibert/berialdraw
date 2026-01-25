@@ -12,7 +12,6 @@ PYBIND11_MODULE(pyberialdraw, m) {
     
     // Bind tool classes next (fundamental classes)
     bind_string(m);
-    bind_clipboard(m);
     bind_file(m);
     bind_directory(m);
     bind_json(m);

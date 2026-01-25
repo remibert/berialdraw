@@ -82,6 +82,18 @@
     <Filter Include="minizip">
       <UniqueIdentifier>{9b8e5deb-2b6d-50cd-ce6f-2g9d8f0b1e4d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="berialdraw\device\win32">
+      <UniqueIdentifier>{c813f648-73bc-4532-a9f4-d8dabdbcb72f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\device\wayland">
+      <UniqueIdentifier>{6e9211de-38c6-43b4-83ae-9f0734e46ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\device\sdl">
+      <UniqueIdentifier>{9865a08b-78a4-483c-ab9c-be643207698b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\device\cocoa">
+      <UniqueIdentifier>{7dde02de-ca2b-437f-86b7-d87c5035f9b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\shape\text_box.cpp">
@@ -314,15 +326,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\tool\mask_validator.cpp">
       <Filter>berialdraw\tool\validator</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\device\device_sdl.cpp">
-      <Filter>berialdraw\device</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\device\device_win32.cpp">
-      <Filter>berialdraw\device</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\device\clipboard_win32.cpp">
-      <Filter>berialdraw\device</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\event\check_event.cpp">
       <Filter>berialdraw\event</Filter>
@@ -674,6 +677,24 @@
     <ClCompile Include="..\..\src\tool\zip_directory.cpp">
       <Filter>berialdraw\tool\directory</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\device\clipboard_sdl.cpp">
+      <Filter>berialdraw\device\sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\clipboard_wayland.cpp">
+      <Filter>berialdraw\device\wayland</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\device_sdl.cpp">
+      <Filter>berialdraw\device\sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\device_wayland.cpp">
+      <Filter>berialdraw\device\wayland</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\clipboard_win32.cpp">
+      <Filter>berialdraw\device\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\device_win32.cpp">
+      <Filter>berialdraw\device\win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\berialdraw_imp.hpp">
@@ -944,15 +965,6 @@
       <Filter>berialdraw\tool\validator</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\device\device.hpp">
-      <Filter>berialdraw\device</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\inc\device\device_sdl.hpp">
-      <Filter>berialdraw\device</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\inc\device\device_win32.hpp">
-      <Filter>berialdraw\device</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\inc\device\clipboard_win32.hpp">
       <Filter>berialdraw\device</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\event\caller.hpp">
@@ -1381,9 +1393,6 @@
     <ClInclude Include="..\..\inc\shape\sketch.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\device\device_cocoa.hpp">
-      <Filter>berialdraw\device</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\inc\styles\scroll_view_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
@@ -1425,6 +1434,30 @@
     </ClInclude>
     <ClInclude Include="..\..\inc\tool\zip_directory.hpp">
       <Filter>berialdraw\tool\directory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\clipboard_cocoa.hpp">
+      <Filter>berialdraw\device\cocoa</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\device_cocoa.hpp">
+      <Filter>berialdraw\device\cocoa</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\clipboard_sdl.hpp">
+      <Filter>berialdraw\device\sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\clipboard_wayland.hpp">
+      <Filter>berialdraw\device\wayland</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\device_sdl.hpp">
+      <Filter>berialdraw\device\sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\device_wayland.hpp">
+      <Filter>berialdraw\device\wayland</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\clipboard_win32.hpp">
+      <Filter>berialdraw\device\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\device_win32.hpp">
+      <Filter>berialdraw\device\win32</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1659,8 +1692,11 @@
     <None Include="..\..\resources\styles\pearl\window.json">
       <Filter>resources\styles\pearl</Filter>
     </None>
+    <None Include="..\..\src\device\clipboard_cocoa.mm">
+      <Filter>berialdraw\device\cocoa</Filter>
+    </None>
     <None Include="..\..\src\device\device_cocoa.mm">
-      <Filter>berialdraw\device</Filter>
+      <Filter>berialdraw\device\cocoa</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -6,28 +6,49 @@ using namespace berialdraw;
 Clipboard::Clipboard()
 {
 	m_type = ClipboardType::EMPTY;
-	m_data = new String();
+	m_data = std::make_unique<String>();
 	m_provider = nullptr;
 }
 
 /** Destructor */
 Clipboard::~Clipboard()
 {
-	delete m_data;
-	// Don't delete m_provider - it's managed by the device
-	m_provider = nullptr;
+	// m_data and m_provider are automatically deleted via unique_ptr
 }
 
 /** Set clipboard provider for system clipboard operations */
-void Clipboard::set_provider(ClipboardProvider * provider)
+void Clipboard::set_provider(std::unique_ptr<ClipboardProvider> provider)
 {
-	m_provider = provider;
+	m_provider = std::move(provider);
+	
+	// If provider is set and internal clipboard is empty, try to sync from system
+	if (m_provider)
+	{
+		if (is_empty())
+		{
+			String system_text;
+			if (m_provider->get_text(system_text) && system_text.count() > 0)
+			{
+				// Update internal clipboard with system clipboard content
+				m_type = ClipboardType::TEXT;
+				*m_data = system_text;
+			
+				// Update listener to track this initial sync
+				m_provider->update_listener();
+			}
+		}
+		else
+		{
+			m_provider->set_text(*m_data);
+			m_provider->update_listener();
+		}
+	}
 }
 
 /** Get clipboard provider */
 ClipboardProvider * Clipboard::provider() const
 {
-	return m_provider;
+	return m_provider.get();
 }
 
 /** Copy text to internal clipboard */
@@ -40,6 +61,7 @@ void Clipboard::copy_text(const String & text)
 	if (m_provider)
 	{
 		m_provider->set_text(text);
+
 		// Update the listener so we don't detect our own write as a change
 		m_provider->update_listener();
 	}
@@ -54,28 +76,33 @@ void Clipboard::cut_text(const String & text)
 /** Paste text from internal clipboard */
 bool Clipboard::paste_text(String & text)
 {
+	bool result = false;
+
 	// Sync from system first to ensure we have the latest clipboard content
 	sync_from_system();
 
 	// Try to get from system clipboard first if provider available
-	if (m_provider)
+	if (m_provider && !is_empty())
 	{
 		if (m_provider->get_text(text))
 		{
 			m_type = ClipboardType::TEXT;
 			*m_data = text;
-			return true;
+			result = true;
 		}
 	}
 
-	// Fall back to internal clipboard
-	if (m_type == ClipboardType::TEXT && m_data->size() > 0)
+	if (result == false)
 	{
-		text = *m_data;
-		return true;
+		// Fall back to internal clipboard
+		if (m_type == ClipboardType::TEXT && m_data->size() > 0)
+		{
+			text = *m_data;
+			result = true;
+		}
 	}
 
-	return false;
+	return result;
 }
 
 /** Get clipboard content type */
@@ -120,6 +147,7 @@ void Clipboard::text(const String & str)
 /** Synchronize clipboard from system (for external changes) */
 bool Clipboard::sync_from_system()
 {
+	bool result = false;
 	// Check if system clipboard has changed
 	if (m_provider)
 	{
@@ -134,10 +162,9 @@ bool Clipboard::sync_from_system()
 				
 				// Update listener AFTER we've successfully synced
 				m_provider->update_listener();
-				return true;
+				result = true;
 			}
 		}
 	}
-
-	return false;
+	return result;
 }

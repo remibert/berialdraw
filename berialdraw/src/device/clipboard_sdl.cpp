@@ -25,20 +25,20 @@ void berialdraw::ClipboardProviderSDL::set_text(const String & text)
 /** Get text from system clipboard */
 bool berialdraw::ClipboardProviderSDL::get_text(String & text) const
 {
+	bool success = false;
+
 	const char * clipboard_text = SDL_GetClipboardText();
-	if (clipboard_text != nullptr && clipboard_text[0] != '\0')
-	{
-		text = clipboard_text;
-		SDL_free((void*)clipboard_text);
-		return true;
-	}
-	
 	if (clipboard_text != nullptr)
 	{
+		if (clipboard_text[0] != '\0')
+		{
+			text = clipboard_text;
+			success = true;
+		}
 		SDL_free((void*)clipboard_text);
 	}
 	
-	return false;
+	return success;
 }
 
 /** Check if system clipboard has changed since last read */
