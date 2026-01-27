@@ -14,7 +14,7 @@ Features:
 **Berialdraw is incomplete and still under development, but it works on Windows, OSX and probably any OS that supports SDL.**
 
 Git clone :
-git clone --recurse-submodules https://github.com/remibert/berialdraw.git
+git clone --recurse-submodules https://github.com/remibert/berialdraw.git  -c core.autocrlf=false -c core.eol=native
 
 
 [C++ Api documentation](berialdraw/doc/html/index.html)

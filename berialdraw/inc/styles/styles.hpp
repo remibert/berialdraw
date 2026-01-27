@@ -35,10 +35,13 @@ namespace berialdraw
 		/** Apply edit properties */
 		bool apply(const char * classname, EditStyle * properties);
 
-		/** Apply edit properties */
+		/** Apply switch properties */
 		bool apply(const char * classname, SwitchStyle * properties);
 
-		/** Apply edit properties */
+		/** Apply checkbox properties */
+		bool apply(const char * classname, CheckboxStyle * properties);
+
+		/** Apply slider properties */
 		bool apply(const char * classname, SliderStyle * properties);
 
 		/** Apply progress properties */
@@ -46,8 +49,10 @@ namespace berialdraw
 
 		/** Apply icon properties */
 		bool apply(const char * classname, IconStyle * properties);
-	/** Apply scrollview properties */
-	bool apply(const char * classname, ScrollViewStyle * properties);
+		
+		/** Apply scrollview properties */
+		bool apply(const char * classname, ScrollViewStyle * properties);
+		
 		/** Get mappings properties */
 		const Mappings * mappings(const char * classname);
 

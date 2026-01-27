@@ -73,6 +73,8 @@ public:
 				col = new Column(row);                                           // Creates another column within the row
 					Switch * switch_ = new Switch(col);                          // Creates a new switch within the column
 						switch_->checked(true);                                  // Sets the switch to be checked
+					Checkbox * checkbox = new Checkbox(col);                     // Creates a new checkbox within the column
+						checkbox->checked(true);                                 // Sets the checkbox to be checked
 					Slider * slider = new Slider(col);                           // Creates a new slider within the column
 						slider->bind(this, &SampleTheme::on_slide_event);        // Binds the slider to an event handler
 						slider->value(50);                                       // Sets the value of the slider

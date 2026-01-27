@@ -67,6 +67,7 @@ set(SRCS_LIB
 	src/widget/pane.cpp
 	src/widget/keyboard.cpp
 	src/widget/switch.cpp
+	src/widget/checkbox.cpp
 	src/widget/scroll_view.cpp
 	src/widget/slider.cpp
 	src/widget/row.cpp
@@ -88,6 +89,7 @@ set(SRCS_LIB
 	src/styles/common_style.cpp
 	src/styles/edit_style.cpp
 	src/styles/switch_style.cpp
+	src/styles/checkbox_style.cpp
 	src/styles/slider_style.cpp
 	src/styles/progress_bar_style.cpp
 	src/styles/icon_style.cpp

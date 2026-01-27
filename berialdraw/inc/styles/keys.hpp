@@ -14,6 +14,7 @@ namespace berialdraw
 		KEY_BACKSPACE   = 0x0008,
 		KEY_TABULATION  = 0x0009,
 		KEY_DELETE      = 0x007f,
+		KEY_SPACE       = 0x0020,
 
 		KEY_CTRL_A      = 0x0001,	// A key
 		KEY_CTRL_B      = 0x0002,	// B key

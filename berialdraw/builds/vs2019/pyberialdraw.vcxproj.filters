@@ -82,6 +82,9 @@
     <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\switch.cpp">
       <Filter>widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\checkbox.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
     <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\uimanager.cpp">
       <Filter>widget</Filter>
     </ClCompile>
@@ -170,6 +173,9 @@
       <Filter>styles</Filter>
     </ClCompile>
     <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\switch_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\checkbox_style.cpp">
       <Filter>styles</Filter>
     </ClCompile>
     <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\text_style.cpp">

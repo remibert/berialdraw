@@ -71,6 +71,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/styles/slider_style.cpp
 	src/pybind/styles/style.cpp
 	src/pybind/styles/switch_style.cpp
+	src/pybind/styles/checkbox_style.cpp
 	src/pybind/styles/text_style.cpp
 	src/pybind/styles/widget_style.cpp
 	src/pybind/tool/directory.cpp
@@ -96,6 +97,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/widget/scroll_view.cpp
 	src/pybind/widget/slider.cpp
 	src/pybind/widget/switch.cpp
+	src/pybind/widget/checkbox.cpp
 	src/pybind/widget/uimanager.cpp
 	src/pybind/widget/window.cpp
 )

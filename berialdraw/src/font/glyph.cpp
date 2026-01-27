@@ -21,7 +21,24 @@ bool Glyph::load(wchar_t character, Coord angle)
 	// If character defined
 	if (character)
 	{
-		FT_UInt glyph_index= FT_Get_Char_Index(m_font->m_font->m_fontface->face(), character);
+		switch(character)
+		{
+		case '\t':
+		case '\n':
+		case '\v':
+		case '\f':
+		case '\r':
+			character = ' ';
+			break;
+		}
+		FT_UInt glyph_index;
+		
+		glyph_index = FT_Get_Char_Index(m_font->m_font->m_fontface->face(), character);
+		if (glyph_index == 0)
+		{
+			character = '?';
+			glyph_index = FT_Get_Char_Index(m_font->m_font->m_fontface->face(), character);
+		}
 		if (glyph_index != 0)
 		{
 			// Load glyph
@@ -48,6 +65,10 @@ bool Glyph::load(wchar_t character, Coord angle)
 
 					result = true;
 				}
+			}
+			else
+			{
+				result = false;
 			}
 		}
 	}

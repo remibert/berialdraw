@@ -83,6 +83,10 @@ namespace berialdraw
 		SHAPE_COLOR                = 0x00000040, ///< Default color for shape.
 		HEADER_COLOR               = 0x00000041, ///< Color of header.
 		HEADER_TEXT_COLOR          = 0x00000042, ///< Text color of header.
+		CHECKBOX_CHECK_COLOR       = 0x00000043, ///< Check color of checkbox.
+		CHECKBOX_BORDER_COLOR      = 0x00000044, ///< Border color of checkbox.
+		CHECKBOX_FOCUS_COLOR       = 0x00000045, ///< Focus color of checkbox.
+		CHECKBOX_COLOR             = 0x00000046, ///< Check box color
 
 		THEME_BACK_COLOR                = 0x000000E0,
 		THEME_BACK_COLOR_LIGHT_1        = 0x000000E1,

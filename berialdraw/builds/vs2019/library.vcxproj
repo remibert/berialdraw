@@ -428,6 +428,12 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\..\src\styles\checkbox_style.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="..\..\src\styles\text_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -799,6 +805,12 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\..\src\widget\checkbox.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="..\..\src\widget\uimanager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -1107,6 +1119,7 @@
     <ClInclude Include="..\..\inc\styles\style.hpp" />
     <ClInclude Include="..\..\inc\styles\styles.hpp" />
     <ClInclude Include="..\..\inc\styles\switch_style.hpp" />
+    <ClInclude Include="..\..\inc\styles\checkbox_style.hpp" />
     <ClInclude Include="..\..\inc\styles\text_style.hpp" />
     <ClInclude Include="..\..\inc\styles\widget_style.hpp" />
     <ClInclude Include="..\..\inc\styles\colors.hpp" />
@@ -1182,6 +1195,7 @@
     <ClInclude Include="..\..\inc\widget\scroll_view.hpp" />
     <ClInclude Include="..\..\inc\widget\slider.hpp" />
     <ClInclude Include="..\..\inc\widget\switch.hpp" />
+    <ClInclude Include="..\..\inc\widget\checkbox.hpp" />
     <ClInclude Include="..\..\inc\widget\uimanager.hpp" />
     <ClInclude Include="..\..\inc\widget\widget.hpp" />
     <ClInclude Include="..\..\inc\widget\window.hpp" />
@@ -1244,6 +1258,7 @@
     <None Include="..\..\resources\icons\wifi.icn" />
     <None Include="..\..\resources\styles\pearl\button.json" />
     <None Include="..\..\resources\styles\pearl\canvas.json" />
+    <None Include="..\..\resources\styles\pearl\checkbox.json" />
     <None Include="..\..\resources\styles\pearl\edit.json" />
     <None Include="..\..\resources\styles\pearl\icon.json" />
     <None Include="..\..\resources\styles\pearl\keyboard.json" />
@@ -1255,6 +1270,7 @@
     <None Include="..\..\resources\styles\pearl\window.json" />
     <None Include="..\..\resources\styles\test\button.json" />
     <None Include="..\..\resources\styles\test\canvas.json" />
+    <None Include="..\..\resources\styles\test\checkbox.json" />
     <None Include="..\..\resources\styles\test\edit.json" />
     <None Include="..\..\resources\styles\test\icon.json" />
     <None Include="..\..\resources\styles\test\keyboard.json" />
