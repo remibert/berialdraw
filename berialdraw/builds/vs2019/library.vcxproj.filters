@@ -701,7 +701,13 @@
     <ClCompile Include="..\..\src\widget\checkbox.cpp">
       <Filter>berialdraw\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\widget\radio.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\styles\checkbox_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\radio_style.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1471,7 +1477,13 @@
     <ClInclude Include="..\..\inc\widget\checkbox.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\inc\widget\radio.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\inc\styles\checkbox_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\radio_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1716,7 +1728,13 @@
     <None Include="..\..\resources\styles\test\checkbox.json">
       <Filter>resources\styles\test</Filter>
     </None>
+    <None Include="..\..\resources\styles\test\radio.json">
+      <Filter>resources\styles\test</Filter>
+    </None>
     <None Include="..\..\resources\styles\pearl\checkbox.json">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\radio.json">
       <Filter>resources\styles\pearl</Filter>
     </None>
   </ItemGroup>

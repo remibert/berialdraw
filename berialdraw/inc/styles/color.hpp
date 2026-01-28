@@ -87,6 +87,10 @@ namespace berialdraw
 		CHECKBOX_BORDER_COLOR      = 0x00000044, ///< Border color of checkbox.
 		CHECKBOX_FOCUS_COLOR       = 0x00000045, ///< Focus color of checkbox.
 		CHECKBOX_COLOR             = 0x00000046, ///< Check box color
+		RADIO_COLOR                = 0x00000047, ///< Radio indicator color.
+		RADIO_BORDER_COLOR         = 0x00000048, ///< Border color of radio button.
+		RADIO_FOCUS_COLOR          = 0x00000049, ///< Focus color of radio button.
+		RADIO_BOX_COLOR            = 0x0000004A, ///< Radio box color
 
 		THEME_BACK_COLOR                = 0x000000E0,
 		THEME_BACK_COLOR_LIGHT_1        = 0x000000E1,

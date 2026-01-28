@@ -117,6 +117,17 @@ bool Styles::apply(const char * classname, CheckboxStyle * properties)
 }
 
 /** Get properties */
+bool Styles::apply(const char * classname, RadioStyle * properties)
+{
+	RadioStyle *style = dynamic_cast<RadioStyle*>(select(classname, "radio", RadioStyle::create));
+	if (properties && style)
+	{
+		*properties = *style;
+	}
+	return true;
+}
+
+/** Get properties */
 bool Styles::apply(const char * classname, SliderStyle * properties)
 {
 	SliderStyle *style = dynamic_cast<SliderStyle*>(select(classname, "slider", SliderStyle::create));

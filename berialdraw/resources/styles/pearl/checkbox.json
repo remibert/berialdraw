@@ -3,17 +3,16 @@
 	"border-color"   : 0x00000044, // CHECKBOX_BORDER_COLOR
 	"check-color"    : 0x00000043, // CHECKBOX_CHECK_COLOR
 	"focus-color"    : 0x00000045, // CHECKBOX_FOCUS_COLOR
-	"check-box-color": 0x00000046, // CHECKBOX_COLOR
+	"color"          : 0x00000046, // CHECKBOX_COLOR (using base class color property)
 	"margin"         : {"top":5,"left":5,"bottom":5,"right":5},
-	"radius"         : 3,
+	"radius"         : 1,
+	"padding"        : 2,
 	"align"          : "center",
-	"check-box-size" : {"width":16,"height":16},
-	"check-box-thickness" : 1,
-	"check-box-radius"    : 1,
-	"check-box-padding"   : 2,
+	"checkbox-size" : {"width":16,"height":16},
+	"check-padding"  : 2,
 	"check-sketch"   : "R=1024;.840,163;.368,626;.368,626;.185,440;.185,440;$143,398;$74,398;.32,440;.32,440;$-10,482;$-10,550;.31,593;.31,593;.290,855;.290,855;$332,897;$400,897;.443,856;.443,856;.991,318;.991,318;$1034,276;$1034,207;.993,165;.993,165;$953,124;$885,119;.840,163;.840,163;.840,163;~;",
 	"focusable"      : true,
 	"pressable"      : true,
 	"focus-thickness": 3,
-	"focus-gap"      : 1,
+	"focus-gap"      : 1
 }

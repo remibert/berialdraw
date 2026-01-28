@@ -41,6 +41,9 @@ namespace berialdraw
 		/** Apply checkbox properties */
 		bool apply(const char * classname, CheckboxStyle * properties);
 
+		/** Apply radio properties */
+		bool apply(const char * classname, RadioStyle * properties);
+
 		/** Apply slider properties */
 		bool apply(const char * classname, SliderStyle * properties);
 

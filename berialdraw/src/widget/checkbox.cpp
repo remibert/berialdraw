@@ -38,7 +38,7 @@ void Checkbox::copy(const Checkbox * checkbox_)
 /** Return the size of content without marges */
 Size Checkbox::content_size()
 {
-	return m_check_box_size;
+	return m_checkbox_size;
 }
 
 
@@ -69,7 +69,7 @@ void Checkbox::paint(const Region & parent_region)
 	// If widget visible
 	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
 	{
-		Dim thickness = (m_focused == 0 ? m_check_box_thickness: m_check_box_thickness + (m_focus_thickness<<6));
+		Dim thickness = (m_focused == 0 ? m_thickness: m_thickness + (m_focus_thickness<<6));
 
 		UIManager::renderer()->region(region);
 
@@ -79,7 +79,7 @@ void Checkbox::paint(const Region & parent_region)
 		Rect::build_focused_polygon(m_foreclip, 
 			*(CommonStyle*)this,
 			*(BorderStyle*)this,
-			stated_color(m_check_box_color),
+			stated_color(m_color),
 			stated_color(m_border_color),
 			Color::TRANSPARENT,
 			stated_color(m_focus_color),
@@ -89,8 +89,8 @@ void Checkbox::paint(const Region & parent_region)
 		if (m_checked)
 		{
 			Area area_check(m_foreclip);
-			area_check.size().decrease_(m_check_box_padding << 1, m_check_box_padding << 1);
-			area_check.position().move_(m_check_box_padding, m_check_box_padding);
+			area_check.size().decrease_(m_check_padding << 1, m_check_padding << 1);
+			area_check.position().move_(m_check_padding, m_check_padding);
 
 			// Parse and draw the check sketch using VectorScript
 			if (m_check_sketch.size() > 0)
@@ -114,7 +114,7 @@ void Checkbox::paint(const Region & parent_region)
 			else
 			{
 				// Default check mark (simple square)
-				Rect::build_polygon(area_check, m_check_box_radius, 0, 0, ALL_BORDERS, stated_color(m_check_color), 0);
+				Rect::build_polygon(area_check, m_radius, 0, 0, ALL_BORDERS, stated_color(m_check_color), 0);
 			}
 		}
 	}
@@ -210,15 +210,15 @@ void Checkbox::test1()
 		checkbox = new Checkbox(grid);
 			checkbox->cell(row++,0);
 			checkbox->id(row);
-			checkbox->check_box_size(24,24);
+			checkbox->checkbox_size(24,24);
 			checkbox->radius(2);
 
 		checkbox = new Checkbox(grid);
 			checkbox->cell(row++,0);
 			checkbox->id(row);
-			checkbox->check_box_size(32,32);
+			checkbox->checkbox_size(32,32);
 			checkbox->radius(4);
-			checkbox->check_box_thickness(2);
+			checkbox->thickness(2);
 
 		checkbox = new Checkbox(grid);
 			checkbox->cell(row++,0);
@@ -233,12 +233,12 @@ void Checkbox::test1()
 			checkbox->radius(2);
 			checkbox->extend(Extend::EXTEND_WIDTH);
 			checkbox->size_policy(SizePolicy::SHRINK_HEIGHT);
-			checkbox->check_box_size(16,16);
+			checkbox->checkbox_size(16,16);
 
 		checkbox = new Checkbox(grid);
 			checkbox->cell(row++,0);
 			checkbox->id(row);
-			checkbox->check_box_size(24,24);
+			checkbox->checkbox_size(24,24);
 			checkbox->radius(2);
 			checkbox->extend(Extend::EXTEND_WIDTH);
 			checkbox->size_policy(SizePolicy::SHRINK_HEIGHT);
@@ -246,9 +246,9 @@ void Checkbox::test1()
 		checkbox = new Checkbox(grid);
 			checkbox->cell(row++,0);
 			checkbox->id(row);
-			checkbox->check_box_size(32,32);
+			checkbox->checkbox_size(32,32);
 			checkbox->radius(4);
-			checkbox->check_box_thickness(2);
+			checkbox->thickness(2);
 			checkbox->extend(Extend::EXTEND_WIDTH);
 			checkbox->size_policy(SizePolicy::SHRINK_HEIGHT);
 

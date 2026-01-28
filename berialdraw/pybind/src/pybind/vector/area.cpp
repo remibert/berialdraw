@@ -75,7 +75,7 @@ void bind_area(py::module& m) {
             }
         }, "Y coordinate (int for normal, float for high precision)");
 
-    // position and size use generic binders with custom wrappers to convert (x,y) to Point and (w,h) to Size
+    // position and size use generic binders adapted for Area
     cls.def_property("position",
         [](berialdraw::Area& self) -> py::tuple {
             const auto& p = self.position();
@@ -85,9 +85,7 @@ void bind_area(py::module& m) {
             if (py::isinstance<py::tuple>(value) || py::isinstance<py::list>(value)) {
                 auto seq = value.cast<py::sequence>();
                 if (py::len(seq) == 2) {
-                    auto x = seq[0].cast<berialdraw::Coord>();
-                    auto y = seq[1].cast<berialdraw::Coord>();
-                    self.position(berialdraw::Point(x, y));
+                    self.position(berialdraw::Point(seq[0].cast<berialdraw::Coord>(), seq[1].cast<berialdraw::Coord>()));
                 } else {
                     throw std::invalid_argument("position must be tuple/list of 2 values (x, y)");
                 }
@@ -108,9 +106,7 @@ void bind_area(py::module& m) {
             } else if (py::isinstance<py::tuple>(value) || py::isinstance<py::list>(value)) {
                 auto seq = value.cast<py::sequence>();
                 if (py::len(seq) == 2) {
-                    auto w = seq[0].cast<berialdraw::Dim>();
-                    auto h = seq[1].cast<berialdraw::Dim>();
-                    self.size(berialdraw::Size(w, h));
+                    self.size(berialdraw::Size(seq[0].cast<berialdraw::Dim>(), seq[1].cast<berialdraw::Dim>()));
                 } else {
                     throw std::invalid_argument("size must be tuple/list of 2 values (width, height)");
                 }

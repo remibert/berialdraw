@@ -5,32 +5,17 @@ void bind_checkbox_style(py::module& m) {
         
     // Checkbox box properties
     
-    // check_box_size property - use bind_size_property
-    bind_size_property(cls, "check_box_size",
-        &berialdraw::CheckboxStyle::check_box_size,
-        static_cast<void (berialdraw::CheckboxStyle::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::CheckboxStyle::check_box_size),
+    // checkbox_size property - use bind_size_property
+    bind_size_property(cls, "checkbox_size",
+        &berialdraw::CheckboxStyle::checkbox_size,
+        static_cast<void (berialdraw::CheckboxStyle::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::CheckboxStyle::checkbox_size),
         "Checkbox box size: int/float (same w/h) or (width, height) with automatic precision");
 
-    cls.def_property("check_box_thickness",
-        [](berialdraw::CheckboxStyle& self) -> berialdraw::Dim { return self.check_box_thickness(); },
-        [](berialdraw::CheckboxStyle& self, berialdraw::Dim value) { self.check_box_thickness(value); }, 
-        "Checkbox box thickness");
-    
-    cls.def_property("check_box_radius",
-        [](berialdraw::CheckboxStyle& self) -> berialdraw::Dim { return self.check_box_radius(); },
-        [](berialdraw::CheckboxStyle& self, berialdraw::Dim value) { self.check_box_radius(value); }, 
-        "Checkbox box radius");
-    
-    cls.def_property("check_box_padding",
-        [](berialdraw::CheckboxStyle& self) -> berialdraw::Dim { return self.check_box_padding(); },
-        [](berialdraw::CheckboxStyle& self, berialdraw::Dim value) { self.check_box_padding(value); }, 
-        "Checkbox box padding");
+    cls.def_property("check_padding",
+        [](berialdraw::CheckboxStyle& self) -> berialdraw::Dim { return self.check_padding(); },
+        [](berialdraw::CheckboxStyle& self, berialdraw::Dim value) { self.check_padding(value); }, 
+        "Checkbox padding in pixels");
 
-    bind_color_property(cls, "check_box_color",
-        &berialdraw::CheckboxStyle::check_box_color,
-        static_cast<void (berialdraw::CheckboxStyle::*)(uint32_t)>(&berialdraw::CheckboxStyle::check_box_color),
-        "Check box color");
-    
     // Check mark properties
     
     bind_color_property(cls, "check_color",

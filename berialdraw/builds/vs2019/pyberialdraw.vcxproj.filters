@@ -85,6 +85,9 @@
     <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\checkbox.cpp">
       <Filter>widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\radio.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
     <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\uimanager.cpp">
       <Filter>widget</Filter>
     </ClCompile>
@@ -282,6 +285,9 @@
       <Filter>vector</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\tool\bd_system.cpp" />
+    <ClCompile Include="..\..\pybind\src\pybind\styles\radio_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\\..\\pybind\\inc\\pybind\pyberialdraw.hpp" />

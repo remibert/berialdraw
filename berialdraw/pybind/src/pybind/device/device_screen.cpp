@@ -2,60 +2,61 @@
 
 void bind_device_screen(py::module& m) {
 #if defined(WIN32)
-    // Sur Windows, on utilise DeviceWin32 mais on l'expose comme DeviceScreen
-    py::class_<berialdraw::DeviceWin32, berialdraw::Device>(m, "DeviceScreen")
-        .def(py::init<const char*, berialdraw::Dim, berialdraw::Dim, berialdraw::Coord, berialdraw::Coord>(),
-             py::arg("title"), py::arg("width") = 0, py::arg("height") = 0, py::arg("x") = 0, py::arg("y") = 0,
-             "Constructor with position")
-        .def("size", (berialdraw::Size (berialdraw::DeviceWin32::*)() const) &berialdraw::DeviceWin32::size,
-             "Get the size of the window")
-        .def("size", (void (berialdraw::DeviceWin32::*)(const berialdraw::Size&)) &berialdraw::DeviceWin32::size,
-             py::arg("s"), "Set the size of the window")
-        .def("size", (void (berialdraw::DeviceWin32::*)(berialdraw::Dim, berialdraw::Dim)) &berialdraw::DeviceWin32::size,
-             py::arg("width"), py::arg("height"), "Resize the window")
-        .def("position", (berialdraw::Point (berialdraw::DeviceWin32::*)() const) &berialdraw::DeviceWin32::position,
-             "Get the position of the window")
-        .def("position", (void (berialdraw::DeviceWin32::*)(const berialdraw::Point&)) &berialdraw::DeviceWin32::position,
-             py::arg("p"), "Set the position of the window")
-        .def("position", (void (berialdraw::DeviceWin32::*)(berialdraw::Coord, berialdraw::Coord)) &berialdraw::DeviceWin32::position,
-             py::arg("x"), py::arg("y"), "Move the window")
-        .def_static("show_console", &berialdraw::DeviceWin32::show_console,
-                   "Show the console");
+    #define DEVICE berialdraw::DeviceWin32
 #elif defined(OSX) && defined(USE_COCOA_DEVICE)
-    // Sur macOS avec Cocoa, on utilise DeviceCocoa mais on l'expose comme DeviceScreen
-    py::class_<berialdraw::DeviceCocoa, berialdraw::Device>(m, "DeviceScreen")
-        .def(py::init<const char*, berialdraw::Dim, berialdraw::Dim, berialdraw::Coord, berialdraw::Coord>(),
-             py::arg("title"), py::arg("width") = 0, py::arg("height") = 0, py::arg("x") = 0, py::arg("y") = 0,
-             "Constructor with position")
-        .def("size", (berialdraw::Size (berialdraw::DeviceCocoa::*)() const) &berialdraw::DeviceCocoa::size,
-             "Get the size of the window")
-        .def("size", (void (berialdraw::DeviceCocoa::*)(const berialdraw::Size&)) &berialdraw::DeviceCocoa::size,
-             py::arg("s"), "Set the size of the window")
-        .def("size", (void (berialdraw::DeviceCocoa::*)(berialdraw::Dim, berialdraw::Dim)) &berialdraw::DeviceCocoa::size,
-             py::arg("width"), py::arg("height"), "Resize the window")
-        .def("position", (berialdraw::Point (berialdraw::DeviceCocoa::*)() const) &berialdraw::DeviceCocoa::position,
-             "Get the position of the window")
-        .def("position", (void (berialdraw::DeviceCocoa::*)(const berialdraw::Point&)) &berialdraw::DeviceCocoa::position,
-             py::arg("p"), "Set the position of the window")
-        .def("position", (void (berialdraw::DeviceCocoa::*)(berialdraw::Coord, berialdraw::Coord)) &berialdraw::DeviceCocoa::position,
-             py::arg("x"), py::arg("y"), "Move the window");
+    #define DEVICE berialdraw::DeviceCocoa
 #else
-    // Sur Linux/autres, on utilise DeviceSdl mais on l'expose comme DeviceScreen
-    py::class_<berialdraw::DeviceSdl, berialdraw::Device>(m, "DeviceScreen")
-        .def(py::init<const char*, berialdraw::Dim, berialdraw::Dim, berialdraw::Coord, berialdraw::Coord>(),
-             py::arg("title"), py::arg("width") = 0, py::arg("height") = 0, py::arg("x") = 0, py::arg("y") = 0,
-             "Constructor with position")
-        .def("size", (berialdraw::Size (berialdraw::DeviceSdl::*)() const) &berialdraw::DeviceSdl::size,
-             "Get the size of the window")
-        .def("size", (void (berialdraw::DeviceSdl::*)(const berialdraw::Size&)) &berialdraw::DeviceSdl::size,
-             py::arg("s"), "Set the size of the window")
-        .def("size", (void (berialdraw::DeviceSdl::*)(berialdraw::Dim, berialdraw::Dim)) &berialdraw::DeviceSdl::size,
-             py::arg("width"), py::arg("height"), "Resize the window")
-        .def("position", (berialdraw::Point (berialdraw::DeviceSdl::*)() const) &berialdraw::DeviceSdl::position,
-             "Get the position of the window")
-        .def("position", (void (berialdraw::DeviceSdl::*)(const berialdraw::Point&)) &berialdraw::DeviceSdl::position,
-             py::arg("p"), "Set the position of the window")
-        .def("position", (void (berialdraw::DeviceSdl::*)(berialdraw::Coord, berialdraw::Coord)) &berialdraw::DeviceSdl::position,
-             py::arg("x"), py::arg("y"), "Move the window");
+    #define DEVICE berialdraw::DeviceSdl
 #endif
+
+    py::class_<DEVICE, berialdraw::Device> cls(m, "DeviceScreen");
+    cls.def(py::init<const char*, berialdraw::Dim, berialdraw::Dim, berialdraw::Coord, berialdraw::Coord>(),
+             py::arg("title"), py::arg("width") = 0, py::arg("height") = 0, py::arg("x") = 0, py::arg("y") = 0,
+             "Constructor with position");
+    // size property using custom wrapper
+    cls.def_property("size",
+        [](DEVICE& self) -> py::tuple {
+            const auto& s = self.size();
+            return py::make_tuple(s.width(), s.height());
+        },
+        [](DEVICE& self, py::object value) {
+            if (py::isinstance<py::int_>(value) || py::isinstance<py::float_>(value)) {
+                auto dim = value.cast<berialdraw::Dim>();
+                self.size(berialdraw::Size(dim, dim));
+            } else if (py::isinstance<py::tuple>(value) || py::isinstance<py::list>(value)) {
+                auto seq = value.cast<py::sequence>();
+                if (py::len(seq) == 2) {
+                    self.size(berialdraw::Size(seq[0].cast<berialdraw::Dim>(), seq[1].cast<berialdraw::Dim>()));
+                } else {
+                    throw std::invalid_argument("size must be tuple/list of 2 values (width, height)");
+                }
+            } else {
+                throw std::invalid_argument("size must be int/float or tuple/list of 2 values");
+            }
+        }, "Size: int (square) or (width, height)");
+    // position property using custom wrapper
+    cls.def_property("position",
+        [](DEVICE& self) -> py::tuple {
+            const auto& p = self.position();
+            return py::make_tuple(p.x(), p.y());
+        },
+        [](DEVICE& self, py::object value) {
+            if (py::isinstance<py::tuple>(value) || py::isinstance<py::list>(value)) {
+                auto seq = value.cast<py::sequence>();
+                if (py::len(seq) == 2) {
+                    self.position(seq[0].cast<berialdraw::Coord>(), seq[1].cast<berialdraw::Coord>());
+                } else {
+                    throw std::invalid_argument("position must be tuple/list of 2 values (x, y)");
+                }
+            } else {
+                throw std::invalid_argument("position must be tuple/list of 2 values");
+            }
+        }, "Position as (x, y) tuple");
+
+#if defined(WIN32)
+    cls.def_static("show_console", &DEVICE::show_console,
+                   "Show the console");
+#endif
+
+#undef DEVICE
 }

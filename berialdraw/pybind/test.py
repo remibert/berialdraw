@@ -12,9 +12,9 @@ sys.path.insert(0, r"Z:\tmp\pyberialdraw\x64\Debug")
 from pyberialdraw import *
 
 device = DeviceScreen("Sample python")
-device.position(100,100)
-#UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "./resources;../resources")
-UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "zip://resources.zip/resources")
+device.position = (100,100)
+UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "./resources;../resources")
+#UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "zip://resources.zip/resources")
 UIManager.style = "pearl"
 UIManager.appearance = "light"
 UIManager.theme = THEME_LIME
@@ -71,6 +71,13 @@ class Dialog:
 		self.button.margin = (20,10)
 		self.button.on_click = self.on_click_button
 		self.button.on_key_down = self.on_key_pressed
+
+		self.radio1 = Radio(self.layout)
+
+		self.radio2 = Radio(self.layout)
+		self.radio_group = RadioGroup()
+		self.radio_group.add_radio(self.radio1)
+		self.radio_group.add_radio(self.radio2)
 
 		self.switch = Switch(self.layout)
 		self.switch.on_click = lambda widget, event: print(f"Switch clicked")

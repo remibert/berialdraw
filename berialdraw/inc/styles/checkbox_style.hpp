@@ -32,46 +32,22 @@ namespace berialdraw
 		// Checkbox box properties
 
 		/** Get the checkbox box size */
-		const Size & check_box_size() const;
+		const Size & checkbox_size() const;
 		
 		/** Set the checkbox box size */
-		void check_box_size(const Size & s);
+		void checkbox_size(const Size & s);
 
 		/** Set the checkbox box size with width and height in pixels */
-		void check_box_size(Dim w, Dim h);
+		void checkbox_size(Dim w, Dim h);
 
 		/** Set the checkbox box size with a precision of 64th of a pixel */
-		void check_box_size_(Dim w, Dim h);
+		void checkbox_size_(Dim w, Dim h);
 
+		/** Get the checkbox padding in pixels */
+		Dim check_padding() const;
 
-		/** Get the checkbox box thickness in pixels */
-		Dim check_box_thickness() const;
-
-		/** Set the checkbox box thickness in pixels */
-		void check_box_thickness(Dim thickness);
-
-
-		/** Get the checkbox box radius in pixels */
-		Dim check_box_radius() const;
-
-		/** Set the checkbox box radius in pixels */
-		void check_box_radius(Dim radius);
-
-
-		/** Get the checkbox box padding in pixels */
-		Dim check_box_padding() const;
-
-		/** Set the checkbox box padding in pixels */
-		void check_box_padding(Dim pad);
-
-		/** Get the check box color */
-		uint32_t check_box_color() const;
-
-		/** Set the check box color */
-		void check_box_color(uint32_t col);
-
-		/** Set the check box color with alpha */
-		void check_box_color(uint32_t col, uint8_t alpha);
+		/** Set the checkbox padding in pixels */
+		void check_padding(Dim pad);
 
 
 		// Check mark properties
@@ -94,12 +70,9 @@ namespace berialdraw
 
 	protected:
 /// @cond DOXYGEN_IGNORE
-		Size m_check_box_size;
-		Dim m_check_box_thickness = 2;
-		Dim m_check_box_radius = 2;
-		Dim m_check_box_padding = 2;
+		Size m_checkbox_size;
+		Dim m_check_padding = 2<<6;
 		uint32_t m_check_color = 0xFF000000;
-		uint32_t m_check_box_color = 0xFFFFFFF;
 		String m_check_sketch;
 /// @endcond
 	}; 
