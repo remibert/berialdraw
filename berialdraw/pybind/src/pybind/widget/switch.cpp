@@ -2,7 +2,7 @@
 #include "pybind/event_system.hpp"
 
 void bind_switch(pybind11::module_& m) {
-    pybind11::class_<berialdraw::Switch, berialdraw::Widget, berialdraw::BorderStyle, berialdraw::SwitchStyle>(m, "Switch")
+    pybind11::class_<berialdraw::Switch, berialdraw::Widget, berialdraw::TextStyle, berialdraw::BorderStyle, berialdraw::SwitchStyle>(m, "Switch")
         .def(pybind11::init<berialdraw::Widget*>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>())
         
         // Event system integration

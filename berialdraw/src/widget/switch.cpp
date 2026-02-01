@@ -7,6 +7,7 @@ Switch::Switch(Widget * parent):
 {
 	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
 	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
+	UIManager::styles()->apply(m_classname, (TextStyle*)this);
 	UIManager::styles()->apply(m_classname, (BorderStyle*)this);
 	UIManager::styles()->apply(m_classname, (SwitchStyle*)this);
 	bind(this, &Switch::on_key);
@@ -22,6 +23,7 @@ void Switch::copy(const Switch & switch_)
 {
 	*((CommonStyle*)this) = *(CommonStyle*)(&switch_);
 	*((WidgetStyle*)this) = *(WidgetStyle*)(&switch_);
+	*((TextStyle*)this) = *(TextStyle*)(&switch_);
 	*((BorderStyle*)this) = *(BorderStyle*)(&switch_);
 	*((SwitchStyle*)this) = *(SwitchStyle*)(&switch_);
 }
@@ -35,13 +37,36 @@ void Switch::copy(const Switch * switch_)
 	}
 }
 
-/** Return the size of content without marges */
+/** Return the size of content without margins */
 Size Switch::content_size()
 {
-	return m_switch_size;
+	Size result = m_switch_size;
+
+	if(m_text_modified || m_font_modified)
+	{
+		Area area;
+		select_font();
+		if (m_font.get())
+		{
+			m_text_box.parse(area, *m_font, m_text, UINT32_MAX, UINT32_MAX, UINT32_MAX, (Align)m_text_align);
+		}
+		m_text_modified = m_font_modified = 0;
+		m_text_size = m_text_box.content_size();
+	}
+	
+	// Add text size to the right if not empty
+	if (m_text.size() > 0)
+	{
+		result.increase_(padding().left_() + (10<<6) + m_text_size.width_() + padding().right_(), 0);
+		if (m_text_size.height_() > m_switch_size.height_())
+		{
+			result.height_(m_text_size.height_());
+		}
+	}
+	return result;
 }
 
-
+/** Place all widget in area */
 void Switch::place(const Area & area, bool in_layout)
 {
 	if (m_size.is_width_undefined() && m_size.is_height_undefined() && m_extend != Extend::EXTEND_NONE && 
@@ -49,17 +74,73 @@ void Switch::place(const Area & area, bool in_layout)
 	{
 		in_layout = true;
 	}
+
+	// Place background rectangle
 	place_in_area(area, in_layout);
 
-	// If absolute place
-	if (in_layout == false)
+	// Place the switch
+	m_switch_foreclip = m_foreclip;
+
+	// If text not empty
+	if (m_text.size() > 0)
 	{
-		Area backclip = m_foreclip;
 		Margin marg;
-		Size size(content_size());
-		place_in_layout(backclip, size, marg, EXTEND_NONE, m_foreclip, (Align)m_align);
+
+		// Place switch text
+		m_text_backclip = m_foreclip;
+		marg.left_(m_switch_size.width_() + padding().left_());
+		place_in_layout(m_text_backclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, (Align)(m_text_align | ALIGN_BOTTOM));
+	
+		m_switch_foreclip = m_text_foreclip;
+		m_switch_foreclip.size(m_switch_size);
+		Coord move_y = (m_switch_size.height_() > m_text_size.height_() ? 0-((m_switch_size.height_() - m_text_size.height_())>>1) : ((m_text_size.height_()-m_switch_size.height_())>>1));
+		m_switch_foreclip.position().move_(0-(m_switch_size.width_() + padding().left_()), move_y);
+		m_switch_foreclip.position().nearest_pixel();
 	}
 }
+
+/** Paint on screen memory the content of this widget */
+void Switch::paint_switch(Region & region)
+{
+	uint32_t track_color = checked() ? stated_color(m_on_track_color) : stated_color(m_off_track_color);
+	Dim thickness = (m_focused == 0 ? m_thickness: m_thickness + (m_focus_thickness<<6));
+
+	UIManager::renderer()->region(region);
+
+	// Create an area for just the switch (not including text)
+	Area area_track(m_switch_foreclip);
+
+	Rect::build_focused_polygon(area_track, 
+		*(CommonStyle*)this,
+		*(BorderStyle*)this,
+		stated_color(track_color), 
+		stated_color(m_border_color),
+		Color::TRANSPARENT,
+		stated_color(m_focus_color),
+		m_focused);
+
+	Area area_thumb(area_track);
+
+	area_thumb.size().decrease_(m_thumb_padding << 1, m_thumb_padding << 1);
+	area_thumb.position().move_(m_thumb_padding, m_thumb_padding);
+
+	// Change position of thumb
+	if (m_checked)
+	{
+		if (m_extend & Extend::EXTEND_WIDTH)
+		{
+			area_thumb.position().move(m_foreclip.width() - m_switch_size.height(), 0);
+		}
+		else
+		{
+			area_thumb.position().move(m_switch_size.width() - m_switch_size.height(), 0);
+		}
+	}
+	area_thumb.size().width(area_thumb.size().height());
+	Rect::build_polygon(area_thumb, substract(m_radius, m_thumb_padding), 0, 0, ALL_BORDERS, stated_color(m_thumb_color), 0);
+
+}
+
 
 void Switch::paint(const Region & parent_region)
 {
@@ -69,41 +150,17 @@ void Switch::paint(const Region & parent_region)
 	// If widget visible
 	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
 	{
-		uint32_t track_color = checked() ? stated_color(m_on_track_color) : stated_color(m_off_track_color);
-		Dim thickness = (m_focused == 0 ? m_thickness: m_thickness + (m_focus_thickness<<6));
-
-		UIManager::renderer()->region(region);
-
-		Area area_track(m_foreclip);
-
-		Rect::build_focused_polygon(m_foreclip, 
-			*(CommonStyle*)this,
-			*(BorderStyle*)this,
-			stated_color(track_color), 
-			stated_color(m_border_color),
-			Color::TRANSPARENT,
-			stated_color(m_focus_color),
-			m_focused);
-
-		Area area_thumb(m_foreclip);
-
-		area_thumb.size().decrease_(m_thumb_padding << 1, m_thumb_padding << 1);
-		area_thumb.position().move_(m_thumb_padding, m_thumb_padding);
-
-		// Change position of thumb
-		if (m_checked)
+		paint_switch(region);
+		
+		// Paint text to the right
+		if(m_text.size() > 0)
 		{
-			if (m_extend & Extend::EXTEND_WIDTH)
-			{
-				area_thumb.position().move(m_foreclip.width() - m_switch_size.height(), 0);
-			}
-			else
-			{
-				area_thumb.position().move(m_switch_size.width() - m_switch_size.height(), 0);
-			}
+			region.intersect(m_text_backclip);
+			select_font();
+			UIManager::renderer()->region(region);
+			Point shift;
+			m_text_box.paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_backclip, stated_color(m_text_color), 0, 0, true);
 		}
-		area_thumb.size().width(area_thumb.size().height());
-		Rect::build_polygon(area_thumb, substract(m_radius, m_thumb_padding), 0, 0, ALL_BORDERS, stated_color(m_thumb_color), 0);
 	}
 }
 
@@ -127,7 +184,9 @@ void Switch::serialize(JsonIterator & it)
 	it["type"] = m_classname;
 	CommonStyle::serialize(it);
 	WidgetStyle::serialize(it);
+	TextStyle::serialize(it);
 	BorderStyle::serialize(it);
+	SwitchStyle::serialize(it);
 }
 
 /** Unserialize the content of widget from json */
@@ -135,7 +194,9 @@ void Switch::unserialize(JsonIterator & it)
 {
 	CommonStyle::unserialize(it);
 	WidgetStyle::unserialize(it);
+	TextStyle::unserialize(it);
 	BorderStyle::unserialize(it);
+	SwitchStyle::unserialize(it);
 }
 
 
@@ -448,6 +509,97 @@ void Switch::test3()
 
 void Switch::test4()
 {
+	Window window;
+		window.position(0,0);
+		window.size(400,150);
+		window.color(Color::WHITE);
+
+	Column * col = new Column(&window);
+	
+		// Switch without text
+		Switch * switch1 = new Switch(col);
+			switch1->text("");
+			switch1->margin(10);
+		
+		// Switch with text
+		Switch * switch2 = new Switch(col);
+			switch2->text("Enable notifications");
+			switch2->margin(10);
+		
+		// Switch with text and custom styling
+		Switch * switch3 = new Switch(col);
+			switch3->text("Dark mode");
+			switch3->text_color(Color::BLUE);
+			switch3->font_size(18);
+			switch3->margin(10);
+	
+	UIManager::desktop()->dispatch("$(ui.tests)/out/switch4.svg");
+}
+
+void Switch::test5()
+{
+	// Test absolute positioning with text
+	Window window;
+		window.position(0,0);
+		window.size(400,200);
+		window.color(Color::WHITE);
+
+	// Switch with absolute position and text
+	Switch * switch1 = new Switch(&window);
+		switch1->position(20, 20);
+		switch1->size(350, 50);
+		switch1->text("Absolute position with text");
+		switch1->text_color(Color::RED);
+		switch1->font_size(16);
+		switch1->color(Color::LIGHT_GRAY);
+		switch1->border_color(Color::BLACK);
+		switch1->thickness(2);
+
+	// Switch with absolute position without text
+	Switch * switch2 = new Switch(&window);
+		switch2->position(20, 80);
+		switch2->text("");
+		switch2->color(Color::LIGHT_GRAY);
+		switch2->border_color(Color::BLACK);
+		switch2->thickness(2);
+
+	// Switch with absolute position and different text
+	Switch * switch3 = new Switch(&window);
+		switch3->position(20, 130);
+		switch3->size(350, 50);
+		switch3->text("Another absolute switch");
+		switch3->text_color(Color::GREEN);
+		switch3->font_size(25);
+		switch3->color(Color::LIGHT_GRAY);
+		switch3->border_color(Color::BLACK);
+		switch3->thickness(2);
+
+	//while(1) UIManager::desktop()->dispatch();
+	UIManager::desktop()->dispatch("$(ui.tests)/out/switch5.svg");
+}
+
+void Switch::test6()
+{
+	Window window;
+	Column * column = new Column(&window);
+	Switch * switch_;
+		switch_ = new Switch(column);
+		switch_->text("Switch");
+		switch_->font_size(5);
+
+		switch_ = new Switch(column);
+		switch_->text("Switch");
+		switch_->font_size(25);
+
+		switch_ = new Switch(column);
+		switch_->text("Switch");
+		switch_->font_size(55);
+
+		switch_ = new Switch(column);
+		switch_->text("Switch");
+		switch_->font_size(255);
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/switch6.svg");
 }
 
 void Switch::test()
@@ -456,6 +608,8 @@ void Switch::test()
 	if (done == false)
 	{
 		done = true;
+		test6();
+		test5();
 		test4();
 		test3();
 		test2();

@@ -5,9 +5,10 @@
 	"focus-color"    : 0x00000049, // RADIO_FOCUS_COLOR
 	"color"          : 0x0000004A, // RADIO_BOX_COLOR (using base class color property)
 	"margin"         : {"top":1,"left":1,"bottom":1,"right":1},
-	"radius"         : 2,
+	"radius"         : 16,
 	"padding"        : 2,
 	"align"          : "center",
+	"padding"        : {"top":5,"left":5,"bottom":5,"right":5},
 	"radio-size" : {"width":16,"height":16},
 	"radio-padding"  : 2,
 	"radio-sketch"   : "R=1024;.1024,512;$1024,647;$970,778;.874,874;.874,874;$778,970;$647,1024;.512,1024;.512,1024;$376,1024;$245,970;.149,874;.149,874;$53,778;$0,647;.0,512;.0,512;$0,376;$53,245;.149,149;.149,149;$245,53;$376,0;.512,0;.512,0;$647,0;$778,53;.874,149;.874,149;$970,245;$1024,376;.1024,512;~;",

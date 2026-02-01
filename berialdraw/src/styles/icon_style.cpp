@@ -21,6 +21,7 @@ void IconStyle::serialize(JsonIterator & it)
 	it["zoom_"]  = zoom;
 	berialdraw::unserialize("zoom_", it, m_zoom);
 
+	m_icon_size.serialize("icon-size", it);
 	m_icon_padding.serialize ("icon-padding",it);
 }
 
@@ -31,6 +32,7 @@ void IconStyle::unserialize(JsonIterator & it)
 	m_icon_color       = (int)(it["icon-color"]        | (int)m_icon_color);
 	Dim zoom  = it["zoom_"]   | Size::MAX_SIZE;
 
+	m_icon_size.unserialize("icon-size", it);
 	m_icon_padding.unserialize ("icon-padding",it);
 	m_zoom    = (zoom == Size::MAX_SIZE) ? m_zoom  : zoom;
 }

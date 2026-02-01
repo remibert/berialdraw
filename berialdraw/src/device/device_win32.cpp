@@ -102,7 +102,9 @@ DeviceWin32::DeviceWin32(const char * title, Dim width, Dim height, Coord x, Coo
 	{
 		size(m_width, m_height);
 	}
+#ifdef _DEBUG
 	show_console();
+#endif
 }
 
 DeviceWin32::~DeviceWin32()

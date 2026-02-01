@@ -160,7 +160,7 @@ namespace berialdraw
 
 /// @cond DOXYGEN_IGNORE
 		/** Place the widget in absolute coordinates on the window */
-		void place_absolutly(const Point & root, const Size & content, Area & foreclip, const Size & min_size, const Size & max_size);
+		void place_absolutly(const Point & root, const Size & content, Area & foreclip, const Size & size, const Size & min_size, const Size & max_size);
 
 		/** Place the widget in the layout cell */
 		void place_in_layout(const Area & area, const Size & content, const Margin & margin, Extend extend, Area & foreclip, Align align);

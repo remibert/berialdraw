@@ -33,7 +33,7 @@ namespace berialdraw
 
 	/** The Radio class represents a selectable radio button control used for mutually exclusive selections.
 	Radio buttons are grouped together, and only one can be selected at a time within the same group. */
-	class Radio: public Widget, public BorderStyle, public RadioStyle
+	class Radio: public Widget, public TextStyle, public BorderStyle, public RadioStyle
 	{
 		friend class RadioGroup;
 	/** @image html sample_radio_1.svg "example" width=200px height=200px
@@ -60,18 +60,26 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		virtual void unserialize(JsonIterator & it);
 
-		/** Return the size of content without marges */
+		/** Copy all styles of the radio button */
+		void copy(const Radio * radio);
+
+		/** Copy all styles of the radio button */
+		void copy(const Radio & radio);
+
+		/** Return the size of content without margins */
 		virtual Size content_size();
 
-		/** Copy all styles of the radio button */
-		void copy(const Radio & radio_);
+		/** Place all widget in area */
+		virtual void place(const Area & area, bool in_layout);
 
-		/** Copy all styles of the radio button */
-		void copy(const Radio * radio_);
 #ifdef _DEBUG
 		static void test();
 		static void test1();
+		static void test2();
+		static void test3();
+		static void test4();
 #endif
+
 	protected:
 /// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
@@ -86,12 +94,14 @@ namespace berialdraw
 		/** Paint on screen memory the content of this widget */
 		virtual void paint(const Region & parent_region);
 
-		/** Place all widget in area */
-		virtual void place(const Area & area, bool in_layout);
-
 		/** Get the widget hovered */
 		virtual Widget * hovered(const Region & parent_region, const Point & position);
 
+		Area m_text_foreclip;
+		Area m_text_backclip;
+		Area m_radio_foreclip;
+		TextBox m_text_box;
+		Size m_text_size;
 		RadioGroup * m_group = nullptr;
 		bool m_selected = false;
 /// @endcond

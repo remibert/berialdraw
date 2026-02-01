@@ -8,13 +8,13 @@ def cleanup_on_exit():
 
 atexit.register(cleanup_on_exit)
 
-sys.path.insert(0, r"Z:\tmp\pyberialdraw\x64\Debug")
+sys.path.insert(0, r"Z:\tmp\pyberialdraw\x64\Release")
 from pyberialdraw import *
 
 device = DeviceScreen("Sample python")
 device.position = (100,100)
-UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "./resources;../resources")
-#UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "zip://resources.zip/resources")
+#UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "./resources;../resources")
+UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "zip://resources.zip/resources")
 UIManager.style = "pearl"
 UIManager.appearance = "light"
 UIManager.theme = THEME_LIME
@@ -72,9 +72,20 @@ class Dialog:
 		self.button.on_click = self.on_click_button
 		self.button.on_key_down = self.on_key_pressed
 
-		self.radio1 = Radio(self.layout)
+		self.row1 = Row(self.layout)
+		self.radio1 = Radio(self.row1)
+		self.radio1.align = Align.ALIGN_RIGHT
+		self.label1 = Label(self.row1)
+		self.label1.text = "Radio1"
+		self.label1.align = Align.ALIGN_LEFT
 
-		self.radio2 = Radio(self.layout)
+		self.row2 = Row(self.layout)
+		self.radio2 = Radio(self.row2)
+		self.radio2.align = Align.ALIGN_RIGHT
+		self.label2 = Label(self.row2)
+		self.label2.text = "Radio2"
+		self.label2.align = Align.ALIGN_LEFT
+
 		self.radio_group = RadioGroup()
 		self.radio_group.add_radio(self.radio1)
 		self.radio_group.add_radio(self.radio2)
@@ -82,6 +93,7 @@ class Dialog:
 		self.switch = Switch(self.layout)
 		self.switch.on_click = lambda widget, event: print(f"Switch clicked")
 		self.switch.on_key_down = self.on_key_pressed
+		
 		
 	def on_click_button(self, widget, event):
 		print(f"Click! Button '{widget.text}' at position {event.position}")

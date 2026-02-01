@@ -222,7 +222,7 @@ void Widget::place_in_area(const Area & area, bool in_layout)
 	}
 	else
 	{
-		place_absolutly(area.position(), content_size(), m_foreclip, m_min_size, m_max_size);
+		place_absolutly(area.position(), content_size(), m_foreclip, m_size, m_min_size, m_max_size);
 	}
 }
 

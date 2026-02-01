@@ -74,7 +74,7 @@ void RadioStyle::radio_size(Dim w, Dim h)
 /** Set the radio box size with a precision of 64th of a pixel */
 void RadioStyle::radio_size_(Dim w, Dim h)
 {
-	m_radio_size.set(w, h);
+	m_radio_size.set_(w, h);
 }
 
 /** Get the radio padding in pixels */

@@ -205,12 +205,12 @@ void CommonStyle::place_in_layout(const Area & area, const Size & content, const
 	foreclip.nearest_pixel();
 }
 
-void CommonStyle::place_absolutly(const Point & root, const Size & content, Area & foreclip, const Size & min_size, const Size & max_size)
+void CommonStyle::place_absolutly(const Point & root, const Size & content, Area & foreclip, const Size & size, const Size & min_size, const Size & max_size)
 {
 	foreclip.x_(root.x_() + m_position.x_() + m_margin.left_());
 	foreclip.y_(root.y_() + m_position.y_() + m_margin.top_());
-	foreclip.width_ (adapt_size(content.width_() , m_size.is_width_undefined()  ? content.width_()  : m_size.width_(),  min_size.width_(),  max_size.width_()));
-	foreclip.height_(adapt_size(content.height_(), m_size.is_height_undefined() ? content.height_() : m_size.height_(), min_size.height_(), max_size.height_()));
+	foreclip.width_ (adapt_size(content.width_() , size.is_width_undefined()  ? content.width_()  : size.width_(),  min_size.width_(),  max_size.width_()));
+	foreclip.height_(adapt_size(content.height_(), size.is_height_undefined() ? content.height_() : size.height_(), min_size.height_(), max_size.height_()));
 }
 
 

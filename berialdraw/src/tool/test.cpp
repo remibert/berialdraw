@@ -10,7 +10,10 @@ namespace berialdraw
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
 
+		Switch::test();
 		Radio::test();
+		Checkbox::test();
+		Icon::test();
 
 		// Widgets
 		Icon::test();
@@ -24,6 +27,7 @@ namespace berialdraw
 		Canvas::test();
 		Checkbox::test();
 		Pane::test();
+		Radio::test();
 		Label::test();
 		Window::test();
 

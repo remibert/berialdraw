@@ -301,7 +301,7 @@ void Size::clean()
 void Size::print(const char * name) const
 {
 #define FLOAT_PART(value) (((((value)%64)*1000)/64)+5)/10
-	bd_printf("%s w=%d.%02d h=%d.%02d\n",name, m_width/64, FLOAT_PART(m_width), m_height/64, FLOAT_PART(m_height));
+	bd_printf("%s w=%d.%02d h=%d.%02d",name, m_width/64, FLOAT_PART(m_width), m_height/64, FLOAT_PART(m_height));
 }
 
 /** Substract b to a and avoid negative value */

@@ -7,6 +7,7 @@ Checkbox::Checkbox(Widget * parent):
 {
 	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
 	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
+	UIManager::styles()->apply(m_classname, (TextStyle*)this);
 	UIManager::styles()->apply(m_classname, (BorderStyle*)this);
 	UIManager::styles()->apply(m_classname, (CheckboxStyle*)this);
 	bind(this, &Checkbox::on_key);
@@ -18,30 +19,54 @@ Checkbox::~Checkbox()
 }
 
 /** Copy all styles of the checkbox */
-void Checkbox::copy(const Checkbox & checkbox_)
+void Checkbox::copy(const Checkbox & checkbox)
 {
-	*((CommonStyle*)this) = *(CommonStyle*)(&checkbox_);
-	*((WidgetStyle*)this) = *(WidgetStyle*)(&checkbox_);
-	*((BorderStyle*)this) = *(BorderStyle*)(&checkbox_);
-	*((CheckboxStyle*)this) = *(CheckboxStyle*)(&checkbox_);
+	*((CommonStyle*)this) = *(CommonStyle*)(&checkbox);
+	*((WidgetStyle*)this) = *(WidgetStyle*)(&checkbox);
+	*((TextStyle*)this) = *(TextStyle*)(&checkbox);
+	*((BorderStyle*)this) = *(BorderStyle*)(&checkbox);
+	*((CheckboxStyle*)this) = *(CheckboxStyle*)(&checkbox);
 }
 
 /** Copy all styles of the checkbox */
-void Checkbox::copy(const Checkbox * checkbox_)
+void Checkbox::copy(const Checkbox * checkbox)
 {
-	if(checkbox_)
+	if(checkbox)
 	{
-		copy(*checkbox_);
+		copy(*checkbox);
 	}
 }
 
-/** Return the size of content without marges */
+/** Return the size of content without margins */
 Size Checkbox::content_size()
 {
-	return m_checkbox_size;
+	Size result = m_checkbox_size;
+
+	if(m_text_modified || m_font_modified)
+	{
+		Area area;
+		select_font();
+		if (m_font.get())
+		{
+			m_text_box.parse(area, *m_font, m_text, UINT32_MAX, UINT32_MAX, UINT32_MAX, (Align)m_text_align);
+		}
+		m_text_modified = m_font_modified = 0;
+		m_text_size = m_text_box.content_size();
+	}
+	
+	// Add text height in the icon content size
+	if (m_text.size() > 0)
+	{
+		result.increase_(padding().left_() + m_text_size.width_() + padding().right_(), 0);
+		if (m_text_size.height_() > m_checkbox_size.height_())
+		{
+			result.height_(m_text_size.height_());
+		}
+	}
+	return result;
 }
 
-
+/** Place all widget in area */
 void Checkbox::place(const Area & area, bool in_layout)
 {
 	if (m_size.is_width_undefined() && m_size.is_height_undefined() && m_extend != Extend::EXTEND_NONE && 
@@ -49,15 +74,28 @@ void Checkbox::place(const Area & area, bool in_layout)
 	{
 		in_layout = true;
 	}
+
+	// Place background rectangle
 	place_in_area(area, in_layout);
 
-	// If absolute place
-	if (in_layout == false)
+	// Place the check box
+	m_check_foreclip = m_foreclip;
+
+	// If text not empty
+	if (m_text.size() > 0)
 	{
-		Area backclip = m_foreclip;
 		Margin marg;
-		Size size(content_size());
-		place_in_layout(backclip, size, marg, EXTEND_NONE, m_foreclip, (Align)m_align);
+
+		// Place switch text
+		m_text_backclip = m_foreclip;
+		marg.left_(m_checkbox_size.width_() + padding().left_());
+		place_in_layout(m_text_backclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, (Align)(m_text_align | ALIGN_BOTTOM));
+	
+		m_check_foreclip = m_text_foreclip;
+		m_check_foreclip.size(m_checkbox_size);
+		Coord move_y = (m_checkbox_size.height_() > m_text_size.height_() ? 0-((m_checkbox_size.height_() - m_text_size.height_())>>1) : ((m_text_size.height_()-m_checkbox_size.height_())>>1));
+		m_check_foreclip.position().move_(0-(m_checkbox_size.width_() + padding().left_()), move_y);
+		m_check_foreclip.position().nearest_pixel();
 	}
 }
 
@@ -73,10 +111,12 @@ void Checkbox::paint(const Region & parent_region)
 
 		UIManager::renderer()->region(region);
 
-		Area area_box(m_foreclip);
+		// Create an area for just the checkbox (not including text)
+		Area area_box(m_check_foreclip);
+		area_box.size().set_(m_checkbox_size.width_(), m_checkbox_size.height_());
 
 		// Draw checkbox box
-		Rect::build_focused_polygon(m_foreclip, 
+		Rect::build_focused_polygon(area_box, 
 			*(CommonStyle*)this,
 			*(BorderStyle*)this,
 			stated_color(m_color),
@@ -88,7 +128,7 @@ void Checkbox::paint(const Region & parent_region)
 		// Draw check mark if checked
 		if (m_checked)
 		{
-			Area area_check(m_foreclip);
+			Area area_check(area_box);
 			area_check.size().decrease_(m_check_padding << 1, m_check_padding << 1);
 			area_check.position().move_(m_check_padding, m_check_padding);
 
@@ -117,6 +157,16 @@ void Checkbox::paint(const Region & parent_region)
 				Rect::build_polygon(area_check, m_radius, 0, 0, ALL_BORDERS, stated_color(m_check_color), 0);
 			}
 		}
+		
+		// Paint text to the right
+		if(m_text.size() > 0)
+		{
+			region.intersect(m_text_backclip);
+			select_font();
+			UIManager::renderer()->region(region);
+			Point shift;
+			m_text_box.paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_backclip, stated_color(m_text_color), 0, 0, true);
+		}
 	}
 }
 
@@ -140,7 +190,9 @@ void Checkbox::serialize(JsonIterator & it)
 	it["type"] = m_classname;
 	CommonStyle::serialize(it);
 	WidgetStyle::serialize(it);
+	TextStyle::serialize(it);
 	BorderStyle::serialize(it);
+	CheckboxStyle::serialize(it);
 }
 
 /** Unserialize the content of widget from json */
@@ -148,7 +200,9 @@ void Checkbox::unserialize(JsonIterator & it)
 {
 	CommonStyle::unserialize(it);
 	WidgetStyle::unserialize(it);
+	TextStyle::unserialize(it);
 	BorderStyle::unserialize(it);
+	CheckboxStyle::unserialize(it);
 }
 
 
@@ -159,10 +213,22 @@ void Checkbox::on_key(Widget * widget, const KeyEvent & evt)
 	{
 		if (evt.state() == KeyEvent::KEY_DOWN)
 		{
-			if (evt.key() == (wchar_t)ReservedKey::KEY_BACKSPACE || evt.key() == (wchar_t)ReservedKey::KEY_DELETE)
+			if (evt.key() == (wchar_t)ReservedKey::KEY_BACKSPACE || evt.key() == (wchar_t)ReservedKey::KEY_DELETE || evt.key() == (wchar_t)ReservedKey::KEY_SPACE)
 			{
 				UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 				m_checked = (m_checked == 0 ? 1 : 0);
+				UIManager::notifier()->check(m_checked, this);
+			}
+			else if (evt.key() == (wchar_t)ReservedKey::KEY_RIGHT)
+			{
+				UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+				m_checked = 1;
+				UIManager::notifier()->check(m_checked, this);
+			}
+			else if (evt.key() == (wchar_t)ReservedKey::KEY_LEFT)
+			{
+				UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+				m_checked = 0;
 				UIManager::notifier()->check(m_checked, this);
 			}
 			else if (evt.key() == (wchar_t)ReservedKey::KEY_SPACE)
@@ -430,10 +496,100 @@ void Checkbox::test2()
 
 void Checkbox::test3()
 {
+	Window window;
+	Column * column = new Column(&window);
+	Checkbox * checkbox;
+		checkbox = new Checkbox(column);
+		checkbox->text("Checkbox");
+		checkbox->font_size(5);
+
+		checkbox = new Checkbox(column);
+		checkbox->text("Checkbox");
+		checkbox->font_size(25);
+
+		checkbox = new Checkbox(column);
+		checkbox->text("Checkbox");
+		checkbox->font_size(55);
+
+		checkbox = new Checkbox(column);
+		checkbox->text("Checkbox");
+		checkbox->font_size(255);
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/checkbox3.svg");
 }
 
 void Checkbox::test4()
 {
+	Window window;
+		window.position(0,0);
+		window.size(400,150);
+		window.color(Color::WHITE);
+
+	Column * col = new Column(&window);
+	
+		// Checkbox without text
+		Checkbox * checkbox1 = new Checkbox(col);
+			checkbox1->text("");
+			checkbox1->margin(10);
+		
+		// Checkbox with text
+		Checkbox * checkbox2 = new Checkbox(col);
+			checkbox2->text("Accept terms and conditions");
+			checkbox2->margin(10);
+		
+		// Checkbox with text and custom styling
+		Checkbox * checkbox3 = new Checkbox(col);
+			checkbox3->text("Subscribe to newsletter");
+			checkbox3->text_color(Color::RED);
+			checkbox3->font_size(18);
+			checkbox3->margin(10);
+	
+	UIManager::desktop()->dispatch("$(ui.tests)/out/checkbox4.svg");
+}
+
+void Checkbox::test5()
+{
+	// Test absolute positioning with text
+	Window window;
+		window.color(Color::WHITE);
+
+	Pane * pane = new Pane(&window);
+		pane->size(350,50);
+		pane->position(100,50);
+		pane->color(Color::LIGHT_GRAY);
+
+	// Checkbox with absolute position and text
+	Checkbox * checkbox1 = new Checkbox(&window);
+		checkbox1->position(100, 50);
+		checkbox1->size(350, 50);
+		checkbox1->text("Absolute position with text");
+		checkbox1->text_color(Color::BLUE);
+		checkbox1->font_size(16);
+		checkbox1->color(Color::LIGHT_BLUE);
+		checkbox1->border_color(Color::BLUE);
+		checkbox1->thickness(2);
+
+	// Checkbox with absolute position without text
+	Checkbox * checkbox2 = new Checkbox(&window);
+		checkbox2->position(20, 80);
+		checkbox2->text("");
+		checkbox2->color(Color::LIGHT_GREEN);
+		checkbox2->border_color(Color::GREEN);
+		checkbox2->thickness(2);
+
+	// Checkbox with absolute position and different text
+	Checkbox * checkbox3 = new Checkbox(&window);
+		checkbox3->position(20, 130);
+		checkbox3->size(350, 50);
+		checkbox3->text("Another absolute checkbox");
+		checkbox3->text_color(Color::RED);
+		checkbox3->font_size(14);
+		checkbox3->color(Color::LIGHT_RED);
+		checkbox3->border_color(Color::RED);
+		checkbox3->thickness(2);
+
+	//while(1) UIManager::desktop()->dispatch();
+	UIManager::desktop()->dispatch("$(ui.tests)/out/checkbox5.svg");
 }
 
 void Checkbox::test()
@@ -442,6 +598,7 @@ void Checkbox::test()
 	if (done == false)
 	{
 		done = true;
+		test5();
 		test4();
 		test3();
 		test2();

@@ -2,7 +2,7 @@
 #include "pybind/event_system.hpp"
 
 void bind_checkbox(pybind11::module_& m) {
-    pybind11::class_<berialdraw::Checkbox, berialdraw::Widget, berialdraw::BorderStyle, berialdraw::CheckboxStyle>(m, "Checkbox")
+    pybind11::class_<berialdraw::Checkbox, berialdraw::Widget, berialdraw::TextStyle, berialdraw::BorderStyle, berialdraw::CheckboxStyle>(m, "Checkbox")
         .def(pybind11::init<berialdraw::Widget*>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>())
         
         // Event system integration

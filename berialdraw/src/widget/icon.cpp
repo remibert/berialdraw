@@ -46,49 +46,39 @@ Dim Icon::compute_zoom(Dim value, Dim zoom)
 /** Return the icon size */
 Size Icon::icon_size()
 {
-	Size result;
-	result.set_(compute_zoom(m_sketch->resolution().width_(), zoom_()), compute_zoom(m_sketch->resolution().height_(), zoom_()));
-	result.height_(result.height_() + icon_padding().bottom_() + icon_padding().top_());
-	result.width_ (result.width_()  + icon_padding().left_()   + icon_padding().right_());
+	if (m_icon_modified)
+	{
+		m_sketch->filename(m_filename);
+		m_icon_modified = false;
+		m_sketch->zoom_(m_zoom);
+		if (m_sketch->load())
+		{
+			m_icon_size.set_(compute_zoom(m_sketch->resolution().width_(), zoom_()), compute_zoom(m_sketch->resolution().height_(), zoom_()));
+			m_icon_size.height_(m_icon_size.height_() + icon_padding().bottom_() + icon_padding().top_());
+			m_icon_size.width_ (m_icon_size.width_()  + icon_padding().left_()   + icon_padding().right_());
 
-	// Compute the children with marged size
-	Size children_size = Widget::children_size();
-	if (children_size.width_() > result.width_())
-	{
-		result.width_(children_size.width_());
+			// Compute the children with marged size
+			Size children_size = Widget::children_size();
+			if (children_size.width_() > m_icon_size.width_())
+			{
+				m_icon_size.width_(children_size.width_());
+			}
+			if (children_size.height_() > m_icon_size.height_())
+			{
+				m_icon_size.height_(children_size.height_());
+			}
+		}
+		else
+		{
+			m_icon_size.set(0,0);
+		}
 	}
-	if (children_size.height_() > result.height_())
-	{
-		result.height_(children_size.height_());
-	}
-	return result;
+	return m_icon_size;
 }
 
 /** Return the size of content without marges */
 Size Icon::content_size()
 {
-	if (m_icon_modified)
-	{
-		m_sketch->filename(m_filename);
-	}
-	if (m_sketch->load())
-	{
-		if (m_size.is_height_undefined())
-		{
-			m_size.height_(m_size.height_());
-		}
-		if (m_size.is_width_undefined())
-		{
-			m_size.width_(m_size.width_());
-		}
-	}
-
-	if (m_icon_modified)
-	{
-		m_icon_modified = false;
-		m_sketch->zoom_(m_zoom);
-	}
-
 	Size result = icon_size();
 
 	if(m_text_modified || m_font_modified)
@@ -106,32 +96,42 @@ Size Icon::content_size()
 	// Add text height in the icon content size
 	if (m_text_size.width_() > 0 && m_text_size.height_() > 0)
 	{
-		result.height_(result.height_()+ padding().top_() + m_text_size.height_() + padding().bottom_());
+		//result.height_(result.height_()+ padding().top_() + m_text_size.height_() + padding().bottom_());
+		result.increase_(0, padding().top_() + m_text_size.height_() + padding().bottom_());
 	}
 	return result;
 }
 
 void Icon::place(const Area & area, bool in_layout)
 {
+	Margin marg;
+
 	if (m_size.is_width_undefined() && m_size.is_height_undefined() && m_extend != Extend::EXTEND_NONE && 
 		m_position.is_x_undefined() && m_position.is_y_undefined())
 	{
 		in_layout = true;
 	}
+
+	// Place background rectangle
 	place_in_area(area, in_layout);
 
-	Size ico_size = icon_size();
-		m_icon_foreclip = m_foreclip;
-		m_icon_foreclip.height_(ico_size.height_());
-		m_icon_foreclip.width_(ico_size.width_());
+	// Place button text
+	m_text_backclip = m_foreclip;
+	marg.bottom_(padding().bottom_());
+	place_in_layout(m_text_backclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, (Align)(m_text_align | ALIGN_BOTTOM));
+	
+	// Place the icon
+	m_icon_foreclip = m_foreclip;
 
-	m_text_backclip.position().set_(m_foreclip.x_(), m_foreclip.y_()+ico_size.height_());
-	m_text_backclip.size().set_(m_foreclip.width_(), m_foreclip.height_() - ico_size.height_());
-	m_text_foreclip = m_text_backclip;
+	// Add text height in the icon content size
+	if (m_text_size.width_() > 0 && m_text_size.height_() > 0)
+	{
+		m_icon_foreclip.size().decrease_(0,padding().top_() + m_text_size.height_() + padding().bottom_());
+	}
 
+	// Place all children
 	Area backclip(m_backclip);
-	Margin marg;
-	place_in_layout(m_text_backclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, (Align)m_text_align);
+	Widget::place(m_foreclip,in_layout);
 
 	// Restore backclip
 	m_backclip = backclip;
@@ -140,23 +140,27 @@ void Icon::place(const Area & area, bool in_layout)
 void Icon::paint(const Region & parent_region)
 {
 	Region region(parent_region);
+
+	// Draw rectangle
 	region.intersect(m_backclip);
 
-	// If widget visible
+	// If button visible
 	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
 	{
 		UIManager::renderer()->region(region);
 		Point shift;
 
-		// Paint background rectangle
 		Rect::build_focused_polygon(m_icon_foreclip, 
 			*(CommonStyle*)this,
 			*(BorderStyle*)this,
-			stated_color(m_color),
+			stated_color(m_color), 
 			stated_color(m_border_color),
 			Color::TRANSPARENT, 
 			stated_color(m_focus_color),
 			m_focused);
+
+		// Paint children
+		Widget::paint(region);
 
 		// Paint icon
 		m_sketch->size(m_icon_foreclip.size());
@@ -167,8 +171,6 @@ void Icon::paint(const Region & parent_region)
 		select_font();
 		UIManager::renderer()->region(region);
 		m_text_box.paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_backclip, stated_color(m_text_color), 0, 0, true);
-
-		Widget::paint(region);
 	}
 }
 
@@ -377,12 +379,66 @@ void Icon::test4()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/icon4_2.svg");
 }
 
+void Icon::test5()
+{
+	Window window;
+		window.color(Color::WHITE);
+
+	Icon * icon1 = new Icon(&window);
+		icon1->position(100, 20);
+		icon1->size(100, 50);
+		icon1->text("Absolute position with text");
+		icon1->text_color(Color::RED);
+		icon1->font_size(16);
+		icon1->color(Color::LIGHT_BLUE);
+		icon1->border_color(Color::BLUE);
+		icon1->thickness(4);
+		icon1->filename("$(ui.icons)/maison.icn");
+
+	Icon * icon2 = new Icon(&window);
+		icon2->color(Color::LIGHT_GREEN);
+		icon2->border_color(Color::GREEN);
+		icon2->thickness(2);
+		icon2->filename("$(ui.icons)/maison.icn");
+
+	Icon * icon3 = new Icon(&window);
+		icon3->position(20, 130);
+		icon3->size(350, 50);
+		icon3->text("Another absolute icon");
+		icon3->text_color(Color::GREEN);
+		icon3->font_size(14);
+		icon3->color(Color::LIGHT_RED);
+		icon3->border_color(Color::RED);
+		icon3->thickness(3);
+		icon3->filename("$(ui.icons)/maison.icn");
+
+	Icon * icon4 = new Icon(&window);
+		icon4->position(200, 190);
+		icon4->zoom(4);
+		icon4->color(Color::LIGHT_ORANGE);
+		icon4->border_color(Color::ORANGE);
+		icon4->thickness(0);
+		icon4->filename("$(ui.icons)/maison.icn");
+
+	Icon * icon5 = new Icon(&window);
+		icon5->position(20, 190);
+		icon5->min_size(100,100);
+		icon5->color(Color::LIGHT_BROWN);
+		icon5->border_color(Color::BROWN);
+		icon5->thickness(0);
+		icon5->filename("$(ui.icons)/maison.icn");
+
+	//UIManager::desktop()->mainloop();
+	UIManager::desktop()->dispatch("$(ui.tests)/out/icon5.svg");
+}
+
 void Icon::test()
 {
 	static bool done = false;
 	if (done == false)
 	{
 		done = true;
+		test5();
 		test4();
 		test3();
 		test2();
