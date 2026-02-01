@@ -34,14 +34,48 @@ public:
 			switch_->off_track_color(Color::LIGHT_GRAY);           // Change the track color when the switch is not checked
 			switch_->focusable(false);                             // Remove the focus border
 
-		m_label = new Label(main_layout);                          // Creates a label for displaying the switch value
+		label = new Label(main_layout);                            // Creates a label in the main layout
+			label->text("Radio buttons (group 1)");                // Sets the label text
+
+		Radio * radio;                                             // Pointer for radio creation
+
+		radio = new Radio(main_layout);                            // Creates a radio button
+			radio->bind(this, &SampleSwitch::on_radio_event);      // Binds the radio to an event handler
+			radio->text("Option 1");                               // Sets the radio text
+			radio->group("group1");                                // Assigns to group 1
+			radio->margin(10);                                     // Adds margin around the radio
+			radio->focusable(false);                               // Remove the focus border
+
+		radio = new Radio(main_layout);                            // Creates a radio button
+			radio->bind(this, &SampleSwitch::on_radio_event);      // Binds the radio to an event handler
+			radio->text("Option 2");                               // Sets the radio text
+			radio->group("group1");                                // Assigns to group 1
+			radio->margin(10);                                     // Adds margin around the radio
+			radio->focusable(false);                               // Remove the focus border
+
+		label = new Label(main_layout);                            // Creates a label in the main layout
+			label->text("Checkbox");                               // Sets the label text
+
+		Checkbox * checkbox = new Checkbox(main_layout);           // Creates a checkbox
+			checkbox->bind(this, &SampleSwitch::on_check_event);   // Binds the checkbox to an event handler
+			checkbox->text("Accept terms");                        // Sets the checkbox text
+			checkbox->margin(10);                                  // Adds margin around the checkbox
+			checkbox->focusable(false);                            // Remove the focus border
+
+		m_label = new Label(main_layout);                          // Creates a label for displaying the widget value
 			m_label->text("");                                     // Sets the initial label text to empty string
 	}
 
-	// Event handler for switch
+	// Event handler for radio buttons
+	void on_radio_event(Widget * widget, const ClickEvent& click_event)
+	{
+		m_label->text("Radio selected in group 1");
+	}
+
+	// Event handler for switch and checkbox
 	void on_check_event(Widget * widget, const CheckEvent& check_event)
 	{
-		m_label->text("%s",check_event.checked() ? "Checked" : "Unchecked");
+		m_label->text("%s", check_event.checked() ? "Checked" : "Unchecked");
 	}
 
 protected:

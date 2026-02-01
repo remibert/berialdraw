@@ -31,4 +31,13 @@ void bind_radio_style(py::module& m) {
             self.radio_sketch(berialdraw::String(value.c_str())); 
         }, 
         "Radio indicator sketch (VectorScript)");
+    
+    cls.def_property("group",
+        [](berialdraw::RadioStyle& self) -> std::string { 
+            return self.group().c_str(); 
+        },
+        [](berialdraw::RadioStyle& self, const std::string& value) { 
+            self.group(berialdraw::String(value.c_str())); 
+        }, 
+        "Radio group name for mutually exclusive selection");
 }

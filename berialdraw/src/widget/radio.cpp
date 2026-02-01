@@ -2,75 +2,6 @@
 
 using namespace berialdraw;
 
-// ===== RadioGroup Implementation =====
-
-RadioGroup::RadioGroup()
-{
-}
-
-RadioGroup::~RadioGroup()
-{
-}
-
-/** Add a radio button to the group */
-void RadioGroup::add_radio(Radio * radio)
-{
-	if (radio)
-	{
-		// Check if already in group
-		for (auto r : m_radios)
-		{
-			if (r == radio)
-				return;
-		}
-		m_radios.push_back(radio);
-		radio->set_group(this);
-	}
-}
-
-/** Remove a radio button from the group */
-void RadioGroup::remove_radio(Radio * radio)
-{
-	if (radio)
-	{
-		auto it = std::find(m_radios.begin(), m_radios.end(), radio);
-		if (it != m_radios.end())
-		{
-			m_radios.erase(it);
-			if (m_selected == radio)
-				m_selected = nullptr;
-		}
-	}
-}
-
-/** Select a specific radio button in the group, deselecting others */
-void RadioGroup::select(Radio * radio)
-{
-	if (radio)
-	{
-		// Deselect previously selected radio
-		if (m_selected && m_selected != radio)
-		{
-			m_selected->m_selected = false;
-			UIManager::invalidator()->dirty(m_selected, Invalidator::REDRAW);
-		}
-
-		// Select new radio
-		m_selected = radio;
-		radio->m_selected = true;
-		UIManager::invalidator()->dirty(radio, Invalidator::REDRAW);
-	}
-}
-
-/** Get the currently selected radio button */
-Radio * RadioGroup::selected() const
-{
-	return m_selected;
-}
-
-
-// ===== Radio Implementation =====
-
 Radio::Radio(Widget * parent):
 	Widget("radio", parent, sizeof(Radio))
 {
@@ -85,28 +16,6 @@ Radio::Radio(Widget * parent):
 
 Radio::~Radio()
 {
-	if (m_group)
-	{
-		m_group->remove_radio(this);
-	}
-}
-
-/** Set the radio group for this button */
-void Radio::set_group(RadioGroup * group)
-{
-	m_group = group;
-}
-
-/** Get the radio group for this button */
-RadioGroup * Radio::get_group() const
-{
-	return m_group;
-}
-
-/** Check if radio button is selected */
-bool Radio::is_selected() const
-{
-	return m_selected;
 }
 
 /** Copy all styles of the radio button */
@@ -216,7 +125,7 @@ void Radio::paint(const Region & parent_region)
 			m_focused);
 
 		// Draw radio indicator if selected
-		if (m_selected)
+		if (m_checked)
 		{
 			Area area_radio(area_box);
 			area_radio.size().decrease_(m_radio_padding << 1, m_radio_padding << 1);
@@ -295,6 +204,57 @@ void Radio::unserialize(JsonIterator & it)
 	RadioStyle::unserialize(it);
 }
 
+/** Helper to deselect radios in the same group recursively */
+void Radio::deselect_radio(Widget * widget, const String & my_group)
+{
+	if (!widget)
+		return;
+
+	// Check if this is a Radio widget
+	Radio * radio = dynamic_cast<Radio*>(widget);
+	if (radio && radio != this)
+	{
+		// Check if this radio is in the same group
+		const String & other_group = radio->group();
+		
+		// If both groups are empty, they belong to the same (default) group
+		// If this radio has a group, only deselect if other radio has the same group
+		if ((my_group.size() == 0 && other_group.size() == 0) ||
+		    (my_group.size() > 0 && other_group == my_group))
+		{
+			if (radio->m_checked)
+			{
+				radio->m_checked = false;
+				UIManager::invalidator()->dirty(radio, Invalidator::REDRAW);
+			}
+		}
+	}
+	
+	// Recursively deselect in children
+	Widget * child = widget->children();
+	while (child)
+	{
+		deselect_radio(child, my_group);
+		child = child->next();
+	}
+}
+
+/** Deselect all radio siblings with the same group in the window */
+void Radio::deselect_all()
+{
+	// Get the root widget (window)
+	Widget * window = root();
+	
+	if (!window)
+		return;
+	
+	// Get the group name of this radio
+	const String & my_group = group();
+	
+	// Recursively deselect all radios in the same group
+	deselect_radio(window, my_group);
+}
+
 
 /** Call back on key */
 void Radio::on_key(Widget * widget, const KeyEvent & evt)
@@ -305,15 +265,12 @@ void Radio::on_key(Widget * widget, const KeyEvent & evt)
 		{
 			if (evt.key() == (wchar_t)ReservedKey::KEY_SPACE)
 			{
-				if (m_group)
-				{
-					m_group->select(this);
-				}
-				else
-				{
-					m_selected = true;
-					UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
-				}
+				// Select this radio
+				m_checked = true;
+				UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+				
+				// Deselect all radios in the same group in the window
+				deselect_all();
 			}
 		}
 	}
@@ -322,15 +279,12 @@ void Radio::on_key(Widget * widget, const KeyEvent & evt)
 /** Call back on click */
 void Radio::on_click(Widget * widget, const ClickEvent & evt)
 {
-	if (m_group)
-	{
-		m_group->select(this);
-	}
-	else
-	{
-		m_selected = true;
-	}
+	// Select this radio
+	m_checked = true;
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	
+	// Deselect all radios in the same group in the window
+	deselect_all();
 }
 
 
@@ -343,55 +297,53 @@ void Radio::test1()
 		window.color(Color::WHITE);
 
 	Column * grid = new Column(&window);
-	RadioGroup group;
 	
 	int row = 0;
 	Radio * radio;
 
 	// Group 1: Basic radios
 	radio = new Radio(grid);
-		group.add_radio(radio);
-		group.select(radio);
+		radio->group("group1");
+		radio->checked(true);
 
 	radio = new Radio(grid);
-		group.add_radio(radio);
+		radio->group("group1");
 
 	radio = new Radio(grid);
+		radio->group("group1");
 		radio->radio_size(24, 24);
-		group.add_radio(radio);
 
 	radio = new Radio(grid);
+		radio->group("group1");
 		radio->radio_size(32, 32);
-		group.add_radio(radio);
 
 	radio = new Radio(grid);
+		radio->group("group1");
 		radio->color(Color::BLUE);
 		radio->extend(Extend::EXTEND_WIDTH);
 		radio->size_policy(SizePolicy::SHRINK_HEIGHT);
-		group.add_radio(radio);
 
 	radio = new Radio(grid);
+		radio->group("group1");
 		radio->extend(Extend::EXTEND_WIDTH);
 		radio->size_policy(SizePolicy::SHRINK_HEIGHT);
 		radio->radio_size(16, 16);
-		group.add_radio(radio);
 
 	radio = new Radio(grid);
+		radio->group("group1");
 		radio->radio_size(24, 24);
 		radio->extend(Extend::EXTEND_WIDTH);
 		radio->size_policy(SizePolicy::SHRINK_HEIGHT);
-		group.add_radio(radio);
 
 	radio = new Radio(grid);
+		radio->group("group1");
 		radio->radio_size(32, 32);
 		radio->thickness(2);
 		radio->extend(Extend::EXTEND_WIDTH);
 		radio->size_policy(SizePolicy::SHRINK_HEIGHT);
-		group.add_radio(radio);
 
 	Label * label = new Label(grid);
 		label->text(" ");
-		label->cell(row++, 0);
 
 	//while(1) UIManager::desktop()->dispatch();
 	UIManager::desktop()->dispatch("$(ui.tests)/out/radio1.svg");
@@ -407,20 +359,18 @@ void Radio::test2()
 
 	Column * col = new Column(&window);
 	
-	RadioGroup group;
-	
 		// Radio without text
 		Radio * radio1 = new Radio(col);
 			radio1->text("");
 			radio1->margin(10);
-			group.add_radio(radio1);
-			group.select(radio1);
+			radio1->group("group2");
+			radio1->checked(true);
 		
 		// Radio with text
 		Radio * radio2 = new Radio(col);
 			radio2->text("Option 1");
 			radio2->margin(10);
-			group.add_radio(radio2);
+			radio2->group("group2");
 		
 		// Radio with text and custom styling
 		Radio * radio3 = new Radio(col);
@@ -428,7 +378,7 @@ void Radio::test2()
 			radio3->text_color(Color::GREEN);
 			radio3->font_size(20);
 			radio3->margin(10);
-			group.add_radio(radio3);
+			radio3->group("group2");
 
 	//while(1) UIManager::desktop()->dispatch();	
 	UIManager::desktop()->dispatch("$(ui.tests)/out/radio2.svg");
@@ -438,8 +388,6 @@ void Radio::test3()
 {
 	// Test absolute positioning with text
 	Window window;
-
-	RadioGroup group;
 
 	Pane * pane = new Pane(&window);
 		pane->size(350,50);
@@ -456,8 +404,8 @@ void Radio::test3()
 		radio1->color(Color::LIGHT_BLUE);
 		radio1->border_color(Color::BLUE);
 		radio1->thickness(2);
-		group.add_radio(radio1);
-		group.select(radio1);
+		radio1->group("group3");
+		radio1->checked(true);
 
 	// Radio with absolute position without text
 	Radio * radio2 = new Radio(&window);
@@ -466,7 +414,7 @@ void Radio::test3()
 		radio2->color(Color::LIGHT_GREEN);
 		radio2->border_color(Color::GREEN);
 		radio2->thickness(2);
-		group.add_radio(radio2);
+		radio2->group("group3");
 
 	// Radio with absolute position and different text
 	Radio * radio3 = new Radio(&window);
@@ -478,7 +426,7 @@ void Radio::test3()
 		radio3->color(Color::LIGHT_RED);
 		radio3->border_color(Color::RED);
 		radio3->thickness(2);
-		group.add_radio(radio3);
+		radio3->group("group3");
 
 	//while(1) UIManager::desktop()->dispatch();	
 	UIManager::desktop()->dispatch("$(ui.tests)/out/radio3.svg");

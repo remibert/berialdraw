@@ -63,7 +63,6 @@ namespace berialdraw
 		Area m_check_foreclip;
 		TextBox m_text_box;
 		Size m_text_size;
-		RadioGroup * m_group = nullptr;
 		bool m_selected = false;
 /// @endcond
 	};

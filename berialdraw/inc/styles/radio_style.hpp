@@ -27,6 +27,12 @@ namespace berialdraw
 		/** Create new radio style */
 		static Style * create();
 
+		/** Get the radio group name */
+		const String & group() const;
+
+		/** Set the radio group name */
+		void group(const String & g);
+
 
 
 		// Radio box properties
@@ -68,6 +74,7 @@ namespace berialdraw
 /// @cond DOXYGEN_IGNORE
 		Size m_radio_size;	Dim m_radio_padding = 2<<6;		uint32_t m_radio_color = 0xFF000000;
 		String m_radio_sketch;
+		String m_group;
 /// @endcond
 	}; 
 }

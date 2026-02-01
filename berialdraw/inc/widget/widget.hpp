@@ -56,6 +56,12 @@ namespace berialdraw
 			return m_next;
 		}
 
+		/** Get the children widget */
+		inline Widget * children()
+		{
+			return m_children;
+		}
+
 		/** Search widget with this identifier */
 		Widget * search(uint16_t id);
 

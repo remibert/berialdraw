@@ -1,41 +1,10 @@
 #pragma once
 namespace berialdraw
 {
-	/** The RadioGroup class manages a group of radio buttons where only one can be selected at a time.
-	When a radio button in the group is selected, all others are automatically deselected. */
-	class RadioGroup
-	{
-	public:
-		/** Constructor */
-		RadioGroup();
-
-		/** Destructor */
-		~RadioGroup();
-
-		/** Add a radio button to the group */
-		void add_radio(class Radio * radio);
-
-		/** Remove a radio button from the group */
-		void remove_radio(class Radio * radio);
-
-		/** Select a specific radio button in the group, deselecting others */
-		void select(class Radio * radio);
-
-		/** Get the currently selected radio button */
-		class Radio * selected() const;
-
-	protected:
-/// @cond DOXYGEN_IGNORE
-		std::vector<class Radio *> m_radios;
-		class Radio * m_selected = nullptr;
-/// @endcond
-	};
-
 	/** The Radio class represents a selectable radio button control used for mutually exclusive selections.
-	Radio buttons are grouped together, and only one can be selected at a time within the same group. */
+	Radio buttons are grouped by the group property, and only one can be selected at a time within the same group. */
 	class Radio: public Widget, public TextStyle, public BorderStyle, public RadioStyle
 	{
-		friend class RadioGroup;
 	/** @image html sample_radio_1.svg "example" width=200px height=200px
 	@example sample_radio.cpp*/
 	public:
@@ -44,15 +13,6 @@ namespace berialdraw
 
 		/** Destroy widget */
 		virtual ~Radio();
-
-		/** Set the radio group for this button */
-		void set_group(RadioGroup * group);
-
-		/** Get the radio group for this button */
-		RadioGroup * get_group() const;
-
-		/** Check if radio button is selected */
-		bool is_selected() const;
 
 		/** Serialize the content of widget into json */
 		virtual void serialize(JsonIterator & it);
@@ -91,6 +51,12 @@ namespace berialdraw
 		/** Call back on click */
 		void on_click(Widget * widget, const ClickEvent & evt);
 
+		/** Deselect all radio siblings with the same group in the window */
+		void deselect_all();
+
+		/** Helper to deselect radios in the same group recursively */
+		void deselect_radio(Widget * widget, const String & my_group);
+
 		/** Paint on screen memory the content of this widget */
 		virtual void paint(const Region & parent_region);
 
@@ -102,8 +68,6 @@ namespace berialdraw
 		Area m_radio_foreclip;
 		TextBox m_text_box;
 		Size m_text_size;
-		RadioGroup * m_group = nullptr;
-		bool m_selected = false;
 /// @endcond
 	};
 }

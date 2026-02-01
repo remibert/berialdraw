@@ -14,6 +14,7 @@ void RadioStyle::serialize(JsonIterator & it)
 	it["radio-padding"]         = m_radio_padding >> 6;
 	it["radio-color"]           = m_radio_color;
 	it["radio-sketch"]          = m_radio_sketch.c_str();
+	it["group"]                 = m_group.c_str();
 }
 
 /** Unserialize the content of widget from json */
@@ -23,6 +24,7 @@ void RadioStyle::unserialize(JsonIterator & it)
 	m_radio_padding = (int)(it["radio-padding"] | (int)(m_radio_padding >> 6)) << 6;
 	m_radio_color = (int)(it["radio-color"] | (int)m_radio_color);
 	m_radio_sketch = it["radio-sketch"] | m_radio_sketch.c_str();
+	m_group = it["group"] | m_group.c_str();
 }
 
 /** Copy operator */
@@ -42,6 +44,7 @@ void RadioStyle::set(const RadioStyle & other)
 		m_radio_padding         = other.m_radio_padding;
 		m_radio_color           = other.m_radio_color;
 		m_radio_sketch          = other.m_radio_sketch;
+		m_group				= other.m_group;
 	}
 }
 
@@ -116,3 +119,16 @@ void RadioStyle::radio_sketch(const String & sketch)
 {
 	m_radio_sketch = sketch;
 }
+
+/** Get the radio group name */
+const String & RadioStyle::group() const
+{
+	return m_group;
+}
+
+/** Set the radio group name */
+void RadioStyle::group(const String & g)
+{
+	m_group = g;
+}
+
