@@ -6,8 +6,6 @@ Widget::Widget(const char * classname, Widget * parent, size_t size_of_widget):
 	m_classname(classname),
 	m_parent(parent)
 {
-	UIManager::invalidator()->add(this, size_of_widget);
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 	m_pressed   = 0;
 	m_focused   = 0;
 	m_focusable = 0;
@@ -18,6 +16,10 @@ Widget::Widget(const char * classname, Widget * parent, size_t size_of_widget):
 	// If parent exists
 	if(parent)
 	{
+		// Check if parent is a TableView and reparent to its internal grid
+		parent = find_parent_grid_if_table_view(parent);
+		m_parent = parent;
+
 		// If parent has not yet a children
 		if(parent->m_children == 0)
 		{
@@ -42,6 +44,49 @@ Widget::Widget(const char * classname, Widget * parent, size_t size_of_widget):
 			}
 		}
 	}
+	UIManager::invalidator()->add(this, size_of_widget);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
+
+/** Find and reparent to grid if parent is a TableView */
+Widget * Widget::find_parent_grid_if_table_view(Widget * parent)
+{
+	Widget * result = parent;
+
+	// Check if parent is a TableView
+	TableView* table_view = dynamic_cast<TableView*>(parent);
+	if(table_view)
+	{
+		// Look for the grid in the TableView's children
+		// The structure is: TableView -> ScrollView -> Grid
+		Widget* scroll_view = parent->m_children;
+		while(scroll_view)
+		{
+			ScrollView* sv = dynamic_cast<ScrollView*>(scroll_view);
+			if(sv)
+			{
+				// Found the scroll view, now look for the grid
+				Widget* grid = scroll_view->m_children;
+				while(grid)
+				{
+					Grid* g = dynamic_cast<Grid*>(grid);
+					if(g)
+					{
+						// Found the grid, set result and exit loops
+						result = grid;
+						grid = nullptr;  // Exit inner loop
+						scroll_view = nullptr;  // Exit outer loop
+						break;
+					}
+					grid = grid->m_next;
+				}
+				break;
+			}
+			scroll_view = scroll_view->m_next;
+		}
+	}
+
+	return result;
 }
 
 /* Clears all children from the widget */
@@ -183,9 +228,9 @@ ScrollView * Widget::scroll_view()
 
 	while(current)
 	{
-		if (strcmp(current->classname(),"scroll_view") == 0)
+		result = dynamic_cast<ScrollView*>(current);
+		if(result)
 		{
-			result = dynamic_cast<ScrollView*>(current);
 			break;
 		}
 		current = current->m_parent;
@@ -193,18 +238,10 @@ ScrollView * Widget::scroll_view()
 	return result;
 }
 
-
-
 /** Clean all dirty flag in all */
 void Widget::clean_all()
 {
-	Widget * child = m_children;
-	UIManager::invalidator()->clear(this);
-	while(child)
-	{
-		child->clean_all();
-		child = child->m_next;
-	}
+	UIManager::invalidator()->window_clean_all(root());
 }
 
 Area Widget::area()

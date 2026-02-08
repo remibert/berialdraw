@@ -710,6 +710,9 @@
     <ClCompile Include="..\..\src\styles\radio_style.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\widget\table_view.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\berialdraw_imp.hpp">
@@ -1485,6 +1488,9 @@
     </ClInclude>
     <ClInclude Include="..\..\inc\styles\radio_style.hpp">
       <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\table_view.hpp">
+      <Filter>berialdraw\widget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -50,6 +50,18 @@ namespace berialdraw
 		/** Recalculates the boundaries based on content */
 		void rebound(Widget * widget);
 
+		/** Get the number of rows */
+		Dim row_count() const;
+
+		/** Get the number of columns */
+		Dim column_count() const;
+
+#ifdef _DEBUG
+		static void test();
+		static void test1();
+		static void test2();
+#endif
+
 	protected:
 /// @cond DOXYGEN_IGNORE
 		Dim reduce_mini(Cell * cells, Dim count, Dim missing, Dim available);

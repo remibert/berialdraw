@@ -8,7 +8,7 @@ def cleanup_on_exit():
 
 atexit.register(cleanup_on_exit)
 
-sys.path.insert(0, r"Z:\tmp\pyberialdraw\x64\Release")
+sys.path.insert(0, r"Z:\tmp\pyberialdraw\x64\Debug")
 from pyberialdraw import *
 
 device = DeviceScreen("Sample python")

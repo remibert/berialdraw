@@ -150,6 +150,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "widget/slider.hpp"
 #include "widget/progress_bar.hpp"
 #include "widget/icon.hpp"
+#include "widget/table_view.hpp"
 
 #if defined(WIN32)
 	#define Polygon Polygon_

@@ -20,6 +20,12 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		virtual void unserialize(JsonIterator & it);
 
+		/** Get the number of rows */
+		Dim row_count() const;
+
+		/** Get the number of columns */
+		Dim column_count() const;
+
 #ifdef _DEBUG
 		static void test();
 		static void test1();

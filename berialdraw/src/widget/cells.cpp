@@ -676,4 +676,12 @@ void Cells::rebound(Widget * widget)
 	}
 }
 
+Dim Cells::row_count() const
+{
+	return m_rows_count;
+}
 
+Dim Cells::column_count() const
+{
+	return m_columns_count;
+}

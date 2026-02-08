@@ -50,15 +50,18 @@ Size Button::content_size()
 	result.height_(result.height_()+ padding().bottom_() + padding().top_());
 	result.width_(result.width_()  + padding().left_() + padding().right_());
 
-	// Compute the children with marged size
-	Size children_size = Widget::children_size();
-	if (children_size.width_() > result.width_())
+	if (m_children)
 	{
-		result.width_(children_size.width_());
-	}
-	if (children_size.height_() > result.height_())
-	{
-		result.height_(children_size.height_());
+		// Compute the children with marged size
+		Size children_size = Widget::children_size();
+		if (children_size.width_() > result.width_())
+		{
+			result.width_(children_size.width_());
+		}
+		if (children_size.height_() > result.height_())
+		{
+			result.height_(children_size.height_());
+		}
 	}
 	return result;
 }

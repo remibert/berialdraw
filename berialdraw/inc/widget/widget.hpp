@@ -111,6 +111,9 @@ namespace berialdraw
 		/** Remove operator = */
 		Widget& operator=(const Widget& other) = delete;
 
+		/** Find and reparent to grid if parent is a TableView */
+		Widget * find_parent_grid_if_table_view(Widget * parent);
+
 		/** Add dirty on the widget and all of its children */
 		void dirty_children(enum Invalidator::Status status);
 

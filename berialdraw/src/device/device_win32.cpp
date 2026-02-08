@@ -2,6 +2,7 @@
 #include "device/device_win32.hpp"
 #include "device/clipboard_win32.hpp"
 #include "shellscalingapi.h"
+#include <windowsx.h>
 
 #ifndef GWL_USERDATA
 	#define GWL_USERDATA -21
@@ -424,7 +425,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM w_param, LPARAM 
 
 		case WM_MOUSEMOVE:
 			{
-				Point position(LOWORD(l_param), HIWORD(l_param));
+				Point position((Coord)GET_X_LPARAM(l_param), (Coord)GET_Y_LPARAM(l_param));
 				position.adapt_scale();
 				UIManager::notifier()->push_event(new TouchEvent(position, TouchEvent::TOUCH_MOVE));
 				if (mouse_down)
@@ -442,10 +443,11 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM w_param, LPARAM 
 		case WM_LBUTTONDOWN:
 		case WM_RBUTTONDOWN:
 			{
-				Point position(LOWORD(l_param), HIWORD(l_param));
+				Point position(GET_X_LPARAM(l_param), GET_Y_LPARAM(l_param));
 				position.adapt_scale();
 				UIManager::notifier()->push_event(new TouchEvent(position, TouchEvent::TOUCH_DOWN));
 				mouse_down = true;
+
 				// Capture mouse movements outside the window
 				SetCapture(hwnd);
 			}
@@ -454,10 +456,11 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM w_param, LPARAM 
 		case WM_LBUTTONUP:
 		case WM_RBUTTONUP:
 			{
-				Point position(LOWORD(l_param), HIWORD(l_param));
+				Point position(GET_X_LPARAM(l_param), GET_Y_LPARAM(l_param));
 				position.adapt_scale();
 				UIManager::notifier()->push_event(new TouchEvent(position, TouchEvent::TOUCH_UP));
 				mouse_down = false;
+
 				// Release mouse capture
 				ReleaseCapture();
 			}

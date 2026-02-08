@@ -45,6 +45,9 @@ namespace berialdraw
 		/** Clear all dirties object */
 		void clear(void * object);
 
+		/** Clear all dirties object for a specific window */
+		void window_clean_all(void * window);
+
 		/** Add Shape in the list */
 		void add(Widget * widget, Shape * shape, size_t size);
 
@@ -76,11 +79,16 @@ namespace berialdraw
 		{
 			unsigned int status:4;
 			unsigned int window:1;
+			unsigned int window_id:16;
 			uint16_t size;
 			Widget * widget;
 			Shape  * shape;
 		};
 		Vector<struct InvalidatorItem> m_widgets;
+		
+		/** Cache for search optimization */
+		void * m_last_search_object;
+		int32_t m_last_search_index;
 /// @endcond
 	};
 }

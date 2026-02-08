@@ -623,3 +623,13 @@ void Grid::test()
 	}
 }
 #endif
+
+Dim Grid::row_count() const
+{
+	return m_cells.row_count();
+}
+
+Dim Grid::column_count() const
+{
+	return m_cells.column_count();
+}

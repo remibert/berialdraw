@@ -57,15 +57,18 @@ Size Icon::icon_size()
 			m_icon_size.height_(m_icon_size.height_() + icon_padding().bottom_() + icon_padding().top_());
 			m_icon_size.width_ (m_icon_size.width_()  + icon_padding().left_()   + icon_padding().right_());
 
-			// Compute the children with marged size
-			Size children_size = Widget::children_size();
-			if (children_size.width_() > m_icon_size.width_())
+			if (m_children)
 			{
-				m_icon_size.width_(children_size.width_());
-			}
-			if (children_size.height_() > m_icon_size.height_())
-			{
-				m_icon_size.height_(children_size.height_());
+				// Compute the children with marged size
+				Size children_size = Widget::children_size();
+				if (children_size.width_() > m_icon_size.width_())
+				{
+					m_icon_size.width_(children_size.width_());
+				}
+				if (children_size.height_() > m_icon_size.height_())
+				{
+					m_icon_size.height_(children_size.height_());
+				}
 			}
 		}
 		else

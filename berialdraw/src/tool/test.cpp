@@ -10,10 +10,7 @@ namespace berialdraw
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
 
-		Switch::test();
-		Radio::test();
-		Checkbox::test();
-		Icon::test();
+//		TableView::test();
 
 		// Widgets
 		Icon::test();

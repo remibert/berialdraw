@@ -2,8 +2,30 @@
 
 using namespace berialdraw;
 
+#define PRIME1 63689
+#define PRIME2 378551
+
+/** Generate hash code from a pointer value
+@param ptr pointer value
+@return hash code */
+static inline uint16_t pointer_hash(const void * ptr)
+{
+	uint16_t hash = PRIME1;
+	uint8_t * data = (uint8_t*)&ptr;
+	size_t len = sizeof(ptr);
+	
+	for (size_t i = 0; i < len; i++)
+	{
+		hash = hash * PRIME2 + data[i];
+	}
+	
+	return hash;
+}
+
 /** Constructor */
 Invalidator::Invalidator()
+	: m_last_search_object(0)
+	, m_last_search_index(-1)
 {
 }
 
@@ -50,21 +72,35 @@ int32_t Invalidator::search(void * object)
 	int32_t result = -1;
 	if (object)
 	{
+		// Check cache: if same object, return immediately
+		if (object == m_last_search_object && m_last_search_index >= 0)
+		{
+			return m_last_search_index;
+		}
+		
 		bool found = false;
 		Widget * widget_with_shape = 0;
-		for (uint32_t i = 0; i < m_widgets.size(); i++)
+		uint32_t search_size = m_widgets.size();
+		
+		// Start from last position for better locality
+		uint32_t start_pos = (m_last_search_index >= 0) ? (uint32_t)m_last_search_index : 0;
+		
+		// Search from last position to end
+		for (uint32_t i = start_pos; i < search_size; i++)
 		{
 			struct InvalidatorItem item = m_widgets[i];
-			if ( (char*)object >= (char*)item.widget               && 
+			if ( (char*)object >= (char*)item.widget && 
 				((char*)object <= (char*)item.widget + item.size))
 			{
 				result = i;
-				break;
+				m_last_search_object = object;
+				m_last_search_index = result;
+				return result;
 			}
 
 			if (item.shape)
 			{
-				if ( (char*)object >= (char*)item.shape               && 
+				if ( (char*)object >= (char*)item.shape && 
 					((char*)object <= (char*)item.shape + item.size))
 				{
 					widget_with_shape = m_widgets[i].widget;
@@ -72,16 +108,46 @@ int32_t Invalidator::search(void * object)
 				}
 			}
 		}
+		
+		// If not found after last position, search from beginning
+		if (result == -1 && start_pos > 0)
+		{
+			for (uint32_t i = 0; i < start_pos; i++)
+			{
+				struct InvalidatorItem item = m_widgets[i];
+				if ( (char*)object >= (char*)item.widget && 
+					((char*)object <= (char*)item.widget + item.size))
+				{
+					result = i;
+					m_last_search_object = object;
+					m_last_search_index = result;
+					return result;
+				}
+
+				if (item.shape)
+				{
+					if ( (char*)object >= (char*)item.shape && 
+						((char*)object <= (char*)item.shape + item.size))
+					{
+						widget_with_shape = m_widgets[i].widget;
+						break;
+					}
+				}
+			}
+		}
+		
 		if (widget_with_shape)
 		{
-			for (uint32_t i = 0; i < m_widgets.size(); i++)
+			for (uint32_t i = 0; i < search_size; i++)
 			{
 				if (m_widgets[i].shape == 0)
 				{
 					if (m_widgets[i].widget == widget_with_shape)
 					{
 						result = i;
-						break;
+						m_last_search_object = object;
+						m_last_search_index = result;
+						return result;
 					}
 				}
 			}
@@ -89,7 +155,6 @@ int32_t Invalidator::search(void * object)
 	}
 	return result;
 }
-
 
 /** Remove dirty object */
 void Invalidator::undirty(void * object, enum Status status)
@@ -162,10 +227,25 @@ void Invalidator::clear(void * object)
 		{
 			struct InvalidatorItem item = m_widgets[i];
 			if ((char*)item.widget >= (char*)object && 
-				((char*)item.widget + item.size) <= ((char*)object + size))
+				((char*)item.widget + item.size) <= ((char*)object + item.size))
 			{
 				m_widgets[i].status = NOTHING;
+				break;
 			}
+		}
+	}
+}
+
+/** Clear all dirties object for a specific window */
+void Invalidator::window_clean_all(void * window)
+{
+	uint16_t window_id = pointer_hash(window);
+	uint32_t size = m_widgets.size();
+	for (uint32_t i = 0; i < size; i++)
+	{
+		if (m_widgets[i].window_id == window_id)
+		{
+			m_widgets[i].status = NOTHING;
 		}
 	}
 }
@@ -208,9 +288,10 @@ void Invalidator::add(Widget * widget, size_t size)
 	if (widget && size)
 	{
 		struct InvalidatorItem item;
-
-		if (widget->parent() == 0)
+		Widget * window = widget->root();
+		if (window == widget)
 		{
+			window = widget;
 			item.window = 1;
 		}
 		else
@@ -220,6 +301,7 @@ void Invalidator::add(Widget * widget, size_t size)
 		item.widget = widget;
 		item.shape = 0;
 		item.size = (uint16_t)size;
+		item.window_id = pointer_hash(window);
 		item.status = Invalidator::ALL;
 		m_widgets.push_back(item);
 	}
@@ -263,6 +345,8 @@ void Invalidator::remove(Widget * widget)
 	if (widget == 0)
 	{
 		m_widgets.clear();
+		m_last_search_object = 0;
+		m_last_search_index = -1;
 	}
 	else
 	{
@@ -272,6 +356,8 @@ void Invalidator::remove(Widget * widget)
 			if (m_widgets[i].widget == widget && m_widgets[i].shape == 0)
 			{
 				m_widgets.remove(i);
+				m_last_search_object = 0;
+				m_last_search_index = -1;
 				break;
 			}
 		}

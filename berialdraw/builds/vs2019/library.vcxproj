@@ -823,6 +823,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\..\src\widget\table_view.cpp" />
     <ClCompile Include="..\..\src\widget\uimanager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -1210,6 +1211,7 @@
     <ClInclude Include="..\..\inc\widget\switch.hpp" />
     <ClInclude Include="..\..\inc\widget\checkbox.hpp" />
     <ClInclude Include="..\..\inc\widget\radio.hpp" />
+    <ClInclude Include="..\..\inc\widget\table_view.hpp" />
     <ClInclude Include="..\..\inc\widget\uimanager.hpp" />
     <ClInclude Include="..\..\inc\widget\widget.hpp" />
     <ClInclude Include="..\..\inc\widget\window.hpp" />
