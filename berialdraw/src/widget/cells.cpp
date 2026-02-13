@@ -130,123 +130,124 @@ Size Cells::calc_sizes(Widget * widget)
 		Dim row, column;
 		Widget * current;
 
-		for (row = 0; row < m_rows_count; row ++)
+		// Iterate through all widgets directly (single traversal)
+		current = widget->m_children;
+		while(current)
 		{
-			for (column = 0; column < m_columns_count; column++)
+			row = current->row();
+			column = current->column();
+
+			// Only process if widget is in a valid cell
+			if (row < m_rows_count && column < m_columns_count)
 			{
-				current = first(widget, row, column);
+				min_size = current->min_size();
+				max_size = current->max_size();
 
-				while(current)
+				if (current->size_policy() != SizePolicy::NORMAL_SIZE)
 				{
-					min_size = current->min_size();
-					max_size = current->max_size();
-
-					if (current->size_policy() != SizePolicy::NORMAL_SIZE)
+					if (m_widths [column].m_size_policy == SizePolicy::NORMAL_SIZE)
 					{
-						if (m_widths [column].m_size_policy == SizePolicy::NORMAL_SIZE)
+						switch(current->size_policy())
 						{
-							switch(current->size_policy())
-							{
-							case SizePolicy::ENLARGE_WIDTH :
-							case SizePolicy::ENLARGE_ALL   :
-								m_widths [column].m_size_policy = SizePolicy::ENLARGE_ALL;
-								break;
-							case SizePolicy::SHRINK_WIDTH  :
-							case SizePolicy::SHRINK_ALL    :
-								m_widths [column].m_size_policy = SizePolicy::SHRINK_ALL;
-								break;
-							default:
-								break;
-							}
-						}
-						if (m_heights [row].m_size_policy == SizePolicy::NORMAL_SIZE)
-						{
-							switch(current->size_policy())
-							{
-							case SizePolicy::ENLARGE_HEIGHT:
-							case SizePolicy::ENLARGE_ALL   :
-								m_heights [row].m_size_policy = SizePolicy::ENLARGE_ALL;
-								break;
-							case SizePolicy::SHRINK_HEIGHT :
-							case SizePolicy::SHRINK_ALL    :
-								m_heights [row].m_size_policy = SizePolicy::SHRINK_ALL;
-								break;
-							default:
-								break;
-							}
+						case SizePolicy::ENLARGE_WIDTH :
+						case SizePolicy::ENLARGE_ALL   :
+							m_widths [column].m_size_policy = SizePolicy::ENLARGE_ALL;
+							break;
+						case SizePolicy::SHRINK_WIDTH  :
+						case SizePolicy::SHRINK_ALL    :
+							m_widths [column].m_size_policy = SizePolicy::SHRINK_ALL;
+							break;
+						default:
+							break;
 						}
 					}
+					if (m_heights [row].m_size_policy == SizePolicy::NORMAL_SIZE)
+					{
+						switch(current->size_policy())
+						{
+						case SizePolicy::ENLARGE_HEIGHT:
+						case SizePolicy::ENLARGE_ALL   :
+							m_heights [row].m_size_policy = SizePolicy::ENLARGE_ALL;
+							break;
+						case SizePolicy::SHRINK_HEIGHT :
+						case SizePolicy::SHRINK_ALL    :
+							m_heights [row].m_size_policy = SizePolicy::SHRINK_ALL;
+							break;
+						default:
+							break;
+						}
+					}
+				}
 
-					// If the min size is greater than the max size
-					if(min_size.width_() > max_size.width_())
-					{
-						max_size.width_(min_size.width_());
-					}
-					if(min_size.height_() > max_size.height_())
-					{
-						max_size.height_(min_size.height_());
-					}
-		
-					marged_size = current->marged_size();
+				// If the min size is greater than the max size
+				if(min_size.width_() > max_size.width_())
+				{
+					max_size.width_(min_size.width_());
+				}
+				if(min_size.height_() > max_size.height_())
+				{
+					max_size.height_(min_size.height_());
+				}
+	
+				marged_size = current->marged_size();
 
-					// If the mininal size is smaller than content size, set to the content size
-					if (min_size.width_() < marged_size.width_())
-					{
-						min_size.width_(marged_size.width_());
-					}
-					if (min_size.height_() < marged_size.height_())
-					{
-						min_size.height_(marged_size.height_());
-					}
+				// If the mininal size is smaller than content size, set to the content size
+				if (min_size.width_() < marged_size.width_())
+				{
+					min_size.width_(marged_size.width_());
+				}
+				if (min_size.height_() < marged_size.height_())
+				{
+					min_size.height_(marged_size.height_());
+				}
 
-					// If the maximal size is smaller than content size, set to the content size
-					if (max_size.width_() < marged_size.width_())
-					{
-						max_size.width_(marged_size.width_());
-					}
-					if (max_size.height_() < marged_size.height_())
-					{
-						max_size.height_(marged_size.height_());
-					}
+				// If the maximal size is smaller than content size, set to the content size
+				if (max_size.width_() < marged_size.width_())
+				{
+					max_size.width_(marged_size.width_());
+				}
+				if (max_size.height_() < marged_size.height_())
+				{
+					max_size.height_(marged_size.height_());
+				}
 
-					// Keep the maximal of content width
-					if(marged_size.width_() > m_widths[column].m_marged)
-					{
-						m_widths[column].m_marged = marged_size.width_();
-					}
+				// Keep the maximal of content width
+				if(marged_size.width_() > m_widths[column].m_marged)
+				{
+					m_widths[column].m_marged = marged_size.width_();
+				}
 
-					// Keep the maximal of content height
-					if (marged_size.height_() > m_heights[row].m_marged)
-					{
-						m_heights[row].m_marged = marged_size.height_();
-					}
+				// Keep the maximal of content height
+				if (marged_size.height_() > m_heights[row].m_marged)
+				{
+					m_heights[row].m_marged = marged_size.height_();
+				}
 
-					// Keep the maximal of minimal width
-					if (min_size.width_() > m_widths[column].m_mini)
-					{
-						m_widths [column].m_mini = min_size.width_();
-					}
+				// Keep the maximal of minimal width
+				if (min_size.width_() > m_widths[column].m_mini)
+				{
+					m_widths [column].m_mini = min_size.width_();
+				}
 
-					// Keep the maximal of minimal height
-					if (min_size.height_() > m_heights[row].m_mini)
-					{
-						m_heights[row].m_mini = min_size.height_();
-					}
+				// Keep the maximal of minimal height
+				if (min_size.height_() > m_heights[row].m_mini)
+				{
+					m_heights[row].m_mini = min_size.height_();
+				}
 
-					// Keep the minimal of maximal width
-					if (max_size.width_() < m_widths[column].m_maxi)
-					{
-						m_widths [column].m_maxi = max_size.width_();
-					}
+				// Keep the minimal of maximal width
+				if (max_size.width_() < m_widths[column].m_maxi)
+				{
+					m_widths [column].m_maxi = max_size.width_();
+				}
 
-					// Keep the minimal of maximal height
-					if (max_size.height_() < m_heights[row].m_maxi)
-					{
-						m_heights[row].m_maxi = max_size.height_();
-					}
-					current = next(current, row, column);
+				// Keep the minimal of maximal height
+				if (max_size.height_() < m_heights[row].m_maxi)
+				{
+					m_heights[row].m_maxi = max_size.height_();
 				}
 			}
+			current = current->m_next;
 		}
 
 		// Compute all row sizes
@@ -619,24 +620,48 @@ void Cells::place(Widget *widget, const Area & area)
 		calc_sizes(widget);
 		resize(area);
 
-		cell.y_(area.y_());
-		for (row = 0; row < m_rows_count; row ++)
+		// Precompute row positions
+		Dim* row_positions = new Dim[m_rows_count];
+		Dim y_pos = area.y_();
+		for (Dim i = 0; i < m_rows_count; i++)
 		{
-			cell.x_(area.x_());
-			for (column = 0; column < m_columns_count; column++)
-			{
-				Widget *current = first(widget, row, column);
-				cell.height_(m_heights[row].m_placed & 0xFFFFFFFC0);
-				cell.width_(m_widths[column].m_placed & 0xFFFFFFFC0);
-				while(current)
-				{
-					current->place(cell, true);
-					current = next(current, row, column);
-				}
-				cell.x_((cell.x_() + m_widths[column].m_placed) & 0xFFFFFFFC0);
-			}
-			cell.y_((cell.y_() + m_heights[row].m_placed) & 0xFFFFFFFC0);
+			row_positions[i] = y_pos;
+			y_pos += (m_heights[i].m_placed & 0xFFFFFFFC0);
 		}
+
+		// Precompute column positions and widths
+		Dim* col_positions = new Dim[m_columns_count];
+		Dim* col_widths = new Dim[m_columns_count];
+		Dim x_pos = area.x_();
+		for (Dim i = 0; i < m_columns_count; i++)
+		{
+			col_positions[i] = x_pos;
+			col_widths[i] = m_widths[i].m_placed & 0xFFFFFFFC0;
+			x_pos += col_widths[i];
+		}
+
+		// Iterate through all widgets directly (single traversal)
+		Widget * current = widget->m_children;
+		while(current)
+		{
+			row = current->row();
+			column = current->column();
+
+			// Only place if widget is in a valid cell
+			if (row < m_rows_count && column < m_columns_count)
+			{
+				cell.x_(col_positions[column]);
+				cell.y_(row_positions[row]);
+				cell.width_(col_widths[column]);
+				cell.height_(m_heights[row].m_placed & 0xFFFFFFFC0);
+				current->place(cell, true);
+			}
+			current = current->m_next;
+		}
+
+		delete[] row_positions;
+		delete[] col_positions;
+		delete[] col_widths;
 	}
 }
 

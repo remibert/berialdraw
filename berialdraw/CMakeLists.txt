@@ -76,6 +76,7 @@ set(SRCS_LIB
 	src/widget/progress_bar.cpp
 	src/widget/icon.cpp
 	src/widget/uimanager.cpp
+	src/widget/table_view.cpp
 
 	src/styles/invalidator.cpp
 	src/styles/border_style.cpp
