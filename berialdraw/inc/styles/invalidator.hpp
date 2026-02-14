@@ -21,9 +21,6 @@ namespace berialdraw
 		/** Constructor */
 		Invalidator();
 
-		/** Destructor */
-		~Invalidator();
-
 		/** Add dirty object */
 		void dirty(Widget * object, enum Status status);
 

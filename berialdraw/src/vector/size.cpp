@@ -44,10 +44,6 @@ Size::Size(const Size& p) :
 {
 }
 
-Size::~Size()
-{
-}
-
 /** Decrease size with width and height in pixels */
 void Size::decrease(const Margin & margin)
 {

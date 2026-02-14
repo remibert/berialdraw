@@ -7,11 +7,6 @@ Mapping::Mapping()
 {
 }
 
-/** Destructor */
-Mapping::~Mapping()
-{
-}
-
 /** Get id of mapping */
 const String & Mapping::name() const
 {

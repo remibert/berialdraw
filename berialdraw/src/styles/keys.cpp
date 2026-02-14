@@ -7,11 +7,6 @@ Key::Key()
 {
 }
 
-/** Destructor */
-Key::~Key()
-{
-}
-
 /** Gets the key value */
 wchar_t Key::key() const
 {

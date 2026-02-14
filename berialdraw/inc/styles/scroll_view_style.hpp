@@ -16,9 +16,7 @@ namespace berialdraw
 	public:
 		/** Constructor */
 		ScrollViewStyle();
-	
-		/** Destructor */
-		~ScrollViewStyle(){}
+
 
 		/** Serialize the content of widget into json */
 		void serialize(JsonIterator & it);

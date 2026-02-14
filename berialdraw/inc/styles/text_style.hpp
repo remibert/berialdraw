@@ -9,9 +9,6 @@ namespace berialdraw
 		/** Constructor */
 		TextStyle();
 
-		/** Destructor */
-		~TextStyle() {}
-
 		/** Serialize the content of widget into json */
 		void serialize(JsonIterator & it);
 

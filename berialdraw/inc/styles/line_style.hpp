@@ -7,9 +7,6 @@ namespace berialdraw
 	public:
 		/** Constructor */
 		LineStyle();
-	
-		/** Destructor */	
-		~LineStyle(){}
 
 		/** Serialize the content of widget into json */
 		void serialize(JsonIterator & it);

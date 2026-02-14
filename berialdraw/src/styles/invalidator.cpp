@@ -25,18 +25,13 @@ static inline uint16_t pointer_hash(const void * ptr)
 /** Helper: check if object is in range of item */
 static inline bool is_in_range(const void * object, const void * widget, uint16_t size)
 {
-	return (char*)object >= (char*)widget && ((char*)object <= (char*)widget + size);
+	return (char*)object >= (char*)widget && ((char*)object < (char*)widget + size);
 }
 
 /** Constructor */
 Invalidator::Invalidator()
 	: m_last_search_object(0)
 	, m_last_search_index(-1)
-{
-}
-
-/** Destructor */
-Invalidator::~Invalidator()
 {
 }
 
@@ -94,9 +89,15 @@ int32_t Invalidator::search(void * object)
 		for (uint32_t i = start_pos; i < search_size; i++)
 		{
 			struct InvalidatorItem item = m_widgets[i];
+
 			// Check if object is in widget range
 			if (is_in_range(object, item.widget, item.size))
 			{
+				if (object != m_widgets[i].widget)
+				{
+					is_in_range(object, item.widget, item.size);
+				}
+				
 				result = i;
 				m_last_search_object = object;
 				m_last_search_index = result;
@@ -346,9 +347,20 @@ void Invalidator::remove(Widget * widget)
 		{
 			if (m_widgets[i].widget == widget && m_widgets[i].shape == 0)
 			{
+				// Optimize cache invalidation: only reset if necessary
+				if (i < (uint32_t)m_last_search_index)
+				{
+					// Removed something before cache position - adjust index
+					m_last_search_index--;
+				}
+				else if (i == (uint32_t)m_last_search_index)
+				{
+					// Removed the cached widget - full reset
+					m_last_search_object = 0;
+					m_last_search_index = -1;
+				}
+
 				m_widgets.remove(i);
-				m_last_search_object = 0;
-				m_last_search_index = -1;
 				break;
 			}
 		}

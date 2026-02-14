@@ -21,7 +21,6 @@ TableView::TableView(Widget * parent):
 
 TableView::~TableView()
 {
-	// Children are automatically destroyed by parent widget
 }
 
 void TableView::set_widget(uint16_t row, uint16_t column, Widget* widget)

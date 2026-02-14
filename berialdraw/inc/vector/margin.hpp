@@ -21,9 +21,6 @@ namespace berialdraw
 		@param p Margin object to copy. */
 		Margin(const Margin& p);
 
-		/** Destructor. */
-		~Margin();
-
 		/** Equality operator.
 		@param other Margin object to compare.
 		@return True if margins are equal. */

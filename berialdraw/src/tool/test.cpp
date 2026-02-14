@@ -11,6 +11,7 @@ namespace berialdraw
 		UIManager::colors()->appearance("test_light");
 
 		//TableView::test();
+Window::test();
 
 		// Widgets
 		Icon::test();

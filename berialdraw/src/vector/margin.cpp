@@ -23,10 +23,6 @@ Margin::Margin(const Margin& p) : m_top(p.m_top), m_left(p.m_left),m_bottom(p.m_
 {
 }
 
-Margin::~Margin()
-{
-}
-
 void Margin::serialize(const char * name, JsonIterator & it) const
 {
 	it[name]["top_"]    = (int)(m_top);

@@ -8,9 +8,6 @@ namespace berialdraw
 	public:
 		/** Constructor */
 		SliderStyle();
-	
-		/** Destructor */	
-		~SliderStyle(){}
 
 		/** Serialize the content of widget into json */
 		void serialize(JsonIterator & it);

@@ -61,9 +61,6 @@ namespace berialdraw
 		/** Constructor */
 		Key();
 
-		/** Destructor */
-		~Key();
-
 		/** Serialize the content of widget into json */
 		void serialize(JsonIterator & it);
 

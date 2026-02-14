@@ -8,9 +8,6 @@ namespace berialdraw
 	public:
 		/** Constructor */
 		RadioStyle();
-	
-		/** Destructor */	
-		~RadioStyle(){}
 
 		/** Serialize the content of widget into json */
 		void serialize(JsonIterator & it);

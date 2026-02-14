@@ -9,9 +9,6 @@ namespace berialdraw
 	public:
 		/** Constructor */
 		CommonStyle();
-	
-		/** Destructor */	
-		~CommonStyle(){}
 
 		/** Copy operator */
 		CommonStyle& operator=(const CommonStyle& other);

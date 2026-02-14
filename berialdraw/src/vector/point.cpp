@@ -36,10 +36,6 @@ Point::Point(const Point& p) :
 {
 }
 
-Point::~Point()
-{
-}
-
 void Point::move(const Point & p)
 {
 	move(p.x(),p.y());

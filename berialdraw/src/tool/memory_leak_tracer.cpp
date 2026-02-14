@@ -10,6 +10,8 @@ namespace berialdraw
 		size_t size = 0;
 		size_t id = 0;
 		MemHeader * next = 0;
+		MemHeader * prev = 0;
+		uint64_t _padding = 0;  // Align to 16-byte boundary (48 bytes total) for ARM64 SIMD
 	};
 
 	size_t MemoryLeakTracer::m_size  = 0;
@@ -228,6 +230,7 @@ void * MemoryLeakTracer::alloc(std::size_t size)
 			header->size = size;
 			header->id   = 0;
 			header->next = 0;
+			header->prev = 0;
 			header->tag  = 0xCAFEFADE;
 
 			// If analysis started
@@ -240,7 +243,14 @@ void * MemoryLeakTracer::alloc(std::size_t size)
 					header->id   = ++MemoryLeakTracer::m_base_id;
 					header->size = size;
 					header->next = MemoryLeakTracer::m_allocated;
+					header->prev = 0;
 					header->tag  = 0xCAFEFADE;
+
+					// Update prev pointer of old root (doubly-linked list)
+					if (MemoryLeakTracer::m_allocated)
+					{
+						MemoryLeakTracer::m_allocated->prev = header;
+					}
 
 					// Increase counters
 					MemoryLeakTracer::m_count ++;
@@ -305,34 +315,26 @@ void MemoryLeakTracer::unalloc(void* ptr) noexcept
 				MemoryLeakTracer::m_count --;
 				MemoryLeakTracer::m_size -= header->size;
 
-				// If root allocated setted
-				if(MemoryLeakTracer::m_allocated)
+				// Remove from doubly-linked list in O(1) time
+				if (MemoryLeakTracer::m_allocated == header)
 				{
-					// If the current block is the root
-					if (MemoryLeakTracer::m_allocated == header)
+					// Removing head node
+					MemoryLeakTracer::m_allocated = header->next;
+					if (MemoryLeakTracer::m_allocated)
 					{
-						// Change the root with next block
-						MemoryLeakTracer::m_allocated = MemoryLeakTracer::m_allocated->next;
+						MemoryLeakTracer::m_allocated->prev = 0;
 					}
-					else
+				}
+				else
+				{
+					// Removing non-head node using prev pointer
+					if (header->prev)
 					{
-						// Corrected list traversal logic
-						MemHeader * current = MemoryLeakTracer::m_allocated;
-				
-						// Search the block in list by iterating through the chain
-						while (current && current->next)
-						{
-							// If the next block is the one we're looking for
-							if (current->next == header)
-							{
-								// Remove it from the list
-								current->next = header->next;
-								break;
-							}
-
-							// Move to next block
-							current = current->next;
-						}
+						header->prev->next = header->next;
+					}
+					if (header->next)
+					{
+						header->next->prev = header->prev;
 					}
 				}
 			}

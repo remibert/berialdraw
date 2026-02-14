@@ -21,9 +21,6 @@ namespace berialdraw
 		/** Create a copy of a size */
 		Size(const Size& p);
 
-		/** Destroy size */
-		~Size();
-
 		/** Check if the size is equal */
 		inline bool operator==(const Size& other) const
 		{

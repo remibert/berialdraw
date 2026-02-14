@@ -7,10 +7,6 @@ namespace berialdraw
 	public:
 		/** Constructor */
 		RoundStyle();
-	
-		/** Destructor */	
-		~RoundStyle(){}
-
 
 		/** Serialize the content of widget into json */
 		void serialize(JsonIterator & it);

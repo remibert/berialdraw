@@ -8,9 +8,6 @@ namespace berialdraw
 		/** Constructor */
 		Mapping();
 
-		/** Destructor */
-		~Mapping();
-
 		/** Get mapping name */
 		const String & name() const;
 

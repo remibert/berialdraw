@@ -22,9 +22,6 @@ namespace berialdraw
 		@param s Size to initialize the point. */
 		Point(const Size& s);
 
-		/** Destructor. */
-		~Point();
-
 		/** Equality operator.
 		@param other Point to compare with.
 		@return True if points are equal, false otherwise. */
