@@ -23,99 +23,175 @@ namespace berialdraw
 
 		/** Destructor. */
 		~Margin();
-    
+
 		/** Equality operator.
 		@param other Margin object to compare.
 		@return True if margins are equal. */
-		bool operator==(const Margin& other) const;
+		bool operator==(const Margin& other) const
+		{
+			return m_top == other.m_top && m_left == other.m_left && m_bottom == other.m_bottom && m_right == other.m_right;
+		}
 
 		/** Inequality operator.
 		@param other Margin object to compare.
 		@return True if margins are not equal. */
-		bool operator!=(const Margin& other) const;
+		bool operator!=(const Margin& other) const
+		{
+			return m_top != other.m_top || m_left != other.m_left || m_bottom != other.m_bottom || m_right != other.m_right;
+		}
 
 		/** Assignment operator.
 		@param other Margin object to assign from.
 		@return Reference to this object. */
-		Margin& operator=(const Margin& other);
-    
+		inline Margin& operator=(const Margin& other)
+		{
+			if (this != &other)
+			{
+				m_top = other.m_top;
+				m_left = other.m_left;
+				m_bottom = other.m_bottom;
+				m_right = other.m_right;
+			}
+			return *this;
+		}
+
 		/** Set margin values.
 		@param top Top margin.
 		@param left Left margin.
 		@param bottom Bottom margin.
 		@param right Right margin. */
-		void set(Dim top, Dim left, Dim bottom, Dim right);
+		inline void set(Dim top, Dim left, Dim bottom, Dim right)
+		{
+			this->top(top);
+			this->left(left);
+			this->bottom(bottom);
+			this->right(right);
+		}
 
 		/** Set top margin.
 		@param t Top margin. */
-		void top(Dim t);
+		inline void top(Dim t)
+		{
+			m_top = t << 6;
+		}
 
 		/** Set left margin.
 		@param l Left margin. */
-		void left(Dim l);
+		inline void left(Dim l)
+		{
+			m_left = l << 6;
+		}
 
 		/** Set bottom margin.
 		@param b Bottom margin. */
-		void bottom(Dim b);
+		inline void bottom(Dim b)
+		{
+			m_bottom = b << 6;
+		}
 
 		/** Set right margin.
 		@param r Right margin */
-		void right(Dim r);
+		inline void right(Dim r)
+		{
+			m_right = r << 6;
+		}
 
 		/** Get top margin.
 		@return Top margin. */
-		Dim top() const;
+		inline Dim top() const
+		{
+			return m_top >> 6;
+		}
 
 		/** Get left margin.
 		@return Left margin. */
-		Dim left() const;
+		inline Dim left() const
+		{
+			return m_left >> 6;
+		}
 
 		/** Get bottom margin.
 		@return Bottom margin. */
-		Dim bottom() const;
+		inline Dim bottom() const
+		{
+			return m_bottom >> 6;
+		}
 
 		/** Get right margin.
 		@return Right margin. */
-		Dim right() const;
+		inline Dim right() const
+		{
+			return m_right >> 6;
+		}
 
 		/** Set margin values with a precision of 64th of a pixel 
 		@param top Top margin.
 		@param left Left margin.
 		@param bottom Bottom margin.
 		@param right Right margin. */
-		void set_(Dim top, Dim left, Dim bottom, Dim right);
+		inline void set_(Dim top, Dim left, Dim bottom, Dim right)
+		{
+			top_(top);
+			left_(left);
+			bottom_(bottom);
+			right_(right);
+		}
 
 		/** Set top margin with a precision of 64th of a pixel 
 		@param t Top margin. */
-		void top_(Dim t);
+		inline void top_(Dim t)
+		{
+			m_top = t;
+		}
 
 		/** Set left margin with a precision of 64th of a pixel 
 		@param l Left margin. */
-		void left_(Dim l);
+		inline void left_(Dim l)
+		{
+			m_left = l;
+		}
 
 		/** Set bottom margin with a precision of 64th of a pixel 
 		@param b Bottom margin. */
-		void bottom_(Dim b);
+		inline void bottom_(Dim b)
+		{
+			m_bottom = b;
+		}
 
 		/** Set right margin with a precision of 64th of a pixel 
 		@param r Right margin. */
-		void right_(Dim r);
+		inline void right_(Dim r)
+		{
+			m_right = r;
+		}
 
 		/** Get top margin with a precision of 64th of a pixel 
 		@return Top margin. */
-		Dim top_() const;
+		inline Dim top_() const
+		{
+			return m_top;
+		}
 
 		/** Get left margin with a precision of 64th of a pixel 
 		@return Left margin. */
-		Dim left_() const;
+		inline Dim left_() const
+		{
+			return m_left;
+		}
 
 		/** Get bottom margin with a precision of 64th of a pixel 
 		@return Bottom margin.*/
-		Dim bottom_() const;
+		inline Dim bottom_() const
+		{
+			return m_bottom;
+		}
 
 		/** Get right margin with a precision of 64th of a pixel 
 		@return Right margin. */
-		Dim right_() const;
+		inline Dim right_() const
+		{
+			return m_right;
+		}
 
 		/** Serialize the margin to JSON.
 		@param name Name of the JSON field.

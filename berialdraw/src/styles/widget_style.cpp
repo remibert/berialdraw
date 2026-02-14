@@ -93,18 +93,6 @@ Style * WidgetStyle::create()
 	return new WidgetStyle;
 }
 
-/** Get the row in the grid */
-uint16_t WidgetStyle::row() const
-{
-	return m_row;
-}
-
-/** Get the column in the grid */
-uint16_t WidgetStyle::column() const
-{
-	return m_column;
-}
-
 /** Set the row in the grid */
 void WidgetStyle::row(uint16_t r)
 {
@@ -127,23 +115,11 @@ void WidgetStyle::cell(uint16_t r, uint16_t c)
 	m_column = c;
 }
 
-/** Get the cell size policy */
-SizePolicy WidgetStyle::size_policy() const
-{
-	return (SizePolicy)m_size_policy;
-}
-
 /** Set the cell size policy */
 void WidgetStyle::size_policy(SizePolicy v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_size_policy = (SizePolicy)v;
-}
-
-/** Get the minsize */
-const Size & WidgetStyle::min_size() const
-{
-	return m_min_size;
 }
 
 /** Set the minsize */
@@ -165,12 +141,6 @@ void WidgetStyle::min_size_(Dim w, Dim h)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_min_size.set_(w,h);
-}
-
-/** Get the max size */
-const Size & WidgetStyle::max_size() const
-{
-	return m_max_size;
 }
 
 /** Set the max size */

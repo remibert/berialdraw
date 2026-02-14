@@ -40,105 +40,9 @@ Point::~Point()
 {
 }
 
-Point& Point::operator=(const Point& other)
-{
-	if (this != &other)
-	{
-		this->m_x = other.m_x;
-		this->m_y = other.m_y;
-		this->m_x_undefined = other.m_x_undefined;
-		this->m_y_undefined = other.m_y_undefined;
-	}
-	return *this;
-}
-
-void Point::set(Coord x_, Coord y_)
-{
-	x(x_);
-	y(y_);
-}
-
-void Point::set_(Coord x, Coord y)
-{
-	m_x_undefined = 0;
-	m_y_undefined = 0;
-	m_x = x;
-	m_y = y;
-}
-
-Coord Point::y() const
-{
-	return (m_y+32) >> 6;
-}
-
-Coord Point::x() const
-{
-	return (m_x+32) >> 6;
-}
-
-Coord Point::y_() const
-{
-	return m_y;
-}
-
-Coord Point::x_() const
-{
-	return m_x;
-}
-
-void Point::y(Coord y_)
-{
-	m_y_undefined = 0;
-	m_y = y_ << 6;
-}
-
-void Point::x(Coord x_)
-{
-	m_x_undefined = 0;
-	m_x = x_ << 6;
-}
-
-void Point::y_(Coord y)
-{
-	m_y_undefined = 0;
-	m_y = y;
-}
-
-void Point::x_(Coord x)
-{
-	m_x_undefined = 0;
-	m_x = x;
-}
-
 void Point::move(const Point & p)
 {
 	move(p.x(),p.y());
-}
-
-void Point::move(Coord x_,Coord y_)
-{
-	m_x_undefined = 0;
-	m_y_undefined = 0;
-	m_x += x_ << 6;
-	m_y += y_ << 6;
-}
-
-void Point::move_(Coord x_,Coord y_)
-{
-	m_x_undefined = 0;
-	m_y_undefined = 0;
-	m_x += x_;
-	m_y += y_;
-}
-
-bool Point::operator==(const Point& other)  const
-{
-	return m_x == other.m_x && m_y == other.m_y;
-}
-
-bool Point::operator!=(const Point& other)  const
-{
-	return m_x != other.m_x || m_y != other.m_y;
 }
 
 void Point::serialize(const char * name, JsonIterator & it) const
@@ -159,26 +63,6 @@ void Point::unserialize(const char * name, JsonIterator & it)
 	m_y = y;
 }
 
-/** Positions itself on the nearest pixel */
-void Point::nearest_pixel()
-{
-	m_x_undefined = 0;
-	m_y_undefined = 0;
-	m_x = ((m_x + 32) >> 6) << 6;
-	m_y = ((m_y + 32) >> 6) << 6;
-}
-
-/** Indicates if x is not defined */
-bool Point::is_x_undefined() const
-{
-	return m_x_undefined;
-}
-
-/** Indicates if y is not defined */
-bool Point::is_y_undefined() const
-{
-	return m_y_undefined;
-}
 
 /** Print content */
 void Point::print(const char * name) const

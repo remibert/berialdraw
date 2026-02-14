@@ -28,73 +28,136 @@ namespace berialdraw
 		/** Equality operator.
 		@param other Point to compare with.
 		@return True if points are equal, false otherwise. */
-		bool operator==(const Point& other) const;
+		inline bool operator==(const Point& other) const
+		{
+			return m_x == other.m_x && m_y == other.m_y;
+		}
 
 		/** Inequality operator.
 		@param other Point to compare with.
 		@return True if points are not equal, false otherwise. */
-		bool operator!=(const Point& other) const;
+		inline bool operator!=(const Point& other) const
+		{
+			return m_x != other.m_x || m_y != other.m_y;
+		}
 
 		/** Assignment operator.
 		@param other Point to assign from.
 		@return Reference to this point. */
-		Point& operator=(const Point& other);
+		inline Point& operator=(const Point& other)
+		{
+			if (this != &other)
+			{
+				this->m_x = other.m_x;
+				this->m_y = other.m_y;
+				this->m_x_undefined = other.m_x_undefined;
+				this->m_y_undefined = other.m_y_undefined;
+			}
+			return *this;
+		}
 
 		/** Move the point by another point.
 		@param p Point to move by. */
 		void move(const Point& p);
 
 		/** Set the coordinates.
-		@param x X coordinate.
-		@param y Y coordinate. */
-		void set(Coord x, Coord y);
+		@param x_ X coordinate.
+		@param y_ Y coordinate. */
+		inline void set(Coord x_, Coord y_)
+		{
+			x(x_);
+			y(y_);
+		}
 
 		/** Set the y coordinate.
 		@param y_ Y coordinate. */
-		void y(Coord y_);
+		inline void y(Coord y_)
+		{
+			m_y_undefined = 0;
+			m_y = y_ << 6;
+		}
 
 		/** Set the x coordinate.
 		@param x_ X coordinate. */
-		void x(Coord x_);
+		inline void x(Coord x_)
+		{
+			m_x_undefined = 0;
+			m_x = x_ << 6;
+		}
 
 		/** Move the point by specified coordinates.
 		@param x_ X coordinate to move by.
 		@param y_ Y coordinate to move by. */
-		void move(Coord x_, Coord y_);
-
-		/** Get the y coordinate.
-		@return Y coordinate. */
-		Coord y() const;
+		inline void move(Coord x_, Coord y_)
+		{
+			m_x_undefined = 0;
+			m_y_undefined = 0;
+			m_x += x_ << 6;
+			m_y += y_ << 6;
+		}
+		inline Coord y() const
+		{
+			return (m_y+32) >> 6;
+		}
 
 		/** Get the x coordinate.
 		@return X coordinate. */
-		Coord x() const;
+		inline Coord x() const
+		{
+			return (m_x+32) >> 6;
+		}
 
 		/** Set the coordinates with a precision of 64th of a pixel 
 		@param x X coordinate.
 		@param y Y coordinate. */
-		void set_(Coord x, Coord y);
+		inline void set_(Coord x, Coord y)
+		{
+			m_x_undefined = 0;
+			m_y_undefined = 0;
+			m_x = x;
+			m_y = y;
+		}
 
 		/** Move the point by specified coordinates with a precision of 64th of a pixel 
 		@param x_ X coordinate to move by.
 		@param y_ Y coordinate to move by. */
-		void move_(Coord x_, Coord y_);
+		inline void move_(Coord x_, Coord y_)
+		{
+			m_x_undefined = 0;
+			m_y_undefined = 0;
+			m_x += x_;
+			m_y += y_;
+		}
 
 		/** Get the y coordinate with a precision of 64th of a pixel 
 		@return Y coordinate. */
-		Coord y_() const;
+		inline Coord y_() const
+		{
+			return m_y;
+		}
 
 		/** Get the x coordinate with a precision of 64th of a pixel 
 		@return X coordinate. */
-		Coord x_() const;
+		inline Coord x_() const
+		{
+			return m_x;
+		}
 
 		/** Set the y coordinate with a precision of 64th of a pixel 
 		@param y Y coordinate. */
-		void y_(Coord y);
+		inline void y_(Coord y)
+		{
+			m_y_undefined = 0;
+			m_y = y;
+		}
 
 		/** Set the x coordinate with a precision of 64th of a pixel 
 		@param x X coordinate. */
-		void x_(Coord x);
+		inline void x_(Coord x)
+		{
+			m_x_undefined = 0;
+			m_x = x;
+		}
 
 		/** Serialize the point to JSON.
 		@param name Name of the JSON field.
@@ -107,13 +170,25 @@ namespace berialdraw
 		void unserialize(const char* name, JsonIterator& it);
 
 		/** Positions itself on the nearest pixel */
-		void nearest_pixel();
+		void nearest_pixel()
+		{
+			m_x_undefined = 0;
+			m_y_undefined = 0;
+			m_x = ((m_x + 32) >> 6) << 6;
+			m_y = ((m_y + 32) >> 6) << 6;
+		}
 
 		/** Indicates if x is not defined */
-		bool is_x_undefined() const;
+		bool is_x_undefined() const
+		{
+			return m_x_undefined;
+		}
 
 		/** Indicates if y is not defined */
-		bool is_y_undefined() const;
+		bool is_y_undefined() const
+		{
+			return m_y_undefined;
+		}
 
 		/** Print content */
 		void print(const char * name) const;

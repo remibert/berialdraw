@@ -160,25 +160,12 @@ Dim BorderStyle::focus_gap() const
 	return m_focus_gap >> 6;
 }
 
-///** Get the focus_gap with a precision of 64th of a pixel */
-//Dim BorderStyle::focus_gap_() const
-//{
-//	return m_focus_gap;
-//}
-
 /** Set the focus_gap in pixels */
 void BorderStyle::focus_gap(Dim v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_focus_gap = v << 6;
 }
-//
-///** Set the focus_gap with a precision of 64th of a pixel */
-//void BorderStyle::focus_gap_(Dim v)
-//{
-//	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
-//	m_focus_gap = v;
-//}
 
 /** Get the focus thickness (16 pixels max)*/
 Dim BorderStyle::focus_thickness() const

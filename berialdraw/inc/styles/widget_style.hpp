@@ -29,10 +29,16 @@ namespace berialdraw
 
 
 		/** Get the row in the grid */
-		uint16_t row() const;
+		inline uint16_t row() const
+		{
+			return m_row;
+		}
 
 		/** Get the column in the grid */
-		uint16_t column() const;
+		inline uint16_t column() const
+		{
+			return m_column;
+		}
 
 		/** Set the row in the grid */
 		void row(uint16_t r);
@@ -45,14 +51,20 @@ namespace berialdraw
 
 
 		/** Get the cell size policy */
-		SizePolicy size_policy() const;
+		inline SizePolicy size_policy() const
+		{
+			return (SizePolicy)m_size_policy;
+		}
 
 		/** Set the cell size policy */
 		void size_policy(SizePolicy v);
 
 
 		/** Get the minsize */
-		const Size & min_size() const;
+		inline const Size & min_size() const
+		{
+			return m_min_size;
+		}
 		
 		/** Set the minsize */
 		void min_size(const Size & s);
@@ -65,7 +77,10 @@ namespace berialdraw
 
 
 		/** Get the max size */
-		const Size & max_size() const;
+		inline const Size & max_size() const
+		{
+			return m_max_size;
+		}
 		
 		/** Set the max size */
 		void max_size(const Size & s);

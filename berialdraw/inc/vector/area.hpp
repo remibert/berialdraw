@@ -20,87 +20,152 @@ namespace berialdraw
 
 		/** Create a copy of area
 		@param other Other area to copy from */
-		Area(const Area& other);
+		inline Area(const Area& other)
+		{
+			m_size     = other.m_size;
+			m_position = other.m_position;
+		}
 
 		/** Set the content of area with other area
 		@param other Other area to copy from
 		@return Reference to this Area */
-		Area& operator=(const Area& other);
+		inline Area& operator=(const Area& other)
+		{
+			if (this != &other)
+			{
+				this->m_position = other.m_position;
+				this->m_size     = other.m_size;
+			}
+			return *this;
+		}
 
 		/** Move the point by specified coordinates with a precision of 64th of a pixel 
 		@param shift shift modification */
-		void move(const Point & shift);
+		inline void move(const Point & shift)
+		{
+			m_position.move(shift);
+		}
 
 		/**	Set the position and size of the area
 		@param position New position of the area
 		@param size New size of the area */
-		void set(const Point& position, const Size& size);
+		inline void set(const Point& position, const Size& size)
+		{
+			m_position = position;
+			m_size = size;
+		}
 
 		/** Set the width of the area with a precision of 64th of a pixel 
 		@param w New width of the area */
-		void width_(Dim w);
+		inline void width_(Dim w)
+		{
+			m_size.width_(w);
+		}
 
 		/** Set the height of the area with a precision of 64th of a pixel 
 		@param h New height of the area */
-		void height_(Dim h);
+		inline void height_(Dim h)
+		{
+			m_size.height_(h);
+		}
 
 		/** Set the width of the area in pixels
 		@param w New width of the area */
-		void width(Dim w);
+		inline void width(Dim w)
+		{
+			m_size.width(w);
+		}
 
 		/** Set the height of the area in pixels
 		@param h New height of the area */
-		void height(Dim h);
-
+		inline void height(Dim h)
+		{
+			m_size.height(h);
+		}
 
 		/** Set the x coordinate of the area with a precision of 64th of a pixel 
 		@param x New x coordinate of the area */
-		void x_(Coord x);
+		inline void x_(Coord x)
+		{
+			m_position.x_(x);
+		}
 
 		/** Set the y coordinate of the area with a precision of 64th of a pixel 
 		@param y New y coordinate of the area */
-		void y_(Coord y);
+		inline void y_(Coord y)
+		{
+			m_position.y_(y);
+		}
 
 		/** Set the x coordinate of the area in pixels
 		@param x New x coordinate of the area */
-		void x(Coord x);
+		inline void x(Coord x)
+		{
+			m_position.x(x);
+		}
 
 		/** Set the y coordinate of the area in pixels
 		@param y New y coordinate of the area */
-		void y(Coord y);
-
+		inline void y(Coord y)
+		{
+			m_position.y(y);
+		}
 
 		/** Get the width of the area with a precision of 64th of a pixel 
 		@return Width of the area */
-		Dim width_() const;
+		inline Dim width_() const
+		{
+			return m_size.width_();
+		}
 
 		/** Get the height of the area with a precision of 64th of a pixel 
 		@return Height of the area */
-		Dim height_() const;
+		inline Dim height_() const
+		{
+			return m_size.height_();
+		}
 
 		/** Get the x coordinate of the area with a precision of 64th of a pixel 
 		@return X coordinate of the area */
-		Coord x_() const;
+		inline Coord x_() const
+		{
+			return m_position.x_();
+		}
 
 		/** Get the y coordinate of the area with a precision of 64th of a pixel 
 		@return Y coordinate of the area */
-		Coord y_() const;
+		inline Coord y_() const
+		{
+			return m_position.y_();
+		}
 
 		/** Get the width of the area in pixels
 		@return Width of the area */
-		Dim width() const;
+		inline Dim width() const
+		{
+			return m_size.width();
+		}
 
 		/** Get the height of the area in pixels
 		@return Height of the area */
-		Dim height() const;
+		inline Dim height() const
+		{
+			return m_size.height();
+		}
 
 		/** Get the x coordinate of the area in pixels
 		@return X coordinate of the area */
-		Coord x() const;
+		inline Coord x() const
+		{
+			return m_position.x();
+		}
 
 		/** Get the y coordinate of the area in pixels
 		@return Y coordinate of the area */
-		Coord y() const;
+		inline Coord y() const
+		{
+			return m_position.y();
+		}
 
 		/** Resizes and move itself on the nearest pixel */
 		void nearest_pixel();
@@ -118,27 +183,45 @@ namespace berialdraw
 
 		/** Return position of area according to the shift
 		@return Position of the area */
-		const Point& position() const;
+		inline const Point& position() const
+		{
+			return m_position;
+		}
 
 		/** Return size of area
 		@return Size of the area */
-		const Size& size() const;
+		inline const Size& size() const
+		{
+			return m_size;
+		}
 
 		/** Return position of area according to the shift
 		@return Position of the area */
-		Point& position();
+		inline Point& position()
+		{
+			return m_position;
+		}
 
 		/** Return size of area
 		@return Size of the area */
-		Size& size();
+		inline Size& size()
+		{
+			return m_size;
+		}
 
 		/**	Set the size of the area
 		@param size New size of the area */
-		void size(const Size& size);
+		inline void size(const Size& size)
+		{
+			m_size = size;
+		}
 
 		/**	Set the position of the area
 		@param position New position of the area */
-		void position(const Point& position);
+		inline void position(const Point& position)
+		{
+			m_position = position;
+		}
 
 
 		/** Print content */
