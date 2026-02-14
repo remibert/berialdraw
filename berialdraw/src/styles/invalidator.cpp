@@ -30,13 +30,9 @@ static inline bool is_in_range(const void * object, const void * widget, uint16_
 
 /** Constructor */
 Invalidator::Invalidator()
-	: m_cache_pos(0)
+	: m_last_search_object(0)
+	, m_last_search_index(-1)
 {
-	for (int i = 0; i < 4; i++)
-	{
-		m_search_cache[i].object = 0;
-		m_search_cache[i].index = -1;
-	}
 }
 
 /** Destructor */
@@ -82,35 +78,32 @@ int32_t Invalidator::search(void * object)
 	int32_t result = -1;
 	if (object)
 	{
-		// Check 4-entry cache first
-		for (int i = 0; i < 4; i++)
+		// Check cache: if same object, return immediately (fast path for sequential access)
+		if (object == m_last_search_object && m_last_search_index >= 0)
 		{
-			if (m_search_cache[i].object == object && m_search_cache[i].index >= 0)
-			{
-				return m_search_cache[i].index;
-			}
+			return m_last_search_index;
 		}
 		
 		Widget * widget_with_shape = 0;
 		uint32_t search_size = m_widgets.size();
 		
-		// First pass: search for direct widget hit or detect shape
-		for (uint32_t i = 0; i < search_size; i++)
+		// Start from last position for better locality
+		uint32_t start_pos = (m_last_search_index >= 0) ? (uint32_t)m_last_search_index : 0;
+		
+		// Search from last position to end
+		for (uint32_t i = start_pos; i < search_size; i++)
 		{
 			struct InvalidatorItem item = m_widgets[i];
-			
-			// Direct hit: object is in widget range
+			// Check if object is in widget range
 			if (is_in_range(object, item.widget, item.size))
 			{
 				result = i;
-				// Update cache in round-robin fashion
-				m_search_cache[m_cache_pos].object = object;
-				m_search_cache[m_cache_pos].index = result;
-				m_cache_pos = (m_cache_pos + 1) & 3;
+				m_last_search_object = object;
+				m_last_search_index = result;
 				return result;
 			}
 
-			// Shape hit: mark for second pass
+			// Check if object is in shape range if shape exists
 			if (item.shape && is_in_range(object, item.shape, item.size))
 			{
 				widget_with_shape = item.widget;
@@ -118,7 +111,31 @@ int32_t Invalidator::search(void * object)
 			}
 		}
 		
-		// Second pass: if shape found, search for its container widget
+		// If not found after last position, search from beginning
+		if (result == -1 && start_pos > 0)
+		{
+			for (uint32_t i = 0; i < start_pos; i++)
+			{
+				struct InvalidatorItem item = m_widgets[i];
+				// Check if object is in widget range
+				if (is_in_range(object, item.widget, item.size))
+				{
+					result = i;
+					m_last_search_object = object;
+					m_last_search_index = result;
+					return result;
+				}
+
+				// Check if object is in shape range if shape exists
+				if (item.shape && is_in_range(object, item.shape, item.size))
+				{
+					widget_with_shape = item.widget;
+					break;
+				}
+			}
+		}
+		
+		// If we found a shape, search for its container widget
 		if (widget_with_shape)
 		{
 			for (uint32_t i = 0; i < search_size; i++)
@@ -126,10 +143,8 @@ int32_t Invalidator::search(void * object)
 				if (m_widgets[i].shape == 0 && m_widgets[i].widget == widget_with_shape)
 				{
 					result = i;
-					// Update cache in round-robin fashion
-					m_search_cache[m_cache_pos].object = object;
-					m_search_cache[m_cache_pos].index = result;
-					m_cache_pos = (m_cache_pos + 1) & 3;
+					m_last_search_object = object;
+					m_last_search_index = result;
 					return result;
 				}
 			}
@@ -321,12 +336,8 @@ void Invalidator::remove(Widget * widget)
 	if (widget == 0)
 	{
 		m_widgets.clear();
-		// Clear cache
-		for (int i = 0; i < 4; i++)
-		{
-			m_search_cache[i].object = 0;
-			m_search_cache[i].index = -1;
-		}
+		m_last_search_object = 0;
+		m_last_search_index = -1;
 	}
 	else
 	{
@@ -336,12 +347,8 @@ void Invalidator::remove(Widget * widget)
 			if (m_widgets[i].widget == widget && m_widgets[i].shape == 0)
 			{
 				m_widgets.remove(i);
-				// Clear cache
-				for (int j = 0; j < 4; j++)
-				{
-					m_search_cache[j].object = 0;
-					m_search_cache[j].index = -1;
-				}
+				m_last_search_object = 0;
+				m_last_search_index = -1;
 				break;
 			}
 		}
