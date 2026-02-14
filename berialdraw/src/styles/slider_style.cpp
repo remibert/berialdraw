@@ -13,12 +13,8 @@ void SliderStyle::serialize(JsonIterator & it)
 	it["track-color"]  = m_track_color;
 	it["handle-color"] = m_handle_color;
 
-	//it["track-size_"]  = (int)m_track_size;
-	//it["handle-size_"] = (int)m_handle_size;
-
 	berialdraw::unserialize("track-size_"   , it, m_track_size);
 	berialdraw::unserialize("handle-size_"   , it, m_handle_size);
-
 
 	it["value"]        = (int)m_value;
 	it["min-value"]    = (int)m_min_value;
@@ -70,13 +66,6 @@ Style * SliderStyle::create()
 	return new SliderStyle;
 }
 
-
-/** Get the track color */
-uint32_t SliderStyle::track_color() const
-{
-	return m_track_color;
-}
-
 /** Set the track color */
 void SliderStyle::track_color(uint32_t col)
 {
@@ -89,12 +78,6 @@ void SliderStyle::track_color(uint32_t col, uint8_t alpha)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_track_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
-}
-
-/** Get the track size */
-Dim SliderStyle::track_size() const
-{
-	return m_track_size>>6;
 }
 
 /** Set the track size in pixels */
@@ -111,12 +94,6 @@ void SliderStyle::track_size_(Dim size_)
 	m_track_size = size_;
 }
 
-/** Get the handle color */
-uint32_t SliderStyle::handle_color() const
-{
-	return m_handle_color;
-}
-
 /** Set the slider color */
 void SliderStyle::handle_color(uint32_t col)
 {
@@ -129,12 +106,6 @@ void SliderStyle::handle_color(uint32_t col, uint8_t alpha)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_handle_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
-}
-
-/** Get the handle size */
-Dim SliderStyle::handle_size() const
-{
-	return m_handle_size>>6;
 }
 
 /** Set the handle size in pixels */
@@ -151,23 +122,11 @@ void SliderStyle::handle_size_(Dim size_)
 	m_handle_size = size_;
 }
 
-/** Get the value of slider */
-int32_t SliderStyle::value() const
-{
-	return m_value;
-}
-
 /** Set the value of slider */
 void SliderStyle::value(int32_t val)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_value = val;
-}
-
-/** Get the min value of slider */
-int32_t SliderStyle::min_value() const
-{
-	return m_min_value;
 }
 
 /** Set the min value of slider */
@@ -177,23 +136,11 @@ void SliderStyle::min_value(int32_t val)
 	m_min_value = val;
 }
 
-/** Get the max value of slider */
-int32_t SliderStyle::max_value() const
-{
-	return m_max_value;
-}
-
 /** Set the max value of slider */
 void SliderStyle::max_value(int32_t val)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_max_value = val;
-}
-
-/** Get the step value of slider */
-uint32_t SliderStyle::step_value() const
-{
-	return m_step_value;
 }
 
 /** Set the step value of slider */
@@ -202,7 +149,6 @@ void SliderStyle::step_value(uint32_t val)
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_step_value = val;
 }
-
 
 void SliderStyle::check_slider()
 {
@@ -223,5 +169,3 @@ void SliderStyle::check_slider()
 		m_value = m_max_value;
 	}
 }
-
-

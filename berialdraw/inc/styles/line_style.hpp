@@ -28,7 +28,7 @@ namespace berialdraw
 
 
 		/** Get the point1 */
-		const Point & point1() const;
+		const Point & point1() const { return m_point1; }
 		
 		/** Set the point1 */
 		void point1(const Point & s);
@@ -42,7 +42,7 @@ namespace berialdraw
 
 
 		/** Get the point2 */
-		const Point & point2() const;
+		const Point & point2() const { return m_point2; }
 		
 		/** Set the point2 */
 		void point2(const Point & s);

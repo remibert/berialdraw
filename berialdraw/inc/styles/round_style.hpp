@@ -29,10 +29,10 @@ namespace berialdraw
 
 
 		/** Get the thickness */
-		Dim thickness() const;
+		Dim thickness() const { return m_thickness >> 6; }
 
 		/** Get the thickness with a precision of 64th of a pixel */
-		Dim thickness_() const;
+		Dim thickness_() const { return m_thickness; }
 	
 		/** Set the thickness in pixels */
 		void thickness(Dim v);
@@ -42,10 +42,10 @@ namespace berialdraw
 
 
 		/** Get the radius */
-		Dim radius() const;
+		Dim radius() const { return m_radius >> 6; }
 
 		/** Get the radius with a precision of 64th of a pixel */
-		Dim radius_() const;
+		Dim radius_() const { return m_radius; }
 	
 		/** Set the radius in pixels */
 		void radius(Dim v);

@@ -93,56 +93,56 @@ namespace berialdraw
 
 
 		/** Get the id */
-		uint16_t id() const;
+		uint16_t id() const { return (uint16_t)m_id; }
 
 		/** Set the id */
 		void id(uint16_t v);
 
 
 		/** Get the extend */
-		Extend extend() const;
+		Extend extend() const { return (Extend)m_extend; }
 
 		/** Set the extend */
 		void extend(Extend v);
 
 
 		/** Get the pressed */
-		bool pressed() const;
+		bool pressed() const { return m_pressed; }
 
 		/** Set the pressed */
 		void pressed(bool v);
 
 
 		/** Get the pressable */
-		bool pressable() const;
+		bool pressable() const { return m_pressable; }
 
 		/** Set the pressable */
 		void pressable(bool v);
 
 
 		/** Get the checked */
-		bool checked() const;
+		bool checked() const { return m_checked; }
 
 		/** Set the checked */
 		void checked(bool v);
 
 
 		/** Get the focusable */
-		bool focusable() const;
+		bool focusable() const { return m_focusable; }
 
 		/** Set the focusable */
 		void focusable(bool v);
 
 
 		/** Get the selectable (used for the SelectEvent) */
-		bool selectable() const;
+		bool selectable() const { return m_selectable; }
 
 		/** Set the selectable (used for the SelectEvent) */
 		void selectable(bool v);
 
 
 		/** Get the focused */
-		bool focused() const;
+		bool focused() const { return m_focused; }
 
 		/** Set the focused */
 		void focused(bool v);

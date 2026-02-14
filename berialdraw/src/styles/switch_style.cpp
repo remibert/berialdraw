@@ -34,7 +34,6 @@ SwitchStyle& SwitchStyle::operator=(const SwitchStyle& other)
 	return *this;
 }
 
-
 /** Set properties with another */
 void SwitchStyle::set(const SwitchStyle & other)
 {
@@ -54,14 +53,6 @@ Style * SwitchStyle::create()
 	return new SwitchStyle;
 }
 
-
-
-/** Get the on track color */
-uint32_t SwitchStyle::on_track_color() const
-{
-	return m_on_track_color;
-}
-
 /** Set the on track color */
 void SwitchStyle::on_track_color(uint32_t col)
 {
@@ -74,13 +65,6 @@ void SwitchStyle::on_track_color(uint32_t col, uint8_t alpha)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_on_track_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
-}
-
-
-/** Get the off track color */
-uint32_t SwitchStyle::off_track_color() const
-{
-	return m_off_track_color;
 }
 
 /** Set the off track color */
@@ -97,13 +81,6 @@ void SwitchStyle::off_track_color(uint32_t col, uint8_t alpha)
 	m_off_track_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
-
-/** Get the switch color */
-uint32_t SwitchStyle::thumb_color() const
-{
-	return m_thumb_color;
-}
-
 /** Set the switch color */
 void SwitchStyle::thumb_color(uint32_t col)
 {
@@ -116,12 +93,6 @@ void SwitchStyle::thumb_color(uint32_t col, uint8_t alpha)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_thumb_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
-}
-
-/** Get the switch size */
-const Size & SwitchStyle::switch_size() const
-{
-	return m_switch_size;
 }
 
 /** Set the switch size */
@@ -143,13 +114,6 @@ void SwitchStyle::switch_size_(Dim w, Dim h)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_switch_size.set_(w,h);
-}
-
-
-/** Get the thumb_padding in pixels */
-Dim SwitchStyle::thumb_padding() const
-{
-	return m_thumb_padding>>6;
 }
 
 /** Set the thumb padding in pixels */

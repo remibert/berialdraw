@@ -29,7 +29,7 @@ namespace berialdraw
 
 
 		/** Get the track color */
-		uint32_t track_color() const;
+		uint32_t track_color() const { return m_track_color; }
 
 		/** Set the track color */
 		void track_color(uint32_t col);
@@ -39,7 +39,7 @@ namespace berialdraw
 
 
 		/** Get the fill color */
-		uint32_t fill_color() const;
+		uint32_t fill_color() const { return m_fill_color; }
 
 		/** Set the fill color */
 		void fill_color(uint32_t col);
@@ -49,7 +49,7 @@ namespace berialdraw
 
 
 		/** Get the fill size */
-		Dim fill_size() const;
+		Dim fill_size() const { return m_fill_size>>6; }
 
 		/** Set the fill size in pixels */
 		void fill_size(Dim size_);
@@ -59,7 +59,7 @@ namespace berialdraw
 
 
 		/** Get the track size */
-		Dim track_size() const;
+		Dim track_size() const { return m_track_size>>6; }
 
 		/** Set the track size in pixels */
 		void track_size(Dim size_);
@@ -69,25 +69,25 @@ namespace berialdraw
 
 
 		/** Get the value of progress_bar */
-		int32_t value() const;
+		int32_t value() const { return m_value; }
 
 		/** Set the value of progress_bar */
 		void value(int32_t val);
 
 		/** Get the min value of progress_bar */
-		int32_t min_value() const;
+		int32_t min_value() const { return m_min_value; }
 
 		/** Set the min value of progress_bar */
 		void min_value(int32_t val);
 
 		/** Get the max value of progress_bar */
-		int32_t max_value() const;
+		int32_t max_value() const { return m_max_value; }
 
 		/** Set the max value of progress_bar */
 		void max_value(int32_t val);
 
 		/** Get the step value of progress_bar */
-		uint32_t step_value() const;
+		uint32_t step_value() const { return m_step_value; }
 
 		/** Set the step value of progress_bar */
 		void step_value(uint32_t val);

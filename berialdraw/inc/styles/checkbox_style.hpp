@@ -32,7 +32,10 @@ namespace berialdraw
 		// Checkbox box properties
 
 		/** Get the checkbox box size */
-		const Size & checkbox_size() const;
+		inline const Size & checkbox_size() const
+		{
+			return m_checkbox_size;
+		}
 		
 		/** Set the checkbox box size */
 		void checkbox_size(const Size & s);
@@ -45,7 +48,10 @@ namespace berialdraw
 
 
 		/** Get the checkbox padding in pixels */
-		Dim check_padding() const;
+		inline Dim check_padding() const
+		{
+			return m_check_padding >> 6;
+		}
 
 		/** Set the checkbox padding in pixels */
 		void check_padding(Dim pad);
@@ -54,7 +60,10 @@ namespace berialdraw
 		// Check mark properties
 
 		/** Get the check mark color */
-		uint32_t check_color() const;
+		inline uint32_t check_color() const
+		{
+			return m_check_color;
+		}
 
 		/** Set the check mark color */
 		void check_color(uint32_t col);
@@ -64,7 +73,10 @@ namespace berialdraw
 
 
 		/** Get the check mark sketch (VectorScript) */
-		const String & check_sketch() const;
+		inline const String & check_sketch() const
+		{
+			return m_check_sketch;
+		}
 
 		/** Set the check mark sketch (VectorScript) */
 		void check_sketch(const String & sketch);

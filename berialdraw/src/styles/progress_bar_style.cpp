@@ -12,8 +12,6 @@ void ProgressBarStyle::serialize(JsonIterator & it)
 {
 	it["track-color"]  = m_track_color;
 	it["fill-color"]   = m_fill_color;
-	//it["track-size_"]  = (int)m_track_size;
-	//it["fill-size_"]   = (int)m_fill_size;
 
 	berialdraw::unserialize("track-size_", it, m_track_size);
 	berialdraw::unserialize("fill-size_" , it, m_fill_size);
@@ -68,12 +66,6 @@ Style * ProgressBarStyle::create()
 	return new ProgressBarStyle;
 }
 
-/** Get the track color */
-uint32_t ProgressBarStyle::track_color() const
-{
-	return m_track_color;
-}
-
 /** Set the track color */
 void ProgressBarStyle::track_color(uint32_t col)
 {
@@ -86,12 +78,6 @@ void ProgressBarStyle::track_color(uint32_t col, uint8_t alpha)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_track_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
-}
-
-/** Get the track size */
-Dim ProgressBarStyle::track_size() const
-{
-	return m_track_size>>6;
 }
 
 /** Set the track size in pixels */
@@ -108,12 +94,6 @@ void ProgressBarStyle::track_size_(Dim size_)
 	m_track_size = size_;
 }
 
-/** Get the fill color */
-uint32_t ProgressBarStyle::fill_color() const
-{
-	return m_fill_color;
-}
-
 /** Set the progress_bar color */
 void ProgressBarStyle::fill_color(uint32_t col)
 {
@@ -126,12 +106,6 @@ void ProgressBarStyle::fill_color(uint32_t col, uint8_t alpha)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_fill_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
-}
-
-/** Get the fill size */
-Dim ProgressBarStyle::fill_size() const
-{
-	return m_fill_size>>6;
 }
 
 /** Set the fill size in pixels */
@@ -148,23 +122,11 @@ void ProgressBarStyle::fill_size_(Dim size_)
 	m_fill_size = size_;
 }
 
-/** Get the value of progress_bar */
-int32_t ProgressBarStyle::value() const
-{
-	return m_value;
-}
-
 /** Set the value of progress_bar */
 void ProgressBarStyle::value(int32_t val)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_value = val;
-}
-
-/** Get the min value of progress_bar */
-int32_t ProgressBarStyle::min_value() const
-{
-	return m_min_value;
 }
 
 /** Set the min value of progress_bar */
@@ -174,23 +136,11 @@ void ProgressBarStyle::min_value(int32_t val)
 	m_min_value = val;
 }
 
-/** Get the max value of progress_bar */
-int32_t ProgressBarStyle::max_value() const
-{
-	return m_max_value;
-}
-
 /** Set the max value of progress_bar */
 void ProgressBarStyle::max_value(int32_t val)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_max_value = val;
-}
-
-/** Get the step value of progress_bar */
-uint32_t ProgressBarStyle::step_value() const
-{
-	return m_step_value;
 }
 
 /** Set the step value of progress_bar */
@@ -199,7 +149,6 @@ void ProgressBarStyle::step_value(uint32_t val)
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_step_value = val;
 }
-
 
 void ProgressBarStyle::check_progress_bar()
 {
@@ -220,5 +169,3 @@ void ProgressBarStyle::check_progress_bar()
 		m_value = m_max_value;
 	}
 }
-
-

@@ -38,9 +38,6 @@ void Mapping::unserialize(JsonIterator & it)
 	m_mapping = it["mapping"] | "";
 }
 
-
-
-
 /** Constructor */
 Mappings::Mappings()
 {

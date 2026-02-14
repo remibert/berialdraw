@@ -61,18 +61,6 @@ Style * BorderStyle::create()
 	return new BorderStyle;
 }
 
-/** Get the radius */
-Dim BorderStyle::radius() const
-{
-	return m_radius >> 6;
-}
-
-/** Get the radius with a precision of 64th of a pixel */
-Dim BorderStyle::radius_() const
-{
-	return m_radius;
-}
-
 /** Set the radius in pixels */
 void BorderStyle::radius(Dim v)
 {
@@ -85,18 +73,6 @@ void BorderStyle::radius_(Dim v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_radius = v;
-}
-
-/** Get the thickness */
-Dim BorderStyle::thickness() const
-{
-	return m_thickness >> 6;
-}
-
-/** Get the thickness with a precision of 64th of a pixel */
-Dim BorderStyle::thickness_() const
-{
-	return m_thickness;
 }
 
 /** Set the thickness in pixels */
@@ -113,12 +89,6 @@ void BorderStyle::thickness_(Dim v)
 	m_thickness = v;
 }
 
-/** Get the border color */
-uint32_t BorderStyle::border_color() const
-{
-	return m_border_color; 
-}
-
 /** Set the border color */
 void BorderStyle::border_color(uint32_t col)
 {
@@ -131,13 +101,6 @@ void BorderStyle::border_color(uint32_t col, uint8_t alpha)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_border_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
-}
-
-
-/** Get the focus color */
-uint32_t BorderStyle::focus_color() const
-{
-	return m_focus_color;
 }
 
 /** Set the focus color */
@@ -154,23 +117,11 @@ void BorderStyle::focus_color(uint32_t col, uint8_t alpha)
 	m_focus_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
-/** Get the focus_gap */
-Dim BorderStyle::focus_gap() const
-{
-	return m_focus_gap >> 6;
-}
-
-/** Set the focus_gap in pixels */
+/** Set the focus gap between the widget and border in pixels */
 void BorderStyle::focus_gap(Dim v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_focus_gap = v << 6;
-}
-
-/** Get the focus thickness (16 pixels max)*/
-Dim BorderStyle::focus_thickness() const
-{
-	return m_focus_thickness;
 }
 
 /** Set the focus thickness in pixels (16 pixels max)*/

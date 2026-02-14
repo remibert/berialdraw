@@ -29,7 +29,7 @@ namespace berialdraw
 
 
 		/** Get the text color */
-		uint32_t text_color() const;
+		uint32_t text_color() const { return m_text_color; }
 
 		/** Set the text color */
 		void text_color(uint32_t col);
@@ -45,7 +45,7 @@ namespace berialdraw
 		void font_familly(const char * f);
 
 		/** Get the font size */
-		const Size & font_size() const;
+		const Size & font_size() const { return m_font_size; }
 		
 		/** Set the font size */
 		void font_size(const Size & s);
@@ -75,7 +75,7 @@ namespace berialdraw
 
 
 		/** Get the padding */
-		const Margin & padding() const;
+		const Margin & padding() const { return m_padding; }
 		
 		/** Set the padding */
 		void padding(const Margin & m);
@@ -96,7 +96,7 @@ namespace berialdraw
 
 
 		/** Get the text align */
-		Align text_align() const;
+		Align text_align() const { return (Align)m_text_align; }
 
 		/** Set the text align */
 		void text_align(Align v);

@@ -49,14 +49,12 @@ void EditStyle::unserialize(JsonIterator & it)
 	}
 }
 
-
 /** Copy operator */
 EditStyle& EditStyle::operator=(const EditStyle& other)
 {
 	set(other);
 	return *this;
 }
-
 
 /** Set properties with another */
 void EditStyle::set(const EditStyle & other)
@@ -86,18 +84,6 @@ Style * EditStyle::create()
 	return new EditStyle;
 }
 
-/** Get the max visible lines in the edit */
-uint16_t EditStyle::max_lines() const
-{
-	return m_max_lines;
-}
-
-/** Get the max visible column in the edit */
-uint16_t EditStyle::max_columns() const
-{
-	return m_max_columns;
-}
-
 /** Set the max visible lines in the edit */
 void EditStyle::max_lines(uint16_t v)
 {
@@ -112,12 +98,6 @@ void EditStyle::max_columns(uint16_t v)
 	m_max_columns = v;
 }
 
-/** Get the selection color */
-uint32_t EditStyle::select_color() const
-{
-	return m_select_color;
-}
-
 /** Set the selection color */
 void EditStyle::select_color(uint32_t col)
 {
@@ -130,12 +110,6 @@ void EditStyle::select_color(uint32_t col, uint8_t alpha)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_select_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
-}
-
-/** Get the cursor color */
-uint32_t EditStyle::cursor_color() const
-{
-	return m_cursor_color;
 }
 
 /** Set the cursor color */
@@ -157,12 +131,6 @@ void EditStyle::password(bool state)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_password = state;
-}
-
-/** Indicates if characters is hidden for password entry */
-bool EditStyle::password()
-{
-	return m_password;
 }
 
 /** Get the place holder value */
@@ -197,12 +165,6 @@ void EditStyle::place_holder(const String & str)
 	*m_place_holder = str;
 }
 
-
-/** Get the place holder color */
-uint32_t EditStyle::place_holder_color() const
-{
-	return m_place_holder_color;
-}
 
 /** Set the place holder color */
 void EditStyle::place_holder_color(uint32_t col)

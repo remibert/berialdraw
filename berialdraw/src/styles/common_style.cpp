@@ -76,13 +76,11 @@ void CommonStyle::set(const CommonStyle & other)
 	}
 }
 
-
 CommonStyle& CommonStyle::operator=(const CommonStyle& other)
 {
 	set(other);
 	return *this;
 }
-
 
 Dim CommonStyle::reduce(Dim  dimension, Dim reduction)
 {
@@ -219,14 +217,6 @@ Style * CommonStyle::create()
 	return new CommonStyle;
 }
 
-
-
-/** Get the margin */
-const Margin & CommonStyle::margin() const
-{
-	return m_margin;
-}
-
 /** Set the margin */
 void CommonStyle::margin(const Margin & m)
 {
@@ -290,19 +280,6 @@ void CommonStyle::margin_right(Dim right)
 	m_margin.set(m_margin.top(), m_margin.left(), m_margin.bottom(), right);
 }
 
-
-/** Get the angle */
-Coord CommonStyle::angle() const
-{
-	return m_angle >> 6;
-}
-
-/** Get the angle with a precision of 64th of a pixel */
-Coord CommonStyle::angle_() const
-{
-	return m_angle;
-}
-
 /** Set the angle in pixels */
 void CommonStyle::angle(Coord v)
 {
@@ -319,13 +296,6 @@ void CommonStyle::angle_(Coord v)
 	m_angle_modified = 1;
 	m_geometry_modified = 1;
 	m_angle = v;
-}
-
-
-/** Get the center */
-const Point & CommonStyle::center() const
-{
-	return m_center;
 }
 
 /** Set the center */
@@ -352,14 +322,6 @@ void CommonStyle::center_(Coord x, Coord y)
 	m_center.set_(x,y);
 }
 
-
-
-/** Get the position */
-const Point & CommonStyle::position() const
-{
-	return m_position;
-}
-
 /** Set the position */
 void CommonStyle::position(const Point & position_)
 {
@@ -383,7 +345,6 @@ void CommonStyle::position_(Coord x, Coord y)
 	m_geometry_modified = 1;
 	m_position.set_(x,y);
 }
-
 
 /** Get the back color */
 uint32_t CommonStyle::color() const
@@ -432,7 +393,6 @@ void CommonStyle::color(Color col)
 	m_color = (uint32_t)col;
 }
 
-
 /** Enlighten the back color
 @param light value added [-100..100] */
 void CommonStyle::enlighten(int8_t light)
@@ -454,14 +414,6 @@ void CommonStyle::to_pastel(int8_t level)
 {
 	m_light = level;
 	m_saturation = 0-level;
-}
-
-
-
-/** Get the size */
-const Size & CommonStyle::size() const
-{
-	return m_size;
 }
 
 /** Set the size */
@@ -488,13 +440,6 @@ void CommonStyle::size_(Dim w, Dim h)
 	m_size.set_(w,h);
 }
 
-
-/** Get the align */
-Align CommonStyle::align() const
-{
-	return (Align)m_align;
-}
-
 /** Set the align */
 void CommonStyle::align(Align v)
 {
@@ -503,25 +448,11 @@ void CommonStyle::align(Align v)
 	m_align = (Align)v;
 }
 
-
-
 /** Select the displayed border of the rectangle */
 void CommonStyle::borders(uint16_t side)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_borders = (Borders)side;
-}
-
-/** Gets the displayed border of the rectangle */
-uint16_t CommonStyle::borders() const
-{
-	return m_borders;
-}
-
-/** Get the hidden widget state */
-bool CommonStyle::hidden() const
-{
-	return m_hidden == true;
 }
 
 /** Set the hidden widget state */

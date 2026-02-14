@@ -46,18 +46,6 @@ Style * RoundStyle::create()
 	return new RoundStyle;
 }
 
-/** Get the thickness */
-Dim RoundStyle::thickness() const
-{
-	return m_thickness >> 6;
-}
-
-/** Get the thickness with a precision of 64th of a pixel */
-Dim RoundStyle::thickness_() const
-{
-	return m_thickness;
-}
-
 /** Set the thickness in pixels */
 void RoundStyle::thickness(Dim v)
 {
@@ -70,21 +58,6 @@ void RoundStyle::thickness_(Dim v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_thickness = v;
-}
-
-
-
-
-/** Get the radius */
-Dim RoundStyle::radius() const
-{
-	return m_radius >> 6;
-}
-
-/** Get the radius with a precision of 64th of a pixel */
-Dim RoundStyle::radius_() const
-{
-	return m_radius;
 }
 
 /** Set the radius in pixels */

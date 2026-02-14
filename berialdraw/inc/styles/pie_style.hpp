@@ -29,10 +29,10 @@ namespace berialdraw
 
 
 		/** Get the start angle */
-		Coord start_angle() const;
+		Coord start_angle() const { return m_start_angle >> 6; }
 
 		/** Get the start angle with a precision of 64th of a degres */
-		Coord start_angle_() const;
+		Coord start_angle_() const { return m_start_angle; }
 	
 		/** Set the start angle in pixels */
 		void start_angle(Coord v);
@@ -43,10 +43,10 @@ namespace berialdraw
 
 
 		/** Get the end angle */
-		Coord end_angle() const;
+		Coord end_angle() const { return m_end_angle >> 6; }
 
 		/** Get the end angle with a precision of 64th of a degres */
-		Coord end_angle_() const;
+		Coord end_angle_() const { return m_end_angle; }
 	
 		/** Set the end angle in pixels */
 		void end_angle(Coord v);
@@ -56,7 +56,7 @@ namespace berialdraw
 
 
 		/** Get the rope */
-		bool rope() const;
+		bool rope() const { return m_rope; }
 
 		/** Set the rope */
 		void rope(bool v);

@@ -44,13 +44,6 @@ void IconStyle::zoom(Dim z)
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_zoom = z <<6;
 }
-		
-/** Get the zoom ratio for the icon
-@return zoom zoom value */
-Dim IconStyle::zoom() const
-{
-	return m_zoom >> 6;
-}
 
 /** Set the zoom ratio for the icon
 @param z zoom value shifted by 6 bits */
@@ -60,19 +53,6 @@ void IconStyle::zoom_(Dim z)
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_zoom = z;
 }
-		
-/** Get the zoom ratio for the icon
-@return zoom zoom value shifted by 6 bits */
-Dim IconStyle::zoom_() const
-{
-	return m_zoom;
-}
-
-/** Get the filename value */
-const String & IconStyle::filename() const
-{
-	return m_filename;
-}
 
 /** Set filename value with string */
 void IconStyle::filename(const String & s)
@@ -80,14 +60,6 @@ void IconStyle::filename(const String & s)
 	m_icon_modified = true;
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_filename = s;
-}
-
-
-
-/** Get the icon_padding */
-const Margin & IconStyle::icon_padding() const
-{
-	return m_icon_padding;
 }
 
 /** Set the icon_padding */
@@ -109,12 +81,6 @@ void IconStyle::icon_padding_(Dim top, Dim left, Dim bottom, Dim right)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_icon_padding.set_(top,left,bottom,right);
-}
-
-/** Get the back icon_color */
-uint32_t IconStyle::icon_color() const
-{
-	return m_icon_color;
 }
 
 /** Set the back icon_color */

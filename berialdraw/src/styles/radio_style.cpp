@@ -54,14 +54,6 @@ Style * RadioStyle::create()
 	return new RadioStyle();
 }
 
-// ===== Radio box properties =====
-
-/** Get the radio box size */
-const Size & RadioStyle::radio_size() const
-{
-	return m_radio_size;
-}
-
 /** Set the radio box size */
 void RadioStyle::radio_size(const Size & s)
 {
@@ -80,25 +72,10 @@ void RadioStyle::radio_size_(Dim w, Dim h)
 	m_radio_size.set_(w, h);
 }
 
-/** Get the radio padding in pixels */
-Dim RadioStyle::radio_padding() const
-{
-	return m_radio_padding >> 6;
-}
-
 /** Set the radio padding in pixels */
 void RadioStyle::radio_padding(Dim pad)
 {
 	m_radio_padding = pad << 6;
-}
-
-
-// ===== Radio indicator properties =====
-
-/** Get the radio indicator color */
-uint32_t RadioStyle::radio_color() const
-{
-	return m_radio_color;
 }
 
 /** Set the radio indicator color */
@@ -107,23 +84,10 @@ void RadioStyle::radio_color(uint32_t col)
 	m_radio_color = col;
 }
 
-
-/** Get the radio indicator sketch (VectorScript) */
-const String & RadioStyle::radio_sketch() const
-{
-	return m_radio_sketch;
-}
-
 /** Set the radio indicator sketch (VectorScript) */
 void RadioStyle::radio_sketch(const String & sketch)
 {
 	m_radio_sketch = sketch;
-}
-
-/** Get the radio group name */
-const String & RadioStyle::group() const
-{
-	return m_group;
 }
 
 /** Set the radio group name */

@@ -63,12 +63,6 @@ Style * TextStyle::create()
 	return new TextStyle;
 }
 
-/** Get the text color */
-uint32_t TextStyle::text_color() const
-{
-	return m_text_color;
-}
-
 /** Set the text color */
 void TextStyle::text_color(uint32_t col)
 {
@@ -95,12 +89,6 @@ void TextStyle::font_familly(const char * font_familly_)
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_font_modified = 1;
 	m_font_familly = font_familly_;
-}
-
-/** Get the font size */
-const Size & TextStyle::font_size() const
-{
-	return m_font_size;
 }
 
 /** Set the font size */
@@ -155,7 +143,6 @@ void TextStyle::select_font()
 	}
 }
 
-
 /** Get the text value */
 const String & TextStyle::text()
 {
@@ -186,13 +173,6 @@ void TextStyle::text(wchar_t value)
 {
 	m_text_modified = 1;
 	m_text = value;
-}
-
-
-/** Get the padding */
-const Margin & TextStyle::padding() const
-{
-	return m_padding;
 }
 
 /** Set the padding */
@@ -228,12 +208,6 @@ void TextStyle::padding(Dim value)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_padding.set(value,value,value,value);
-}
-
-/** Get the text align */
-Align TextStyle::text_align() const
-{
-	return (Align)m_text_align;
 }
 
 /** Set the text align */

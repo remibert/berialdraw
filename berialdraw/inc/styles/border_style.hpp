@@ -29,10 +29,16 @@ namespace berialdraw
 
 
 		/** Get the radius */
-		Dim radius() const;
+		inline Dim radius() const
+		{
+			return m_radius >> 6;
+		}
 
 		/** Get the radius with a precision of 64th of a pixel */
-		Dim radius_() const;
+		inline Dim radius_() const
+		{
+			return m_radius;
+		}
 	
 		/** Set the radius in pixels */
 		void radius(Dim v);
@@ -42,10 +48,16 @@ namespace berialdraw
 
 
 		/** Get the thickness */
-		Dim thickness() const;
+		inline Dim thickness() const
+		{
+			return m_thickness >> 6;
+		}
 
 		/** Get the thickness with a precision of 64th of a pixel */
-		Dim thickness_() const;
+		inline Dim thickness_() const
+		{
+			return m_thickness;
+		}
 	
 		/** Set the thickness in pixels */
 		void thickness(Dim v);
@@ -55,7 +67,10 @@ namespace berialdraw
 
 
 		/** Get the border color */
-		uint32_t border_color() const;
+		inline uint32_t border_color() const
+		{
+			return m_border_color;
+		}
 
 		/** Set the border color */
 		void border_color(uint32_t col);
@@ -65,7 +80,10 @@ namespace berialdraw
 
 
 		/** Get the focus color */
-		uint32_t focus_color() const;
+		inline uint32_t focus_color() const
+		{
+			return m_focus_color;
+		}
 
 		/** Set the focus color */
 		void focus_color(uint32_t col);
@@ -75,14 +93,20 @@ namespace berialdraw
 
 
 		/** Get the focus gap between the widget and border */
-		Dim focus_gap() const;
+		inline Dim focus_gap() const
+		{
+			return m_focus_gap >> 6;
+		}
 
 		/** Set the focus gap between the widget and border in pixels */
 		void focus_gap(Dim v);
 
 
 		/** Get the focus thickness (16 pixels max)*/
-		Dim focus_thickness() const;
+		inline Dim focus_thickness() const
+		{
+			return m_focus_thickness;
+		}
 
 		/** Set the focus thickness in pixels (16 pixels max)*/
 		void focus_thickness(Dim v);

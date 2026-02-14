@@ -37,7 +37,7 @@ namespace berialdraw
 
 
 		/** Get the scroll direction */
-		ScrollDirection scroll_direction() const;
+		ScrollDirection scroll_direction() const { return m_scroll_direction; }
 
 		/** Set the scroll direction */
 		void scroll_direction(ScrollDirection dir);

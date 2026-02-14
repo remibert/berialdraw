@@ -32,7 +32,6 @@ CheckboxStyle& CheckboxStyle::operator=(const CheckboxStyle& other)
 	return *this;
 }
 
-
 /** Set properties with another */
 void CheckboxStyle::set(const CheckboxStyle & other)
 {
@@ -49,16 +48,6 @@ void CheckboxStyle::set(const CheckboxStyle & other)
 Style * CheckboxStyle::create()
 {
 	return new CheckboxStyle;
-}
-
-
-
-// Checkbox box properties
-
-/** Get the checkbox box size */
-const Size & CheckboxStyle::checkbox_size() const
-{
-	return m_checkbox_size;
 }
 
 /** Set the checkbox box size */
@@ -82,25 +71,10 @@ void CheckboxStyle::checkbox_size_(Dim w, Dim h)
 	m_checkbox_size.set_(w, h);
 }
 
-/** Get the checkbox padding in pixels */
-Dim CheckboxStyle::check_padding() const
-{
-	return m_check_padding >> 6;
-}
-
 /** Set the checkbox padding in pixels */
 void CheckboxStyle::check_padding(Dim pad)
 {
 	m_check_padding = pad << 6;
-}
-
-
-// Check mark properties
-
-/** Get the check mark color */
-uint32_t CheckboxStyle::check_color() const
-{
-	return m_check_color;
 }
 
 /** Set the check mark color */
@@ -115,13 +89,6 @@ void CheckboxStyle::check_color(uint32_t col, uint8_t alpha)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_check_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
-}
-
-
-/** Get the check mark sketch (VectorScript) */
-const String & CheckboxStyle::check_sketch() const
-{
-	return m_check_sketch;
 }
 
 /** Set the check mark sketch (VectorScript) */

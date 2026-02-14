@@ -50,20 +50,6 @@ Style * PieStyle::create()
 	return new PieStyle;
 }
 
-
-
-/** Get the start angle */
-Coord PieStyle::start_angle() const
-{
-	return m_start_angle >> 6;
-}
-
-/** Get the start angle with a precision of 64th of a pixel */
-Coord PieStyle::start_angle_() const
-{
-	return m_start_angle;
-}
-
 /** Set the start angle in pixels */
 void PieStyle::start_angle(Coord v)
 {
@@ -78,18 +64,6 @@ void PieStyle::start_angle_(Coord v)
 	m_start_angle = v;
 }
 
-	/** Get the end angle */
-Coord PieStyle::end_angle() const
-{
-	return m_end_angle >> 6;
-}
-
-/** Get the end angle with a precision of 64th of a pixel */
-Coord PieStyle::end_angle_() const
-{
-	return m_end_angle;
-}
-
 /** Set the end angle in pixels */
 void PieStyle::end_angle(Coord v)
 {
@@ -102,13 +76,6 @@ void PieStyle::end_angle_(Coord v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_end_angle = v;
-}
-
-
-	/** Get the rope */
-bool PieStyle::rope() const
-{
-	return m_rope;
 }
 
 /** Set the rope */

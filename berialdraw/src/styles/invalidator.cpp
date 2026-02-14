@@ -280,8 +280,6 @@ void Invalidator::update()
 	}
 }
 
-
-
 /** Add widget in the list */
 void Invalidator::add(Widget * widget, size_t size)
 {

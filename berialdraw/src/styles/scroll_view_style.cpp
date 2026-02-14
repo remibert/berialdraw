@@ -53,12 +53,6 @@ Style * ScrollViewStyle::create()
 	return new ScrollViewStyle;
 }
 
-/** Get the scroll direction */
-ScrollDirection ScrollViewStyle::scroll_direction() const
-{
-	return m_scroll_direction;
-}
-
 /** Set the scroll direction */
 void ScrollViewStyle::scroll_direction(ScrollDirection dir)
 {

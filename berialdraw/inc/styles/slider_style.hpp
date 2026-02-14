@@ -29,7 +29,7 @@ namespace berialdraw
 
 
 		/** Get the track color */
-		uint32_t track_color() const;
+		uint32_t track_color() const { return m_track_color; }
 
 		/** Set the track color */
 		void track_color(uint32_t col);
@@ -39,7 +39,7 @@ namespace berialdraw
 
 
 		/** Get the handle color */
-		uint32_t handle_color() const;
+		uint32_t handle_color() const { return m_handle_color; }
 
 		/** Set the handle color */
 		void handle_color(uint32_t col);
@@ -49,7 +49,7 @@ namespace berialdraw
 
 
 		/** Get the handle size */
-		Dim handle_size() const;
+		Dim handle_size() const { return m_handle_size>>6; }
 
 		/** Set the handle size in pixels */
 		void handle_size(Dim size_);
@@ -59,7 +59,7 @@ namespace berialdraw
 
 
 		/** Get the track size */
-		Dim track_size() const;
+		Dim track_size() const { return m_track_size>>6; }
 
 		/** Set the track size in pixels */
 		void track_size(Dim size_);
@@ -69,28 +69,28 @@ namespace berialdraw
 
 
 		/** Get the value of slider */
-		int32_t value() const;
+		int32_t value() const { return m_value; }
 
 		/** Set the value of slider */
 		void value(int32_t val);
 
 
 		/** Get the min value of slider */
-		int32_t min_value() const;
+		int32_t min_value() const { return m_min_value; }
 
 		/** Set the min value of slider */
 		void min_value(int32_t val);
 
 
 		/** Get the max value of slider */
-		int32_t max_value() const;
+		int32_t max_value() const { return m_max_value; }
 
 		/** Set the max value of slider */
 		void max_value(int32_t val);
 
 
 		/** Get the step value of slider */
-		uint32_t step_value() const;
+		uint32_t step_value() const { return m_step_value; }
 
 		/** Set the step value of slider */
 		void step_value(uint32_t val);

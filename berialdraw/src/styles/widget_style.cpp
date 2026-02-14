@@ -164,23 +164,11 @@ void WidgetStyle::max_size_(Dim w, Dim h)
 	m_max_size.set_(w,h);
 }
 
-/** Get the id */
-uint16_t WidgetStyle::id() const
-{
-	return (uint16_t)m_id;
-}
-
 /** Set the id */
 void WidgetStyle::id(uint16_t v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_id = (uint16_t)v;
-}
-
-/** Get the extend */
-Extend WidgetStyle::extend() const
-{
-	return (Extend)m_extend;
 }
 
 /** Set the extend */
@@ -190,23 +178,11 @@ void WidgetStyle::extend(Extend v)
 	m_extend = (Extend)v;
 }
 
-/** Get the pressable */
-bool WidgetStyle::pressable() const
-{
-	return m_pressable;
-}
-
 /** Set the pressable */
 void WidgetStyle::pressable(bool v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_pressable = v;
-}
-
-/** Get the pressed */
-bool WidgetStyle::pressed() const
-{
-	return m_pressed;
 }
 
 /** Set the pressed */
@@ -219,25 +195,11 @@ void WidgetStyle::pressed(bool v)
 	}
 }
 
-
-/** Get the focusable */
-bool WidgetStyle::focusable() const
-{
-	return m_focusable;
-}
-
 /** Set the focusable */
 void WidgetStyle::focusable(bool v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_focusable = v;
-}
-
-
-/** Get the selectable (used for the SelectEvent) */
-bool WidgetStyle::selectable() const
-{
-	return m_selectable;
 }
 
 /** Set the selectable (used for the SelectEvent) */
@@ -247,23 +209,11 @@ void WidgetStyle::selectable(bool v)
 	m_selectable = v;
 }
 
-/** Get the checked */
-bool WidgetStyle::checked() const
-{
-	return m_checked;
-}
-
 /** Set the checked */
 void WidgetStyle::checked(bool v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_checked = v;
-}
-
-/** Get the focused */
-bool WidgetStyle::focused() const
-{
-	return m_focused;
 }
 
 /** Set the focused */
@@ -272,9 +222,6 @@ void WidgetStyle::focused(bool v)
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_focused = v;
 }
-
-
-
 
 #ifdef _DEBUG
 void WidgetStyle::test1()

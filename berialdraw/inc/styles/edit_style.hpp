@@ -26,10 +26,10 @@ namespace berialdraw
 
 
 		/** Get the max visible lines in the edit */
-		uint16_t max_lines() const;
+		uint16_t max_lines() const { return m_max_lines; }
 
 		/** Get the max visible columns in the edit */
-		uint16_t max_columns() const;
+		uint16_t max_columns() const { return m_max_columns; }
 
 		/** Set the max visible lines in the edit */
 		void max_lines(uint16_t v);
@@ -39,7 +39,7 @@ namespace berialdraw
 
 
 		/** Get the selection color */
-		uint32_t select_color() const;
+		uint32_t select_color() const { return m_select_color; }
 
 		/** Set the selection color */
 		void select_color(uint32_t col);
@@ -49,7 +49,7 @@ namespace berialdraw
 
 
 		/** Get the cursor color */
-		uint32_t cursor_color() const;
+		uint32_t cursor_color() const { return m_cursor_color; }
 
 		/** Set the cursor color */
 		void cursor_color(uint32_t col);
@@ -62,7 +62,7 @@ namespace berialdraw
 		void password(bool state);
 
 		/** Indicates if characters is hidden for password entry */
-		bool password();
+		bool password() const { return m_password; }
 
 
 		/** Get the place holder value */
@@ -76,7 +76,7 @@ namespace berialdraw
 
 
 		/** Get the place holder color */
-		uint32_t place_holder_color() const;
+		uint32_t place_holder_color() const { return m_place_holder_color; }
 
 		/** Set the place holder color */
 		void place_holder_color(uint32_t col);

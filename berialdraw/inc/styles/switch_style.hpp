@@ -30,7 +30,7 @@ namespace berialdraw
 
 
 		/** Get the on track color */
-		uint32_t on_track_color() const;
+		uint32_t on_track_color() const { return m_on_track_color; }
 
 		/** Set the on track color */
 		void on_track_color(uint32_t col);
@@ -40,7 +40,7 @@ namespace berialdraw
 
 
 		/** Get the off track color */
-		uint32_t off_track_color() const;
+		uint32_t off_track_color() const { return m_off_track_color; }
 
 		/** Set the off track color */
 		void off_track_color(uint32_t col);
@@ -50,7 +50,7 @@ namespace berialdraw
 
 
 		/** Get the thumb color */
-		uint32_t thumb_color() const;
+		uint32_t thumb_color() const { return m_thumb_color; }
 
 		/** Set the thumb color */
 		void thumb_color(uint32_t col);
@@ -60,7 +60,7 @@ namespace berialdraw
 
 
 		/** Get the size */
-		const Size & switch_size() const;
+		const Size & switch_size() const { return m_switch_size; }
 		
 		/** Set the switch_size */
 		void switch_size(const Size & s);
@@ -73,7 +73,7 @@ namespace berialdraw
 
 
 		/** Get the thumb_padding in pixels */
-		Dim thumb_padding() const;
+		Dim thumb_padding() const { return m_thumb_padding>>6; }
 
 		/** Set the thumb padding in pixels */
 		void thumb_padding(Dim pad);

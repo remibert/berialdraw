@@ -29,7 +29,7 @@ namespace berialdraw
 
 		/** Get the zoom ratio for the polygon
 		@return zoom zoom value */
-		Dim zoom() const;
+		Dim zoom() const { return m_zoom >> 6; }
 
 		/** Set the zoom ratio for the polygon
 		@param z zoom value shifted by 6 bits */
@@ -37,12 +37,12 @@ namespace berialdraw
 
 		/** Get the zoom ratio for the polygon
 		@return zoom zoom value shifted by 6 bits */
-		Dim zoom_() const;
+		Dim zoom_() const { return m_zoom; }
 
 		// Filename properties
 
 		/** Get the filename value */
-		const String & filename() const;
+		const String & filename() const { return m_filename; }
 
 		/** Set filename value with string */
 		void filename(const String & s);
@@ -50,7 +50,7 @@ namespace berialdraw
 		// Icon padding properties
 
 		/** Get the padding */
-		const Margin & icon_padding() const;
+		const Margin & icon_padding() const { return m_icon_padding; }
 
 		/** Set the padding */
 		void icon_padding(const Margin & m);
@@ -64,7 +64,7 @@ namespace berialdraw
 		// Icon color properties
 
 		/** Get the back icon color */
-		uint32_t icon_color() const;
+		uint32_t icon_color() const { return m_icon_color; }
 
 		/** Set the back icon color */
 		void icon_color(uint32_t col);

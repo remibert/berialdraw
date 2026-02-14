@@ -45,14 +45,6 @@ Style * LineStyle::create()
 	return new LineStyle;
 }
 
-
-
-/** Get the point1 */
-const Point & LineStyle::point1() const
-{
-	return m_point1;
-}
-
 /** Set the point1 */
 void LineStyle::point1(const Point & point1_)
 {
@@ -72,14 +64,6 @@ void LineStyle::point1_(Coord x, Coord y)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_point1.set_(x,y);
-}
-
-
-
-/** Get the point2 */
-const Point & LineStyle::point2() const
-{
-	return m_point2;
 }
 
 /** Set the point2 */

@@ -30,7 +30,7 @@ namespace berialdraw
 		static Style * create();
 
 		/** Get the margin */
-		const Margin & margin() const;
+		const Margin & margin() const { return m_margin; }
 		
 		/** Set the margin */
 		void margin(const Margin & m);
@@ -61,10 +61,10 @@ namespace berialdraw
 		
 
 		/** Get the angle */
-		Coord angle() const;
+		Coord angle() const { return m_angle >> 6; }
 
 		/** Get the angle with a precision of 64th of a degres */
-		Coord angle_() const;
+		Coord angle_() const { return m_angle; }
 	
 		/** Set the angle in pixels */
 		void angle(Coord v);
@@ -75,7 +75,7 @@ namespace berialdraw
 
 
 		/** Get the center */
-		const Point & center() const;
+		const Point & center() const { return m_center; }
 		
 		/** Set the center */
 		void center(const Point & s);
@@ -88,7 +88,7 @@ namespace berialdraw
 
 
 		/** Get the position */
-		const Point & position() const;
+		const Point & position() const { return m_position; }
 		
 		/** Set the position */
 		void position(const Point & s);
@@ -125,7 +125,7 @@ namespace berialdraw
 		void to_pastel(int8_t level);
 
 		/** Get the size */
-		const Size & size() const;
+		const Size & size() const { return m_size; }
 		
 		/** Set the size */
 		void size(const Size & s);
@@ -139,7 +139,7 @@ namespace berialdraw
 
 
 		/** Get the align */
-		Align align() const;
+		Align align() const { return (Align)m_align; }
 
 		/** Set the align */
 		void align(Align v);
@@ -149,11 +149,11 @@ namespace berialdraw
 		void borders(uint16_t side);
 
 		/** Gets the displayed border of the rectangle */
-		uint16_t borders() const;
+		uint16_t borders() const { return m_borders; }
 
 
 		/** Get the hidden widget state */
-		bool hidden() const;
+		bool hidden() const { return m_hidden == true; }
 
 		/** Set the hidden widget state */
 		void hidden(bool v);
