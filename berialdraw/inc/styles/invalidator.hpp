@@ -86,9 +86,16 @@ namespace berialdraw
 		};
 		Vector<struct InvalidatorItem> m_widgets;
 		
-		/** Cache for search optimization */
-		void * m_last_search_object;
-		int32_t m_last_search_index;
+		/** Cache entry for search optimization */
+		struct CacheEntry
+		{
+			void * object;
+			int32_t index;
+		};
+		
+		/** 4-entry LRU cache for search optimization */
+		CacheEntry m_search_cache[4];
+		uint8_t m_cache_pos;
 /// @endcond
 	};
 }
