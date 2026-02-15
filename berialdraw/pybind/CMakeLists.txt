@@ -68,6 +68,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/styles/progress_bar_style.cpp
 	src/pybind/styles/round_style.cpp
 	src/pybind/styles/scroll_view_style.cpp
+	src/pybind/styles/table_view_style.cpp
 	src/pybind/styles/slider_style.cpp
 	src/pybind/styles/style.cpp
 	src/pybind/styles/switch_style.cpp

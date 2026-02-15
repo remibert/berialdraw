@@ -56,6 +56,9 @@ namespace berialdraw
 		/** Apply scrollview properties */
 		bool apply(const char * classname, ScrollViewStyle * properties);
 		
+		/** Apply tableview properties */
+		bool apply(const char * classname, TableViewStyle * properties);
+		
 		/** Get mappings properties */
 		const Mappings * mappings(const char * classname);
 

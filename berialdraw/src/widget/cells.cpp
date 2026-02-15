@@ -28,13 +28,25 @@ void Cells::reallocate(Dim rows_count, Dim columns_count)
 		{
 			delete m_heights;
 		}
+		if(m_row_positions)
+		{
+			delete m_row_positions;
+		}
+		if(m_col_positions)
+		{
+			delete m_col_positions;
+		}
 		m_widths = 0;
 		m_heights = 0;
+		m_row_positions = 0;
+		m_col_positions = 0;
 
 		if(rows_count > 0 && columns_count > 0)
 		{
 			m_widths       = new Cell[columns_count]();
 			m_heights      = new Cell[rows_count]();
+			m_row_positions = new Dim[rows_count]();
+			m_col_positions = new Dim[columns_count]();
 			m_rows_count    = rows_count;
 			m_columns_count = columns_count;
 		}
@@ -191,7 +203,7 @@ Size Cells::calc_sizes(Widget * widget)
 	
 				marged_size = current->marged_size();
 
-				// If the mininal size is smaller than content size, set to the content size
+			// If the mininal size is smaller than content size, set to the content size
 				if (min_size.width_() < marged_size.width_())
 				{
 					min_size.width_(marged_size.width_());
@@ -603,8 +615,23 @@ Dim Cells::resize_dim(Cell * cells, Dim count, Dim area_size, bool on_width)
 Size Cells::resize(const Area & area)
 {
 	Size result;
-	result.width_(resize_dim(m_widths,  m_columns_count, area.width_() ,true));
-	result.height_(resize_dim(m_heights, m_rows_count,    area.height_(),false));
+	Dim available_width = area.width_();
+	Dim available_height = area.height_();
+	
+	// Reserve space for grid lines BEFORE distributing to cells
+	if (m_vertical_line_thickness > 0 && m_columns_count > 0)
+	{
+		available_width -= (m_columns_count + 1) * m_vertical_line_thickness;
+	}
+	if (m_horizontal_line_thickness > 0 && m_rows_count > 0)
+	{
+		available_height -= (m_rows_count + 1) * m_horizontal_line_thickness;
+	}
+	
+	// Distribute only the remaining space to cells
+	result.width_(resize_dim(m_widths, m_columns_count, available_width, true));
+	result.height_(resize_dim(m_heights, m_rows_count, available_height, false));
+	
 	return result;
 }
 
@@ -620,25 +647,35 @@ void Cells::place(Widget *widget, const Area & area)
 		calc_sizes(widget);
 		resize(area);
 
-		// Precompute row positions
-		Dim* row_positions = new Dim[m_rows_count];
-		Dim y_pos = area.y_();
+		// Precompute row positions (account for grid line thickness)
+		Dim y_pos = area.y_() + m_horizontal_line_thickness;
 		for (Dim i = 0; i < m_rows_count; i++)
 		{
-			row_positions[i] = y_pos;
+			m_row_positions[i] = y_pos;
 			y_pos += (m_heights[i].m_placed & 0xFFFFFFFC0);
+			if (i < m_rows_count - 1)
+			{
+				y_pos += m_horizontal_line_thickness;
+			}
 		}
+		// Add bottom border (for calculation completeness)
+		y_pos += m_horizontal_line_thickness;
 
-		// Precompute column positions and widths
-		Dim* col_positions = new Dim[m_columns_count];
+		// Precompute column positions (account for grid line thickness)
 		Dim* col_widths = new Dim[m_columns_count];
-		Dim x_pos = area.x_();
+		Dim x_pos = area.x_() + m_vertical_line_thickness;
 		for (Dim i = 0; i < m_columns_count; i++)
 		{
-			col_positions[i] = x_pos;
+			m_col_positions[i] = x_pos;
 			col_widths[i] = m_widths[i].m_placed & 0xFFFFFFFC0;
 			x_pos += col_widths[i];
+			if (i < m_columns_count - 1)
+			{
+				x_pos += m_vertical_line_thickness;
+			}
 		}
+		// Add right border (for calculation completeness)
+		x_pos += m_vertical_line_thickness;
 
 		// Iterate through all widgets directly (single traversal)
 		Widget * current = widget->m_children;
@@ -650,8 +687,8 @@ void Cells::place(Widget *widget, const Area & area)
 			// Only place if widget is in a valid cell
 			if (row < m_rows_count && column < m_columns_count)
 			{
-				cell.x_(col_positions[column]);
-				cell.y_(row_positions[row]);
+				cell.x_(m_col_positions[column]);
+				cell.y_(m_row_positions[row]);
 				cell.width_(col_widths[column]);
 				cell.height_(m_heights[row].m_placed & 0xFFFFFFFC0);
 				current->place(cell, true);
@@ -659,8 +696,6 @@ void Cells::place(Widget *widget, const Area & area)
 			current = current->m_next;
 		}
 
-		delete[] row_positions;
-		delete[] col_positions;
 		delete[] col_widths;
 	}
 }
@@ -699,14 +734,4 @@ void Cells::rebound(Widget * widget)
 	{
 		reallocate(1, 1);
 	}
-}
-
-Dim Cells::row_count() const
-{
-	return m_rows_count;
-}
-
-Dim Cells::column_count() const
-{
-	return m_columns_count;
 }

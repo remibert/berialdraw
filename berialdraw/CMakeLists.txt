@@ -97,6 +97,7 @@ set(SRCS_LIB
 	src/styles/progress_bar_style.cpp
 	src/styles/icon_style.cpp
 	src/styles/scroll_view_style.cpp
+	src/styles/table_view_style.cpp
 	src/styles/colors.cpp
 
 	src/shape/shape.cpp

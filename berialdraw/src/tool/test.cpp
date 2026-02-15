@@ -10,7 +10,7 @@ namespace berialdraw
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
 
-		//TableView::test();
+		TableView::test();
 Window::test();
 
 		// Widgets

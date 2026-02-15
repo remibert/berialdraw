@@ -46,6 +46,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_edit_style(m);
     bind_pie_style(m);
     bind_scroll_view_style(m);
+    bind_table_view_style(m);
     
     // Bind framebuf classes
     bind_framebuf(m);

@@ -1,10 +1,13 @@
 #pragma once
 namespace berialdraw
 {
+	class TableView;
+
 	/** The Grid class arranges child widgets in a grid, enabling precise alignment and consistent spacing. 
 	It is ideal for forms, tables, or structured UI designs. */
 	class Grid : public Widget
 	{
+	friend class TableView;
 	/** @image html sample_grid_1.svg "example" width=200px height=200px
 	@example sample_grid.cpp*/
 	public:

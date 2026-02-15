@@ -182,6 +182,17 @@ bool Styles::apply(const char * classname, ScrollViewStyle * properties)
 	return true;
 }
 
+/** Apply tableview properties */
+bool Styles::apply(const char * classname, TableViewStyle * properties)
+{
+	TableViewStyle *style = dynamic_cast<TableViewStyle*>(select(classname, "tableview", TableViewStyle::create));
+	if (properties && style)
+	{
+		*properties = *style;
+	}
+	return true;
+}
+
 /** Get mappings properties */
 const Mappings * Styles::mappings(const char * classname)
 {

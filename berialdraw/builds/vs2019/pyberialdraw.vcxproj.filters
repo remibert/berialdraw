@@ -169,6 +169,9 @@
     <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\scroll_view_style.cpp">
       <Filter>styles</Filter>
     </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\table_view_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
     <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\slider_style.cpp">
       <Filter>styles</Filter>
     </ClCompile>

@@ -71,86 +71,84 @@ void Invalidator::undirty(Widget * object, enum Status status)
 int32_t Invalidator::search(void * object)
 {
 	int32_t result = -1;
+	
 	if (object)
 	{
 		// Check cache: if same object, return immediately (fast path for sequential access)
 		if (object == m_last_search_object && m_last_search_index >= 0)
 		{
-			return m_last_search_index;
+			result = m_last_search_index;
 		}
-		
-		Widget * widget_with_shape = 0;
-		uint32_t search_size = m_widgets.size();
-		
-		// Start from last position for better locality
-		uint32_t start_pos = (m_last_search_index >= 0) ? (uint32_t)m_last_search_index : 0;
-		
-		// Search from last position to end
-		for (uint32_t i = start_pos; i < search_size; i++)
+		else
 		{
-			struct InvalidatorItem item = m_widgets[i];
-
-			// Check if object is in widget range
-			if (is_in_range(object, item.widget, item.size))
-			{
-				if (object != m_widgets[i].widget)
-				{
-					is_in_range(object, item.widget, item.size);
-				}
-				
-				result = i;
-				m_last_search_object = object;
-				m_last_search_index = result;
-				return result;
-			}
-
-			// Check if object is in shape range if shape exists
-			if (item.shape && is_in_range(object, item.shape, item.size))
-			{
-				widget_with_shape = item.widget;
-				break;
-			}
-		}
-		
-		// If not found after last position, search from beginning
-		if (result == -1 && start_pos > 0)
-		{
-			for (uint32_t i = 0; i < start_pos; i++)
+			Widget * widget_with_shape = nullptr;
+			uint32_t search_size = m_widgets.size();
+			
+			// Start from last position for better locality
+			uint32_t start_pos = (m_last_search_index >= 0) ? (uint32_t)m_last_search_index : 0;
+			
+			// Search from last position to end
+			for (uint32_t i = start_pos; i < search_size && result == -1; i++)
 			{
 				struct InvalidatorItem item = m_widgets[i];
+
 				// Check if object is in widget range
 				if (is_in_range(object, item.widget, item.size))
 				{
+					if (object != m_widgets[i].widget)
+					{
+						is_in_range(object, item.widget, item.size);
+					}
+					
 					result = i;
 					m_last_search_object = object;
 					m_last_search_index = result;
-					return result;
 				}
-
 				// Check if object is in shape range if shape exists
-				if (item.shape && is_in_range(object, item.shape, item.size))
+				else if (item.shape && is_in_range(object, item.shape, item.size))
 				{
 					widget_with_shape = item.widget;
-					break;
 				}
 			}
-		}
-		
-		// If we found a shape, search for its container widget
-		if (widget_with_shape)
-		{
-			for (uint32_t i = 0; i < search_size; i++)
+			
+			// If not found after last position, search from beginning
+			if (result == -1 && start_pos > 0)
 			{
-				if (m_widgets[i].shape == 0 && m_widgets[i].widget == widget_with_shape)
+				for (uint32_t i = 0; i < start_pos && result == -1; i++)
 				{
-					result = i;
-					m_last_search_object = object;
-					m_last_search_index = result;
-					return result;
+					struct InvalidatorItem item = m_widgets[i];
+					
+					// Check if object is in widget range
+					if (is_in_range(object, item.widget, item.size))
+					{
+						result = i;
+						m_last_search_object = object;
+						m_last_search_index = result;
+					}
+					// Check if object is in shape range if shape exists
+					else if (item.shape && is_in_range(object, item.shape, item.size))
+					{
+						widget_with_shape = item.widget;
+					}
+				}
+			}
+			
+			// If we found a shape, search for its container widget
+			if (result == -1 && widget_with_shape)
+			{
+				for (uint32_t i = 0; i < search_size && result == -1; i++)
+				{
+					if (m_widgets[i].shape == nullptr && m_widgets[i].widget == widget_with_shape)
+					{
+						result = i;
+						m_last_search_object = object;
+						m_last_search_index = result;
+					}
 				}
 			}
 		}
 	}
+	
 	return result;
 }
 

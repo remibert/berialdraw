@@ -38,23 +38,51 @@ namespace berialdraw
 		@return the widget handle found or null */
 		Widget * next(Widget * widget, Dim row, Dim column);
 
-		/** Recompute the min and max size of rows and columns of the widget */
+		/** Recompute the min and max size of rows and columns of the widget
+		@param widget the parent widget */
 		Size calc_sizes(Widget * widget);
 
-		/** Resize the cells according to the area size */
+		/** Resize the cells according to the area size
+		@param area the area to fit cells in */
 		Size resize(const Area & area);
 
-		/** Places widgets according to the area position */
+		/** Places widgets according to the area position 
+		@param widget the parent widget
+		@param area the area to place widgets in */
 		void place(Widget *widget, const Area & area);
 
 		/** Recalculates the boundaries based on content */
 		void rebound(Widget * widget);
 
 		/** Get the number of rows */
-		Dim row_count() const;
+		Dim row_count() const { return m_rows_count; }
 
 		/** Get the number of columns */
-		Dim column_count() const;
+		Dim column_count() const { return m_columns_count; }
+
+		/** Get row positions (coordinates where each row starts) */
+		const Dim* get_row_positions() const { return m_row_positions; }
+
+		/** Get column positions (coordinates where each column starts) */
+		const Dim* get_col_positions() const { return m_col_positions; }
+
+		/** Set horizontal grid line thickness */
+		void horizontal_line_thickness(Dim v) { m_horizontal_line_thickness = v; }
+
+		/** Get horizontal grid line thickness */
+		Dim horizontal_line_thickness() const { return m_horizontal_line_thickness; }
+
+		/** Set vertical grid line thickness */
+		void vertical_line_thickness(Dim v) { m_vertical_line_thickness = v; }
+
+		/** Get vertical grid line thickness */
+		Dim vertical_line_thickness() const { return m_vertical_line_thickness; }
+
+		/** Get the placed height of a specific row */
+		Dim row_height(Dim row) const { return (row < m_rows_count && m_heights) ? (m_heights[row].m_placed & 0xFFFFFFFC0) : 0; }
+
+		/** Get the placed width of a specific column */
+		Dim column_width(Dim col) const { return (col < m_columns_count && m_widths) ? (m_widths[col].m_placed & 0xFFFFFFFC0) : 0; }
 
 #ifdef _DEBUG
 		static void test();
@@ -72,12 +100,17 @@ namespace berialdraw
 		Cell * m_widths = 0;
 		Cell * m_heights = 0;
 
+		Dim* m_row_positions = 0;
+		Dim* m_col_positions = 0;
+
 		Size m_min_size = {0,0};
 		Size m_max_size = {0,0};
 		Size m_marged_size = {0,0};
 
 		Dim m_rows_count = 0;
 		Dim m_columns_count = 0;
+		Dim m_horizontal_line_thickness = 0;
+		Dim m_vertical_line_thickness = 0;
 /// @endcond
 	};
 }

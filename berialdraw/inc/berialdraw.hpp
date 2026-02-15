@@ -79,6 +79,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "styles/icon_style.hpp"
 #include "styles/colors.hpp"
 #include "styles/scroll_view_style.hpp"
+#include "styles/table_view_style.hpp"
 #include "styles/styles.hpp"
 
 // Event 
