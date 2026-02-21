@@ -195,8 +195,17 @@ void TableView::paint(const Region & parent_region)
 			{
 				Dim row_y = row_positions[row];
 				Dim row_height = m_grid->m_cells.row_height(row);
-				Dim line_y = row_y + row_height;  // Line drawn after the row content
+				Dim line_y;
 				
+				if (row == row_count - 1)
+				{
+					line_y = (row_y + row_height + 63) & 0xFFFFFFC0;
+				}
+				else
+				{
+					line_y = row_y + row_height;
+				}
+
 				Area line_area(m_foreclip.x_(), line_y, m_foreclip.width_(), horizontal_thickness, false);
 				line_area.nearest_pixel();
 				
@@ -212,7 +221,16 @@ void TableView::paint(const Region & parent_region)
 			{
 				Dim col_x = col_positions[col];
 				Dim col_width = m_grid->m_cells.column_width(col);
-				Dim line_x = col_x + col_width;  // Line drawn after the column content
+				Dim line_x;
+
+				if (col == col_count - 1)
+				{
+					line_x = (col_x + col_width + 63) & 0xFFFFFFC0;
+				}
+				else
+				{
+					line_x = col_x + col_width;
+				}
 				
 				Area line_area(line_x, m_foreclip.y_(), vertical_thickness, m_foreclip.height_(), false);
 				line_area.nearest_pixel();
@@ -316,14 +334,14 @@ void TableView::test1()
 	
 	// Configure grid styling
 	table->grid_color(0xFF808080);  // Gray grid lines
-	table->horizontal_thickness(2); // 2 pixels
-	table->vertical_thickness(2);   // 2 pixels
+	table->horizontal_thickness(5); // 2 pixels
+	table->vertical_thickness(5);   // 2 pixels
 	table->alternating_row_color1(0xFFE8F8FF);  // Pastel blue
 	table->alternating_row_color2(0xFFF0F8E8);  // Pastel green
 
-	for (uint16_t row = 0; row < 24; row++)
+	for (uint16_t row = 0; row < 47; row++)
 	{
-		for (uint16_t column = 0; column < 8; column++)
+		for (uint16_t column = 0; column < 7; column++)
 		{
 			Label* label = new Label(table);
 			label->text("%d %d",row+1,column+1);
@@ -332,7 +350,7 @@ void TableView::test1()
 	}
 
 //	UIManager::desktop()->dispatch("$(ui.tests)/out/table_view_1.svg");
-UIManager::desktop()->mainloop();
+//UIManager::desktop()->mainloop();
 }
 
 void TableView::test2()

@@ -234,4 +234,13 @@ namespace berialdraw
 		unsigned int m_height_undefined:1;
 /// @endcond
 	};
+
+	inline Coord nearest_pixel(Coord coord)
+	{
+		return ((coord ) & 0xFFFFFFC0);
+	}
+	inline Dim nearest_pixel(Dim dim)
+	{
+		return ((dim ) & 0xFFFFFFC0);
+	}
 }

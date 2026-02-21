@@ -203,7 +203,7 @@ Size Cells::calc_sizes(Widget * widget)
 	
 				marged_size = current->marged_size();
 
-			// If the mininal size is smaller than content size, set to the content size
+				// If the mininal size is smaller than content size, set to the content size
 				if (min_size.width_() < marged_size.width_())
 				{
 					min_size.width_(marged_size.width_());
@@ -295,6 +295,16 @@ Size Cells::calc_sizes(Widget * widget)
 	if (m_min_size.height_() > m_marged_size.height_())
 	{
 		result.height_(m_min_size.height_());
+	}
+
+	// Add space reserved for grid lines
+	if (m_vertical_line_thickness > 0 && m_columns_count > 0)
+	{
+		result.increase_((m_columns_count + 1) * m_vertical_line_thickness, 0);
+	}
+	if (m_horizontal_line_thickness > 0 && m_rows_count > 0)
+	{
+		result.increase_(0, (m_rows_count + 1) * m_horizontal_line_thickness);
 	}
 
 	return result;
@@ -647,56 +657,66 @@ void Cells::place(Widget *widget, const Area & area)
 		calc_sizes(widget);
 		resize(area);
 
-		// Precompute row positions (account for grid line thickness)
+		// Precompute row positions
+		Dim inc;
 		Dim y_pos = area.y_() + m_horizontal_line_thickness;
+		Dim true_pos = y_pos;
 		for (Dim i = 0; i < m_rows_count; i++)
 		{
 			m_row_positions[i] = y_pos;
-			y_pos += (m_heights[i].m_placed & 0xFFFFFFFC0);
-			if (i < m_rows_count - 1)
+			inc = m_heights[i].m_placed + m_horizontal_line_thickness;
+			true_pos += inc;
+			y_pos += nearest_pixel(inc);
+
+			// If error greater than one pixel
+			if ((true_pos - y_pos) > 64)
 			{
-				y_pos += m_horizontal_line_thickness;
+				// Move position
+				y_pos    += 64;
+
+				// Grow the previous size
+				m_heights[i].m_placed += 64;
 			}
 		}
-		// Add bottom border (for calculation completeness)
-		y_pos += m_horizontal_line_thickness;
 
-		// Precompute column positions (account for grid line thickness)
-		Dim* col_widths = new Dim[m_columns_count];
+		// Precompute column positions and widths
 		Dim x_pos = area.x_() + m_vertical_line_thickness;
+		true_pos = x_pos;
 		for (Dim i = 0; i < m_columns_count; i++)
 		{
-			m_col_positions[i] = x_pos;
-			col_widths[i] = m_widths[i].m_placed & 0xFFFFFFFC0;
-			x_pos += col_widths[i];
-			if (i < m_columns_count - 1)
+			m_col_positions[i] = (x_pos);
+			inc = m_widths[i].m_placed + m_vertical_line_thickness;
+			true_pos += inc;
+			x_pos += nearest_pixel(inc);
+
+			// If error greater than one pixel
+			if ((true_pos - x_pos) > 64)
 			{
-				x_pos += m_vertical_line_thickness;
+				// Move position
+				x_pos += 64;
+				// Grow the previous size
+				m_widths[i].m_placed += 64;
 			}
 		}
-		// Add right border (for calculation completeness)
-		x_pos += m_vertical_line_thickness;
 
 		// Iterate through all widgets directly (single traversal)
 		Widget * current = widget->m_children;
 		while(current)
 		{
-			row = current->row();
+			row    = current->row();
 			column = current->column();
 
 			// Only place if widget is in a valid cell
 			if (row < m_rows_count && column < m_columns_count)
 			{
-				cell.x_(m_col_positions[column]);
-				cell.y_(m_row_positions[row]);
-				cell.width_(col_widths[column]);
-				cell.height_(m_heights[row].m_placed & 0xFFFFFFFC0);
+				cell.x_     (m_col_positions[column]);
+				cell.y_     (m_row_positions[row   ]);
+				cell.width_ (nearest_pixel(m_widths       [column].m_placed));
+				cell.height_(nearest_pixel(m_heights      [row   ].m_placed));
 				current->place(cell, true);
 			}
 			current = current->m_next;
 		}
-
-		delete[] col_widths;
 	}
 }
 

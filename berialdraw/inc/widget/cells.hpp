@@ -79,10 +79,10 @@ namespace berialdraw
 		Dim vertical_line_thickness() const { return m_vertical_line_thickness; }
 
 		/** Get the placed height of a specific row */
-		Dim row_height(Dim row) const { return (row < m_rows_count && m_heights) ? (m_heights[row].m_placed & 0xFFFFFFFC0) : 0; }
+		Dim row_height(Dim row) const { return (row < m_rows_count && m_heights) ? (m_heights[row].m_placed /*& 0xFFFFFFFC0*/) : 0; }
 
 		/** Get the placed width of a specific column */
-		Dim column_width(Dim col) const { return (col < m_columns_count && m_widths) ? (m_widths[col].m_placed & 0xFFFFFFFC0) : 0; }
+		Dim column_width(Dim col) const { return (col < m_columns_count && m_widths) ? (m_widths[col].m_placed/* & 0xFFFFFFFC0*/) : 0; }
 
 #ifdef _DEBUG
 		static void test();

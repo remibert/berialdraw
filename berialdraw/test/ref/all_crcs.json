@@ -441,63 +441,63 @@
 		},
 		"$(ui.tests)/out/edit1_1.svg" : 
 		{
-			"scale_2" : 3963864325
+			"scale_2" : 158362829
 		},
 		"$(ui.tests)/out/edit1_2.svg" : 
 		{
-			"scale_2" : 3981321178
+			"scale_2" : 321612115
 		},
 		"$(ui.tests)/out/edit1_3.svg" : 
 		{
-			"scale_2" : 2351776842
+			"scale_2" : 3397111525
 		},
 		"$(ui.tests)/out/edit1_4.svg" : 
 		{
-			"scale_2" : 1658555198
+			"scale_2" : 944192469
 		},
 		"$(ui.tests)/out/edit1_5.svg" : 
 		{
-			"scale_2" : 4192509491
+			"scale_2" : 131113173
 		},
 		"$(ui.tests)/out/edit1_6.svg" : 
 		{
-			"scale_2" : 1570528625
+			"scale_2" : 3662220278
 		},
 		"$(ui.tests)/out/edit1_7.svg" : 
 		{
-			"scale_2" : 4262505817
+			"scale_2" : 3984213291
 		},
 		"$(ui.tests)/out/edit1_8.svg" : 
 		{
-			"scale_2" : 2443170350
+			"scale_2" : 902433234
 		},
 		"$(ui.tests)/out/edit1_9.svg" : 
 		{
-			"scale_2" : 1597449428
+			"scale_2" : 4125899293
 		},
 		"$(ui.tests)/out/edit1_10.svg" : 
 		{
-			"scale_2" : 2465243498
+			"scale_2" : 528919202
 		},
 		"$(ui.tests)/out/switch1_1.svg" : 
 		{
-			"scale_2" : 2332051363
+			"scale_2" : 3985273219
 		},
 		"$(ui.tests)/out/switch1_2.svg" : 
 		{
-			"scale_2" : 3764766678
+			"scale_2" : 1009236199
 		},
 		"$(ui.tests)/out/switch1_3.svg" : 
 		{
-			"scale_2" : 3300484675
+			"scale_2" : 3985273219
 		},
 		"$(ui.tests)/out/switch1_4.svg" : 
 		{
-			"scale_2" : 1266479088
+			"scale_2" : 1698571301
 		},
 		"$(ui.tests)/out/switch1_5.svg" : 
 		{
-			"scale_2" : 1872776805
+			"scale_2" : 3029593409
 		},
 		"$(ui.tests)/out/button17_1.svg" : 
 		{
@@ -801,19 +801,19 @@
 		},
 		"$(ui.tests)/out/button7_1.svg" : 
 		{
-			"scale_2" : 2582588964
+			"scale_2" : 2901137571
 		},
 		"$(ui.tests)/out/button7_2.svg" : 
 		{
-			"scale_2" : 3794443083
+			"scale_2" : 1754473935
 		},
 		"$(ui.tests)/out/button7_3.svg" : 
 		{
-			"scale_2" : 2053301570
+			"scale_2" : 4258247122
 		},
 		"$(ui.tests)/out/button7_4.svg" : 
 		{
-			"scale_2" : 727658512
+			"scale_2" : 2901566592
 		},
 		"$(ui.tests)/out/button6.svg" : 
 		{
@@ -1121,15 +1121,15 @@
 		},
 		"$(ui.tests)/out/window8_1.svg" : 
 		{
-			"scale_2" : 673959983
+			"scale_2" : 3073743486
 		},
 		"$(ui.tests)/out/window8_2.svg" : 
 		{
-			"scale_2" : 2691118879
+			"scale_2" : 917037059
 		},
 		"$(ui.tests)/out/window8_3.svg" : 
 		{
-			"scale_2" : 673959983
+			"scale_2" : 3073743486
 		},
 		"$(ui.tests)/out/window7_1.svg" : 
 		{
@@ -1229,15 +1229,15 @@
 		},
 		"$(ui.tests)/out/window7_25.svg" : 
 		{
-			"scale_2" : 2622349969
+			"scale_2" : 2112806605
 		},
 		"$(ui.tests)/out/window7_26.svg" : 
 		{
-			"scale_2" : 2622349969
+			"scale_2" : 2112806605
 		},
 		"$(ui.tests)/out/window7_27.svg" : 
 		{
-			"scale_2" : 2622349969
+			"scale_2" : 2112806605
 		},
 		"$(ui.tests)/out/window7_28.svg" : 
 		{
@@ -1309,11 +1309,11 @@
 		},
 		"$(ui.tests)/out/window2_1.svg" : 
 		{
-			"scale_2" : 133235717
+			"scale_2" : 3140408914
 		},
 		"$(ui.tests)/out/window2_2.svg" : 
 		{
-			"scale_2" : 1446680991
+			"scale_2" : 541128236
 		},
 		"$(ui.tests)/out/window1_0.svg" : 
 		{
@@ -2817,11 +2817,11 @@
 		},
 		"$(ui.tests)/out/grid5_1.svg" : 
 		{
-			"scale_2" : 3234109149
+			"scale_2" : 862717929
 		},
 		"$(ui.tests)/out/grid5_2.svg" : 
 		{
-			"scale_2" : 4177973601
+			"scale_2" : 117491991
 		},
 		"$(ui.tests)/out/grid5_3.svg" : 
 		{
@@ -2849,11 +2849,11 @@
 		},
 		"$(ui.tests)/out/grid5_9.svg" : 
 		{
-			"scale_2" : 3234109149
+			"scale_2" : 862717929
 		},
 		"$(ui.tests)/out/grid5_10.svg" : 
 		{
-			"scale_2" : 4177973601
+			"scale_2" : 117491991
 		},
 		"$(ui.tests)/out/grid5_11.svg" : 
 		{
@@ -2881,11 +2881,11 @@
 		},
 		"$(ui.tests)/out/grid4_1.svg" : 
 		{
-			"scale_2" : 3234109149
+			"scale_2" : 862717929
 		},
 		"$(ui.tests)/out/grid4_2.svg" : 
 		{
-			"scale_2" : 4177973601
+			"scale_2" : 117491991
 		},
 		"$(ui.tests)/out/grid4_3.svg" : 
 		{
@@ -2913,11 +2913,11 @@
 		},
 		"$(ui.tests)/out/grid4_9.svg" : 
 		{
-			"scale_2" : 3234109149
+			"scale_2" : 862717929
 		},
 		"$(ui.tests)/out/grid4_10.svg" : 
 		{
-			"scale_2" : 4177973601
+			"scale_2" : 117491991
 		},
 		"$(ui.tests)/out/grid4_11.svg" : 
 		{
@@ -2945,11 +2945,11 @@
 		},
 		"$(ui.tests)/out/grid3_1.svg" : 
 		{
-			"scale_2" : 3993540786
+			"scale_2" : 3991048230
 		},
 		"$(ui.tests)/out/grid3_2.svg" : 
 		{
-			"scale_2" : 54760005
+			"scale_2" : 4045139793
 		},
 		"$(ui.tests)/out/grid3_3.svg" : 
 		{
@@ -2961,27 +2961,27 @@
 		},
 		"$(ui.tests)/out/grid3_5.svg" : 
 		{
-			"scale_2" : 2881569907
+			"scale_2" : 3150940654
 		},
 		"$(ui.tests)/out/grid3_6.svg" : 
 		{
-			"scale_2" : 2109931860
+			"scale_2" : 164597827
 		},
 		"$(ui.tests)/out/grid3_7.svg" : 
 		{
-			"scale_2" : 2552518214
+			"scale_2" : 849530762
 		},
 		"$(ui.tests)/out/grid3_8.svg" : 
 		{
-			"scale_2" : 1022947475
+			"scale_2" : 3491994274
 		},
 		"$(ui.tests)/out/grid2_1.svg" : 
 		{
-			"scale_2" : 3800558517
+			"scale_2" : 1965120662
 		},
 		"$(ui.tests)/out/grid2_2.svg" : 
 		{
-			"scale_2" : 1628172390
+			"scale_2" : 4081652609
 		},
 		"$(ui.tests)/out/grid2_3.svg" : 
 		{
@@ -2989,7 +2989,7 @@
 		},
 		"$(ui.tests)/out/grid2_4.svg" : 
 		{
-			"scale_2" : 23969551
+			"scale_2" : 3765140631
 		},
 		"$(ui.tests)/out/grid2_5.svg" : 
 		{
@@ -2997,15 +2997,15 @@
 		},
 		"$(ui.tests)/out/grid2_6.svg" : 
 		{
-			"scale_2" : 2865561467
+			"scale_2" : 4235393595
 		},
 		"$(ui.tests)/out/grid2_7.svg" : 
 		{
-			"scale_2" : 965500091
+			"scale_2" : 1192977438
 		},
 		"$(ui.tests)/out/grid2_8.svg" : 
 		{
-			"scale_2" : 3566511994
+			"scale_2" : 4191242223
 		},
 		"$(ui.tests)/out/grid1_1.svg" : 
 		{
@@ -3017,7 +3017,7 @@
 		},
 		"$(ui.tests)/out/grid1_3.svg" : 
 		{
-			"scale_2" : 2636552249
+			"scale_2" : 1348759754
 		},
 		"$(ui.tests)/out/grid1_4.svg" : 
 		{
@@ -3289,7 +3289,7 @@
 		},
 		"$(ui.tests)/out/sample_keyboard_1.svg" : 
 		{
-			"scale_2" : 617655783
+			"scale_2" : 2925746355
 		},
 		"$(ui.tests)/out/sample_label_1.svg" : 
 		{
@@ -3357,183 +3357,183 @@
 		},
 		"$(ui.tests)/out/sample_theme_1.svg" : 
 		{
-			"scale_2" : 1431480717
+			"scale_2" : 2759495701
 		},
 		"$(ui.tests)/out/sample_theme_2.svg" : 
 		{
-			"scale_2" : 3114201620
+			"scale_2" : 857190082
 		},
 		"$(ui.tests)/out/sample_theme_3.svg" : 
 		{
-			"scale_2" : 2424467334
+			"scale_2" : 2246159227
 		},
 		"$(ui.tests)/out/sample_theme_4.svg" : 
 		{
-			"scale_2" : 1330186934
+			"scale_2" : 962802443
 		},
 		"$(ui.tests)/out/sample_theme_5.svg" : 
 		{
-			"scale_2" : 1983861355
+			"scale_2" : 560708756
 		},
 		"$(ui.tests)/out/sample_theme_6.svg" : 
 		{
-			"scale_2" : 3632828415
+			"scale_2" : 2639273398
 		},
 		"$(ui.tests)/out/sample_theme_7.svg" : 
 		{
-			"scale_2" : 3846393846
+			"scale_2" : 1693056497
 		},
 		"$(ui.tests)/out/sample_theme_8.svg" : 
 		{
-			"scale_2" : 514948799
+			"scale_2" : 2494516513
 		},
 		"$(ui.tests)/out/sample_theme_9.svg" : 
 		{
-			"scale_2" : 3513099827
+			"scale_2" : 3798480450
 		},
 		"$(ui.tests)/out/sample_theme_10.svg" : 
 		{
-			"scale_2" : 868480875
+			"scale_2" : 3706053718
 		},
 		"$(ui.tests)/out/sample_theme_11.svg" : 
 		{
-			"scale_2" : 2307994110
+			"scale_2" : 1478229612
 		},
 		"$(ui.tests)/out/sample_theme_12.svg" : 
 		{
-			"scale_2" : 426662314
+			"scale_2" : 427229495
 		},
 		"$(ui.tests)/out/sample_theme_13.svg" : 
 		{
-			"scale_2" : 165032668
+			"scale_2" : 919522905
 		},
 		"$(ui.tests)/out/sample_theme_14.svg" : 
 		{
-			"scale_2" : 1028868126
+			"scale_2" : 2293507612
 		},
 		"$(ui.tests)/out/sample_theme_15.svg" : 
 		{
-			"scale_2" : 1667371270
+			"scale_2" : 3346783162
 		},
 		"$(ui.tests)/out/sample_theme_16.svg" : 
 		{
-			"scale_2" : 1803835595
+			"scale_2" : 1036972122
 		},
 		"$(ui.tests)/out/sample_theme_17.svg" : 
 		{
-			"scale_2" : 3119270320
+			"scale_2" : 4139287081
 		},
 		"$(ui.tests)/out/sample_theme_18.svg" : 
 		{
-			"scale_2" : 2538952531
+			"scale_2" : 3336279351
 		},
 		"$(ui.tests)/out/sample_theme_19.svg" : 
 		{
-			"scale_2" : 2595604719
+			"scale_2" : 2350041161
 		},
 		"$(ui.tests)/out/sample_theme_20.svg" : 
 		{
-			"scale_2" : 3468199423
+			"scale_2" : 455465875
 		},
 		"$(ui.tests)/out/sample_theme_21.svg" : 
 		{
-			"scale_2" : 1449558641
+			"scale_2" : 3246592717
 		},
 		"$(ui.tests)/out/sample_theme_22.svg" : 
 		{
-			"scale_2" : 744754339
+			"scale_2" : 2737895070
 		},
 		"$(ui.tests)/out/sample_theme_23.svg" : 
 		{
-			"scale_2" : 3639618348
+			"scale_2" : 76815939
 		},
 		"$(ui.tests)/out/sample_theme_24.svg" : 
 		{
-			"scale_2" : 1859659649
+			"scale_2" : 1068335712
 		},
 		"$(ui.tests)/out/sample_theme_25.svg" : 
 		{
-			"scale_2" : 3705964608
+			"scale_2" : 3541958494
 		},
 		"$(ui.tests)/out/sample_theme_26.svg" : 
 		{
-			"scale_2" : 1744624138
+			"scale_2" : 900192034
 		},
 		"$(ui.tests)/out/sample_theme_27.svg" : 
 		{
-			"scale_2" : 1624094550
+			"scale_2" : 3596437115
 		},
 		"$(ui.tests)/out/sample_theme_28.svg" : 
 		{
-			"scale_2" : 496698364
+			"scale_2" : 1370413399
 		},
 		"$(ui.tests)/out/sample_theme_29.svg" : 
 		{
-			"scale_2" : 2674074851
+			"scale_2" : 1935682168
 		},
 		"$(ui.tests)/out/sample_theme_30.svg" : 
 		{
-			"scale_2" : 1868281554
+			"scale_2" : 2293604519
 		},
 		"$(ui.tests)/out/sample_theme_31.svg" : 
 		{
-			"scale_2" : 3150565124
+			"scale_2" : 1007073785
 		},
 		"$(ui.tests)/out/sample_theme_32.svg" : 
 		{
-			"scale_2" : 1369244215
+			"scale_2" : 1038317529
 		},
 		"$(ui.tests)/out/sample_theme_33.svg" : 
 		{
-			"scale_2" : 207955103
+			"scale_2" : 2808837970
 		},
 		"$(ui.tests)/out/sample_theme_34.svg" : 
 		{
-			"scale_2" : 842838165
+			"scale_2" : 984576895
 		},
 		"$(ui.tests)/out/sample_theme_35.svg" : 
 		{
-			"scale_2" : 831699332
+			"scale_2" : 2713979735
 		},
 		"$(ui.tests)/out/sample_theme_36.svg" : 
 		{
-			"scale_2" : 688111874
+			"scale_2" : 3820396437
 		},
 		"$(ui.tests)/out/sample_theme_37.svg" : 
 		{
-			"scale_2" : 3057817718
+			"scale_2" : 3881218257
 		},
 		"$(ui.tests)/out/sample_theme_38.svg" : 
 		{
-			"scale_2" : 1305286186
+			"scale_2" : 1076012619
 		},
 		"$(ui.tests)/out/sample_theme_39.svg" : 
 		{
-			"scale_2" : 2070238904
+			"scale_2" : 1377411708
 		},
 		"$(ui.tests)/out/sample_theme_40.svg" : 
 		{
-			"scale_2" : 1367366688
+			"scale_2" : 1270736819
 		},
 		"$(ui.tests)/out/checkbox1_1.svg" : 
 		{
-			"scale_2" : 4017394264
+			"scale_2" : 2703773547
 		},
 		"$(ui.tests)/out/checkbox1_2.svg" : 
 		{
-			"scale_2" : 22433017
+			"scale_2" : 2797418786
 		},
 		"$(ui.tests)/out/checkbox1_3.svg" : 
 		{
-			"scale_2" : 3030680818
+			"scale_2" : 4172402922
 		},
 		"$(ui.tests)/out/checkbox1_4.svg" : 
 		{
-			"scale_2" : 3972741782
+			"scale_2" : 533320794
 		},
 		"$(ui.tests)/out/checkbox1_5.svg" : 
 		{
-			"scale_2" : 599657218
+			"scale_2" : 3533970361
 		},
 		"$(ui.tests)/out/edit9_1.svg" : 
 		{
@@ -3593,7 +3593,7 @@
 		},
 		"$(ui.tests)/out/radio1.svg" : 
 		{
-			"scale_2" : 2299995835
+			"scale_2" : 1695147842
 		},
 		"$(ui.tests)/out/radio3.svg" : 
 		{
@@ -3601,7 +3601,7 @@
 		},
 		"$(ui.tests)/out/radio2.svg" : 
 		{
-			"scale_2" : 3497672567
+			"scale_2" : 1316545150
 		},
 		"$(ui.tests)/out/icon5.svg" : 
 		{
@@ -3609,14 +3609,14 @@
 		},
 		"$(ui.tests)/out/radio4.svg" : 
 		{
-			"scale_2" : 3342186040
+			"scale_2" : 2132018965
 		},
 		"$(ui.tests)/out/switch6.svg" : 
 		{
-			"scale_2" : 2174745605
+			"scale_2" : 396030074
 		},
 		"$(ui.tests)/out/checkbox3.svg" : 
 		{
-			"scale_2" : 4246874463
+			"scale_2" : 2094319389
 		}
 	}
