@@ -1,19 +1,24 @@
 # CMakeLists.txt for pybind11 Python wrapper
 
-# Python setup for pybind11
-if(WIN32)
+# Python setup for pybind11 (Python 3.14+)
+# Find any Python version 3.14 or higher
+find_package(Python 3.14 COMPONENTS Interpreter Development)
+
+# If not found, try to find any Python and check version
+if(NOT Python_FOUND)
 	find_package(Python COMPONENTS Interpreter Development REQUIRED)
-	set(PYTHON_INCLUDE_PATH "C:/Development/Python314/include")
-	set(PYTHON_LIBRARIES "C:/Development/Python314/libs/python314.lib")
-elseif(APPLE)
-	find_package(Python COMPONENTS Interpreter Development REQUIRED)
-	set(PYTHON_INCLUDE_PATH ${Python_INCLUDE_DIRS})
-	set(PYTHON_LIBRARIES ${Python_LIBRARIES})
+	if(Python_VERSION_MAJOR LESS 3 OR (Python_VERSION_MAJOR EQUAL 3 AND Python_VERSION_MINOR LESS 14))
+		message(WARNING "Python ${Python_VERSION} found, but 3.14+ recommended for best compatibility")
+	endif()
 else()
-	find_package(Python COMPONENTS Interpreter Development REQUIRED)
-	set(PYTHON_INCLUDE_PATH ${Python_INCLUDE_DIRS})
-	set(PYTHON_LIBRARIES ${Python_LIBRARIES})
+	message(STATUS "Found Python ${Python_VERSION}")
 endif()
+
+set(PYTHON_INCLUDE_PATH ${Python_INCLUDE_DIRS})
+set(PYTHON_LIBRARIES ${Python_LIBRARIES})
+
+message(STATUS "Python version: ${Python_VERSION}")
+message(STATUS "Building pyberialdraw for Python ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}+")
 
 set(SRCS_PYBIND11_LIB
 	src/pyberialdraw.cpp
@@ -74,7 +79,6 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/styles/switch_style.cpp
 	src/pybind/styles/radio_style.cpp
 	src/pybind/styles/checkbox_style.cpp
-	src/pybind/styles/radio_style.cpp
 	src/pybind/styles/text_style.cpp
 	src/pybind/styles/widget_style.cpp
 	src/pybind/tool/directory.cpp
@@ -102,7 +106,6 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/widget/switch.cpp
 	src/pybind/widget/radio.cpp
 	src/pybind/widget/checkbox.cpp
-	src/pybind/widget/radio.cpp
 	src/pybind/widget/uimanager.cpp
 	src/pybind/widget/window.cpp
 )
@@ -129,13 +132,18 @@ set(INCLUDES_PYBIND11
 # pybind11 Python wrapper library
 add_library(${BD_PY11_LIB} SHARED ${SRCS_PYBIND11_LIB} ${PYBIND_HEADERS})
 target_include_directories(${BD_PY11_LIB} PRIVATE ${INCLUDES_PYBIND11} ${PYTHON_INCLUDE_PATH})
-target_compile_definitions(${BD_PY11_LIB} PRIVATE ${COMPILE_DEF} 
-	-DPACKAGE=1
-	-DHAVE_PTHREAD_SETSPECIFIC=1
-	-DFT2_BUILD_LIBRARY=1
-	-DFT_ERR_PREFIX=FT_Err_)
+
+# Standard compilation without API limitations
+target_compile_definitions(${BD_PY11_LIB} PRIVATE 
+	${COMPILE_DEF}
+	PACKAGE=1
+	HAVE_PTHREAD_SETSPECIFIC=1
+	FT2_BUILD_LIBRARY=1
+	FT_ERR_PREFIX=FT_Err_
+	PYBIND11_SIMPLE_GIL_MANAGEMENT)
+
 if(APPLE)
-	target_compile_definitions(${BD_PY11_LIB} PRIVATE -DVERSION_INFO=\"dev\")
+	target_compile_definitions(${BD_PY11_LIB} PRIVATE DVERSION_INFO=\"dev\")
 	set_target_properties(${BD_PY11_LIB} PROPERTIES
 		CXX_VISIBILITY_PRESET "hidden"
 		VISIBILITY_INLINES_HIDDEN ON
@@ -147,11 +155,17 @@ target_link_libraries(${BD_PY11_LIB} ${BD_LIB} ${DEVICE_LIBRARIES} ${PYTHON_LIBR
 
 # Platform-specific output settings
 if(WIN32)
-	set_target_properties(${BD_PY11_LIB} PROPERTIES SUFFIX ".pyd")
+	set_target_properties(${BD_PY11_LIB} PROPERTIES 
+		SUFFIX ".pyd"
+		PREFIX "")
 elseif(APPLE)
-	set_target_properties(${BD_PY11_LIB} PROPERTIES SUFFIX ".so" PREFIX "")
+	set_target_properties(${BD_PY11_LIB} PROPERTIES 
+		SUFFIX ".so" 
+		PREFIX "")
 else()
-	set_target_properties(${BD_PY11_LIB} PROPERTIES SUFFIX ".so" PREFIX "")
+	set_target_properties(${BD_PY11_LIB} PROPERTIES 
+		SUFFIX ".so" 
+		PREFIX "")
 endif()
 
 # Add Info.plist for macOS GUI app recognition

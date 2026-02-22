@@ -2,6 +2,9 @@
 // Berialdraw Python Bindings - Master Header
 // This header contains all binding declarations for the berialdraw framework
 
+// Include Python headers
+#include <Python.h>
+
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <functional>

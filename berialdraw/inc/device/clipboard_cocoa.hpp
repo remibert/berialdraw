@@ -25,6 +25,15 @@ namespace berialdraw
 		virtual void update_listener();
 
 	private:
+		static void* m_accepted_types;  /** Static array of accepted pasteboard types (NSArray* in Objective-C++) */
+		static int m_instance_count;  /** Reference count for instances */
+		
+		/** Initialize accepted types array (thread-safe) */
+		static void* getAcceptedTypes();
+		
+		/** Cleanup accepted types if no more instances */
+		static void cleanupAcceptedTypes();
+		
 		long m_last_change_count;	/** Track NSPasteboard change count for change detection */
 		String m_last_content;		/** Cache last known content as fallback for change detection */
 	};

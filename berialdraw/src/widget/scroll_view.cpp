@@ -169,43 +169,38 @@ Point ScrollView::compute_scroll_view(const Area & area, Point & scroll_position
 	Point result;
 	Area fixed_area;
 
-//	if (m_size.is_width_undefined() || m_size.is_height_undefined())
+	// If scroll size not specified
+	if (m_scroll_size.is_width_undefined() || m_scroll_size.is_height_undefined())
 	{
-		// If scroll size not specified
-		if (m_scroll_size.is_width_undefined() || m_scroll_size.is_height_undefined())
+		m_size = Widget::content_size();
+
+		// Compute the absolute positionned widget area
+		scroll_area(fixed_area);
+
+		if (m_size.width_() < fixed_area.width_())
 		{
-			m_size = Widget::content_size();
-
-			// Compute the absolute positionned widget area
-			scroll_area(fixed_area);
-
-			if (m_size.width_() < fixed_area.width_())
-			{
-				m_size.width_(fixed_area.width_());
-			}
-
-			if (m_size.height_() < fixed_area.height_())
-			{
-				m_size.height_(fixed_area.height_());
-			}
-
-			// If the scrolled content can extend only to the width (vertical scroll)
-			if (m_scroll_direction == SCROLL_VERTICAL)
-			{
-				// Reduce the scrolled content width to the viewport width
-				m_size.width(area.width());
-			}
-			// If the scrolled content can extend only to the height (horizontal scroll)
-			else if (m_scroll_direction == SCROLL_HORIZONTAL)
-			{
-				// Reduce the scrolled content height to the viewport height
-				m_size.height(area.height());
-			}
-			scroll_size = m_size;
+			m_size.width_(fixed_area.width_());
 		}
-	}
 
-	//		scroll_size = m_size;
+		if (m_size.height_() < fixed_area.height_())
+		{
+			m_size.height_(fixed_area.height_());
+		}
+
+		// If the scrolled content can extend only to the width (vertical scroll)
+		if (m_scroll_direction == SCROLL_VERTICAL)
+		{
+			// Reduce the scrolled content width to the viewport width
+			m_size.width(area.width());
+		}
+		// If the scrolled content can extend only to the height (horizontal scroll)
+		else if (m_scroll_direction == SCROLL_HORIZONTAL)
+		{
+			// Reduce the scrolled content height to the viewport height
+			m_size.height(area.height());
+		}
+		scroll_size = m_size;
+	}
 
 	Coord scroll_position_x   = scroll_position.x();
 	Coord scroll_position_y   = scroll_position.y();

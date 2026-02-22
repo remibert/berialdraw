@@ -20,22 +20,10 @@ void Cells::reallocate(Dim rows_count, Dim columns_count)
 {
 	if(rows_count != m_rows_count || columns_count != m_columns_count)
 	{
-		if (m_widths)
-		{
-			delete m_widths;
-		}
-		if(m_heights)
-		{
-			delete m_heights;
-		}
-		if(m_row_positions)
-		{
-			delete m_row_positions;
-		}
-		if(m_col_positions)
-		{
-			delete m_col_positions;
-		}
+		delete m_widths;
+		delete m_heights;
+		delete m_row_positions;
+		delete m_col_positions;
 		m_widths = 0;
 		m_heights = 0;
 		m_row_positions = 0;
@@ -694,6 +682,7 @@ void Cells::place(Widget *widget, const Area & area)
 			{
 				// Move position
 				x_pos += 64;
+
 				// Grow the previous size
 				m_widths[i].m_placed += 64;
 			}

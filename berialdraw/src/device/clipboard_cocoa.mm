@@ -11,11 +11,45 @@
 
 using namespace berialdraw;
 
+// Initialize static members
+void* ClipboardProviderCocoa::m_accepted_types = nullptr;
+int ClipboardProviderCocoa::m_instance_count = 0;
+
+/** Static method to safely initialize and get accepted types */
+void* ClipboardProviderCocoa::getAcceptedTypes()
+{
+	@synchronized([NSObject class])
+	{
+		if (m_accepted_types == nullptr) {
+			m_accepted_types = (void*)CFBridgingRetain(@[NSPasteboardTypeString]);
+		}
+	}
+	return ClipboardProviderCocoa::m_accepted_types;
+}
+
+/** Clean up accepted types when no more instances exist */
+void ClipboardProviderCocoa::cleanupAcceptedTypes()
+{
+	@synchronized([NSObject class])
+	{
+		if (--m_instance_count <= 0 && m_accepted_types != nullptr) {
+			CFBridgingRelease(m_accepted_types);
+			m_accepted_types = nullptr;
+		}
+	}
+}
+
 /** Constructor */
 berialdraw::ClipboardProviderCocoa::ClipboardProviderCocoa()
 {
 	@autoreleasepool
 	{
+		@synchronized([NSObject class])
+		{
+			m_instance_count++;
+		}
+		// Ensure accepted types are initialized
+		getAcceptedTypes();
 		NSPasteboard * pasteboard = [NSPasteboard generalPasteboard];
 		m_last_change_count = [pasteboard changeCount];
 		// Initialize content cache
@@ -26,6 +60,7 @@ berialdraw::ClipboardProviderCocoa::ClipboardProviderCocoa()
 /** Destructor */
 berialdraw::ClipboardProviderCocoa::~ClipboardProviderCocoa()
 {
+	cleanupAcceptedTypes();
 }
 
 /** Set text to clipboard */
@@ -49,8 +84,8 @@ bool berialdraw::ClipboardProviderCocoa::get_text(String & text) const
 	@autoreleasepool
 	{
 		NSPasteboard * pasteboard = [NSPasteboard generalPasteboard];
-		
-		NSPasteboardType availableType = [pasteboard availableTypeFromArray:@[NSPasteboardTypeString]];
+		NSArray * acceptedTypes = (__bridge NSArray*)getAcceptedTypes();
+		NSPasteboardType availableType = [pasteboard availableTypeFromArray:acceptedTypes];
 		if (availableType != nil)
 		{
 			NSString * nsText = [pasteboard stringForType:NSPasteboardTypeString];
@@ -59,7 +94,7 @@ bool berialdraw::ClipboardProviderCocoa::get_text(String & text) const
 				const char * cStr = [nsText UTF8String];
 				if (cStr != nullptr)
 				{
-					text = cStr;
+					text = String(cStr);
 					success = true;
 				}
 			}
@@ -72,19 +107,28 @@ bool berialdraw::ClipboardProviderCocoa::get_text(String & text) const
 /** Check if system clipboard has changed since last read */
 bool berialdraw::ClipboardProviderCocoa::has_changed() const
 {
+	bool changed = false;
+	
 	@autoreleasepool
 	{
 		NSPasteboard * pasteboard = [NSPasteboard generalPasteboard];
-		if ([pasteboard changeCount] != m_last_change_count)
-		{
-			return true;
-		}
+		NSInteger current_count = [pasteboard changeCount];
 		
-		// Fallback: compare actual content
-		String current_content;
-		get_text(current_content);
-		return current_content != m_last_content;
+		// Quick check: if count changed, clipboard changed
+		if (current_count != m_last_change_count)
+		{
+			changed = true;
+		}
+		else
+		{
+			// Fallback: compare actual content only if count hasn't changed
+			String current_content;
+			get_text(current_content);
+			changed = (current_content != m_last_content);
+		}
 	}
+	
+	return changed;
 }
 
 /** Update clipboard listener */

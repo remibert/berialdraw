@@ -20,6 +20,7 @@ void Grid::place(const Area & area, bool in_layout)
 		marged_area.decrease(margin());
 		m_cells.place(this, marged_area);
 		UIManager::invalidator()->undirty(this,Invalidator::GEOMETRY);
+		m_foreclip = area;
 	}
 }
 
@@ -60,6 +61,16 @@ void Grid::unserialize(JsonIterator & it)
 {
 	WidgetStyle::unserialize(it);
 	CommonStyle::unserialize(it);
+}
+
+Dim Grid::row_count() const
+{
+	return m_cells.row_count();
+}
+
+Dim Grid::column_count() const
+{
+	return m_cells.column_count();
 }
 
 #ifdef _DEBUG
@@ -623,13 +634,3 @@ void Grid::test()
 	}
 }
 #endif
-
-Dim Grid::row_count() const
-{
-	return m_cells.row_count();
-}
-
-Dim Grid::column_count() const
-{
-	return m_cells.column_count();
-}
