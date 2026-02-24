@@ -47,7 +47,19 @@ namespace berialdraw
 		/** Get the background area clip */
 		virtual const Area & backclip() const;
 
-		/** Clean all dirty flag in all */
+		 /** Get the foreground area clip (non-const inline version) */
+		inline Area & foreclip()
+		{
+			return m_foreclip;
+		}
+
+		/** Get the background area clip (non-const inline version) */
+		inline Area & backclip()
+		{
+			return m_backclip;
+		}
+
+		 /** Clean all dirty flag in all */
 		void clean_all();
 
 		/** Get the next widget */
@@ -108,6 +120,7 @@ namespace berialdraw
 
 	protected:
 /// @cond DOXYGEN_IGNORE
+
 		/** Remove operator = */
 		Widget& operator=(const Widget& other) = delete;
 

@@ -223,6 +223,19 @@ namespace berialdraw
 			m_position = position;
 		}
 
+		/** Clip this area against another area (clip_area)
+		@param clip_area The clipping area that defines the visible portion
+		This function adjusts position and size:
+		- If position x,y is less than clip_area's position, it becomes clip_area's position
+		- If position + size exceeds clip_area's bounds, size is reduced to fit within clip_area */
+		void clip(const Area& clip_area);
+
+		/** Check if area is not empty (width > 0 and height > 0)
+		@return true if area has non-zero width and height */
+		inline bool is_not_empty() const
+		{
+			return m_size.width_() > 0 && m_size.height_() > 0;
+		}
 
 		/** Print content */
 		void print(const char * name) const;

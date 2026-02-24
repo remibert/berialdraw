@@ -55,6 +55,24 @@ namespace berialdraw
 		/** Get the widget hovered */
 		virtual Widget * hovered(const Region & parent_region, const Point & position);
 
+		/** Paint alternating row backgrounds */
+		void paint_row_backgrounds(const Region& region);
+
+		/** Paint grid lines and borders */
+		void paint_grid_lines(const Region& region);
+
+		/** Paint top border line */
+		void paint_top_border_line(const Area& foreclip, const Dim* row_positions, Dim horizontal_thickness, uint32_t line_color);
+
+		/** Paint left border line */
+		void paint_left_border_line(const Area& foreclip, const Dim* col_positions, Dim vertical_thickness, uint32_t line_color);
+
+		/** Paint horizontal grid lines */
+		void paint_horizontal_lines(const Area& foreclip, const Dim* row_positions, Dim row_count, Dim horizontal_thickness, uint32_t line_color);
+
+		/** Paint vertical grid lines */
+		void paint_vertical_lines(const Area& foreclip, const Dim* col_positions, Dim col_count, Dim vertical_thickness, uint32_t line_color);
+
 		ScrollView* m_scroll_view;
 		Grid* m_grid;
 /// @endcond

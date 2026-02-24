@@ -57,141 +57,176 @@ void TableView::paint(const Region & parent_region)
 	{
 		UIManager::renderer()->region(region);
 		
-		// Draw alternating row backgrounds
-		if (m_grid)
-		{
-			const auto& row_positions = m_grid->m_cells.get_row_positions();
-			Dim row_count = m_grid->m_cells.row_count();
-			
-			for (Dim row = 0; row < row_count; row++)
-			{
-				Dim row_y = row_positions[row];
-				Dim row_height = m_grid->m_cells.row_height(row);
-				
-				// Create rectangle for this row in 64ths
-				Area row_area(m_foreclip.x_(), row_y, m_foreclip.width_(), row_height, false);
-				row_area.nearest_pixel();
-				
-				// Check if row is visible
-				if (region.is_inside(row_area.position(), row_area.size()) != Region::OUT)
-				{
-					// Choose color based on alternating pattern
-					uint32_t row_color = (row % 2 == 0) ? alternating_row_color1() : alternating_row_color2();
-				
-					// Create BorderStyle for grid appearance
-					BorderStyle border_style;
-					border_style.border_color(grid_color());
-					border_style.focus_color(Color::TRANSPARENT);
-				
-					// Draw background with focus support
-					Rect::build_focused_polygon(row_area,
-						*(CommonStyle*)this,
-						border_style,
-						row_color,
-						grid_color(),
-						Color::TRANSPARENT,
-						Color::TRANSPARENT,
-						m_focused);
-				}
-			}
-		}
-		
-		// Draw grid lines if visible
-		if (m_grid && grid_visible())
-		{
-			Area foreclip = m_grid->foreclip();
-			const auto& row_positions = m_grid->m_cells.get_row_positions();
-			const auto& col_positions = m_grid->m_cells.get_col_positions();
-			Dim row_count = m_grid->m_cells.row_count();
-			Dim col_count = m_grid->m_cells.column_count();
-			Dim horizontal_thickness = m_grid->m_cells.horizontal_line_thickness();
-			Dim vertical_thickness = m_grid->m_cells.vertical_line_thickness();
-			uint32_t line_color = grid_color();
-			
-			// Draw top border line
-			if (row_count > 0)
-			{
-				Dim line_y = row_positions[0] - horizontal_thickness;
-				
-				Area line_area(foreclip.x_(), line_y, foreclip.width_(), horizontal_thickness, false);
-				line_area.nearest_pixel();
-				if (region.is_inside(line_area.position(), line_area.size()) != Region::OUT)
-				{
-					Rect::build_polygon(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
-				}
-			}
-			
-			// Draw left border line
-			if (col_count > 0)
-			{
-				Dim line_x = col_positions[0] - vertical_thickness;
-				Area line_area(line_x, foreclip.y_(), vertical_thickness, foreclip.height_(), false);
-				line_area.nearest_pixel();
-				if (region.is_inside(line_area.position(), line_area.size()) != Region::OUT)
-				{
-					Rect::build_polygon(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
-				}
-			}
-			
-			// Draw horizontal grid lines (between rows and bottom border)
-			for (Dim row = 0; row < row_count; row++)
-			{
-				Dim row_y = row_positions[row];
-				Dim row_height = m_grid->m_cells.row_height(row);
-				Dim line_y;
-				
-				if (row == row_count - 1)
-				{
-					line_y = (row_y + row_height + 63) & 0xFFFFFFC0;
-				}
-				else
-				{
-					line_y = row_y + row_height;
-				}
-
-				Area line_area(foreclip.x_(), line_y, foreclip.width_(), horizontal_thickness, false);
-				line_area.nearest_pixel();
-				
-				// Check if line is visible
-				if (region.is_inside(line_area.position(), line_area.size()) != Region::OUT)
-				{
-					Rect::build_polygon(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
-				}
-			}
-			
-			// Draw vertical grid lines (between columns and right border)
-			for (Dim col = 0; col < col_count; col++)
-			{
-				Dim col_x = col_positions[col];
-				Dim col_width = m_grid->m_cells.column_width(col);
-				Dim line_x;
-
-				if (col == col_count - 1)
-				{
-					line_x = (col_x + col_width + 63) & 0xFFFFFFC0;
-				}
-				else
-				{
-					line_x = col_x + col_width;
-				}
-				
-				Area line_area(line_x, foreclip.y_(), vertical_thickness, foreclip.height_(), false);
-				line_area.nearest_pixel();
-				
-				// Check if line is visible
-				if (region.is_inside(line_area.position(), line_area.size()) != Region::OUT)
-				{
-					Rect::build_polygon(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
-				}
-			}
-		}
+		paint_row_backgrounds(region);
+		paint_grid_lines(region);
 		
 		// Paint children (scroll view and its content)
 		Widget* child = m_children;
+
 		while (child)
 		{
 			child->paint(region);
 			child = child->next();
+		}
+	}
+}
+
+void TableView::paint_row_backgrounds(const Region& region)
+{
+	if (m_grid)
+	{
+		const auto& row_positions = m_grid->m_cells.get_row_positions();
+		Dim row_count = m_grid->m_cells.row_count();
+
+		for (Dim row = 0; row < row_count; row++)
+		{
+			Dim row_y = row_positions[row];
+			Dim row_height = m_grid->m_cells.row_height(row);
+			
+			// Create rectangle for this row in 64ths
+			Area row_area(m_foreclip.x_(), row_y, m_foreclip.width_(), row_height, false);
+			row_area.nearest_pixel();
+			row_area.clip(m_foreclip);
+			
+			if (row_area.is_not_empty())
+			{
+				// Choose color based on alternating pattern
+				uint32_t row_color = (row % 2 == 0) ? alternating_row_color1() : alternating_row_color2();
+				
+				// Create BorderStyle for grid appearance
+				BorderStyle border_style;
+				border_style.border_color(grid_color());
+				border_style.focus_color(Color::TRANSPARENT);
+				
+				// Draw background with focus support
+				Rect::build_focused_polygon(row_area,
+					*(CommonStyle*)this,
+					border_style,
+					row_color,
+					grid_color(),
+					Color::TRANSPARENT,
+					Color::TRANSPARENT,
+					m_focused);
+			}
+		}
+	}
+}
+
+void TableView::paint_grid_lines(const Region& region)
+{
+	if (m_grid && grid_visible())
+	{
+		paint_top_border_line(
+			m_grid->foreclip(), 
+			m_grid->m_cells.get_row_positions(), 
+			m_grid->m_cells.horizontal_line_thickness(), 
+			grid_color());
+		
+		paint_left_border_line(
+			m_grid->foreclip(), 
+			m_grid->m_cells.get_col_positions(), 
+			m_grid->m_cells.vertical_line_thickness(), 
+			grid_color());
+		
+		paint_horizontal_lines(
+			m_grid->foreclip(), 
+			m_grid->m_cells.get_row_positions(), 
+			m_grid->m_cells.row_count(), 
+			m_grid->m_cells.horizontal_line_thickness(), 
+			grid_color());
+		
+		paint_vertical_lines(
+			m_grid->foreclip(), 
+			m_grid->m_cells.get_col_positions(), 
+			m_grid->m_cells.column_count(), 
+			m_grid->m_cells.vertical_line_thickness(), 
+			grid_color());
+	}
+}
+
+void TableView::paint_top_border_line(const Area& foreclip, const Dim* row_positions, Dim horizontal_thickness, uint32_t line_color)
+{
+	if (row_positions)
+	{
+		Dim line_y = row_positions[0] - horizontal_thickness;
+		
+		Area line_area(foreclip.x_(), line_y, foreclip.width_(), horizontal_thickness, false);
+		line_area.nearest_pixel();
+		line_area.clip(m_foreclip);
+		if (line_area.is_not_empty())
+		{
+			Rect::build_polygon(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
+		}
+	}
+}
+
+void TableView::paint_left_border_line(const Area& foreclip, const Dim* col_positions, Dim vertical_thickness, uint32_t line_color)
+{
+	if (col_positions)
+	{
+		Dim line_x = col_positions[0] - vertical_thickness;
+		Area line_area(line_x, foreclip.y_(), vertical_thickness, foreclip.height_(), false);
+		line_area.nearest_pixel();
+		line_area.clip(m_foreclip);
+		if (line_area.is_not_empty())
+		{
+			Rect::build_polygon(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
+		}
+	}
+}
+
+void TableView::paint_horizontal_lines(const Area& foreclip, const Dim* row_positions, Dim row_count, Dim horizontal_thickness, uint32_t line_color)
+{
+	for (Dim row = 0; row < row_count; row++)
+	{
+		Dim row_y = row_positions[row];
+		Dim row_height = m_grid->m_cells.row_height(row);
+		Dim line_y;
+		
+		if (row == row_count - 1)
+		{
+			line_y = (row_y + row_height + 63) & 0xFFFFFFC0;
+		}
+		else
+		{
+			line_y = row_y + row_height;
+		}
+
+		Area line_area(foreclip.x_(), line_y, foreclip.width_(), horizontal_thickness, false);
+		line_area.nearest_pixel();
+		line_area.clip(m_foreclip);
+		
+		if (line_area.is_not_empty())
+		{
+			Rect::build_polygon(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
+		}
+	}
+}
+
+void TableView::paint_vertical_lines(const Area& foreclip, const Dim* col_positions, Dim col_count, Dim vertical_thickness, uint32_t line_color)
+{
+	for (Dim col = 0; col < col_count; col++)
+	{
+		Dim col_x = col_positions[col];
+		Dim col_width = m_grid->m_cells.column_width(col);
+		Dim line_x;
+
+		if (col == col_count - 1)
+		{
+			line_x = (col_x + col_width + 63) & 0xFFFFFFC0;
+		}
+		else
+		{
+			line_x = col_x + col_width;
+		}
+		
+		Area line_area(line_x, foreclip.y_(), vertical_thickness, foreclip.height_(), false);
+		line_area.nearest_pixel();
+		line_area.clip(m_foreclip);
+		
+		if (line_area.is_not_empty())
+		{
+			Rect::build_polygon(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
 		}
 	}
 }
@@ -345,14 +380,14 @@ void TableView::test1()
 	table->alternating_row_color1(0xFFE8F8FF);  // Pastel blue
 	table->alternating_row_color2(0xFFF0F8E8);  // Pastel green
 
-	for (uint16_t row = 0; row < 15; row++)
+	for (uint16_t row = 0; row < 35; row++)
 	{
-		for (uint16_t column = 0; column < 10; column++)
+		for (uint16_t column = 0; column < 20; column++)
 		{
 			Label* label = new Label(table);
 			label->text("(%c:%d)",0x41 + row,column+1);
 			label->cell(row,column);
-			UIManager::desktop()->dispatch();
+			//UIManager::desktop()->dispatch();
 		}	
 	}
 	table->m_scroll_view->scroll_position(0,0);
