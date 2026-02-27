@@ -25,23 +25,13 @@ Widget::Widget(const char * classname, Widget * parent, size_t size_of_widget):
 		{
 			// Add current widget in the children list
 			parent->m_children = this;
+			parent->m_last_children = this;
 		}
 		else
 		{
-			// Select the first children of parent
-			Widget* current = parent->m_children;
-			while (current)
-			{
-				// If the last children found
-				if(current->m_next == 0)
-				{
-					// Add current children to the parent list
-					current->m_next = this;
-					break;
-				}
-				// Select next children
-				current = current->m_next;
-			}
+			// Add to the last children directly using the cached pointer
+			parent->m_last_children->m_next = this;
+			parent->m_last_children = this;
 		}
 	}
 	UIManager::invalidator()->add(this, size_of_widget);
@@ -102,6 +92,10 @@ void Widget::clear()
 		delete current;
 		current = next;
 	}
+	
+	// Reset both pointers when clearing
+	m_children = 0;
+	m_last_children = 0;
 }
 
 Widget::~Widget()
@@ -137,6 +131,11 @@ Widget::~Widget()
 			{
 				// Change the first children
 				m_parent->m_children = m_parent->m_children->m_next;
+				// If no more children, reset m_last_children
+				if(m_parent->m_children == 0)
+				{
+					m_parent->m_last_children = 0;
+				}
 			}
 			else
 			{
@@ -149,6 +148,12 @@ Widget::~Widget()
 					{
 						// Remove current widget from the list
 						child->m_next = child->m_next->m_next;
+						
+						// If this was the last child, update m_last_children to point to the previous child
+						if(m_parent->m_last_children == this)
+						{
+							m_parent->m_last_children = child;
+						}
 						break;
 					}
 
@@ -197,14 +202,30 @@ void Widget::place(const Area & area, bool in_layout)
 	}
 }
 
+void Widget::scroll(const Point & move)
+{
+	Widget* child = m_children;
+	while (child)
+	{
+		child->m_backclip.move(move);
+		child->m_foreclip.move(move);
+		child->scroll(move);
+		child = child->m_next;
+	}
+}
+
 void Widget::paint(const Region & parent_region)
 {
 	Widget* child = m_children;
 	while (child)
 	{
-		if (child->hidden() == false)
+		// Fast early exit: if child is completely outside parent's visible area, skip painting
+		if (!child->m_backclip.is_outside(m_backclip))
 		{
-			child->paint(parent_region);
+			if (child->hidden() == false)
+			{
+				child->paint(parent_region);
+			}
 		}
 		child = child->next();
 	}

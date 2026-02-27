@@ -69,6 +69,9 @@ namespace berialdraw
 		/** Return the index in table or -1 if not found */
 		int32_t search(void * object);
 
+		/** Compact the vector by removing null entries */
+		void compact();
+
 	protected:
 /// @cond DOXYGEN_IGNORE
 		/** List of all object required to refresh */
@@ -86,6 +89,9 @@ namespace berialdraw
 		/** Cache for search optimization - exploits sequential access patterns */
 		void * m_last_search_object;
 		int32_t m_last_search_index;
+		
+		/** Counter for deleted entries (by setting to null) */
+		uint32_t m_deleted_count;
 /// @endcond
 	};
 }

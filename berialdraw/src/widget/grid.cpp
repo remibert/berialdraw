@@ -21,6 +21,7 @@ void Grid::place(const Area & area, bool in_layout)
 		m_cells.place(this, marged_area);
 		UIManager::invalidator()->undirty(this,Invalidator::GEOMETRY);
 		m_foreclip = area;
+		m_backclip = area;
 	}
 }
 

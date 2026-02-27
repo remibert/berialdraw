@@ -32,6 +32,7 @@ static inline bool is_in_range(const void * object, const void * widget, uint16_
 Invalidator::Invalidator()
 	: m_last_search_object(0)
 	, m_last_search_index(-1)
+	, m_deleted_count(0)
 {
 }
 
@@ -77,7 +78,15 @@ int32_t Invalidator::search(void * object)
 		// Check cache: if same object, return immediately (fast path for sequential access)
 		if (object == m_last_search_object && m_last_search_index >= 0)
 		{
-			result = m_last_search_index;
+			if (m_widgets[m_last_search_index].widget != nullptr)  // Verify not deleted
+			{
+				result = m_last_search_index;
+			}
+			else
+			{
+				m_last_search_object = 0;
+				m_last_search_index = -1;
+			}
 		}
 		else
 		{
@@ -91,6 +100,10 @@ int32_t Invalidator::search(void * object)
 			for (uint32_t i = start_pos; i < search_size && result == -1; i++)
 			{
 				struct InvalidatorItem item = m_widgets[i];
+
+				// Skip deleted entries
+				if (item.widget == nullptr)
+					continue;
 
 				// Check if object is in widget range
 				if (is_in_range(object, item.widget, item.size))
@@ -117,6 +130,10 @@ int32_t Invalidator::search(void * object)
 				for (uint32_t i = 0; i < start_pos && result == -1; i++)
 				{
 					struct InvalidatorItem item = m_widgets[i];
+					
+					// Skip deleted entries
+					if (item.widget == nullptr)
+						continue;
 					
 					// Check if object is in widget range
 					if (is_in_range(object, item.widget, item.size))
@@ -191,7 +208,7 @@ bool Invalidator::is_dirty()
 
 	for (uint32_t i = 0; i < size; i++)
 	{
-		if (m_widgets[i].status != NOTHING)
+		if (m_widgets[i].widget != nullptr && m_widgets[i].status != NOTHING)
 		{
 			update();
 			result = true;
@@ -209,7 +226,10 @@ void Invalidator::clear(void * object)
 		uint32_t size = m_widgets.size();
 		for (uint32_t i = 0; i < size; i++)
 		{
-			m_widgets[i].status = NOTHING;
+			if (m_widgets[i].widget != nullptr)
+			{
+				m_widgets[i].status = NOTHING;
+			}
 		}
 	}
 	else
@@ -218,7 +238,8 @@ void Invalidator::clear(void * object)
 		for (uint32_t i = 0; i < size; i++)
 		{
 			struct InvalidatorItem item = m_widgets[i];
-			if ((char*)item.widget >= (char*)object && 
+			if (item.widget != nullptr &&
+				(char*)item.widget >= (char*)object && 
 				((char*)item.widget + item.size) <= ((char*)object + item.size))
 			{
 				m_widgets[i].status = NOTHING;
@@ -235,7 +256,7 @@ void Invalidator::window_clean_all(void * window)
 	uint32_t size = m_widgets.size();
 	for (uint32_t i = 0; i < size; i++)
 	{
-		if (m_widgets[i].window_id == window_id)
+		if (m_widgets[i].widget != nullptr && m_widgets[i].window_id == window_id)
 		{
 			m_widgets[i].status = NOTHING;
 		}
@@ -247,9 +268,10 @@ void Invalidator::update()
 {
 	uint32_t size = m_widgets.size();
 	bool geometry_window = false;
+	bool scroll = false;
 	for (uint32_t i = 0; i < size; i++)
 	{
-		if (m_widgets[i].status != NOTHING)
+		if (m_widgets[i].widget != nullptr && m_widgets[i].status != NOTHING)
 		{
 			if (m_widgets[i].status & GEOMETRY)
 			{
@@ -264,7 +286,8 @@ void Invalidator::update()
 		uint32_t size = m_widgets.size();
 		for (uint32_t i = 0; i < size; i++)
 		{
-			if ((m_widgets[i].status & GEOMETRY) && (m_widgets[i].window == 1))
+			if (m_widgets[i].widget != nullptr &&
+				(m_widgets[i].status & GEOMETRY) && (m_widgets[i].window == 1))
 			{
 				m_widgets[i].widget->dirty_children(GEOMETRY);
 			}
@@ -320,9 +343,17 @@ void Invalidator::remove(Shape * shape)
 		uint32_t size = m_widgets.size();
 		for (uint32_t i = 0; i < size; i++)
 		{
-			if (m_widgets[i].shape == shape)
+			if (m_widgets[i].widget != nullptr && m_widgets[i].shape == shape)
 			{
-				m_widgets.remove(i);
+				// Mark as deleted instead of removing
+				m_widgets[i].widget = nullptr;
+				m_deleted_count++;
+				
+				// Compact when too many deletions
+				if (m_deleted_count >= 1000)
+				{
+					compact();
+				}
 				break;
 			}
 		}
@@ -337,6 +368,7 @@ void Invalidator::remove(Widget * widget)
 		m_widgets.clear();
 		m_last_search_object = 0;
 		m_last_search_index = -1;
+		m_deleted_count = 0;
 	}
 	else
 	{
@@ -345,22 +377,59 @@ void Invalidator::remove(Widget * widget)
 		{
 			if (m_widgets[i].widget == widget && m_widgets[i].shape == 0)
 			{
-				// Optimize cache invalidation: only reset if necessary
+				// Invalidate cache if necessary
 				if (i < (uint32_t)m_last_search_index)
 				{
-					// Removed something before cache position - adjust index
 					m_last_search_index--;
 				}
 				else if (i == (uint32_t)m_last_search_index)
 				{
-					// Removed the cached widget - full reset
 					m_last_search_object = 0;
 					m_last_search_index = -1;
 				}
 
-				m_widgets.remove(i);
+				// Mark as deleted instead of removing
+				m_widgets[i].widget = nullptr;
+				m_deleted_count++;
+				
+
+				// Compact when too many deletions
+				if (m_deleted_count >= 5000)
+				{
+					compact();
+				}
 				break;
 			}
 		}
 	}
 }
+
+/** Compact the vector by removing null entries */
+void Invalidator::compact()
+{
+	// In-place compaction: move non-null elements forward, overwriting nulls
+	uint32_t write_pos = 0;  // Position où écrire le prochain élément valide
+	uint32_t size = m_widgets.size();
+	
+	for (uint32_t read_pos = 0; read_pos < size; read_pos++)
+	{
+		// Si élément non-null, le déplacer à write_pos
+		if (m_widgets[read_pos].widget != nullptr)
+		{
+			if (write_pos != read_pos)
+			{
+				m_widgets[write_pos] = m_widgets[read_pos];
+			}
+			write_pos++;
+		}
+	}
+	
+	// Réduire la taille du vector
+	m_widgets.resize(write_pos);
+	m_deleted_count = 0;
+	
+	// Reset cache since indices changed
+	m_last_search_object = 0;
+	m_last_search_index = -1;
+}
+

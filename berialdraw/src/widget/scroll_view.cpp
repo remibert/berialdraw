@@ -223,8 +223,9 @@ Point ScrollView::compute_scroll_view(const Area & area, Point & scroll_position
 
 void ScrollView::place(const Area & area, bool in_layout)
 {
-	Area scroll_area_;
+	Area scroll_area;
 	Size scroll_size(m_scroll_size);
+	Point previous_position(m_scroll_position);
 	Point scroll_position(m_scroll_position);
 	Area marged_area(area);
 
@@ -245,10 +246,10 @@ void ScrollView::place(const Area & area, bool in_layout)
 	scroll_position.move(marged_area.position());
 
 	// Set the scroll area to calculate the position of all widgets in the scrolled content
-	scroll_area_.set(scroll_position, scroll_size);
+	scroll_area.set(scroll_position, scroll_size);
 
 	// Place all children in scrolled area
-	Widget::place(scroll_area_, false);
+	Widget::place(scroll_area, false);
 	m_backclip = area;
 }
 

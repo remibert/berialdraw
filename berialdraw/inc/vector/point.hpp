@@ -57,6 +57,10 @@ namespace berialdraw
 		@param p Point to move by. */
 		void move(const Point& p);
 
+		/** Modify point by subtracting from it the coordinates of another point.
+		@param position Point to subtract from current coordinates. */
+		void diff(const Point& position);
+
 		/** Set the coordinates.
 		@param x_ X coordinate.
 		@param y_ Y coordinate. */
@@ -92,6 +96,7 @@ namespace berialdraw
 			m_x += x_ << 6;
 			m_y += y_ << 6;
 		}
+
 		inline Coord y() const
 		{
 			return (m_y+32) >> 6;

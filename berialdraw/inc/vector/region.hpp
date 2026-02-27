@@ -102,22 +102,28 @@ namespace berialdraw
 
 
 		bool append_non        (RegionBoxes * region, RegionBox *r1, RegionBox * r_end, Coord y1, Coord y2);
-		inline bool is_good_rect(RegionBox * rect);
-		inline bool is_bad_rect(RegionBox * rect);
-		inline bool is_broken_data(RegionBoxes * reg);
-		inline bool is_empty(const RegionBoxes * reg) const;
-		inline int32_t num_rects(const RegionBoxes * reg) const;
-		inline int32_t get_size(RegionBoxes * reg);
-		inline RegionBox * region_rects(RegionBoxes * reg);
-		inline RegionBox * box_pointer(const RegionBoxes * reg) const;
-		inline RegionBox * get_box(RegionBoxes * reg, int32_t i);
-		inline const RegionBox * get_box(const RegionBoxes * reg, int32_t i);
-		inline RegionBox * get_next_box(RegionBoxes * reg);
-		inline RegionBox * get_last_box(RegionBoxes * reg);
-		inline bool extent_check(const RegionBox * r1, const RegionBox * r2) const;
-		inline bool is_in_box(const RegionBox * r, Coord x, Coord y);
-		inline bool is_contains(const RegionBox * r1, const RegionBox * r2) const;
-		inline int32_t get_alloc_size (int32_t n);
+		inline bool is_good_rect(RegionBox * rect) { return ((rect)->x1 < (rect)->x2 && (rect)->y1 < (rect)->y2); }
+		inline bool is_bad_rect(RegionBox * rect) { return ((rect)->x1 > (rect)->x2 || (rect)->y1 > (rect)->y2); }
+		inline bool is_broken_data(RegionBoxes * reg) { return (reg)->data == g_broken_data; }
+		inline bool is_empty(const RegionBoxes * reg) const { return (reg)->data && !(reg)->data->num_rects; }
+		inline int32_t num_rects(const RegionBoxes * reg) const { return ((reg)->data ? (reg)->data->num_rects : 1); }
+		inline int32_t get_size(RegionBoxes * reg) { return ((reg)->data ? (reg)->data->size : 0); }
+		inline RegionBox * region_rects(RegionBoxes * reg) { return ((reg)->data ? (RegionBox *)((reg)->data + 1) : &(reg)->extents); }
+		inline RegionBox * box_pointer(const RegionBoxes * reg) const { return ((RegionBox *)((reg)->data + 1)); }
+		inline RegionBox * get_box(RegionBoxes * reg, int32_t i) { return (&box_pointer (reg)[i]); }
+		inline const RegionBox * get_box(const RegionBoxes * reg, int32_t i) { return (&box_pointer (reg)[i]); }
+		inline RegionBox * get_next_box(RegionBoxes * reg) { return get_box (reg, (reg)->data->num_rects); }
+		inline RegionBox * get_last_box(RegionBoxes * reg) { return get_box (reg, (reg)->data->num_rects - 1); }
+		inline bool extent_check(const RegionBox * r1, const RegionBox * r2) const { return !((r1->x2 <= r2->x1) || (r1->x1 >= r2->x2) || (r1->y2 <= r2->y1) || (r1->y1 >= r2->y2)); }
+		inline bool is_in_box(const RegionBox * r, Coord x, Coord y) { return (r->x2 > x) && (r->x1 <= x) && (r->y2 > y) && (r->y1 <= y); }
+		inline bool is_contains(const RegionBox * r1, const RegionBox * r2) const { return (r1->x1 <= r2->x1) && (r1->x2 >= r2->x2) && (r1->y1 <= r2->y1) && (r1->y2 >= r2->y2); }
+		inline int32_t get_alloc_size (int32_t n)
+		{
+			int32_t size = n * sizeof(RegionBox);
+			if (n > UINT32_MAX / sizeof(RegionBox)) return 0;
+			if (sizeof(RegionData) > UINT32_MAX - size) return 0;
+			return size + sizeof(RegionData);
+		}
 		RegionData * alloc_data (int32_t n);
 		void destroy(RegionBoxes & reg);
 		bool rect_alloc (RegionBoxes * & region, int32_t n);

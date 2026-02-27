@@ -165,6 +165,7 @@ int64_t strtolong(const char* stringptr, char** endptr, int base)
 				str++;
 				base = 2;
 			}
+			// default to octal
 			else
 			{
 				base = 8;
@@ -395,12 +396,48 @@ int32_t get_rand(int32_t mini, int32_t maxi)
 }
 
 
-
+// Chronometer class implementation
+Chronometer::Chronometer() : start_time_ns(0)
+{
 }
+
+void Chronometer::start()
+{
+	start_time_ns = clockns();
+}
+
+int64_t Chronometer::elapsed_ms() const
+{
+	if (start_time_ns == 0)
+		return 0;
+	long long current_time_ns = clockns();
+	return (current_time_ns - start_time_ns) / 1000000;
+}
+
+int64_t Chronometer::elapsed_us() const
+{
+	if (start_time_ns == 0)
+		return 0;
+	long long current_time_ns = clockns();
+	return (current_time_ns - start_time_ns) / 1000;
+}
+
+int64_t Chronometer::elapsed_ns() const
+{
+	if (start_time_ns == 0)
+		return 0;
+	return clockns() - start_time_ns;
+}
+
+void Chronometer::reset()
+{
+	start();
+}
+
+} // namespace berialdraw
 
 
 #ifdef WIN32
-	#include <windows.h>
 	void usleep(int64_t usec) 
 	{ 
 		HANDLE timer; 
@@ -434,12 +471,36 @@ int32_t get_rand(int32_t mini, int32_t maxi)
 #endif
 
 #ifdef LINUX
-#include <time.h>
 	long long clockns()
 	{
 		struct timespec elapsed_time;
 		clock_gettime(CLOCK_MONOTONIC, &elapsed_time);
 		return (elapsed_time.tv_sec) * 1000000000LL + (elapsed_time.tv_nsec);
+	}
+#endif
+
+#ifdef __APPLE__
+	void usleep(int64_t usec)
+	{
+		struct timespec ts;
+		ts.tv_sec = usec / 1000000;
+		ts.tv_nsec = (usec % 1000000) * 1000;
+		nanosleep(&ts, NULL);
+	}
+
+	long long clockns()
+	{
+		static mach_timebase_info_data_t timebase_info = {0, 0};
+		
+		// Initialize timebase info on first call
+		if (timebase_info.denom == 0)
+		{
+			mach_timebase_info(&timebase_info);
+		}
+		
+		uint64_t mach_time = mach_absolute_time();
+		// Convert from Mach absolute time to nanoseconds
+		return (mach_time * timebase_info.numer) / timebase_info.denom;
 	}
 #endif
 

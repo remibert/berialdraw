@@ -68,6 +68,7 @@ void Row::place(const Area & area, bool in_layout)
 		Area marged_area(area);
 		marged_area.decrease(margin());
 		m_cells.place(this, marged_area);
+		m_backclip = area;
 	}
 }
 

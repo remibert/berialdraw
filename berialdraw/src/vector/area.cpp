@@ -66,8 +66,8 @@ void Area::clip(const Area& clip_area)
 	{
 		Coord diff = clip_x - this_x;
 		m_position.x_(clip_x);
-		if (this_width > diff)
-			m_size.width_(this_width - diff);
+		if (this_width > static_cast<Dim>(diff))
+			m_size.width_(this_width - static_cast<Dim>(diff));
 		else
 			m_size.width_(0);
 	}
@@ -77,8 +77,8 @@ void Area::clip(const Area& clip_area)
 	{
 		Coord diff = clip_y - this_y;
 		m_position.y_(clip_y);
-		if (this_height > diff)
-			m_size.height_(this_height - diff);
+		if (this_height > static_cast<Dim>(diff))
+			m_size.height_(this_height - static_cast<Dim>(diff));
 		else
 			m_size.height_(0);
 	}

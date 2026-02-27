@@ -237,6 +237,31 @@ namespace berialdraw
 			return m_size.width_() > 0 && m_size.height_() > 0;
 		}
 
+		/** Fast check if this area is completely outside another area (no overlap)
+		@param other The area to check against
+		@return true if this area is completely outside (no visible portion), false otherwise */
+		inline bool is_outside(const Area& other) const
+		{
+			// Get coordinates and bounds for this area
+			Coord this_x1 = x_();
+			Coord this_y1 = y_();
+			Coord this_x2 = this_x1 + width_();
+			Coord this_y2 = this_y1 + height_();
+			
+			// Get coordinates and bounds for other area
+			Coord other_x1 = other.x_();
+			Coord other_y1 = other.y_();
+			Coord other_x2 = other_x1 + other.width_();
+			Coord other_y2 = other_y1 + other.height_();
+			
+			// Check if this area is completely to the right, left, below or above the other area
+			// This handles negative coordinates correctly
+			return (this_x2 <= other_x1) ||		// This is to the right of other
+			       (this_x1 >= other_x2) ||		// This is to the left of other
+			       (this_y2 <= other_y1) ||		// This is below other
+			       (this_y1 >= other_y2);		// This is above other
+		}
+
 		/** Print content */
 		void print(const char * name) const;
 

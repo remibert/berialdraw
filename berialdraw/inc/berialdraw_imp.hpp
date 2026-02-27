@@ -1,5 +1,11 @@
 #pragma once
 /// @cond DOXYGEN_IGNORE
+#ifdef __APPLE__
+#include <uuid/uuid.h>
+#include <mach/mach_time.h>
+#include <unistd.h>
+#endif
+
 #include <assert.h>
 #include <stddef.h>
 #include <wchar.h>
@@ -16,11 +22,23 @@
 #include <cstdint>
 #include <cstring>
 #include <algorithm>
+
+#ifdef WIN32
+	#include <windows.h>
+#endif
+
+#ifdef LINUX
+	#include <time.h>
+	#include <unistd.h>
+#endif
+
+#ifdef _DEBUG
+	#include <math.h>
+#endif
+
 #include "zlib.h"
 #include "zconf.h"
 #include "unzip.h"
-
-
 
 #if defined(WIN32)
 	#define Strnicmp _strnicmp

@@ -23,6 +23,9 @@ namespace berialdraw
 		/** Place the widget in the area */
 		virtual void place(const Area & area, bool in_layout);
 
+		/** Scroll the widget and its children by the specified move offset */
+		virtual void scroll(const Point & move);
+
 		/** Return the parent of this widget */
 		virtual Widget * parent();
 
@@ -147,6 +150,7 @@ namespace berialdraw
 		Area m_backclip;
 		Widget * m_parent = 0;
 		Widget * m_children = 0;
+		Widget * m_last_children = 0;
 		Widget * m_next = 0;
 		const char * m_classname = "Widget";
 

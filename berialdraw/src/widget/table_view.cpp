@@ -380,20 +380,33 @@ void TableView::test1()
 	table->alternating_row_color1(0xFFE8F8FF);  // Pastel blue
 	table->alternating_row_color2(0xFFF0F8E8);  // Pastel green
 
-	for (uint16_t row = 0; row < 35; row++)
+	for (uint16_t row = 0; row < 650; row++)
 	{
-		for (uint16_t column = 0; column < 20; column++)
+		for (uint16_t column = 0; column < 300; column++)
 		{
 			Label* label = new Label(table);
 			label->text("(%c:%d)",0x41 + row,column+1);
 			label->cell(row,column);
 			//UIManager::desktop()->dispatch();
 		}	
+		int a = 0;
+		a++;
 	}
 	table->m_scroll_view->scroll_position(0,0);
 
+	String script(
+	"["
+				//"{'type':'touch','x':100,'y':100,'state':'down'},"
+				//"{'type':'touch','x':120,'y':120,'state':'move'},"
+				//"{'type':'touch','x':120,'y':120,'state':'up'},"
+				"{'type':'touch','x':200,'y':200,'state':'down'},"
+				"{'type':'touch','x':190,'y':190,'state':'move'},"
+				"{'type':'touch','x':185,'y':185,'state':'up'},"
+	"]");
+
+	//UIManager::notifier()->play_script(script, "$(ui.tests)/out/table_view_%d.svg");
 //	UIManager::desktop()->dispatch("$(ui.tests)/out/table_view_1.svg");
-while(1)
+//while(1)
 UIManager::desktop()->dispatch();
 }
 

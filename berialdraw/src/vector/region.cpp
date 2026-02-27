@@ -10,99 +10,6 @@ Region::RegionBox *Region::g_empty_box = (Region::RegionBox *)&Region::EMPTY_BOX
 Region::RegionData *Region::g_empty_data = (Region::RegionData *)&Region::EMPTY_DATA;
 Region::RegionData *Region::g_broken_data = (Region::RegionData *)&Region::BROKEN_DATA;
 
-bool Region::is_good_rect(RegionBox * rect) 
-{
-	return ((rect)->x1 < (rect)->x2 && (rect)->y1 < (rect)->y2);
-}
-
-bool Region::is_bad_rect(RegionBox * rect) 
-{
-	return ((rect)->x1 > (rect)->x2 || (rect)->y1 > (rect)->y2);
-}
-
-bool Region::is_broken_data(RegionBoxes * reg)
-{
-	return (reg)->data == g_broken_data;
-}
-
-bool Region::is_empty(const RegionBoxes * reg) const 
-{
-	return (reg)->data && !(reg)->data->num_rects;
-}
-
-int32_t Region::num_rects(const RegionBoxes * reg) const
-{
-	return ((reg)->data ? (reg)->data->num_rects : 1);
-}
-
-int32_t Region::get_size(RegionBoxes * reg)
-{
-	return ((reg)->data ? (reg)->data->size : 0);
-}
-
-Region::RegionBox * Region::region_rects(RegionBoxes * reg) 
-{
-	return ((reg)->data ? (RegionBox *)((reg)->data + 1) : &(reg)->extents);
-}
-
-Region::RegionBox * Region::box_pointer(const RegionBoxes * reg) const
-{
-	return ((RegionBox *)((reg)->data + 1));
-}
-
-Region::RegionBox * Region::get_box(RegionBoxes * reg, int32_t i)
-{
-	return (&box_pointer (reg)[i]);
-}
-
-const Region::RegionBox * Region::get_box(const RegionBoxes * reg, int32_t i)
-{
-	return (&box_pointer (reg)[i]);
-}
-
-
-Region::RegionBox * Region::get_next_box(RegionBoxes * reg)
-{
-	return get_box (reg, (reg)->data->num_rects);
-}
-
-Region::RegionBox * Region::get_last_box(RegionBoxes * reg)
-{
-	return get_box (reg, (reg)->data->num_rects - 1);
-}
-
-bool Region::extent_check(const RegionBox * r1, const RegionBox * r2) const
-{
-	return !((r1->x2 <= r2->x1) || (r1->x1 >= r2->x2) || (r1->y2 <= r2->y1) || (r1->y1 >= r2->y2));
-}
-
-bool Region::is_in_box(const RegionBox * r, Coord x, Coord y)
-{
-	return (r->x2 > x) && (r->x1 <= x) && (r->y2 > y) && (r->y1 <= y);
-}
-
-bool Region::is_contains(const RegionBox * r1, const RegionBox * r2) const
-{
-	return (r1->x1 <= r2->x1) && (r1->x2 >= r2->x2) && (r1->y1 <= r2->y1) && (r1->y2 >= r2->y2);
-}
-
-int32_t Region::get_alloc_size (int32_t n)
-{
-	int32_t size = n * sizeof(RegionBox);
-
-	if (n > UINT32_MAX / sizeof(RegionBox))
-	{
-		return 0;
-	}
-
-	if (sizeof(RegionData) > UINT32_MAX - size)
-	{
-		return 0;
-	}
-
-	return size + sizeof(RegionData);
-}
-
 Region::RegionData * Region::alloc_data (int32_t n)
 {
 	int32_t sz = get_alloc_size (n);
@@ -112,7 +19,6 @@ Region::RegionData * Region::alloc_data (int32_t n)
 	}
 	return (RegionData * )bd_malloc (sz);
 }
-
 
 bool Region::rect_alloc (RegionBoxes * & region, int32_t n)
 {

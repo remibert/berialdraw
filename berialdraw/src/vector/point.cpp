@@ -38,7 +38,15 @@ Point::Point(const Point& p) :
 
 void Point::move(const Point & p)
 {
-	move(p.x(),p.y());
+	move_(p.x_(),p.y_());
+}
+
+void Point::diff(const Point & position)
+{
+	m_x_undefined = 0;
+	m_y_undefined = 0;
+	m_x = position.m_x - m_x;
+	m_y = position.m_y - m_y;
 }
 
 void Point::serialize(const char * name, JsonIterator & it) const
