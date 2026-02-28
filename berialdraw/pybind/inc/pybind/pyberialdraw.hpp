@@ -242,6 +242,7 @@ void bind_radio(pybind11::module_& m);
 void bind_grid(pybind11::module_& m);
 void bind_pane(pybind11::module_& m);
 void bind_scroll_view(pybind11::module_& m);
+void bind_table_view(pybind11::module_& m);
 void bind_icon(pybind11::module_& m);
 void bind_keyboard(pybind11::module_& m);
 void bind_desktop(pybind11::module_& m);

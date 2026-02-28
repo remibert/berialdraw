@@ -103,6 +103,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/widget/progress_bar.cpp
 	src/pybind/widget/row.cpp
 	src/pybind/widget/scroll_view.cpp
+	src/pybind/widget/table_view.cpp
 	src/pybind/widget/slider.cpp
 	src/pybind/widget/switch.cpp
 	src/pybind/widget/radio.cpp

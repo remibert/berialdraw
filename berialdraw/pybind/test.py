@@ -91,6 +91,26 @@ class Dialog:
 		self.switch.on_click = lambda widget, event: print(f"Switch clicked")
 		self.switch.on_key_down = self.on_key_pressed
 
+		# Table View Example
+		self.table_label = Label(self.layout)
+		self.table_label.text = "Table View Example"
+
+		self.table = TableView(self.layout)
+		self.table.extend = Extend.EXTEND_ALL
+		self.table.min_size = (400, 150)
+		
+		# Charger les données du tableau avec la méthode load()
+		table_data = [
+			["Nom", "Prénom", "Âge", "Ville"],
+			["Dupont", "Jean", "28", "Paris"],
+			["Martin", "Marie", "35", "Lyon"],
+			["Bernard", "Pierre", "42", "Marseille"],
+			["Thomas", "Sophie", "31", "Toulouse"],
+			["Robert", "Luc", "55", "Nice"],
+		]
+		self.table.load(table_data)
+		self.table.on_click = self.on_table_row_clicked
+
 	def on_click_button(self, widget, event):
 		print(f"Click! Button '{widget.text}' at position {event.position}")
 		
@@ -100,6 +120,9 @@ class Dialog:
 		state_hex = ''.join(f'U+{ord(c):04X}' if ord(c) > 127 else c for c in str(event.state))
 		modifier_hex = ''.join(f'U+{ord(c):04X}' if ord(c) > 127 else c for c in str(event.modifier))
 		print(f"Key on {classname_hex} {key_to_str(event.key)} {state_hex} {modifier_hex}")
+
+	def on_table_row_clicked(self, widget, event):
+		print(f"Table row clicked at position {event.position}")
 
 
 class Dialog2:
@@ -119,6 +142,56 @@ class Dialog2:
 		]
 		UIManager.notifier().play_script(script)
 
+class Dialog3:
+	def __init__(self):
+		self.window = Window()
+		self.layout = Column(self.window)
+		
+		# Titre
+		self.title = Label(self.layout)
+		self.title.text = "Table View Example"
+		
+		# Créer une table view
+		self.table = TableView(self.layout)
+		self.table.extend = Extend.EXTEND_ALL
+		
+		# Définir les colonnes
+		self.table.columns = ["Nom", "Prénom", "Âge", "Ville"]
+		
+		# Ajouter les données du tableau
+		data = [
+			["Dupont", "Jean", "28", "Paris"],
+			["Martin", "Marie", "35", "Lyon"],
+			["Bernard", "Pierre", "42", "Marseille"],
+			["Thomas", "Sophie", "31", "Toulouse"],
+			["Robert", "Luc", "55", "Nice"],
+			["Richard", "Anne", "27", "Nantes"],
+			["Petit", "Claude", "48", "Strasbourg"],
+			["Durand", "Isabelle", "33", "Montpellier"],
+		]
+		
+		for row in data:
+			self.table.add_row(row)
+		
+		# Événements
+		self.table.on_click = self.on_table_row_clicked
+		self.table.on_key_down = self.on_key_pressed
+		
+		# Bouton pour afficher les détails de la sélection
+		self.info_label = Label(self.layout)
+		self.info_label.text = "Cliquez sur une ligne"
+
+	def on_table_row_clicked(self, widget, event):
+		print(f"Row clicked at position {event.position}")
+		self.info_label.text = f"Sélection: {event.position}"
+
+	def on_key_pressed(self, widget, event):
+		print(f"Key on table: {key_to_str(event.key)}")
+
+
 dlg = Dialog()
+# Décommenter l'une des lignes suivantes pour tester Dialog2 ou Dialog3:
+# dlg = Dialog2()
+# dlg = Dialog3()
 print("hello")
 UIManager.desktop().mainloop()

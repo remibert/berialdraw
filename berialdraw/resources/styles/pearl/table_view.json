@@ -5,6 +5,6 @@
 	"horizontal-thickness"          : 1,
 	"vertical-thickness"            : 1,
 	"scroll-direction"              : "all-directions",
-	"align"                         : "top",
+	"align"                         : "top,left",
 	"extend"                        : "all",
 }

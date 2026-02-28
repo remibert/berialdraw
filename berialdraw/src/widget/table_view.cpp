@@ -82,14 +82,15 @@ void TableView::paint_row_backgrounds(const Region& region)
 		const auto& col_positions = m_grid->m_cells.get_col_positions();
 		Dim row_count = m_grid->m_cells.row_count();
 		Dim col_count = m_grid->m_cells.column_count();
+		const Area& grid_foreclip = m_grid->foreclip();
 		
 		// Calculate grid content width
-		Dim grid_width = m_foreclip.width_();
+		Dim grid_width = grid_foreclip.width_();
 		if (col_count > 0)
 		{
 			Dim last_col_x = col_positions[col_count - 1];
 			Dim last_col_width = m_grid->m_cells.column_width(col_count - 1);
-			grid_width = last_col_x + last_col_width - m_foreclip.x_();
+			grid_width = last_col_x + last_col_width - grid_foreclip.x_();
 		}
 
 		for (Dim row = 0; row < row_count; row++)
@@ -98,7 +99,7 @@ void TableView::paint_row_backgrounds(const Region& region)
 			Dim row_height = m_grid->m_cells.row_height(row);
 			
 			// Create rectangle for this row in 64ths, limited to grid content width
-			Area row_area(m_foreclip.x_(), row_y, grid_width, row_height, false);
+			Area row_area(grid_foreclip.x_(), row_y, grid_width, row_height, false);
 			row_area.nearest_pixel();
 			row_area.clip(m_foreclip);
 			
@@ -109,7 +110,6 @@ void TableView::paint_row_backgrounds(const Region& region)
 				
 				// Create BorderStyle for grid appearance
 				BorderStyle border_style;
-				border_style.border_color(grid_color());
 				border_style.focus_color(Color::TRANSPARENT);
 				
 				// Draw background with focus support
@@ -117,7 +117,7 @@ void TableView::paint_row_backgrounds(const Region& region)
 					*(CommonStyle*)this,
 					border_style,
 					row_color,
-					grid_color(),
+					Color::TRANSPARENT,
 					Color::TRANSPARENT,
 					Color::TRANSPARENT,
 					m_focused);
@@ -329,7 +329,7 @@ Dim TableView::column_count() const
 
 Widget * TableView::hovered(const Region & parent_region, const Point & position)
 {
-	Widget* result = nullptr;
+	Widget* result = this;
 
 	Region region(parent_region);
 	region.intersect(m_foreclip);
@@ -343,21 +343,8 @@ Widget * TableView::hovered(const Region & parent_region, const Point & position
 			{
 				result = hovered;
 			}
-			else
-			{
-				result = this;
-			}
-		}
-		else
-		{
-			result = this;
 		}
 	}
-	else
-	{
-		result = this;
-	}
-
 	return result;
 }
 
@@ -376,6 +363,69 @@ void TableView::unserialize(JsonIterator & it)
 	CommonStyle::unserialize(it);
 	WidgetStyle::unserialize(it);
 	TableViewStyle::unserialize(it);
+}
+
+void TableView::load(TextStream& stream)
+{
+	clear();
+	load_json_from_stream(stream);
+}
+
+void TableView::load_json_from_stream(TextStream& stream)
+{
+	Json json;
+	json.unserialize(stream);
+	
+	if (json.count() > 0)
+	{
+		// Load as direct array format: [[...], [...], ...]
+		for (int32_t row = 0; row < json.count(); row++)
+		{
+			JsonIterator row_it = json[row];
+			int32_t col_count = row_it.count();
+			
+			for (int32_t col = 0; col < col_count; col++)
+			{
+				Label* label = new Label(this);
+				String text = row_it[col] | "";
+				label->text(text.c_str());
+				label->cell(row, col);
+			}
+		}
+	}
+}
+
+void TableView::save(TextStream& stream)
+{
+	Json json;
+	populate_json_from_data(json);
+	json.serialize(stream);
+}
+
+void TableView::populate_json_from_data(Json& json)
+{
+	JsonIterator it(json);
+	
+	// Save as direct array format: [[...], [...], ...]
+	for (Dim row = 0; row < row_count(); row++)
+	{
+		for (Dim col = 0; col < column_count(); col++)
+		{
+			Widget* widget = get_widget(row, col);
+			String cell_value;
+			
+			if (widget)
+			{
+				Label* label = dynamic_cast<Label*>(widget);
+				if (label)
+				{
+					cell_value = label->text();
+				}
+			}
+			
+			it[row][col] = cell_value.c_str();
+		}
+	}
 }
 
 #ifdef _DEBUG
@@ -431,8 +481,42 @@ UIManager::desktop()->dispatch();
 
 void TableView::test2()
 {
-	// More complex test with multiple widgets
+	Window window;
+		window.position(10, 10);
+		window.size(400, 300);
+		window.color(Color::WHITE_BLUE);
+
+	TableView* table = new TableView(&window);
+		table->size(380, 280);
+		table->position(10, 10);
+
+	// Create JSON test data (using single quotes for readability)
+	// Format: direct array without "rows" wrapper
+	String json_data(
+		"["
+			"['ID','Name','Email'],"
+			"['001','Alice','alice@example.com'],"
+			"['002','Bob','bob@example.com'],"
+			"['003','Charlie','charlie@example.com']"
+		"]"
+	);
+
+	// Load from JSON - String extends TextStream, so we can use it directly
+	json_data.offset(0);  // Reset offset to beginning
+	table->load(json_data);
+
+	table->m_scroll_view->scroll_position(0, 0);
+
+	// Display the loaded data
+while(1)
+	UIManager::desktop()->dispatch();
+
+	// Now save to a String and display the output
+	String json_output;
+	table->save(json_output);
+	bd_printf("Saved JSON:\n%s\n", json_output.c_str());
 }
+
 
 void TableView::test()
 {
@@ -440,8 +524,8 @@ void TableView::test()
 	if (done == false)
 	{
 		done = true;
-		test1();
 		test2();
+		test1();
 	}
 }
 #endif

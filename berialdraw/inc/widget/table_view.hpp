@@ -36,6 +36,14 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		virtual void unserialize(JsonIterator & it);
 
+		/** Load table data from JSON stream (can throw JsonUnserializeError)
+		@param stream TextStream containing JSON data */
+		void load(TextStream& stream);
+
+		/** Save table data to JSON stream
+		@param stream TextStream to write JSON data */
+		void save(TextStream& stream);
+
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -43,6 +51,12 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Load JSON data from stream */
+		void load_json_from_stream(TextStream& stream);
+
+		/** Populate Json object with table data */
+		void populate_json_from_data(Json& json);
+
 		/** Remove operator = */
 		TableView& operator=(const TableView& other) = delete;
 
