@@ -1,14 +1,8 @@
 #pragma once
+#include "../vector/scroll_direction.hpp"
+
 namespace berialdraw
 {
-	/** Enumeration for scroll direction */
-	enum ScrollDirection
-	{
-		SCROLL_HORIZONTAL = 0,
-		SCROLL_VERTICAL = 1,
-		SCROLL_ALL_DIRECTIONS = 2
-	};
-
 	/** The ScrollViewStyle class specifies the appearance of scrollviews, including the scroll 
 	size, position, direction and viewport size. */
 	class ScrollViewStyle : public Style
@@ -26,6 +20,9 @@ namespace berialdraw
 
 		/** Copy operator */
 		ScrollViewStyle& operator=(const ScrollViewStyle& other);
+
+		/** Copy properties from another without invalidation */
+		void copy_from(const ScrollViewStyle & other);
 
 		/** Set properties with another */
 		void set(const ScrollViewStyle & other);

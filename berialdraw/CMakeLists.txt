@@ -128,6 +128,7 @@ set(SRCS_LIB
 	src/vector/size.cpp
 	src/vector/margin.cpp
 	src/vector/align.cpp
+	src/vector/scroll_direction.cpp
 	src/vector/size_policy.cpp
 	src/vector/extend.cpp
 	src/vector/dim.cpp
@@ -145,6 +146,7 @@ set(SRCS_LIB
 
 	src/tool/bd_system.cpp
 	src/tool/tools.cpp
+	src/tool/chronometer.cpp
 	src/tool/string.cpp
 	src/tool/hsl.cpp
 	src/tool/svg_out.cpp

@@ -42,5 +42,10 @@ void bind_table_view_style(pybind11::module_& m) {
         .def_property("alternating_row_color2",
             [](berialdraw::TableViewStyle& self) -> uint32_t { return self.alternating_row_color2(); },
             [](berialdraw::TableViewStyle& self, uint32_t col) { self.alternating_row_color2(col); },
-            "Alternating row color 2");
+            "Alternating row color 2")
+        // Scroll direction property
+        .def_property("scroll_direction",
+            [](berialdraw::TableViewStyle& self) -> berialdraw::ScrollDirection { return self.scroll_direction(); },
+            [](berialdraw::TableViewStyle& self, berialdraw::ScrollDirection dir) { self.scroll_direction(dir); },
+            "Scroll direction");
 }

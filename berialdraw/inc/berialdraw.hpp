@@ -29,6 +29,8 @@
 #include "tool/directory.hpp"
 #include "tool/screen_crc.hpp"
 #include "tool/clipboard.hpp"
+#include "tool/chronometer.hpp"
+
 /** Sets a callback function for printf output.
 @param callback Function pointer to handle printf calls. */
 extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list args));
@@ -81,6 +83,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "styles/scroll_view_style.hpp"
 #include "styles/table_view_style.hpp"
 #include "styles/styles.hpp"
+#include "vector/scroll_direction.hpp"
 
 // Event 
 #include "event/event.hpp"

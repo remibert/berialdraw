@@ -92,6 +92,10 @@ namespace berialdraw
 		RADIO_FOCUS_COLOR          = 0x00000049, ///< Focus color of radio button.
 		RADIO_BOX_COLOR            = 0x0000004A, ///< Radio box color
 
+		TABLE_GRID_COLOR           = 0x0000004B, ///< Table grid lines color
+		TABLE_ALTERNATING_ROW_COLOR_1 = 0x0000004C, ///< Table alternating row color 1
+		TABLE_ALTERNATING_ROW_COLOR_2 = 0x0000004D, ///< Table alternating row color 2
+
 		THEME_BACK_COLOR                = 0x000000E0,
 		THEME_BACK_COLOR_LIGHT_1        = 0x000000E1,
 		THEME_BACK_COLOR_LIGHT_2        = 0x000000E2,

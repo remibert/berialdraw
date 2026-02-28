@@ -19,6 +19,7 @@ void TableViewStyle::serialize(JsonIterator & it)
 	it["header-background-color"] = m_header_background_color;
 	it["alternating-row-color1"] = m_alternating_row_color1;
 	it["alternating-row-color2"] = m_alternating_row_color2;
+	berialdraw::serialize("scroll-direction", it, m_scroll_direction);
 }
 
 /** Unserialize the content of widget from json */
@@ -32,6 +33,7 @@ void TableViewStyle::unserialize(JsonIterator & it)
 	m_header_background_color = (int)(it["header-background-color"] | (int)m_header_background_color);
 	m_alternating_row_color1 = (int)(it["alternating-row-color1"] | (int)m_alternating_row_color1);
 	m_alternating_row_color2 = (int)(it["alternating-row-color2"] | (int)m_alternating_row_color2);
+	berialdraw::unserialize("scroll-direction", it, m_scroll_direction);
 }
 
 /** Set properties with another */
@@ -47,6 +49,7 @@ void TableViewStyle::set(const TableViewStyle & other)
 		m_header_background_color = other.m_header_background_color;
 		m_alternating_row_color1 = other.m_alternating_row_color1;
 		m_alternating_row_color2 = other.m_alternating_row_color2;
+		m_scroll_direction = other.m_scroll_direction;
 		UIManager::invalidator()->dirty(this, Invalidator::ALL);
 	}
 }
@@ -159,4 +162,11 @@ void TableViewStyle::alternating_row_color2(uint32_t col, uint8_t alpha)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_alternating_row_color2 = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
+}
+
+/** Set the scroll direction */
+void TableViewStyle::scroll_direction(ScrollDirection dir)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_scroll_direction = dir;
 }

@@ -177,7 +177,7 @@ void Label::test1()
 		label5->text("%d",s);
 		label5->position(0,5*s);
 		label5->font_size(s,s);
-		usleep(1000);
+		sleep_us(1000);
 		UIManager::desktop()->dispatch();
 
 		if (s % 18 == 0)

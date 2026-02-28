@@ -621,6 +621,12 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\..\src\tool\chronometer.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="..\..\src\tool\zip_directory.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -644,6 +650,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\..\src\vector\align.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vector\scroll_direction.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
@@ -1178,6 +1190,7 @@
     <ClInclude Include="..\..\inc\tool\svg_out.hpp" />
     <ClInclude Include="..\..\inc\tool\tar.hpp" />
     <ClInclude Include="..\..\inc\tool\text_stream.hpp" />
+    <ClInclude Include="..\..\inc\tool\chronometer.hpp" />
     <ClInclude Include="..\..\inc\tool\tools.hpp" />
     <ClInclude Include="..\..\inc\tool\validator.hpp" />
     <ClInclude Include="..\..\inc\tool\vector.hpp" />
@@ -1186,6 +1199,7 @@
     <ClInclude Include="..\..\inc\tool\zip_archive.hpp" />
     <ClInclude Include="..\..\inc\tool\file_tools.hpp" />
     <ClInclude Include="..\..\inc\vector\align.hpp" />
+    <ClInclude Include="..\..\inc\vector\scroll_direction.hpp" />
     <ClInclude Include="..\..\inc\vector\area.hpp" />
     <ClInclude Include="..\..\inc\styles\color.hpp" />
     <ClInclude Include="..\..\inc\vector\coord.hpp" />
@@ -1291,6 +1305,7 @@
     <None Include="..\..\resources\styles\pearl\progress_bar.json" />
     <None Include="..\..\resources\styles\pearl\slider.json" />
     <None Include="..\..\resources\styles\pearl\switch.json" />
+    <None Include="..\..\resources\styles\pearl\table_view.json" />
     <None Include="..\..\resources\styles\pearl\window.json" />
     <None Include="..\..\resources\styles\test\button.json" />
     <None Include="..\..\resources\styles\test\canvas.json" />
@@ -1304,6 +1319,7 @@
     <None Include="..\..\resources\styles\test\progress_bar.json" />
     <None Include="..\..\resources\styles\test\slider.json" />
     <None Include="..\..\resources\styles\test\switch.json" />
+    <None Include="..\..\resources\styles\test\table_view.json" />
     <None Include="..\..\resources\styles\test\window.json" />
     <None Include="..\..\src\device\clipboard_cocoa.mm">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

@@ -4,6 +4,7 @@
 #include "berialdraw.hpp"
 #include "device/device_cocoa.hpp"
 #include "device/clipboard_cocoa.hpp"
+#include "tool/chronometer.hpp"
 
 using namespace berialdraw;
 
@@ -778,7 +779,7 @@ void berialdraw::DeviceCocoaImpl::open_window()
 			// Wait for completion with timeout to avoid infinite blocking on ARM64
 			int timeout_count = 0;
 			while (!window_created && timeout_count < 100) {
-				usleep(10000); // 10ms
+				sleep_us(10000); // 10ms
 				timeout_count++;
 			}
 
@@ -909,7 +910,7 @@ bool berialdraw::DeviceCocoaImpl::dispatch(bool blocking)
 		// If no events were processed and blocking is requested, sleep briefly
 		if (count == 0 && blocking)
 		{
-			usleep(1000); // 1ms pause to avoid busy-waiting
+			sleep_us(1000); // 1ms pause to avoid busy-waiting
 		}
         
 		// Return whether the application loop should continue

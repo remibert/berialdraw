@@ -716,6 +716,12 @@
     <ClCompile Include="..\..\src\styles\table_view_style.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\tool\chronometer.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vector\scroll_direction.cpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\berialdraw_imp.hpp">
@@ -1498,6 +1504,12 @@
     <ClInclude Include="..\..\inc\styles\table_view_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\inc\tool\chronometer.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\vector\scroll_direction.hpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\resources\icons\account_circle.icn">
@@ -1748,6 +1760,12 @@
     </None>
     <None Include="..\..\resources\styles\pearl\radio.json">
       <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\table_view.json">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\table_view.json">
+      <Filter>resources\styles\test</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

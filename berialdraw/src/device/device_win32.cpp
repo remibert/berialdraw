@@ -157,7 +157,7 @@ bool DeviceWin32::dispatch(bool blocking)
 
 	if (count == 0)
 	{
-		usleep(1);
+		sleep_us(1);
 	}
 	return UIManager::desktop()->is_loop();
 }

@@ -11,16 +11,12 @@ TableView::TableView(Widget * parent):
 	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
 	UIManager::styles()->apply(m_classname, (TableViewStyle*)this);
 
-	// Create internal scroll view
+	// Create internal scroll view (styles will be applied in place())
 	m_scroll_view = new ScrollView(this);
-	m_scroll_view->extend(Extend::EXTEND_ALL);
-	m_scroll_view->align(Align::ALIGN_TOP_LEFT);
-	m_scroll_view->scroll_direction(ScrollDirection::SCROLL_ALL_DIRECTIONS);
+	m_scroll_view->extend(Extend::EXTEND_NONE);
 
 	// Create internal grid inside scroll view
 	m_grid = new Grid(m_scroll_view);
-	m_grid->extend(Extend::EXTEND_NONE);
-	//m_grid->size_policy(SizePolicy::SHRINK_ALL);
 }
 
 TableView::~TableView()
@@ -29,6 +25,13 @@ TableView::~TableView()
 
 void TableView::place(const Area & area, bool in_layout)
 {
+	// Copy only scroll direction to m_scroll_view
+	if (m_scroll_view)
+	{
+		m_scroll_view->scroll_direction(scroll_direction());
+		m_scroll_view->align(align());
+	}
+
 	// Set grid line thickness for cell placement
 	if (m_grid)
 	{
@@ -76,15 +79,26 @@ void TableView::paint_row_backgrounds(const Region& region)
 	if (m_grid)
 	{
 		const auto& row_positions = m_grid->m_cells.get_row_positions();
+		const auto& col_positions = m_grid->m_cells.get_col_positions();
 		Dim row_count = m_grid->m_cells.row_count();
+		Dim col_count = m_grid->m_cells.column_count();
+		
+		// Calculate grid content width
+		Dim grid_width = m_foreclip.width_();
+		if (col_count > 0)
+		{
+			Dim last_col_x = col_positions[col_count - 1];
+			Dim last_col_width = m_grid->m_cells.column_width(col_count - 1);
+			grid_width = last_col_x + last_col_width - m_foreclip.x_();
+		}
 
 		for (Dim row = 0; row < row_count; row++)
 		{
 			Dim row_y = row_positions[row];
 			Dim row_height = m_grid->m_cells.row_height(row);
 			
-			// Create rectangle for this row in 64ths
-			Area row_area(m_foreclip.x_(), row_y, m_foreclip.width_(), row_height, false);
+			// Create rectangle for this row in 64ths, limited to grid content width
+			Area row_area(m_foreclip.x_(), row_y, grid_width, row_height, false);
 			row_area.nearest_pixel();
 			row_area.clip(m_foreclip);
 			
@@ -339,6 +353,10 @@ Widget * TableView::hovered(const Region & parent_region, const Point & position
 			result = this;
 		}
 	}
+	else
+	{
+		result = this;
+	}
 
 	return result;
 }
@@ -374,15 +392,16 @@ void TableView::test1()
 	
 	
 	// Configure grid styling
-	table->grid_color(0xFF808080);  // Gray grid lines
-	table->horizontal_thickness(1); // 2 pixels
-	table->vertical_thickness(1);   // 2 pixels
-	table->alternating_row_color1(0xFFE8F8FF);  // Pastel blue
-	table->alternating_row_color2(0xFFF0F8E8);  // Pastel green
+	//table->grid_color(0xFF808080);  // Gray grid lines
+	//table->horizontal_thickness(1); // 2 pixels
+	//table->vertical_thickness(1);   // 2 pixels
+	//table->alternating_row_color1(0xFFE8F8FF);  // Pastel blue
+	//table->alternating_row_color2(0xFFF0F8E8);  // Pastel green
 
-	for (uint16_t row = 0; row < 650; row++)
+	
+	for (uint16_t row = 0; row < 3; row++)
 	{
-		for (uint16_t column = 0; column < 300; column++)
+		for (uint16_t column = 0; column < 20; column++)
 		{
 			Label* label = new Label(table);
 			label->text("(%c:%d)",0x41 + row,column+1);
@@ -392,7 +411,7 @@ void TableView::test1()
 		int a = 0;
 		a++;
 	}
-	table->m_scroll_view->scroll_position(0,0);
+	table->m_scroll_view->scroll_position(0, 0);
 
 	String script(
 	"["

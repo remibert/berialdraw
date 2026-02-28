@@ -23,9 +23,6 @@
 #include <cstring>
 #include <algorithm>
 
-#ifdef WIN32
-	#include <windows.h>
-#endif
 
 #ifdef LINUX
 	#include <time.h>
@@ -76,6 +73,7 @@
 #include "vector/region.hpp"
 
 #include "tool/tools.hpp"
+#include "tool/chronometer.hpp"
 #include "tool/tar.hpp"
 #include "tool/item.hpp"
 #include "tool/item_collection.hpp"
@@ -106,6 +104,10 @@ namespace berialdraw
 		return ((X) > (Y) ? (X) : (Y));
 	}
 }
+
+#ifdef WIN32
+	#include <windows.h>
+#endif
 
 #undef SIZE_MAX
 /// @endcond

@@ -134,6 +134,16 @@ namespace berialdraw
 		/** Set the alternating row color 2 with alpha */
 		void alternating_row_color2(uint32_t col, uint8_t alpha);
 
+
+		/** Get the scroll direction */
+		inline ScrollDirection scroll_direction() const
+		{
+			return m_scroll_direction;
+		}
+
+		/** Set the scroll direction */
+		void scroll_direction(ScrollDirection dir);
+
 	protected:
 /// @cond DOXYGEN_IGNORE
 		uint32_t m_grid_color = 0xFF000000;
@@ -144,6 +154,7 @@ namespace berialdraw
 		uint32_t m_header_background_color = 0xFFCCCCCC;
 		uint32_t m_alternating_row_color1 = 0xFFFFFFFF;
 		uint32_t m_alternating_row_color2 = 0xFFF0F0F0;
+		ScrollDirection m_scroll_direction = SCROLL_VERTICAL;
 /// @endcond
 	};
 }

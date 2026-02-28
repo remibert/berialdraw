@@ -52,54 +52,12 @@ namespace berialdraw
 	@param initial initial crc value
 	@return crc generated */
 	uint32_t compute_crc32(const void * buffer, uint32_t size, uint32_t & initial);
-
-	/** Chronometer class to measure elapsed time.
-	
-	Usage:
-		Chronometer chrono;
-		chrono.start();
-		// ... some work ...
-		int64_t elapsed_ms = chrono.elapsed_ms();
-	*/
-	class Chronometer
-	{
-	private:
-		long long start_time_ns;
-
-	public:
-		/** Constructor - initializes the chronometer but does not start it */
-		Chronometer();
-
-		/** Start or restart the chronometer */
-		void start();
-
-		/** Get the elapsed time in milliseconds since start() was called
-		@return Elapsed time in milliseconds */
-		int64_t elapsed_ms() const;
-
-		/** Get the elapsed time in microseconds since start() was called
-		@return Elapsed time in microseconds */
-		int64_t elapsed_us() const;
-
-		/** Get the elapsed time in nanoseconds since start() was called
-		@return Elapsed time in nanoseconds */
-		int64_t elapsed_ns() const;
-
-		/** Reset the chronometer (same as start) */
-		void reset();
-	};
 }
 
-#ifdef WIN32
-	void usleep(int64_t usec);
-#else
-	#include <unistd.h>
-#endif
+#include "chronometer.hpp"
 
 #ifdef _DEBUG
 void tools_test1();
 void tools_test2();
 #endif
-
-	long long clockns();
 

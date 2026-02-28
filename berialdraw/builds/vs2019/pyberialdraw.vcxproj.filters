@@ -291,6 +291,9 @@
     <ClCompile Include="..\..\pybind\src\pybind\styles\radio_style.cpp">
       <Filter>styles</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\vector\scroll_direction.cpp">
+      <Filter>vector</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\\..\\pybind\\inc\\pybind\pyberialdraw.hpp" />
