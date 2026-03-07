@@ -124,6 +124,9 @@ namespace berialdraw
 	protected:
 /// @cond DOXYGEN_IGNORE
 
+		/** Indicates whether the widget is positioned absolutely */
+		bool is_absolute();
+
 		/** Remove operator = */
 		Widget& operator=(const Widget& other) = delete;
 
@@ -143,8 +146,14 @@ namespace berialdraw
 		void focus_next(Widget * & widget);
 		void focus_previous(Widget * & widget);
 
+		/** Compute the size according to different size defined */
+		Size compute_size(const Size & size, const Size & min_size, const Size & max_size, const Margin & margin);
+
 		/** Compute the scroll area */
 		virtual void space_occupied(Point & min_position, Point & max_position);
+
+		/** Compute the scroll area */
+		virtual void one_space_occupied(Point & min_position, Point & max_position, const Point & position, const Size & margin_size);
 
 		Area m_foreclip;
 		Area m_backclip;

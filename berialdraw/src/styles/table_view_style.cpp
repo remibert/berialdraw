@@ -17,8 +17,8 @@ void TableViewStyle::serialize(JsonIterator & it)
 	it["grid-visible"] = m_grid_visible;
 	it["header-visible"] = m_header_visible;
 	it["header-background-color"] = m_header_background_color;
-	it["alternating-row-color1"] = m_alternating_row_color1;
-	it["alternating-row-color2"] = m_alternating_row_color2;
+	it["alternating-row-color-1"] = m_alternating_row_color1;
+	it["alternating-row-color-2"] = m_alternating_row_color2;
 	berialdraw::serialize("scroll-direction", it, m_scroll_direction);
 }
 
@@ -31,8 +31,8 @@ void TableViewStyle::unserialize(JsonIterator & it)
 	m_grid_visible = (bool)(it["grid-visible"] | (int)m_grid_visible);
 	m_header_visible = (bool)(it["header-visible"] | (int)m_header_visible);
 	m_header_background_color = (int)(it["header-background-color"] | (int)m_header_background_color);
-	m_alternating_row_color1 = (int)(it["alternating-row-color1"] | (int)m_alternating_row_color1);
-	m_alternating_row_color2 = (int)(it["alternating-row-color2"] | (int)m_alternating_row_color2);
+	m_alternating_row_color1 = (int)(it["alternating-row-color-1"] | (int)m_alternating_row_color1);
+	m_alternating_row_color2 = (int)(it["alternating-row-color-2"] | (int)m_alternating_row_color2);
 	berialdraw::unserialize("scroll-direction", it, m_scroll_direction);
 }
 

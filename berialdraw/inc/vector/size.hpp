@@ -189,6 +189,30 @@ namespace berialdraw
 			return m_height_undefined;
 		}
 
+		/** Indicates if width is defined */
+		bool is_width_defined() const
+		{
+			return m_width_undefined == false;
+		}
+
+		/** Indicates if height is defined */
+		bool is_height_defined() const
+		{
+			return m_height_undefined == false;
+		}
+
+		/** Indicates if size is defined */
+		bool is_defined() const 
+		{
+			return is_width_defined() && is_height_defined();
+		}
+
+		/** Indicates if size is defined */
+		bool is_undefined() const 
+		{
+			return !is_defined();
+		}
+
 		/** Clean the size and set to undefined */
 		void clean()
 		{
@@ -242,5 +266,17 @@ namespace berialdraw
 	inline Dim nearest_pixel(Dim dim)
 	{
 		return ((dim ) & 0xFFFFFFC0);
+	}
+
+	/** Format a dimension value as a string with precision 64th of a pixel
+	@param value Dimension value to format
+	@return Formatted string in format "X.YZ" */
+	inline String format_dim(Dim value)
+	{
+		int whole = value >> 6;
+		int frac = (((value % 64) * 1000) / 64 + 5) / 10;
+		String result;
+		result.print("%d.%02d", whole, frac);
+		return result;
 	}
 }

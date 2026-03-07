@@ -284,6 +284,18 @@ void Widget::place_in_area(const Area & area, bool in_layout)
 	}
 }
 
+/** Indicates whether the widget is positioned absolutely */
+bool Widget::is_absolute()
+{
+	if (m_size.is_width_undefined() && m_size.is_height_undefined() && m_extend != Extend::EXTEND_NONE && 
+		m_position.is_x_undefined() && m_position.is_y_undefined())
+	{
+		return false;
+	}
+	return true;
+}
+
+
 Size Widget::content_size()
 {
 	Size result = size() ;
@@ -320,7 +332,7 @@ Size Widget::marged_size()
 	Size result = content_size();
 	result.height_(result.height_()+ margin().bottom_() + margin().top_());
 	result.width_(result.width_()  + margin().left_() + margin().right_());
-	//bd_printf("marged size %s w:%d h:%d\n",m_classname, result.width_(), result.height_());
+	//result.print(String("\nmarged size ")+ m_classname);
 	return result;
 }
 
@@ -382,50 +394,108 @@ void Widget::dirty_children(enum Invalidator::Status status)
 	}
 }
 
+/** Compute the size according to different size defined */
+Size Widget::compute_size(const Size & size, const Size & min_size, const Size & max_size, const Margin & margin)
+{
+	Size result;
+
+	if (!size.is_height_undefined())
+	{
+		result.height_(size.height_());
+	}
+
+	if (!size.is_width_undefined())
+	{
+		result.width_(size.width_());
+	}
+
+	if (!min_size.is_height_undefined())
+	{
+		if (result.height_() < min_size.height_())
+		{
+			result.height_(min_size.height_());
+		}
+	}
+
+	if (!min_size.is_width_undefined())
+	{
+		if (result.width_() < min_size.width_())
+		{
+			result.width_(min_size.width_());
+		}
+	}
+
+	if (!max_size.is_height_undefined())
+	{
+		if (result.height_() > max_size.height_())
+		{
+			result.height_(max_size.height_());
+		}
+	}
+
+	if (!max_size.is_width_undefined())
+	{
+		if (result.width_() > max_size.width_())
+		{
+			result.width_(max_size.width_());
+		}
+	}
+
+	if (result.is_height_undefined() == false || result.is_width_undefined() == false)
+	{
+		result.increase_(margin.left_() + margin.right_(), margin.top_() + margin.bottom_());
+	}
+	return result;
+}
+
+/** Compute the scroll area */
+void Widget::one_space_occupied(Point & min_position, Point & max_position, const Point & position, const Size & marged)
+{
+	Point min;
+	Point max;
+	if (position.is_x_undefined() == false)
+	{
+		min.move_(position.x_(),0);
+	}
+
+	if (position.is_y_undefined() == false)
+	{
+		min.move_(0,position.y_());
+	}
+
+	max = min;
+
+	max.move_(marged.width_(),marged.height_());
+
+	if (min.x_() < min_position.x_())
+	{
+		min_position.x_(min.x_());
+	}
+
+	if (min.y_() < min_position.y_())
+	{
+		min_position.y_(min.y_());
+	}
+
+	if (max.x_() > max_position.x_())
+	{
+		max_position.x_(max.x_());
+	}
+
+	if (max.y_() > max_position.y_())
+	{
+		max_position.y_(max.y_());
+	}
+}
+
+
 /** Compute the scroll area */
 void Widget::space_occupied(Point & min_position, Point & max_position)
 {
 	Widget* child = m_children;
 	while (child)
 	{
-		{
-			Point min;
-			Point max;
-			if (child->position().is_x_undefined() == false)
-			{
-				min.move_(child->position().x_(),0);
-			}
-
-			if (child->position().is_y_undefined() == false)
-			{
-				min.move_(0,child->position().y_());
-			}
-
-			max = min;
-
-			max.move_(child->marged_size().width_(),child->marged_size().height_());
-
-			if (min.x_() < min_position.x_())
-			{
-				min_position.x_(min.x_());
-			}
-
-			if (min.y_() < min_position.y_())
-			{
-				min_position.y_(min.y_());
-			}
-
-			if (max.x_() > max_position.x_())
-			{
-				max_position.x_(max.x_());
-			}
-
-			if (max.y_() > max_position.y_())
-			{
-				max_position.y_(max.y_());
-			}
-		}
-
+		one_space_occupied(min_position, max_position, position(), marged_size());
 		child->space_occupied(min_position,max_position);
 		child = child->next();
 	}

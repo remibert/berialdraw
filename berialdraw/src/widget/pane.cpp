@@ -38,9 +38,7 @@ Size Pane::content_size()
 
 void Pane::place(const Area & area, bool in_layout)
 {
-	// If size not defined
-	if (m_size.is_width_undefined() && m_size.is_height_undefined() && m_extend != Extend::EXTEND_NONE && 
-		m_position.is_x_undefined() && m_position.is_y_undefined())
+	if (!is_absolute())
 	{
 		// Consider the placement in layout
 		in_layout = true;

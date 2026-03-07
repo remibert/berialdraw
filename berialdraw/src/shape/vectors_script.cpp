@@ -3,8 +3,6 @@
 using namespace berialdraw;
 //#define TRACE
 
-#define FLOAT_PART(value) ((((abs(value)%64)*1000)/64)+5)/10
-
 
 
 VectorsScript::VectorsScript(const char* buffer, Polygon & polygon) :
@@ -281,7 +279,7 @@ enum VectorsScript::Error VectorsScript::parse()
 					parse_command(1);
 					set(letter, get_variable(0));
 #ifdef TRACE
-					bd_printf(";     // %c = %d.%02d\n", letter, get_variable(0) / 64, FLOAT_PART(get_variable(0)));
+				bd_printf(";     // %c = %s\n", letter, (const char*)format_coord(get_variable(0)));
 #endif
 				}
 			}
@@ -298,7 +296,7 @@ enum VectorsScript::Error VectorsScript::parse()
 				p.y_(get_variable(1));
 				m_polygon.add_point(p);
 #ifdef TRACE
-				bd_printf(");     // %d.%02d, %d.%02d\n", get_variable(0) / 64, FLOAT_PART(get_variable(0)), get_variable(1) / 64, FLOAT_PART(get_variable(1)));
+			bd_printf(");     // %s, %s\n", (const char*)format_coord(get_variable(0)), (const char*)format_coord(get_variable(1)));
 #endif
 			}
 			// Set conic
@@ -314,7 +312,7 @@ enum VectorsScript::Error VectorsScript::parse()
 				p.y_(get_variable(1));
 				m_polygon.add_conic(p);
 #ifdef TRACE
-				bd_printf(");     // %d.%02d, %d.%02d\n", get_variable(0) / 64, FLOAT_PART(get_variable(0)), get_variable(1) / 64, FLOAT_PART(get_variable(1)));
+			bd_printf(");     // %s, %s\n", (const char*)format_coord(get_variable(0)), (const char*)format_coord(get_variable(1)));
 #endif
 			}
 			// Set cubic
@@ -330,7 +328,7 @@ enum VectorsScript::Error VectorsScript::parse()
 				p.y_(get_variable(1));
 				m_polygon.add_cubic(p);
 #ifdef TRACE
-				bd_printf(");     // %d.%02d, %d.%02d\n", get_variable(0) / 64, FLOAT_PART(get_variable(0)), get_variable(1) / 64, FLOAT_PART(get_variable(1)));
+			bd_printf(");     // %s, %s\n", (const char*)format_coord(get_variable(0)), (const char*)format_coord(get_variable(1)));
 #endif
 			}
 			// Next contour

@@ -5,15 +5,15 @@
 		},
 		"$(ui.tests)/out/scroll5_1.svg" : 
 		{
-			"scale_2" : 2770025267
+			"scale_2" : 2476222326
 		},
 		"$(ui.tests)/out/scroll5_2.svg" : 
 		{
-			"scale_2" : 1757403424
+			"scale_2" : 2587757398
 		},
 		"$(ui.tests)/out/scroll5_3.svg" : 
 		{
-			"scale_2" : 158951912
+			"scale_2" : 1979229918
 		},
 		"$(ui.tests)/out/scroll5_4.svg" : 
 		{
@@ -21,7 +21,7 @@
 		},
 		"$(ui.tests)/out/scroll5_5.svg" : 
 		{
-			"scale_2" : 4167418220
+			"scale_2" : 3225189921
 		},
 		"$(ui.tests)/out/scroll4_1.svg" : 
 		{
@@ -441,7 +441,7 @@
 		},
 		"$(ui.tests)/out/edit1_1.svg" : 
 		{
-			"scale_2" : 158362829
+			"scale_2" : 2971143820
 		},
 		"$(ui.tests)/out/edit1_2.svg" : 
 		{
@@ -449,11 +449,11 @@
 		},
 		"$(ui.tests)/out/edit1_3.svg" : 
 		{
-			"scale_2" : 3397111525
+			"scale_2" : 440466576
 		},
 		"$(ui.tests)/out/edit1_4.svg" : 
 		{
-			"scale_2" : 944192469
+			"scale_2" : 1651335648
 		},
 		"$(ui.tests)/out/edit1_5.svg" : 
 		{
@@ -3057,7 +3057,7 @@
 		},
 		"$(ui.tests)/out/linechart.svg" : 
 		{
-			"scale_2" : 1931510416
+			"scale_2" : 2328479071
 		},
 		"$(ui.tests)/out/compass1.svg" : 
 		{
@@ -3085,7 +3085,7 @@
 		},
 		"$(ui.tests)/out/polyline2.svg" : 
 		{
-			"scale_2" : 2819515692
+			"scale_2" : 3024907053
 		},
 		"$(ui.tests)/out/polylines1_1.svg" : 
 		{
@@ -3109,7 +3109,7 @@
 		},
 		"$(ui.tests)/out/polylines1_6.svg" : 
 		{
-			"scale_2" : 4090164957
+			"scale_2" : 1007746401
 		},
 		"$(ui.tests)/out/polylines1_7.svg" : 
 		{

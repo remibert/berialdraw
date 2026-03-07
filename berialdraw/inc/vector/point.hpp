@@ -213,4 +213,17 @@ namespace berialdraw
 		unsigned int m_y_undefined:1;
 /// @endcond
 	};
+
+	/** Format a coordinate value as a string with precision 64th of a pixel
+	@param value Coordinate value to format
+	@return Formatted string in format "X.YZ" */
+	inline String format_coord(Coord value)
+	{
+		Coord abs_value = abs(value);
+		int whole = abs_value >> 6;
+		int frac = (((abs_value % 64) * 1000) / 64 + 5) / 10;
+		String result;
+		result.print("%d.%02d", whole, frac);
+		return result;
+	}
 }

@@ -23,25 +23,60 @@ TableView::~TableView()
 {
 }
 
+///** Compute the scroll area */
+void TableView::space_occupied(Point & min_position, Point & max_position)
+{
+	Size size = compute_size(m_size, m_min_size, m_max_size, m_margin);
+	if (size.is_undefined())
+	{
+		size = compute_size(content_size(), m_min_size, m_max_size, m_margin);
+	}
+	Widget::one_space_occupied(min_position,max_position, m_position, size);
+}
+
+
+///** Return the size of content without marges */
+Size TableView::content_size()
+{
+	Size result;
+	if (m_content_size.is_undefined())
+	{
+		// Copy only scroll direction to m_scroll_view
+		if (m_scroll_view)
+		{
+			m_scroll_view->scroll_direction(scroll_direction());
+			m_scroll_view->align(align());
+		}
+
+		// Set grid line thickness for cell placement
+		if (m_grid)
+		{
+			m_grid->m_cells.horizontal_line_thickness(horizontal_thickness_());
+			m_grid->m_cells.vertical_line_thickness(vertical_thickness_());
+		}
+		result = compute_size(m_size, m_min_size, m_max_size, m_margin);
+		if ((m_size.is_height_undefined() && m_size.is_width_undefined()))
+		{
+			result = Widget::content_size();
+		}
+		else
+		{
+			result = m_size;
+		}
+		m_content_size = result;
+	}
+	else
+	{
+		result = m_content_size;
+	}
+	return result;
+}
+
+
 void TableView::place(const Area & area, bool in_layout)
 {
-	// Copy only scroll direction to m_scroll_view
-	if (m_scroll_view)
-	{
-		m_scroll_view->scroll_direction(scroll_direction());
-		m_scroll_view->align(align());
-	}
-
-	// Set grid line thickness for cell placement
-	if (m_grid)
-	{
-		m_grid->m_cells.horizontal_line_thickness(horizontal_thickness_());
-		m_grid->m_cells.vertical_line_thickness(vertical_thickness_());
-	}
-
 	place_in_area(area, in_layout);
 
-	// Place children in the foreclip area
 	Widget* child = m_children;
 	while (child)
 	{
@@ -482,22 +517,146 @@ UIManager::desktop()->dispatch();
 void TableView::test2()
 {
 	Window window;
-		window.position(10, 10);
-		window.size(400, 300);
+		//window.position(10, 10);
+		//window.size(400, 300);
 		window.color(Color::WHITE_BLUE);
+	ScrollView * scrollview = new ScrollView(&window);
+scrollview->id(456);
+	Column * column = new Column(scrollview);
+	//Column * column = new Column(&window);
 
-	TableView* table = new TableView(&window);
-		table->size(380, 280);
-		table->position(10, 10);
+	Label * label;
+	Button * button;
+
+	//label = new Label(column);
+	//label->text("label");
+
+	//button = new Button(column);
+	//button->text("button");
+
+	//label = new Label(column);
+	//label->text("label");
+
+	//button = new Button(column);
+	//button->text("button");
+
+	label = new Label(column);
+	label->text("label");
+
+	button = new Button(column);
+	button->text("button");
+
+
+	TableView* table = new TableView(column);
+		//table->size(280,100);
+		table->horizontal_thickness(1);
+		table->vertical_thickness(1);
+	
+
+	label = new Label(column);
+	label->text("label");
+
+	button = new Button(column);
+	button->text("button");
+
+	label = new Label(column);
+	label->text("label");
+
+	button = new Button(column);
+	button->text("button");
+
+	label = new Label(column);
+	label->text("label");
+
+	button = new Button(column);
+	button->text("button");
+
+	label = new Label(column);
+	label->text("label");
+
+	button = new Button(column);
+	button->text("button");
+
+	//label = new Label(column);
+	//label->text("label");
+
+	//button = new Button(column);
+	//button->text("button");
+
+	//label = new Label(column);
+	//label->text("label");
+
+	//button = new Button(column);
+	//button->text("button");
 
 	// Create JSON test data (using single quotes for readability)
 	// Format: direct array without "rows" wrapper
 	String json_data(
 		"["
-			"['ID','Name','Email'],"
+			"['ID'],"
+			"['001'],"
+			"['002'],"
+			"['003'],"
+			//"['001'],"
+			//"['002'],"
+			//"['003'],"
+			//"['001'],"
+			//"['002'],"
+			//"['003'],"
+			//"['001'],"
+			//"['002'],"
+			//"['003'],"
+			//"['ID'],"
+			//"['001'],"
+			//"['002'],"
+			//"['003'],"
+			//"['ID'],"
+			//"['001'],"
+			//"['002'],"
+			//"['003'],"
+			//"['ID','Name','Email'],"
+			//"['001','Alice','alice@example.com'],"
+			//"['002','Bob','bob@example.com'],"
+			//"['003','Charlie','charlie@example.com'],"
+			/*"['001','Alice','alice@example.com'],"
+			"['002','Bob','bob@example.com'],"
+			"['003','Charlie','charlie@example.com'],"
 			"['001','Alice','alice@example.com'],"
 			"['002','Bob','bob@example.com'],"
-			"['003','Charlie','charlie@example.com']"
+			"['003','Charlie','charlie@example.com'],"
+			"['001','Alice','alice@example.com'],"
+			"['002','Bob','bob@example.com'],"
+			"['003','Charlie','charlie@example.com'],"
+			"['001','Alice','alice@example.com'],"
+			"['002','Bob','bob@example.com'],"
+			"['003','Charlie','charlie@example.com'],"
+			"['001','Alice','alice@example.com'],"
+			"['002','Bob','bob@example.com'],"
+			"['003','Charlie','charlie@example.com'],"
+			"['001','Alice','alice@example.com'],"
+			"['002','Bob','bob@example.com'],"
+			"['003','Charlie','charlie@example.com'],"
+			"['001','Alice','alice@example.com'],"
+			"['002','Bob','bob@example.com'],"
+			"['003','Charlie','charlie@example.com'],"
+			"['001','Alice','alice@example.com'],"
+			"['002','Bob','bob@example.com'],"
+			"['003','Charlie','charlie@example.com'],"
+			"['001','Alice','alice@example.com'],"
+			"['002','Bob','bob@example.com'],"
+			"['003','Charlie','charlie@example.com'],"
+			"['001','Alice','alice@example.com'],"
+			"['002','Bob','bob@example.com'],"
+			"['003','Charlie','charlie@example.com'],"
+			"['001','Alice','alice@example.com'],"
+			"['002','Bob','bob@example.com'],"
+			"['003','Charlie','charlie@example.com'],"
+			"['001','Alice','alice@example.com'],"
+			"['002','Bob','bob@example.com'],"
+			"['003','Charlie','charlie@example.com'],"
+			"['001','Alice','alice@example.com'],"
+			"['002','Bob','bob@example.com'],"
+			"['003','Charlie','charlie@example.com'],"*/
 		"]"
 	);
 
@@ -505,7 +664,7 @@ void TableView::test2()
 	json_data.offset(0);  // Reset offset to beginning
 	table->load(json_data);
 
-	table->m_scroll_view->scroll_position(0, 0);
+	//table->m_scroll_view->scroll_position(0, 0);
 
 	// Display the loaded data
 while(1)
@@ -524,8 +683,8 @@ void TableView::test()
 	if (done == false)
 	{
 		done = true;
-		test2();
-		test1();
+		//test2();
+		//test1();
 	}
 }
 #endif

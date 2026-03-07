@@ -44,6 +44,9 @@ namespace berialdraw
 		@param stream TextStream to write JSON data */
 		void save(TextStream& stream);
 
+		/** Return the size of content without marges */
+		virtual Size content_size();
+
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -59,6 +62,9 @@ namespace berialdraw
 
 		/** Remove operator = */
 		TableView& operator=(const TableView& other) = delete;
+
+		/** Compute the scroll area */
+		virtual void space_occupied(Point & min_position, Point & max_position);
 
 		/** Paint on screen memory the content of this widget */
 		virtual void paint(const Region & parent_region);
@@ -89,6 +95,7 @@ namespace berialdraw
 
 		ScrollView* m_scroll_view;
 		Grid* m_grid;
+		Size m_content_size;
 /// @endcond
 	};
 }

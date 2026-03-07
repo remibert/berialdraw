@@ -406,6 +406,10 @@ Dim Cells::flatten_marged(Cell * cells, Dim count, Dim area_size,  Dim missing, 
 			{
 				uint64_t add = (((total_recovered << 7) / count_missing) + 64)>>7;
 				cells[i].m_placed += (uint32_t)add;
+				if (cells[i].m_placed %64 > 32)
+				{
+					cells[i].m_placed = nearest_pixel(cells[i].m_placed) + 64;
+				}
 			}
 			placed += cells[i].m_placed;
 		}
@@ -700,8 +704,8 @@ void Cells::place(Widget *widget, const Area & area)
 			{
 				cell.x_     (m_col_positions[column]);
 				cell.y_     (m_row_positions[row   ]);
-				cell.width_ (nearest_pixel(m_widths       [column].m_placed));
-				cell.height_(nearest_pixel(m_heights      [row   ].m_placed));
+				cell.width_ (nearest_pixel(m_widths [column].m_placed));
+				cell.height_(nearest_pixel(m_heights[row   ].m_placed));
 				current->place(cell, true);
 			}
 			current = current->m_next;
