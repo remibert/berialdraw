@@ -5,6 +5,9 @@ using namespace berialdraw;
 /** Constructor */
 TableViewStyle::TableViewStyle()
 {
+	m_header_visible = 1;
+	m_grid_visible = 1;
+	m_table_view_modified = 1;
 }
 
 
@@ -83,29 +86,33 @@ void TableViewStyle::grid_color(uint32_t col, uint8_t alpha)
 /** Set the horizontal grid thickness in pixels */
 void TableViewStyle::horizontal_thickness(Dim v)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_horizontal_thickness = v << 6;
+	m_table_view_modified = 1;
 }
 
 /** Set the horizontal grid thickness with a precision of 64th of a pixel */
 void TableViewStyle::horizontal_thickness_(Dim v)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_horizontal_thickness = v;
+	m_table_view_modified = 1;
 }
 
 /** Set the vertical grid thickness in pixels */
 void TableViewStyle::vertical_thickness(Dim v)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_vertical_thickness = v << 6;
+	m_table_view_modified = 1;
 }
 
 /** Set the vertical grid thickness with a precision of 64th of a pixel */
 void TableViewStyle::vertical_thickness_(Dim v)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_vertical_thickness = v;
+	m_table_view_modified = 1;
 }
 
 /** Set the grid visibility state */
@@ -113,6 +120,7 @@ void TableViewStyle::grid_visible(bool visible)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_grid_visible = visible;
+	m_table_view_modified = 1;
 }
 
 /** Set the header visibility state */
@@ -120,6 +128,7 @@ void TableViewStyle::header_visible(bool visible)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_header_visible = visible;
+	m_table_view_modified = 1;
 }
 
 /** Set the header background color */
@@ -169,4 +178,5 @@ void TableViewStyle::scroll_direction(ScrollDirection dir)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_scroll_direction = dir;
+	m_table_view_modified = 1;
 }

@@ -1,19 +1,19 @@
 	{
 		"$(ui.tests)/out/scroll6_0.svg" : 
 		{
-			"scale_2" : 2475374022
+			"scale_2" : 1414413423
 		},
 		"$(ui.tests)/out/scroll5_1.svg" : 
 		{
-			"scale_2" : 2476222326
+			"scale_2" : 1439093949
 		},
 		"$(ui.tests)/out/scroll5_2.svg" : 
 		{
-			"scale_2" : 2587757398
+			"scale_2" : 2319894072
 		},
 		"$(ui.tests)/out/scroll5_3.svg" : 
 		{
-			"scale_2" : 1979229918
+			"scale_2" : 2031426135
 		},
 		"$(ui.tests)/out/scroll5_4.svg" : 
 		{
@@ -117,27 +117,27 @@
 		},
 		"$(ui.tests)/out/icon3_0.svg" : 
 		{
-			"scale_2" : 1827562220
+			"scale_2" : 3698683308
 		},
 		"$(ui.tests)/out/icon2_0.svg" : 
 		{
-			"scale_2" : 4113033202
+			"scale_2" : 2975588041
 		},
 		"$(ui.tests)/out/icon1_1.svg" : 
 		{
-			"scale_2" : 2934024139
+			"scale_2" : 2388468709
 		},
 		"$(ui.tests)/out/icon1_2.svg" : 
 		{
-			"scale_2" : 404435113
+			"scale_2" : 950514823
 		},
 		"$(ui.tests)/out/icon1_3.svg" : 
 		{
-			"scale_2" : 801234649
+			"scale_2" : 3162554808
 		},
 		"$(ui.tests)/out/icon1_4.svg" : 
 		{
-			"scale_2" : 4163442137
+			"scale_2" : 2282299987
 		},
 		"$(ui.tests)/out/progress_bar3_1.svg" : 
 		{
@@ -3321,15 +3321,15 @@
 		},
 		"$(ui.tests)/out/sample_scroll_1.svg" : 
 		{
-			"scale_2" : 1753287908
+			"scale_2" : 1056635232
 		},
 		"$(ui.tests)/out/sample_scroll_2.svg" : 
 		{
-			"scale_2" : 1831275886
+			"scale_2" : 1056635232
 		},
 		"$(ui.tests)/out/sample_scroll_3.svg" : 
 		{
-			"scale_2" : 2611412099
+			"scale_2" : 3456025296
 		},
 		"$(ui.tests)/out/sample_slider_1.svg" : 
 		{

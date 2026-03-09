@@ -1,5 +1,7 @@
 #include "berialdraw_imp.hpp"
 
+using namespace berialdraw;
+
 extern "C" void sleep_us(int64_t usec)
 {
 #ifdef WIN32
@@ -57,18 +59,18 @@ extern "C" long long clock_ns()
 	}
 	
 	uint64_t mach_time = mach_absolute_time();
+
 	// Convert from Mach absolute time to nanoseconds
 	return (mach_time * timebase_info.numer) / timebase_info.denom;
 #endif
 }
 
-namespace berialdraw
-{
-
 // Chronometer class implementation
 Chronometer::Chronometer()
 {
 	start_time_ns = clock_ns();
+	last_method_call_ns = 0;
+	accumulated_method_ns = 0;
 }
 
 void Chronometer::start()
@@ -95,36 +97,61 @@ int64_t Chronometer::elapsed_us() const
 int64_t Chronometer::elapsed_ns() const
 {
 	if (start_time_ns == 0)
+	{
 		return 0;
+	}
 	return clock_ns() - start_time_ns;
+}
+
+/** Format nanoseconds as string "S.MMM,UUUs" */
+String Chronometer::format_time_ns(int64_t ns) const
+{
+	String result;
+	int64_t s = ns / 1000000000LL;
+	int64_t ms = (ns / 1000000) % 1000;
+	int64_t us = (ns / 1000) % 1000;
+	result.write_format("%lld.%03lld,%03llds", s, ms, us);
+	return result;
 }
 
 /** Get the elapsed time as a formatted String */
 String Chronometer::elapsed() const
 {
 	int64_t ns = elapsed_ns();
-	String result;
+	return format_time_ns(ns);
+}
+
+/** Get elapsed time with delta since last call (excludes method processing time) */
+String Chronometer::elapsed_with_delta()
+{
+	long long method_start = clock_ns();
 	
-	if (ns == 0)
+	// Calculate total elapsed time minus accumulated method processing time
+	long long total_ns = elapsed_ns() - accumulated_method_ns;
+	
+	// Calculate delta since last call
+	long long delta_ns;
+	if (last_method_call_ns == 0)
 	{
-		result.write_format("0ns");
+		// First call: delta equals total
+		delta_ns = total_ns;
 	}
 	else
 	{
-		int64_t h = ns / 3600000000000LL;
-		int64_t m = (ns / 60000000000LL) % 60;
-		int64_t s = (ns / 1000000000LL) % 60;
-		int64_t ms = (ns / 1000000) % 1000;
-		int64_t us = (ns / 1000) % 1000;
-		int64_t ns_rem = ns % 1000;
-		
-		if (h > 0) result.write_format("%lldh", h);
-		if (m > 0) result.write_format(" %lldm", m);
-		if (s > 0) result.write_format(" %llds", s);
-		if (ms > 0) result.write_format(" %lldms", ms);
-		if (us > 0) result.write_format(" %lldus", us);
-		if (ns_rem > 0) result.write_format(" %lldns", ns_rem);
+		// Time between last call and now
+		delta_ns = method_start - last_method_call_ns;
 	}
+	
+	// Format both times using the dedicated formatting method
+	String result;
+	result.print("T=%s D=%s", (const char*)format_time_ns(total_ns), (const char*)format_time_ns(delta_ns));
+	
+	// Record method end time and accumulate processing time
+	long long method_end = clock_ns();
+	accumulated_method_ns += (method_end - method_start);
+	
+	// Save end time for next delta calculation
+	last_method_call_ns = method_end;
 	
 	return result;
 }
@@ -141,5 +168,3 @@ void Chronometer::println(const String & name) const
 	print(name);
 	bd_printf("\n");
 }
-
-} // namespace berialdraw

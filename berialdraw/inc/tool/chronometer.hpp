@@ -16,6 +16,11 @@ namespace berialdraw
 	{
 	private:
 		long long start_time_ns;
+		long long last_method_call_ns;
+		long long accumulated_method_ns;
+
+		/** Format nanoseconds as string "S.MMM,UUUs" */
+		String format_time_ns(int64_t ns) const;
 
 	public:
 		/** Constructor - initializes the chronometer but does not start it */
@@ -37,8 +42,12 @@ namespace berialdraw
 		int64_t elapsed_ns() const;
 
 		/** Get the elapsed time as a formatted String
-		@return String with formatted time (e.g. "1h 2m 3s 45ms 678us 912ns") */
+		@return String with formatted time (e.g. "1.234 567s") */
 		String elapsed() const;
+
+		/** Get elapsed time with delta since last call (excludes method processing time)
+		@return String with format "Total: X.XXX XXXs | Delta: X.XXX XXXs" */
+		String elapsed_with_delta();
 
 		/** Print the elapsed time */
 		void print(const String & name = "time") const;
@@ -46,6 +55,8 @@ namespace berialdraw
 		/** Print the elapsed time with newline */
 		void println(const String & name = "time") const;
 	};
+
+
 }
 
 #ifndef WIN32
@@ -59,6 +70,16 @@ extern "C"
 
 void sleep_us(int64_t usec);
 long long clock_ns();
+
+
+#if defined(_DEBUG)
+	#define __ Chronometer chrono;
+	#define _  bd_printf("%s:%d: %s\n",__FILE__,__LINE__, chrono.elapsed_with_delta().c_str());
+#else
+	#define __ 
+	#define _
+#endif
+
 
 #ifdef __cplusplus
 }

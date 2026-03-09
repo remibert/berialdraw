@@ -112,8 +112,8 @@ namespace berialdraw
 /// @cond DOXYGEN_IGNORE
 		uint32_t m_border_color  = 0xFF7F7F7F;
 		uint32_t m_focus_color   = 0xFF7F7F7F;
-		Dim m_thickness = 0;
-		Dim m_radius = 0;
+		uint16_t m_thickness = 0;
+		uint16_t m_radius = 0;
 		uint16_t m_focus_gap = 0;
 		uint16_t m_focus_thickness = 0;
 /// @endcond 

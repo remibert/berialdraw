@@ -1494,6 +1494,27 @@ Region::Overlap Region::is_inside(const Point & position, const Size & size) con
 	return result;
 }
 
+/** Test if a region contains an area */
+Region::Overlap Region::is_inside(const Area & area) const
+{
+	return is_inside(area.position(), area.size());
+}
+
+/** Get the bounding box (extents) of the region */
+Area Region::get_extents() const
+{
+	if (is_empty(&m_region))
+	{
+		return Area(0, 0, 0, 0, false);  // Return empty area
+	}
+	
+	RegionBox extents = m_region.extents;
+	Coord width = extents.x2 - extents.x1;
+	Coord height = extents.y2 - extents.y1;
+	
+	return Area(extents.x1, extents.y1, static_cast<Dim>(width), static_cast<Dim>(height), false);
+}
+
 
 Region::Overlap Region::is_inside(Coord x, Coord y, Dim width, Dim height, bool pixel) const
 {

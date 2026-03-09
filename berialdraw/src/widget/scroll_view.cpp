@@ -34,7 +34,7 @@ Size ScrollView::content_size()
 /** Return the size of content with its marges */
 Size ScrollView::marged_size()
 {
-	Size result;
+	Size result = content_size();
 
 	// If size not defined, set null size
 	if (m_viewport_size.is_width_undefined() == false)
@@ -250,7 +250,7 @@ void ScrollView::place(const Area & area, bool in_layout)
 
 	// Place all children in scrolled area
 	Widget::place(scroll_area, false);
-	m_backclip = area;
+	m_backclip = marged_area;
 }
 
 /** Paint on screen memory the content of this widget */
@@ -703,6 +703,7 @@ void ScrollView::test5()
 				imbricated_scrollview->margin(5);
 
 			Column * imbricated_grid = new Column(imbricated_scrollview);
+			imbricated_grid->id(445);
 			for (int  j = 0; j < 5; j++)
 			{
 				button = new Button(imbricated_grid);

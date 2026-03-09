@@ -120,8 +120,6 @@ extern "C"
 	@param format The format string (as in printf).
 	@param ... Additional arguments based on the format string. */
 	void bd_printf(const char * format, ...);
-
-	#define _ bd_printf("%s:%d\n",__FILE__,__LINE__);
 #if defined(__cplusplus)
 }
 #endif

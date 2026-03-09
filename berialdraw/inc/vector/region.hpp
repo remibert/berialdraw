@@ -51,11 +51,17 @@ namespace berialdraw
 		/** Test if a region contains a rectangle */
 		Overlap is_inside(const Point & position, const Size & size) const;
 
+		/** Test if a region contains an area */
+		Overlap is_inside(const Area & area) const;
+
 		/** Test if a region contains a point (for renderer) */
 		bool is_inside_scale(Coord x,Coord y, Dim scale) const;
 
 		/** Test if a region contains a rectangle (for rendeder) */
 		Overlap is_inside_scale(Coord x,Coord y,Dim width,Dim height, Dim scale) const;
+
+		/** Get the bounding box (extents) of the region */
+		Area get_extents() const;
 
 		/** Clear the content of the region */
 		void clear();

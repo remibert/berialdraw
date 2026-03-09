@@ -23,7 +23,7 @@ TableView::~TableView()
 {
 }
 
-///** Compute the scroll area */
+/** Compute the scroll area */
 void TableView::space_occupied(Point & min_position, Point & max_position)
 {
 	Size size = compute_size(m_size, m_min_size, m_max_size, m_margin);
@@ -34,12 +34,11 @@ void TableView::space_occupied(Point & min_position, Point & max_position)
 	Widget::one_space_occupied(min_position,max_position, m_position, size);
 }
 
-
-///** Return the size of content without marges */
+/** Return the size of content without marges */
 Size TableView::content_size()
 {
-	Size result;
-	if (m_content_size.is_undefined())
+	Size result(m_content_size);
+	if (m_content_size.is_undefined() || m_table_view_modified == 1)
 	{
 		// Copy only scroll direction to m_scroll_view
 		if (m_scroll_view)
@@ -64,10 +63,7 @@ Size TableView::content_size()
 			result = m_size;
 		}
 		m_content_size = result;
-	}
-	else
-	{
-		result = m_content_size;
+		m_table_view_modified = 0;
 	}
 	return result;
 }
@@ -287,6 +283,7 @@ void TableView::set_widget(uint16_t row, uint16_t column, Widget* widget)
 		// Set the cell position
 		widget->row(row);
 		widget->column(column);
+		m_table_view_modified = 1;
 
 		// The widget must be a child of the grid
 		if (widget->parent() != m_grid)
@@ -326,6 +323,7 @@ void TableView::remove_widget(uint16_t row, uint16_t column)
 	Widget* widget = get_widget(row, column);
 	if (widget)
 	{
+		m_table_view_modified = 1;
 		delete widget;
 	}
 }
@@ -334,6 +332,7 @@ void TableView::clear()
 {
 	if (m_grid)
 	{
+		m_table_view_modified = 1;
 		m_grid->clear();
 	}
 }
@@ -467,13 +466,13 @@ void TableView::populate_json_from_data(Json& json)
 void TableView::test1()
 {
 	Window window;
-	window.position(10, 10);
-	window.size(400, 300);
-	window.color(Color::WHITE_BLUE);
+	//window.position(10, 10);
+	//window.size(400, 300);
+	//window.color(Color::WHITE_BLUE);
 
 	TableView* table = new TableView(&window);
-	table->size(380, 280);
-	table->position(10, 10);
+	//table->size(380, 280);
+	//table->position(10, 10);
 	
 	
 	// Configure grid styling
@@ -483,8 +482,7 @@ void TableView::test1()
 	//table->alternating_row_color1(0xFFE8F8FF);  // Pastel blue
 	//table->alternating_row_color2(0xFFF0F8E8);  // Pastel green
 
-	
-	for (uint16_t row = 0; row < 3; row++)
+	for (uint16_t row = 0; row < 30; row++)
 	{
 		for (uint16_t column = 0; column < 20; column++)
 		{
@@ -492,10 +490,9 @@ void TableView::test1()
 			label->text("(%c:%d)",0x41 + row,column+1);
 			label->cell(row,column);
 			//UIManager::desktop()->dispatch();
-		}	
-		int a = 0;
-		a++;
+		}
 	}
+
 	table->m_scroll_view->scroll_position(0, 0);
 
 	String script(
@@ -507,10 +504,18 @@ void TableView::test1()
 				"{'type':'touch','x':190,'y':190,'state':'move'},"
 				"{'type':'touch','x':185,'y':185,'state':'up'},"
 	"]");
-
-	//UIManager::notifier()->play_script(script, "$(ui.tests)/out/table_view_%d.svg");
+UIManager::desktop()->dispatch();
+//	UIManager::notifier()->play_script(script, "$(ui.tests)/out/table_view_%d.svg");
+	UIManager::notifier()->play_script(script,"");
+	//UIManager::notifier()->play_script(script,"");
+	//UIManager::notifier()->play_script(script,"");
+	//UIManager::notifier()->play_script(script,"");
+	//UIManager::notifier()->play_script(script,"");
+	//UIManager::notifier()->play_script(script,"");
+	//UIManager::notifier()->play_script(script,"");
+	//UIManager::notifier()->play_script(script,"");
 //	UIManager::desktop()->dispatch("$(ui.tests)/out/table_view_1.svg");
-//while(1)
+while(1)
 UIManager::desktop()->dispatch();
 }
 
@@ -546,12 +551,10 @@ scrollview->id(456);
 	button = new Button(column);
 	button->text("button");
 
-
 	TableView* table = new TableView(column);
 		//table->size(280,100);
 		table->horizontal_thickness(1);
 		table->vertical_thickness(1);
-	
 
 	label = new Label(column);
 	label->text("label");
@@ -618,9 +621,6 @@ scrollview->id(456);
 			//"['001','Alice','alice@example.com'],"
 			//"['002','Bob','bob@example.com'],"
 			//"['003','Charlie','charlie@example.com'],"
-			/*"['001','Alice','alice@example.com'],"
-			"['002','Bob','bob@example.com'],"
-			"['003','Charlie','charlie@example.com'],"
 			"['001','Alice','alice@example.com'],"
 			"['002','Bob','bob@example.com'],"
 			"['003','Charlie','charlie@example.com'],"
@@ -656,7 +656,10 @@ scrollview->id(456);
 			"['003','Charlie','charlie@example.com'],"
 			"['001','Alice','alice@example.com'],"
 			"['002','Bob','bob@example.com'],"
-			"['003','Charlie','charlie@example.com'],"*/
+			"['003','Charlie','charlie@example.com'],"
+			"['001','Alice','alice@example.com'],"
+			"['002','Bob','bob@example.com'],"
+			"['003','Charlie','lastcharlie@example.com'],"
 		"]"
 	);
 
@@ -676,15 +679,14 @@ while(1)
 	bd_printf("Saved JSON:\n%s\n", json_output.c_str());
 }
 
-
 void TableView::test()
 {
 	static bool done = false;
 	if (done == false)
 	{
 		done = true;
-		//test2();
-		//test1();
+//		test1();
+//		test2();
 	}
 }
 #endif

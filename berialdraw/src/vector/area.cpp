@@ -50,6 +50,33 @@ void Area::clip(const Area& clip_area)
 	Dim this_width = m_size.width_();
 	Dim this_height = m_size.height_();
 	
+	// Handle negative position: clamp to 0 and reduce size accordingly
+	if (this_x < 0)
+	{
+		Dim offset = static_cast<Dim>(abs(this_x));
+		if (this_width > offset)
+			m_size.width_(this_width - offset);
+		else
+			m_size.width_(0);
+		m_position.x_(0);
+	}
+	
+	if (this_y < 0)
+	{
+		Dim offset = static_cast<Dim>(abs(this_y));
+		if (this_height > offset)
+			m_size.height_(this_height - offset);
+		else
+			m_size.height_(0);
+		m_position.y_(0);
+	}
+	
+	// Recalculate after negative position handling
+	this_x = m_position.x_();
+	this_y = m_position.y_();
+	this_width = m_size.width_();
+	this_height = m_size.height_();
+	
 	Coord clip_x = clip_area.m_position.x_();
 	Coord clip_y = clip_area.m_position.y_();
 	Dim clip_width = clip_area.m_size.width_();

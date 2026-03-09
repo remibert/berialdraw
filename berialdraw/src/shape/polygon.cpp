@@ -40,8 +40,6 @@ void Polygon::add_point(Coord x, Coord y)
 
 void Polygon::add_point_(Coord x, Coord y)
 {
-//#define FLOAT_PART(value) ((((abs(value)%64)*1000)/64)+5)/10
-//bd_printf(";%d.%02d, %d.%02d\n", x/64, FLOAT_PART(x), y/64, FLOAT_PART(y));
 	Point p(x,y, false);
 	m_outline->add_point(p);
 }

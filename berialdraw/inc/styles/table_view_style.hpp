@@ -147,14 +147,15 @@ namespace berialdraw
 	protected:
 /// @cond DOXYGEN_IGNORE
 		uint32_t m_grid_color = 0xFF000000;
-		Dim m_horizontal_thickness = 1 << 6;
-		Dim m_vertical_thickness = 1 << 6;
-		bool m_grid_visible = true;
-		bool m_header_visible = true;
 		uint32_t m_header_background_color = 0xFFCCCCCC;
 		uint32_t m_alternating_row_color1 = 0xFFFFFFFF;
 		uint32_t m_alternating_row_color2 = 0xFFF0F0F0;
 		ScrollDirection m_scroll_direction = SCROLL_VERTICAL;
+		uint16_t m_horizontal_thickness = 1 << 6;
+		uint16_t m_vertical_thickness = 1 << 6;
+		unsigned int m_grid_visible:1;
+		unsigned int m_header_visible:1;
+		unsigned int m_table_view_modified:1;
 /// @endcond
 	};
 }

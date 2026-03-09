@@ -130,7 +130,7 @@ bool Desktop::is_loop()
 bool Desktop::dispatch(const char * snapshot)
 {
 	bool result;
-	
+
 	// Check is test script started
 	if (UIManager::notifier()->is_script_started())
 	{
@@ -150,6 +150,7 @@ bool Desktop::dispatch(const char * snapshot)
 
 	// Notify all user event to application
 	UIManager::notifier()->dispatch();
+
 	return result;
 }
 
@@ -209,6 +210,7 @@ void Desktop::refresh(const char * snapshot)
 
 				// Remove all dirty and invalidate state
 				window->clean_all();
+
 			}
 		}
 	}
@@ -222,6 +224,7 @@ void Desktop::refresh(const char * snapshot)
 #endif
 	}
 	UIManager::exporter(0);
+
 	//usleep(10000);
 }
 

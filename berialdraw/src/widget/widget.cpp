@@ -216,11 +216,14 @@ void Widget::scroll(const Point & move)
 
 void Widget::paint(const Region & parent_region)
 {
+	// Get the bounding box of the parent region for fast culling
+	Area bounds = parent_region.get_extents();
+	
 	Widget* child = m_children;
 	while (child)
 	{
-		// Fast early exit: if child is completely outside parent's visible area, skip painting
-		if (!child->m_backclip.is_outside(m_backclip))
+		// Fast check: skip if child is completely outside the parent region bounds
+		if (!child->m_backclip.is_outside(bounds))
 		{
 			if (child->hidden() == false)
 			{
@@ -493,9 +496,10 @@ void Widget::one_space_occupied(Point & min_position, Point & max_position, cons
 void Widget::space_occupied(Point & min_position, Point & max_position)
 {
 	Widget* child = m_children;
+	Size marged = content_size(); //marged_size();
 	while (child)
 	{
-		one_space_occupied(min_position, max_position, position(), marged_size());
+		one_space_occupied(min_position, max_position, position(), marged);
 		child->space_occupied(min_position,max_position);
 		child = child->next();
 	}
