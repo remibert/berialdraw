@@ -73,6 +73,7 @@ namespace berialdraw
 		- modifier: alt, shift, control
 		@param snapshot_name Name of the SVG file to generate when the Pause key is pressed. If the key is pressed multiple times, the name should include a %d in it. */
 		void play_script(TextStream & script, const String & snapshot_name);
+		void play_script(const String & script, const String & snapshot_name);
 
 		/** Open a file containing events, and takes a picture when the Pause key is pressed. */
 		bool start_script(TextStream & script, const String & snapshot_name);
@@ -88,6 +89,9 @@ namespace berialdraw
 		void snapshot(const String & filename);
 	private:
 /// @cond DOXYGEN_IGNORE
+		/** Play script implementation */
+		void play_script_impl(TextStream & script, const String & snapshot_name);
+
 		/** Find scrollable content in widget (ScrollView or TableView)
 		@param widget Widget to search in
 		@return Scrollable widget found or nullptr */

@@ -47,10 +47,23 @@ namespace berialdraw
 		/** Return the size of content without marges */
 		virtual Size content_size();
 
+		/** Get the actual parent for child widgets (redirect to internal grid) */
+		virtual Widget * get_parent_for_child()
+		{
+			return m_grid;
+		}
+
 #ifdef _DEBUG
 		static void test();
 		static void test1();
 		static void test2();
+		static void test3();
+		static void test4();
+		static void test5();
+		static void test6();
+		static void test7();
+		static void test8();
+		static void test9();
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE

@@ -732,6 +732,7 @@ const char * Notifier::next_step_script()
 	{
 		JsonIterator arr(*m_json_script);
 		m_snapshot_current->clear();
+		bool take_snapshot = false;
 
 		if (m_json_index < arr.count())
 		{
@@ -742,17 +743,11 @@ const char * Notifier::next_step_script()
 			}
 			else if (evt["type"] == "key")
 			{
-				KeyEvent::KeyState state = KeyEvent::KeyState::KEY_DOWN;
 				wchar_t key_ = evt["key"] | 0;
 				KeyEvent::Modifier modifier = KeyEvent::Modifier::MODIFIER_NONE;
 				
 				if (key_)
 				{
-					if (evt["state"] == "up")
-					{
-						state = KeyEvent::KeyState::KEY_UP;
-					}
-
 					if (evt["modifier"] == "alt")
 					{
 						modifier = KeyEvent::Modifier::MODIFIER_ALT;
@@ -766,11 +761,30 @@ const char * Notifier::next_step_script()
 						modifier = KeyEvent::Modifier::MODIFIER_SHIFT;
 					}
 
-					if (key_ == (wchar_t)ReservedKey::KEY_PAUSE && state == KeyEvent::KEY_DOWN)
+					String state_str = evt["state"] | "";
+					
+					if (state_str == "up")
 					{
-						m_snapshot_current->print(m_snapshot_name->c_str(), ++m_snapshot_id);
+						key(key_, KeyEvent::KeyState::KEY_UP, modifier);
 					}
-					key(key_, state, modifier);
+					else if (state_str == "down")
+					{
+						if (key_ == (wchar_t)ReservedKey::KEY_PAUSE)
+						{
+							take_snapshot = true;
+						}
+						key(key_, KeyEvent::KeyState::KEY_DOWN, modifier);
+					}
+					else
+					{
+						// Default to "press": both down and up
+						if (key_ == (wchar_t)ReservedKey::KEY_PAUSE)
+						{
+							take_snapshot = true;
+						}
+						key(key_, KeyEvent::KeyState::KEY_DOWN, modifier);
+						key(key_, KeyEvent::KeyState::KEY_UP, modifier);
+					}
 				}
 			}
 			else if (evt["type"] == "touch")
@@ -780,22 +794,32 @@ const char * Notifier::next_step_script()
 
 				if (x != Size::MAX_SIZE && y != Size::MAX_SIZE)
 				{
-					TouchEvent::TouchState state = TouchEvent::TouchState::TOUCH_DOWN;
-
-					if (evt["state"] == "up")
+					String state_str = evt["state"] | "";
+					
+					if (state_str == "up")
 					{
-						state = TouchEvent::TouchState::TOUCH_UP;
+						touch(x, y, TouchEvent::TouchState::TOUCH_UP);
 					}
-					else if (evt["state"] == "down")
+					else if (state_str == "down")
 					{
-						state = TouchEvent::TouchState::TOUCH_DOWN;
+						touch(x, y, TouchEvent::TouchState::TOUCH_DOWN);
 					}
-					else if (evt["state"] == "move")
+					else if (state_str == "move")
 					{
-						state = TouchEvent::TouchState::TOUCH_MOVE;
+						touch(x, y, TouchEvent::TouchState::TOUCH_MOVE);
 					}
-					touch(x,y,state);
+					else if (state_str == "click")
+					{
+						// Default to "click": generates both down and up
+						touch(x, y, TouchEvent::TouchState::TOUCH_DOWN);
+						touch(x, y, TouchEvent::TouchState::TOUCH_UP);
+					}
 				}
+			}
+			
+			if (take_snapshot)
+			{
+				m_snapshot_current->print(m_snapshot_name->c_str(), ++m_snapshot_id);
 			}
 			
 			if (m_snapshot_current->size() > 0)
@@ -819,7 +843,7 @@ const char * Notifier::next_step_script()
 
 
 /** Plays a file containing events, and takes a picture when the Pause key is pressed. */
-void Notifier::play_script(TextStream & script, const String & snapshot_name)
+void Notifier::play_script_impl(TextStream & script, const String & snapshot_name)
 {
 	if (start_script(script, snapshot_name))
 	{
@@ -832,4 +856,15 @@ void Notifier::play_script(TextStream & script, const String & snapshot_name)
 		}
 		m_playing_script = 0;
 	}
+}
+
+void Notifier::play_script(TextStream & script, const String & snapshot_name)
+{
+	play_script_impl(script, snapshot_name);
+}
+
+void Notifier::play_script(const String & script, const String & snapshot_name)
+{
+	String temp(script);
+	play_script_impl(temp, snapshot_name);
 }

@@ -109,6 +109,12 @@ namespace berialdraw
 		/** Return the widget hovered */
 		virtual Widget * hovered(const Region & parent_region, const Point & position);
 
+		/** Get the actual parent for a child widget (can be overridden to redirect children) */
+		virtual Widget * get_parent_for_child()
+		{
+			return this;
+		}
+
 		/** Serialize the content of widget into json */
 		virtual void serialize(JsonIterator & it) = 0;
 
@@ -129,9 +135,6 @@ namespace berialdraw
 
 		/** Remove operator = */
 		Widget& operator=(const Widget& other) = delete;
-
-		/** Find and reparent to grid if parent is a TableView */
-		Widget * find_parent_grid_if_table_view(Widget * parent);
 
 		/** Add dirty on the widget and all of its children */
 		void dirty_children(enum Invalidator::Status status);

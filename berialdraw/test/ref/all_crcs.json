@@ -3618,5 +3618,77 @@
 		"$(ui.tests)/out/checkbox3.svg" : 
 		{
 			"scale_2" : 2094319389
+		},
+		"$(ui.tests)/out/tableview9.svg" : 
+		{
+			"scale_2" : 2321207293
+		},
+		"$(ui.tests)/out/tableview8.svg" : 
+		{
+			"scale_2" : 1379576804
+		},
+		"$(ui.tests)/out/tableview7.svg" : 
+		{
+			"scale_2" : 604305807
+		},
+		"$(ui.tests)/out/tableview6_1.svg" : 
+		{
+			"scale_2" : 4221531640
+		},
+		"$(ui.tests)/out/tableview6_2.svg" : 
+		{
+			"scale_2" : 2647697026
+		},
+		"$(ui.tests)/out/tableview6_3.svg" : 
+		{
+			"scale_2" : 3992174808
+		},
+		"$(ui.tests)/out/tableview6_4.svg" : 
+		{
+			"scale_2" : 1670255038
+		},
+		"$(ui.tests)/out/tableview6_5.svg" : 
+		{
+			"scale_2" : 1001653245
+		},
+		"$(ui.tests)/out/tableview6_6.svg" : 
+		{
+			"scale_2" : 3248360680
+		},
+		"$(ui.tests)/out/tableview6_7.svg" : 
+		{
+			"scale_2" : 3304687134
+		},
+		"$(ui.tests)/out/tableview6_8.svg" : 
+		{
+			"scale_2" : 2808818158
+		},
+		"$(ui.tests)/out/tableview6_9.svg" : 
+		{
+			"scale_2" : 294717534
+		},
+		"$(ui.tests)/out/tableview6_10.svg" : 
+		{
+			"scale_2" : 2782866616
+		},
+		"$(ui.tests)/out/tableview5.svg" : 
+		{
+			"scale_2" : 162213182
+		},
+		"$(ui.tests)/out/tableview4.svg" : 
+		{
+			"scale_2" : 755903187
+		},
+		"$(ui.tests)/out/tableview3.svg" : 
+		{
+			"scale_2" : 1150649985
+		},
+		"$(ui.tests)/out/tableview2.svg" : 
+		{
+			"scale_2" : 1262307231
+		},
+		"$(ui.tests)/out/tableview1.svg" : 
+		{
+			"scale_2" : 1522715058
 		}
 	}

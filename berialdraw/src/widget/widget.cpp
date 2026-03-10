@@ -16,8 +16,12 @@ Widget::Widget(const char * classname, Widget * parent, size_t size_of_widget):
 	// If parent exists
 	if(parent)
 	{
-		// Check if parent is a TableView and reparent to its internal grid
-		parent = find_parent_grid_if_table_view(parent);
+		// Get the actual parent (may be different if parent redirects children)
+		Widget * parent_for_child = parent->get_parent_for_child();
+		if (parent_for_child)
+		{
+			parent = parent_for_child;
+		}
 		m_parent = parent;
 
 		// If parent has not yet a children
@@ -38,46 +42,7 @@ Widget::Widget(const char * classname, Widget * parent, size_t size_of_widget):
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
-/** Find and reparent to grid if parent is a TableView */
-Widget * Widget::find_parent_grid_if_table_view(Widget * parent)
-{
-	Widget * result = parent;
 
-	// Check if parent is a TableView
-	TableView* table_view = dynamic_cast<TableView*>(parent);
-	if(table_view)
-	{
-		// Look for the grid in the TableView's children
-		// The structure is: TableView -> ScrollView -> Grid
-		Widget* scroll_view = parent->m_children;
-		while(scroll_view)
-		{
-			ScrollView* sv = dynamic_cast<ScrollView*>(scroll_view);
-			if(sv)
-			{
-				// Found the scroll view, now look for the grid
-				Widget* grid = scroll_view->m_children;
-				while(grid)
-				{
-					Grid* g = dynamic_cast<Grid*>(grid);
-					if(g)
-					{
-						// Found the grid, set result and exit loops
-						result = grid;
-						grid = nullptr;  // Exit inner loop
-						scroll_view = nullptr;  // Exit outer loop
-						break;
-					}
-					grid = grid->m_next;
-				}
-				break;
-			}
-			scroll_view = scroll_view->m_next;
-		}
-	}
-
-	return result;
-}
 
 /* Clears all children from the widget */
 void Widget::clear()
