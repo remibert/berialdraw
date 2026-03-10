@@ -33,7 +33,7 @@ namespace berialdraw
 		virtual Widget * root();
 
 		/** Return the scroll_view parent of this widget or null if not found */
-		virtual ScrollView * scroll_view();
+		virtual Widget * scrollable_content();
 
 		/** Return the size of content without marges */
 		virtual Size content_size();

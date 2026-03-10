@@ -3,7 +3,7 @@ namespace berialdraw
 {
 	/** The TableView class provides a scrollable table container for displaying widgets in a grid layout.
 	Each cell can contain any widget, making it highly flexible for custom content. */
-	class TableView : public Widget, public TableViewStyle
+	class TableView : public ScrollableContent, public TableViewStyle
 	{
 	public:
 		/** Create widget */
@@ -63,39 +63,33 @@ namespace berialdraw
 		/** Remove operator = */
 		TableView& operator=(const TableView& other) = delete;
 
-		/** Compute the scroll area */
-		virtual void space_occupied(Point & min_position, Point & max_position);
-
-		/** Paint on screen memory the content of this widget */
+		/** Paint on screen memory the content of this widget (adds table-specific rendering) */
 		virtual void paint(const Region & parent_region);
-		
-		/** Place all widget in area */
-		virtual void place(const Area & area, bool in_layout);
 
 		/** Get the widget hovered */
 		virtual Widget * hovered(const Region & parent_region, const Point & position);
 
 		/** Paint alternating row backgrounds */
-		void paint_row_backgrounds(const Region& region);
+		void paint_row_backgrounds();
 
 		/** Paint grid lines and borders */
-		void paint_grid_lines(const Region& region);
+		void paint_grid_lines();
 
 		/** Paint top border line */
-		void paint_top_border_line(const Area& foreclip, const Dim* row_positions, Dim horizontal_thickness, uint32_t line_color);
+		void paint_top_border_line();
 
 		/** Paint left border line */
-		void paint_left_border_line(const Area& foreclip, const Dim* col_positions, Dim vertical_thickness, uint32_t line_color);
+		void paint_left_border_line();
 
 		/** Paint horizontal grid lines */
-		void paint_horizontal_lines(const Area& foreclip, const Dim* row_positions, Dim row_count, Dim horizontal_thickness, uint32_t line_color);
+		void paint_horizontal_lines();
 
 		/** Paint vertical grid lines */
-		void paint_vertical_lines(const Area& foreclip, const Dim* col_positions, Dim col_count, Dim vertical_thickness, uint32_t line_color);
+		void paint_vertical_lines();
 
-		ScrollView* m_scroll_view;
 		Grid* m_grid;
 		Size m_content_size;
+		uint8_t m_table_view_modified;
 /// @endcond
 	};
 }

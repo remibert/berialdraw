@@ -1591,3 +1591,12 @@ void Region::test()
 }
 #endif
 
+/** Print the bounding box of the region */
+void Region::print(const char * name) const
+{
+	bd_printf("%s", name);
+	Area extents = get_extents();
+	extents.print("");
+	bd_printf("\n");
+}
+

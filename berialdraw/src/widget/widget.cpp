@@ -245,14 +245,19 @@ Widget * Widget::root()
 }
 
 /** Return the scroll_view parent of this widget or null if not found */
-ScrollView * Widget::scroll_view()
+Widget * Widget::scrollable_content()
 {
-	ScrollView * result = 0;
+	Widget * result = 0;
 	Widget * current = this;
 
 	while(current)
 	{
 		result = dynamic_cast<ScrollView*>(current);
+		if(result)
+		{
+			break;
+		}
+		result = dynamic_cast<TableView*>(current);
 		if(result)
 		{
 			break;
@@ -704,7 +709,7 @@ void Widget::focus_next(Widget * & widget)
 			widget = new_widget_focus;
 			new_widget_focus->m_focused = 1;
 
-			ScrollView * scroll_view = dynamic_cast<ScrollView*>(widget->scroll_view());
+			ScrollView * scroll_view = dynamic_cast<ScrollView*>(widget->scrollable_content());
 			if (scroll_view)
 			{
 				scroll_view->scroll_focus(widget);
@@ -787,7 +792,7 @@ void Widget::focus_previous(Widget * & widget)
 			UIManager::notifier()->push_event(new FocusEvent(true, new_widget_focus));
 			widget = new_widget_focus;
 			new_widget_focus->m_focused = 1;
-			ScrollView * scroll_view = dynamic_cast<ScrollView*>(widget->scroll_view());
+			ScrollView * scroll_view = dynamic_cast<ScrollView*>(widget->scrollable_content());
 			if (scroll_view)
 			{
 				scroll_view->scroll_focus(widget);

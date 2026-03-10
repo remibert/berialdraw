@@ -147,6 +147,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "widget/button.hpp"
 #include "widget/edit.hpp"
 #include "widget/keyboard.hpp"
+#include "widget/scrollable_content.hpp"
 #include "widget/scroll_view.hpp"
 #include "widget/switch.hpp"
 #include "widget/radio.hpp"

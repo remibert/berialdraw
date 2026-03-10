@@ -69,6 +69,7 @@ set(SRCS_LIB
 	src/widget/switch.cpp
 	src/widget/checkbox.cpp
 	src/widget/radio.cpp
+	src/widget/scrollable_content.cpp
 	src/widget/scroll_view.cpp
 	src/widget/slider.cpp
 	src/widget/row.cpp

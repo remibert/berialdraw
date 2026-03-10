@@ -3,109 +3,52 @@
 using namespace berialdraw;
 
 TableView::TableView(Widget * parent):
-	Widget("table_view", parent, sizeof(TableView)),
-	m_scroll_view(nullptr),
-	m_grid(nullptr)
+	ScrollableContent("table_view", parent, sizeof(TableView)),
+	m_grid(nullptr),
+	m_content_size(),
+	m_table_view_modified(1)
 {
 	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
-	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
 	UIManager::styles()->apply(m_classname, (TableViewStyle*)this);
 
-	// Create internal scroll view (styles will be applied in place())
-	m_scroll_view = new ScrollView(this);
-	m_scroll_view->extend(Extend::EXTEND_NONE);
-
-	// Create internal grid inside scroll view
-	m_grid = new Grid(m_scroll_view);
+	// Create internal grid directly as a child of TableView
+	m_grid = new Grid(this);
 }
 
 TableView::~TableView()
 {
 }
 
-/** Compute the scroll area */
-void TableView::space_occupied(Point & min_position, Point & max_position)
-{
-	Size size = compute_size(m_size, m_min_size, m_max_size, m_margin);
-	if (size.is_undefined())
-	{
-		size = compute_size(content_size(), m_min_size, m_max_size, m_margin);
-	}
-	Widget::one_space_occupied(min_position,max_position, m_position, size);
-}
-
 /** Return the size of content without marges */
 Size TableView::content_size()
 {
-	Size result(m_content_size);
-	if (m_content_size.is_undefined() || m_table_view_modified == 1)
+	// Set grid line thickness for cell placement
+	if (m_grid)
 	{
-		// Copy only scroll direction to m_scroll_view
-		if (m_scroll_view)
-		{
-			m_scroll_view->scroll_direction(scroll_direction());
-			m_scroll_view->align(align());
-		}
-
-		// Set grid line thickness for cell placement
-		if (m_grid)
-		{
-			m_grid->m_cells.horizontal_line_thickness(horizontal_thickness_());
-			m_grid->m_cells.vertical_line_thickness(vertical_thickness_());
-		}
-		result = compute_size(m_size, m_min_size, m_max_size, m_margin);
-		if ((m_size.is_height_undefined() && m_size.is_width_undefined()))
-		{
-			result = Widget::content_size();
-		}
-		else
-		{
-			result = m_size;
-		}
-		m_content_size = result;
-		m_table_view_modified = 0;
-	}
-	return result;
+		m_grid->m_cells.horizontal_line_thickness(horizontal_thickness_());
+		m_grid->m_cells.vertical_line_thickness(vertical_thickness_());
+	}	
+	return ScrollableContent::content_size();
 }
 
-
-void TableView::place(const Area & area, bool in_layout)
-{
-	place_in_area(area, in_layout);
-
-	Widget* child = m_children;
-	while (child)
-	{
-		child->place(m_foreclip, in_layout);
-		child = child->next();
-	}
-}
 
 void TableView::paint(const Region & parent_region)
 {
 	Region region(parent_region);
 	region.intersect(m_foreclip);
 
-	// If widget visible
+	UIManager::renderer()->region(region);
+
 	if (region.is_inside(m_foreclip.position(), m_foreclip.size()) != Region::OUT)
 	{
-		UIManager::renderer()->region(region);
-		
-		paint_row_backgrounds(region);
-		paint_grid_lines(region);
-		
-		// Paint children (scroll view and its content)
-		Widget* child = m_children;
-
-		while (child)
-		{
-			child->paint(region);
-			child = child->next();
-		}
+		paint_row_backgrounds();
+		paint_grid_lines();
 	}
+
+	ScrollableContent::paint(parent_region);
 }
 
-void TableView::paint_row_backgrounds(const Region& region)
+void TableView::paint_row_backgrounds()
 {
 	if (m_grid)
 	{
@@ -157,42 +100,26 @@ void TableView::paint_row_backgrounds(const Region& region)
 	}
 }
 
-void TableView::paint_grid_lines(const Region& region)
+void TableView::paint_grid_lines()
 {
 	if (m_grid && grid_visible())
 	{
-		paint_top_border_line(
-			m_grid->foreclip(), 
-			m_grid->m_cells.get_row_positions(), 
-			m_grid->m_cells.horizontal_line_thickness(), 
-			grid_color());
-		
-		paint_left_border_line(
-			m_grid->foreclip(), 
-			m_grid->m_cells.get_col_positions(), 
-			m_grid->m_cells.vertical_line_thickness(), 
-			grid_color());
-		
-		paint_horizontal_lines(
-			m_grid->foreclip(), 
-			m_grid->m_cells.get_row_positions(), 
-			m_grid->m_cells.row_count(), 
-			m_grid->m_cells.horizontal_line_thickness(), 
-			grid_color());
-		
-		paint_vertical_lines(
-			m_grid->foreclip(), 
-			m_grid->m_cells.get_col_positions(), 
-			m_grid->m_cells.column_count(), 
-			m_grid->m_cells.vertical_line_thickness(), 
-			grid_color());
+		paint_top_border_line();
+		paint_left_border_line();
+		paint_horizontal_lines();
+		paint_vertical_lines();
 	}
 }
 
-void TableView::paint_top_border_line(const Area& foreclip, const Dim* row_positions, Dim horizontal_thickness, uint32_t line_color)
+void TableView::paint_top_border_line()
 {
+	const Dim* row_positions = m_grid->m_cells.get_row_positions();
 	if (row_positions)
 	{
+		const Area& foreclip = m_grid->foreclip();
+		Dim horizontal_thickness = m_grid->m_cells.horizontal_line_thickness();
+		uint32_t line_color = grid_color();
+		
 		Dim line_y = row_positions[0] - horizontal_thickness;
 		
 		Area line_area(foreclip.x_(), line_y, foreclip.width_(), horizontal_thickness, false);
@@ -205,10 +132,15 @@ void TableView::paint_top_border_line(const Area& foreclip, const Dim* row_posit
 	}
 }
 
-void TableView::paint_left_border_line(const Area& foreclip, const Dim* col_positions, Dim vertical_thickness, uint32_t line_color)
+void TableView::paint_left_border_line()
 {
+	const Dim* col_positions = m_grid->m_cells.get_col_positions();
 	if (col_positions)
 	{
+		const Area& foreclip = m_grid->foreclip();
+		Dim vertical_thickness = m_grid->m_cells.vertical_line_thickness();
+		uint32_t line_color = grid_color();
+		
 		Dim line_x = col_positions[0] - vertical_thickness;
 		Area line_area(line_x, foreclip.y_(), vertical_thickness, foreclip.height_(), false);
 		line_area.nearest_pixel();
@@ -220,8 +152,14 @@ void TableView::paint_left_border_line(const Area& foreclip, const Dim* col_posi
 	}
 }
 
-void TableView::paint_horizontal_lines(const Area& foreclip, const Dim* row_positions, Dim row_count, Dim horizontal_thickness, uint32_t line_color)
+void TableView::paint_horizontal_lines()
 {
+	const Dim* row_positions = m_grid->m_cells.get_row_positions();
+	Dim row_count = m_grid->m_cells.row_count();
+	const Area& foreclip = m_grid->foreclip();
+	Dim horizontal_thickness = m_grid->m_cells.horizontal_line_thickness();
+	uint32_t line_color = grid_color();
+	
 	for (Dim row = 0; row < row_count; row++)
 	{
 		Dim row_y = row_positions[row];
@@ -248,8 +186,14 @@ void TableView::paint_horizontal_lines(const Area& foreclip, const Dim* row_posi
 	}
 }
 
-void TableView::paint_vertical_lines(const Area& foreclip, const Dim* col_positions, Dim col_count, Dim vertical_thickness, uint32_t line_color)
+void TableView::paint_vertical_lines()
 {
+	const Dim* col_positions = m_grid->m_cells.get_col_positions();
+	Dim col_count = m_grid->m_cells.column_count();
+	const Area& foreclip = m_grid->foreclip();
+	Dim vertical_thickness = m_grid->m_cells.vertical_line_thickness();
+	uint32_t line_color = grid_color();
+	
 	for (Dim col = 0; col < col_count; col++)
 	{
 		Dim col_x = col_positions[col];
@@ -370,9 +314,9 @@ Widget * TableView::hovered(const Region & parent_region, const Point & position
 
 	if (region.is_inside(position) != Region::Overlap::OUT)
 	{
-		if (m_scroll_view)
+		if (m_grid)
 		{
-			Widget* hovered = m_scroll_view->hovered(region, position);
+			Widget* hovered = m_grid->hovered(region, position);
 			if (hovered)
 			{
 				result = hovered;
@@ -420,7 +364,7 @@ void TableView::load_json_from_stream(TextStream& stream)
 			
 			for (int32_t col = 0; col < col_count; col++)
 			{
-				Label* label = new Label(this);
+				Label* label = new Label(m_grid);
 				String text = row_it[col] | "";
 				label->text(text.c_str());
 				label->cell(row, col);
@@ -471,7 +415,7 @@ void TableView::test1()
 	//window.color(Color::WHITE_BLUE);
 
 	TableView* table = new TableView(&window);
-	//table->size(380, 280);
+//table->size(380, 280);
 	//table->position(10, 10);
 	
 	
@@ -486,14 +430,14 @@ void TableView::test1()
 	{
 		for (uint16_t column = 0; column < 20; column++)
 		{
-			Label* label = new Label(table);
+			Label* label = new Label(table->m_grid);
 			label->text("(%c:%d)",0x41 + row,column+1);
 			label->cell(row,column);
 			//UIManager::desktop()->dispatch();
 		}
 	}
 
-	table->m_scroll_view->scroll_position(0, 0);
+	table->scroll_position(0, 0);
 
 	String script(
 	"["
@@ -653,13 +597,6 @@ scrollview->id(456);
 			"['003','Charlie','charlie@example.com'],"
 			"['001','Alice','alice@example.com'],"
 			"['002','Bob','bob@example.com'],"
-			"['003','Charlie','charlie@example.com'],"
-			"['001','Alice','alice@example.com'],"
-			"['002','Bob','bob@example.com'],"
-			"['003','Charlie','charlie@example.com'],"
-			"['001','Alice','alice@example.com'],"
-			"['002','Bob','bob@example.com'],"
-			"['003','Charlie','lastcharlie@example.com'],"
 		"]"
 	);
 
@@ -667,7 +604,7 @@ scrollview->id(456);
 	json_data.offset(0);  // Reset offset to beginning
 	table->load(json_data);
 
-	//table->m_scroll_view->scroll_position(0, 0);
+	//table->scroll_position(0, 0);
 
 	// Display the loaded data
 while(1)

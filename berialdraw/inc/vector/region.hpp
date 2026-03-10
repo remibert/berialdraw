@@ -66,6 +66,9 @@ namespace berialdraw
 		/** Clear the content of the region */
 		void clear();
 
+		/** Print the bounding box of the region */
+		void print(const char * name) const;
+
 #ifdef _DEBUG
 		static void test();
 		static void test1();

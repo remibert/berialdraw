@@ -722,6 +722,9 @@
     <ClCompile Include="..\..\src\vector\scroll_direction.cpp">
       <Filter>berialdraw\vector</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\widget\scrollable_content.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\berialdraw_imp.hpp">
@@ -1509,6 +1512,9 @@
     </ClInclude>
     <ClInclude Include="..\..\inc\vector\scroll_direction.hpp">
       <Filter>berialdraw\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\widget\scrollable_content.hpp">
+      <Filter>berialdraw\widget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,10 +3,10 @@
 using namespace berialdraw;
 
 /** Constructor */
-ScrollEvent::ScrollEvent(const Point & shift, ScrollView * scroll_view) : 
+ScrollEvent::ScrollEvent(const Point & shift, Widget * scroll_content) : 
 	Event(ScrollEvent::type_id()),
 	m_shift(shift),
-	m_scroll_view(scroll_view)
+	m_scrollable_content(scroll_content)
 {
 }
 
@@ -34,7 +34,7 @@ uint32_t ScrollEvent::type_id()
 /** Return the checked widget */
 Widget * ScrollEvent::widget() const 
 {
-	return m_scroll_view;
+	return m_scrollable_content;
 }
 
 

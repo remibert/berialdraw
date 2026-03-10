@@ -7,7 +7,7 @@ void bind_widget(pybind11::module_& m) {
         .def_property_readonly("classname", &berialdraw::Widget::classname)
         
         // Methods that need parameters stay as methods
-        .def("scroll_view", &berialdraw::Widget::scroll_view, pybind11::return_value_policy::reference_internal)
+        .def("scrollable_content", &berialdraw::Widget::scrollable_content, pybind11::return_value_policy::reference_internal)
         .def("clear", &berialdraw::Widget::clear)
         .def("clean_all", &berialdraw::Widget::clean_all)
         .def("search", &berialdraw::Widget::search, pybind11::return_value_policy::reference_internal)

@@ -7,7 +7,7 @@ namespace berialdraw
 	{
 	public:
 		/** Constructor */
-		ScrollEvent(const Point & shift, ScrollView * scroll_view=0);
+		ScrollEvent(const Point & shift, Widget * scroll_content=0);
 
 		/** Destructor */
 		virtual ~ScrollEvent();
@@ -27,7 +27,7 @@ namespace berialdraw
 	private:
 /// @cond DOXYGEN_IGNORE
 		Point m_shift;
-		ScrollView * m_scroll_view = 0;
+		Widget * m_scrollable_content = 0;
 /// @endcond
 	};
 };

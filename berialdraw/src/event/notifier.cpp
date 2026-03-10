@@ -322,21 +322,42 @@ Widget * Notifier::notify(TouchEvent & evt)
 	return clicked;
 }
 
+/** Find scrollable content in widget (ScrollView or TableView) */
+Widget * Notifier::find_scrollable(Widget * widget)
+{
+	Widget * scrollable = nullptr;
+	
+	if (widget)
+	{
+		// Try ScrollView first
+		scrollable = dynamic_cast<ScrollView*>(widget);
+		if (!scrollable)
+		{
+			scrollable = dynamic_cast<ScrollView*>(widget->scrollable_content());
+		}
+		
+		// Try TableView if ScrollView not found
+		if (!scrollable)
+		{
+			scrollable = dynamic_cast<TableView*>(widget);
+			if (!scrollable)
+			{
+				scrollable = dynamic_cast<TableView*>(widget->scrollable_content());
+			}
+		}
+	}
+	
+	return scrollable;
+}
+
 /** Scroll widget if scroll possible */
 void Notifier::scroll(Coord x, Coord y, Widget * widget)
 {
-	if (widget)
+	Widget * scrollable = find_scrollable(widget);
+	if (scrollable)
 	{
-		ScrollView * scroll_view = dynamic_cast<ScrollView*>(widget);
-		if (scroll_view == 0)
-		{
-			scroll_view = dynamic_cast<ScrollView*>(widget->scroll_view());
-		}
-		if (scroll_view)
-		{
-			const Point shift(x,y);
-			push_event(new ScrollEvent(shift,scroll_view));
-		}
+		const Point shift(x, y);
+		push_event(new ScrollEvent(shift, scrollable));
 	}
 }
 

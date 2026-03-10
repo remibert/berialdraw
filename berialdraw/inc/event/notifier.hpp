@@ -88,6 +88,11 @@ namespace berialdraw
 		void snapshot(const String & filename);
 	private:
 /// @cond DOXYGEN_IGNORE
+		/** Find scrollable content in widget (ScrollView or TableView)
+		@param widget Widget to search in
+		@return Scrollable widget found or nullptr */
+		Widget * find_scrollable(Widget * widget);
+
 		/** Log event */
 		void log(Event * evt);
 
