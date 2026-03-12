@@ -241,6 +241,7 @@ void bind_checkbox(pybind11::module_& m);
 void bind_radio(pybind11::module_& m);
 void bind_grid(pybind11::module_& m);
 void bind_pane(pybind11::module_& m);
+void bind_scrollable_content(pybind11::module_& m);
 void bind_scroll_view(pybind11::module_& m);
 void bind_table_view(pybind11::module_& m);
 void bind_icon(pybind11::module_& m);

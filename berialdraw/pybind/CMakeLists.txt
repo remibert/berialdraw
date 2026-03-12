@@ -88,6 +88,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/tool/json.cpp
 	src/pybind/tool/settings.cpp
 	src/pybind/tool/bd_system.cpp
+	src/pybind/widget/scrollable_content.cpp
 	src/pybind/widget/widget.cpp
 	src/pybind/widget/button.cpp
 	src/pybind/widget/canvas.cpp

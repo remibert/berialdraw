@@ -25,57 +25,11 @@ void automatic_cleanup() {
 }
 
 void bind_event_managers(pybind11::module_& m) {
-	// Bind CallbackManager classes for all event types
-	// Each event type has its own CallbackManager with a unique name
-
-	pybind11::class_<CallbackManager<berialdraw::ClickEvent>>(m, "ClickCallbackManager")
-		.def("__iadd__", &CallbackManager<berialdraw::ClickEvent>::add, pybind11::return_value_policy::reference_internal)
-		.def("add", &CallbackManager<berialdraw::ClickEvent>::add, pybind11::return_value_policy::reference_internal)
-		.def("__len__", &CallbackManager<berialdraw::ClickEvent>::size)
-		.def("__bool__", [](const CallbackManager<berialdraw::ClickEvent>& self) { return !self.empty(); });
-
-	pybind11::class_<CallbackManager<berialdraw::KeyEvent>>(m, "KeyCallbackManager")
-		.def("__iadd__", &CallbackManager<berialdraw::KeyEvent>::add, pybind11::return_value_policy::reference_internal)
-		.def("add", &CallbackManager<berialdraw::KeyEvent>::add, pybind11::return_value_policy::reference_internal)
-		.def("__len__", &CallbackManager<berialdraw::KeyEvent>::size)
-		.def("__bool__", [](const CallbackManager<berialdraw::KeyEvent>& self) { return !self.empty(); });
-
-	pybind11::class_<CallbackManager<berialdraw::CheckEvent>>(m, "CheckCallbackManager")
-		.def("__iadd__", &CallbackManager<berialdraw::CheckEvent>::add, pybind11::return_value_policy::reference_internal)
-		.def("add", &CallbackManager<berialdraw::CheckEvent>::add, pybind11::return_value_policy::reference_internal)
-		.def("__len__", &CallbackManager<berialdraw::CheckEvent>::size)
-		.def("__bool__", [](const CallbackManager<berialdraw::CheckEvent>& self) { return !self.empty(); });
-
-	pybind11::class_<CallbackManager<berialdraw::SelectEvent>>(m, "SelectCallbackManager")
-		.def("__iadd__", &CallbackManager<berialdraw::SelectEvent>::add, pybind11::return_value_policy::reference_internal)
-		.def("add", &CallbackManager<berialdraw::SelectEvent>::add, pybind11::return_value_policy::reference_internal)
-		.def("__len__", &CallbackManager<berialdraw::SelectEvent>::size)
-		.def("__bool__", [](const CallbackManager<berialdraw::SelectEvent>& self) { return !self.empty(); });
-
-	pybind11::class_<CallbackManager<berialdraw::SlideEvent>>(m, "SlideCallbackManager")
-		.def("__iadd__", &CallbackManager<berialdraw::SlideEvent>::add, pybind11::return_value_policy::reference_internal)
-		.def("add", &CallbackManager<berialdraw::SlideEvent>::add, pybind11::return_value_policy::reference_internal)
-		.def("__len__", &CallbackManager<berialdraw::SlideEvent>::size)
-		.def("__bool__", [](const CallbackManager<berialdraw::SlideEvent>& self) { return !self.empty(); });
-
-	pybind11::class_<CallbackManager<berialdraw::ScrollEvent>>(m, "ScrollCallbackManager")
-		.def("__iadd__", &CallbackManager<berialdraw::ScrollEvent>::add, pybind11::return_value_policy::reference_internal)
-		.def("add", &CallbackManager<berialdraw::ScrollEvent>::add, pybind11::return_value_policy::reference_internal)
-		.def("__len__", &CallbackManager<berialdraw::ScrollEvent>::size)
-		.def("__bool__", [](const CallbackManager<berialdraw::ScrollEvent>& self) { return !self.empty(); });
-
-	pybind11::class_<CallbackManager<berialdraw::FocusEvent>>(m, "FocusCallbackManager")
-		.def("__iadd__", &CallbackManager<berialdraw::FocusEvent>::add, pybind11::return_value_policy::reference_internal)
-		.def("add", &CallbackManager<berialdraw::FocusEvent>::add, pybind11::return_value_policy::reference_internal)
-		.def("__len__", &CallbackManager<berialdraw::FocusEvent>::size)
-		.def("__bool__", [](const CallbackManager<berialdraw::FocusEvent>& self) { return !self.empty(); });
-
-	pybind11::class_<CallbackManager<berialdraw::TouchEvent>>(m, "TouchCallbackManager")
-		.def("__iadd__", &CallbackManager<berialdraw::TouchEvent>::add, pybind11::return_value_policy::reference_internal)
-		.def("add", &CallbackManager<berialdraw::TouchEvent>::add, pybind11::return_value_policy::reference_internal)
-		.def("__len__", &CallbackManager<berialdraw::TouchEvent>::size)
-		.def("__bool__", [](const CallbackManager<berialdraw::TouchEvent>& self) { return !self.empty(); });
-
+	// Note: CallbackManager classes are NOT exposed to Python.
+	// They are managed internally and accessed through widget event properties.
+	// This avoids the pybind11 template instantiation issue that causes
+	// extremely long function signatures and memory corruption.
+	
 	// Automatically register cleanup on Python shutdown
 	// Using Py_AtExit to ensure cleanup happens before Python shutdown
 	if (Py_IsInitialized()) {

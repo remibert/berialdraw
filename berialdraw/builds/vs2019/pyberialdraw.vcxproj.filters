@@ -294,6 +294,10 @@
     <ClCompile Include="..\..\pybind\src\pybind\vector\scroll_direction.cpp">
       <Filter>vector</Filter>
     </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\table_view.cpp" />
+    <ClCompile Include="..\..\pybind\src\pybind\widget\scrollable_content.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\\..\\pybind\\inc\\pybind\pyberialdraw.hpp" />

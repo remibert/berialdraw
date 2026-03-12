@@ -3057,7 +3057,7 @@
 		},
 		"$(ui.tests)/out/linechart.svg" : 
 		{
-			"scale_2" : 2328479071
+			"scale_2" : 1931510416
 		},
 		"$(ui.tests)/out/compass1.svg" : 
 		{
@@ -3085,7 +3085,7 @@
 		},
 		"$(ui.tests)/out/polyline2.svg" : 
 		{
-			"scale_2" : 3024907053
+			"scale_2" : 2819515692
 		},
 		"$(ui.tests)/out/polylines1_1.svg" : 
 		{
@@ -3109,7 +3109,7 @@
 		},
 		"$(ui.tests)/out/polylines1_6.svg" : 
 		{
-			"scale_2" : 1007746401
+			"scale_2" : 4090164957
 		},
 		"$(ui.tests)/out/polylines1_7.svg" : 
 		{

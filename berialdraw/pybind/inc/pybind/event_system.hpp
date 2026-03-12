@@ -124,8 +124,8 @@ void bridge_callback<berialdraw::KeyEvent>(berialdraw::Widget* widget, const ber
 // Macros to simplify creation of event properties
 #define BIND_EVENT_PROPERTY(WidgetClass, EventType, property_name) \
     .def_property(#property_name, \
-        [](WidgetClass& self) -> CallbackManager<EventType>* { \
-            return EventSystemManager::instance().get_manager<EventType>(&self); \
+        [](WidgetClass& self) { \
+            return nullptr; /* Return None for getter to avoid complex signature */ \
         }, \
         [](WidgetClass& self, const pybind11::object& value) { \
             auto manager = EventSystemManager::instance().get_manager<EventType>(&self); \
@@ -140,5 +140,4 @@ void bridge_callback<berialdraw::KeyEvent>(berialdraw::Widget* widget, const ber
             } \
             \
             self.template bind<EventType>(bridge_callback<EventType>); \
-        }, \
-        pybind11::return_value_policy::reference_internal)
+        })

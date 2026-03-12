@@ -2,7 +2,7 @@
 #include "pybind/event_system.hpp"
 
 void bind_scroll_view(pybind11::module_& m) {
-    pybind11::class_<berialdraw::ScrollView, berialdraw::ScrollableContent> cls(m, "ScrollView");
+    pybind11::class_<berialdraw::ScrollView, berialdraw::Widget> cls(m, "ScrollView");
 
     cls.def(pybind11::init<berialdraw::Widget*>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>());
 
