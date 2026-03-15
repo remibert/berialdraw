@@ -15,26 +15,35 @@ IconStyle::~IconStyle()
 /** Serialize the content of widget into json */
 void IconStyle::serialize(JsonIterator & it)
 {
-	it["filename"] = m_filename;
-	it["icon-color"]        = m_icon_color;
+	it[StyleNames::ICON_FILENAME] = m_filename;
+	it[StyleNames::ICON_COLOR]        = m_icon_color;
 	int zoom  = m_zoom  != Size::MAX_SIZE && m_zoom  != Size::MAX_SIZE ? m_zoom  : m_zoom;
-	it["zoom_"]  = zoom;
-	berialdraw::unserialize("zoom_", it, m_zoom);
+	it[StyleNames::ICON_ZOOM]  = zoom;
+	berialdraw::unserialize(StyleNames::ICON_ZOOM, it, m_zoom);
 
-	m_icon_size.serialize("icon-size", it);
-	m_icon_padding.serialize ("icon-padding",it);
+	m_icon_size.serialize(StyleNames::ICON_SIZE, it);
+	m_icon_padding.serialize (StyleNames::ICON_PADDING,it);
 }
 
 /** Unserialize the content of widget from json */
 void IconStyle::unserialize(JsonIterator & it)
 {
-	m_filename        = it["filename"]        | m_filename;
-	m_icon_color       = (int)(it["icon-color"]        | (int)m_icon_color);
-	Dim zoom  = it["zoom_"]   | Size::MAX_SIZE;
+	m_filename        = it[StyleNames::ICON_FILENAME]        | m_filename;
+	m_icon_color       = (int)(it[StyleNames::ICON_COLOR]        | (int)m_icon_color);
+	Dim zoom  = it[StyleNames::ICON_ZOOM]   | Size::MAX_SIZE;
 
-	m_icon_size.unserialize("icon-size", it);
-	m_icon_padding.unserialize ("icon-padding",it);
+	m_icon_size.unserialize(StyleNames::ICON_SIZE, it);
+	m_icon_padding.unserialize (StyleNames::ICON_PADDING,it);
 	m_zoom    = (zoom == Size::MAX_SIZE) ? m_zoom  : zoom;
+}
+
+/** Apply selective style properties from StyleItem (only modifies defined properties) */
+void IconStyle::apply_style(StyleItem* item)
+{
+	if (!item) return;
+	
+	JsonIterator it = item->properties();
+	this->unserialize(it);
 }
 
 /** Set the zoom ratio for the icon

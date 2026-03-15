@@ -4,6 +4,7 @@ namespace berialdraw
 	class Window;
 	class Renderer;
 	class Settings;
+	class StyleManager;
 
 	/** The UIManager class coordinates the display and behavior of widgets. 
 	It handles events, manages widget lifecycles, and ensures consistent rendering across the application. */
@@ -69,9 +70,10 @@ namespace berialdraw
 		/** Return the clipboard manager */
 		static Clipboard * clipboard();
 
-		/** Indicates if the uimanager is initialized or not */
-		static bool is_initialized();
-
+	/** Indicates if the UIManager is initialized or not */
+	static bool is_initialized();
+	/** Return the style manager */
+	static StyleManager * style_manager();
 	protected:
 /// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
@@ -91,6 +93,7 @@ namespace berialdraw
 		static ArcCache    * m_arc_cache;
 		static Settings    * m_settings;
 		static Clipboard   * m_clipboard;
+		static StyleManager* m_style_manager;
 /// @endcond
 	};
 }

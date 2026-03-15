@@ -10,19 +10,28 @@ CheckboxStyle::CheckboxStyle()
 /** Serialize the content of widget into json */
 void CheckboxStyle::serialize(JsonIterator & it)
 {
-	m_checkbox_size.serialize("checkbox-size", it);
-	it["check-padding"]         = m_check_padding >> 6;
-	it["check-color"]           = m_check_color;
-	it["check-sketch"]          = m_check_sketch.c_str();
+	m_checkbox_size.serialize(StyleNames::CHECKBOX_SIZE, it);
+	it[StyleNames::CHECKBOX_PADDING]         = m_check_padding >> 6;
+	it[StyleNames::CHECKBOX_COLOR]           = m_check_color;
+	it[StyleNames::CHECKBOX_SKETCH]          = m_check_sketch.c_str();
 }
 
 /** Unserialize the content of widget from json */
 void CheckboxStyle::unserialize(JsonIterator & it)
 {
-	m_checkbox_size.unserialize("checkbox-size", it);
-	m_check_padding = (int)(it["check-padding"] | (int)(m_check_padding >> 6)) << 6;
-	m_check_color = (int)(it["check-color"] | (int)m_check_color);
-	m_check_sketch = it["check-sketch"] | m_check_sketch.c_str();
+	m_checkbox_size.unserialize(StyleNames::CHECKBOX_SIZE, it);
+	m_check_padding = (int)(it[StyleNames::CHECKBOX_PADDING] | (int)(m_check_padding >> 6)) << 6;
+	m_check_color = (int)(it[StyleNames::CHECKBOX_COLOR] | (int)m_check_color);
+	m_check_sketch = it[StyleNames::CHECKBOX_SKETCH] | m_check_sketch.c_str();
+}
+
+/** Apply selective style properties from StyleItem (only modifies defined properties) */
+void CheckboxStyle::apply_style(StyleItem* item)
+{
+	if (!item) return;
+	
+	JsonIterator it = item->properties();
+	this->unserialize(it);
 }
 
 /** Copy operator */

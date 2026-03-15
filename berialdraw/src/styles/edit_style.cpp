@@ -16,37 +16,46 @@ EditStyle::~EditStyle()
 /** Serialize the content of widget into json */
 void EditStyle::serialize(JsonIterator & it)
 {
-	it["max-lines"]      = m_max_lines;
-	it["max-columns"]    = m_max_columns;
-	it["select-color"]   = m_select_color;
-	it["cursor-color"]   = m_cursor_color;
-	it["place-holder-color"]   = m_place_holder_color;
-	it["password"]      = m_password;
+	it[StyleNames::EDIT_MAX_LINES]      = m_max_lines;
+	it[StyleNames::EDIT_MAX_COLUMNS]    = m_max_columns;
+	it[StyleNames::EDIT_SELECT_COLOR]   = m_select_color;
+	it[StyleNames::EDIT_CURSOR_COLOR]   = m_cursor_color;
+	it[StyleNames::EDIT_PLACEHOLDER_COLOR]   = m_place_holder_color;
+	it[StyleNames::EDIT_PASSWORD]      = m_password;
 	if (m_place_holder)
 	{
-		it["place-holder"] = *m_place_holder;
+		it[StyleNames::EDIT_PLACEHOLDER] = *m_place_holder;
 	}
 }
 
 /** Unserialize the content of widget from json */
 void EditStyle::unserialize(JsonIterator & it)
 {
-	m_max_lines    = (int)(it["max-lines"]      | (int)m_max_lines);
-	m_max_columns  = (int)(it["max-columns"]    | (int)m_max_columns);
-	m_select_color = (int)(it["select-color"]  | (int)m_select_color);
-	m_cursor_color = (int)(it["cursor-color"]  | (int)m_cursor_color);
-	m_place_holder_color = (int)(it["place-holder-color"]  | (int)m_place_holder_color);
-	m_password    = (bool)(it["password"]     | (bool)m_password);
+	m_max_lines    = (int)(it[StyleNames::EDIT_MAX_LINES]      | (int)m_max_lines);
+	m_max_columns  = (int)(it[StyleNames::EDIT_MAX_COLUMNS]    | (int)m_max_columns);
+	m_select_color = (int)(it[StyleNames::EDIT_SELECT_COLOR]  | (int)m_select_color);
+	m_cursor_color = (int)(it[StyleNames::EDIT_CURSOR_COLOR]  | (int)m_cursor_color);
+	m_place_holder_color = (int)(it[StyleNames::EDIT_PLACEHOLDER_COLOR]  | (int)m_place_holder_color);
+	m_password    = (bool)(it[StyleNames::EDIT_PASSWORD]     | (bool)m_password);
 
 	delete m_place_holder;
-	if (it["place-holder"].exist())
+	if (it[StyleNames::EDIT_PLACEHOLDER].exist())
 	{
-		m_place_holder = new String(it["placeholder"]);
+		m_place_holder = new String(it[StyleNames::EDIT_PLACEHOLDER]);
 	}
 	else
 	{
 		m_place_holder = 0;
 	}
+}
+
+/** Apply selective style properties from StyleItem (only modifies defined properties) */
+void EditStyle::apply_style(StyleItem* item)
+{
+	if (!item) return;
+	
+	JsonIterator it = item->properties();
+	this->unserialize(it);
 }
 
 /** Copy operator */

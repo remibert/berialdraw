@@ -591,9 +591,6 @@
     <ClCompile Include="..\..\src\tool\local_directory.cpp">
       <Filter>berialdraw\tool\directory</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\tool\tar.cpp">
-      <Filter>berialdraw\tool\file</Filter>
-    </ClCompile>
     <!-- zlib files -->
     <ClCompile Include="..\..\..\zlib\adler32.c">
       <Filter>external\zlib</Filter>
@@ -724,6 +721,12 @@
     </ClCompile>
     <ClCompile Include="..\..\src\widget\scrollable_content.cpp">
       <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\style_item.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\style_manager.cpp">
+      <Filter>berialdraw\styles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1447,9 +1450,6 @@
     <ClInclude Include="..\..\inc\tool\local_directory.hpp">
       <Filter>berialdraw\tool\directory</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\tar.hpp">
-      <Filter>berialdraw\tool\file</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\inc\tool\zip_file.hpp">
       <Filter>berialdraw\tool\file</Filter>
     </ClInclude>
@@ -1515,6 +1515,12 @@
     </ClInclude>
     <ClInclude Include="..\..\inc\widget\scrollable_content.hpp">
       <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\style_item.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\style_manager.hpp">
+      <Filter>berialdraw\styles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

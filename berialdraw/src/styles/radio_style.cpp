@@ -10,21 +10,30 @@ RadioStyle::RadioStyle()
 /** Serialize the content of widget into json */
 void RadioStyle::serialize(JsonIterator & it)
 {
-	m_radio_size.serialize("radio-size", it);
-	it["radio-padding"]         = m_radio_padding >> 6;
-	it["radio-color"]           = m_radio_color;
-	it["radio-sketch"]          = m_radio_sketch.c_str();
-	it["group"]                 = m_group.c_str();
+	m_radio_size.serialize(StyleNames::RADIO_SIZE, it);
+	it[StyleNames::RADIO_PADDING]         = m_radio_padding >> 6;
+	it[StyleNames::RADIO_COLOR]           = m_radio_color;
+	it[StyleNames::RADIO_SKETCH]          = m_radio_sketch.c_str();
+	it[StyleNames::RADIO_GROUP]                 = m_group.c_str();
 }
 
 /** Unserialize the content of widget from json */
 void RadioStyle::unserialize(JsonIterator & it)
 {
-	m_radio_size.unserialize("radio-size", it);
-	m_radio_padding = (int)(it["radio-padding"] | (int)(m_radio_padding >> 6)) << 6;
-	m_radio_color = (int)(it["radio-color"] | (int)m_radio_color);
-	m_radio_sketch = it["radio-sketch"] | m_radio_sketch.c_str();
-	m_group = it["group"] | m_group.c_str();
+	m_radio_size.unserialize(StyleNames::RADIO_SIZE, it);
+	m_radio_padding = (int)(it[StyleNames::RADIO_PADDING] | (int)(m_radio_padding >> 6)) << 6;
+	m_radio_color = (int)(it[StyleNames::RADIO_COLOR] | (int)m_radio_color);
+	m_radio_sketch = it[StyleNames::RADIO_SKETCH] | m_radio_sketch.c_str();
+	m_group = it[StyleNames::RADIO_GROUP] | m_group.c_str();
+}
+
+/** Apply selective style properties from StyleItem (only modifies defined properties) */
+void RadioStyle::apply_style(StyleItem* item)
+{
+	if (!item) return;
+	
+	JsonIterator it = item->properties();
+	this->unserialize(it);
 }
 
 /** Copy operator */

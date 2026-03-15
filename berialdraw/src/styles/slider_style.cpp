@@ -10,30 +10,39 @@ SliderStyle::SliderStyle()
 /** Serialize the content of widget into json */
 void SliderStyle::serialize(JsonIterator & it)
 {
-	it["track-color"]  = m_track_color;
-	it["handle-color"] = m_handle_color;
+	it[StyleNames::SLIDER_TRACK_COLOR]  = m_track_color;
+	it[StyleNames::SLIDER_HANDLE_COLOR] = m_handle_color;
 
-	berialdraw::unserialize("track-size_"   , it, m_track_size);
-	berialdraw::unserialize("handle-size_"   , it, m_handle_size);
+	berialdraw::unserialize(StyleNames::SLIDER_TRACK_SIZE, it, m_track_size);
+	berialdraw::unserialize(StyleNames::SLIDER_HANDLE_SIZE, it, m_handle_size);
 
-	it["value"]        = (int)m_value;
-	it["min-value"]    = (int)m_min_value;
-	it["max-value"]    = (int)m_max_value;
-	it["step-value"]   = (int)m_step_value;
+	it[StyleNames::RANGE_VALUE]        = (int)m_value;
+	it[StyleNames::RANGE_MIN_VALUE]    = (int)m_min_value;
+	it[StyleNames::RANGE_MAX_VALUE]    = (int)m_max_value;
+	it[StyleNames::RANGE_STEP_VALUE]   = (int)m_step_value;
 }
 
 /** Unserialize the content of widget from json */
 void SliderStyle::unserialize(JsonIterator & it)
 {
-	m_track_color   = (int)(it["track-color"]  | (int)m_track_color);
-	m_handle_color  = (int)(it["handle-color"] | (int)m_handle_color);
-	m_track_size    = (int)(it["track-size_"]  | (int)m_track_size);
-	m_handle_size   = (int)(it["handle-size_"] | (int)m_handle_size);
-	m_value         = (int)(it["value"]        | (int)m_value);
-	m_min_value     = (int)(it["min-value"]    | (int)m_min_value);
-	m_max_value     = (int)(it["max-value"]    | (int)m_max_value);
-	m_step_value    = (int)(it["step-value"]   | (int)m_step_value);
+	m_track_color   = (int)(it[StyleNames::SLIDER_TRACK_COLOR]  | (int)m_track_color);
+	m_handle_color  = (int)(it[StyleNames::SLIDER_HANDLE_COLOR] | (int)m_handle_color);
+	m_track_size    = (int)(it[StyleNames::SLIDER_TRACK_SIZE]  | (int)m_track_size);
+	m_handle_size   = (int)(it[StyleNames::SLIDER_HANDLE_SIZE] | (int)m_handle_size);
+	m_value         = (int)(it[StyleNames::RANGE_VALUE]        | (int)m_value);
+	m_min_value     = (int)(it[StyleNames::RANGE_MIN_VALUE]    | (int)m_min_value);
+	m_max_value     = (int)(it[StyleNames::RANGE_MAX_VALUE]    | (int)m_max_value);
+	m_step_value    = (int)(it[StyleNames::RANGE_STEP_VALUE]   | (int)m_step_value);
 	check_slider();
+}
+
+/** Apply selective style properties from StyleItem (only modifies defined properties) */
+void SliderStyle::apply_style(StyleItem* item)
+{
+	if (!item) return;
+	
+	JsonIterator it = item->properties();
+	this->unserialize(it);
 }
 
 /** Copy operator */

@@ -20,6 +20,9 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		void unserialize(JsonIterator & it);
 
+		/** Apply selective style properties from StyleItem (only modifies defined properties) */
+		void apply_style(StyleItem* item);
+
 		/** Set properties with another */
 		void set(const CommonStyle & other);
 

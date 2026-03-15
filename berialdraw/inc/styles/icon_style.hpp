@@ -21,6 +21,9 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		virtual void unserialize(JsonIterator & it);
 
+		/** Apply selective style properties from StyleItem (only modifies defined properties) */
+		virtual void apply_style(StyleItem* item);
+
 		// Zoom properties
 
 		/** Set the zoom ratio for the polygon

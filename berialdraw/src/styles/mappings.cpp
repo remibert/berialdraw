@@ -22,15 +22,15 @@ const String & Mapping::mapping() const
 /** Serialize the content of widget into json */
 void Mapping::serialize(JsonIterator & it)
 {
-	it["name"]    = m_name;
-	it["mapping"] = m_mapping;
+	it[StyleNames::KEY_NAME]    = m_name;
+	it[StyleNames::KEY_MAPPING] = m_mapping;
 }
 
 /** Unserialize the content of widget from json */
 void Mapping::unserialize(JsonIterator & it)
 {
-	m_name    = it["name"]    | "";
-	m_mapping = it["mapping"] | "";
+	m_name    = it[StyleNames::KEY_NAME]    | "";
+	m_mapping = it[StyleNames::KEY_MAPPING] | "";
 }
 
 /** Constructor */
@@ -89,6 +89,14 @@ void Mappings::unserialize(JsonIterator & parent)
 		mapping->unserialize(child);
 		m_mappings.push_back(mapping);
 	}
+}
+
+/** Apply selective style properties from StyleItem (only modifies defined properties) */
+void Mappings::apply_style(StyleItem* item)
+{
+	if (!item) return;
+	
+	// Mappings is a container of keyboard mappings, not directly applicable as a style property
 }
 
 /** Create new mappings */

@@ -14,29 +14,38 @@ TableViewStyle::TableViewStyle()
 /** Serialize the content of widget into json */
 void TableViewStyle::serialize(JsonIterator & it)
 {
-	it["grid-color"] = m_grid_color;
-	it["horizontal-thickness_"] = m_horizontal_thickness;
-	it["vertical-thickness_"] = m_vertical_thickness;
-	it["grid-visible"] = m_grid_visible;
-	it["header-visible"] = m_header_visible;
-	it["header-background-color"] = m_header_background_color;
-	it["alternating-row-color-1"] = m_alternating_row_color1;
-	it["alternating-row-color-2"] = m_alternating_row_color2;
-	berialdraw::serialize("scroll-direction", it, m_scroll_direction);
+	it[StyleNames::TABLEVIEW_GRID_COLOR] = m_grid_color;
+	it[StyleNames::TABLEVIEW_HORIZONTAL_THICKNESS] = m_horizontal_thickness;
+	it[StyleNames::TABLEVIEW_VERTICAL_THICKNESS] = m_vertical_thickness;
+	it[StyleNames::TABLEVIEW_GRID_VISIBLE] = m_grid_visible;
+	it[StyleNames::TABLEVIEW_HEADER_VISIBLE] = m_header_visible;
+	it[StyleNames::TABLEVIEW_HEADER_BACKGROUND_COLOR] = m_header_background_color;
+	it[StyleNames::TABLEVIEW_ALTERNATING_ROW_COLOR_1] = m_alternating_row_color1;
+	it[StyleNames::TABLEVIEW_ALTERNATING_ROW_COLOR_2] = m_alternating_row_color2;
+	berialdraw::serialize(StyleNames::TABLEVIEW_SCROLL_DIRECTION, it, m_scroll_direction);
 }
 
 /** Unserialize the content of widget from json */
 void TableViewStyle::unserialize(JsonIterator & it)
 {
-	m_grid_color = (int)(it["grid-color"] | (int)m_grid_color);
-	berialdraw::unserialize("horizontal-thickness_", it, m_horizontal_thickness);
-	berialdraw::unserialize("vertical-thickness_", it, m_vertical_thickness);
-	m_grid_visible = (bool)(it["grid-visible"] | (int)m_grid_visible);
-	m_header_visible = (bool)(it["header-visible"] | (int)m_header_visible);
-	m_header_background_color = (int)(it["header-background-color"] | (int)m_header_background_color);
-	m_alternating_row_color1 = (int)(it["alternating-row-color-1"] | (int)m_alternating_row_color1);
-	m_alternating_row_color2 = (int)(it["alternating-row-color-2"] | (int)m_alternating_row_color2);
-	berialdraw::unserialize("scroll-direction", it, m_scroll_direction);
+	m_grid_color = (int)(it[StyleNames::TABLEVIEW_GRID_COLOR] | (int)m_grid_color);
+	berialdraw::unserialize(StyleNames::TABLEVIEW_HORIZONTAL_THICKNESS, it, m_horizontal_thickness);
+	berialdraw::unserialize(StyleNames::TABLEVIEW_VERTICAL_THICKNESS, it, m_vertical_thickness);
+	m_grid_visible = (bool)(it[StyleNames::TABLEVIEW_GRID_VISIBLE] | (int)m_grid_visible);
+	m_header_visible = (bool)(it[StyleNames::TABLEVIEW_HEADER_VISIBLE] | (int)m_header_visible);
+	m_header_background_color = (int)(it[StyleNames::TABLEVIEW_HEADER_BACKGROUND_COLOR] | (int)m_header_background_color);
+	m_alternating_row_color1 = (int)(it[StyleNames::TABLEVIEW_ALTERNATING_ROW_COLOR_1] | (int)m_alternating_row_color1);
+	m_alternating_row_color2 = (int)(it[StyleNames::TABLEVIEW_ALTERNATING_ROW_COLOR_2] | (int)m_alternating_row_color2);
+	berialdraw::unserialize(StyleNames::TABLEVIEW_SCROLL_DIRECTION, it, m_scroll_direction);
+}
+
+/** Apply selective style properties from StyleItem (only modifies defined properties) */
+void TableViewStyle::apply_style(StyleItem* item)
+{
+	if (!item) return;
+	
+	JsonIterator it = item->properties();
+	this->unserialize(it);
 }
 
 /** Set properties with another */

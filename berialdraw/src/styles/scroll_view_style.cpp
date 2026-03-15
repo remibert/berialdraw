@@ -13,19 +13,28 @@ ScrollViewStyle::ScrollViewStyle()
 /** Serialize the content of widget into json */
 void ScrollViewStyle::serialize(JsonIterator & it)
 {
-	m_scroll_size.serialize("scroll-size", it);
-	m_scroll_position.serialize("scroll-position", it);
-	berialdraw::serialize("scroll-direction", it, m_scroll_direction);
-	m_viewport_size.serialize("viewport-size", it);
+	m_scroll_size.serialize(StyleNames::SCROLLVIEW_SIZE, it);
+	m_scroll_position.serialize(StyleNames::SCROLLVIEW_POSITION, it);
+	berialdraw::serialize(StyleNames::SCROLLVIEW_DIRECTION, it, m_scroll_direction);
+	m_viewport_size.serialize(StyleNames::SCROLLVIEW_VIEWPORT_SIZE, it);
 }
 
 /** Unserialize the content of widget from json */
 void ScrollViewStyle::unserialize(JsonIterator & it)
 {
-	m_scroll_size.unserialize("scroll-size", it);
-	m_scroll_position.unserialize("scroll-position", it);
-	berialdraw::unserialize("scroll-direction", it, m_scroll_direction);
-	m_viewport_size.unserialize("viewport-size", it);
+	m_scroll_size.unserialize(StyleNames::SCROLLVIEW_SIZE, it);
+	m_scroll_position.unserialize(StyleNames::SCROLLVIEW_POSITION, it);
+	berialdraw::unserialize(StyleNames::SCROLLVIEW_DIRECTION, it, m_scroll_direction);
+	m_viewport_size.unserialize(StyleNames::SCROLLVIEW_VIEWPORT_SIZE, it);
+}
+
+/** Apply selective style properties from StyleItem (only modifies defined properties) */
+void ScrollViewStyle::apply_style(StyleItem* item)
+{
+	if (!item) return;
+	
+	JsonIterator it = item->properties();
+	this->unserialize(it);
 }
 
 /** Copy operator */

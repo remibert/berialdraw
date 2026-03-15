@@ -15,23 +15,32 @@ BorderStyle::BorderStyle()
 /** Serialize the content of widget into json */
 void BorderStyle::serialize(JsonIterator & it)
 {
-	it["radius_"]      = m_radius;
-	it["thickness_"]   = m_thickness;
-	it["border-color"] = m_border_color;
-	it["focus-color"]  = m_focus_color;
-	it["focus-gap_"]   = m_focus_gap;
-	it["focus-thickness"] = (int)m_focus_thickness;
+	it[StyleNames::BORDER_RADIUS]      = m_radius;
+	it[StyleNames::BORDER_THICKNESS]   = m_thickness;
+	it[StyleNames::BORDER_COLOR] = m_border_color;
+	it[StyleNames::BORDER_FOCUS_COLOR]  = m_focus_color;
+	it[StyleNames::BORDER_FOCUS_GAP]   = m_focus_gap;
+	it[StyleNames::BORDER_FOCUS_THICKNESS] = (int)m_focus_thickness;
 }
 
 /** Unserialize the content of widget from json */
 void BorderStyle::unserialize(JsonIterator & it)
 {
-	berialdraw::unserialize("radius_"   , it, m_radius);
-	berialdraw::unserialize("thickness_", it, m_thickness);
-	berialdraw::unserialize("focus-gap_", it, m_focus_gap);
-	m_border_color = (int)(it["border-color"]  | (int)m_border_color);
-	m_focus_color  = (int)(it["focus-color"]  | (int)m_focus_color);
-	m_focus_thickness    = (int)it["focus-thickness"] | m_focus_thickness;
+	berialdraw::unserialize(StyleNames::BORDER_RADIUS, it, m_radius);
+	berialdraw::unserialize(StyleNames::BORDER_THICKNESS, it, m_thickness);
+	berialdraw::unserialize(StyleNames::BORDER_FOCUS_GAP, it, m_focus_gap);
+	m_border_color = (int)(it[StyleNames::BORDER_COLOR]  | (int)m_border_color);
+	m_focus_color  = (int)(it[StyleNames::BORDER_FOCUS_COLOR]  | (int)m_focus_color);
+	m_focus_thickness    = (int)it[StyleNames::BORDER_FOCUS_THICKNESS] | m_focus_thickness;
+}
+
+/** Apply selective style properties from StyleItem (only modifies defined properties) */
+void BorderStyle::apply_style(StyleItem* item)
+{
+	if (!item) return;
+	
+	JsonIterator it = item->properties();
+	this->unserialize(it);
 }
 
 /** Set properties with another */

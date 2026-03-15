@@ -67,6 +67,9 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		void unserialize(JsonIterator & it);
 
+		/** Apply selective style properties from StyleItem (only modifies defined properties) */
+		void apply_style(StyleItem* item);
+
 		/** Gets the key value */
 		wchar_t key() const;
 
@@ -102,6 +105,9 @@ namespace berialdraw
 
 		/** Unserialize the content of widget from json */
 		void unserialize(JsonIterator & it);
+
+		/** Apply selective style properties from StyleItem (only modifies defined properties) */
+		void apply_style(StyleItem* item);
 
 		/** Create new keys */
 		static Style * create();

@@ -20,29 +20,29 @@ WidgetStyle::WidgetStyle()
 /** Serialize the content of widget into json */
 void WidgetStyle::serialize(JsonIterator & it)
 {
-	m_min_size.serialize("min-size",it),
-	m_max_size.serialize("max-size",it);
-	it["id"]                  = (int)m_id       ;
-	it["cell"]["row"]         = (int)m_row      ;
-	it["cell"]["column"]      = (int)m_column   ;
+	m_min_size.serialize(StyleNames::WIDGET_MIN_SIZE,it),
+	m_max_size.serialize(StyleNames::WIDGET_MAX_SIZE,it);
+	it[StyleNames::KEY_ID]                  = (int)m_id       ;
+	it[StyleNames::WIDGET_CELL][StyleNames::WIDGET_ROW]         = (int)m_row      ;
+	it[StyleNames::WIDGET_CELL][StyleNames::WIDGET_COLUMN]      = (int)m_column   ;
 	berialdraw::serialize(it, (Extend)m_extend);
 	berialdraw::serialize(it, (SizePolicy)m_size_policy);
-	it["pressed"]       = (int)m_pressed;
-	it["checked"]       = (int)m_checked;
-	it["focusable"]     = (int)m_focusable;
-	it["selectable"]    = (int)m_selectable;
-	it["pressable"]     = (int)m_pressable;
-	it["flow"]    = (int)m_flow;
+	it[StyleNames::WIDGET_PRESSED]       = (int)m_pressed;
+	it[StyleNames::WIDGET_CHECKED]       = (int)m_checked;
+	it[StyleNames::WIDGET_FOCUSABLE]     = (int)m_focusable;
+	it[StyleNames::WIDGET_SELECTABLE]    = (int)m_selectable;
+	it[StyleNames::WIDGET_PRESSABLE]     = (int)m_pressable;
+	it[StyleNames::WIDGET_FLOW]    = (int)m_flow;
 }
 
 /** Unserialize the content of widget from json */
 void WidgetStyle::unserialize(JsonIterator & it)
 {
-	m_min_size.unserialize("min-size",it),
-	m_max_size.unserialize("max-size",it);
-	m_id     = it["id"]             | (int)m_id;
-	m_row    = it["cell"]["row"]    | (int)m_row;
-	m_column = it["cell"]["column"] | (int)m_column;
+	m_min_size.unserialize(StyleNames::WIDGET_MIN_SIZE,it),
+	m_max_size.unserialize(StyleNames::WIDGET_MAX_SIZE,it);
+	m_id     = it[StyleNames::KEY_ID]             | (int)m_id;
+	m_row    = it[StyleNames::WIDGET_CELL][StyleNames::WIDGET_ROW]    | (int)m_row;
+	m_column = it[StyleNames::WIDGET_CELL][StyleNames::WIDGET_COLUMN] | (int)m_column;
 	Extend extend = (Extend)m_extend;
 	berialdraw::unserialize(it, extend);
 	m_extend = extend;
@@ -50,12 +50,21 @@ void WidgetStyle::unserialize(JsonIterator & it)
 	SizePolicy size_policy = (SizePolicy)m_size_policy;
 	berialdraw::unserialize(it, size_policy);
 	m_size_policy = size_policy;
-	m_pressed   = (int)it["pressed"]  | m_pressed;
-	m_checked   = (int)it["checked"]  | m_checked;
-	m_focusable = (int)it["focusable"] | m_focusable;
-	m_selectable = (int)it["selectable"] | m_selectable;
-	m_pressable  = (int)it["pressable"] | m_pressable;
-	m_flow       = (int)it["flow"] | m_flow;
+	m_pressed   = (int)it[StyleNames::WIDGET_PRESSED]  | m_pressed;
+	m_checked   = (int)it[StyleNames::WIDGET_CHECKED]  | m_checked;
+	m_focusable = (int)it[StyleNames::WIDGET_FOCUSABLE] | m_focusable;
+	m_selectable = (int)it[StyleNames::WIDGET_SELECTABLE] | m_selectable;
+	m_pressable  = (int)it[StyleNames::WIDGET_PRESSABLE] | m_pressable;
+	m_flow       = (int)it[StyleNames::WIDGET_FLOW] | m_flow;
+}
+
+/** Apply selective style properties from StyleItem (only modifies defined properties) */
+void WidgetStyle::apply_style(StyleItem* item)
+{
+	if (!item) return;
+	
+	JsonIterator it = item->properties();
+	this->unserialize(it);
 }
 
 /** Copy operator */

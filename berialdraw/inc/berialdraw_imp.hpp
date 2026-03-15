@@ -72,9 +72,11 @@
 
 #include "vector/region.hpp"
 
+#include "styles/style_names.hpp"
+#include "styles/style_item.hpp"
+
 #include "tool/tools.hpp"
 #include "tool/chronometer.hpp"
-#include "tool/tar.hpp"
 #include "tool/item.hpp"
 #include "tool/item_collection.hpp"
 #include "tool/item_variant.hpp"

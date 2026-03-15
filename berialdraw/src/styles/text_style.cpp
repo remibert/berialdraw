@@ -13,25 +13,34 @@ TextStyle::TextStyle()
 /** Serialize the content of widget into json */
 void TextStyle::serialize(JsonIterator & it)
 {
-	it["text"] = m_text;
-	it["font-familly"] = m_font_familly;
-	m_font_size.serialize("font-size",it);
-	m_padding.serialize ("padding",it);
-	berialdraw::serialize("text-align",it, (Align)m_text_align);
-	it["text-color"  ] = (int)m_text_color;
+	it[StyleNames::TEXT_CONTENT] = m_text;
+	it[StyleNames::TEXT_FONT_FAMILY] = m_font_familly;
+	m_font_size.serialize(StyleNames::TEXT_FONT_SIZE,it);
+	m_padding.serialize (StyleNames::TEXT_PADDING,it);
+	berialdraw::serialize(StyleNames::TEXT_ALIGN,it, (Align)m_text_align);
+	it[StyleNames::TEXT_COLOR  ] = (int)m_text_color;
 }
 
 /** Unserialize the content of widget from json */
 void TextStyle::unserialize(JsonIterator & it)
 {
 	Align align = (Align)m_text_align;
-	berialdraw::unserialize("text-align",it, align);
+	berialdraw::unserialize(StyleNames::TEXT_ALIGN,it, align);
 	m_text_align   = align;
-	m_text_color   = it["text-color"]   | m_text_color;
-	m_font_familly = it["font-familly"] | m_font_familly;
-	m_text        = it["text"]        | m_text;
-	m_font_size.unserialize("font-size",it);
-	m_padding.unserialize ("padding",it);
+	m_text_color   = it[StyleNames::TEXT_COLOR]   | m_text_color;
+	m_font_familly = it[StyleNames::TEXT_FONT_FAMILY] | m_font_familly;
+	m_text        = it[StyleNames::TEXT_CONTENT]        | m_text;
+	m_font_size.unserialize(StyleNames::TEXT_FONT_SIZE,it);
+	m_padding.unserialize (StyleNames::TEXT_PADDING,it);
+}
+
+/** Apply selective style properties from StyleItem (only modifies defined properties) */
+void TextStyle::apply_style(StyleItem* item)
+{
+	if (!item) return;
+	
+	JsonIterator it = item->properties();
+	this->unserialize(it);
 }
 
 /** Copy operator */

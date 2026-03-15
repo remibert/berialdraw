@@ -10,6 +10,7 @@ namespace berialdraw
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
 
+		//StyleManager::test();
 		TableView::test();
 
 		// Widgets
@@ -627,7 +628,6 @@ namespace berialdraw
 			Directory::test();
 			MaskValidator::test();
 			Entry::test(); 
-//			Tar::test();
 			String::test();
 			Settings::test();
 			TextStream::test();

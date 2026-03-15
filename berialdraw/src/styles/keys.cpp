@@ -28,9 +28,9 @@ const String & Key::to() const
 /** Serialize the content of widget into json */
 void Key::serialize(JsonIterator & it)
 {
-	it["key"]        = m_key;
-	it["name"]       = m_name;
-	it["to"]         = m_to;
+	it[StyleNames::KEY_KEY]        = m_key;
+	it[StyleNames::KEY_NAME]       = m_name;
+	it[StyleNames::KEY_TO]         = m_to;
 	CommonStyle::serialize(it);
 	WidgetStyle::serialize(it);
 	TextStyle::serialize(it);
@@ -40,13 +40,22 @@ void Key::serialize(JsonIterator & it)
 /** Unserialize the content of widget from json */
 void Key::unserialize(JsonIterator & it)
 {
-	m_key        = it["key"]        | 0;
-	m_name       = it["name"]       | "";
-	m_to         = it["to"]         | "";
+	m_key        = it[StyleNames::KEY_KEY]        | 0;
+	m_name       = it[StyleNames::KEY_NAME]       | "";
+	m_to         = it[StyleNames::KEY_TO]         | "";
 	CommonStyle::unserialize(it);
 	WidgetStyle::unserialize(it);
 	TextStyle::unserialize(it);
 	BorderStyle::unserialize(it);
+}
+
+/** Apply selective style properties from StyleItem (only modifies defined properties) */
+void Key::apply_style(StyleItem* item)
+{
+	if (!item) return;
+	
+	JsonIterator it = item->properties();
+	this->unserialize(it);
 }
 
 
@@ -114,6 +123,15 @@ void Keys::unserialize(JsonIterator & parent)
 		key->unserialize(child);
 		m_keys.push_back(key);
 	}
+}
+
+/** Apply selective style properties from StyleItem (only modifies defined properties) */
+void Keys::apply_style(StyleItem* item)
+{
+	if (!item) return;
+	
+	// Keys is a container of keyboard key mappings, not directly applicable as a style property
+	// This is a placeholder implementation for compatibility with the Style interface
 }
 
 /** Create new keys */

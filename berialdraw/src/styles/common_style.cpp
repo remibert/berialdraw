@@ -18,42 +18,51 @@ CommonStyle::CommonStyle()
 /** Serialize the content of widget into json */
 void CommonStyle::serialize(JsonIterator & it)
 {
-	m_position.serialize("position",it);
-	m_size.serialize ("size",it);
-	m_margin.serialize ("margin",it);
-	berialdraw::serialize("align",it, (Align)m_align);
-	it["color"]        = m_color;
-	it["light"]        = m_light;
-	it["saturation"]   = m_saturation;
-	it["hidden"] = m_hidden;
+	m_position.serialize(StyleNames::COMMON_POSITION,it);
+	m_size.serialize (StyleNames::COMMON_SIZE,it);
+	m_margin.serialize (StyleNames::COMMON_MARGIN,it);
+	berialdraw::serialize(StyleNames::COMMON_ALIGN,it, (Align)m_align);
+	it[StyleNames::COMMON_COLOR]        = m_color;
+	it[StyleNames::COMMON_LIGHT]        = m_light;
+	it[StyleNames::COMMON_SATURATION]   = m_saturation;
+	it[StyleNames::COMMON_HIDDEN] = m_hidden;
 
-	it["angle_"]       = m_angle;
-	m_center.serialize("center",it);
+	it[StyleNames::COMMON_ANGLE]       = m_angle;
+	m_center.serialize(StyleNames::COMMON_CENTER,it);
 	berialdraw::serialize(it, m_borders);
 }
 
 /** Unserialize the content of widget from json */
 void CommonStyle::unserialize(JsonIterator & it)
 {
-	m_position.unserialize("position",it);
-	m_size.unserialize("size",it);
-	m_margin.unserialize("margin",it);
+	m_position.unserialize(StyleNames::COMMON_POSITION,it);
+	m_size.unserialize(StyleNames::COMMON_SIZE,it);
+	m_margin.unserialize(StyleNames::COMMON_MARGIN,it);
 
-	m_angle       = (int)(it["angle_"]       | (int)m_angle);
-	m_color       = (int)(it["color"]        | (int)m_color);
+	m_angle       = (int)(it[StyleNames::COMMON_ANGLE]       | (int)m_angle);
+	m_color       = (int)(it[StyleNames::COMMON_COLOR]        | (int)m_color);
 
-	m_light       = (int)(it["light"]        | (int)m_light);
-	m_saturation  = (int)(it["saturation"]   | (int)m_saturation);
+	m_light       = (int)(it[StyleNames::COMMON_LIGHT]        | (int)m_light);
+	m_saturation  = (int)(it[StyleNames::COMMON_SATURATION]   | (int)m_saturation);
 
-	m_hidden      = (int)(it["hidden"] | (int)m_hidden);
+	m_hidden      = (int)(it[StyleNames::COMMON_HIDDEN] | (int)m_hidden);
 
 	Align align = (Align)m_align;
-	berialdraw::unserialize("align",it, align);
+	berialdraw::unserialize(StyleNames::COMMON_ALIGN,it, align);
 	m_align = align;
-	m_center.unserialize("center",it);
+	m_center.unserialize(StyleNames::COMMON_CENTER,it);
 	berialdraw::unserialize(it, m_borders);
 	m_angle_modified = 1;
 	m_geometry_modified = 1;
+}
+
+/** Apply selective style properties from StyleItem (only modifies defined properties) */
+void CommonStyle::apply_style(StyleItem* item)
+{
+	if (!item) return;
+	
+	JsonIterator it = item->properties();
+	this->unserialize(it);
 }
 
 /** Set properties with another */

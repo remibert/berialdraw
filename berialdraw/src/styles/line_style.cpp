@@ -10,16 +10,25 @@ LineStyle::LineStyle()
 /** Serialize the content of widget into json */
 void LineStyle::serialize(JsonIterator & it)
 {
-	m_point1.serialize("point1",it);
-	m_point2.serialize("point2",it);
+	m_point1.serialize(StyleNames::LINE_POINT1,it);
+	m_point2.serialize(StyleNames::LINE_POINT2,it);
 
 }
 
 /** Unserialize the content of widget from json */
 void LineStyle::unserialize(JsonIterator & it)
 {
-	m_point1.unserialize("point1",it);
-	m_point2.unserialize("point2",it);
+	m_point1.unserialize(StyleNames::LINE_POINT1,it);
+	m_point2.unserialize(StyleNames::LINE_POINT2,it);
+}
+
+/** Apply selective style properties from StyleItem (only modifies defined properties) */
+void LineStyle::apply_style(StyleItem* item)
+{
+	if (!item) return;
+	
+	JsonIterator it = item->properties();
+	this->unserialize(it);
 }
 
 /** Copy operator */

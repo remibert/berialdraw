@@ -13,17 +13,26 @@ PieStyle::PieStyle()
 /** Serialize the content of widget into json */
 void PieStyle::serialize(JsonIterator & it)
 {
-	it["sweep-angle_"] = m_end_angle;
-	it["start-angle_"] = m_start_angle;
-	it["rope"]        = m_rope      ;
+	it[StyleNames::PIE_SWEEP_ANGLE] = m_end_angle;
+	it[StyleNames::PIE_START_ANGLE] = m_start_angle;
+	it[StyleNames::PIE_ROPE]        = m_rope      ;
 }
 
 /** Unserialize the content of widget from json */
 void PieStyle::unserialize(JsonIterator & it)
 {
-	m_end_angle = (int)(it["sweep-angle_"] | (int)(m_end_angle));
-	m_start_angle = (int)(it["start-angle_"] | (int)(m_start_angle));
-	m_rope       = (int)(it["rope"]        | (int)(m_rope      ));
+	m_end_angle = (int)(it[StyleNames::PIE_SWEEP_ANGLE] | (int)(m_end_angle));
+	m_start_angle = (int)(it[StyleNames::PIE_START_ANGLE] | (int)(m_start_angle));
+	m_rope       = (int)(it[StyleNames::PIE_ROPE]        | (int)(m_rope      ));
+}
+
+/** Apply selective style properties from StyleItem (only modifies defined properties) */
+void PieStyle::apply_style(StyleItem* item)
+{
+	if (!item) return;
+	
+	JsonIterator it = item->properties();
+	this->unserialize(it);
 }
 
 /** Copy operator */
