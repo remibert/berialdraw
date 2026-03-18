@@ -16,7 +16,6 @@ ScreenCrc   * UIManager::m_screen_crc = 0;
 ArcCache    * UIManager::m_arc_cache = 0;
 Settings    * UIManager::m_settings = 0;
 Clipboard   * UIManager::m_clipboard = 0;
-StyleManager* UIManager::m_style_manager = 0;
 bool          UIManager::m_initialized= false;
 
 inline Dim adapt_scale(uint32_t scale)
@@ -61,7 +60,6 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 		m_fonts        = new Fonts;
 		m_desktop      = new Desktop;
 		m_screen_crc   = new ScreenCrc;
-		m_style_manager = new StyleManager;
 		m_device       = device;
 		m_clipboard    = new Clipboard;
 		m_device->size(width, height);
@@ -91,7 +89,6 @@ void UIManager::deinit()
 	delete m_screen_crc;
 	delete m_arc_cache;
 	delete m_clipboard;
-	delete m_style_manager;
 	delete m_settings;
 
 	m_initialized = false;
@@ -108,7 +105,6 @@ void UIManager::deinit()
 	m_screen_crc  = 0;
 	m_arc_cache   = 0;
 	m_clipboard   = 0;
-	m_style_manager = 0;
 	m_settings    = 0;
 }
 
@@ -117,14 +113,6 @@ bool UIManager::is_initialized()
 {
 	return m_initialized;
 }
-
-/** Return the style manager */
-StyleManager * UIManager::style_manager()
-{
-	if (m_style_manager == 0) bd_printf("UIManager::style_manager no existing");
-	return m_style_manager;
-}
-
 
 /** Return the svg content */
 Exporter * UIManager::exporter()

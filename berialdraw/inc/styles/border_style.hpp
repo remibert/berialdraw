@@ -10,13 +10,10 @@ namespace berialdraw
 		BorderStyle();
 
 		/** Serialize the content of widget into json */
-		void serialize(JsonIterator & it);
+		void serialize(JsonIterator & it) override;
 
 		/** Unserialize the content of widget from json */
-		void unserialize(JsonIterator & it);
-
-		/** Apply selective style properties from StyleItem (only modifies defined properties) */
-		void apply_style(StyleItem* item);
+		void unserialize(JsonIterator & it) override;
 
 		/** Set properties with another */
 		void set(const BorderStyle & other);
@@ -110,6 +107,9 @@ namespace berialdraw
 
 		/** Set the focus thickness in pixels (16 pixels max)*/
 		void focus_thickness(Dim v);
+
+		/** Get the property name for this style */
+		const char* property_name() const override { return "border"; }
 
 	protected:
 /// @cond DOXYGEN_IGNORE

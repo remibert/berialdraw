@@ -85,7 +85,6 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "styles/styles.hpp"
 #include "styles/style_names.hpp"
 #include "styles/style_item.hpp"
-#include "styles/style_manager.hpp"
 #include "vector/scroll_direction.hpp"
 
 // Event 

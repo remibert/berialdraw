@@ -10,13 +10,10 @@ namespace berialdraw
 		ProgressBarStyle();
 
 		/** Serialize the content of widget into json */
-		void serialize(JsonIterator & it);
+		void serialize(JsonIterator & it) override;
 
 		/** Unserialize the content of widget from json */
-		void unserialize(JsonIterator & it);
-
-		/** Apply selective style properties from StyleItem (only modifies defined properties) */
-		void apply_style(StyleItem* item);
+		void unserialize(JsonIterator & it) override;
 
 		/** Copy operator */
 		ProgressBarStyle& operator=(const ProgressBarStyle& other);
@@ -91,6 +88,9 @@ namespace berialdraw
 
 		/** Set the step value of progress_bar */
 		void step_value(uint32_t val);
+
+		/** Get the property name for this style */
+		const char* property_name() const override { return "progressbar"; }
 
 	protected:
 /// @cond DOXYGEN_IGNORE

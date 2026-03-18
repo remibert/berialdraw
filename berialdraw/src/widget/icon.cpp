@@ -6,11 +6,11 @@ Icon::Icon(Widget * parent):
 	Widget("icon", parent, sizeof(Icon))
 {
 	m_sketch = new Sketch(this);
-	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
-	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
-	UIManager::styles()->apply(m_classname, (BorderStyle*)this);
-	UIManager::styles()->apply(m_classname, (IconStyle*)this);
-	UIManager::styles()->apply(m_classname, (TextStyle*)this);
+	UIManager::styles()->apply(this, (CommonStyle*)this);
+	UIManager::styles()->apply(this, (WidgetStyle*)this);
+	UIManager::styles()->apply(this, (BorderStyle*)this);
+	UIManager::styles()->apply(this, (IconStyle*)this);
+	UIManager::styles()->apply(this, (TextStyle*)this);
 }
 
 Icon::~Icon()

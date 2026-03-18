@@ -34,15 +34,6 @@ void BorderStyle::unserialize(JsonIterator & it)
 	m_focus_thickness    = (int)it[StyleNames::BORDER_FOCUS_THICKNESS] | m_focus_thickness;
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void BorderStyle::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 /** Set properties with another */
 void BorderStyle::set(const BorderStyle & other)
 {

@@ -70,10 +70,8 @@ namespace berialdraw
 		/** Return the clipboard manager */
 		static Clipboard * clipboard();
 
-	/** Indicates if the UIManager is initialized or not */
-	static bool is_initialized();
-	/** Return the style manager */
-	static StyleManager * style_manager();
+		/** Indicates if the UIManager is initialized or not */
+		static bool is_initialized();
 	protected:
 /// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
@@ -93,7 +91,6 @@ namespace berialdraw
 		static ArcCache    * m_arc_cache;
 		static Settings    * m_settings;
 		static Clipboard   * m_clipboard;
-		static StyleManager* m_style_manager;
 /// @endcond
 	};
 }

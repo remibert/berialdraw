@@ -5,10 +5,10 @@ using namespace berialdraw;
 Slider::Slider(Widget * parent):
 	Widget("slider", parent, sizeof(Slider))
 {
-	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
-	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
-	UIManager::styles()->apply(m_classname, (BorderStyle*)this);
-	UIManager::styles()->apply(m_classname, (SliderStyle*)this);
+	UIManager::styles()->apply(this, (CommonStyle*)this);
+	UIManager::styles()->apply(this, (WidgetStyle*)this);
+	UIManager::styles()->apply(this, (BorderStyle*)this);
+	UIManager::styles()->apply(this, (SliderStyle*)this);
 	bind(this, &Slider::on_key);
 	bind(this, &Slider::on_click);
 	bind(this, &Slider::on_select);

@@ -14,6 +14,10 @@ namespace berialdraw
 		/** Copy constructor
 		@param string String to copy from */
 		String(const String & string);
+
+		/** Move constructor - transfer ownership of string buffer
+		@param string String to move from */
+		String(String&& string) noexcept;
 	
 		/** Constructor with string buffer
 		@param string String buffer to initialize from */
@@ -38,6 +42,11 @@ namespace berialdraw
 		@param value Wide character to assign from
 		@return Reference to this String */
 		String& operator=(wchar_t value);
+
+		/** Move assignment operator - transfer ownership of string buffer
+		@param other String to move from
+		@return Reference to this String */
+		String& operator=(String&& other) noexcept;
 
 		/** Cast to char pointer
 		@return Pointer to the string buffer */
@@ -249,6 +258,7 @@ namespace berialdraw
 		static void test7();
 		static void test8();
 		static void test9();
+		static void test10();
 #endif
 		/** Empty string */
 		static const String empty;

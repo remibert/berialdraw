@@ -36,15 +36,6 @@ void SliderStyle::unserialize(JsonIterator & it)
 	check_slider();
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void SliderStyle::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 /** Copy operator */
 SliderStyle& SliderStyle::operator=(const SliderStyle& other)
 {

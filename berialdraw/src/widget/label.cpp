@@ -5,9 +5,9 @@ using namespace berialdraw;
 Label::Label(Widget * parent):
 	Widget("label", parent, sizeof(Label))
 {
-	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
-	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
-	UIManager::styles()->apply(m_classname, (TextStyle*)this);
+	UIManager::styles()->apply(this, (CommonStyle*)this);
+	UIManager::styles()->apply(this, (WidgetStyle*)this);
+	UIManager::styles()->apply(this, (TextStyle*)this);
 }
 
 Label::~Label()

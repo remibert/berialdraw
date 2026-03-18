@@ -10,13 +10,10 @@ namespace berialdraw
 		SwitchStyle();
 
 		/** Serialize the content of widget into json */
-		void serialize(JsonIterator & it);
+		void serialize(JsonIterator & it) override;
 
 		/** Unserialize the content of widget from json */
-		void unserialize(JsonIterator & it);
-
-		/** Apply selective style properties from StyleItem (only modifies defined properties) */
-		void apply_style(StyleItem* item);
+		void unserialize(JsonIterator & it) override;
 
 		/** Copy operator */
 		SwitchStyle& operator=(const SwitchStyle& other);
@@ -77,6 +74,9 @@ namespace berialdraw
 
 		/** Set the thumb padding in pixels */
 		void thumb_padding(Dim pad);
+
+		/** Get the property name for this style */
+		const char* property_name() const override { return "switch"; }
 
 	protected:
 /// @cond DOXYGEN_IGNORE

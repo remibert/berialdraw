@@ -5,8 +5,8 @@ using namespace berialdraw;
 Canvas::Canvas(Widget * parent):
 	Widget("canvas",parent, sizeof(Canvas))
 {
-	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
-	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
+	UIManager::styles()->apply(this, (CommonStyle*)this);
+	UIManager::styles()->apply(this, (WidgetStyle*)this);
 }
 
 Canvas::~Canvas()

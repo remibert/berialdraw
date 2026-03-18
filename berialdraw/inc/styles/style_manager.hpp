@@ -52,32 +52,9 @@ namespace berialdraw
 		void unserialize(JsonIterator & it);
 
 	#ifdef _DEBUG
-		/** Test 1: Basic style registration and retrieval */
 		static void test1();
-
-		/** Test 2: Get all style names */
 		static void test2();
-
-		/** Test 3: Unregister/delete a style */
 		static void test3();
-
-		/** Test 4: Duplicate registration replaces existing */
-		static void test4();
-
-		/** Test 5: Clear all styles */
-		static void test5();
-
-		/** Test 6: StyleItem with multiple styles */
-		static void test6();
-
-		/** Test 7: StyleItem copy operator */
-		static void test7();
-
-		/** Test 8: Serialize and unserialize styles */
-		static void test8();
-
-		/** Test 9: Complex style management workflow */
-		static void test9();
 
 		/** Main test runner - execute all tests */
 		static void test();

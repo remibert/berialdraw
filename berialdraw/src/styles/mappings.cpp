@@ -91,14 +91,6 @@ void Mappings::unserialize(JsonIterator & parent)
 	}
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void Mappings::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	// Mappings is a container of keyboard mappings, not directly applicable as a style property
-}
-
 /** Create new mappings */
 Style * Mappings::create()
 {

@@ -25,15 +25,6 @@ void CheckboxStyle::unserialize(JsonIterator & it)
 	m_check_sketch = it[StyleNames::CHECKBOX_SKETCH] | m_check_sketch.c_str();
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void CheckboxStyle::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 /** Copy operator */
 CheckboxStyle& CheckboxStyle::operator=(const CheckboxStyle& other)
 {

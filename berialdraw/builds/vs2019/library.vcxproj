@@ -457,12 +457,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="..\..\src\styles\style_manager.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
-    </ClCompile>
     <ClCompile Include="..\..\src\styles\text_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -1178,7 +1172,7 @@
     <ClInclude Include="..\..\inc\styles\style.hpp" />
     <ClInclude Include="..\..\inc\styles\styles.hpp" />
     <ClInclude Include="..\..\inc\styles\style_item.hpp" />
-    <ClInclude Include="..\..\inc\styles\style_manager.hpp" />
+    <ClInclude Include="..\..\inc\styles\style_names.hpp" />
     <ClInclude Include="..\..\inc\styles\switch_style.hpp" />
     <ClInclude Include="..\..\inc\styles\checkbox_style.hpp" />
     <ClInclude Include="..\..\inc\styles\table_view_style.hpp" />

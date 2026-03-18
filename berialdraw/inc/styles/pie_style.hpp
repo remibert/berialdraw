@@ -10,13 +10,10 @@ namespace berialdraw
 		PieStyle();
 
 		/** Serialize the content of widget into json */
-		void serialize(JsonIterator & it);
+		void serialize(JsonIterator & it) override;
 
 		/** Unserialize the content of widget from json */
-		void unserialize(JsonIterator & it);
-
-		/** Apply selective style properties from StyleItem (only modifies defined properties) */
-		void apply_style(StyleItem* item);
+		void unserialize(JsonIterator & it) override;
 
 		/** Copy operator */
 		PieStyle& operator=(const PieStyle& other);
@@ -60,6 +57,9 @@ namespace berialdraw
 
 		/** Set the rope */
 		void rope(bool v);
+
+		/** Get the property name for this style */
+		const char* property_name() const override { return "pie"; }
 
 	protected:
 ///< @cond DOXYGEN_IGNORE

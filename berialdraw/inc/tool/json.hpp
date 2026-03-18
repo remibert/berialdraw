@@ -89,12 +89,23 @@ namespace berialdraw
 		static void test21();
 		static void test22();
 		static void test23();
+		static void test24();
 	#endif
+
+	public:
+		/** Move constructor - transfer ownership of data */
+		Json(Json&& other) noexcept;
+
+		/** Move assignment operator - transfer ownership of data */
+		Json& operator=(Json&& other) noexcept;
 
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Copy assignment - kept for compatibility (does nothing) */
 		Json & operator= (const Json & other){return *this;}
-		Json(Json & other):m_iterator(*this){}
+		
+		/** Copy constructor - kept for compatibility (does nothing) */
+		Json(const Json & other):m_iterator(*this){}
 	
 		/** Update the line and column for where the error is located */
 		void throw_error(TextStream & content);

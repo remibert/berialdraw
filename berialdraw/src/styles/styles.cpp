@@ -2,10 +2,79 @@
 
 using namespace berialdraw;
 
+// ============================================================================
+// JsonFileCache Implementation
+// ============================================================================
+
+/** Create JsonFileCache */
+JsonFileCache::JsonFileCache()
+	: m_json(0)
+{
+}
+
+/** Destroy JsonFileCache */
+JsonFileCache::~JsonFileCache()
+{
+	clear();
+}
+
+/** Load JSON from file if not already loaded, or return existing cache if same filename */
+std::unique_ptr<JsonIterator> JsonFileCache::get_iterator(const String & filename)
+{
+	File file;
+
+	// If different file, clear previous cache
+	if (m_filename != filename)
+	{
+		clear();
+		m_filename = filename;
+
+		// Try to open and load the new file
+		if (file.open(filename.c_str(), "rb") != -1)
+		{
+			m_json = new Json;
+			try
+			{
+				m_json->unserialize(file);
+			}
+			catch (...)
+			{
+				delete m_json;
+				m_json = 0;
+				m_filename = "";
+			}
+		}
+	}
+
+	// Return iterator if JSON is loaded
+	if (m_json)
+	{
+		return std::make_unique<JsonIterator>(*m_json);
+	}
+
+	return nullptr;
+}
+
+/** Clear the cache and free resources */
+void JsonFileCache::clear()
+{
+	if (m_json)
+	{
+		delete m_json;
+		m_json = 0;
+	}
+	m_filename = "";
+}
+
+// ============================================================================
+// Styles Implementation
+// ============================================================================
+
 /** Create widget */
 Styles::Styles()
 {
 	m_style = "pearl";
+	add_style("undefined","{}");
 }
 
 /** Destroy widget */
@@ -34,163 +103,66 @@ void Styles::style(const String & name)
 /** Clear styles */
 void Styles::clear()
 {
-	for(int index = 0; index < (int)m_names.size(); index++)
+	for (int i = 0; i < (int)m_items.size(); i++)
 	{
-		delete m_names[index];
+		StyleItem* item = m_items[i];
+		delete item;
 	}
-	m_names.clear();
-	for(int index = 0; index < (int)m_styles.size(); index++)
-	{
-		delete m_styles[index];
-	}
-	m_styles.clear();
-	delete m_json;
-	m_json = 0;
-	m_json_name = "";
+	m_items.clear();
+	m_json_cache.clear();
 }
 
-
-/** Get properties */
-bool Styles::apply(const char * classname, WidgetStyle * properties)
+/** Find style item index by name */
+uint32_t Styles::find_index(const String& name) const
 {
-	WidgetStyle *style = dynamic_cast<WidgetStyle*>(select(classname, "widget", WidgetStyle::create));
-	if (properties && style)
+	for (uint32_t i = 0; i < m_items.size(); i++)
 	{
-		*properties = *style;
+		if (m_items[i] && m_items[i]->name() == name)
+		{
+			return i;
+		}
 	}
-	return true;
+	return ~0;
 }
 
-/** Get properties */
-bool Styles::apply(const char * classname, CommonStyle * properties)
+/** Add a style with a name and properties (creates new StyleItem) */
+void Styles::add_style(const String& name, const String& properties)
 {
-	CommonStyle *style = dynamic_cast<CommonStyle*>(select(classname, "common", CommonStyle::create));
-	if (properties && style)
-	{
-		*properties = *style;
-	}
-	return true;
+	// Check if already exists and remove it
+	remove_style(name);
+	
+	// Create and add new StyleItem
+	StyleItem* item = new StyleItem(name, properties);
+	m_items.push_back(item);
 }
 
-/** Get properties */
-bool Styles::apply(const char * classname, TextStyle * properties)
+/** Remove a style by name */
+bool Styles::remove_style(const String& name)
 {
-	TextStyle *style = dynamic_cast<TextStyle*>(select(classname, "text", TextStyle::create));
-	if (properties && style)
+	uint32_t index = find_index(name);
+	if (index != ~0)
 	{
-		*properties = *style;
+		m_items.remove(index);
+		return true;
 	}
-	return true;
+	return false;
 }
 
-/** Get properties */
-bool Styles::apply(const char * classname, EditStyle * properties)
+/** Get a registered style by name */
+StyleItem* Styles::get_style(const String& name) const
 {
-	EditStyle *style = dynamic_cast<EditStyle*>(select(classname, "edit", EditStyle::create));
-	if (properties && style)
+	uint32_t index = find_index(name);
+	if (index == ~0)
 	{
-		*properties = *style;
+		index = 0;
 	}
-	return true;
+	return m_items[index];
 }
 
-/** Get properties */
-bool Styles::apply(const char * classname, SwitchStyle * properties)
+/** Check if a style exists */
+bool Styles::has_style(const String& name) const
 {
-	SwitchStyle *style = dynamic_cast<SwitchStyle*>(select(classname, "switch", SwitchStyle::create));
-	if (properties && style)
-	{
-		*properties = *style;
-	}
-	return true;
-}
-
-/** Get properties */
-bool Styles::apply(const char * classname, CheckboxStyle * properties)
-{
-	CheckboxStyle *style = dynamic_cast<CheckboxStyle*>(select(classname, "checkbox", CheckboxStyle::create));
-	if (properties && style)
-	{
-		*properties = *style;
-	}
-	return true;
-}
-
-/** Get properties */
-bool Styles::apply(const char * classname, RadioStyle * properties)
-{
-	RadioStyle *style = dynamic_cast<RadioStyle*>(select(classname, "radio", RadioStyle::create));
-	if (properties && style)
-	{
-		*properties = *style;
-	}
-	return true;
-}
-
-/** Get properties */
-bool Styles::apply(const char * classname, SliderStyle * properties)
-{
-	SliderStyle *style = dynamic_cast<SliderStyle*>(select(classname, "slider", SliderStyle::create));
-	if (properties && style)
-	{
-		*properties = *style;
-	}
-	return true;
-}
-
-/** Get properties */
-bool Styles::apply(const char * classname, ProgressBarStyle * properties)
-{
-	ProgressBarStyle *style = dynamic_cast<ProgressBarStyle*>(select(classname, "progressbar", ProgressBarStyle::create));
-	if (properties && style)
-	{
-		*properties = *style;
-	}
-	return true;
-}
-
-/** Get properties */
-bool Styles::apply(const char * classname, BorderStyle * properties)
-{
-	BorderStyle *style = dynamic_cast<BorderStyle*>(select(classname, "border", BorderStyle::create));
-	if (properties && style)
-	{
-		*properties = *style;
-	}
-	return true;
-}
-
-/** Apply icon properties */
-bool Styles::apply(const char * classname, IconStyle * properties)
-{
-	IconStyle *style = dynamic_cast<IconStyle*>(select(classname, "icon", IconStyle::create));
-	if (properties && style)
-	{
-		*properties = *style;
-	}
-	return true;
-}
-
-/** Apply scrollview properties */
-bool Styles::apply(const char * classname, ScrollViewStyle * properties)
-{
-	ScrollViewStyle *style = dynamic_cast<ScrollViewStyle*>(select(classname, "scrollview", ScrollViewStyle::create));
-	if (properties && style)
-	{
-		*properties = *style;
-	}
-	return true;
-}
-
-/** Apply tableview properties */
-bool Styles::apply(const char * classname, TableViewStyle * properties)
-{
-	TableViewStyle *style = dynamic_cast<TableViewStyle*>(select(classname, "tableview", TableViewStyle::create));
-	if (properties && style)
-	{
-		*properties = *style;
-	}
-	return true;
+	return find_index(name) != ~0;
 }
 
 /** Get mappings properties */
@@ -208,94 +180,127 @@ const Keys * Styles::keys(const char * classname)
 }
 
 /** Select the style according to the name specified, load it if not yet existing */
-Style * Styles::select(const char * classname, const char * properties, StyleCreator_t creator)
+Style * Styles::select(const char * classname, const char * property_name, StyleCreator_t creator)
 {
-	Style * result = 0;
+	Style * result = nullptr;
 	String style_name;
-	style_name.print("%s.%s",classname, properties);
-	for (int index = 0; index < (int)m_names.size(); index++)
+	style_name.print("widget.%s.%s", classname, property_name);
+	for (int index = 0; index < (int)m_items.size(); index++)
 	{
-		if (*m_names[index] == style_name)
+		if (m_items[index]->name() == style_name)
 		{
-			result = m_styles[index];
+			result = m_items[index]->style();
 			break;
 		}
 	}
-	if (result == 0)
+	if (result == nullptr)
 	{
-		result = load(classname, properties, creator);
+		result = load(classname, property_name, creator);
 	}
 	return result;
-}
-
-/** Get style filename according to class name */
-void Styles::filename(const char * classname, String & filename_)
-{
-	filename_.print("$(ui.styles)/%s/%s.json",m_style.c_str(),classname);
 }
 
 /** Load the style according to the name specified */
-Style * Styles::load(const char * classname, const char * properties, StyleCreator_t creator)
+Style * Styles::load(const char * classname, const char * property_name, StyleCreator_t creator)
 {
-	Style * result = 0;
-	File file;
+	Style * result = nullptr;
 	String filename_;
-	
-	filename(classname, filename_);
+	filename_.print("$(ui.styles)/%s/%s.json", m_style.c_str(), classname);
 
-	if (m_json_name != filename_)
+	// Get iterator from cache (handles lazy loading and smart reuse)
+	auto it = m_json_cache.get_iterator(filename_);
+
+	if (it)
 	{
-		if (m_json)
-		{
-			delete m_json;
-			m_json = 0;
-		}
-		m_json_name = "";
-
-		if (file.open(filename_,"rb") != -1)
-		{
-			m_json = new Json;
-			try
-			{
-				m_json->unserialize(file);
-				m_json_name = filename_;
-			}
-			catch(...)
-			{
-				delete m_json;
-				m_json = 0;
-			}
-		}
-	}
-	if (m_json && m_json_name == filename_)
-	{
-		JsonIterator it(*m_json);
-
 		result = creator();
 		if (result)
 		{
-			uint32_t size = sizeof(*result);
-			result->unserialize(it);
-			String * style_name = new String;
-			if (style_name)
-			{
-				style_name->print("%s.%s",classname, properties);
-				m_names.push_back(style_name);
-				m_styles.push_back(result);
-			}
-			else
-			{
-				delete result;
-				result = 0;
-			}
+			result->unserialize(*it);
+			String style_name;
+			style_name.print("widget.%s.%s", classname, property_name);
+			m_items.push_back(new StyleItem(style_name, result));
 		}
 	}
 	return result;
 }
+
+// ============================================================================
+// Template Implementations
+// ============================================================================
+
+template<typename T>
+bool Styles::apply(Widget* widget, T* properties)
+{
+	if (!widget || !properties) return false;
+	return apply(widget->classname(), properties);
+}
+
+// Explicit template instantiations for all Style types
+template bool Styles::apply<CommonStyle>(Widget* widget, CommonStyle* properties);
+template bool Styles::apply<WidgetStyle>(Widget* widget, WidgetStyle* properties);
+template bool Styles::apply<BorderStyle>(Widget* widget, BorderStyle* properties);
+template bool Styles::apply<TextStyle>(Widget* widget, TextStyle* properties);
+template bool Styles::apply<EditStyle>(Widget* widget, EditStyle* properties);
+template bool Styles::apply<SwitchStyle>(Widget* widget, SwitchStyle* properties);
+template bool Styles::apply<CheckboxStyle>(Widget* widget, CheckboxStyle* properties);
+template bool Styles::apply<RadioStyle>(Widget* widget, RadioStyle* properties);
+template bool Styles::apply<SliderStyle>(Widget* widget, SliderStyle* properties);
+template bool Styles::apply<ProgressBarStyle>(Widget* widget, ProgressBarStyle* properties);
+template bool Styles::apply<IconStyle>(Widget* widget, IconStyle* properties);
+template bool Styles::apply<ScrollViewStyle>(Widget* widget, ScrollViewStyle* properties);
+template bool Styles::apply<TableViewStyle>(Widget* widget, TableViewStyle* properties);
+template bool Styles::apply<Mappings>(Widget* widget, Mappings* properties);
+template bool Styles::apply<Keys>(Widget* widget, Keys* properties);
+template bool Styles::apply<PieStyle>(Widget* widget, PieStyle* properties);
+template bool Styles::apply<LineStyle>(Widget* widget, LineStyle* properties);
+template bool Styles::apply<RoundStyle>(Widget* widget, RoundStyle* properties);
+
+/** Specialization for Key to resolve ambiguous 'create()' from multiple inheritance */
+template<>
+bool Styles::apply<Key>(Widget* widget, Key* properties)
+{
+	if (!widget || !properties) return false;
+	return apply(widget->classname(), properties);
+}
+
 
 #ifdef _DEBUG
 void Styles::test1()
 {
+	// Create initial window with a button
+	Window window;
+		window.size(200, 150);
+
+	Column * column = new Column(&window);
+		Button * button = new Button(column);
+			button->text("button");
+			button->margin(5);
+			button->id(1);
+
+	// Display the window before style application
+	UIManager::desktop()->dispatch("$(ui.tests)/out/styles1_1.svg");
+
+	// Now create a JSON style with custom properties
+	String style_properties = 
+		"{"
+		"'text-color':0xFFFF0000,"             // Red text
+		"'font-size':24,"                      // Font size 24
+		"'text':'Styled Button',"              // New text content
+		"'radius':20,"                          // Radius (64ths of pixels, 128 = 2px)
+		"'border-color':0xFF0000FF,"           // Blue border
+		"'thickness':6,"                        // Thickness (6 in 64ths)
+		"'color':0xFFCFCFCF"
+		"}";
+
+	UIManager::styles()->add_style("button_style",style_properties);
+	Json style = UIManager::styles()->get_style("button_style")->properties();
+	JsonIterator style_it(style);
+
+	// Apply the style properties to the button
+	button->unserialize(style_it);
+
+	// Display the window after style application
+	UIManager::desktop()->dispatch("$(ui.tests)/out/styles1_2.svg");
 }
 
 void Styles::test2()

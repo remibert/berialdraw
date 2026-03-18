@@ -27,15 +27,6 @@ void RadioStyle::unserialize(JsonIterator & it)
 	m_group = it[StyleNames::RADIO_GROUP] | m_group.c_str();
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void RadioStyle::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 /** Copy operator */
 RadioStyle& RadioStyle::operator=(const RadioStyle& other)
 {

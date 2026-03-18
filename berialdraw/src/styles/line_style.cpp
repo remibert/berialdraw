@@ -22,15 +22,6 @@ void LineStyle::unserialize(JsonIterator & it)
 	m_point2.unserialize(StyleNames::LINE_POINT2,it);
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void LineStyle::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 /** Copy operator */
 LineStyle& LineStyle::operator=(const LineStyle& other)
 {

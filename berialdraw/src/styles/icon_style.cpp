@@ -37,15 +37,6 @@ void IconStyle::unserialize(JsonIterator & it)
 	m_zoom    = (zoom == Size::MAX_SIZE) ? m_zoom  : zoom;
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void IconStyle::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 /** Set the zoom ratio for the icon
 @param z zoom value */
 void IconStyle::zoom(Dim z)

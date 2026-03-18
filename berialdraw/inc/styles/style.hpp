@@ -20,12 +20,9 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		virtual void unserialize(JsonIterator & it) = 0;
 
-		/** Apply selective style properties from a StyleItem 
-		Unlike unserialize which loads from JSON with defaults, 
-		apply_style only modifies properties that are explicitly defined in the StyleItem.
-		Properties not present in the source style remain unchanged. */
-		virtual void apply_style(StyleItem* item) = 0;
-	};
+		/** Get the property name for this style (e.g., "widget", "common", "text") */
+		virtual const char* property_name() const = 0;
+};
 
 	/** Function pointer definition to create dedicated style */
 	typedef Style * (*StyleCreator_t)();

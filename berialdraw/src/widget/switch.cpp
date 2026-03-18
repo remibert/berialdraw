@@ -5,11 +5,11 @@ using namespace berialdraw;
 Switch::Switch(Widget * parent):
 	Widget("switch", parent, sizeof(Switch))
 {
-	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
-	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
-	UIManager::styles()->apply(m_classname, (TextStyle*)this);
-	UIManager::styles()->apply(m_classname, (BorderStyle*)this);
-	UIManager::styles()->apply(m_classname, (SwitchStyle*)this);
+	UIManager::styles()->apply(this, (CommonStyle*)this);
+	UIManager::styles()->apply(this, (WidgetStyle*)this);
+	UIManager::styles()->apply(this, (TextStyle*)this);
+	UIManager::styles()->apply(this, (BorderStyle*)this);
+	UIManager::styles()->apply(this, (SwitchStyle*)this);
 	bind(this, &Switch::on_key);
 	bind(this, &Switch::on_click);
 }

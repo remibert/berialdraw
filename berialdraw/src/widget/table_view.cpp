@@ -8,8 +8,8 @@ TableView::TableView(Widget * parent):
 	m_content_size(),
 	m_table_view_modified(1)
 {
-	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
-	UIManager::styles()->apply(m_classname, (TableViewStyle*)this);
+	UIManager::styles()->apply(this, (CommonStyle*)this);
+	UIManager::styles()->apply(this, (TableViewStyle*)this);
 
 	// Create internal grid directly as a child of TableView
 	m_grid = new Grid(this);

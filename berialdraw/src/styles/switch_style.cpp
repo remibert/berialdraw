@@ -27,15 +27,6 @@ void SwitchStyle::unserialize(JsonIterator & it)
 	berialdraw::unserialize(StyleNames::SWITCH_THUMB_PADDING, it, m_thumb_padding);
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void SwitchStyle::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 /** Copy operator */
 SwitchStyle& SwitchStyle::operator=(const SwitchStyle& other)
 {

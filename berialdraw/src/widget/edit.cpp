@@ -8,11 +8,11 @@ Edit::Edit(Widget * parent):
 	m_text_box()
 {
 	m_position = m_position;
-	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
-	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
-	UIManager::styles()->apply(m_classname, (BorderStyle*)this);
-	UIManager::styles()->apply(m_classname, (TextStyle*)this);
-	UIManager::styles()->apply(m_classname, (EditStyle*)this);
+	UIManager::styles()->apply(this, (CommonStyle*)this);
+	UIManager::styles()->apply(this, (WidgetStyle*)this);
+	UIManager::styles()->apply(this, (BorderStyle*)this);
+	UIManager::styles()->apply(this, (TextStyle*)this);
+	UIManager::styles()->apply(this, (EditStyle*)this);
 	bind(this, &Edit::on_key);
 	bind(this, &Edit::on_select);
 	bind(this, &Edit::on_click);

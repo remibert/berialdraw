@@ -22,6 +22,34 @@ Json::~Json()
 	delete m_json;
 }
 
+/** Move constructor - transfer ownership of data */
+Json::Json(Json&& other) noexcept
+	: m_json(nullptr), m_iterator(*this)
+{
+	// Transfer ownership of the ItemCollection pointer
+	m_json = other.m_json;
+	other.m_json = nullptr;
+	
+	// Note: m_iterator is already initialized to point to this Json object
+}
+
+/** Move assignment operator - transfer ownership of data */
+Json& Json::operator=(Json&& other) noexcept
+{
+	if (this != &other)
+	{
+		// Clean up existing data
+		delete m_json;
+		
+		// Transfer ownership of the ItemCollection pointer
+		m_json = other.m_json;
+		other.m_json = nullptr;
+		
+		// m_iterator already references this object (no need to rebuild)
+	}
+	return *this;
+}
+
 /** Provides read access to element at the given index in the vector. */
 JsonIterator Json::operator[](int index)
 {
@@ -1360,6 +1388,56 @@ void Json::test21()
 
 void Json::test22()
 {
+
+}
+
+void Json::test24()
+{
+	// Test move constructor - transfer ownership
+	Json json1("{\"name\":\"test\",\"value\":123,\"nested\":{\"x\":10,\"y\":20}}");
+	int count1 = json1.count();
+	Json json2(std::move(json1));
+	assert(json2.count() == count1);
+	assert(json1.count() == 0);  // Source should be empty after move
+
+	// Test move constructor and access nested data
+	Json json3("{\"items\":[1,2,3,4,5],\"config\":{\"enabled\":true}}");
+	Json json4(std::move(json3));
+	assert(json4["items"][0] == 1);
+	assert(json4["items"][4] == 5);
+	assert(json4["config"]["enabled"] == true);
+	assert(json3.count() == 0);
+
+	// Test move assignment operator
+	Json json5;
+	json5["a"] = 1;
+	json5["b"] = 2;
+	Json json6("{\"x\":100,\"y\":200}");
+	json6 = std::move(json5);
+	assert(json6["a"] == 1);
+	assert(json6["b"] == 2);
+	assert(json5.count() == 0);  // Source should be empty
+
+	// Test move with complex nested structure
+	Json json7;
+	json7["outer"]["inner"]["deep"] = "value";
+	int size = json7["outer"].count();
+	Json json8(std::move(json7));
+	assert(json8["outer"]["inner"]["deep"] == "value");
+	assert(json7.count() == 0);
+
+	// Test move in operations
+	Json json9("{\"data\":[10,20,30]}");
+	Json json10 = std::move(json9);
+	assert(json10["data"][1] == 20);
+	assert(json9.count() == 0);
+
+	// Test serialize after move
+	Json json11("{\"test\":true}");
+	Json json12(std::move(json11));
+	String out;
+	json12.serialize(out);
+	assert(out == "{\"test\":true}");
 }
 
 void Json::test23()
@@ -1375,6 +1453,7 @@ void Json::test()
 	#ifdef _WIN32
 		DeviceWin32::show_console();
 	#endif
+		test24();
 		test23();
 		test22();
 		test21();

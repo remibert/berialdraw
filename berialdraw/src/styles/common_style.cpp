@@ -56,15 +56,6 @@ void CommonStyle::unserialize(JsonIterator & it)
 	m_geometry_modified = 1;
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void CommonStyle::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 /** Set properties with another */
 void CommonStyle::set(const CommonStyle & other)
 {

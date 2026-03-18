@@ -175,33 +175,44 @@ void StyleManager::test2()
 	assert(found_header && found_footer && found_body);
 }
 
-// NOTE: Tests 3-9 are commented out because they depend on the old StyleItem API
-// which included add_style(), style_count(), get_style(), get_style_of_type(), etc.
-// The new ultra-lightweight StyleItem design stores only name and JSON properties,
-// with selective application via Style::apply_style() and JsonIterator pattern.
+void StyleManager::test3()
+{
+	// Create initial window with a button
+	Window window;
+		window.size(200, 150);
 
-/*
-/** Test 3: Unregister/delete a style * /
-void StyleManager::test3() { ... }
+	Column * column = new Column(&window);
+		Button * button = new Button(column);
+			button->text("button");
+			button->margin(5);
+			button->id(1);
 
-/** Test 4: Duplicate registration replaces existing * /
-void StyleManager::test4() { ... }
+	// Display the window before style application
+	UIManager::desktop()->dispatch("$(ui.tests)/out/style_manager3_1.svg");
 
-/** Test 5: Clear all styles * /
-void StyleManager::test5() { ... }
+	// Now create a JSON style with custom properties
+	String style_properties = 
+		"{"
+		"'text-color':0xFFFF0000,"             // Red text
+		"'font-size':24,"                      // Font size 24
+		"'text':'Styled Button',"              // New text content
+		"'radius':20,"                          // Radius (64ths of pixels, 128 = 2px)
+		"'border-color':0xFF0000FF,"           // Blue border
+		"'thickness':6,"                        // Thickness (6 in 64ths)
+		"'color':0xFFCFCFCF"
+		"}";
 
-/** Test 6: StyleItem with multiple styles * /
-void StyleManager::test6() { ... }
+	UIManager::styles()->add_style("button_style",style_properties);
+	Json style = UIManager::styles()->get_style("button_style")->properties();
+	JsonIterator style_it(style);
 
-/** Test 7: StyleItem copy operator * /
-void StyleManager::test7() { ... }
+	// Apply the style properties to the button
+	button->unserialize(style_it);
 
-/** Test 8: Serialize and unserialize styles * /
-void StyleManager::test8() { ... }
-
-/** Test 9: Complex style management workflow * /
-void StyleManager::test9() { ... }
-*/
+	// Display the window after style application
+while(1)
+	UIManager::desktop()->dispatch("$(ui.tests)/out/style_manager3_2.svg");
+}
 
 /** Main test runner - execute all tests */
 void StyleManager::test()
@@ -210,13 +221,7 @@ void StyleManager::test()
 	if (done == false)
 	{
 		done = true;
-		// test9(); // Commented out (old API)
-		// test8(); // Commented out (old API)
-		// test7(); // Commented out (old API)
-		// test6(); // Commented out (old API)
-		// test5(); // Commented out (old API)
-		// test4(); // Commented out (old API)
-		// test3(); // Commented out (old API)
+		test3();
 		test2();
 		test1();
 	}

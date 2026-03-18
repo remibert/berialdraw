@@ -5,10 +5,10 @@ using namespace berialdraw;
 ProgressBar::ProgressBar(Widget * parent):
 	Widget("progress_bar", parent, sizeof(ProgressBar))
 {
-	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
-	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
-	UIManager::styles()->apply(m_classname, (BorderStyle*)this);
-	UIManager::styles()->apply(m_classname, (ProgressBarStyle*)this);
+	UIManager::styles()->apply(this, (CommonStyle*)this);
+	UIManager::styles()->apply(this, (WidgetStyle*)this);
+	UIManager::styles()->apply(this, (BorderStyle*)this);
+	UIManager::styles()->apply(this, (ProgressBarStyle*)this);
 }
 
 ProgressBar::~ProgressBar()

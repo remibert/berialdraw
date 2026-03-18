@@ -7,8 +7,8 @@ using namespace berialdraw;
 ScrollableContent::ScrollableContent(const char * classname, Widget * parent, size_t size_of_widget):
 	Widget(classname, parent, size_of_widget)
 {
-	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
-	UIManager::styles()->apply(m_classname, (ScrollViewStyle*)this);
+	UIManager::styles()->apply(this, (WidgetStyle*)this);
+	UIManager::styles()->apply(this, (ScrollViewStyle*)this);
 	m_color = Color::TRANSPARENT;
 	m_size.clean();
 	bind(this, &ScrollableContent::on_scroll);

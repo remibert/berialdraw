@@ -49,15 +49,6 @@ void Key::unserialize(JsonIterator & it)
 	BorderStyle::unserialize(it);
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void Key::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 
 /** Constructor */
 Keys::Keys()
@@ -123,15 +114,6 @@ void Keys::unserialize(JsonIterator & parent)
 		key->unserialize(child);
 		m_keys.push_back(key);
 	}
-}
-
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void Keys::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	// Keys is a container of keyboard key mappings, not directly applicable as a style property
-	// This is a placeholder implementation for compatibility with the Style interface
 }
 
 /** Create new keys */

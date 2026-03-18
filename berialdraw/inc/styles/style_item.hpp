@@ -3,7 +3,7 @@ namespace berialdraw
 {
 	/** StyleItem stores a named set of style properties in JSON format.
 	Ultra-lightweight container: just a name and JSON properties string.
-	The JSON is parsed and applied selectively via Style::apply_style(). */
+	The JSON is parsed and applied via unserialize(). */
 	class StyleItem
 	{
 	public:
@@ -16,6 +16,15 @@ namespace berialdraw
 		/** Constructor with name and properties */
 		StyleItem(const String& name, const String& json_properties);
 
+		/** Constructor with name and compiled Style pointer */
+		StyleItem(const String& name, Style* style);
+
+		/** Copy constructor */
+		StyleItem(const StyleItem& other);
+
+		/** Move constructor */
+		StyleItem(StyleItem&& other) noexcept;
+
 		/** Destructor */
 		virtual ~StyleItem();
 
@@ -25,9 +34,14 @@ namespace berialdraw
 		/** Set the style name */
 		void name(const String& n) { m_name = n; }
 
-			/** Get the properties as a JsonIterator 
-		Parses the JSON string and returns iterator for selective unserialize */
-		JsonIterator properties() const;
+		/** Get the properties as a Json (returns by value with move semantics) */
+		Json properties() const;
+
+		/** Get the compiled Style pointer (non-owning) */
+		Style* style() const { return m_style; }
+
+		/** Set the compiled Style pointer (non-owning) */
+		void style(Style* s) { m_style = s; }
 
 		/** Serialize the StyleItem to JSON */
 		void serialize(JsonIterator & it);
@@ -39,6 +53,7 @@ namespace berialdraw
 		/// @cond DOXYGEN_IGNORE
 		String m_name;
 		String m_properties;
+		Style* m_style = nullptr;
 		/// @endcond
 	};
 }

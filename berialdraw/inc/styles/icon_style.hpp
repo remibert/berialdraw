@@ -16,13 +16,10 @@ namespace berialdraw
 		static Style * create();
 
 		/** Serialize the content of widget into json */
-		virtual void serialize(JsonIterator & it);
+		void serialize(JsonIterator & it) override;
 
 		/** Unserialize the content of widget from json */
-		virtual void unserialize(JsonIterator & it);
-
-		/** Apply selective style properties from StyleItem (only modifies defined properties) */
-		virtual void apply_style(StyleItem* item);
+		void unserialize(JsonIterator & it) override;
 
 		// Zoom properties
 
@@ -74,6 +71,9 @@ namespace berialdraw
 
 		/** Set the back icon color with alpha */
 		void icon_color(uint32_t col, uint8_t alpha);
+
+		/** Get the property name for this style */
+		const char* property_name() const override { return "icon"; }
 
 	protected:
 /// @cond DOXYGEN_IGNORE

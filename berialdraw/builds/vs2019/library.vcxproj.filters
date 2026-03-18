@@ -725,9 +725,6 @@
     <ClCompile Include="..\..\src\styles\style_item.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\styles\style_manager.cpp">
-      <Filter>berialdraw\styles</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\berialdraw_imp.hpp">
@@ -1519,7 +1516,7 @@
     <ClInclude Include="..\..\inc\styles\style_item.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\style_manager.hpp">
+    <ClInclude Include="..\..\inc\styles\style_names.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
   </ItemGroup>

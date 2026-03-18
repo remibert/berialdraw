@@ -19,19 +19,42 @@ StyleItem::StyleItem(const String& name, const String& json_properties)
 {
 }
 
+/** Constructor with name and compiled Style */
+StyleItem::StyleItem(const String& name, Style* style)
+	: m_name(name), m_properties("{}"), m_style(style)
+{
+}
+
+/** Copy constructor */
+StyleItem::StyleItem(const StyleItem& other)
+	: m_name(other.m_name), m_properties(other.m_properties), m_style(other.m_style)
+{
+}
+
+/** Move constructor */
+StyleItem::StyleItem(StyleItem&& other) noexcept
+	: m_name(std::move(other.m_name)), 
+	  m_properties(std::move(other.m_properties)),
+	  m_style(other.m_style)
+{
+	other.m_style = nullptr;
+}
+
 /** Destructor */
 StyleItem::~StyleItem()
 {
-	// Nothing to clean - no dynamic allocations
+	delete m_style;
 }
 
-/** Get the properties as a JsonIterator 
-Parses the JSON string and returns iterator for selective unserialize */
-JsonIterator StyleItem::properties() const
+/** Get the properties as a Json (returns by value with move semantics) */
+Json StyleItem::properties() const
 {
-	// Parse the JSON properties string using the Json class
-	Json json(m_properties.c_str());
-	return JsonIterator(json);
+	Json json;
+	if (m_properties.size())
+	{
+		json.unserialize(m_properties);
+	}
+	return json; 
 }
 
 /** Serialize the StyleItem to JSON */

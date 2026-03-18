@@ -5,11 +5,11 @@ using namespace berialdraw;
 Checkbox::Checkbox(Widget * parent):
 	Widget("checkbox", parent, sizeof(Checkbox))
 {
-	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
-	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
-	UIManager::styles()->apply(m_classname, (TextStyle*)this);
-	UIManager::styles()->apply(m_classname, (BorderStyle*)this);
-	UIManager::styles()->apply(m_classname, (CheckboxStyle*)this);
+	UIManager::styles()->apply(this, (CommonStyle*)this);
+	UIManager::styles()->apply(this, (WidgetStyle*)this);
+	UIManager::styles()->apply(this, (TextStyle*)this);
+	UIManager::styles()->apply(this, (BorderStyle*)this);
+	UIManager::styles()->apply(this, (CheckboxStyle*)this);
 	bind(this, &Checkbox::on_key);
 	bind(this, &Checkbox::on_click);
 }

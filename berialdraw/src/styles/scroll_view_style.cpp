@@ -28,15 +28,6 @@ void ScrollViewStyle::unserialize(JsonIterator & it)
 	m_viewport_size.unserialize(StyleNames::SCROLLVIEW_VIEWPORT_SIZE, it);
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void ScrollViewStyle::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 /** Copy operator */
 ScrollViewStyle& ScrollViewStyle::operator=(const ScrollViewStyle& other)
 {

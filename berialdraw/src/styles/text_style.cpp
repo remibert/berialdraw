@@ -34,15 +34,6 @@ void TextStyle::unserialize(JsonIterator & it)
 	m_padding.unserialize (StyleNames::TEXT_PADDING,it);
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void TextStyle::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 /** Copy operator */
 TextStyle& TextStyle::operator=(const TextStyle& other)
 {

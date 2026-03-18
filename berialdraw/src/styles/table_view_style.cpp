@@ -39,15 +39,6 @@ void TableViewStyle::unserialize(JsonIterator & it)
 	berialdraw::unserialize(StyleNames::TABLEVIEW_SCROLL_DIRECTION, it, m_scroll_direction);
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void TableViewStyle::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 /** Set properties with another */
 void TableViewStyle::set(const TableViewStyle & other)
 {

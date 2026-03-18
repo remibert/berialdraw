@@ -36,15 +36,6 @@ void ProgressBarStyle::unserialize(JsonIterator & it)
 	check_progress_bar();
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void ProgressBarStyle::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 /** Copy operator */
 ProgressBarStyle& ProgressBarStyle::operator=(const ProgressBarStyle& other)
 {

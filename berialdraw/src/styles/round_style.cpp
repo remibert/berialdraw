@@ -23,15 +23,6 @@ void RoundStyle::unserialize(JsonIterator & it)
 	berialdraw::unserialize(StyleNames::BORDER_THICKNESS, it, m_thickness);
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void RoundStyle::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 /** Set properties with another */
 void RoundStyle::set(const RoundStyle & other)
 {

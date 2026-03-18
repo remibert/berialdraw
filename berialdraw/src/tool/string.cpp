@@ -53,6 +53,16 @@ String::String(const String & string)
 	append(string.m_string);
 }
 
+String::String(String&& string) noexcept
+	: m_string(string.m_string), m_capacity(string.m_capacity),
+	  m_size(string.m_size), m_offset(string.m_offset)
+{
+	string.m_string = nullptr;
+	string.m_capacity = 0;
+	string.m_size = 0;
+	string.m_offset = 0;
+}
+
 String::String(const char * string)
 {
 	if(string)
@@ -119,6 +129,27 @@ String& String::operator=(wchar_t value)
 	char buffer[7]={0,0,0,0,0,0,0};
 	Utf8::write(value, buffer, sizeof(buffer));
 	return operator=(buffer);
+}
+
+String& String::operator=(String&& other) noexcept
+{
+	if (this != &other)
+	{
+		if(m_string)
+		{
+			delete m_string;
+		}
+		m_string = other.m_string;
+		m_capacity = other.m_capacity;
+		m_size = other.m_size;
+		m_offset = other.m_offset;
+		
+		other.m_string = nullptr;
+		other.m_capacity = 0;
+		other.m_size = 0;
+		other.m_offset = 0;
+	}
+	return *this;
 }
 
 String::~String()
@@ -1476,8 +1507,59 @@ void String::test9()
 	assert(str == "hello cafÉ world");
 }
 
+void String::test10()
+{
+	// Test move constructor - transfer ownership
+	String str1("hello world");
+	String str2(std::move(str1));
+	assert(str2 == "hello world");
+	assert(str1.size() == 0);  // Source should be empty after move
+
+	// Test move constructor with large string
+	String str3("This is a much longer string with more data to transfer");
+	uint32_t size = str3.size();
+	String str4(std::move(str3));
+	assert(str4.size() == size);
+	assert(str3.size() == 0);
+	assert(str4 == "This is a much longer string with more data to transfer");
+
+	// Test move assignment operator
+	String str5("source");
+	String str6("destination");
+	str6 = std::move(str5);
+	assert(str6 == "source");
+	assert(str5.size() == 0);  // Source should be empty after move
+
+	// Test move assignment with self-assignment check
+	String str7("test");
+	str7 = std::move(str7);  // Should handle gracefully with self-move
+	assert(str7.size() == 0 || str7 == "test");  // Self-move may leave it empty
+
+	// Test move with UTF-8 characters
+	String str8("café français");
+	uint32_t count = str8.count();
+	String str9(std::move(str8));
+	assert(str9.count() == count);
+	assert(str9 == "café français");
+	assert(str8.size() == 0);
+
+	// Test chained moves
+	String str10("chained");
+	String str11(std::move(str10));
+	String str12(std::move(str11));
+	assert(str12 == "chained");
+	assert(str10.size() == 0);
+	assert(str11.size() == 0);
+
+	// Test move in operations
+	String str13("hello");
+	String str14 = std::move(str13) + " world";
+	assert(str14 == "hello world");
+}
+
 void String::test()
 {
+	test10();
 	test9();
 	test8();
 	test7();

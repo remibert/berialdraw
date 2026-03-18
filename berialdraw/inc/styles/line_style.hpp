@@ -9,13 +9,10 @@ namespace berialdraw
 		LineStyle();
 
 		/** Serialize the content of widget into json */
-		void serialize(JsonIterator & it);
+		void serialize(JsonIterator & it) override;
 
 		/** Unserialize the content of widget from json */
-		void unserialize(JsonIterator & it);
-
-		/** Apply selective style properties from StyleItem (only modifies defined properties) */
-		void apply_style(StyleItem* item);
+		void unserialize(JsonIterator & it) override;
 
 		/** Copy operator */
 		LineStyle& operator=(const LineStyle& other);
@@ -53,6 +50,8 @@ namespace berialdraw
 		/** Set the point2 with a precision of 64th of a pixel */
 		void point2_(Coord x, Coord y);
 
+		/** Get the property name for this style */
+		const char* property_name() const override { return "line"; }
 
 	protected:
 /// @cond DOXYGEN_IGNORE

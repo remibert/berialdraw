@@ -49,15 +49,6 @@ void EditStyle::unserialize(JsonIterator & it)
 	}
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void EditStyle::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 /** Copy operator */
 EditStyle& EditStyle::operator=(const EditStyle& other)
 {

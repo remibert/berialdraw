@@ -62,13 +62,10 @@ namespace berialdraw
 		Key();
 
 		/** Serialize the content of widget into json */
-		void serialize(JsonIterator & it);
+		void serialize(JsonIterator & it) override;
 
 		/** Unserialize the content of widget from json */
-		void unserialize(JsonIterator & it);
-
-		/** Apply selective style properties from StyleItem (only modifies defined properties) */
-		void apply_style(StyleItem* item);
+		void unserialize(JsonIterator & it) override;
 
 		/** Gets the key value */
 		wchar_t key() const;
@@ -78,6 +75,9 @@ namespace berialdraw
 
 		/** Gets the name of the destination mapping */
 		const String & to() const;
+
+		/** Get the property name for this style */
+		const char* property_name() const override { return "key"; }
 
 	protected:
 /// @cond DOXYGEN_IGNORE
@@ -101,16 +101,16 @@ namespace berialdraw
 		const Key * key(wchar_t key_value, const String & name) const;
 
 		/** Serialize the content of widget into json */
-		void serialize(JsonIterator & it);
+		void serialize(JsonIterator & it) override;
 
 		/** Unserialize the content of widget from json */
-		void unserialize(JsonIterator & it);
-
-		/** Apply selective style properties from StyleItem (only modifies defined properties) */
-		void apply_style(StyleItem* item);
+		void unserialize(JsonIterator & it) override;
 
 		/** Create new keys */
 		static Style * create();
+
+		/** Get the property name for this style */
+		const char* property_name() const override { return "keys"; }
 
 	protected:
 /// @cond DOXYGEN_IGNORE

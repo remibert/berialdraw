@@ -7,8 +7,8 @@ Window::Window() : Widget("window",0, sizeof(Window))
 	m_allocated = false;
 	UIManager::desktop()->add(this);
 
-	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
-	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
+	UIManager::styles()->apply(this, (CommonStyle*)this);
+	UIManager::styles()->apply(this, (WidgetStyle*)this);
 
 	bind(this, &Window::on_click_widget);
 	bind(this, &Window::on_key_focus);

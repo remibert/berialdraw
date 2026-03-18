@@ -151,11 +151,6 @@ const Area & Widget::backclip() const
 	return m_backclip;
 }
 
-const char * Widget::classname() const
-{
-	return m_classname;
-}
-
 void Widget::place(const Area & area, bool in_layout)
 {
 	m_backclip = area;

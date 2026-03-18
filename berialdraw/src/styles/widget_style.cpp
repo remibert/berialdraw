@@ -58,15 +58,6 @@ void WidgetStyle::unserialize(JsonIterator & it)
 	m_flow       = (int)it[StyleNames::WIDGET_FLOW] | m_flow;
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void WidgetStyle::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 /** Copy operator */
 WidgetStyle& WidgetStyle::operator=(const WidgetStyle& other)
 {

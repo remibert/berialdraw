@@ -26,15 +26,6 @@ void PieStyle::unserialize(JsonIterator & it)
 	m_rope       = (int)(it[StyleNames::PIE_ROPE]        | (int)(m_rope      ));
 }
 
-/** Apply selective style properties from StyleItem (only modifies defined properties) */
-void PieStyle::apply_style(StyleItem* item)
-{
-	if (!item) return;
-	
-	JsonIterator it = item->properties();
-	this->unserialize(it);
-}
-
 /** Copy operator */
 PieStyle& PieStyle::operator=(const PieStyle& other)
 {

@@ -5,9 +5,9 @@ using namespace berialdraw;
 Pane::Pane(Widget * parent):
 	Widget("pane", parent, sizeof(Pane))
 {
-	UIManager::styles()->apply(m_classname, (CommonStyle*)this);
-	UIManager::styles()->apply(m_classname, (WidgetStyle*)this);
-	UIManager::styles()->apply(m_classname, (BorderStyle*)this);
+	UIManager::styles()->apply(this, (CommonStyle*)this);
+	UIManager::styles()->apply(this, (WidgetStyle*)this);
+	UIManager::styles()->apply(this, (BorderStyle*)this);
 }
 
 Pane::~Pane()

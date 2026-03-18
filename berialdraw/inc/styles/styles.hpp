@@ -2,6 +2,26 @@
 namespace berialdraw
 {
 	class Desktop;
+	class Widget;
+	class StyleItem;
+
+	/** Cache for managing JSON file loading with lazy loading and smart reuse */
+	class JsonFileCache
+	{
+	public:
+		JsonFileCache();
+		~JsonFileCache();
+
+		/** Load JSON from file if not already loaded, or return existing cache if same filename */
+		std::unique_ptr<JsonIterator> get_iterator(const String & filename);
+
+		/** Clear the cache and free resources */
+		void clear();
+
+	protected:
+		Json * m_json = 0;
+		String m_filename;
+	};
 
 	/** The Styles class manages a collection of Style instances, from which all specific style classes 
 	(e.g., BorderStyle, SliderStyle) inherit. 
@@ -20,45 +40,48 @@ namespace berialdraw
 		/** Clear styles */
 		void clear();
 
-		/** Apply common properties */
-		bool apply(const char * classname, CommonStyle * properties);
+		/** Apply style properties to a widget
+		@param classname The class name of the widget
+		@param properties Pointer to the style properties to be filled
+		@return true if style was successfully applied */
+		template<typename T>
+		bool apply(const char* classname, T* properties)
+		{
+			if (!classname || !properties) return false;
+			
+			auto creator = []() -> Style* { return T::create(); };
+			T* style = dynamic_cast<T*>(select(classname, properties->property_name(), creator));
+			if (style)
+			{
+				*properties = *style;
+				return true;
+			}
+			return false;
+		}
 
-		/** Apply widget properties */
-		bool apply(const char * classname, WidgetStyle * properties);
+		/** Apply style properties to a widget via Widget pointer
+		@param widget The widget instance to get classname from
+		@param properties Pointer to the style properties to be filled
+		@return true if style was successfully applied */
+		template<typename T>
+		bool apply(Widget* widget, T* properties);
 
-		/** Apply text properties */
-		bool apply(const char * classname, TextStyle * properties);
+		/** Template specialization for Key to resolve ambiguous 'create()' from multiple inheritance */
+		template<>
+		inline bool apply<Key>(const char* classname, Key* properties)
+		{
+			if (!classname || !properties) return false;
+			
+			auto creator = []() -> Style* { return CommonStyle::create(); };
+			Key* style = dynamic_cast<Key*>(select(classname, properties->property_name(), creator));
+			if (style)
+			{
+				*properties = *style;
+				return true;
+			}
+			return false;
+		}
 
-		/** Apply border properties */
-		bool apply(const char * classname, BorderStyle * properties);
-
-		/** Apply edit properties */
-		bool apply(const char * classname, EditStyle * properties);
-
-		/** Apply switch properties */
-		bool apply(const char * classname, SwitchStyle * properties);
-
-		/** Apply checkbox properties */
-		bool apply(const char * classname, CheckboxStyle * properties);
-
-		/** Apply radio properties */
-		bool apply(const char * classname, RadioStyle * properties);
-
-		/** Apply slider properties */
-		bool apply(const char * classname, SliderStyle * properties);
-
-		/** Apply progress properties */
-		bool apply(const char * classname, ProgressBarStyle * properties);
-
-		/** Apply icon properties */
-		bool apply(const char * classname, IconStyle * properties);
-		
-		/** Apply scrollview properties */
-		bool apply(const char * classname, ScrollViewStyle * properties);
-		
-		/** Apply tableview properties */
-		bool apply(const char * classname, TableViewStyle * properties);
-		
 		/** Get mappings properties */
 		const Mappings * mappings(const char * classname);
 
@@ -71,8 +94,28 @@ namespace berialdraw
 		/** Set style name */
 		void style(const String & name);
 
-		/** Get style filename according to classname */
-		void filename(const char * classname, String & filename);
+
+		/** Add a style with a name and properties (creates new StyleItem)
+		@param name Name of the style
+		@param properties JSON string of properties */
+		void add_style(const String& name, const String& properties);
+
+		/** Remove a style by name
+		@param name Name of the style to remove
+		@return true if removed, false if not found */
+		bool remove_style(const String& name);
+
+		/** Get a registered style by name
+		@param name Name of the style
+		@return Pointer to StyleItem or nullptr if not found */
+		StyleItem* get_style(const String& name) const;
+
+		/** Check if a style exists
+		@param name Name of the style
+		@return true if style exists */
+		bool has_style(const String& name) const;
+
+
 
 #ifdef _DEBUG
 		static void test();
@@ -82,16 +125,17 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Find style item index by name */
+		uint32_t find_index(const String& name) const;
+
 		/** Select the style according to the name specified, load it if not yet existing */
-		Style * select(const char * name, const char * properties, StyleCreator_t creator);
+		Style * select(const char * classname, const char * property_name, StyleCreator_t creator);
 
 		/** Load the style according to the name specified */
-		Style * load(const char * name, const char * properties, StyleCreator_t creator);
+		Style * load(const char * classname, const char * property_name, StyleCreator_t creator);
 
-		Vector<String * >    m_names;
-		Vector<Style *>      m_styles;
-		Json * m_json = 0;
-		String m_json_name;
+		Vector<StyleItem*>    m_items;
+		JsonFileCache        m_json_cache;
 		String m_style;
 /// @endcond
 	};

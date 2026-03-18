@@ -83,9 +83,6 @@ namespace berialdraw
 		/** Return the area occuped by this window */
 		virtual Area area();
 
-		/** Return the name of class */
-		const char * classname() const;
-
 		/** Bind event on a method */
 		template<class CLASS, class EVENT> void bind(
 			CLASS * object, 
@@ -120,6 +117,9 @@ namespace berialdraw
 
 		/** Unserialize the content of widget from json */
 		virtual void unserialize(JsonIterator & it) = 0;
+
+		/** Get the class name of this widget (e.g., "Button", "TextEdit", "Label") */
+		virtual const char* classname() const { return m_classname; }
 
 		/** Return the color value when the widget is pressed */
 		uint32_t pressed_color(uint32_t color, bool pressed);
