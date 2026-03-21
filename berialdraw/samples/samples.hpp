@@ -60,8 +60,8 @@ void sample_window(berialdraw::Widget * widget, const berialdraw::ClickEvent & e
 // Sample function to show speedometer on canvas widget
 void sample_speedometer(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
 
-// Sample function to show all colors themes
-void sample_theme(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
+// Sample function to show all colors palettes
+void sample_palette(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
 
 // Sample function to show forms
 void sample_forms(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);

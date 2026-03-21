@@ -2,7 +2,7 @@
 namespace berialdraw
 {
 	class Desktop;
-	/** Allows you to manage predefined colors for color theme display */
+	/** Allows you to manage predefined colors for color palette display */
 	class Colors
 	{
 	public:
@@ -17,9 +17,9 @@ namespace berialdraw
 		@return true if load with success */
 		bool appearance(const char * name=0);
 
-		/** Choose the color theme
-		@param color theme */
-		void theme(uint32_t color);
+		/** Choose the color palette
+		@param color palette */
+		void palette(uint32_t color);
 
 		/** Redefine predefined color */
 		void color(uint32_t id, uint32_t color, bool focused=false);
@@ -45,8 +45,8 @@ namespace berialdraw
 		void filename(const char * classname, String & filename_);
 		Vector<uint32_t> m_colors_primary;
 		Vector<uint32_t> m_colors_secondary;
-		uint32_t m_theme_values[(Color::LAST_THEME_VALUE-Color::FIRST_THEME_VALUE) + 1];
-		uint32_t m_theme;
+		uint32_t m_palette_values[(Color::LAST_PALETTE_VALUE-Color::FIRST_PALETTE_VALUE) + 1];
+		uint32_t m_palette;
 		bool m_loaded = false;
 /// @endcond
 	};

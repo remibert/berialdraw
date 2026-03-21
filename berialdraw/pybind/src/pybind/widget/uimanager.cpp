@@ -41,15 +41,15 @@ void bind_uimanager(pybind11::module_& m) {
                 berialdraw::UIManager::colors()->appearance(name.c_str());
             }, "Appearance mode (light/dark)")
             
-        .def_property_static("theme",
+        .def_property_static("palette",
             // Getter - pas de méthode getter dans Colors, on retourne 0
             [](pybind11::object) -> uint32_t {
                 return 0; // TODO: ajouter getter si disponible
             },
             // Setter
             [](pybind11::object, uint32_t color) {
-                berialdraw::UIManager::colors()->theme(color);
-            }, "Color theme")
+                berialdraw::UIManager::colors()->palette(color);
+            }, "Color palette")
             
         .def_property_static("clipboard",
             // Getter

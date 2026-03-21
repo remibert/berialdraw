@@ -1236,7 +1236,7 @@ void Button::test14()
 {
 	UIManager::styles()->style("pearl");            // Select the style pearl
 	UIManager::colors()->appearance("light");       // Select the light appearance
-	UIManager::colors()->theme(Color::THEME_LIME);  // Select the color theme
+	UIManager::colors()->palette(Color::PALETTE_LIME);  // Select the color palette
 
 	Window window;
 	Column * col;

@@ -423,7 +423,7 @@ namespace berialdraw
 				"{'type':'touch','x': 54,'y': 20,'state':'down'},"
 				"{'type':'touch','x': 54,'y': 20,'state':'up'},"
 
-				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_theme_%d.svg'},"
+				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_palette_%d.svg'},"
 				"{'type':'touch','x':313,'y':356,'state':'down'},"
 				"{'type':'touch','x':313,'y':347,'state':'move'},"
 				"{'type':'touch','x':306,'y':287,'state':'move'},"

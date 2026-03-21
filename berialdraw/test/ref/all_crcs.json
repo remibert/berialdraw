@@ -3057,7 +3057,7 @@
 		},
 		"$(ui.tests)/out/linechart.svg" : 
 		{
-			"scale_2" : 1931510416
+			"scale_2" : 2328479071
 		},
 		"$(ui.tests)/out/compass1.svg" : 
 		{
@@ -3085,7 +3085,7 @@
 		},
 		"$(ui.tests)/out/polyline2.svg" : 
 		{
-			"scale_2" : 2819515692
+			"scale_2" : 3024907053
 		},
 		"$(ui.tests)/out/polylines1_1.svg" : 
 		{
@@ -3109,7 +3109,7 @@
 		},
 		"$(ui.tests)/out/polylines1_6.svg" : 
 		{
-			"scale_2" : 4090164957
+			"scale_2" : 1007746401
 		},
 		"$(ui.tests)/out/polylines1_7.svg" : 
 		{
@@ -3690,5 +3690,173 @@
 		"$(ui.tests)/out/tableview1.svg" : 
 		{
 			"scale_2" : 1522715058
+		},
+		"$(ui.tests)/out/styles1_1.svg" : 
+		{
+			"scale_2" : 1074709050
+		},
+		"$(ui.tests)/out/styles1_2.svg" : 
+		{
+			"scale_2" : 530264848
+		},
+		"$(ui.tests)/out/sample_palette_1.svg" : 
+		{
+			"scale_2" : 2759495701
+		},
+		"$(ui.tests)/out/sample_palette_2.svg" : 
+		{
+			"scale_2" : 857190082
+		},
+		"$(ui.tests)/out/sample_palette_3.svg" : 
+		{
+			"scale_2" : 2246159227
+		},
+		"$(ui.tests)/out/sample_palette_4.svg" : 
+		{
+			"scale_2" : 962802443
+		},
+		"$(ui.tests)/out/sample_palette_5.svg" : 
+		{
+			"scale_2" : 560708756
+		},
+		"$(ui.tests)/out/sample_palette_6.svg" : 
+		{
+			"scale_2" : 2639273398
+		},
+		"$(ui.tests)/out/sample_palette_7.svg" : 
+		{
+			"scale_2" : 1693056497
+		},
+		"$(ui.tests)/out/sample_palette_8.svg" : 
+		{
+			"scale_2" : 2494516513
+		},
+		"$(ui.tests)/out/sample_palette_9.svg" : 
+		{
+			"scale_2" : 3798480450
+		},
+		"$(ui.tests)/out/sample_palette_10.svg" : 
+		{
+			"scale_2" : 3706053718
+		},
+		"$(ui.tests)/out/sample_palette_11.svg" : 
+		{
+			"scale_2" : 1478229612
+		},
+		"$(ui.tests)/out/sample_palette_12.svg" : 
+		{
+			"scale_2" : 427229495
+		},
+		"$(ui.tests)/out/sample_palette_13.svg" : 
+		{
+			"scale_2" : 919522905
+		},
+		"$(ui.tests)/out/sample_palette_14.svg" : 
+		{
+			"scale_2" : 2293507612
+		},
+		"$(ui.tests)/out/sample_palette_15.svg" : 
+		{
+			"scale_2" : 3346783162
+		},
+		"$(ui.tests)/out/sample_palette_16.svg" : 
+		{
+			"scale_2" : 1036972122
+		},
+		"$(ui.tests)/out/sample_palette_17.svg" : 
+		{
+			"scale_2" : 4139287081
+		},
+		"$(ui.tests)/out/sample_palette_18.svg" : 
+		{
+			"scale_2" : 3336279351
+		},
+		"$(ui.tests)/out/sample_palette_19.svg" : 
+		{
+			"scale_2" : 2350041161
+		},
+		"$(ui.tests)/out/sample_palette_20.svg" : 
+		{
+			"scale_2" : 455465875
+		},
+		"$(ui.tests)/out/sample_palette_21.svg" : 
+		{
+			"scale_2" : 3246592717
+		},
+		"$(ui.tests)/out/sample_palette_22.svg" : 
+		{
+			"scale_2" : 2737895070
+		},
+		"$(ui.tests)/out/sample_palette_23.svg" : 
+		{
+			"scale_2" : 76815939
+		},
+		"$(ui.tests)/out/sample_palette_24.svg" : 
+		{
+			"scale_2" : 1068335712
+		},
+		"$(ui.tests)/out/sample_palette_25.svg" : 
+		{
+			"scale_2" : 3541958494
+		},
+		"$(ui.tests)/out/sample_palette_26.svg" : 
+		{
+			"scale_2" : 900192034
+		},
+		"$(ui.tests)/out/sample_palette_27.svg" : 
+		{
+			"scale_2" : 3596437115
+		},
+		"$(ui.tests)/out/sample_palette_28.svg" : 
+		{
+			"scale_2" : 1370413399
+		},
+		"$(ui.tests)/out/sample_palette_29.svg" : 
+		{
+			"scale_2" : 1935682168
+		},
+		"$(ui.tests)/out/sample_palette_30.svg" : 
+		{
+			"scale_2" : 2293604519
+		},
+		"$(ui.tests)/out/sample_palette_31.svg" : 
+		{
+			"scale_2" : 1007073785
+		},
+		"$(ui.tests)/out/sample_palette_32.svg" : 
+		{
+			"scale_2" : 1038317529
+		},
+		"$(ui.tests)/out/sample_palette_33.svg" : 
+		{
+			"scale_2" : 2808837970
+		},
+		"$(ui.tests)/out/sample_palette_34.svg" : 
+		{
+			"scale_2" : 984576895
+		},
+		"$(ui.tests)/out/sample_palette_35.svg" : 
+		{
+			"scale_2" : 2713979735
+		},
+		"$(ui.tests)/out/sample_palette_36.svg" : 
+		{
+			"scale_2" : 3820396437
+		},
+		"$(ui.tests)/out/sample_palette_37.svg" : 
+		{
+			"scale_2" : 3881218257
+		},
+		"$(ui.tests)/out/sample_palette_38.svg" : 
+		{
+			"scale_2" : 1076012619
+		},
+		"$(ui.tests)/out/sample_palette_39.svg" : 
+		{
+			"scale_2" : 1377411708
+		},
+		"$(ui.tests)/out/sample_palette_40.svg" : 
+		{
+			"scale_2" : 1270736819
 		}
 	}

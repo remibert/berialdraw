@@ -27,7 +27,7 @@ namespace berialdraw
 	(e.g., BorderStyle, SliderStyle) inherit. 
 	It acts as a centralized container for loading, organizing, and selecting styles, typically sourced 
 	from configuration files. This allows dynamic customization of widget appearances and facilitates 
-	theme management across the UI. */
+	palette management across the UI. */
 	class Styles
 	{
 	public:

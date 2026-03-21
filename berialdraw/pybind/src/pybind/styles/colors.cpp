@@ -5,9 +5,9 @@ void bind_colors(py::module& m) {
         .def("appearance", &berialdraw::Colors::appearance,
              py::arg("name") = nullptr,
              "Choose the name of the appearance mode (can be 'light', 'dark')")
-        .def("theme", &berialdraw::Colors::theme,
+        .def("palette", &berialdraw::Colors::palette,
              py::arg("color"),
-             "Choose the color theme")
+             "Choose the color palette")
         .def("color", static_cast<void (berialdraw::Colors::*)(uint32_t, uint32_t, bool)>(&berialdraw::Colors::color),
              py::arg("id"), py::arg("color"), py::arg("focused") = false,
              "Redefine predefined color")

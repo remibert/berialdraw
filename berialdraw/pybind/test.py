@@ -17,7 +17,7 @@ device.position = (100,100)
 UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "zip://resources.zip/resources")
 UIManager.style = "pearl"
 UIManager.appearance = "light"
-UIManager.theme = THEME_LIME
+UIManager.palette = PALETTE_LIME
 
 # Helper function to safely convert key to string
 def key_to_str(key):

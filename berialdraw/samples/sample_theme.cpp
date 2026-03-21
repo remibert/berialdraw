@@ -3,8 +3,8 @@
 using namespace berialdraw; // Uses the berialdraw namespace to simplify calls to classes and functions
 
 #define PROGRESS_BAR_ID 123
-#define THEME_NAME_ID 124
-// Declaration of the SampleTheme class, representing a theme selection
+#define PALETTE_NAME_ID 124
+// Declaration of the SampleTheme class, representing a palette selection
 class SampleTheme : public Dialog
 {
 public:
@@ -23,7 +23,7 @@ public:
 
 				label = new Label(head);                          // Creates another label within the row
 					label->text("");                              // Sets the text of the label to an empty string
-					label->id(THEME_NAME_ID);                     // Sets the ID of the label
+					label->id(PALETTE_NAME_ID);                     // Sets the ID of the label
 					label->text_align(Align::ALIGN_LEFT);         // Aligns the text to the left
 
 				Switch * dark_light = new Switch(head);           // Creates a new switch within the row
@@ -39,10 +39,10 @@ public:
 		// Theme color picker
 		{
 			Row * color_picker = new Row(column);                  // Creates a content row within the scroll view
-			for (uint32_t i = FIRST_THEME_COLOR; i <= LAST_THEME_COLOR; i++)
+			for (uint32_t i = FIRST_PALETTE_COLOR; i <= LAST_PALETTE_COLOR; i++)
 			{
 				Button *color  = new Button(color_picker);           // Creates a button within the row
-					color->color(i);                                 // Sets the theme color
+					color->color(i);                                 // Sets the palette color
 					color->text(" ");                                // Sets label text
 					color->focusable(false);                         // Sets the button to be non-focusable
 					color->radius(0);                                // Sets the radius of the button to 0
@@ -139,40 +139,40 @@ public:
 	// Event handler for color clicked
 	void on_color_event(Widget * widget, const ClickEvent& click_event)
 	{
-		Label * theme_name = dynamic_cast<Label*>(widget->root()->search(THEME_NAME_ID)); // Search the label for display theme name
+		Label * palette_name = dynamic_cast<Label*>(widget->root()->search(PALETTE_NAME_ID)); // Search the label for display palette name
 
-		UIManager::colors()->theme(widget->id());                     // Change the color theme
+		UIManager::colors()->palette(widget->id());                     // Change the color palette
 		
-		switch(widget->id())                                          // According to the theme selected
+		switch(widget->id())                                          // According to the palette selected
 		{
-		case Color::THEME_RED      :theme_name->text("RED     "); break;
-		case Color::THEME_ORANGE   :theme_name->text("ORANGE  "); break;
-		case Color::THEME_YELLOW   :theme_name->text("YELLOW  "); break;
-		case Color::THEME_LIME     :theme_name->text("LIME    "); break;
-		case Color::THEME_GREEN    :theme_name->text("GREEN   "); break;
-		case Color::THEME_JADE     :theme_name->text("JADE    "); break;
-		case Color::THEME_CYAN     :theme_name->text("CYAN    "); break;
-		case Color::THEME_AZURE    :theme_name->text("AZURE   "); break;
-		case Color::THEME_BLUE     :theme_name->text("BLUE    "); break;
-		case Color::THEME_INDIGO   :theme_name->text("INDIGO  "); break;
-		case Color::THEME_PURPLE   :theme_name->text("PURPLE  "); break;
-		case Color::THEME_VIOLET   :theme_name->text("VIOLET  "); break;
-		case Color::THEME_FUSHIA   :theme_name->text("FUSHIA  "); break;
-		case Color::THEME_PINK     :theme_name->text("PINK    "); break;
-		case Color::THEME_ROSEWOOD :theme_name->text("ROSEWOOD"); break;
-		case Color::THEME_SAND     :theme_name->text("SAND    "); break;
-		case Color::THEME_ASH      :theme_name->text("ASH     "); break;
-		case Color::THEME_GRAY     :theme_name->text("GRAY    "); break;
-		case Color::THEME_ZINC     :theme_name->text("ZINC    "); break;
-		case Color::THEME_SLATE    :theme_name->text("SLATE   "); break;
-		default:theme_name->text("       "); break;
+		case Color::PALETTE_RED      :palette_name->text("RED     "); break;
+		case Color::PALETTE_ORANGE   :palette_name->text("ORANGE  "); break;
+		case Color::PALETTE_YELLOW   :palette_name->text("YELLOW  "); break;
+		case Color::PALETTE_LIME     :palette_name->text("LIME    "); break;
+		case Color::PALETTE_GREEN    :palette_name->text("GREEN   "); break;
+		case Color::PALETTE_JADE     :palette_name->text("JADE    "); break;
+		case Color::PALETTE_CYAN     :palette_name->text("CYAN    "); break;
+		case Color::PALETTE_AZURE    :palette_name->text("AZURE   "); break;
+		case Color::PALETTE_BLUE     :palette_name->text("BLUE    "); break;
+		case Color::PALETTE_INDIGO   :palette_name->text("INDIGO  "); break;
+		case Color::PALETTE_PURPLE   :palette_name->text("PURPLE  "); break;
+		case Color::PALETTE_VIOLET   :palette_name->text("VIOLET  "); break;
+		case Color::PALETTE_FUSHIA   :palette_name->text("FUSHIA  "); break;
+		case Color::PALETTE_PINK     :palette_name->text("PINK    "); break;
+		case Color::PALETTE_ROSEWOOD :palette_name->text("ROSEWOOD"); break;
+		case Color::PALETTE_SAND     :palette_name->text("SAND    "); break;
+		case Color::PALETTE_ASH      :palette_name->text("ASH     "); break;
+		case Color::PALETTE_GRAY     :palette_name->text("GRAY    "); break;
+		case Color::PALETTE_ZINC     :palette_name->text("ZINC    "); break;
+		case Color::PALETTE_SLATE    :palette_name->text("SLATE   "); break;
+		default:palette_name->text("       "); break;
 		}
 	}
 };
 
 
-// Sample function to show all colors themes
-void sample_theme(Widget * widget, const ClickEvent & evt)
+// Sample function to show all colors palettes
+void sample_palette(Widget * widget, const ClickEvent & evt)
 {
 	(void)(widget);
 	(void)(evt);

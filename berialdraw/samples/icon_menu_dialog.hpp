@@ -47,6 +47,6 @@ namespace berialdraw
 		Row * m_row = 0;
 
 		/** Hue for automatic color of icons */
-		uint32_t m_color = Color::FIRST_THEME_COLOR;
+		uint32_t m_color = Color::FIRST_PALETTE_COLOR;
 	};
 }

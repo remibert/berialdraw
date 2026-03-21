@@ -5,7 +5,7 @@ using namespace berialdraw;
 /** Create colors */
 Colors::Colors()
 {
-	m_theme = Color::THEME_LIME;
+	m_palette = Color::PALETTE_LIME;
 }
 
 /** Destroy widget */
@@ -14,31 +14,31 @@ Colors::~Colors()
 	m_colors_primary.clear();
 }
 
-/** Choose the color theme
-@param color theme */
-void Colors::theme(uint32_t color_theme)
+/** Choose the color palette
+@param color palette */
+void Colors::palette(uint32_t color_palette)
 {
-	if (color_theme >= Color::FIRST_THEME_COLOR && color_theme <= Color::LAST_THEME_COLOR)
+	if (color_palette >= Color::FIRST_PALETTE_COLOR && color_palette <= Color::LAST_PALETTE_COLOR)
 	{
 		uint32_t col;
-		m_theme = color_theme;
-		col = color(color_theme);
+		m_palette = color_palette;
+		col = color(color_palette);
 
-		m_theme_values [Color::THEME_BACK_COLOR             - Color::FIRST_THEME_VALUE] =  col;
+		m_palette_values [Color::PALETTE_BACK_COLOR             - Color::FIRST_PALETTE_VALUE] =  col;
 
-		for (int i = THEME_BACK_COLOR_LIGHT_1; i <= THEME_BACK_COLOR_LIGHT_15; i++)
+		for (int i = PALETTE_BACK_COLOR_LIGHT_1; i <= PALETTE_BACK_COLOR_LIGHT_15; i++)
 		{
-			m_theme_values [i-FIRST_THEME_VALUE] = Hsl::add_color(col, Color::WHITE, ((i-THEME_BACK_COLOR_LIGHT_1) * 17) +8);
+			m_palette_values [i-FIRST_PALETTE_VALUE] = Hsl::add_color(col, Color::WHITE, ((i-PALETTE_BACK_COLOR_LIGHT_1) * 17) +8);
 		}
 
-		for (int i = THEME_BACK_COLOR_DARK_1; i <= THEME_BACK_COLOR_DARK_15; i++)
+		for (int i = PALETTE_BACK_COLOR_DARK_1; i <= PALETTE_BACK_COLOR_DARK_15; i++)
 		{
-			m_theme_values [i-FIRST_THEME_VALUE] = Hsl::add_color(col, Color::BLACK, (i-THEME_BACK_COLOR_DARK_1) * 17);
+			m_palette_values [i-FIRST_PALETTE_VALUE] = Hsl::add_color(col, Color::BLACK, (i-PALETTE_BACK_COLOR_DARK_1) * 17);
 		}
 
-		if (color_theme < m_colors_secondary.size())
+		if (color_palette < m_colors_secondary.size())
 		{
-			m_theme_values [Color::THEME_FORE_COLOR  - Color::FIRST_THEME_VALUE] = m_colors_secondary[color_theme];
+			m_palette_values [Color::PALETTE_FORE_COLOR  - Color::FIRST_PALETTE_VALUE] = m_colors_secondary[color_palette];
 		}
 	}
 }
@@ -50,16 +50,16 @@ bool Colors::appearance(const char * name)
 {
 	bool result = false;
 	String filename_;
-	String theme_name;
+	String palette_name;
 	if (name == 0 || (name && name[0] == '\0'))
 	{
-		theme_name = "light";
+		palette_name = "light";
 	}
 	else
 	{
-		theme_name = name;
+		palette_name = name;
 	}
-	filename(theme_name.c_str(),filename_);
+	filename(palette_name.c_str(),filename_);
 
 	if (File::exists(filename_))
 	{
@@ -84,7 +84,7 @@ bool Colors::appearance(const char * name)
 				}
 				
 				m_loaded = true;
-				theme(m_theme);
+				palette(m_palette);
 				result = true;
 			}
 			catch(...)
@@ -123,7 +123,7 @@ uint32_t Colors::color(uint32_t id, bool focused)
 {
 	uint32_t result = id;
 	load();
-	if (id <= LAST_THEME_VALUE && id != Color::TRANSPARENT)
+	if (id <= LAST_PALETTE_VALUE && id != Color::TRANSPARENT)
 	{
 		if (focused)
 		{
@@ -144,15 +144,15 @@ uint32_t Colors::color(uint32_t id, bool focused)
 			}
 		}
 
-		// If the color is in theme value table
-		if (result >= FIRST_THEME_VALUE && result <= LAST_THEME_VALUE)
+		// If the color is in palette value table
+		if (result >= FIRST_PALETTE_VALUE && result <= LAST_PALETTE_VALUE)
 		{
-			id = (result - FIRST_THEME_VALUE);
+			id = (result - FIRST_PALETTE_VALUE);
 			
-			// Get theme value
-			if (id <= (Color::LAST_THEME_VALUE-Color::FIRST_THEME_VALUE))
+			// Get palette value
+			if (id <= (Color::LAST_PALETTE_VALUE-Color::FIRST_PALETTE_VALUE))
 			{
-				result = m_theme_values[id];
+				result = m_palette_values[id];
 			}
 		}
 	}

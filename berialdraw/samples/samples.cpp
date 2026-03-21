@@ -7,7 +7,7 @@ void sample_icon_menu()
 	//UIManager::notifier()->log();                 // Log all user events if it uncommented
 	UIManager::styles()->style("pearl");            // Select the style pearl
 	UIManager::colors()->appearance("light");       // Select the light appearance
-	UIManager::colors()->theme(Color::THEME_LIME);  // Select the color theme
+	UIManager::colors()->palette(Color::PALETTE_LIME);  // Select the color palette
 
 	IconMenuDialog dialog;
 
@@ -32,7 +32,7 @@ void sample_icon_menu()
 	dialog.bind("Switch"     , "$(ui.icons)/toggle_on.icn"         ,sample_switch      );
 	dialog.bind("Window"     , "$(ui.icons)/select_window.icn"     ,sample_window      );
 	dialog.bind("Speedometer", "$(ui.icons)/speed.icn"             ,sample_speedometer );
-	dialog.bind("Theme"      , "$(ui.icons)/filter_vintage.icn"    ,sample_theme       );
+	dialog.bind("Theme"      , "$(ui.icons)/filter_vintage.icn"    ,sample_palette       );
 	while (dialog.exec() != "<quit>");
 }
 
@@ -42,7 +42,7 @@ void sample_menu()
 {
 	UIManager::styles()->style("pearl");            // Select the style pearl
 	UIManager::colors()->appearance("light");       // Select the light appearance
-	UIManager::colors()->theme(Color::THEME_LIME);  // Select the color theme
+	UIManager::colors()->palette(Color::PALETTE_LIME);  // Select the color palette
 
 	MenuDialog dialog;
 
@@ -64,6 +64,6 @@ void sample_menu()
 	dialog.bind("Switch"     ,sample_switch      );
 	dialog.bind("Window"     ,sample_window      );
 	dialog.bind("Speedometer",sample_speedometer );
-	dialog.bind("Theme"      ,sample_theme       );
+	dialog.bind("Theme"      ,sample_palette       );
 	while (dialog.exec() != "<quit>");
 }
