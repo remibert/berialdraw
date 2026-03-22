@@ -75,6 +75,16 @@ namespace berialdraw
 		@return true if the current node exists, false otherwise */
 		virtual bool exist();
 
+		/** Check if a key exists in current object
+		@param key Key to check
+		@return true if the key exists, false otherwise */
+		virtual bool exists(const char* key) const;
+
+		/** Check if an index exists in current array
+		@param index Index to check
+		@return true if the index exists, false otherwise */
+		virtual bool exists(int index) const;
+
 		/** Get the count of items in the current node
 		@return Number of items in the current node */
 		virtual int32_t count();
@@ -90,6 +100,16 @@ namespace berialdraw
 		/** Return the type of node found in path selected
 		@return JsonType of the current node */
 		virtual enum JsonType type();
+
+		/** Return the type of a child node at given key
+		@param key Key of the child node
+		@return JsonType of the child node */
+		virtual enum JsonType type(const char* key) const;
+
+		/** Return the type of a child node at given index
+		@param index Index of the child node
+		@return JsonType of the child node */
+		virtual enum JsonType type(int index) const;
 
 		/** Convert to string
 		@return String representation of the current node */
@@ -133,6 +153,10 @@ namespace berialdraw
 		@param variant Pointer to the ItemVariant
 		@return Integer representation of the variant */
 		long long to_integer(const ItemVariant* variant) const;
+
+		/** Serialize into a string 
+		@return string serialized */
+		String serialize() const;
 
 		/** Set value in json tree
 		@param value String value to set
@@ -197,32 +221,50 @@ namespace berialdraw
 		/** Compare if different from a C-string
 		@param other C-string to compare
 		@return true if different, false otherwise */
-		bool operator!=(const char* other) const;
+		bool operator!=(const char* other) const
+		{
+			return !(*this == other);
+		}
 
 		/** Compare if different from a String
 		@param other String to compare
 		@return true if different, false otherwise */
-		bool operator!=(const String& other) const;
+		bool operator!=(const String& other) const
+		{
+			return !(*this == other);
+		}
 
 		/** Compare if different from an integer
 		@param other Integer to compare
 		@return true if different, false otherwise */
-		bool operator!=(int other) const;
+		bool operator!=(int other) const
+		{
+			return !(*this == other);
+		}
 
 		/** Compare if different from an unsigned integer
 		@param other Unsigned integer to compare
 		@return true if different, false otherwise */
-		bool operator!=(unsigned int other) const;
+		bool operator!=(unsigned int other) const
+		{
+			return !(*this == other);
+		}
 
 		/** Compare if different from a long long
 		@param other Long long to compare
 		@return true if different, false otherwise */
-		bool operator!=(long long other) const;
+		bool operator!=(long long other) const
+		{
+			return !(*this == other);
+		}
 
 		/** Compare if different from a boolean
 		@param other Boolean to compare
 		@return true if different, false otherwise */
-		bool operator!=(bool other) const;
+		bool operator!=(bool other) const
+		{
+			return !(*this == other);
+		}
 
 		/** Manage the default value if missing
 		@param other Default C-string value

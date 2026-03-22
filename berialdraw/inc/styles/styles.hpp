@@ -100,6 +100,10 @@ namespace berialdraw
 		@param properties JSON string of properties */
 		void add_style(const String& name, const String& properties);
 
+		/** Add a style with a name and properties (creates new StyleItem)
+		@param iter json iterator */
+		void add_style(JsonIterator & iter);
+
 		/** Remove a style by name
 		@param name Name of the style to remove
 		@return true if removed, false if not found */

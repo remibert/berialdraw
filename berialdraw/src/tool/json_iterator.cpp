@@ -149,6 +149,28 @@ bool JsonIterator::exist()
 	return result;
 }
 
+/** Check if a key exists in current object */
+bool JsonIterator::exists(const char* key) const
+{
+	ItemObject * object = dynamic_cast<ItemObject*>(m_item);
+	if(object)
+	{
+		return (*object)[key] != 0;
+	}
+	return false;
+}
+
+/** Check if an index exists in current array */
+bool JsonIterator::exists(int index) const
+{
+	ItemCollection * collection = dynamic_cast<ItemCollection*>(m_item);
+	if(collection)
+	{
+		return (*collection)[index] != 0;
+	}
+	return false;
+}
+
 /** Remove current item */
 bool JsonIterator::remove()
 {
@@ -212,7 +234,7 @@ JsonIterator & JsonIterator::operator=(const JsonIterator & other)
 		m_json      = other.m_json;
 		m_index     = other.m_index;
 		m_item      = other.m_item; 
-		m_item_tmp   = other.m_item_tmp; 
+		m_item_tmp  = other.m_item_tmp; 
 		m_parent    = other.m_parent;
 		m_key       = other.m_key;
 		m_with_index = other.m_with_index;
@@ -227,10 +249,10 @@ JsonIterator::JsonIterator (const JsonIterator & other):
 {
 	m_index     = other.m_index;
 	m_item      = other.m_item; 
-	m_item_tmp   = other.m_item_tmp; 
+	m_item_tmp  = other.m_item_tmp; 
 	m_parent    = other.m_parent;
 	m_key       = other.m_key;
-	m_with_index = other.m_with_index;
+	m_with_index= other.m_with_index;
 	m_accurate  = other.m_accurate;
 	m_destroyed = other.m_destroyed;
 }
@@ -274,6 +296,28 @@ enum JsonType JsonIterator::type()
 	return Item::type(m_item);
 }
 
+/** Return the type of a child node at given key */
+enum JsonType JsonIterator::type(const char* key) const
+{
+	ItemObject * object = dynamic_cast<ItemObject*>(m_item);
+	if(object)
+	{
+		return Item::type((*object)[key]);
+	}
+	return JsonType::UNDEFINED;
+}
+
+/** Return the type of a child node at given index */
+enum JsonType JsonIterator::type(int index) const
+{
+	ItemCollection * collection = dynamic_cast<ItemCollection*>(m_item);
+	if(collection)
+	{
+		return Item::type((*collection)[index]);
+	}
+	return JsonType::UNDEFINED;
+}
+
 /** Get variant value in the json */
 ItemVariant & JsonIterator::value()
 {
@@ -301,6 +345,18 @@ JsonIterator::operator bool() const
 		return *value;
 	}
 	return false;
+}
+
+/** Serialize into a string 
+@return string serialized */
+String JsonIterator::serialize() const
+{
+	String result;
+	if (m_item)
+	{
+		m_item->serialize(result,-1);
+	}
+	return result;
 }
 
 long long JsonIterator::to_integer(const ItemVariant * variant) const
@@ -667,36 +723,7 @@ bool JsonIterator::operator==(bool other) const
 	return result;
 }
 
-// Compare if different
-bool JsonIterator::operator!=(const char * other) const
-{
-	return !(*this == other);
-}
 
-bool JsonIterator::operator!=(const String & other) const
-{
-	return !(*this == other);
-}
-
-bool JsonIterator::operator!=(int other) const
-{
-	return !(*this == other);
-}
-
-bool JsonIterator::operator!=(unsigned int other) const
-{
-	return !(*this == other);
-}
-
-bool JsonIterator::operator!=(long long other) const
-{
-	return !(*this == other);
-}
-
-bool JsonIterator::operator!=(bool other) const
-{
-	return !(*this == other);
-}
 
 String JsonIterator::operator|(const char * other) const
 {

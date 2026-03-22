@@ -148,6 +148,12 @@ namespace berialdraw
 		void focused(bool v);
 
 
+		/** Get the style string (empty string if not set) */
+		const String & style() const;
+
+		/** Set the style string (creates String instance if needed) */
+		void style(const String & s);
+
 
 #ifdef _DEBUG
 		static void test();
@@ -184,6 +190,7 @@ namespace berialdraw
 		unsigned int m_flow_place :1;
 		unsigned int m_flow_in_children:1;
 		unsigned int m_flow       :1;
+		std::unique_ptr<String> m_style;
 /// @endcond 
 	};
 }

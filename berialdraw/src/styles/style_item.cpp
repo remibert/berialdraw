@@ -68,6 +68,13 @@ void StyleItem::serialize(JsonIterator & it)
 void StyleItem::unserialize(JsonIterator & it)
 {
 	m_name = (const char*)(it[StyleNames::STYLE_NAME] | "");
-	m_properties = (const char*)(it[StyleNames::STYLE_PROPERTIES] | "{}");
+	if (it.exists(StyleNames::STYLE_PROPERTIES))
+	{
+		m_properties = it[StyleNames::STYLE_PROPERTIES].serialize();
+	}
+	else
+	{
+		m_properties = "{}";
+	}
 }
 

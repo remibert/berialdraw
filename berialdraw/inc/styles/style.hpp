@@ -22,7 +22,7 @@ namespace berialdraw
 
 		/** Get the property name for this style (e.g., "widget", "common", "text") */
 		virtual const char* property_name() const = 0;
-};
+	};
 
 	/** Function pointer definition to create dedicated style */
 	typedef Style * (*StyleCreator_t)();

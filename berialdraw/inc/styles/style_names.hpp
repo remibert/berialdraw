@@ -14,10 +14,10 @@ namespace berialdraw
 		static constexpr const char* KEY_ID = "id";
 		static constexpr const char* KEY_TO = "to";
 		static constexpr const char* KEY_MAPPING = "mapping";
-		static constexpr const char* KEY_STYLES = "styles";
 		static constexpr const char* KEY_MAPPINGS = "mappings";
 
 		// StyleItem
+		static constexpr const char* STYLE_STYLES = "styles";
 		static constexpr const char* STYLE_NAME = "name";
 		static constexpr const char* STYLE_PROPERTIES = "properties";
 
@@ -141,5 +141,6 @@ namespace berialdraw
 		static constexpr const char* WIDGET_FLOW = "flow";
 		static constexpr const char* WIDGET_MIN_SIZE = "min-size";
 		static constexpr const char* WIDGET_MAX_SIZE = "max-size";
+		static constexpr const char* WIDGET_STYLE = "style";
 	};
 }

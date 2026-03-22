@@ -136,6 +136,39 @@ void Styles::add_style(const String& name, const String& properties)
 	m_items.push_back(item);
 }
 
+
+/** Add a style with a name and properties (creates new StyleItem)
+@param iter json iterator */
+void Styles::add_style(JsonIterator & iter)
+{
+	// If generic styles is defined in the widget
+	if (iter.exists(StyleNames::STYLE_STYLES))
+	{
+		if (iter[StyleNames::STYLE_STYLES].type() == JsonType::ARRAY)
+		{
+			JsonIterator array_json = iter[StyleNames::STYLE_STYLES];
+			for(array_json.first(); array_json.exist(); array_json.next())
+			{
+				StyleItem * item = new StyleItem;
+				JsonIterator js_item(array_json.child());
+				item->unserialize(js_item);
+				remove_style(js_item[StyleNames::STYLE_NAME]);
+				m_items.push_back(item);
+			}
+		}
+		else if (iter[StyleNames::STYLE_STYLES].type() == JsonType::OBJECT)
+		{
+			StyleItem * item = new StyleItem;
+			JsonIterator js_item = iter[StyleNames::STYLE_STYLES];
+			item->unserialize(js_item);
+			remove_style(js_item[StyleNames::STYLE_NAME]);
+			m_items.push_back(item);
+		}
+	}
+}
+
+
+
 /** Remove a style by name */
 bool Styles::remove_style(const String& name)
 {
@@ -283,13 +316,13 @@ void Styles::test1()
 	// Now create a JSON style with custom properties
 	String style_properties = 
 		"{"
-		"'text-color':0xFFFF0000,"             // Red text
-		"'font-size':24,"                      // Font size 24
-		"'text':'Styled Button',"              // New text content
-		"'radius':20,"                          // Radius (64ths of pixels, 128 = 2px)
-		"'border-color':0xFF0000FF,"           // Blue border
-		"'thickness':6,"                        // Thickness (6 in 64ths)
-		"'color':0xFFCFCFCF"
+			"'text-color':0xFFFF0000,"             // Red text
+			"'font-size':24,"                      // Font size 24
+			"'text':'Styled Button',"              // New text content
+			"'radius':20,"                         // Radius (64ths of pixels, 128 = 2px)
+			"'border-color':0xFF0000FF,"           // Blue border
+			"'thickness':6,"                       // Thickness (6 in 64ths)
+			"'color':0xFFCFCFCF"
 		"}";
 
 	UIManager::styles()->add_style("button_style",style_properties);

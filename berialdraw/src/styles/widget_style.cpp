@@ -33,6 +33,10 @@ void WidgetStyle::serialize(JsonIterator & it)
 	it[StyleNames::WIDGET_SELECTABLE]    = (int)m_selectable;
 	it[StyleNames::WIDGET_PRESSABLE]     = (int)m_pressable;
 	it[StyleNames::WIDGET_FLOW]    = (int)m_flow;
+	if (m_style)
+	{
+		it[StyleNames::WIDGET_STYLE] = m_style->c_str();
+	}
 }
 
 /** Unserialize the content of widget from json */
@@ -56,6 +60,13 @@ void WidgetStyle::unserialize(JsonIterator & it)
 	m_selectable = (int)it[StyleNames::WIDGET_SELECTABLE] | m_selectable;
 	m_pressable  = (int)it[StyleNames::WIDGET_PRESSABLE] | m_pressable;
 	m_flow       = (int)it[StyleNames::WIDGET_FLOW] | m_flow;
+
+	if (it.exists(StyleNames::WIDGET_STYLE))
+	{
+		m_style = std::make_unique<String>(it[StyleNames::WIDGET_STYLE]);
+	}
+
+	UIManager::styles()->add_style(it);
 }
 
 /** Copy operator */
@@ -84,6 +95,14 @@ void WidgetStyle::set(const WidgetStyle & other)
 		m_flow_place      = other.m_flow_place;
 		m_flow            = other.m_flow;
 		m_flow_in_children = other.m_flow_in_children;
+		if (other.m_style)
+		{
+			m_style = std::make_unique<String>(*other.m_style);
+		}
+		else
+		{
+			m_style = nullptr;
+		}
 		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	}
 }
@@ -221,6 +240,26 @@ void WidgetStyle::focused(bool v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_focused = v;
+}
+
+/** Get the style string (empty string if not set) */
+const String & WidgetStyle::style() const
+{
+	static String empty_string;
+	return m_style ? *m_style : empty_string;
+}
+
+/** Set the style string (creates String instance if needed) */
+void WidgetStyle::style(const String & s)
+{
+	if (!m_style)
+	{
+		m_style = std::make_unique<String>(s);
+	}
+	else
+	{
+		*m_style = s;
+	}
 }
 
 #ifdef _DEBUG
