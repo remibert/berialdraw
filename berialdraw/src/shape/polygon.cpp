@@ -324,6 +324,7 @@ void Polygon::test()
 	static bool done = false;
 	if (done == false)
 	{
+		MemoryLeakLog
 		done = true;
 		Window window;
 			window.position(20,20);

@@ -223,6 +223,7 @@ void Directory::test7()
 
 void Directory::test()
 {
+	MemoryLeakLog
 	test1();
 	test2();
 	test3();

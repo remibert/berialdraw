@@ -420,7 +420,7 @@ void Canvas::test()
 	static bool done = false;
 	if (done == false)
 	{
-test3();
+		MemoryLeakLog
 		done = true;
 		test5();
 		test4();

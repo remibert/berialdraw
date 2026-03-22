@@ -1559,6 +1559,7 @@ void String::test10()
 
 void String::test()
 {
+	MemoryLeakLog
 	test10();
 	test9();
 	test8();

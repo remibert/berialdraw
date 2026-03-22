@@ -175,64 +175,67 @@ public:
 // Draw the buffer content to the view
 - (void)drawRect:(NSRect)dirtyRect
 {
-	// Check if buffer is valid
-	if (!self.buffer || self.bufferWidth == 0 || self.bufferHeight == 0)
+	@autoreleasepool
 	{
-		[[NSColor whiteColor] setFill];
-		NSRectFill(dirtyRect);
-	}
-	else
-	{
-		// Get the graphics context for drawing
-		CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
-		if (context)
+		// Check if buffer is valid
+		if (!self.buffer || self.bufferWidth == 0 || self.bufferHeight == 0)
 		{
-			NSRect bounds = [self bounds];
-			CGFloat viewWidth = bounds.size.width;
-			CGFloat viewHeight = bounds.size.height;
-            
-			// Create a data provider from the buffer
-			// Use CGDataProviderCreateWithData with proper cleanup callback
-			CGDataProviderRef provider = CGDataProviderCreateWithData(
-				NULL,
-				self.buffer,
-				self.bufferWidth * self.bufferHeight * 3,
-				NULL  // No cleanup callback needed since buffer is managed elsewhere
-			);
-			
-			if (provider)
+			[[NSColor whiteColor] setFill];
+			NSRectFill(dirtyRect);
+		}
+		else
+		{
+			// Get the graphics context for drawing
+			CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
+			if (context)
 			{
-				// Create RGB color space
-				CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-				if (colorSpace)
+				NSRect bounds = [self bounds];
+				CGFloat viewWidth = bounds.size.width;
+				CGFloat viewHeight = bounds.size.height;
+            
+				// Create a data provider from the buffer
+				// Use CGDataProviderCreateWithData with proper cleanup callback
+				CGDataProviderRef provider = CGDataProviderCreateWithData(
+					NULL,
+					self.buffer,
+					self.bufferWidth * self.bufferHeight * 3,
+					NULL  // No cleanup callback needed since buffer is managed elsewhere
+				);
+				
+				if (provider)
 				{
-					// Create image from buffer data
-					CGImageRef image = CGImageCreate(
-						self.bufferWidth,
-						self.bufferHeight,
-						8,  // bits per component
-						24,  // bits per pixel
-						self.bufferWidth * 3,  // bytes per row
-						colorSpace,
-						kCGBitmapByteOrderDefault,
-						provider,
-						NULL,  // decode array
-						false,  // should interpolate
-						kCGRenderingIntentDefault
-					);
-
-					if (image)
+					// Create RGB color space
+					CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+					if (colorSpace)
 					{
-						// Draw image scaled to view size
-						CGRect drawRect = CGRectMake(0, 0, viewWidth, viewHeight);
-						CGContextDrawImage(context, drawRect, image);
-						CGImageRelease(image);
+						// Create image from buffer data
+						CGImageRef image = CGImageCreate(
+							self.bufferWidth,
+							self.bufferHeight,
+							8,  // bits per component
+							24,  // bits per pixel
+							self.bufferWidth * 3,  // bytes per row
+							colorSpace,
+							kCGBitmapByteOrderDefault,
+							provider,
+							NULL,  // decode array
+							false,  // should interpolate
+							kCGRenderingIntentDefault
+						);
+
+						if (image)
+						{
+							// Draw image scaled to view size
+							CGRect drawRect = CGRectMake(0, 0, viewWidth, viewHeight);
+							CGContextDrawImage(context, drawRect, image);
+							CGImageRelease(image);
+						}
+						// Always release colorSpace, even if CGImageCreate fails
+						CGColorSpaceRelease(colorSpace);
 					}
-					// Always release colorSpace, even if CGImageCreate fails
-					CGColorSpaceRelease(colorSpace);
+					// Always release provider, even if colorSpace creation fails
+					CGDataProviderRelease(provider);
 				}
-				// Always release provider, even if colorSpace creation fails
-				CGDataProviderRelease(provider);
 			}
 		}
 	}
@@ -331,26 +334,29 @@ public:
 	// Create a global event monitor for mouse moved events
 	self.globalEventMonitor = [NSEvent addGlobalMonitorForEventsMatchingMask:NSEventMaskMouseMoved | NSEventMaskLeftMouseDragged
 		handler:^(NSEvent *event) {
-			if (self.mouseDown && self.device && UIManager::notifier())
+			@autoreleasepool
 			{
-				// Get mouse position in window coordinates
-				NSWindow *window = [self window];
-				if (window)
+				if (self.mouseDown && self.device && UIManager::notifier())
 				{
-					NSPoint screenLocation = [NSEvent mouseLocation];
-					NSPoint windowLocation = [window convertPointFromScreen:screenLocation];
-					NSPoint viewLocation = [self convertPoint:windowLocation fromView:nil];
-					
-					// Convert to buffer coordinates
-					viewLocation.y = self.bounds.size.height - viewLocation.y;
-					float scaleX = (float)self.bufferWidth / self.bounds.size.width;
-					float scaleY = (float)self.bufferHeight / self.bounds.size.height;
-					
-					berialdraw::Point position(viewLocation.x * scaleX, viewLocation.y * scaleY);
-					position.adapt_scale();
-					
-					// Send touch move event
-					[self sendMouseEventWithType:TouchEvent::TOUCH_MOVE position:position];
+					// Get mouse position in window coordinates
+					NSWindow *window = [self window];
+					if (window)
+					{
+						NSPoint screenLocation = [NSEvent mouseLocation];
+						NSPoint windowLocation = [window convertPointFromScreen:screenLocation];
+						NSPoint viewLocation = [self convertPoint:windowLocation fromView:nil];
+						
+						// Convert to buffer coordinates
+						viewLocation.y = self.bounds.size.height - viewLocation.y;
+						float scaleX = (float)self.bufferWidth / self.bounds.size.width;
+						float scaleY = (float)self.bufferHeight / self.bounds.size.height;
+						
+						berialdraw::Point position(viewLocation.x * scaleX, viewLocation.y * scaleY);
+						position.adapt_scale();
+						
+						// Send touch move event
+						[self sendMouseEventWithType:TouchEvent::TOUCH_MOVE position:position];
+					}
 				}
 			}
 		}];
@@ -411,95 +417,96 @@ public:
 - (wchar_t)convertKeyFromEvent:(NSEvent*)event
 {
 	wchar_t result = 0;
-	NSEventModifierFlags flags = event.modifierFlags;
-	BOOL hasCmd = (flags & NSEventModifierFlagCommand) != 0;
-	BOOL hasCtrl = (flags & NSEventModifierFlagControl) != 0;
-	BOOL hasShift = (flags & NSEventModifierFlagShift) != 0;
 
-	// First switch: handle special keys (arrows, Enter, etc.) that are always recognized
-	switch(event.keyCode)
+	@autoreleasepool
 	{
-	case MacOSKeyCode::KEY_RETURN:
-		result = (wchar_t)ReservedKey::KEY_ENTER;
-		break;
-	case MacOSKeyCode::KEY_ESCAPE:
-		result = (wchar_t)ReservedKey::KEY_ESCAPE;
-		break;
-	case MacOSKeyCode::KEY_BACKSPACE:
-		result = (wchar_t)ReservedKey::KEY_BACKSPACE;
-		break;
-	case MacOSKeyCode::KEY_DELETE:
-		result = (wchar_t)ReservedKey::KEY_DELETE;
-		break;
-	case MacOSKeyCode::KEY_RIGHT_ARROW:
-		result = (wchar_t)ReservedKey::KEY_RIGHT;
-		break;
-	case MacOSKeyCode::KEY_LEFT_ARROW:
-		result = (wchar_t)ReservedKey::KEY_LEFT;
-		break;
-	case MacOSKeyCode::KEY_DOWN_ARROW:
-		result = (wchar_t)ReservedKey::KEY_DOWN;
-		break;
-	case MacOSKeyCode::KEY_UP_ARROW:
-		result = (wchar_t)ReservedKey::KEY_UP;
-		break;
-	case MacOSKeyCode::KEY_HOME:
-		result = (wchar_t)ReservedKey::KEY_HOME;
-		break;
-	case MacOSKeyCode::KEY_END:
-		result = (wchar_t)ReservedKey::KEY_END;
-		break;
-	case MacOSKeyCode::KEY_SPACE:
-		result = ' ';  // Space
-		break;
-	case MacOSKeyCode::KEY_TAB:
-		result = '\t'; // Tab
-		break;
-	}
+		NSEventModifierFlags flags = event.modifierFlags;
+		BOOL hasCmd = (flags & NSEventModifierFlagCommand) != 0;
+		BOOL hasCtrl = (flags & NSEventModifierFlagControl) != 0;
 
-	// Second switch: handle Cmd/Ctrl key combinations
-	// Use the actual character from the keyboard layout (handles AZERTY, QWERTY, etc.)
-	if ((hasCmd || hasCtrl) && !result)
-	{
-		NSString *chars = [event charactersIgnoringModifiers];
-		if (chars && chars.length > 0)
+		// First switch: handle special keys (arrows, Enter, etc.) that are always recognized
+		switch(event.keyCode)
 		{
-			unichar ch = [[chars lowercaseString] characterAtIndex:0];
-			
-			// Map character to ReservedKey
-			switch (ch)
+		case MacOSKeyCode::KEY_RETURN:
+			result = (wchar_t)ReservedKey::KEY_ENTER;
+			break;
+		case MacOSKeyCode::KEY_ESCAPE:
+			result = (wchar_t)ReservedKey::KEY_ESCAPE;
+			break;
+		case MacOSKeyCode::KEY_BACKSPACE:
+			result = (wchar_t)ReservedKey::KEY_BACKSPACE;
+			break;
+		case MacOSKeyCode::KEY_DELETE:
+			result = (wchar_t)ReservedKey::KEY_DELETE;
+			break;
+		case MacOSKeyCode::KEY_RIGHT_ARROW:
+			result = (wchar_t)ReservedKey::KEY_RIGHT;
+			break;
+		case MacOSKeyCode::KEY_LEFT_ARROW:
+			result = (wchar_t)ReservedKey::KEY_LEFT;
+			break;
+		case MacOSKeyCode::KEY_DOWN_ARROW:
+			result = (wchar_t)ReservedKey::KEY_DOWN;
+			break;
+		case MacOSKeyCode::KEY_UP_ARROW:
+			result = (wchar_t)ReservedKey::KEY_UP;
+			break;
+		case MacOSKeyCode::KEY_HOME:
+			result = (wchar_t)ReservedKey::KEY_HOME;
+			break;
+		case MacOSKeyCode::KEY_END:
+			result = (wchar_t)ReservedKey::KEY_END;
+			break;
+		case MacOSKeyCode::KEY_SPACE:
+			result = ' ';  // Space
+			break;
+		case MacOSKeyCode::KEY_TAB:
+			result = '\t'; // Tab
+			break;
+		}
+
+		// Second switch: handle Cmd/Ctrl key combinations
+		// Use the actual character from the keyboard layout (handles AZERTY, QWERTY, etc.)
+		if ((hasCmd || hasCtrl) && !result)
+		{
+			NSString *chars = [event charactersIgnoringModifiers];
+			if (chars && chars.length > 0)
 			{
-			case 'a': result = (wchar_t)ReservedKey::KEY_CTRL_A; break;
-			case 'b': result = (wchar_t)ReservedKey::KEY_CTRL_B; break;
-			case 'c': result = (wchar_t)ReservedKey::KEY_CTRL_C; break;
-			case 'd': result = (wchar_t)ReservedKey::KEY_CTRL_D; break;
-			case 'e': result = (wchar_t)ReservedKey::KEY_CTRL_E; break;
-			case 'f': result = (wchar_t)ReservedKey::KEY_CTRL_F; break;
-			case 'g': result = (wchar_t)ReservedKey::KEY_CTRL_G; break;
-			case 'h': result = (wchar_t)ReservedKey::KEY_CTRL_H; break;
-			case 'i': result = (wchar_t)ReservedKey::KEY_CTRL_I; break;
-			case 'j': result = (wchar_t)ReservedKey::KEY_CTRL_J; break;
-			case 'k': result = (wchar_t)ReservedKey::KEY_CTRL_K; break;
-			case 'l': result = (wchar_t)ReservedKey::KEY_CTRL_L; break;
-			case 'm': result = (wchar_t)ReservedKey::KEY_CTRL_M; break;
-			case 'n': result = (wchar_t)ReservedKey::KEY_CTRL_N; break;
-			case 'o': result = (wchar_t)ReservedKey::KEY_CTRL_O; break;
-			case 'p': result = (wchar_t)ReservedKey::KEY_CTRL_P; break;
-			case 'q': result = (wchar_t)ReservedKey::KEY_CTRL_Q; break;
-			case 'r': result = (wchar_t)ReservedKey::KEY_CTRL_R; break;
-			case 's': result = (wchar_t)ReservedKey::KEY_CTRL_S; break;
-			case 't': result = (wchar_t)ReservedKey::KEY_CTRL_T; break;
-			case 'u': result = (wchar_t)ReservedKey::KEY_CTRL_U; break;
-			case 'v': result = (wchar_t)ReservedKey::KEY_CTRL_V; break;
-			case 'w': result = (wchar_t)ReservedKey::KEY_CTRL_W; break;
-			case 'x': result = (wchar_t)ReservedKey::KEY_CTRL_X; break;
-			case 'y': result = (wchar_t)ReservedKey::KEY_CTRL_Y; break;
-			case 'z': result = (wchar_t)ReservedKey::KEY_CTRL_Z; break;
+				unichar ch = [[chars lowercaseString] characterAtIndex:0];
+				
+				// Map character to ReservedKey
+				switch (ch)
+				{
+				case 'a': result = (wchar_t)ReservedKey::KEY_CTRL_A; break;
+				case 'b': result = (wchar_t)ReservedKey::KEY_CTRL_B; break;
+				case 'c': result = (wchar_t)ReservedKey::KEY_CTRL_C; break;
+				case 'd': result = (wchar_t)ReservedKey::KEY_CTRL_D; break;
+				case 'e': result = (wchar_t)ReservedKey::KEY_CTRL_E; break;
+				case 'f': result = (wchar_t)ReservedKey::KEY_CTRL_F; break;
+				case 'g': result = (wchar_t)ReservedKey::KEY_CTRL_G; break;
+				case 'h': result = (wchar_t)ReservedKey::KEY_CTRL_H; break;
+				case 'i': result = (wchar_t)ReservedKey::KEY_CTRL_I; break;
+				case 'j': result = (wchar_t)ReservedKey::KEY_CTRL_J; break;
+				case 'k': result = (wchar_t)ReservedKey::KEY_CTRL_K; break;
+				case 'l': result = (wchar_t)ReservedKey::KEY_CTRL_L; break;
+				case 'm': result = (wchar_t)ReservedKey::KEY_CTRL_M; break;
+				case 'n': result = (wchar_t)ReservedKey::KEY_CTRL_N; break;
+				case 'o': result = (wchar_t)ReservedKey::KEY_CTRL_O; break;
+				case 'p': result = (wchar_t)ReservedKey::KEY_CTRL_P; break;
+				case 'q': result = (wchar_t)ReservedKey::KEY_CTRL_Q; break;
+				case 'r': result = (wchar_t)ReservedKey::KEY_CTRL_R; break;
+				case 's': result = (wchar_t)ReservedKey::KEY_CTRL_S; break;
+				case 't': result = (wchar_t)ReservedKey::KEY_CTRL_T; break;
+				case 'u': result = (wchar_t)ReservedKey::KEY_CTRL_U; break;
+				case 'v': result = (wchar_t)ReservedKey::KEY_CTRL_V; break;
+				case 'w': result = (wchar_t)ReservedKey::KEY_CTRL_W; break;
+				case 'x': result = (wchar_t)ReservedKey::KEY_CTRL_X; break;
+				case 'y': result = (wchar_t)ReservedKey::KEY_CTRL_Y; break;
+				case 'z': result = (wchar_t)ReservedKey::KEY_CTRL_Z; break;
+				}
 			}
 		}
 	}
-
-	//printf("[KEY] keyCode=%u, cmd=%d, ctrl=%d, shift=%d -> %d\n", event.keyCode, hasCmd, hasCtrl, hasShift, result);
 
 	return result;
 }
@@ -536,27 +543,30 @@ public:
 // Helper method: Send a key event with proper key type handling
 - (void)sendKeyEventWithKey:(wchar_t)key keyEventType:(int)keyEventType modifier:(berialdraw::KeyEvent::Modifier)modifier
 {
-	if (UIManager::notifier())
+	@autoreleasepool
 	{
-		if (key)
+		if (UIManager::notifier())
 		{
-			// If it's a special key (arrow, enter, etc.), send with modifier
-			UIManager::notifier()->push_event(new KeyEvent(key, (KeyEvent::KeyState)keyEventType, modifier));
-		}
-		else
-		{
-			// If not a special key, check for printable character
-			NSEvent *event = [NSApplication sharedApplication].currentEvent;
-			if (event)
+			if (key)
 			{
-				NSString *chars = [event characters];
-				if (chars && chars.length > 0)
+				// If it's a special key (arrow, enter, etc.), send with modifier
+				UIManager::notifier()->push_event(new KeyEvent(key, (KeyEvent::KeyState)keyEventType, modifier));
+			}
+			else
+			{
+				// If not a special key, check for printable character
+				NSEvent *event = [NSApplication sharedApplication].currentEvent;
+				if (event)
 				{
-					unichar keyChar = [chars characterAtIndex:0];
-					// Only send event for printable characters (ASCII 32 and above)
-					if (keyChar >= 32)
+					NSString *chars = [event characters];
+					if (chars && chars.length > 0)
 					{
-						UIManager::notifier()->push_event(new KeyEvent(keyChar, (KeyEvent::KeyState)keyEventType, KeyEvent::MODIFIER_NONE));
+						unichar keyChar = [chars characterAtIndex:0];
+						// Only send event for printable characters (ASCII 32 and above)
+						if (keyChar >= 32)
+						{
+							UIManager::notifier()->push_event(new KeyEvent(keyChar, (KeyEvent::KeyState)keyEventType, KeyEvent::MODIFIER_NONE));
+						}
 					}
 				}
 			}
@@ -568,6 +578,12 @@ public:
 - (void)dealloc
 {
 	[self stopGlobalMouseTracking];
+	// Remove all tracking areas from this view to prevent memory leaks
+	NSArray *trackingAreas = [self trackingAreas];
+	for (NSTrackingArea *trackingArea in trackingAreas)
+	{
+		[self removeTrackingArea:trackingArea];
+	}
 	// ARC will automatically call [super dealloc] with automatic reference counting
 }
 
@@ -609,34 +625,37 @@ bool berialdraw::DeviceCocoaImpl::initialize_app()
 
 	MemoryLeakTracer::suspend();
 
-	if (![NSThread isMainThread])
+	@autoreleasepool
 	{
-		NSLog(@"Warning: DeviceCocoa should be created on the main thread");
-	}
+		if (![NSThread isMainThread])
+		{
+			NSLog(@"Warning: DeviceCocoa should be created on the main thread");
+		}
 
-	if (!NSApp)
-	{
-		[NSApplication sharedApplication];
-		
 		if (!NSApp)
 		{
-			NSLog(@"Failed to create NSApplication");
+			[NSApplication sharedApplication];
+			
+			if (!NSApp)
+			{
+				NSLog(@"Failed to create NSApplication");
+			}
 		}
-	}
-    
-	if (NSApp)
-	{
-		if ([NSApp activationPolicy] == NSApplicationActivationPolicyProhibited)
+
+		if (NSApp)
 		{
-			[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
+			if ([NSApp activationPolicy] == NSApplicationActivationPolicyProhibited)
+			{
+				[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
+			}
+
+			// CRITICAL: Force application activation on ARM64/M1
+			[NSApp finishLaunching];
+			[NSApp activateIgnoringOtherApps:YES];
+
+			m_app_initialized = true;
+			result = true;
 		}
-
-		// CRITICAL: Force application activation on ARM64/M1
-		[NSApp finishLaunching];
-		[NSApp activateIgnoringOtherApps:YES];
-
-		m_app_initialized = true;
-		result = true;
 	}
 
 	MemoryLeakTracer::resume();
@@ -722,6 +741,7 @@ void berialdraw::DeviceCocoaImpl::open_window()
 			__block NSException* creation_exception = nil;
 
 			dispatch_async(dispatch_get_main_queue(), ^{
+				@autoreleasepool {
 				@try {
 					m_scale_factor = [[NSScreen mainScreen] backingScaleFactor];
 					if (m_scale_factor <= 0.0 || !isfinite(m_scale_factor)) {
@@ -774,6 +794,7 @@ void berialdraw::DeviceCocoaImpl::open_window()
 					creation_exception = exception;
 					window_created = YES; // Set to YES to exit the wait loop
 				}
+				} // @autoreleasepool
 			});
 
 			// Wait for completion with timeout to avoid infinite blocking on ARM64
@@ -801,37 +822,44 @@ void berialdraw::DeviceCocoaImpl::open_window()
 // Close and cleanup the window
 void berialdraw::DeviceCocoaImpl::close_window()
 {
-	if (m_view)
+	@autoreleasepool
 	{
-		// Properly release the BerialView before closing window
-		BerialView* view = (__bridge BerialView*)m_view;
-		[view setDevice:nullptr];  // Nullify device reference to break cycles
-		view = nil;
-		m_view = nullptr;
-	}
-
-	if (m_window)
-	{
-		if ([m_window isKindOfClass:[NSWindow class]])
+		if (m_view)
 		{
-			// Set delegate to nil BEFORE closing to break retain cycle
-			[m_window setDelegate:nil];
-			[m_window setContentView:nil];  // Release content view explicitly
-			
-			if ([NSThread isMainThread])
-			{
-				[(id)m_window close];
-			}
-			else
-			{
-				dispatch_sync(dispatch_get_main_queue(), ^{
-					[m_window setDelegate:nil];
-					[m_window setContentView:nil];
-					[(id)m_window close];
-				});
-			}
+			// Properly release the BerialView before closing window
+			BerialView* view = (__bridge BerialView*)m_view;
+			[view setDevice:nullptr];  // Nullify device reference to break cycles
+			[view stopGlobalMouseTracking];  // Stop global event monitor before destruction
+			view = nil;
+			m_view = nullptr;
 		}
-		m_window = nullptr;
+
+		if (m_window)
+		{
+			if ([m_window isKindOfClass:[NSWindow class]])
+			{
+				// Set delegate to nil BEFORE closing to break retain cycle
+				[m_window setDelegate:nil];
+				[m_window setContentView:nil];  // Release content view explicitly
+				
+				if ([NSThread isMainThread])
+				{
+					[(id)m_window close];
+				}
+				else
+				{
+					dispatch_sync(dispatch_get_main_queue(), ^{
+						@autoreleasepool
+						{
+							[m_window setDelegate:nil];
+							[m_window setContentView:nil];
+							[(id)m_window close];
+						}
+					});
+				}
+			}
+			m_window = nullptr;
+		}
 	}
 
 	if (m_buffer)
@@ -883,28 +911,34 @@ bool berialdraw::DeviceCocoaImpl::dispatch(bool blocking)
 		// Process all available events in a non-blocking manner
 		while (has_more_events)
 		{
-			NSEvent* event = [NSApp nextEventMatchingMask:NSEventMaskAny
-												untilDate:[NSDate distantPast]  // Non-blocking
-													inMode:NSDefaultRunLoopMode
-												dequeue:YES];
+			@autoreleasepool
+			{
+				NSEvent* event = [NSApp nextEventMatchingMask:NSEventMaskAny
+										untilDate:[NSDate distantPast]  // Non-blocking
+											inMode:NSDefaultRunLoopMode
+										dequeue:YES];
             
-			if (event)
-			{
-				count++;
-				[NSApp sendEvent:event];
-			}
-			else
-			{
-				has_more_events = false;
+				if (event)
+				{
+					count++;
+					[NSApp sendEvent:event];
+				}
+				else
+				{
+					has_more_events = false;
+				}
 			}
 		}
         
-		[NSApp updateWindows];
-        
-		// Sync clipboard from system (bidirectional clipboard support)
-		if (UIManager::clipboard())
+		@autoreleasepool
 		{
-			UIManager::clipboard()->sync_from_system();
+			[NSApp updateWindows];
+
+			// Sync clipboard from system (bidirectional clipboard support)
+			if (UIManager::clipboard())
+			{
+				UIManager::clipboard()->sync_from_system();
+			}
 		}
 
 		// If no events were processed and blocking is requested, sleep briefly
@@ -1018,18 +1052,21 @@ berialdraw::Point berialdraw::DeviceCocoaImpl::position() const
 		return berialdraw::Point(0, 0, true);
 	}
 	
-	NSRect frame = [m_window frame];
-	// Cocoa coordinates: origin at bottom-left, need to convert
-	NSScreen* screen = [m_window screen];
-	if (!screen) {
-		screen = [NSScreen mainScreen];
+	@autoreleasepool
+	{
+		NSRect frame = [m_window frame];
+		// Cocoa coordinates: origin at bottom-left, need to convert
+		NSScreen* screen = [m_window screen];
+		if (!screen) {
+			screen = [NSScreen mainScreen];
+		}
+		
+		NSRect screenFrame = [screen frame];
+		Coord x = static_cast<Coord>(frame.origin.x);
+		Coord y = static_cast<Coord>(screenFrame.size.height - frame.origin.y - frame.size.height);
+		
+		return berialdraw::Point(x, y, true);
 	}
-	
-	NSRect screenFrame = [screen frame];
-	Coord x = static_cast<Coord>(frame.origin.x);
-	Coord y = static_cast<Coord>(screenFrame.size.height - frame.origin.y - frame.size.height);
-	
-	return berialdraw::Point(x, y, true);
 }
 
 // Set window position
@@ -1037,20 +1074,23 @@ void berialdraw::DeviceCocoaImpl::position(Coord x, Coord y)
 {
 	if (!m_window) return;
 	
-	NSScreen* screen = [m_window screen];
-	if (!screen) {
-		screen = [NSScreen mainScreen];
+	@autoreleasepool
+	{
+		NSScreen* screen = [m_window screen];
+		if (!screen) {
+			screen = [NSScreen mainScreen];
+		}
+		
+		NSRect screenFrame = [screen frame];
+		// Convert from standard coordinates (origin at top-left) to Cocoa (origin at bottom-left)
+		CGFloat cocoa_y = screenFrame.size.height - (y + m_height);
+		
+		NSRect newFrame = [m_window frame];
+		newFrame.origin.x = x;
+		newFrame.origin.y = cocoa_y;
+		
+		[m_window setFrame:newFrame display:YES animate:NO];
 	}
-	
-	NSRect screenFrame = [screen frame];
-	// Convert from standard coordinates (origin at top-left) to Cocoa (origin at bottom-left)
-	CGFloat cocoa_y = screenFrame.size.height - (y + m_height);
-	
-	NSRect newFrame = [m_window frame];
-	newFrame.origin.x = x;
-	newFrame.origin.y = cocoa_y;
-	
-	[m_window setFrame:newFrame display:YES animate:NO];
 }
 
 // DeviceCocoa public interface implementation
@@ -1077,9 +1117,15 @@ bool DeviceCocoa::dispatch(bool blocking)
 // Main event loop
 void DeviceCocoa::mainloop()
 {
-	while (dispatch(true))
+	while (true)
 	{
-		// Event loop continues until quit
+		@autoreleasepool
+		{
+			if (!dispatch(true))
+			{
+				break;
+			}
+		}
 	}
 }
 

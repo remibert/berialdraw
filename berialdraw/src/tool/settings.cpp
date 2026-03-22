@@ -355,6 +355,7 @@ void Settings::test8()
 
 void Settings::test()
 {
+	MemoryLeakLog
 	// Run all tests starting from the highest number
 	test8();  // Test nested dotted notation
 	test7();  // Test JSON API features and operator| defaults

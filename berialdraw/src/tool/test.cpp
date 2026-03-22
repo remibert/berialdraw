@@ -6,11 +6,13 @@ namespace berialdraw
 	void test_widget()
 	{
 	#if _DEBUG
+		MemoryLeakLog
 		tools_test2();
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
 
-		Styles::test();
+		//Button::test();
+		//Styles::test();
 		//StyleManager::test();
 		TableView::test();
 
@@ -54,6 +56,7 @@ namespace berialdraw
 		static bool done = false;
 		if (done == false)
 		{
+			MemoryLeakLog
 			done = true;
 
 			String script(
@@ -623,6 +626,7 @@ namespace berialdraw
 
 		if (done == false)
 		{
+			MemoryLeakLog
 			done = true;
 #if _DEBUG
 			File::test();

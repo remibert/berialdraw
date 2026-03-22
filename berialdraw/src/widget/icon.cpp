@@ -439,6 +439,7 @@ void Icon::test()
 	static bool done = false;
 	if (done == false)
 	{
+		MemoryLeakLog
 		done = true;
 		test5();
 		test4();

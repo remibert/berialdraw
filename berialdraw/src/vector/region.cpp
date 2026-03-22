@@ -1586,6 +1586,7 @@ void Region::test2()
 
 void Region::test()
 {
+	MemoryLeakLog
 	test2();
 	test1();
 }

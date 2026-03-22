@@ -7,4 +7,32 @@
 	"scroll-direction"              : "all-directions",
 	"align"                         : "top,left",
 	"extend"                        : "all",
+	"style"                         : "table-view-default",
+	"styles"                        :
+	[
+	{
+		"name":"table-view-default",
+		"properties":
+		{
+			"grid": 
+			{
+				"color": 0xFF00004B,
+				"horizontal-thickness": 1,
+				"vertical-thickness": 1
+			},
+
+			"cell-selector":
+			[
+				{
+					"row": 0xFFFE,
+					"color": 0xFF00004C
+				},
+				{
+					"row": 0xFFFD,
+					"color": 0xFF00004D
+				}
+			]
+		}
+	}
+	]
 }

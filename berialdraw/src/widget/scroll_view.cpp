@@ -471,6 +471,7 @@ void ScrollView::test()
 	static bool done = false;
 	if (done == false)
 	{
+		MemoryLeakLog
 		done = true;
 		test7();
 		test6();

@@ -274,6 +274,7 @@ uint32_t TextStream::write_format(const char *format, ...)
 // Unitary test
 void TextStream::test()
 {
+	MemoryLeakLog
 	test5();
 	test4();
 	test3();

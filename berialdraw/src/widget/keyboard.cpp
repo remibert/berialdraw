@@ -386,9 +386,8 @@ void Keyboard::test()
 	static bool done = false;
 	if (done == false)
 	{
+		MemoryLeakLog
 		done = true;
-test1();
-
 		test7();
 		test6();
 		test5();

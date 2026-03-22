@@ -410,6 +410,7 @@ void TableView::populate_json_from_data(Json& json)
 /** Test 1: Basic grid with scrolling */
 void TableView::test1()
 {
+	MemoryLeakLog
 	Window window;
 	window.color(Color::WHITE_BLUE);
 	
@@ -442,6 +443,7 @@ void TableView::test1()
 /** Test 2: Grid with JSON load */
 void TableView::test2()
 {
+	MemoryLeakLog
 	Window window;
 	window.color(Color::WHITE_BLUE);
 	
@@ -475,6 +477,7 @@ void TableView::test2()
 /** Test 3: Grid visibility toggle */
 void TableView::test3()
 {
+	MemoryLeakLog
 	Window window;
 	window.color(Color::WHITE_BLUE);
 	
@@ -502,6 +505,7 @@ void TableView::test3()
 /** Test 4: Grid with invisible grid lines */
 void TableView::test4()
 {
+	MemoryLeakLog
 	Window window;
 	window.color(Color::WHITE_BLUE);
 	
@@ -528,6 +532,7 @@ void TableView::test4()
 /** Test 5: Different grid colors and thickness */
 void TableView::test5()
 {
+	MemoryLeakLog
 	Window window;
 	window.color(Color::WHITE_BLUE);
 	
@@ -556,6 +561,7 @@ void TableView::test5()
 /** Test 6: Progressive grid filling 1x1 to 10x10 with snapshots */
 void TableView::test6()
 {
+	MemoryLeakLog
 	Window window;
 	window.color(Color::WHITE_BLUE);
 	
@@ -591,6 +597,7 @@ void TableView::test6()
 /** Test 7: Scrolling behavior test */
 void TableView::test7()
 {
+	MemoryLeakLog
 	Window window;
 	window.color(Color::WHITE_BLUE);
 	
@@ -630,6 +637,7 @@ void TableView::test7()
 /** Test 8: Custom colors and row styling */
 void TableView::test8()
 {
+	MemoryLeakLog
 	Window window;
 	window.color(Color::WHITE_BLUE);
 	
@@ -658,6 +666,7 @@ void TableView::test8()
 /** Test 9: Large table with scrolling snapshot */
 void TableView::test9()
 {
+	MemoryLeakLog
 	Window window;
 	window.color(Color::WHITE_BLUE);
 	
@@ -687,6 +696,7 @@ void TableView::test()
 	static bool done = false;
 	if (done == false)
 	{
+		MemoryLeakLog
 		done = true;
 		test9();
 		test8();

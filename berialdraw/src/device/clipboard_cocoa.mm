@@ -18,10 +18,13 @@ int ClipboardProviderCocoa::m_instance_count = 0;
 /** Static method to safely initialize and get accepted types */
 void* ClipboardProviderCocoa::getAcceptedTypes()
 {
-	@synchronized([NSObject class])
+	@autoreleasepool
 	{
-		if (m_accepted_types == nullptr) {
-			m_accepted_types = (void*)CFBridgingRetain(@[NSPasteboardTypeString]);
+		@synchronized([NSObject class])
+		{
+			if (m_accepted_types == nullptr) {
+				m_accepted_types = (void*)CFBridgingRetain(@[NSPasteboardTypeString]);
+			}
 		}
 	}
 	return ClipboardProviderCocoa::m_accepted_types;
@@ -30,11 +33,14 @@ void* ClipboardProviderCocoa::getAcceptedTypes()
 /** Clean up accepted types when no more instances exist */
 void ClipboardProviderCocoa::cleanupAcceptedTypes()
 {
-	@synchronized([NSObject class])
+	@autoreleasepool
 	{
-		if (--m_instance_count <= 0 && m_accepted_types != nullptr) {
-			CFBridgingRelease(m_accepted_types);
-			m_accepted_types = nullptr;
+		@synchronized([NSObject class])
+		{
+			if (--m_instance_count <= 0 && m_accepted_types != nullptr) {
+				CFBridgingRelease(m_accepted_types);
+				m_accepted_types = nullptr;
+			}
 		}
 	}
 }

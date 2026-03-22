@@ -29,6 +29,7 @@ void Compass::test()
 	static bool done = false;
 	if (done == false)
 	{
+		MemoryLeakLog
 		done = true;
 		Window window;
 			window.color(Color::WHITE);

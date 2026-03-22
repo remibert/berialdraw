@@ -625,6 +625,7 @@ void Grid::test()
 	static bool done = false;
 	if (done == false)
 	{
+		MemoryLeakLog
 		done = true;
 		test6();
 		test5();

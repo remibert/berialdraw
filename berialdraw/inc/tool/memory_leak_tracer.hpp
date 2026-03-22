@@ -49,9 +49,35 @@ namespace berialdraw
 		@return The size in bytes of allocated memory. */
 		static size_t size();
 
+		/** Returns the base ID number for memory allocation.
+		@return The base ID. */
+		static size_t base_id();
+
+		/** Returns the previous memory statistics size.
+		@return The previous statistics size. */
+		static size_t stat_size();
+
+		/** Returns the previous memory statistics count.
+		@return The previous statistics count. */
+		static size_t stat_count();
+
+		/** Returns whether memory analysis has started.
+		@return True if memory analysis is started, false otherwise. */
+		static bool started();
+
+		/** Returns whether memory tracking is currently suspended.
+		@return True if memory tracking is suspended, false otherwise. */
+		static bool suspended();
+
 		/** Displays memory consumption statistics.
 		@param name An optional name for the statistics. */
 		static void stat(const char * name = 0);
+
+		/** Log test function entry with function name and current base_id.
+		@param filename The name of the source file.
+		@param line The line number in the source file.
+		@param func_name The function name to log. */
+		static void log(const char * filename, int line, const char * func_name);
 
 		/** Suspends memory tracking without stopping it.
 		Allocations made while suspended won't be tracked. */
@@ -61,7 +87,6 @@ namespace berialdraw
 		static void resume();
 
 	protected:
-
 /// @cond DOXYGEN_IGNORE
 		/** Allocates memory.
 		@param size The size in bytes to allocate.
@@ -93,7 +118,7 @@ namespace berialdraw
 		/** Indicates whether memory analysis has started. */
 		static bool m_started;
 
-		 /** Indicates whether memory tracking is currently suspended. */
+		/** Indicates whether memory tracking is currently suspended. */
 		static bool m_suspended;
 
 		/** List of currently allocated memory blocks. */
@@ -101,6 +126,7 @@ namespace berialdraw
 /// @endcond
 	};
 
+	#define MemoryLeakLog MemoryLeakTracer::log(__FILE__, __LINE__, __FUNCTION__);
 /** Software break point definition */
 #if defined(_MSC_VER)
 	#include <intrin.h>

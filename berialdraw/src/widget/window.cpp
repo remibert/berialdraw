@@ -931,6 +931,7 @@ void Window::test()
 	static bool done = false;
 	if (done == false)
 	{
+		MemoryLeakLog
 		done = true;
 		test9();
 		test8();

@@ -1374,6 +1374,7 @@ void Rect::test()
 	static bool done = false;
 	if (done == false)
 	{
+		MemoryLeakLog
 		done = true;
 	test5();
 

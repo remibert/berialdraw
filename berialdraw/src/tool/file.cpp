@@ -305,6 +305,7 @@ void File::test8()
 
 void File::test()
 {
+	MemoryLeakLog
 	test1();
 	test2();
 	test3();

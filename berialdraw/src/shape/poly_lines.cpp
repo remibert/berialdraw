@@ -541,6 +541,7 @@ void PolyLines::test()
 	static bool done = false;
 	if (done == false)
 	{
+		MemoryLeakLog
 		done = true;
 		test2();
 		test1();

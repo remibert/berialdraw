@@ -59,7 +59,25 @@ void MemoryLeakTracer::show()
 	bd_printf("Not freed count:%lu, size:%lu, last_id:%lu\n",(long)MemoryLeakTracer::m_count, (long) MemoryLeakTracer::m_size, (long)MemoryLeakTracer::m_base_id);
 	while (current)
 	{
-		bd_printf("Id:%lu, size:%lu, ptr:0x%08llX\n",(long)current->id, (long)current->size, (long long)(&(current[1])));
+		uint8_t* data = (uint8_t*)(&(current[1]));
+		size_t hex_len = (current->size >= 16) ? 16 : current->size;
+		
+		bd_printf("Id:%08lu, size:%-6lu, ptr:0x%08llX dump:| ", (long)current->id, (long)current->size, (long long)(&(current[1])));
+		
+		for (size_t i = 0; i < hex_len; i++) {
+			bd_printf("%02X ", data[i]);
+		}
+		for (size_t i = hex_len; i < 16; i++) {
+			bd_printf("   ");
+		}
+		
+		bd_printf("|  |");
+		for (size_t i = 0; i < hex_len; i++) {
+			char c = data[i];
+			bd_printf("%c", (c >= 32 && c < 127) ? c : '.');
+		}
+		bd_printf("|\n");
+		
 		current = current->next;
 	}
 	bd_printf("Not freed count:%lu, size:%lu, last_id:%lu\n",(long)MemoryLeakTracer::m_count, (long) MemoryLeakTracer::m_size, (long)MemoryLeakTracer::m_base_id);
@@ -121,6 +139,42 @@ size_t MemoryLeakTracer::count()
 size_t MemoryLeakTracer::size()
 {
 	return MemoryLeakTracer::m_size;
+}
+
+/** Base ID number for memory allocation */
+size_t MemoryLeakTracer::base_id()
+{
+	return MemoryLeakTracer::m_base_id;
+}
+
+/** Previous memory statistics size */
+size_t MemoryLeakTracer::stat_size()
+{
+	return MemoryLeakTracer::m_stat_size;
+}
+
+/** Previous memory statistics count */
+size_t MemoryLeakTracer::stat_count()
+{
+	return MemoryLeakTracer::m_stat_count;
+}
+
+/** Indicates whether memory analysis has started */
+bool MemoryLeakTracer::started()
+{
+	return MemoryLeakTracer::m_started;
+}
+
+/** Indicates whether memory tracking is currently suspended */
+bool MemoryLeakTracer::suspended()
+{
+	return MemoryLeakTracer::m_suspended;
+}
+
+/** Log test function entry with function name and current base_id */
+void MemoryLeakTracer::log(const char * filename, int line, const char * func_name)
+{
+	bd_printf("Id:%08lu, %s:%d:%s\n", (long)MemoryLeakTracer::m_base_id, filename ? filename : "unknown", line, func_name ? func_name : "unknown");
 }
 
 /** Memory calloc */
