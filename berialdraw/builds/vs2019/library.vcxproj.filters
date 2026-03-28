@@ -713,6 +713,12 @@
     <ClCompile Include="..\..\src\styles\table_view_style.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\styles\cell_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\cells_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\tool\chronometer.cpp">
       <Filter>berialdraw\tool</Filter>
     </ClCompile>
@@ -1502,6 +1508,12 @@
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\styles\table_view_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\cell_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\cells_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\tool\chronometer.hpp">

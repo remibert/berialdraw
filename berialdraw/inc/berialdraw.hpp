@@ -82,6 +82,8 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "styles/colors.hpp"
 #include "styles/scroll_view_style.hpp"
 #include "styles/table_view_style.hpp"
+#include "styles/cell_style.hpp"
+#include "styles/cells_style.hpp"
 #include "styles/styles.hpp"
 #include "styles/style_names.hpp"
 #include "styles/style_item.hpp"

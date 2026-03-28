@@ -74,7 +74,7 @@ bool Colors::appearance(const char * name)
 				m_colors_secondary.clear();
 
 				{
-					JsonIterator iterator(json["colors"]);
+					JsonIterator iterator(json[StyleNames::COLORS_COLORS]);
 					for (iterator.first(); iterator.exist(); iterator.next())
 					{
 						m_colors_primary.push_back(iterator);

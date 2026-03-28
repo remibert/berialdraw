@@ -81,7 +81,7 @@ void Mappings::serialize(JsonIterator & it)
 /** Unserialize the content of widget from json */
 void Mappings::unserialize(JsonIterator & parent)
 {
-	JsonIterator it = parent["mappings"];
+	JsonIterator it = parent[StyleNames::KEY_MAPPINGS];
 	for(it.first(); it.exist(); it.next())
 	{
 		Mapping * mapping = new Mapping;

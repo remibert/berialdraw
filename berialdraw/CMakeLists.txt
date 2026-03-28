@@ -99,6 +99,8 @@ set(SRCS_LIB
 	src/styles/icon_style.cpp
 	src/styles/scroll_view_style.cpp
 	src/styles/table_view_style.cpp
+	src/styles/cell_style.cpp
+	src/styles/cells_style.cpp
 	src/styles/style_item.cpp
 	src/styles/colors.cpp
 

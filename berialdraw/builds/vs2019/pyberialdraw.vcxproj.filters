@@ -172,6 +172,12 @@
     <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\table_view_style.cpp">
       <Filter>styles</Filter>
     </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\cell_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\cells_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
     <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\slider_style.cpp">
       <Filter>styles</Filter>
     </ClCompile>
@@ -294,8 +300,10 @@
     <ClCompile Include="..\..\pybind\src\pybind\vector\scroll_direction.cpp">
       <Filter>vector</Filter>
     </ClCompile>
-    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\table_view.cpp" />
     <ClCompile Include="..\..\pybind\src\pybind\widget\scrollable_content.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\widget\table_view.cpp">
       <Filter>widget</Filter>
     </ClCompile>
   </ItemGroup>

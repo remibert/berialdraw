@@ -121,6 +121,20 @@ namespace berialdraw
 		static constexpr const char* TABLEVIEW_ALTERNATING_ROW_COLOR_2 = "alternating-row-color-2";
 		static constexpr const char* TABLEVIEW_SCROLL_DIRECTION = "scroll-direction";
 
+		// Cell style
+		static constexpr const char* CELLSTYLE_ROW_SELECTOR = "row-selector";
+		static constexpr const char* CELLSTYLE_COLUMN_SELECTOR = "column-selector";
+		static constexpr const char* CELLSTYLE_GRID_COLOR = "grid-color";
+		static constexpr const char* CELLSTYLE_GRID_VISIBLE = "grid-visible";
+		static constexpr const char* CELLSTYLE_HORIZONTAL_THICKNESS = "horizontal-thickness_";
+		static constexpr const char* CELLSTYLE_VERTICAL_THICKNESS = "vertical-thickness_";
+
+		// Cells style
+		static constexpr const char* CELLSYLES_CELLS = "cells";
+
+		// Colors style
+		static constexpr const char* COLORS_COLORS = "colors";
+
 		// Text style
 		static constexpr const char* TEXT_CONTENT = "text";
 		static constexpr const char* TEXT_FONT_FAMILY = "font-familly";
