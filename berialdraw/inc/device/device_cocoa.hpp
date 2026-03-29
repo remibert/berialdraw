@@ -72,6 +72,9 @@ namespace berialdraw
 		/** Quit the application */
 		virtual void quit();
 
+		/** Show the console */
+		static void show_console() {}
+
 	private:
 /// @cond DOXYGEN_IGNORE
 		DeviceCocoaImpl* m_impl;  /**< PIMPL pointer to hide Cocoa implementation */

@@ -68,6 +68,9 @@ namespace berialdraw
 		/** Quit the application */
 		void quit();
 
+		/** Show the console */
+		static void show_console() {}
+
 #ifndef SWIG
 	private:
 		// Wayland handles and state (to be implemented)

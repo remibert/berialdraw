@@ -66,6 +66,9 @@ namespace berialdraw
 
 		/** Blit the buffer to the window */
 		virtual void blit();
+
+		/** Show the console */
+		static void show_console() {}
 	private:
 /// @cond DOXYGEN_IGNORE
 		void open_window();
