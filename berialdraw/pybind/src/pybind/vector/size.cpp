@@ -1,6 +1,6 @@
 #include "pybind/pyberialdraw.hpp"
 void bind_size(py::module& m) {
-    py::class_<berialdraw::Size>(m, "Size")
+    auto cls = py::class_<berialdraw::Size>(m, "Size")
         .def(py::init<>(), "Create a size")
         .def(py::init<berialdraw::Dim, berialdraw::Dim, bool>(),
              py::arg("w"), py::arg("h"), py::arg("pixel") = true,
@@ -56,29 +56,17 @@ void bind_size(py::module& m) {
              "Clean the size and set to undefined")
         .def("print", &berialdraw::Size::print,
              py::arg("name"),
-             "Print content")
+             "Print content");
              
-        // Propriétés avec précision automatique
-        .def_property("width",
-            [](berialdraw::Size& self) -> berialdraw::Dim { return self.width(); },
-            [](berialdraw::Size& self, py::object value) {
-                if (py::isinstance<py::int_>(value)) {
-                    self.width(value.cast<berialdraw::Dim>());
-                } else if (py::isinstance<py::float_>(value)) {
-                    self.width_(static_cast<berialdraw::Dim>(value.cast<double>() * 64));
-                } else {
-                    throw std::invalid_argument("width must be int or float");
-                }
-            }, "Width (int for normal, float for high precision)")
-        .def_property("height",
-            [](berialdraw::Size& self) -> berialdraw::Dim { return self.height(); },
-            [](berialdraw::Size& self, py::object value) {
-                if (py::isinstance<py::int_>(value)) {
-                    self.height(value.cast<berialdraw::Dim>());
-                } else if (py::isinstance<py::float_>(value)) {
-                    self.height_(static_cast<berialdraw::Dim>(value.cast<double>() * 64));
-                } else {
-                    throw std::invalid_argument("height must be int or float");
-                }
-            }, "Height (int for normal, float for high precision)");
+    // Propriétés avec précision automatique
+    bind_precision_property(cls, "width",
+        &berialdraw::Size::width,
+        &berialdraw::Size::width,
+        &berialdraw::Size::width_,
+        "Width (int for normal, float for high precision)");
+    bind_precision_property(cls, "height",
+        &berialdraw::Size::height,
+        &berialdraw::Size::height,
+        &berialdraw::Size::height_,
+        "Height (int for normal, float for high precision)");
 }

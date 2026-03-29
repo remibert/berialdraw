@@ -1,6 +1,6 @@
 #include "pybind/pyberialdraw.hpp"
 void bind_point(py::module& m) {
-    py::class_<berialdraw::Point>(m, "Point")
+    auto cls = py::class_<berialdraw::Point>(m, "Point")
         .def(py::init<>(), "Constructor")
         .def(py::init<berialdraw::Coord, berialdraw::Coord, bool>(),
              py::arg("x"), py::arg("y"), py::arg("pixel") = true,
@@ -42,29 +42,17 @@ void bind_point(py::module& m) {
              py::arg("name"),
              "Print content")
         .def("adapt_scale", &berialdraw::Point::adapt_scale,
-             "Adapt point to the UIManager scale")
+             "Adapt point to the UIManager scale");
              
-        // Propriétés avec précision automatique
-        .def_property("x",
-            [](berialdraw::Point& self) -> berialdraw::Coord { return self.x(); },
-            [](berialdraw::Point& self, py::object value) {
-                if (py::isinstance<py::int_>(value)) {
-                    self.x(value.cast<berialdraw::Coord>());
-                } else if (py::isinstance<py::float_>(value)) {
-                    self.x_(static_cast<berialdraw::Coord>(value.cast<double>() * 64));
-                } else {
-                    throw std::invalid_argument("x must be int or float");
-                }
-            }, "X coordinate (int for normal, float for high precision)")
-        .def_property("y",
-            [](berialdraw::Point& self) -> berialdraw::Coord { return self.y(); },
-            [](berialdraw::Point& self, py::object value) {
-                if (py::isinstance<py::int_>(value)) {
-                    self.y(value.cast<berialdraw::Coord>());
-                } else if (py::isinstance<py::float_>(value)) {
-                    self.y_(static_cast<berialdraw::Coord>(value.cast<double>() * 64));
-                } else {
-                    throw std::invalid_argument("y must be int or float");
-                }
-            }, "Y coordinate (int for normal, float for high precision)");
+    // Propriétés avec précision automatique
+    bind_precision_property(cls, "x",
+        &berialdraw::Point::x,
+        &berialdraw::Point::x,
+        &berialdraw::Point::x_,
+        "X coordinate (int for normal, float for high precision)");
+    bind_precision_property(cls, "y",
+        &berialdraw::Point::y,
+        &berialdraw::Point::y,
+        &berialdraw::Point::y_,
+        "Y coordinate (int for normal, float for high precision)");
 }

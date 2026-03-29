@@ -12,39 +12,36 @@ void bind_progress_bar_style(py::module& m) {
         static_cast<void (berialdraw::ProgressBarStyle::*)(uint32_t)>(&berialdraw::ProgressBarStyle::fill_color),
         "Fill color");
     
-    cls.def_property("fill_size",
-            [](berialdraw::ProgressBarStyle& self) -> berialdraw::Dim { return self.fill_size(); },
-            [](berialdraw::ProgressBarStyle& self, py::object value) {
-                if (py::isinstance<py::int_>(value)) {
-                    self.fill_size(value.cast<berialdraw::Dim>());
-                } else if (py::isinstance<py::float_>(value)) {
-                    self.fill_size_(static_cast<berialdraw::Coord>(value.cast<double>() * 64));
-                } else {
-                    throw std::invalid_argument("fill_size must be int or float");
-                }
-            }, "Fill size (int for normal, float for high precision)")
-        .def_property("track_size",
-            [](berialdraw::ProgressBarStyle& self) -> berialdraw::Dim { return self.track_size(); },
-            [](berialdraw::ProgressBarStyle& self, py::object value) {
-                if (py::isinstance<py::int_>(value)) {
-                    self.track_size(value.cast<berialdraw::Dim>());
-                } else if (py::isinstance<py::float_>(value)) {
-                    self.track_size_(static_cast<berialdraw::Coord>(value.cast<double>() * 64));
-                } else {
-                    throw std::invalid_argument("track_size must be int or float");
-                }
-            }, "Track size (int for normal, float for high precision)")
-        .def_property("value",
-            [](berialdraw::ProgressBarStyle& self) -> int32_t { return self.value(); },
-            [](berialdraw::ProgressBarStyle& self, int32_t value) { self.value(value); }, "Current value")
-        .def_property("min_value",
-            [](berialdraw::ProgressBarStyle& self) -> int32_t { return self.min_value(); },
-            [](berialdraw::ProgressBarStyle& self, int32_t value) { self.min_value(value); }, "Minimum value")
-        .def_property("max_value",
-            [](berialdraw::ProgressBarStyle& self) -> int32_t { return self.max_value(); },
-            [](berialdraw::ProgressBarStyle& self, int32_t value) { self.max_value(value); }, "Maximum value")
-        .def_property("step_value",
-            [](berialdraw::ProgressBarStyle& self) -> uint32_t { return self.step_value(); },
-            [](berialdraw::ProgressBarStyle& self, uint32_t value) { self.step_value(value); }, "Step value");
+    bind_precision_property<berialdraw::ProgressBarStyle>(cls, "fill_size",
+        &berialdraw::ProgressBarStyle::fill_size,
+        &berialdraw::ProgressBarStyle::fill_size,
+        &berialdraw::ProgressBarStyle::fill_size_,
+        "Fill size (int for normal, float for high precision)");
+    
+    bind_precision_property<berialdraw::ProgressBarStyle>(cls, "track_size",
+        &berialdraw::ProgressBarStyle::track_size,
+        &berialdraw::ProgressBarStyle::track_size,
+        &berialdraw::ProgressBarStyle::track_size_,
+        "Track size (int for normal, float for high precision)");
+    
+    bind_scalar_property<berialdraw::ProgressBarStyle, int32_t>(cls, "value",
+        &berialdraw::ProgressBarStyle::value,
+        &berialdraw::ProgressBarStyle::value,
+        "Current value");
+    
+    bind_scalar_property<berialdraw::ProgressBarStyle, int32_t>(cls, "min_value",
+        &berialdraw::ProgressBarStyle::min_value,
+        &berialdraw::ProgressBarStyle::min_value,
+        "Minimum value");
+    
+    bind_scalar_property<berialdraw::ProgressBarStyle, int32_t>(cls, "max_value",
+        &berialdraw::ProgressBarStyle::max_value,
+        &berialdraw::ProgressBarStyle::max_value,
+        "Maximum value");
+    
+    bind_scalar_property<berialdraw::ProgressBarStyle, uint32_t>(cls, "step_value",
+        &berialdraw::ProgressBarStyle::step_value,
+        &berialdraw::ProgressBarStyle::step_value,
+        "Step value");
 }
 

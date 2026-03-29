@@ -29,89 +29,39 @@ void bind_area(py::module& m) {
              py::arg("name"),
              "Print content");
 
-    // Propriétés avec précision automatique
-    cls.def_property("width",
-        [](berialdraw::Area& self) -> berialdraw::Dim { return self.width(); },
-        [](berialdraw::Area& self, py::object value) {
-            if (py::isinstance<py::int_>(value)) {
-                self.width(value.cast<berialdraw::Dim>());
-            } else if (py::isinstance<py::float_>(value)) {
-                self.width_(static_cast<berialdraw::Dim>(value.cast<double>() * 64));
-            } else {
-                throw std::invalid_argument("width must be int or float");
-            }
-        }, "Width (int for normal, float for high precision)");
-    cls.def_property("height",
-        [](berialdraw::Area& self) -> berialdraw::Dim { return self.height(); },
-        [](berialdraw::Area& self, py::object value) {
-            if (py::isinstance<py::int_>(value)) {
-                self.height(value.cast<berialdraw::Dim>());
-            } else if (py::isinstance<py::float_>(value)) {
-                self.height_(static_cast<berialdraw::Dim>(value.cast<double>() * 64));
-            } else {
-                throw std::invalid_argument("height must be int or float");
-            }
-        }, "Height (int for normal, float for high precision)");
-    cls.def_property("x",
-        [](berialdraw::Area& self) -> berialdraw::Coord { return self.x(); },
-        [](berialdraw::Area& self, py::object value) {
-            if (py::isinstance<py::int_>(value)) {
-                self.x(value.cast<berialdraw::Coord>());
-            } else if (py::isinstance<py::float_>(value)) {
-                self.x_(static_cast<berialdraw::Coord>(value.cast<double>() * 64));
-            } else {
-                throw std::invalid_argument("x must be int or float");
-            }
-        }, "X coordinate (int for normal, float for high precision)");
-    cls.def_property("y",
-        [](berialdraw::Area& self) -> berialdraw::Coord { return self.y(); },
-        [](berialdraw::Area& self, py::object value) {
-            if (py::isinstance<py::int_>(value)) {
-                self.y(value.cast<berialdraw::Coord>());
-            } else if (py::isinstance<py::float_>(value)) {
-                self.y_(static_cast<berialdraw::Coord>(value.cast<double>() * 64));
-            } else {
-                throw std::invalid_argument("y must be int or float");
-            }
-        }, "Y coordinate (int for normal, float for high precision)");
+    // Propriétés avec précision automatique (int ou float*64)
+    bind_precision_property(cls, "width",
+        &berialdraw::Area::width,
+        &berialdraw::Area::width,
+        &berialdraw::Area::width_,
+        "Width (int for normal, float for high precision)");
+    
+    bind_precision_property(cls, "height",
+        &berialdraw::Area::height,
+        &berialdraw::Area::height,
+        &berialdraw::Area::height_,
+        "Height (int for normal, float for high precision)");
+    
+    bind_precision_property(cls, "x",
+        &berialdraw::Area::x,
+        &berialdraw::Area::x,
+        &berialdraw::Area::x_,
+        "X coordinate (int for normal, float for high precision)");
+    
+    bind_precision_property(cls, "y",
+        &berialdraw::Area::y,
+        &berialdraw::Area::y,
+        &berialdraw::Area::y_,
+        "Y coordinate (int for normal, float for high precision)");
 
-    // position and size use generic binders adapted for Area
-    cls.def_property("position",
-        [](berialdraw::Area& self) -> py::tuple {
-            const auto& p = self.position();
-            return py::make_tuple(p.x(), p.y());
-        },
-        [](berialdraw::Area& self, py::object value) {
-            if (py::isinstance<py::tuple>(value) || py::isinstance<py::list>(value)) {
-                auto seq = value.cast<py::sequence>();
-                if (py::len(seq) == 2) {
-                    self.position(berialdraw::Point(seq[0].cast<berialdraw::Coord>(), seq[1].cast<berialdraw::Coord>()));
-                } else {
-                    throw std::invalid_argument("position must be tuple/list of 2 values (x, y)");
-                }
-            } else {
-                throw std::invalid_argument("position must be tuple/list of 2 values");
-            }
-        }, "Position as (x, y) tuple");
+    // Position and size properties
+    bind_point_from_values_property(cls, "position",
+        &berialdraw::Area::position,
+        static_cast<void (berialdraw::Area::*)(const berialdraw::Point&)>(&berialdraw::Area::position),
+        "Position as (x, y) tuple");
 
-    cls.def_property("size",
-        [](berialdraw::Area& self) -> py::tuple {
-            const auto& s = self.size();
-            return py::make_tuple(s.width(), s.height());
-        },
-        [](berialdraw::Area& self, py::object value) {
-            if (py::isinstance<py::int_>(value) || py::isinstance<py::float_>(value)) {
-                auto dim = value.cast<berialdraw::Dim>();
-                self.size(berialdraw::Size(dim, dim));
-            } else if (py::isinstance<py::tuple>(value) || py::isinstance<py::list>(value)) {
-                auto seq = value.cast<py::sequence>();
-                if (py::len(seq) == 2) {
-                    self.size(berialdraw::Size(seq[0].cast<berialdraw::Dim>(), seq[1].cast<berialdraw::Dim>()));
-                } else {
-                    throw std::invalid_argument("size must be tuple/list of 2 values (width, height)");
-                }
-            } else {
-                throw std::invalid_argument("size must be int/float or tuple/list of 2 values");
-            }
-        }, "Size as (width, height) tuple");
+    bind_size_from_values_property(cls, "size",
+        &berialdraw::Area::size,
+        static_cast<void (berialdraw::Area::*)(const berialdraw::Size&)>(&berialdraw::Area::size),
+        "Size as (width, height) tuple");
 }

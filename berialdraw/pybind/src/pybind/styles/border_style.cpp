@@ -1,13 +1,17 @@
 #include "pybind/pyberialdraw.hpp"
 void bind_border_style(pybind11::module_& m) {
     pybind11::class_<berialdraw::BorderStyle, berialdraw::Style> cls(m, "BorderStyle");
-    cls.def(pybind11::init<>())
-        .def_property("radius",
-            [](berialdraw::BorderStyle& self) -> berialdraw::Dim { return self.radius(); },
-            [](berialdraw::BorderStyle& self, berialdraw::Dim value) { self.radius(value); }, "Border radius")
-        .def_property("thickness",
-            [](berialdraw::BorderStyle& self) -> berialdraw::Dim { return self.thickness(); },
-            [](berialdraw::BorderStyle& self, berialdraw::Dim value) { self.thickness(value); }, "Border thickness");
+    cls.def(pybind11::init<>());
+    
+    bind_scalar_property<berialdraw::BorderStyle, berialdraw::Dim>(cls, "radius",
+        &berialdraw::BorderStyle::radius,
+        &berialdraw::BorderStyle::radius,
+        "Border radius");
+    
+    bind_scalar_property<berialdraw::BorderStyle, berialdraw::Dim>(cls, "thickness",
+        &berialdraw::BorderStyle::thickness,
+        &berialdraw::BorderStyle::thickness,
+        "Border thickness");
     
     bind_color_property(cls, "border_color",
         &berialdraw::BorderStyle::border_color,
@@ -18,10 +22,13 @@ void bind_border_style(pybind11::module_& m) {
         static_cast<void (berialdraw::BorderStyle::*)(uint32_t)>(&berialdraw::BorderStyle::focus_color),
         "Focus color");
     
-    cls.def_property("focus_gap",
-            [](berialdraw::BorderStyle& self) -> berialdraw::Dim { return self.focus_gap(); },
-            [](berialdraw::BorderStyle& self, berialdraw::Dim value) { self.focus_gap(value); }, "Focus gap")
-        .def_property("focus_thickness",
-            [](berialdraw::BorderStyle& self) -> berialdraw::Dim { return self.focus_thickness(); },
-            [](berialdraw::BorderStyle& self, berialdraw::Dim value) { self.focus_thickness(value); }, "Focus thickness");
+    bind_scalar_property<berialdraw::BorderStyle, berialdraw::Dim>(cls, "focus_gap",
+        &berialdraw::BorderStyle::focus_gap,
+        &berialdraw::BorderStyle::focus_gap,
+        "Focus gap");
+    
+    bind_scalar_property<berialdraw::BorderStyle, berialdraw::Dim>(cls, "focus_thickness",
+        &berialdraw::BorderStyle::focus_thickness,
+        &berialdraw::BorderStyle::focus_thickness,
+        "Focus thickness");
 }

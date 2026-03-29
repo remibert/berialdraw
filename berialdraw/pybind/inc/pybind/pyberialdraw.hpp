@@ -108,6 +108,61 @@ void bind_margin_property(pybind11::class_<C, Extra...>& cls, const char* name,
         }, doc);
 }
 
+// Helper: bind a property that accepts int/float or tuple/list and creates a Size object
+// Used when setter takes a Size object instead of (Dim, Dim)
+template<typename C, typename... Extra>
+void bind_size_from_values_property(pybind11::class_<C, Extra...>& cls, const char* name,
+                                    const berialdraw::Size& (C::*getter)() const,
+                                    void (C::*setter)(const berialdraw::Size&),
+                                    const char* doc) {
+    cls.def_property(name,
+        [getter](C& self) -> py::tuple {
+            const auto& s = (self.*getter)();
+            return py::make_tuple(s.width(), s.height());
+        },
+        [setter](C& self, py::object value) {
+            if (py::isinstance<py::int_>(value) || py::isinstance<py::float_>(value)) {
+                auto dim = value.cast<berialdraw::Dim>();
+                (self.*setter)(berialdraw::Size(dim, dim));
+            } else if (py::isinstance<py::tuple>(value) || py::isinstance<py::list>(value)) {
+                auto seq = value.cast<py::sequence>();
+                if (py::len(seq) == 2) {
+                    (self.*setter)(berialdraw::Size(seq[0].cast<berialdraw::Dim>(), seq[1].cast<berialdraw::Dim>()));
+                } else {
+                    throw std::invalid_argument("Size property tuple/list must have 2 values (width, height)");
+                }
+            } else {
+                throw std::invalid_argument("Size property must be int/float or tuple/list of 2 values");
+            }
+        }, doc);
+}
+
+// Helper: bind a property that accepts tuple/list and creates a Point object
+// Used when setter takes a Point object instead of (Coord, Coord)
+template<typename C, typename... Extra>
+void bind_point_from_values_property(pybind11::class_<C, Extra...>& cls, const char* name,
+                                     const berialdraw::Point& (C::*getter)() const,
+                                     void (C::*setter)(const berialdraw::Point&),
+                                     const char* doc) {
+    cls.def_property(name,
+        [getter](C& self) -> py::tuple {
+            const auto& p = (self.*getter)();
+            return py::make_tuple(p.x(), p.y());
+        },
+        [setter](C& self, py::object value) {
+            if (py::isinstance<py::tuple>(value) || py::isinstance<py::list>(value)) {
+                auto seq = value.cast<py::sequence>();
+                if (py::len(seq) == 2) {
+                    (self.*setter)(berialdraw::Point(seq[0].cast<berialdraw::Coord>(), seq[1].cast<berialdraw::Coord>()));
+                } else {
+                    throw std::invalid_argument("Point property must be tuple/list of 2 values (x, y)");
+                }
+            } else {
+                throw std::invalid_argument("Point property must be tuple/list of 2 values");
+            }
+        }, doc);
+}
+
 // Helper: bind a property that accepts both uint32_t color values and Color enum
 // Accepts both 0xFFFFFFFF and Color.RED style values
 template<typename C, typename... Extra>
@@ -129,6 +184,40 @@ void bind_color_property(pybind11::class_<C, Extra...>& cls, const char* name,
                 }
             }
         }, doc);
+}
+
+// Helper: bind a property that accepts int (normal precision) or float (1/64th precision)
+// Used for Dim and Coord types where float * 64 gives high precision
+template<typename C, typename ValueType, typename... Extra>
+void bind_precision_property(pybind11::class_<C, Extra...>& cls, const char* name,
+                             ValueType (C::*getter)() const,
+                             void (C::*setter_normal)(ValueType),
+                             void (C::*setter_precision)(ValueType),
+                             const char* doc) {
+    cls.def_property(name,
+        [getter](C& self) -> ValueType { return (self.*getter)(); },
+        [setter_normal, setter_precision](C& self, pybind11::object value) {
+            if (pybind11::isinstance<pybind11::int_>(value)) {
+                (self.*setter_normal)(value.cast<ValueType>());
+            } else if (pybind11::isinstance<pybind11::float_>(value)) {
+                (self.*setter_precision)(static_cast<ValueType>(value.cast<double>() * 64));
+            } else {
+                throw std::invalid_argument("Property must be int (normal) or float (high precision)");
+            }
+        }, doc);
+}
+
+// Helper: bind a simple scalar property (getter/setter with same type)
+// Used for properties like Dim, int32_t, uint32_t, bool, etc.
+template<typename C, typename ValueType, typename... Extra>
+void bind_scalar_property(pybind11::class_<C, Extra...>& cls, const char* name,
+                         ValueType (C::*getter)() const,
+                         void (C::*setter)(ValueType),
+                         const char* doc) {
+    cls.def_property(name,
+        [getter](C& self) -> ValueType { return (self.*getter)(); },
+        [setter](C& self, ValueType value) { (self.*setter)(value); },
+        doc);
 }
 
 // Helper: convert Python string to berialdraw::String
