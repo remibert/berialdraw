@@ -16,7 +16,7 @@ CellsStyle::~CellsStyle()
 /** Serialize the content of widget into json */
 void CellsStyle::serialize(JsonIterator & it)
 {
-	JsonIterator cells_iterator = it[StyleNames::CELLSYLES_CELLS];
+	JsonIterator cells_iterator = it[StyleNames::CELLSTYLES_CELLS];
 	for (uint32_t i = 0; i < m_cells.size(); i++)
 	{
 		m_cells[i].serialize(cells_iterator);
@@ -28,7 +28,7 @@ void CellsStyle::serialize(JsonIterator & it)
 void CellsStyle::unserialize(JsonIterator & it)
 {
 	m_cells.clear();
-	JsonIterator cells_iterator(it[StyleNames::CELLSYLES_CELLS]);
+	JsonIterator cells_iterator(it[StyleNames::CELLSTYLES_CELLS]);
 	for (cells_iterator.first(); cells_iterator.exist(); cells_iterator.next())
 	{
 		CellStyle cell;

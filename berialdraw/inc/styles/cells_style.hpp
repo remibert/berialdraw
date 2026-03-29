@@ -80,12 +80,6 @@ namespace berialdraw
 			return m_cells.empty();
 		}
 
-		/** Reserve space for n cells */
-		inline void reserve(uint32_t n)
-		{
-			m_cells.reserve(n);
-		}
-
 		/** Get the property name for this style */
 		const char* property_name() const override { return "cells"; }
 

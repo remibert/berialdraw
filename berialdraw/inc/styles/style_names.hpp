@@ -111,26 +111,21 @@ namespace berialdraw
 		static constexpr const char* SWITCH_SIZE = "switch-size";
 
 		// Table view style
-		static constexpr const char* TABLEVIEW_GRID_COLOR = "grid-color";
-		static constexpr const char* TABLEVIEW_HORIZONTAL_THICKNESS = "horizontal-thickness_";
-		static constexpr const char* TABLEVIEW_VERTICAL_THICKNESS = "vertical-thickness_";
-		static constexpr const char* TABLEVIEW_GRID_VISIBLE = "grid-visible";
-		static constexpr const char* TABLEVIEW_HEADER_VISIBLE = "header-visible";
-		static constexpr const char* TABLEVIEW_HEADER_BACKGROUND_COLOR = "header-background-color";
 		static constexpr const char* TABLEVIEW_ALTERNATING_ROW_COLOR_1 = "alternating-row-color-1";
 		static constexpr const char* TABLEVIEW_ALTERNATING_ROW_COLOR_2 = "alternating-row-color-2";
-		static constexpr const char* TABLEVIEW_SCROLL_DIRECTION = "scroll-direction";
+
+		// Grid style
+		static constexpr const char* GRIDSTYLE_GRID_COLOR = "grid-color";
+		static constexpr const char* GRIDSTYLE_GRID_VISIBLE = "grid-visible";
+		static constexpr const char* GRIDSTYLE_HORIZONTAL_THICKNESS = "horizontal-thickness_";
+		static constexpr const char* GRIDSTYLE_VERTICAL_THICKNESS = "vertical-thickness_";
 
 		// Cell style
 		static constexpr const char* CELLSTYLE_ROW_SELECTOR = "row-selector";
 		static constexpr const char* CELLSTYLE_COLUMN_SELECTOR = "column-selector";
-		static constexpr const char* CELLSTYLE_GRID_COLOR = "grid-color";
-		static constexpr const char* CELLSTYLE_GRID_VISIBLE = "grid-visible";
-		static constexpr const char* CELLSTYLE_HORIZONTAL_THICKNESS = "horizontal-thickness_";
-		static constexpr const char* CELLSTYLE_VERTICAL_THICKNESS = "vertical-thickness_";
 
 		// Cells style
-		static constexpr const char* CELLSYLES_CELLS = "cells";
+		static constexpr const char* CELLSTYLES_CELLS = "cells";
 
 		// Colors style
 		static constexpr const char* COLORS_COLORS = "colors";

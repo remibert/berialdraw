@@ -3,7 +3,7 @@ namespace berialdraw
 {
 	/** The TableView class provides a scrollable table container for displaying widgets in a grid layout.
 	Each cell can contain any widget, making it highly flexible for custom content. */
-	class TableView : public ScrollableContent, public TableViewStyle
+	class TableView : public ScrollableContent, public GridStyle, public TableViewStyle
 	{
 	public:
 		/** Create widget */

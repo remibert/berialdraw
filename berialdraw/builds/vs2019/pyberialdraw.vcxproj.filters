@@ -172,6 +172,9 @@
     <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\table_view_style.cpp">
       <Filter>styles</Filter>
     </ClCompile>
+    <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\grid_style.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
     <ClCompile Include="..\\..\\pybind\\src\\pybind\styles\cell_style.cpp">
       <Filter>styles</Filter>
     </ClCompile>

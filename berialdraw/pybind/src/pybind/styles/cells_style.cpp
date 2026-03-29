@@ -44,9 +44,5 @@ void bind_cells_style(pybind11::module_& m) {
         // Check if index is within bounds
         .def("inbound",
             &berialdraw::CellsStyle::inbound,
-            "Indicates if index is within bounds")
-        // Reserve space
-        .def("reserve",
-            &berialdraw::CellsStyle::reserve,
-            "Reserve space for n cells");
+            "Indicates if index is within bounds");
 }

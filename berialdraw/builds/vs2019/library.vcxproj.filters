@@ -713,6 +713,9 @@
     <ClCompile Include="..\..\src\styles\table_view_style.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\styles\grid_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\styles\cell_style.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
@@ -1529,6 +1532,9 @@
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\styles\style_names.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\styles\grid_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
   </ItemGroup>
