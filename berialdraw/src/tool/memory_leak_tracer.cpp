@@ -2,16 +2,27 @@
 
 namespace berialdraw
 {
+	/** Memory tag constant for header validation */
+	static constexpr size_t MEMORY_TAG     = 0xCAFEFADE;
+	/** Memory tag constant for log entries */
+	static constexpr size_t MEMORY_LOG_TAG = 0xCAFEFADF;
+	/** Mask to match both MEMORY_TAG and MEMORY_LOG_TAG */
+	static constexpr size_t MEMORY_TAG_MASK = 0xFFFFFFFE;
+	/** Number of callstack frames stored per allocation */
+	static constexpr int CALLSTACK_DEPTH = 3;
+	/** Number of internal frames to skip when capturing callstack */
+	static constexpr int CALLSTACK_SKIP  = 4;
+
 	/** Memory header */
 	class MemHeader
 	{
 	public:
-		size_t tag = 0xCAFEFADE;
+		size_t tag = MEMORY_TAG;
 		size_t size = 0;
 		size_t id = 0;
 		MemHeader * next = 0;
 		MemHeader * prev = 0;
-		uint64_t _padding = 0;  // Align to 16-byte boundary (48 bytes total) for ARM64 SIMD
+		void* callstack[3] = {0, 0, 0};  // 64 bytes total, 16-byte aligned for ARM64 SIMD
 	};
 
 	size_t MemoryLeakTracer::m_size  = 0;
@@ -40,9 +51,45 @@ void MemoryLeakTracer::start()
 	MemoryLeakTracer::m_started = true;
 }
 
+/** Remove all log entries from the allocated list */
+void MemoryLeakTracer::clean_logs()
+{
+	MemHeader * current = MemoryLeakTracer::m_allocated;
+	while (current)
+	{
+		MemHeader * next = current->next;
+		if (current->tag == MEMORY_LOG_TAG)
+		{
+			// Remove from doubly-linked list
+			if (MemoryLeakTracer::m_allocated == current)
+			{
+				MemoryLeakTracer::m_allocated = current->next;
+				if (MemoryLeakTracer::m_allocated)
+				{
+					MemoryLeakTracer::m_allocated->prev = 0;
+				}
+			}
+			else
+			{
+				if (current->prev)
+				{
+					current->prev->next = current->next;
+				}
+				if (current->next)
+				{
+					current->next->prev = current->prev;
+				}
+			}
+			std::free(current);
+		}
+		current = next;
+	}
+}
+
 /** Stop memory analysis */
 void MemoryLeakTracer::stop()
 {
+	clean_logs();
 	MemoryLeakTracer::m_started = false;
 }
 
@@ -55,32 +102,71 @@ void MemoryLeakTracer::break_at(size_t break_id)
 /** Show all blocks yet allocated */
 void MemoryLeakTracer::show()
 {
-	MemHeader * current = MemoryLeakTracer::m_allocated;
-	bd_printf("Not freed count:%lu, size:%lu, last_id:%lu\n",(long)MemoryLeakTracer::m_count, (long) MemoryLeakTracer::m_size, (long)MemoryLeakTracer::m_base_id);
-	while (current)
+	if (MemoryLeakTracer::m_count > 0)
 	{
-		uint8_t* data = (uint8_t*)(&(current[1]));
-		size_t hex_len = (current->size >= 16) ? 16 : current->size;
-		
-		bd_printf("Id:%08lu, size:%-6lu, ptr:0x%08llX dump:| ", (long)current->id, (long)current->size, (long long)(&(current[1])));
-		
-		for (size_t i = 0; i < hex_len; i++) {
-			bd_printf("%02X ", data[i]);
+		MemHeader * current = MemoryLeakTracer::m_allocated;
+		bd_printf("\n------------------------------------------------------------\n");
+		bd_printf("  MEMORY LEAK DETECTED\n");
+		bd_printf("  Not freed count:%lu, size:%lu, last_id:%lu\n",(long)MemoryLeakTracer::m_count, (long) MemoryLeakTracer::m_size, (long)MemoryLeakTracer::m_base_id);
+		bd_printf("------------------------------------------------------------\n");
+		while (current)
+		{
+			if (current->tag == MEMORY_LOG_TAG)
+			{
+				// Display log entry
+				const char* log_text = (const char*)(&(current[1]));
+				bd_printf("Id:%08lu, %s\n", (long)current->id, log_text);
+			}
+			else
+			{
+				uint8_t* data = (uint8_t*)(&(current[1]));
+				size_t hex_len = (current->size >= 16) ? 16 : current->size;
+				
+				bd_printf("Id:%08lu, size:%-6lu, ptr:0x%08llX dump:| ", (long)current->id, (long)current->size, (long long)(&(current[1])));
+				
+				for (size_t i = 0; i < hex_len; i++)
+				{
+					bd_printf("%02X ", data[i]);
+				}
+
+				for (size_t i = hex_len; i < 16; i++)
+				{
+					bd_printf("   ");
+				}
+				
+				bd_printf("|  |");
+				for (size_t i = 0; i < hex_len; i++) {
+					char c = data[i];
+					bd_printf("%c", (c >= 32 && c < 127) ? c : '.');
+				}
+				bd_printf("|\n");
+
+				// Display callstack for leaked blocks
+#if defined(__APPLE__) || defined(__linux__)
+				for (int i = 0; i < CALLSTACK_DEPTH && current->callstack[i]; i++)
+				{
+					Dl_info info;
+					if (dladdr(current->callstack[i], &info) && info.dli_sname)
+					{
+						bd_printf("  at: %s (%s)\n", info.dli_sname, info.dli_fname ? info.dli_fname : "?");
+					}
+					else
+					{
+						bd_printf("  at: %p\n", current->callstack[i]);
+					}
+				}
+#elif defined(_MSC_VER)
+				for (int i = 0; i < CALLSTACK_DEPTH && current->callstack[i]; i++)
+				{
+					bd_printf("  at: 0x%llX\n", (unsigned long long)current->callstack[i]);
+				}
+#endif
+			}
+			current = current->next;
 		}
-		for (size_t i = hex_len; i < 16; i++) {
-			bd_printf("   ");
-		}
-		
-		bd_printf("|  |");
-		for (size_t i = 0; i < hex_len; i++) {
-			char c = data[i];
-			bd_printf("%c", (c >= 32 && c < 127) ? c : '.');
-		}
-		bd_printf("|\n");
-		
-		current = current->next;
+		bd_printf("Not freed count:%lu, size:%lu, last_id:%lu\n",(long)MemoryLeakTracer::m_count, (long) MemoryLeakTracer::m_size, (long)MemoryLeakTracer::m_base_id);
+		bd_printf("------------------------------------------------------------\n");
 	}
-	bd_printf("Not freed count:%lu, size:%lu, last_id:%lu\n",(long)MemoryLeakTracer::m_count, (long) MemoryLeakTracer::m_size, (long)MemoryLeakTracer::m_base_id);
 }
 
 void size_to_string(int32_t size, size_t width = 7)
@@ -174,7 +260,43 @@ bool MemoryLeakTracer::suspended()
 /** Log test function entry with function name and current base_id */
 void MemoryLeakTracer::log(const char * filename, int line, const char * func_name)
 {
-	bd_printf("Id:%08lu, %s:%d:%s\n", (long)MemoryLeakTracer::m_base_id, filename ? filename : "unknown", line, func_name ? func_name : "unknown");
+	if (!MemoryLeakTracer::m_started || MemoryLeakTracer::m_suspended)
+	{
+		return;
+	}
+
+	const char * fn = filename ? filename : "unknown";
+	const char * fnc = func_name ? func_name : "unknown";
+
+	// Format the log string
+	char buffer[512];
+	snprintf(buffer, sizeof(buffer), "%s:%d:%s", fn, line, fnc);
+	size_t str_len = strlen(buffer) + 1;
+
+	// Allocate a log block via std::malloc (not tracked)
+	m_mutex.lock();
+	size_t alloc_size = sizeof(MemHeader) + str_len;
+	MemHeader * header = (MemHeader*)std::malloc(alloc_size);
+	if (header)
+	{
+		header->tag  = MEMORY_LOG_TAG;
+		header->size = str_len;
+		header->id   = MemoryLeakTracer::m_base_id;
+		header->next = MemoryLeakTracer::m_allocated;
+		header->prev = 0;
+
+		if (MemoryLeakTracer::m_allocated)
+		{
+			MemoryLeakTracer::m_allocated->prev = header;
+		}
+		MemoryLeakTracer::m_allocated = header;
+
+		// Copy log string after header
+		memcpy(&(header[1]), buffer, str_len);
+	}
+	m_mutex.unlock();
+
+	//bd_printf("Id:%08lu, %s:%d:%s\n", (long)MemoryLeakTracer::m_base_id, fn, line, fnc);
 }
 
 /** Memory calloc */
@@ -204,7 +326,7 @@ void * MemoryLeakTracer::realloc(void * ptr, std::size_t size)
 			MemHeader * header = (MemHeader*)ptr;
 			header--;
 			
-			if (header->tag != 0xCAFEFADE)
+			if ((header->tag & MEMORY_TAG_MASK) != MEMORY_TAG)
 			{
 				return std::realloc(ptr, size);
 			}
@@ -285,7 +407,8 @@ void * MemoryLeakTracer::alloc(std::size_t size)
 			header->id   = 0;
 			header->next = 0;
 			header->prev = 0;
-			header->tag  = 0xCAFEFADE;
+			header->tag  = MEMORY_TAG;
+			memset(header->callstack, 0, sizeof(header->callstack));
 
 			// If analysis started
 			if (MemoryLeakTracer::m_started)
@@ -298,7 +421,21 @@ void * MemoryLeakTracer::alloc(std::size_t size)
 					header->size = size;
 					header->next = MemoryLeakTracer::m_allocated;
 					header->prev = 0;
-					header->tag  = 0xCAFEFADE;
+					header->tag  = MEMORY_TAG;
+
+					// Capture callstack
+#if defined(__APPLE__) || defined(__linux__)
+					{
+						void* temp[CALLSTACK_SKIP + CALLSTACK_DEPTH];
+						int depth = backtrace(temp, CALLSTACK_SKIP + CALLSTACK_DEPTH);
+						for (int i = 0; i < CALLSTACK_DEPTH && (i + CALLSTACK_SKIP) < depth; i++)
+						{
+							header->callstack[i] = temp[i + CALLSTACK_SKIP];
+						}
+					}
+#elif defined(_MSC_VER)
+					CaptureStackBackTrace(CALLSTACK_SKIP, CALLSTACK_DEPTH, header->callstack, NULL);
+#endif
 
 					// Update prev pointer of old root (doubly-linked list)
 					if (MemoryLeakTracer::m_allocated)
@@ -334,7 +471,7 @@ void MemoryLeakTracer::unalloc(void* ptr) noexcept
 		MemHeader * header = (MemHeader*)ptr;
 		header--;
 
-		if (header->tag != 0xCAFEFADE)
+		if ((header->tag & MEMORY_TAG_MASK) != MEMORY_TAG)
 		{
 			if (MemoryLeakTracer::m_started) m_mutex.unlock();
 			std::free(ptr);

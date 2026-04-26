@@ -4,6 +4,8 @@
 #include <uuid/uuid.h>
 #include <mach/mach_time.h>
 #include <unistd.h>
+#include <execinfo.h>
+#include <dlfcn.h>
 #endif
 
 #include <assert.h>
@@ -27,6 +29,8 @@
 #ifdef LINUX
 	#include <time.h>
 	#include <unistd.h>
+	#include <execinfo.h>
+	#include <dlfcn.h>
 #endif
 
 #ifdef _DEBUG

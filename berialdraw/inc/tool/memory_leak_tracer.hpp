@@ -88,6 +88,9 @@ namespace berialdraw
 
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Remove all log entries from the allocated list. */
+		static void clean_logs();
+
 		/** Allocates memory.
 		@param size The size in bytes to allocate.
 		@return A pointer to the allocated memory block. */
