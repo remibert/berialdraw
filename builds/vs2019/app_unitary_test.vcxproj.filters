@@ -1,11 +1,199 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\..\src\main.cpp" />
-    <ClCompile Include="..\..\src\tool\test.cpp" />
+    <Filter Include="source">
+      <UniqueIdentifier>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\main">
+      <UniqueIdentifier>{B2C3D4E5-F6A7-8901-BCDE-F12345678901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{C3D4E5F6-A7B8-9012-CDEF-123456789012}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\chart">
+      <UniqueIdentifier>{D4E5F6A7-B8C9-0123-DEF0-234567890123}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\font">
+      <UniqueIdentifier>{E5F6A7B8-C9D0-1234-EF01-345678901234}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\shape">
+      <UniqueIdentifier>{F6A7B8C9-D0E1-2345-F012-456789012345}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\styles">
+      <UniqueIdentifier>{A7B8C9D0-E1F2-3456-0123-567890123456}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\tool">
+      <UniqueIdentifier>{B8C9D0E1-F2A3-4567-1234-678901234567}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\vector">
+      <UniqueIdentifier>{C9D0E1F2-A3B4-5678-2345-789012345678}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\widget">
+      <UniqueIdentifier>{D0E1F2A3-B4C5-6789-3456-890123456789}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\tool\test.hpp" />
+    <ClCompile Include="..\..\src\berialdraw.cpp">
+      <Filter>source\main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\main.cpp">
+      <Filter>source\main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\style_manager.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\test.cpp">
+      <Filter>source\main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\chart\line_chart_test.cpp">
+      <Filter>test\chart</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\font\font_test.cpp">
+      <Filter>test\font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\shape\circle_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\shape\compass_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\shape\cross_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\shape\line_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\shape\marker_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\shape\outline_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\shape\pie_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\shape\poly_lines_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\shape\poly_points_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\shape\polygon_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\shape\rect_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\shape\sketch_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\shape\square_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\shape\text_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\shape\triangle_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\styles\colors_test.cpp">
+      <Filter>test\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\styles\style_manager_test.cpp">
+      <Filter>test\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\styles\styles_test.cpp">
+      <Filter>test\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\styles\widget_style_test.cpp">
+      <Filter>test\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\tool\directory_test.cpp">
+      <Filter>test\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\tool\file_test.cpp">
+      <Filter>test\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\tool\json_test.cpp">
+      <Filter>test\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\tool\mask_validator_test.cpp">
+      <Filter>test\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\tool\settings_test.cpp">
+      <Filter>test\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\tool\string_test.cpp">
+      <Filter>test\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\tool\text_stream_test.cpp">
+      <Filter>test\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\tool\tools_test.cpp">
+      <Filter>test\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\vector\linear_test.cpp">
+      <Filter>test\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\vector\region_test.cpp">
+      <Filter>test\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\button_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\canvas_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\checkbox_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\edit_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\entry_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\grid_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\icon_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\keyboard_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\label_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\pane_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\progress_bar_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\radio_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\scroll_view_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\slider_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\switch_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\table_view_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\widget\window_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\tool\test.hpp">
+      <Filter>source\main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\build.sh" />

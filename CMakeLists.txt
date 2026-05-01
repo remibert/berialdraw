@@ -104,6 +104,7 @@ set(SRCS_LIB
 	src/styles/cells_style.cpp
 	src/styles/style_item.cpp
 	src/styles/colors.cpp
+	src/styles/style_manager.cpp
 
 	src/shape/shape.cpp
 	src/shape/circle.cpp

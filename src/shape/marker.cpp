@@ -43,18 +43,3 @@ void Marker::paint(const Point & shift, const char * filled, const char * un_fil
 }
 
 
-#ifdef _DEBUG
-void Marker::test()
-{
-	static bool done = false;
-	if (done == false)
-	{
-		MemoryLeakLog
-		done = true;
-		Circle::test();
-		Triangle::test();
-		Square::test();
-		Cross::test();
-	}
-}
-#endif
