@@ -1,7 +1,7 @@
 {
 	"cmake.sourceDirectory": "${workspaceFolder}",
 	"cmake.debugConfig": {
-		"cwd": "${workspaceFolder}/berialdraw"
+		"cwd": "${workspaceFolder}"
 	},
 	"cmake.buildDirectory": "${env:HOME}/Downloads/build",
 	"cmake.parallelJobs": 4,

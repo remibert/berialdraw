@@ -1,5 +1,8 @@
 #include "berialdraw_imp.hpp"
 
+#if defined(_DEBUG)
+static bool trace=false;
+#endif
 
 using namespace berialdraw;
 
@@ -154,6 +157,9 @@ void Outline::add(int32_t x, int32_t y, uint32_t tag)
 	v.x = x;
 	v.y = y;
 
+#if defined(_DEBUG)
+	if(trace) bd_printf("%s (x=%4d,y=%4d)\n",(tag == FT_CURVE_TAG_ON ? "Point" : tag == FT_CURVE_TAG_CONIC ? "Conic" : "Cubic"), x >> 6, y >> 6);
+#endif
 	m_outline.points[m_outline.n_points] = v;
 	m_outline.tags  [m_outline.n_points] = tag;
 	m_outline.n_points ++;

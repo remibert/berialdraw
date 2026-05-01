@@ -99,26 +99,105 @@ void MemoryLeakTracer::break_at(size_t break_id)
 	MemoryLeakTracer::m_break_at = break_id;
 }
 
+/** Check if a leaked block has at least one callstack frame from the application binary (not a system framework) */
+static bool is_app_leak(MemHeader * header)
+{
+#if defined(__APPLE__) || defined(__linux__)
+	// Only consider it an app leak if the first frame (immediate allocator) is in the app binary.
+	// If the allocation is made by a system library (even if called from app code), it's a system leak.
+	if (header->callstack[0])
+	{
+		Dl_info info;
+		if (dladdr(header->callstack[0], &info) && info.dli_fname)
+		{
+			const char* path = info.dli_fname;
+			if (strstr(path, "/usr/lib/") == nullptr &&
+			    strstr(path, ".framework/") == nullptr &&
+			    strstr(path, ".dylib") == nullptr &&
+			    strstr(path, ".bundle/") == nullptr &&
+			    strstr(path, "/System/Library/") == nullptr)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+#else
+	(void)header;
+	return true;
+#endif
+}
+
 /** Show all blocks yet allocated */
 void MemoryLeakTracer::show()
 {
 	if (MemoryLeakTracer::m_count > 0)
 	{
 		MemHeader * current = MemoryLeakTracer::m_allocated;
+		
+		int displayed = 0;
+		size_t skipped_system = 0;
+		
+		// First pass: count actual app leaks to decide if we show anything
+		size_t app_leak_count = 0;
+		{
+			MemHeader * scan = current;
+			while (scan)
+			{
+				if (scan->tag != MEMORY_LOG_TAG && is_app_leak(scan))
+				{
+					app_leak_count++;
+				}
+				scan = scan->next;
+			}
+		}
+		
+		if (app_leak_count == 0)
+		{
+			// Count system leaks for the summary
+			MemHeader * scan = current;
+			while (scan)
+			{
+				if (scan->tag != MEMORY_LOG_TAG)
+				{
+					skipped_system++;
+				}
+				scan = scan->next;
+			}
+			bd_printf("\nNo application memory leaks detected (%lu system allocations ignored)\n", (long)skipped_system);
+		}
+		else
+		{
 		bd_printf("\n------------------------------------------------------------\n");
 		bd_printf("  MEMORY LEAK DETECTED\n");
-		bd_printf("  Not freed count:%lu, size:%lu, last_id:%lu\n",(long)MemoryLeakTracer::m_count, (long) MemoryLeakTracer::m_size, (long)MemoryLeakTracer::m_base_id);
+		bd_printf("  App leaks:%lu, Not freed count:%lu, size:%lu, last_id:%lu\n",(long)app_leak_count, (long)MemoryLeakTracer::m_count, (long) MemoryLeakTracer::m_size, (long)MemoryLeakTracer::m_base_id);
 		bd_printf("------------------------------------------------------------\n");
-		while (current)
+		
+		// Pending log entry (only displayed if followed by an app leak)
+		const char* pending_log = nullptr;
+		size_t pending_log_id = 0;
+		
+		while (current && displayed < 100 && app_leak_count > 0)
 		{
 			if (current->tag == MEMORY_LOG_TAG)
 			{
-				// Display log entry
-				const char* log_text = (const char*)(&(current[1]));
-				bd_printf("Id:%08lu, %s\n", (long)current->id, log_text);
+				// Buffer the log entry, display only if an app leak follows
+				pending_log = (const char*)(&(current[1]));
+				pending_log_id = current->id;
+			}
+			else if (!is_app_leak(current))
+			{
+				// Skip system framework leaks
+				skipped_system++;
 			}
 			else
 			{
+				// Print buffered log entry before the actual leak
+				if (pending_log)
+				{
+					bd_printf("Id:%08lu, %s\n", (long)pending_log_id, pending_log);
+					pending_log = nullptr;
+				}
 				uint8_t* data = (uint8_t*)(&(current[1]));
 				size_t hex_len = (current->size >= 16) ? 16 : current->size;
 				
@@ -161,11 +240,39 @@ void MemoryLeakTracer::show()
 					bd_printf("  at: 0x%llX\n", (unsigned long long)current->callstack[i]);
 				}
 #endif
+				displayed++;
 			}
 			current = current->next;
 		}
+		
+		// Show remaining count if there are more than 100 leaks
+		if (displayed >= 100 && current)
+		{
+			size_t remaining = 0;
+			MemHeader * temp = current;
+			while (temp)
+			{
+				if (is_app_leak(temp))
+				{
+					remaining++;
+				}
+				temp = temp->next;
+			}
+			if (remaining > 0)
+			{
+				bd_printf("...\n");
+				bd_printf("... and %lu more app leaks not displayed\n", (long)remaining);
+			}
+		}
+		
+		if (skipped_system > 0)
+		{
+			bd_printf("(%lu system framework allocations filtered out)\n", (long)skipped_system);
+		}
+		
 		bd_printf("Not freed count:%lu, size:%lu, last_id:%lu\n",(long)MemoryLeakTracer::m_count, (long) MemoryLeakTracer::m_size, (long)MemoryLeakTracer::m_base_id);
 		bd_printf("------------------------------------------------------------\n");
+		} // end else (app_leak_count > 0)
 	}
 }
 
