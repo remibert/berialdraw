@@ -194,59 +194,58 @@ set(SRCS_LIB
 	src/chart/line_chart.cpp
 	src/chart/data_set.cpp
 
-	../freetype/src/base/ftbase.c
-	../freetype/src/base/ftbitmap.c
-	../freetype/src/base/ftdebug.c
-	../freetype/src/base/ftglyph.c
-	../freetype/src/base/ftinit.c
-	../freetype/src/base/ftmm.c
-	../freetype/src/sfnt/sfdriver.c
-	../freetype/src/sfnt/sfobjs.c
-	../freetype/src/sfnt/ttcmap.c
-	../freetype/src/sfnt/ttkern.c
-	../freetype/src/sfnt/ttload.c
-	../freetype/src/sfnt/ttmtx.c
-	../freetype/src/truetype/truetype.c
+	external/freetype/src/base/ftbase.c
+	external/freetype/src/base/ftbitmap.c
+	external/freetype/src/base/ftdebug.c
+	external/freetype/src/base/ftglyph.c
+	external/freetype/src/base/ftinit.c
+	external/freetype/src/base/ftmm.c
+	external/freetype/src/sfnt/sfdriver.c
+	external/freetype/src/sfnt/sfobjs.c
+	external/freetype/src/sfnt/ttcmap.c
+	external/freetype/src/sfnt/ttkern.c
+	external/freetype/src/sfnt/ttload.c
+	external/freetype/src/sfnt/ttmtx.c
+	external/freetype/src/truetype/truetype.c
 
 	# zlib compression library
-	../zlib/adler32.c
-	../zlib/compress.c
-	../zlib/crc32.c
-	../zlib/deflate.c
-	../zlib/infback.c
-	../zlib/inffast.c
-	../zlib/inflate.c
-	../zlib/inftrees.c
-	../zlib/trees.c
-	../zlib/uncompr.c
-	../zlib/zutil.c
+	external/zlib/adler32.c
+	external/zlib/compress.c
+	external/zlib/crc32.c
+	external/zlib/deflate.c
+	external/zlib/infback.c
+	external/zlib/inffast.c
+	external/zlib/inflate.c
+	external/zlib/inftrees.c
+	external/zlib/trees.c
+	external/zlib/uncompr.c
+	external/zlib/zutil.c
 
 	# minizip archive library
-	../minizip/mz_crypt.c
-	../minizip/mz_os.c
-	../minizip/mz_strm.c
-	../minizip/mz_strm_buf.c
-	../minizip/mz_strm_mem.c
-	../minizip/mz_strm_split.c
-	../minizip/mz_strm_zlib.c
-	../minizip/mz_strm_pkcrypt.c
-	../minizip/mz_zip.c
-	../minizip/mz_zip_rw.c
-	../minizip/compat/unzip.c
-	../minizip/compat/ioapi.c
+	external/minizip/mz_crypt.c
+	external/minizip/mz_os.c
+	external/minizip/mz_strm.c
+	external/minizip/mz_strm_buf.c
+	external/minizip/mz_strm_mem.c
+	external/minizip/mz_strm_split.c
+	external/minizip/mz_strm_zlib.c
+	external/minizip/mz_strm_pkcrypt.c
+	external/minizip/mz_zip.c
+	external/minizip/mz_zip_rw.c
+	external/minizip/compat/unzip.c
+	external/minizip/compat/ioapi.c
 	src/tool/mz_stream_os_berialdraw.c
 )
 
 set(INCLUDES_LIB 
 	${SDL3_INCLUDE_DIRS}
-	"${CMAKE_CURRENT_SOURCE_DIR}/../freetype/include;"
-	"${CMAKE_CURRENT_SOURCE_DIR}/../freetype/include/freetype;"
-	"${CMAKE_CURRENT_SOURCE_DIR}/../zlib;"
-	"${CMAKE_CURRENT_SOURCE_DIR}/../minizip;"
-	"${CMAKE_CURRENT_SOURCE_DIR}/../minizip/compat;"
-	"${CMAKE_CURRENT_SOURCE_DIR}/inc;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/external/freetype/include;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/external/freetype/include/freetype;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/external/zlib;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/external/minizip;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/external/minizip/compat;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include;"
 	"${CMAKE_CURRENT_SOURCE_DIR};"
-	"${CMAKE_CURRENT_SOURCE_DIR}/..;"
 )
 
 
@@ -277,7 +276,7 @@ import stat
 
 copy_jobs = [
     ('@CMAKE_SOURCE_DIR@/resources',              'delivery/resources', '**/*', lambda path, name: 'test' not in path.split(os.sep) and not name.startswith('test_')),
-    ('@CMAKE_CURRENT_SOURCE_DIR@/inc',            'delivery/inc', '**/*', None),
+    ('@CMAKE_CURRENT_SOURCE_DIR@/include',        'delivery/include', '**/*', None),
     ('@CMAKE_CURRENT_BINARY_DIR@/lib@BD_LIB@.a',  'delivery/lib/%s/' % (platform.system().lower().replace('darwin','macos')), None, None),
     ('@CMAKE_CURRENT_BINARY_DIR@/samples',        'delivery/app', '*', lambda path, name: os.access(os.path.join(path, name), os.X_OK) and os.path.isfile(os.path.join(path, name))),
     # Only copy .so files, skip CMakeFiles directory

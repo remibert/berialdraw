@@ -5,6 +5,7 @@ sudo apt install -y git cmake build-essential libwayland-dev libxkbcommon-dev li
 sudo apt-get install -y libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxi-dev libxinerama-dev libxxf86vm-dev libwayland-dev libxkbcommon-dev wayland-protocols
 
 # Clone SDL3, build it and install
+REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd ../..
 git clone https://github.com/libsdl-org/SDL.git
 cd SDL
@@ -12,8 +13,8 @@ cmake -S . -B build
 cmake --build build -j$(nproc)
 sudo cmake --install build
 
-# Berial draw rebuilt
-cd ../berialdraw/berialdraw
+# Berialdraw rebuilt
+cd "$REPO_DIR"
 cmake -S . -B build
 cmake --build build
 

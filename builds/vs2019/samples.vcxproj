@@ -200,7 +200,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;PACKAGE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\inc;..\..\..\freetype\include;..\..\..\freetype\include\freetype;..\..\..;..\..</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\external\freetype\include;..\..\external\freetype\include\freetype;..\..</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
@@ -224,7 +224,7 @@
       </PrecompiledHeader>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;PACKAGE;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\inc;..\..\..\freetype\include;..\..\..\freetype\include\freetype;..\..\..;..\..</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\external\freetype\include;..\..\external\freetype\include\freetype;..\..</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>

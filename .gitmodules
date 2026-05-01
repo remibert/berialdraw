@@ -1,12 +1,12 @@
 [submodule "freetype"]
-	path = freetype
+	path = external/freetype
 	url = https://github.com/remibert/freetype.git
 [submodule "pybind11"]
-	path = pybind11
+	path = external/pybind11
 	url = https://github.com/pybind/pybind11.git
 [submodule "zlib"]
-	path = zlib
+	path = external/zlib
 	url = https://github.com/madler/zlib.git
 [submodule "minizip"]
-	path = minizip
+	path = external/minizip
 	url = https://github.com/nmoinvaz/minizip.git

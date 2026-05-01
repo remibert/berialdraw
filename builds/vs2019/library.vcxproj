@@ -11,66 +11,66 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\freetype\src\base\ftadvanc.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftbase.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftadvanc.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftbase.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftbbox.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftbdf.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftbitmap.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftcalc.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftcid.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftcolor.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftdbgmem.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftdebug.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\fterrors.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftfntfmt.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftfstype.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftgasp.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftgloadr.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftglyph.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftgxval.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\fthash.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftinit.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftlcdfil.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftmac.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftmm.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftobjs.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftotval.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftoutln.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftpatent.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftpfr.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftpsprop.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftrfork.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftsnames.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftstream.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftstroke.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftsynth.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftsystem.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftbbox.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftbdf.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftbitmap.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftcalc.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftcid.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftcolor.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftdbgmem.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftdebug.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\fterrors.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftfntfmt.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftfstype.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftgasp.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftgloadr.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftglyph.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftgxval.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\fthash.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftinit.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftlcdfil.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftmac.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftmm.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftobjs.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftotval.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftoutln.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftpatent.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftpfr.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftpsprop.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftrfork.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftsnames.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftstream.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftstroke.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftsynth.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftsystem.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\fttrigon.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\fttype1.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftutil.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\ftwinfnt.c" />
-    <ClCompile Include="..\..\..\freetype\src\base\md5.c" />
-    <ClCompile Include="..\..\..\freetype\src\sfnt\sfdriver.c" />
-    <ClCompile Include="..\..\..\freetype\src\sfnt\sfobjs.c" />
-    <ClCompile Include="..\..\..\freetype\src\sfnt\ttcmap.c" />
-    <ClCompile Include="..\..\..\freetype\src\sfnt\ttkern.c" />
-    <ClCompile Include="..\..\..\freetype\src\sfnt\ttload.c" />
-    <ClCompile Include="..\..\..\freetype\src\sfnt\ttmtx.c" />
-    <ClCompile Include="..\..\..\freetype\src\smooth\ftgrays.c">
+    <ClCompile Include="..\..\external\freetype\src\base\fttrigon.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\fttype1.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftutil.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\ftwinfnt.c" />
+    <ClCompile Include="..\..\external\freetype\src\base\md5.c" />
+    <ClCompile Include="..\..\external\freetype\src\sfnt\sfdriver.c" />
+    <ClCompile Include="..\..\external\freetype\src\sfnt\sfobjs.c" />
+    <ClCompile Include="..\..\external\freetype\src\sfnt\ttcmap.c" />
+    <ClCompile Include="..\..\external\freetype\src\sfnt\ttkern.c" />
+    <ClCompile Include="..\..\external\freetype\src\sfnt\ttload.c" />
+    <ClCompile Include="..\..\external\freetype\src\sfnt\ttmtx.c" />
+    <ClCompile Include="..\..\external\freetype\src\smooth\ftgrays.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\smooth\smooth.c">
+    <ClCompile Include="..\..\external\freetype\src\smooth\smooth.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\truetype\truetype.c" />
+    <ClCompile Include="..\..\external\freetype\src\truetype\truetype.c" />
     <ClCompile Include="..\..\src\berialdraw.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -900,386 +900,386 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <!-- zlib compression library -->
-    <ClCompile Include="..\..\..\zlib\adler32.c">
+    <ClCompile Include="..\..\external\zlib\adler32.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\compress.c">
+    <ClCompile Include="..\..\external\zlib\compress.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\crc32.c">
+    <ClCompile Include="..\..\external\zlib\crc32.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\deflate.c">
+    <ClCompile Include="..\..\external\zlib\deflate.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\inflate.c">
+    <ClCompile Include="..\..\external\zlib\inflate.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\infback.c">
+    <ClCompile Include="..\..\external\zlib\infback.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\inftrees.c">
+    <ClCompile Include="..\..\external\zlib\inftrees.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\inffast.c">
+    <ClCompile Include="..\..\external\zlib\inffast.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\trees.c">
+    <ClCompile Include="..\..\external\zlib\trees.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\uncompr.c">
+    <ClCompile Include="..\..\external\zlib\uncompr.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\zutil.c">
+    <ClCompile Include="..\..\external\zlib\zutil.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <!-- minizip archive library -->
-    <ClCompile Include="..\..\..\minizip\mz_crypt.c">
+    <ClCompile Include="..\..\external\minizip\mz_crypt.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_os.c">
+    <ClCompile Include="..\..\external\minizip\mz_os.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_strm.c">
+    <ClCompile Include="..\..\external\minizip\mz_strm.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_strm_buf.c">
+    <ClCompile Include="..\..\external\minizip\mz_strm_buf.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_strm_mem.c">
+    <ClCompile Include="..\..\external\minizip\mz_strm_mem.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_strm_split.c">
+    <ClCompile Include="..\..\external\minizip\mz_strm_split.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_strm_zlib.c">
+    <ClCompile Include="..\..\external\minizip\mz_strm_zlib.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_strm_pkcrypt.c">
+    <ClCompile Include="..\..\external\minizip\mz_strm_pkcrypt.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_zip.c">
+    <ClCompile Include="..\..\external\minizip\mz_zip.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_zip_rw.c">
+    <ClCompile Include="..\..\external\minizip\mz_zip_rw.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\compat\unzip.c">
+    <ClCompile Include="..\..\external\minizip\compat\unzip.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\compat\ioapi.c">
+    <ClCompile Include="..\..\external\minizip\compat\ioapi.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\freetype\include\ft2build.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftconfig.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftheader.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftmodule.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftoption.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftstdlib.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\config\integer-types.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\config\mac-support.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\config\public-macros.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\freetype.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftadvanc.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftbbox.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftbdf.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftbitmap.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftbzip2.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftcache.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftchapters.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftcid.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftcolor.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftdriver.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\fterrdef.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\fterrors.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftfntfmt.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftgasp.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftglyph.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftgxval.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftgzip.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftimage.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftincrem.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftlcdfil.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftlist.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftlogging.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftlzw.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftmac.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftmm.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftmodapi.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftmoderr.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftotval.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftoutln.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftparams.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftpfr.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftrender.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftsizes.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftsnames.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftstroke.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftsynth.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftsystem.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\fttrigon.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\fttypes.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftwinfnt.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\autohint.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\cffotypes.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\cfftypes.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\compiler-macros.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftcalc.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftdebug.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftdrv.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftgloadr.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\fthash.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftmemory.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftmmtypes.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftobjs.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftpsprop.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftrfork.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftserv.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftstream.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\fttrace.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftvalid.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\psaux.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\pshints.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svbdf.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svcfftl.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svcid.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svfntfmt.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svgldict.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svgxval.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svkern.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svmetric.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svmm.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svotval.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svpfr.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svpostnm.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svprop.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svpscmap.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svpsinfo.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svsfnt.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svttcmap.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svtteng.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svttglyf.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svwinfnt.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\sfnt.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\svginterface.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\t1types.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\tttypes.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\wofftypes.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\otsvg.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\t1tables.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\ttnameid.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\tttables.h" />
-    <ClInclude Include="..\..\..\freetype\include\freetype\tttags.h" />
-    <ClInclude Include="..\..\..\freetype\src\base\ftbase.h" />
-    <ClInclude Include="..\..\..\freetype\src\sfnt\sfdriver.h" />
-    <ClInclude Include="..\..\..\freetype\src\sfnt\sfobjs.h" />
-    <ClInclude Include="..\..\..\freetype\src\sfnt\ttcmap.h" />
-    <ClInclude Include="..\..\..\freetype\src\sfnt\ttkern.h" />
-    <ClInclude Include="..\..\..\freetype\src\sfnt\ttload.h" />
-    <ClInclude Include="..\..\..\freetype\src\sfnt\ttmtx.h" />
-    <ClInclude Include="..\..\inc\berialdraw.hpp" />
-    <ClInclude Include="..\..\inc\berialdraw_imp.hpp" />
-    <ClInclude Include="..\..\inc\chart\data_set.hpp" />
-    <ClInclude Include="..\..\inc\chart\line_chart.hpp" />
-    <ClInclude Include="..\..\inc\config.h" />
-    <ClInclude Include="..\..\inc\device\clipboard_cocoa.hpp">
+    <ClInclude Include="..\..\external\freetype\include\ft2build.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\config\ftconfig.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\config\ftheader.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\config\ftmodule.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\config\ftoption.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\config\ftstdlib.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\config\integer-types.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\config\mac-support.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\config\public-macros.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\freetype.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftadvanc.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftbbox.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftbdf.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftbitmap.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftbzip2.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftcache.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftchapters.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftcid.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftcolor.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftdriver.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\fterrdef.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\fterrors.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftfntfmt.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftgasp.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftglyph.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftgxval.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftgzip.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftimage.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftincrem.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftlcdfil.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftlist.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftlogging.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftlzw.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftmac.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftmm.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftmodapi.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftmoderr.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftotval.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftoutln.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftparams.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftpfr.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftrender.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftsizes.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftsnames.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftstroke.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftsynth.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftsystem.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\fttrigon.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\fttypes.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftwinfnt.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\autohint.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\cffotypes.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\cfftypes.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\compiler-macros.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftcalc.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftdebug.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftdrv.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftgloadr.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\fthash.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftmemory.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftmmtypes.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftobjs.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftpsprop.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftrfork.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftserv.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftstream.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\fttrace.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftvalid.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\psaux.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\pshints.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svbdf.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svcfftl.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svcid.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svfntfmt.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svgldict.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svgxval.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svkern.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svmetric.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svmm.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svotval.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svpfr.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svpostnm.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svprop.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svpscmap.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svpsinfo.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svsfnt.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svttcmap.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svtteng.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svttglyf.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svwinfnt.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\sfnt.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\svginterface.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\t1types.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\tttypes.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\wofftypes.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\otsvg.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\t1tables.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\ttnameid.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\tttables.h" />
+    <ClInclude Include="..\..\external\freetype\include\freetype\tttags.h" />
+    <ClInclude Include="..\..\external\freetype\src\base\ftbase.h" />
+    <ClInclude Include="..\..\external\freetype\src\sfnt\sfdriver.h" />
+    <ClInclude Include="..\..\external\freetype\src\sfnt\sfobjs.h" />
+    <ClInclude Include="..\..\external\freetype\src\sfnt\ttcmap.h" />
+    <ClInclude Include="..\..\external\freetype\src\sfnt\ttkern.h" />
+    <ClInclude Include="..\..\external\freetype\src\sfnt\ttload.h" />
+    <ClInclude Include="..\..\external\freetype\src\sfnt\ttmtx.h" />
+    <ClInclude Include="..\..\include\berialdraw.hpp" />
+    <ClInclude Include="..\..\include\berialdraw_imp.hpp" />
+    <ClInclude Include="..\..\include\chart\data_set.hpp" />
+    <ClInclude Include="..\..\include\chart\line_chart.hpp" />
+    <ClInclude Include="..\..\include\config.h" />
+    <ClInclude Include="..\..\include\device\clipboard_cocoa.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\..\inc\device\clipboard_sdl.hpp">
+    <ClInclude Include="..\..\include\device\clipboard_sdl.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\..\inc\device\clipboard_wayland.hpp">
+    <ClInclude Include="..\..\include\device\clipboard_wayland.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\..\inc\device\device.hpp" />
-    <ClInclude Include="..\..\inc\device\device_cocoa.hpp">
+    <ClInclude Include="..\..\include\device\device.hpp" />
+    <ClInclude Include="..\..\include\device\device_cocoa.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\..\inc\device\device_sdl.hpp">
+    <ClInclude Include="..\..\include\device\device_sdl.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\..\inc\device\device_wayland.hpp">
+    <ClInclude Include="..\..\include\device\device_wayland.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\..\inc\device\device_win32.hpp" />
-    <ClInclude Include="..\..\inc\device\clipboard_win32.hpp" />
-    <ClInclude Include="..\..\inc\event\caller.hpp" />
-    <ClInclude Include="..\..\inc\event\check_event.hpp" />
-    <ClInclude Include="..\..\inc\event\click_event.hpp" />
-    <ClInclude Include="..\..\inc\event\event.hpp" />
-    <ClInclude Include="..\..\inc\event\focus_event.hpp" />
-    <ClInclude Include="..\..\inc\event\key_event.hpp" />
-    <ClInclude Include="..\..\inc\event\notifier.hpp" />
-    <ClInclude Include="..\..\inc\event\scroll_event.hpp" />
-    <ClInclude Include="..\..\inc\event\select_event.hpp" />
-    <ClInclude Include="..\..\inc\event\slide_event.hpp" />
-    <ClInclude Include="..\..\inc\event\touch_event.hpp" />
-    <ClInclude Include="..\..\inc\font\font.hpp" />
-    <ClInclude Include="..\..\inc\font\fonts.hpp" />
-    <ClInclude Include="..\..\inc\font\font_face.hpp" />
-    <ClInclude Include="..\..\inc\font\glyph.hpp" />
-    <ClInclude Include="..\..\inc\font\glyphs.hpp" />
-    <ClInclude Include="..\..\inc\font\utf8.hpp" />
-    <ClInclude Include="..\..\inc\font\_font.hpp" />
-    <ClInclude Include="..\..\inc\framebuf\argb8888.hpp" />
-    <ClInclude Include="..\..\inc\framebuf\framebuf.hpp" />
-    <ClInclude Include="..\..\inc\shape\circle.hpp" />
-    <ClInclude Include="..\..\inc\shape\compass.hpp" />
-    <ClInclude Include="..\..\inc\shape\cross.hpp" />
-    <ClInclude Include="..\..\inc\shape\line.hpp" />
-    <ClInclude Include="..\..\inc\shape\marker.hpp" />
-    <ClInclude Include="..\..\inc\shape\outline.hpp" />
-    <ClInclude Include="..\..\inc\shape\pie.hpp" />
-    <ClInclude Include="..\..\inc\shape\polygon.hpp" />
-    <ClInclude Include="..\..\inc\shape\poly_lines.hpp" />
-    <ClInclude Include="..\..\inc\shape\poly_points.hpp" />
-    <ClInclude Include="..\..\inc\shape\rect.hpp" />
-    <ClInclude Include="..\..\inc\shape\renderer.hpp" />
-    <ClInclude Include="..\..\inc\shape\shape.hpp" />
-    <ClInclude Include="..\..\inc\shape\sketch.hpp" />
-    <ClInclude Include="..\..\inc\shape\square.hpp" />
-    <ClInclude Include="..\..\inc\shape\text.hpp" />
-    <ClInclude Include="..\..\inc\shape\text_box.hpp" />
-    <ClInclude Include="..\..\inc\shape\triangle.hpp" />
-    <ClInclude Include="..\..\inc\shape\vectors_script.hpp" />
-    <ClInclude Include="..\..\inc\styles\border_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\common_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\invalidator.hpp" />
-    <ClInclude Include="..\..\inc\styles\edit_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\icon_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\keys.hpp" />
-    <ClInclude Include="..\..\inc\styles\line_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\mappings.hpp" />
-    <ClInclude Include="..\..\inc\styles\pie_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\progress_bar_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\radio_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\round_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\scroll_view_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\slider_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\style.hpp" />
-    <ClInclude Include="..\..\inc\styles\styles.hpp" />
-    <ClInclude Include="..\..\inc\styles\style_item.hpp" />
-    <ClInclude Include="..\..\inc\styles\style_names.hpp" />
-    <ClInclude Include="..\..\inc\styles\switch_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\checkbox_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\table_view_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\grid_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\cell_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\cells_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\text_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\widget_style.hpp" />
-    <ClInclude Include="..\..\inc\styles\colors.hpp" />
-    <ClInclude Include="..\..\inc\tool\arc_cache.hpp" />
-    <ClInclude Include="..\..\inc\tool\bd_system.h" />
-    <ClInclude Include="..\..\inc\tool\buffer.hpp" />
-    <ClInclude Include="..\..\inc\tool\clipboard.hpp" />
-    <ClInclude Include="..\..\inc\tool\directory.hpp" />
-    <ClInclude Include="..\..\inc\tool\directory_interface.hpp" />
-    <ClInclude Include="..\..\inc\tool\exporter.hpp" />
-    <ClInclude Include="..\..\inc\tool\file.hpp" />
-    <ClInclude Include="..\..\inc\tool\file_interface.hpp" />
-    <ClInclude Include="..\..\inc\tool\hsl.hpp" />
-    <ClInclude Include="..\..\inc\tool\item.hpp" />
-    <ClInclude Include="..\..\inc\tool\item_array.hpp" />
-    <ClInclude Include="..\..\inc\tool\item_bool.hpp" />
-    <ClInclude Include="..\..\inc\tool\item_collection.hpp" />
-    <ClInclude Include="..\..\inc\tool\item_int.hpp" />
-    <ClInclude Include="..\..\inc\tool\item_null.hpp" />
-    <ClInclude Include="..\..\inc\tool\item_object.hpp" />
-    <ClInclude Include="..\..\inc\tool\item_string.hpp" />
-    <ClInclude Include="..\..\inc\tool\item_variant.hpp" />
-    <ClInclude Include="..\..\inc\tool\json.hpp" />
-    <ClInclude Include="..\..\inc\tool\json_iterator.hpp" />
-    <ClInclude Include="..\..\inc\tool\local_directory.hpp" />
-    <ClInclude Include="..\..\inc\tool\local_file.hpp" />
-    <ClInclude Include="..\..\inc\tool\mask_validator.hpp" />
-    <ClInclude Include="..\..\inc\tool\memory_leak_tracer.hpp" />
-    <ClInclude Include="..\..\inc\tool\screen_crc.hpp" />
-    <ClInclude Include="..\..\inc\tool\settings.hpp" />
-    <ClInclude Include="..\..\inc\tool\shared_ptr.hpp" />
-    <ClInclude Include="..\..\inc\tool\singleton.hpp" />
-    <ClInclude Include="..\..\inc\tool\stream.hpp" />
-    <ClInclude Include="..\..\inc\tool\string.hpp" />
-    <ClInclude Include="..\..\inc\tool\svg_out.hpp" />
-    <ClInclude Include="..\..\inc\tool\text_stream.hpp" />
-    <ClInclude Include="..\..\inc\tool\chronometer.hpp" />
-    <ClInclude Include="..\..\inc\tool\tools.hpp" />
-    <ClInclude Include="..\..\inc\tool\validator.hpp" />
-    <ClInclude Include="..\..\inc\tool\vector.hpp" />
-    <ClInclude Include="..\..\inc\tool\zip_directory.hpp" />
-    <ClInclude Include="..\..\inc\tool\zip_file.hpp" />
-    <ClInclude Include="..\..\inc\tool\zip_archive.hpp" />
-    <ClInclude Include="..\..\inc\tool\file_tools.hpp" />
-    <ClInclude Include="..\..\inc\vector\align.hpp" />
-    <ClInclude Include="..\..\inc\vector\scroll_direction.hpp" />
-    <ClInclude Include="..\..\inc\vector\area.hpp" />
-    <ClInclude Include="..\..\inc\styles\color.hpp" />
-    <ClInclude Include="..\..\inc\vector\coord.hpp" />
-    <ClInclude Include="..\..\inc\vector\dim.hpp" />
-    <ClInclude Include="..\..\inc\vector\extend.hpp" />
-    <ClInclude Include="..\..\inc\vector\linear.hpp" />
-    <ClInclude Include="..\..\inc\vector\margin.hpp" />
-    <ClInclude Include="..\..\inc\vector\orientation.hpp" />
-    <ClInclude Include="..\..\inc\vector\point.hpp" />
-    <ClInclude Include="..\..\inc\vector\region.hpp" />
-    <ClInclude Include="..\..\inc\vector\border.hpp" />
-    <ClInclude Include="..\..\inc\vector\size.hpp" />
-    <ClInclude Include="..\..\inc\vector\size_policy.hpp" />
-    <ClInclude Include="..\..\inc\widget\button.hpp" />
-    <ClInclude Include="..\..\inc\widget\canvas.hpp" />
-    <ClInclude Include="..\..\inc\widget\cells.hpp" />
-    <ClInclude Include="..\..\inc\widget\column.hpp" />
-    <ClInclude Include="..\..\inc\widget\desktop.hpp" />
-    <ClInclude Include="..\..\inc\widget\edit.hpp" />
-    <ClInclude Include="..\..\inc\widget\entry.hpp" />
-    <ClInclude Include="..\..\inc\widget\grid.hpp" />
-    <ClInclude Include="..\..\inc\widget\icon.hpp" />
-    <ClInclude Include="..\..\inc\widget\keyboard.hpp" />
-    <ClInclude Include="..\..\inc\widget\label.hpp" />
-    <ClInclude Include="..\..\inc\widget\pane.hpp" />
-    <ClInclude Include="..\..\inc\widget\progress_bar.hpp" />
-    <ClInclude Include="..\..\inc\widget\row.hpp" />
-    <ClInclude Include="..\..\inc\widget\scrollable_content.hpp" />
-    <ClInclude Include="..\..\inc\widget\scroll_view.hpp" />
-    <ClInclude Include="..\..\inc\widget\slider.hpp" />
-    <ClInclude Include="..\..\inc\widget\switch.hpp" />
-    <ClInclude Include="..\..\inc\widget\checkbox.hpp" />
-    <ClInclude Include="..\..\inc\widget\radio.hpp" />
-    <ClInclude Include="..\..\inc\widget\table_view.hpp" />
-    <ClInclude Include="..\..\inc\widget\uimanager.hpp" />
-    <ClInclude Include="..\..\inc\widget\widget.hpp" />
-    <ClInclude Include="..\..\inc\widget\window.hpp" />
+    <ClInclude Include="..\..\include\device\device_win32.hpp" />
+    <ClInclude Include="..\..\include\device\clipboard_win32.hpp" />
+    <ClInclude Include="..\..\include\event\caller.hpp" />
+    <ClInclude Include="..\..\include\event\check_event.hpp" />
+    <ClInclude Include="..\..\include\event\click_event.hpp" />
+    <ClInclude Include="..\..\include\event\event.hpp" />
+    <ClInclude Include="..\..\include\event\focus_event.hpp" />
+    <ClInclude Include="..\..\include\event\key_event.hpp" />
+    <ClInclude Include="..\..\include\event\notifier.hpp" />
+    <ClInclude Include="..\..\include\event\scroll_event.hpp" />
+    <ClInclude Include="..\..\include\event\select_event.hpp" />
+    <ClInclude Include="..\..\include\event\slide_event.hpp" />
+    <ClInclude Include="..\..\include\event\touch_event.hpp" />
+    <ClInclude Include="..\..\include\font\font.hpp" />
+    <ClInclude Include="..\..\include\font\fonts.hpp" />
+    <ClInclude Include="..\..\include\font\font_face.hpp" />
+    <ClInclude Include="..\..\include\font\glyph.hpp" />
+    <ClInclude Include="..\..\include\font\glyphs.hpp" />
+    <ClInclude Include="..\..\include\font\utf8.hpp" />
+    <ClInclude Include="..\..\include\font\_font.hpp" />
+    <ClInclude Include="..\..\include\framebuf\argb8888.hpp" />
+    <ClInclude Include="..\..\include\framebuf\framebuf.hpp" />
+    <ClInclude Include="..\..\include\shape\circle.hpp" />
+    <ClInclude Include="..\..\include\shape\compass.hpp" />
+    <ClInclude Include="..\..\include\shape\cross.hpp" />
+    <ClInclude Include="..\..\include\shape\line.hpp" />
+    <ClInclude Include="..\..\include\shape\marker.hpp" />
+    <ClInclude Include="..\..\include\shape\outline.hpp" />
+    <ClInclude Include="..\..\include\shape\pie.hpp" />
+    <ClInclude Include="..\..\include\shape\polygon.hpp" />
+    <ClInclude Include="..\..\include\shape\poly_lines.hpp" />
+    <ClInclude Include="..\..\include\shape\poly_points.hpp" />
+    <ClInclude Include="..\..\include\shape\rect.hpp" />
+    <ClInclude Include="..\..\include\shape\renderer.hpp" />
+    <ClInclude Include="..\..\include\shape\shape.hpp" />
+    <ClInclude Include="..\..\include\shape\sketch.hpp" />
+    <ClInclude Include="..\..\include\shape\square.hpp" />
+    <ClInclude Include="..\..\include\shape\text.hpp" />
+    <ClInclude Include="..\..\include\shape\text_box.hpp" />
+    <ClInclude Include="..\..\include\shape\triangle.hpp" />
+    <ClInclude Include="..\..\include\shape\vectors_script.hpp" />
+    <ClInclude Include="..\..\include\styles\border_style.hpp" />
+    <ClInclude Include="..\..\include\styles\common_style.hpp" />
+    <ClInclude Include="..\..\include\styles\invalidator.hpp" />
+    <ClInclude Include="..\..\include\styles\edit_style.hpp" />
+    <ClInclude Include="..\..\include\styles\icon_style.hpp" />
+    <ClInclude Include="..\..\include\styles\keys.hpp" />
+    <ClInclude Include="..\..\include\styles\line_style.hpp" />
+    <ClInclude Include="..\..\include\styles\mappings.hpp" />
+    <ClInclude Include="..\..\include\styles\pie_style.hpp" />
+    <ClInclude Include="..\..\include\styles\progress_bar_style.hpp" />
+    <ClInclude Include="..\..\include\styles\radio_style.hpp" />
+    <ClInclude Include="..\..\include\styles\round_style.hpp" />
+    <ClInclude Include="..\..\include\styles\scroll_view_style.hpp" />
+    <ClInclude Include="..\..\include\styles\slider_style.hpp" />
+    <ClInclude Include="..\..\include\styles\style.hpp" />
+    <ClInclude Include="..\..\include\styles\styles.hpp" />
+    <ClInclude Include="..\..\include\styles\style_item.hpp" />
+    <ClInclude Include="..\..\include\styles\style_names.hpp" />
+    <ClInclude Include="..\..\include\styles\switch_style.hpp" />
+    <ClInclude Include="..\..\include\styles\checkbox_style.hpp" />
+    <ClInclude Include="..\..\include\styles\table_view_style.hpp" />
+    <ClInclude Include="..\..\include\styles\grid_style.hpp" />
+    <ClInclude Include="..\..\include\styles\cell_style.hpp" />
+    <ClInclude Include="..\..\include\styles\cells_style.hpp" />
+    <ClInclude Include="..\..\include\styles\text_style.hpp" />
+    <ClInclude Include="..\..\include\styles\widget_style.hpp" />
+    <ClInclude Include="..\..\include\styles\colors.hpp" />
+    <ClInclude Include="..\..\include\tool\arc_cache.hpp" />
+    <ClInclude Include="..\..\include\tool\bd_system.h" />
+    <ClInclude Include="..\..\include\tool\buffer.hpp" />
+    <ClInclude Include="..\..\include\tool\clipboard.hpp" />
+    <ClInclude Include="..\..\include\tool\directory.hpp" />
+    <ClInclude Include="..\..\include\tool\directory_interface.hpp" />
+    <ClInclude Include="..\..\include\tool\exporter.hpp" />
+    <ClInclude Include="..\..\include\tool\file.hpp" />
+    <ClInclude Include="..\..\include\tool\file_interface.hpp" />
+    <ClInclude Include="..\..\include\tool\hsl.hpp" />
+    <ClInclude Include="..\..\include\tool\item.hpp" />
+    <ClInclude Include="..\..\include\tool\item_array.hpp" />
+    <ClInclude Include="..\..\include\tool\item_bool.hpp" />
+    <ClInclude Include="..\..\include\tool\item_collection.hpp" />
+    <ClInclude Include="..\..\include\tool\item_int.hpp" />
+    <ClInclude Include="..\..\include\tool\item_null.hpp" />
+    <ClInclude Include="..\..\include\tool\item_object.hpp" />
+    <ClInclude Include="..\..\include\tool\item_string.hpp" />
+    <ClInclude Include="..\..\include\tool\item_variant.hpp" />
+    <ClInclude Include="..\..\include\tool\json.hpp" />
+    <ClInclude Include="..\..\include\tool\json_iterator.hpp" />
+    <ClInclude Include="..\..\include\tool\local_directory.hpp" />
+    <ClInclude Include="..\..\include\tool\local_file.hpp" />
+    <ClInclude Include="..\..\include\tool\mask_validator.hpp" />
+    <ClInclude Include="..\..\include\tool\memory_leak_tracer.hpp" />
+    <ClInclude Include="..\..\include\tool\screen_crc.hpp" />
+    <ClInclude Include="..\..\include\tool\settings.hpp" />
+    <ClInclude Include="..\..\include\tool\shared_ptr.hpp" />
+    <ClInclude Include="..\..\include\tool\singleton.hpp" />
+    <ClInclude Include="..\..\include\tool\stream.hpp" />
+    <ClInclude Include="..\..\include\tool\string.hpp" />
+    <ClInclude Include="..\..\include\tool\svg_out.hpp" />
+    <ClInclude Include="..\..\include\tool\text_stream.hpp" />
+    <ClInclude Include="..\..\include\tool\chronometer.hpp" />
+    <ClInclude Include="..\..\include\tool\tools.hpp" />
+    <ClInclude Include="..\..\include\tool\validator.hpp" />
+    <ClInclude Include="..\..\include\tool\vector.hpp" />
+    <ClInclude Include="..\..\include\tool\zip_directory.hpp" />
+    <ClInclude Include="..\..\include\tool\zip_file.hpp" />
+    <ClInclude Include="..\..\include\tool\zip_archive.hpp" />
+    <ClInclude Include="..\..\include\tool\file_tools.hpp" />
+    <ClInclude Include="..\..\include\vector\align.hpp" />
+    <ClInclude Include="..\..\include\vector\scroll_direction.hpp" />
+    <ClInclude Include="..\..\include\vector\area.hpp" />
+    <ClInclude Include="..\..\include\styles\color.hpp" />
+    <ClInclude Include="..\..\include\vector\coord.hpp" />
+    <ClInclude Include="..\..\include\vector\dim.hpp" />
+    <ClInclude Include="..\..\include\vector\extend.hpp" />
+    <ClInclude Include="..\..\include\vector\linear.hpp" />
+    <ClInclude Include="..\..\include\vector\margin.hpp" />
+    <ClInclude Include="..\..\include\vector\orientation.hpp" />
+    <ClInclude Include="..\..\include\vector\point.hpp" />
+    <ClInclude Include="..\..\include\vector\region.hpp" />
+    <ClInclude Include="..\..\include\vector\border.hpp" />
+    <ClInclude Include="..\..\include\vector\size.hpp" />
+    <ClInclude Include="..\..\include\vector\size_policy.hpp" />
+    <ClInclude Include="..\..\include\widget\button.hpp" />
+    <ClInclude Include="..\..\include\widget\canvas.hpp" />
+    <ClInclude Include="..\..\include\widget\cells.hpp" />
+    <ClInclude Include="..\..\include\widget\column.hpp" />
+    <ClInclude Include="..\..\include\widget\desktop.hpp" />
+    <ClInclude Include="..\..\include\widget\edit.hpp" />
+    <ClInclude Include="..\..\include\widget\entry.hpp" />
+    <ClInclude Include="..\..\include\widget\grid.hpp" />
+    <ClInclude Include="..\..\include\widget\icon.hpp" />
+    <ClInclude Include="..\..\include\widget\keyboard.hpp" />
+    <ClInclude Include="..\..\include\widget\label.hpp" />
+    <ClInclude Include="..\..\include\widget\pane.hpp" />
+    <ClInclude Include="..\..\include\widget\progress_bar.hpp" />
+    <ClInclude Include="..\..\include\widget\row.hpp" />
+    <ClInclude Include="..\..\include\widget\scrollable_content.hpp" />
+    <ClInclude Include="..\..\include\widget\scroll_view.hpp" />
+    <ClInclude Include="..\..\include\widget\slider.hpp" />
+    <ClInclude Include="..\..\include\widget\switch.hpp" />
+    <ClInclude Include="..\..\include\widget\checkbox.hpp" />
+    <ClInclude Include="..\..\include\widget\radio.hpp" />
+    <ClInclude Include="..\..\include\widget\table_view.hpp" />
+    <ClInclude Include="..\..\include\widget\uimanager.hpp" />
+    <ClInclude Include="..\..\include\widget\widget.hpp" />
+    <ClInclude Include="..\..\include\widget\window.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\resources\colors\dark.json" />
@@ -1379,7 +1379,7 @@
     <Font Include="..\..\resources\fonts\Berial.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\..\freetype\src\base\ftver.rc" />
+    <ResourceCompile Include="..\..\external\freetype\src\base\ftver.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D2B0C9BA-6691-49BC-B111-1945063134EA}</ProjectGuid>
@@ -1426,7 +1426,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;HAVE_ZLIB;ZLIB_COMPAT;WIN32;PACKAGE;FT2_BUILD_LIBRARY=1;FT_ERR_PREFIX=FT_Err_;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\inc;..\..\..\freetype\include;..\..\..\freetype\include\freetype;..\..\..\zlib;..\..\..\minizip;..\..\..\minizip\compat;..\..\..;..\..</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\external\freetype\include;..\..\external\freetype\include\freetype;..\..\external\zlib;..\..\external\minizip;..\..\external\minizip\compat;..\..</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
@@ -1452,7 +1452,7 @@
       </PrecompiledHeader>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;HAVE_ZLIB;ZLIB_COMPAT;WIN32;PACKAGE;FT2_BUILD_LIBRARY=1;FT_ERR_PREFIX=FT_Err_;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\inc;..\..\..\freetype\include;..\..\..\freetype\include\freetype;..\..\..\zlib;..\..\..\minizip;..\..\..\minizip\compat;..\..\..;..\..</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\external\freetype\include;..\..\external\freetype\include\freetype;..\..\external\zlib;..\..\external\minizip;..\..\external\minizip\compat;..\..</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>

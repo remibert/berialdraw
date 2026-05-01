@@ -1,10 +1,9 @@
 Browse.VC.db
 .DS_Store
 v16
-berialdraw/out/*
-berialdraw/build/*
-pybind11
-*/*.py.in
+out/*
+build/*
+*.py.in
 cmake.db
 */resources.zip
 requirements.txt

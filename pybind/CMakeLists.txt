@@ -125,14 +125,12 @@ set(PYBIND_HEADERS
 # Define pybind includes locally
 set(INCLUDES_PYBIND11
 	${SDL3_INCLUDE_DIRS}
-	"${CMAKE_CURRENT_SOURCE_DIR}/../inc;"
-	"${CMAKE_CURRENT_SOURCE_DIR}/../inc/freetype;"
-	"${CMAKE_CURRENT_SOURCE_DIR}/../freetype/include;"
-	"${CMAKE_CURRENT_SOURCE_DIR}/../freetype/include/freetype;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../include;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../external/freetype/include;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../external/freetype/include/freetype;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/inc;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/.."
-	"${CMAKE_CURRENT_SOURCE_DIR}/../.."
-	"${CMAKE_CURRENT_SOURCE_DIR}/../../pybind11/include;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../external/pybind11/include;"
 )
 
 # pybind11 Python wrapper library

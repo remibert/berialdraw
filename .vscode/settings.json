@@ -1,5 +1,5 @@
 {
-	"cmake.sourceDirectory": "${workspaceFolder}/berialdraw",
+	"cmake.sourceDirectory": "${workspaceFolder}",
 	"cmake.debugConfig": {
 		"cwd": "${workspaceFolder}/berialdraw"
 	},

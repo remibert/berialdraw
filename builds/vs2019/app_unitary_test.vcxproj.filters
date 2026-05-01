@@ -5,7 +5,7 @@
     <ClCompile Include="..\..\src\tool\test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\inc\tool\test.hpp" />
+    <ClInclude Include="..\..\include\tool\test.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\build.sh" />

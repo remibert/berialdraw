@@ -2,6 +2,9 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="berialdraw">
+      <UniqueIdentifier>{2a7ab0d1-3d3d-47b3-8d9b-bd55ccf7a8f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\lib">
       <UniqueIdentifier>{675f8b9c-fa33-4eb5-b22d-56ceb8f90f14}</UniqueIdentifier>
     </Filter>
     <Filter Include="berialdraw\shape">
@@ -40,8 +43,11 @@
     <Filter Include="berialdraw\styles">
       <UniqueIdentifier>{f6fd56d9-3ed0-414f-af2b-ceb407410df4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resources">
+    <Filter Include="berialdraw\resources">
       <UniqueIdentifier>{32d59020-9b0e-42a6-9aaf-d71905b3148f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources">
+      <UniqueIdentifier>{f6a616fb-eb95-45f2-a895-86b3f6eb42bf}</UniqueIdentifier>
     </Filter>
     <Filter Include="resources\styles">
       <UniqueIdentifier>{cfac3bea-60bc-4894-aead-57b37b327463}</UniqueIdentifier>
@@ -79,8 +85,11 @@
     <Filter Include="berialdraw\device\cocoa">
       <UniqueIdentifier>{7dde02de-ca2b-437f-86b7-d87c5035f9b8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="external">
+    <Filter Include="berialdraw\external">
       <UniqueIdentifier>{ec5a14a4-f4c4-467b-915e-a6407a40ba9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external">
+      <UniqueIdentifier>{0bc16f6d-c9e4-48be-a5b7-64d2c2c8b95f}</UniqueIdentifier>
     </Filter>
     <Filter Include="external\minizip">
       <UniqueIdentifier>{9b8e5deb-2b6d-50cd-ce6f-2g9d8f0b1e4d}</UniqueIdentifier>
@@ -414,100 +423,100 @@
     <ClCompile Include="..\..\src\berialdraw.cpp">
       <Filter>berialdraw\shape</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftoutln.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftoutln.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\md5.c">
+    <ClCompile Include="..\..\external\freetype\src\base\md5.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftwinfnt.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftwinfnt.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftutil.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftutil.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\fttype1.c">
+    <ClCompile Include="..\..\external\freetype\src\base\fttype1.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\fttrigon.c">
+    <ClCompile Include="..\..\external\freetype\src\base\fttrigon.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftsynth.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftsynth.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftstroke.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftstroke.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftstream.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftstream.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftsnames.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftsnames.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftrfork.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftrfork.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftpsprop.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftpsprop.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftpfr.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftpfr.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftpatent.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftpatent.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftotval.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftotval.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftobjs.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftobjs.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftmac.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftmac.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftlcdfil.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftlcdfil.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\fthash.c">
+    <ClCompile Include="..\..\external\freetype\src\base\fthash.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftgxval.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftgxval.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftgloadr.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftgloadr.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftgasp.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftgasp.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftfstype.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftfstype.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftfntfmt.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftfntfmt.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\fterrors.c">
+    <ClCompile Include="..\..\external\freetype\src\base\fterrors.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftdbgmem.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftdbgmem.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftcolor.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftcolor.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftcid.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftcid.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftcalc.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftcalc.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftbdf.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftbdf.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftbbox.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftbbox.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftadvanc.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftadvanc.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\tool\arc_cache.cpp">
@@ -519,52 +528,52 @@
     <ClCompile Include="..\..\src\event\focus_event.cpp">
       <Filter>berialdraw\event</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftbase.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftbase.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftbitmap.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftbitmap.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftdebug.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftdebug.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftglyph.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftglyph.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\smooth\ftgrays.c">
+    <ClCompile Include="..\..\external\freetype\src\smooth\ftgrays.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftinit.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftinit.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftmm.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftmm.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\base\ftsystem.c">
+    <ClCompile Include="..\..\external\freetype\src\base\ftsystem.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\sfnt\sfdriver.c">
+    <ClCompile Include="..\..\external\freetype\src\sfnt\sfdriver.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\sfnt\sfobjs.c">
+    <ClCompile Include="..\..\external\freetype\src\sfnt\sfobjs.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\smooth\smooth.c">
+    <ClCompile Include="..\..\external\freetype\src\smooth\smooth.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\truetype\truetype.c">
+    <ClCompile Include="..\..\external\freetype\src\truetype\truetype.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\sfnt\ttcmap.c">
+    <ClCompile Include="..\..\external\freetype\src\sfnt\ttcmap.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\sfnt\ttkern.c">
+    <ClCompile Include="..\..\external\freetype\src\sfnt\ttkern.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\sfnt\ttload.c">
+    <ClCompile Include="..\..\external\freetype\src\sfnt\ttload.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\freetype\src\sfnt\ttmtx.c">
+    <ClCompile Include="..\..\external\freetype\src\sfnt\ttmtx.c">
       <Filter>external\freetype\base</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\styles\line_style.cpp">
@@ -592,74 +601,74 @@
       <Filter>berialdraw\tool\directory</Filter>
     </ClCompile>
     <!-- zlib files -->
-    <ClCompile Include="..\..\..\zlib\adler32.c">
+    <ClCompile Include="..\..\external\zlib\adler32.c">
       <Filter>external\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\compress.c">
+    <ClCompile Include="..\..\external\zlib\compress.c">
       <Filter>external\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\crc32.c">
+    <ClCompile Include="..\..\external\zlib\crc32.c">
       <Filter>external\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\deflate.c">
+    <ClCompile Include="..\..\external\zlib\deflate.c">
       <Filter>external\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\inflate.c">
+    <ClCompile Include="..\..\external\zlib\inflate.c">
       <Filter>external\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\infback.c">
+    <ClCompile Include="..\..\external\zlib\infback.c">
       <Filter>external\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\inftrees.c">
+    <ClCompile Include="..\..\external\zlib\inftrees.c">
       <Filter>external\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\inffast.c">
+    <ClCompile Include="..\..\external\zlib\inffast.c">
       <Filter>external\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\trees.c">
+    <ClCompile Include="..\..\external\zlib\trees.c">
       <Filter>external\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\uncompr.c">
+    <ClCompile Include="..\..\external\zlib\uncompr.c">
       <Filter>external\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zlib\zutil.c">
+    <ClCompile Include="..\..\external\zlib\zutil.c">
       <Filter>external\zlib</Filter>
     </ClCompile>
     <!-- minizip files -->
-    <ClCompile Include="..\..\..\minizip\mz_crypt.c">
+    <ClCompile Include="..\..\external\minizip\mz_crypt.c">
       <Filter>external\minizip</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_os.c">
+    <ClCompile Include="..\..\external\minizip\mz_os.c">
       <Filter>external\minizip</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_strm.c">
+    <ClCompile Include="..\..\external\minizip\mz_strm.c">
       <Filter>external\minizip</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_strm_buf.c">
+    <ClCompile Include="..\..\external\minizip\mz_strm_buf.c">
       <Filter>external\minizip</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_strm_mem.c">
+    <ClCompile Include="..\..\external\minizip\mz_strm_mem.c">
       <Filter>external\minizip</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_strm_split.c">
+    <ClCompile Include="..\..\external\minizip\mz_strm_split.c">
       <Filter>external\minizip</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_strm_zlib.c">
+    <ClCompile Include="..\..\external\minizip\mz_strm_zlib.c">
       <Filter>external\minizip</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_strm_pkcrypt.c">
+    <ClCompile Include="..\..\external\minizip\mz_strm_pkcrypt.c">
       <Filter>external\minizip</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_zip.c">
+    <ClCompile Include="..\..\external\minizip\mz_zip.c">
       <Filter>external\minizip</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\mz_zip_rw.c">
+    <ClCompile Include="..\..\external\minizip\mz_zip_rw.c">
       <Filter>external\minizip</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\compat\unzip.c">
+    <ClCompile Include="..\..\external\minizip\compat\unzip.c">
       <Filter>external\minizip</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\minizip\compat\ioapi.c">
+    <ClCompile Include="..\..\external\minizip\compat\ioapi.c">
       <Filter>external\minizip</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\tool\zip_file.cpp">
@@ -736,805 +745,805 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\inc\berialdraw_imp.hpp">
-      <Filter>berialdraw</Filter>
+    <ClInclude Include="..\..\include\berialdraw_imp.hpp">
+      <Filter>berialdraw\lib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\config.h">
-      <Filter>berialdraw</Filter>
+    <ClInclude Include="..\..\include\config.h">
+      <Filter>berialdraw\lib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\berialdraw.hpp">
-      <Filter>berialdraw</Filter>
+    <ClInclude Include="..\..\include\berialdraw.hpp">
+      <Filter>berialdraw\lib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\circle.hpp">
+    <ClInclude Include="..\..\include\shape\circle.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\compass.hpp">
+    <ClInclude Include="..\..\include\shape\compass.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\cross.hpp">
+    <ClInclude Include="..\..\include\shape\cross.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\line.hpp">
+    <ClInclude Include="..\..\include\shape\line.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\marker.hpp">
+    <ClInclude Include="..\..\include\shape\marker.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\outline.hpp">
+    <ClInclude Include="..\..\include\shape\outline.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\pie.hpp">
+    <ClInclude Include="..\..\include\shape\pie.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\polygon.hpp">
+    <ClInclude Include="..\..\include\shape\polygon.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\poly_lines.hpp">
+    <ClInclude Include="..\..\include\shape\poly_lines.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\poly_points.hpp">
+    <ClInclude Include="..\..\include\shape\poly_points.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\rect.hpp">
+    <ClInclude Include="..\..\include\shape\rect.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\renderer.hpp">
+    <ClInclude Include="..\..\include\shape\renderer.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\shape.hpp">
+    <ClInclude Include="..\..\include\shape\shape.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\square.hpp">
+    <ClInclude Include="..\..\include\shape\square.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\text.hpp">
+    <ClInclude Include="..\..\include\shape\text.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\text_box.hpp">
+    <ClInclude Include="..\..\include\shape\text_box.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\triangle.hpp">
+    <ClInclude Include="..\..\include\shape\triangle.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\vectors_script.hpp">
+    <ClInclude Include="..\..\include\shape\vectors_script.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\vector\align.hpp">
+    <ClInclude Include="..\..\include\vector\align.hpp">
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\vector\area.hpp">
+    <ClInclude Include="..\..\include\vector\area.hpp">
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\vector\coord.hpp">
+    <ClInclude Include="..\..\include\vector\coord.hpp">
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\vector\dim.hpp">
+    <ClInclude Include="..\..\include\vector\dim.hpp">
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\vector\extend.hpp">
+    <ClInclude Include="..\..\include\vector\extend.hpp">
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\vector\linear.hpp">
+    <ClInclude Include="..\..\include\vector\linear.hpp">
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\vector\margin.hpp">
+    <ClInclude Include="..\..\include\vector\margin.hpp">
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\vector\orientation.hpp">
+    <ClInclude Include="..\..\include\vector\orientation.hpp">
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\vector\point.hpp">
+    <ClInclude Include="..\..\include\vector\point.hpp">
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\vector\region.hpp">
+    <ClInclude Include="..\..\include\vector\region.hpp">
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\vector\size.hpp">
+    <ClInclude Include="..\..\include\vector\size.hpp">
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\vector\size_policy.hpp">
+    <ClInclude Include="..\..\include\vector\size_policy.hpp">
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\framebuf\argb8888.hpp">
+    <ClInclude Include="..\..\include\framebuf\argb8888.hpp">
       <Filter>berialdraw\framebuf</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\framebuf\framebuf.hpp">
+    <ClInclude Include="..\..\include\framebuf\framebuf.hpp">
       <Filter>berialdraw\framebuf</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\font\font.hpp">
+    <ClInclude Include="..\..\include\font\font.hpp">
       <Filter>berialdraw\font</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\font\font_face.hpp">
+    <ClInclude Include="..\..\include\font\font_face.hpp">
       <Filter>berialdraw\font</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\font\fonts.hpp">
+    <ClInclude Include="..\..\include\font\fonts.hpp">
       <Filter>berialdraw\font</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\font\glyph.hpp">
+    <ClInclude Include="..\..\include\font\glyph.hpp">
       <Filter>berialdraw\font</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\font\glyphs.hpp">
+    <ClInclude Include="..\..\include\font\glyphs.hpp">
       <Filter>berialdraw\font</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\font\utf8.hpp">
+    <ClInclude Include="..\..\include\font\utf8.hpp">
       <Filter>berialdraw\font</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\font\_font.hpp">
+    <ClInclude Include="..\..\include\font\_font.hpp">
       <Filter>berialdraw\font</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\chart\data_set.hpp">
+    <ClInclude Include="..\..\include\chart\data_set.hpp">
       <Filter>berialdraw\chart</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\chart\line_chart.hpp">
+    <ClInclude Include="..\..\include\chart\line_chart.hpp">
       <Filter>berialdraw\chart</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\button.hpp">
+    <ClInclude Include="..\..\include\widget\button.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\canvas.hpp">
+    <ClInclude Include="..\..\include\widget\canvas.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\cells.hpp">
+    <ClInclude Include="..\..\include\widget\cells.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\column.hpp">
+    <ClInclude Include="..\..\include\widget\column.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\edit.hpp">
+    <ClInclude Include="..\..\include\widget\edit.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\entry.hpp">
+    <ClInclude Include="..\..\include\widget\entry.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\grid.hpp">
+    <ClInclude Include="..\..\include\widget\grid.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\icon.hpp">
+    <ClInclude Include="..\..\include\widget\icon.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\keyboard.hpp">
+    <ClInclude Include="..\..\include\widget\keyboard.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\label.hpp">
+    <ClInclude Include="..\..\include\widget\label.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\progress_bar.hpp">
+    <ClInclude Include="..\..\include\widget\progress_bar.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\pane.hpp">
+    <ClInclude Include="..\..\include\widget\pane.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\row.hpp">
+    <ClInclude Include="..\..\include\widget\row.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\scroll_view.hpp">
+    <ClInclude Include="..\..\include\widget\scroll_view.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\slider.hpp">
+    <ClInclude Include="..\..\include\widget\slider.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\switch.hpp">
+    <ClInclude Include="..\..\include\widget\switch.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\widget.hpp">
+    <ClInclude Include="..\..\include\widget\widget.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\window.hpp">
+    <ClInclude Include="..\..\include\widget\window.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\desktop.hpp">
+    <ClInclude Include="..\..\include\widget\desktop.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\bd_system.h">
+    <ClInclude Include="..\..\include\tool\bd_system.h">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\clipboard.hpp">
+    <ClInclude Include="..\..\include\tool\clipboard.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\exporter.hpp">
+    <ClInclude Include="..\..\include\tool\exporter.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\hsl.hpp">
+    <ClInclude Include="..\..\include\tool\hsl.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\memory_leak_tracer.hpp">
+    <ClInclude Include="..\..\include\tool\memory_leak_tracer.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\singleton.hpp">
+    <ClInclude Include="..\..\include\tool\singleton.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\stream.hpp">
+    <ClInclude Include="..\..\include\tool\stream.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\svg_out.hpp">
+    <ClInclude Include="..\..\include\tool\svg_out.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\text_stream.hpp">
+    <ClInclude Include="..\..\include\tool\text_stream.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\tools.hpp">
+    <ClInclude Include="..\..\include\tool\tools.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\shared_ptr.hpp">
+    <ClInclude Include="..\..\include\tool\shared_ptr.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\string.hpp">
+    <ClInclude Include="..\..\include\tool\string.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\vector.hpp">
+    <ClInclude Include="..\..\include\tool\vector.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\item.hpp">
+    <ClInclude Include="..\..\include\tool\item.hpp">
       <Filter>berialdraw\tool\json</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\item_array.hpp">
+    <ClInclude Include="..\..\include\tool\item_array.hpp">
       <Filter>berialdraw\tool\json</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\item_bool.hpp">
+    <ClInclude Include="..\..\include\tool\item_bool.hpp">
       <Filter>berialdraw\tool\json</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\item_collection.hpp">
+    <ClInclude Include="..\..\include\tool\item_collection.hpp">
       <Filter>berialdraw\tool\json</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\item_int.hpp">
+    <ClInclude Include="..\..\include\tool\item_int.hpp">
       <Filter>berialdraw\tool\json</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\item_null.hpp">
+    <ClInclude Include="..\..\include\tool\item_null.hpp">
       <Filter>berialdraw\tool\json</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\item_object.hpp">
+    <ClInclude Include="..\..\include\tool\item_object.hpp">
       <Filter>berialdraw\tool\json</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\item_string.hpp">
+    <ClInclude Include="..\..\include\tool\item_string.hpp">
       <Filter>berialdraw\tool\json</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\item_variant.hpp">
+    <ClInclude Include="..\..\include\tool\item_variant.hpp">
       <Filter>berialdraw\tool\json</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\json.hpp">
+    <ClInclude Include="..\..\include\tool\json.hpp">
       <Filter>berialdraw\tool\json</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\json_iterator.hpp">
+    <ClInclude Include="..\..\include\tool\json_iterator.hpp">
       <Filter>berialdraw\tool\json</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\mask_validator.hpp">
+    <ClInclude Include="..\..\include\tool\mask_validator.hpp">
       <Filter>berialdraw\tool\validator</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\validator.hpp">
+    <ClInclude Include="..\..\include\tool\validator.hpp">
       <Filter>berialdraw\tool\validator</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\device\device.hpp">
+    <ClInclude Include="..\..\include\device\device.hpp">
       <Filter>berialdraw\device</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\event\caller.hpp">
+    <ClInclude Include="..\..\include\event\caller.hpp">
       <Filter>berialdraw\event</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\event\check_event.hpp">
+    <ClInclude Include="..\..\include\event\check_event.hpp">
       <Filter>berialdraw\event</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\event\click_event.hpp">
+    <ClInclude Include="..\..\include\event\click_event.hpp">
       <Filter>berialdraw\event</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\event\event.hpp">
+    <ClInclude Include="..\..\include\event\event.hpp">
       <Filter>berialdraw\event</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\event\key_event.hpp">
+    <ClInclude Include="..\..\include\event\key_event.hpp">
       <Filter>berialdraw\event</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\event\notifier.hpp">
+    <ClInclude Include="..\..\include\event\notifier.hpp">
       <Filter>berialdraw\event</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\event\scroll_event.hpp">
+    <ClInclude Include="..\..\include\event\scroll_event.hpp">
       <Filter>berialdraw\event</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\event\select_event.hpp">
+    <ClInclude Include="..\..\include\event\select_event.hpp">
       <Filter>berialdraw\event</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\event\slide_event.hpp">
+    <ClInclude Include="..\..\include\event\slide_event.hpp">
       <Filter>berialdraw\event</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\event\touch_event.hpp">
+    <ClInclude Include="..\..\include\event\touch_event.hpp">
       <Filter>berialdraw\event</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\border_style.hpp">
+    <ClInclude Include="..\..\include\styles\border_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\icon_style.hpp">
+    <ClInclude Include="..\..\include\styles\icon_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\progress_bar_style.hpp">
+    <ClInclude Include="..\..\include\styles\progress_bar_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\slider_style.hpp">
+    <ClInclude Include="..\..\include\styles\slider_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\switch_style.hpp">
+    <ClInclude Include="..\..\include\styles\switch_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\common_style.hpp">
+    <ClInclude Include="..\..\include\styles\common_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\invalidator.hpp">
+    <ClInclude Include="..\..\include\styles\invalidator.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\edit_style.hpp">
+    <ClInclude Include="..\..\include\styles\edit_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\keys.hpp">
+    <ClInclude Include="..\..\include\styles\keys.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\mappings.hpp">
+    <ClInclude Include="..\..\include\styles\mappings.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\pie_style.hpp">
+    <ClInclude Include="..\..\include\styles\pie_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\round_style.hpp">
+    <ClInclude Include="..\..\include\styles\round_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\style.hpp">
+    <ClInclude Include="..\..\include\styles\style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\styles.hpp">
+    <ClInclude Include="..\..\include\styles\styles.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\text_style.hpp">
+    <ClInclude Include="..\..\include\styles\text_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\widget_style.hpp">
+    <ClInclude Include="..\..\include\styles\widget_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\color.hpp">
+    <ClInclude Include="..\..\include\styles\color.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\colors.hpp">
+    <ClInclude Include="..\..\include\styles\colors.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\uimanager.hpp">
+    <ClInclude Include="..\..\include\widget\uimanager.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\screen_crc.hpp">
+    <ClInclude Include="..\..\include\tool\screen_crc.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\src\base\ftbase.h">
+    <ClInclude Include="..\..\external\freetype\src\base\ftbase.h">
       <Filter>external\freetype\base</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftadvanc.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftadvanc.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\freetype.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\freetype.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftbbox.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftbbox.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftbitmap.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftbitmap.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftbdf.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftbdf.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftcache.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftcache.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftbzip2.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftbzip2.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftchapters.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftchapters.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftcolor.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftcolor.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftcid.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftcid.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftdriver.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftdriver.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\fterrdef.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\fterrdef.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\fterrors.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\fterrors.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftfntfmt.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftfntfmt.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftgasp.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftgasp.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftglyph.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftglyph.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftgxval.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftgxval.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftgzip.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftgzip.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftimage.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftimage.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftincrem.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftincrem.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftlcdfil.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftlcdfil.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftlist.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftlist.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftlogging.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftlogging.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftlzw.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftlzw.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftmac.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftmac.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftmm.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftmm.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftmodapi.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftmodapi.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftmoderr.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftmoderr.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftotval.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftotval.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftoutln.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftoutln.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftparams.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftparams.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftpfr.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftpfr.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftrender.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftrender.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftsizes.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftsizes.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftsnames.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftsnames.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftstroke.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftstroke.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftsynth.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftsynth.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftsystem.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftsystem.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\fttrigon.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\fttrigon.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\fttypes.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\fttypes.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ftwinfnt.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ftwinfnt.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\otsvg.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\otsvg.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\src\sfnt\sfdriver.h">
+    <ClInclude Include="..\..\external\freetype\src\sfnt\sfdriver.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\src\sfnt\sfobjs.h">
+    <ClInclude Include="..\..\external\freetype\src\sfnt\sfobjs.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\t1tables.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\t1tables.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\src\sfnt\ttcmap.h">
+    <ClInclude Include="..\..\external\freetype\src\sfnt\ttcmap.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\src\sfnt\ttkern.h">
+    <ClInclude Include="..\..\external\freetype\src\sfnt\ttkern.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\src\sfnt\ttload.h">
+    <ClInclude Include="..\..\external\freetype\src\sfnt\ttload.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\src\sfnt\ttmtx.h">
+    <ClInclude Include="..\..\external\freetype\src\sfnt\ttmtx.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\ttnameid.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\ttnameid.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\tttables.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\tttables.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\tttags.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\tttags.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\autohint.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\autohint.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\cffotypes.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\cffotypes.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\cfftypes.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\cfftypes.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\compiler-macros.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\compiler-macros.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftcalc.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftcalc.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftdebug.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftdebug.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftdrv.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftdrv.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftgloadr.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftgloadr.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\fthash.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\fthash.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftmemory.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftmemory.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftmmtypes.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftmmtypes.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftobjs.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftobjs.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftpsprop.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftpsprop.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftrfork.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftrfork.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftserv.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftserv.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftstream.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftstream.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\fttrace.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\fttrace.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\ftvalid.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\ftvalid.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\psaux.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\psaux.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\pshints.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\pshints.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\sfnt.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\sfnt.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\svginterface.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\svginterface.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\t1types.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\t1types.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\tttypes.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\tttypes.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\wofftypes.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\wofftypes.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svbdf.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svbdf.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svcfftl.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svcfftl.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svcid.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svcid.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svfntfmt.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svfntfmt.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svgldict.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svgldict.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svgxval.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svgxval.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svkern.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svkern.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svmetric.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svmetric.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svmm.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svmm.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svotval.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svotval.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svpfr.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svpfr.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svpostnm.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svpostnm.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svprop.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svprop.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svpscmap.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svpscmap.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svpsinfo.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svpsinfo.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svsfnt.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svsfnt.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svttcmap.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svttcmap.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svtteng.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svtteng.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svttglyf.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svttglyf.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\internal\services\svwinfnt.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\internal\services\svwinfnt.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftconfig.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\config\ftconfig.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftheader.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\config\ftheader.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftmodule.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\config\ftmodule.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftoption.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\config\ftoption.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\config\ftstdlib.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\config\ftstdlib.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\config\integer-types.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\config\integer-types.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\config\mac-support.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\config\mac-support.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\freetype\config\public-macros.h">
+    <ClInclude Include="..\..\external\freetype\include\freetype\config\public-macros.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\arc_cache.hpp">
+    <ClInclude Include="..\..\include\tool\arc_cache.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\vector\border.hpp">
+    <ClInclude Include="..\..\include\vector\border.hpp">
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\event\focus_event.hpp">
+    <ClInclude Include="..\..\include\event\focus_event.hpp">
       <Filter>berialdraw\event</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\freetype\include\ft2build.h">
+    <ClInclude Include="..\..\external\freetype\include\ft2build.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\line_style.hpp">
+    <ClInclude Include="..\..\include\styles\line_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\shape\sketch.hpp">
+    <ClInclude Include="..\..\include\shape\sketch.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\scroll_view_style.hpp">
+    <ClInclude Include="..\..\include\styles\scroll_view_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\settings.hpp">
+    <ClInclude Include="..\..\include\tool\settings.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\file.hpp">
+    <ClInclude Include="..\..\include\tool\file.hpp">
       <Filter>berialdraw\tool\file</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\file_interface.hpp">
+    <ClInclude Include="..\..\include\tool\file_interface.hpp">
       <Filter>berialdraw\tool\file</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\local_file.hpp">
+    <ClInclude Include="..\..\include\tool\local_file.hpp">
       <Filter>berialdraw\tool\file</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\directory_interface.hpp">
+    <ClInclude Include="..\..\include\tool\directory_interface.hpp">
       <Filter>berialdraw\tool\directory</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\directory.hpp">
+    <ClInclude Include="..\..\include\tool\directory.hpp">
       <Filter>berialdraw\tool\directory</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\local_directory.hpp">
+    <ClInclude Include="..\..\include\tool\local_directory.hpp">
       <Filter>berialdraw\tool\directory</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\zip_file.hpp">
+    <ClInclude Include="..\..\include\tool\zip_file.hpp">
       <Filter>berialdraw\tool\file</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\buffer.hpp">
+    <ClInclude Include="..\..\include\tool\buffer.hpp">
       <Filter>berialdraw\tool\file</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\file_tools.hpp">
+    <ClInclude Include="..\..\include\tool\file_tools.hpp">
       <Filter>berialdraw\tool\file</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\zip_archive.hpp">
+    <ClInclude Include="..\..\include\tool\zip_archive.hpp">
       <Filter>berialdraw\tool\file</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\zip_directory.hpp">
+    <ClInclude Include="..\..\include\tool\zip_directory.hpp">
       <Filter>berialdraw\tool\directory</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\device\clipboard_cocoa.hpp">
+    <ClInclude Include="..\..\include\device\clipboard_cocoa.hpp">
       <Filter>berialdraw\device\cocoa</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\device\device_cocoa.hpp">
+    <ClInclude Include="..\..\include\device\device_cocoa.hpp">
       <Filter>berialdraw\device\cocoa</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\device\clipboard_sdl.hpp">
+    <ClInclude Include="..\..\include\device\clipboard_sdl.hpp">
       <Filter>berialdraw\device\sdl</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\device\clipboard_wayland.hpp">
+    <ClInclude Include="..\..\include\device\clipboard_wayland.hpp">
       <Filter>berialdraw\device\wayland</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\device\device_sdl.hpp">
+    <ClInclude Include="..\..\include\device\device_sdl.hpp">
       <Filter>berialdraw\device\sdl</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\device\device_wayland.hpp">
+    <ClInclude Include="..\..\include\device\device_wayland.hpp">
       <Filter>berialdraw\device\wayland</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\device\clipboard_win32.hpp">
+    <ClInclude Include="..\..\include\device\clipboard_win32.hpp">
       <Filter>berialdraw\device\win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\device\device_win32.hpp">
+    <ClInclude Include="..\..\include\device\device_win32.hpp">
       <Filter>berialdraw\device\win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\checkbox.hpp">
+    <ClInclude Include="..\..\include\widget\checkbox.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\radio.hpp">
+    <ClInclude Include="..\..\include\widget\radio.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\checkbox_style.hpp">
+    <ClInclude Include="..\..\include\styles\checkbox_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\radio_style.hpp">
+    <ClInclude Include="..\..\include\styles\radio_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\table_view.hpp">
+    <ClInclude Include="..\..\include\widget\table_view.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\table_view_style.hpp">
+    <ClInclude Include="..\..\include\styles\table_view_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\cell_style.hpp">
+    <ClInclude Include="..\..\include\styles\cell_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\cells_style.hpp">
+    <ClInclude Include="..\..\include\styles\cells_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\tool\chronometer.hpp">
+    <ClInclude Include="..\..\include\tool\chronometer.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\vector\scroll_direction.hpp">
+    <ClInclude Include="..\..\include\vector\scroll_direction.hpp">
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\widget\scrollable_content.hpp">
+    <ClInclude Include="..\..\include\widget\scrollable_content.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\style_item.hpp">
+    <ClInclude Include="..\..\include\styles\style_item.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\style_names.hpp">
+    <ClInclude Include="..\..\include\styles\style_names.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\styles\grid_style.hpp">
+    <ClInclude Include="..\..\include\styles\grid_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1804,7 +1813,7 @@
     </Font>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\..\freetype\src\base\ftver.rc">
+    <ResourceCompile Include="..\..\external\freetype\src\base\ftver.rc">
       <Filter>external\freetype\base</Filter>
     </ResourceCompile>
   </ItemGroup>

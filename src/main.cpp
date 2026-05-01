@@ -2,9 +2,15 @@
 #include "samples/samples.hpp"
 
 // Screen resolution
+#if 1
 const int ZOOM = 2;
 const int SCREEN_WIDTH  = 480*ZOOM;
 const int SCREEN_HEIGHT = 480*ZOOM;
+#else
+const int ZOOM = 1;
+const int SCREEN_WIDTH  = 280*ZOOM;
+const int SCREEN_HEIGHT = 280*ZOOM;
+#endif
 
 using namespace berialdraw; 
 
@@ -15,7 +21,7 @@ int main(int argc, char* args[])
 
 	// Stop the debugger while allocating the memory block with the specified id.
 	// Very useful for finding a memory leak
-	//MemoryLeakTracer::break_at(42327);
+	//MemoryLeakTracer::break_at(61693);
 	{
 		// Execute unitary test
 		test_unitary();

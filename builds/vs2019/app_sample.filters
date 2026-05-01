@@ -8,6 +8,6 @@
     <Text Include="..\..\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\inc\tool\test.hpp" />
+    <ClInclude Include="..\..\include\tool\test.hpp" />
   </ItemGroup>
 </Project>

@@ -10,29 +10,30 @@
 	"style"                         : "table-view-default",
 	"styles"                        :
 	[
-	{
-		"name":"table-view-default",
-		"properties":
 		{
-			"grid": 
+			"name":"table-view-default",
+			"properties":
 			{
-				"color": 0xFF00004B,
-				"horizontal-thickness": 1,
-				"vertical-thickness": 1
-			},
-
-			"cell-selector":
-			[
+				"grid": 
 				{
-					"row": 0xFFFE,
-					"color": 0xFF00004C
+					"color": 0xFF00004B,
+					"horizontal-thickness": 1,
+					"vertical-thickness": 1
 				},
-				{
-					"row": 0xFFFD,
-					"color": 0xFF00004D
-				}
-			]
+
+				"cells":
+				[
+					{
+						"row-selector": 0,
+						"column-selector":0xFFFF,
+						"color": 0xFF00004C
+					},
+					{
+						"row": 0xFFFD,
+						"color": 0xFF00004D
+					}
+				]
+			}
 		}
-	}
 	]
 }

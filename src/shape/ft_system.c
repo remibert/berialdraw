@@ -24,11 +24,11 @@
 #define ft_fseek     bd_fseek
 #define ft_ftell     bd_ftell
 
-#include "inc/tool/bd_system.h"
+#include "include/tool/bd_system.h"
 
-#include "../freetype/src/smooth/ftgrays.c"
-#include "../freetype/src/smooth/ftsmooth.c"
-#include "../freetype/src/base/ftsystem.c"
+#include "../../external/freetype/src/smooth/ftgrays.c"
+#include "../../external/freetype/src/smooth/ftsmooth.c"
+#include "../../external/freetype/src/base/ftsystem.c"
 
 void * FtSystemMalloc(size_t size)
 {
