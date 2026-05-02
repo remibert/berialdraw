@@ -151,6 +151,8 @@ set(SRCS_LIB
 	src/framebuf/framebuf.cpp
 
 	src/tool/bd_system.cpp
+	$<$<PLATFORM_ID:Windows>:src/tool/bd_system_win32.cpp>
+	$<$<OR:$<PLATFORM_ID:Linux>,$<PLATFORM_ID:Darwin>>:src/tool/bd_system_posix.cpp>
 	src/tool/tools.cpp
 	src/tool/chronometer.cpp
 	src/tool/string.cpp

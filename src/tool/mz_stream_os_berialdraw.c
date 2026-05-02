@@ -15,6 +15,8 @@ extern size_t bd_fread(void *ptr, size_t size, size_t nmemb, bd_FILE *stream);
 extern size_t bd_fwrite(const void *ptr, size_t size, size_t nmemb, bd_FILE *stream);
 extern long bd_ftell(bd_FILE *stream);
 extern int bd_fseek(bd_FILE *stream, long offset, int whence);
+extern int bd_is_symlink(const char *path);
+extern int bd_read_symlink(const char *path, char *target_path, int max_target_path);
 
 // Custom stream OS implementation for berialdraw using bd_system
 // This allows minizip to work with berialdraw's filesystem abstraction
@@ -169,6 +171,32 @@ int32_t mz_os_make_dir(const char *path)
 	// Directory creation not implemented for berialdraw abstraction
 	// Would need to add bd_mkdir() if needed
 	return MZ_INTERNAL_ERROR;
+}
+
+int32_t mz_os_is_symlink(const char *path)
+{
+	if (path == NULL)
+		return MZ_PARAM_ERROR;
+
+	if (bd_is_symlink(path) == 0)
+		return MZ_OK;
+
+	return MZ_EXIST_ERROR;
+}
+
+int32_t mz_os_read_symlink(const char *path, char *target_path, int32_t max_target_path)
+{
+	if (path == NULL || target_path == NULL || max_target_path <= 0)
+		return MZ_PARAM_ERROR;
+
+	int result = bd_read_symlink(path, target_path, max_target_path);
+	
+	if (result == 0)
+		return MZ_OK;
+	if (result == -3)
+		return MZ_BUF_ERROR;
+
+	return MZ_EXIST_ERROR;
 }
 
 // Public wrapper functions for minizip

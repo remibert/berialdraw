@@ -116,6 +116,18 @@ extern "C"
 	@return True if the file is a directory, false otherwise. */
 	bool bd_is_directory(const char* file_name);
 
+	/** Checks if a given path is a symbolic link.
+	@param path Path to check.
+	@return 0 if the path is a symbolic link, non-zero otherwise. */
+	int bd_is_symlink(const char* path);
+
+	/** Reads the target of a symbolic link.
+	@param path Path to the symbolic link.
+	@param target_path Buffer to store the target path.
+	@param max_target_path Maximum size of the target_path buffer.
+	@return 0 on success, non-zero on error. */
+	int bd_read_symlink(const char* path, char* target_path, int max_target_path);
+
 	/** Prints a formatted string to the standard output.
 	@param format The format string (as in printf).
 	@param ... Additional arguments based on the format string. */

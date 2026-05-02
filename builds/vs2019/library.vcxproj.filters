@@ -288,6 +288,9 @@
     <ClCompile Include="..\..\src\tool\bd_system.cpp">
       <Filter>berialdraw\tool</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\tool\bd_system_win32.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\tool\hsl.cpp">
       <Filter>berialdraw\tool</Filter>
     </ClCompile>

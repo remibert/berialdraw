@@ -1,7 +1,6 @@
 Browse.VC.db
 .DS_Store
 v16
-out/*
 build/*
 *.py.in
 cmake.db

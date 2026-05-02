@@ -154,8 +154,8 @@ if(APPLE)
 	)
 endif()
 
-# Link against the static library
-target_link_libraries(${BD_PY11_LIB} ${BD_LIB} ${DEVICE_LIBRARIES} ${PYTHON_LIBRARIES} ${BD_SAMPLE_LIB})
+# Link against the static library (BD_SAMPLE_LIB already depends on BD_LIB)
+target_link_libraries(${BD_PY11_LIB} ${BD_SAMPLE_LIB} ${DEVICE_LIBRARIES} ${PYTHON_LIBRARIES})
 
 # Platform-specific output settings
 if(WIN32)
