@@ -7,7 +7,7 @@ Fonts::Fonts()
 {
 	m_fonts = new Vector<FontPtr>;
 	m_fonts_faces = new Vector<FontFacePtr>;
-	m_familly = "Berial";
+	m_familly = "Cerial";
 }
 
 /** Destroy fonts */
@@ -71,6 +71,78 @@ void Fonts::unload(const String & filename)
 	}
 }
 
+/** Find best font face by family name (or any family if nullptr) and style priority */
+FontFacePtr Fonts::find_best_font_face(const String * family_name, enum Font::Style style)
+{
+	FontFacePtr result;
+	FontFacePtr normal_face;
+	FontFacePtr bold_face;
+	FontFacePtr italic_face;
+	FontFacePtr first_face;
+
+	// Search font faces with optional family filter, ordered by style priority
+	for (uint32_t i = 0; i < m_fonts_faces->size(); i++)
+	{
+		// Skip if family filter is set and doesn't match
+		if (family_name != NULL && (*m_fonts_faces)[i]->familly() != *family_name)
+		{
+			continue;
+		}
+
+		// Store first face as ultimate fallback
+		if (first_face.get() == NULL)
+		{
+			first_face = (*m_fonts_faces)[i];
+		}
+
+		// Priority hierarchy:
+		// 1. Exact style match (if requested)
+		if ((*m_fonts_faces)[i]->style() == style && style != Font::UNDEFINED)
+		{
+			result = (*m_fonts_faces)[i];
+			break;
+		}
+		// 2. NORMAL style
+		else if ((*m_fonts_faces)[i]->style() == Font::NORMAL && normal_face.get() == NULL)
+		{
+			normal_face = (*m_fonts_faces)[i];
+		}
+		// 3. BOLD style
+		else if ((*m_fonts_faces)[i]->style() == Font::BOLD && bold_face.get() == NULL)
+		{
+			bold_face = (*m_fonts_faces)[i];
+		}
+		// 4. ITALIC style
+		else if ((*m_fonts_faces)[i]->style() == Font::ITALIC && italic_face.get() == NULL)
+		{
+			italic_face = (*m_fonts_faces)[i];
+		}
+	}
+
+	// Select best face according to hierarchy if exact match not found
+	if (result.get() == NULL)
+	{
+		if (normal_face.get() != NULL)
+		{
+			result = normal_face;
+		}
+		else if (bold_face.get() != NULL)
+		{
+			result = bold_face;
+		}
+		else if (italic_face.get() != NULL)
+		{
+			result = italic_face;
+		}
+		else if (first_face.get() != NULL)
+		{
+			result = first_face;
+		}
+	}
+
+	return result;
+}
+
 /** Select the instance of font, if the font familly not found return the first font, increase reference counter */
 FontPtr Fonts::select(const String & familly, const Size & size, enum Font::Style style)
 {
@@ -93,10 +165,9 @@ FontPtr Fonts::select(const String & familly, const Size & size, enum Font::Styl
 			searched_familly = &m_familly;
 		}
 		
-		// Find the font that matches exactly
+		// Find the font that matches exactly (same family, style and size)
 		for (uint32_t i = 0; i < m_fonts->size(); i++)
 		{
-			// If font is found and style found and size found
 			if (((*m_fonts)[i]->familly()    == *searched_familly || *searched_familly == "") && 
 				((*m_fonts)[i]->style()      == style   || style   == Font::UNDEFINED) && 
 				((*m_fonts)[i]->pixel_size() == size))
@@ -106,52 +177,27 @@ FontPtr Fonts::select(const String & familly, const Size & size, enum Font::Styl
 			}
 		}
 
-		// Exact font not found
-		if (selected.get() == 0)
+		// If exact font not found, search for a font face and create one
+		if (selected.get() == NULL)
 		{
-			FontFacePtr font_face;
-			FontFacePtr first_face;
+			// First pass: Search font faces with requested family
+			FontFacePtr best_face = find_best_font_face(searched_familly, style);
 
-			// Search the font face equal to font choosed
-			for(uint32_t i = 0; i < m_fonts_faces->size(); i++)
+			// Second pass: If no font found with requested family, search any available font
+			if (best_face.get() == NULL)
 			{
-				if ((*m_fonts_faces)[i]->familly() == *searched_familly)
-				{
-					// If specific style requested, look for exact match
-					if ((*m_fonts_faces)[i]->style() == style)
-					{
-						font_face = (*m_fonts_faces)[i];
-						break;
-					}
-					// If style is UNDEFINED, prefer NORMAL style first
-					else if (style == Font::UNDEFINED && (*m_fonts_faces)[i]->style() == Font::NORMAL)
-					{
-						font_face = (*m_fonts_faces)[i];
-						break;
-					}
-					// Keep first match as fallback
-					if (first_face.get() == 0)
-					{
-						first_face = (*m_fonts_faces)[i];
-					}
-				}
+				best_face = find_best_font_face(NULL, style);
 			}
 
-			// If font corresponding exactly
-			if (font_face.get())
+			// Create font from best face found
+			if (best_face.get() != NULL)
 			{
-				result = SharedPtr<Font>(new Font(font_face, size));
-				m_fonts->push_back(result);
-			}
-			// Else take the first font found
-			else if (first_face.get())
-			{
-				result = SharedPtr<Font>(new Font(first_face, size));
+				result = SharedPtr<Font>(new Font(best_face, size));
 				m_fonts->push_back(result);
 			}
 
-			// Clean up font
-			for(uint32_t i = 0; i < m_fonts->size(); )
+			// Clean up unused fonts (those with reference count == 1, meaning only held by m_fonts)
+			for (uint32_t i = 0; i < m_fonts->size(); )
 			{
 				if ((*m_fonts)[i].count() == 1)
 				{

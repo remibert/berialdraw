@@ -43,6 +43,13 @@ namespace berialdraw
 		/** Load all fonts from the selected directory 
 		@param directory directory with fonts */
 		bool load_directory(const String & directory);
+
+	private:
+		/** Find best font face by family name (or any family if nullptr) and style priority
+		@param family_name The family name to search in (nullptr searches all families)
+		@param style The style priority to match
+		@return The best matching font face, or nullptr if none found */
+		FontFacePtr find_best_font_face(const String * family_name, enum Font::Style style);
 		
 	protected:
 /// @cond DOXYGEN_IGNORE
