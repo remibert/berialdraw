@@ -125,6 +125,7 @@ set(SRCS_LIB
 	src/shape/poly_lines.cpp
 	src/shape/poly_points.cpp
 	src/shape/text_box.cpp
+	src/shape/rich_text.cpp
 	src/shape/marker.cpp
 
 	src/vector/area.cpp

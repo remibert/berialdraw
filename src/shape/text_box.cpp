@@ -15,7 +15,11 @@ TextBox::~TextBox()
 void TextBox::parse(const Area & text_area, Font & font, String & text, 
 	uint32_t cursor_pos, uint32_t sel_start, uint32_t sel_end, Align text_align)
 {
-	uint32_t count = text.count();
+	// Parse rich text formatting tags
+	m_rich_text.parse(text, font, 0);
+	const String & clean = m_rich_text.clean_text();
+	uint32_t count = clean.count();
+
 	wchar_t character;
 	Dim line_height = 0;
 	Dim line_width = 0;
@@ -24,6 +28,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 	LineInfo info;
 	bool selection = false;
 
+	// Default line height and space size from default font
 	line_height = font.real_size().height_();
 	space_size = font.char_size(' ');
 
@@ -33,10 +38,28 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 	m_cursor_pos.set(0,0);
 	m_cursor_line = 0;
 
+	// Track max line height for current line (may vary with rich text)
+	Dim max_line_height = line_height;
+	Coord max_baseline = font.baseline_();  ///< Track the maximum baseline on the line
+
 	// Parse all character to search new lines
 	for (i=0; i < count; i++)
 	{
-		character = text.get(i);
+		character = clean.get(i);
+
+		// Update max line height with the font at this character position
+		Dim char_line_height = m_rich_text.line_height_at(i);
+		if (char_line_height > max_line_height)
+		{
+			max_line_height = char_line_height;
+		}
+		
+		// Update max baseline with the font at this character position
+		Coord char_baseline = m_rich_text.baseline_at(i);
+		if (char_baseline > max_baseline)
+		{
+			max_baseline = char_baseline;
+		}
 
 		// Save the start position in string of line
 		if (info.line_start == UINT32_MAX)
@@ -64,17 +87,19 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		// If new line detected
 		if (character == '\n')
 		{
-			// Set the size of line
-			info.size.set_(line_width, line_height);
+			// Set the size of line (use max line height for this line)
+			info.size.set_(line_width, max_line_height);
+			info.baseline_ref = max_baseline;
 
 			if (cursor_pos != UINT32_MAX)
 			{
 				// If the cursor is at the end of line
 				if (i == cursor_pos)
 				{
-					// Set cursor position
+					// Set cursor position, adapt cursor size to font at cursor position
+					Size cursor_space = m_rich_text.font_at(i).char_size(' ');
 					m_cursor_pos.set_(line_width, m_lines_size.height_());
-					m_cursor_size = space_size;
+					m_cursor_size = cursor_space;
 					m_cursor_line = m_lines.size();
 				}
 			}
@@ -92,13 +117,15 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 			// Save the y position of line
 			info.position.y_(m_lines_size.height_());
 
-			// Add the height of line in the line size
-			m_lines_size.height_(m_lines_size.height_() + font.real_size().height_());
+			// Add the height of line in the line size (use max height for this line)
+			m_lines_size.height_(m_lines_size.height_() + max_line_height);
 
 			// Add this line sizes to the lines list
 			m_lines.push_back(info);
 
 			line_width = 0;
+			max_line_height = line_height;
+			max_baseline = font.baseline_();  ///< Reset baseline reference to default
 
 			// Clear line informations
 			info.selection_end   = UINT32_MAX;
@@ -109,8 +136,8 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		}
 		else
 		{
-			// Get the size of character
-			Size char_size = font.char_size(character);
+			// Get the size of character using its specific font
+			Size char_size = m_rich_text.char_size_at(i);
 
 			// Save the end of current line
 			info.line_end = i;
@@ -120,7 +147,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 				// If the cursor in on the current character
 				if (i == cursor_pos)
 				{
-					// Save cursor position
+					// Save cursor position, adapt cursor size to font at cursor position
 					m_cursor_pos.set_(line_width, m_lines_size.height_());
 					m_cursor_size = char_size;
 					m_cursor_line = m_lines.size();
@@ -135,13 +162,15 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 	// Handles the special case when the cursor is on the last line and the preceding character is a carriage return
 	if (i == cursor_pos && info.line_start == UINT32_MAX && info.line_end == UINT32_MAX)
 	{
+		Size cursor_space = (i > 0) ? m_rich_text.font_at(i - 1).char_size(' ') : space_size;
 		m_cursor_pos.set_(line_width, m_lines_size.height_());
-		m_cursor_size = space_size;
+		m_cursor_size = cursor_space;
 		m_cursor_line = m_lines.size();
 		info.line_end = i;
 		info.line_start = i;
 		info.position.y_(m_lines_size.height_());
-		info.size.set_(line_width, line_height);
+		info.size.set_(line_width, max_line_height);
+		info.baseline_ref = max_baseline;
 		m_lines.push_back(info);
 	}
 
@@ -161,8 +190,8 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		// Save the y position of line
 		info.position.y_(m_lines_size.height_());
 
-		// Add the height of line in the line size
-		m_lines_size.height_(m_lines_size.height_() + font.real_size().height_());
+		// Add the height of line in the line size (use max height for this line)
+		m_lines_size.height_(m_lines_size.height_() + max_line_height);
 
 		if (sel_start != UINT32_MAX)
 		{
@@ -178,15 +207,17 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 			// If the cursor is on the current character
 			if (i == cursor_pos)
 			{
-				// Save cursor position
-				m_cursor_pos.set_(line_width, m_lines_size.height_() - space_size.height_());
-				m_cursor_size = space_size;
+				// Save cursor position, adapt cursor size to font at cursor position
+				Size cursor_space = (i > 0) ? m_rich_text.font_at(i - 1).char_size(' ') : space_size;
+				m_cursor_pos.set_(line_width, m_lines_size.height_() - cursor_space.height_());
+				m_cursor_size = cursor_space;
 				m_cursor_line = m_lines.size();
 			}
 		}
 
-		// Set line size
-		info.size.set_(line_width, line_height);
+		// Set line size (use max height for this line)
+		info.size.set_(line_width, max_line_height);
+		info.baseline_ref = max_baseline;
 
 		// Add the current line into the lines list
 		m_lines.push_back(info);
@@ -197,7 +228,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		m_cursor_size = space_size;
 
 		// Add the height of line in the line size
-		m_lines_size.height_(m_lines_size.height_() + font.real_size().height_());
+		m_lines_size.height_(m_lines_size.height_() + max_line_height);
 	}
 	
 	Coord movex = 0;
@@ -311,12 +342,13 @@ uint32_t TextBox::cursor_position(const Point & click_location, const Area & tex
 		else
 		{
 			Point coord_char;
+			const String & clean = m_rich_text.clean_text();
 
 			// Search in line where is the cursor position
 			for(uint32_t i = char_start ; i < char_end; i++)
 			{
-				wchar_t character = text.get(i);
-				Size char_size = font.char_size(character);
+				// Use per-character font size from rich text
+				Size char_size = m_rich_text.char_size_at(i);
 
 				// If cursor position found
 				if (click_location.x_() >= (line_position.x_() + coord_char.x_()) &&
@@ -485,6 +517,8 @@ void TextBox::paint(const Point & cursor_shift, Font & font, const String & text
 {
 	Point shift;
 	Point line_center(center);
+	const String & clean = m_rich_text.clean_text();
+	Dim accumulated_height = 0;
 
 	// Parse all character to search new lines
 	for (uint32_t i = 0; i < m_lines.size(); i++)
@@ -497,7 +531,7 @@ void TextBox::paint(const Point & cursor_shift, Font & font, const String & text
 				select_pos = position;
 				select_pos.move(cursor_shift);
 				select_pos.move_(0, m_lines[i].position.y_());
-				select_pos.move_(0,0-i*font.real_size().height_());
+				select_pos.move_(0,0-accumulated_height);
 
 			// Compute the center
 			Point select_center(line_center);
@@ -515,22 +549,69 @@ void TextBox::paint(const Point & cursor_shift, Font & font, const String & text
 				rect.paint(shift);
 		}
 
-		// Display text line
+		// Display text line segment by segment (each segment has the same font and color)
 		{
-			// Compute text position according to the line and center
-			Point line_pos(position);
-				line_pos.move(cursor_shift);
-				line_pos.move(m_lines[i].position);
+			uint32_t seg_start = m_lines[i].line_start;
+			uint32_t seg_end_limit = m_lines[i].line_end;
 
-			String text_line;
-			// Get text line from full buffer
-			text.slice(m_lines[i].line_start, m_lines[i].line_end, text_line);
+			// Compute base position for this line
+			Point line_base(position);
+				line_base.move(cursor_shift);
+				line_base.move(m_lines[i].position);
+				line_base.move_(0,0-accumulated_height);
 
-			// Move the position to take into account the rotation center
-			line_pos.move_(0,0-i*font.real_size().height_());
+			Point seg_offset;
+			Coord seg_x = 0;
+			Point seg_line_center(line_center);
 
-			// Draw text line
-			font.draw(text_line, line_pos, line_center, margin, angle, text_color);
+			while (seg_start <= seg_end_limit)
+			{
+				// Determine the font and color for this segment
+				Font & seg_font = m_rich_text.font_at(seg_start);
+				uint32_t seg_color = m_rich_text.color_at(seg_start);
+				if (seg_color == 0)
+				{
+					seg_color = text_color;
+				}
+
+				// Find the end of this segment (same font and color)
+				uint32_t seg_end = seg_start;
+				while (seg_end < seg_end_limit)
+				{
+					uint32_t next = seg_end + 1;
+					if (&m_rich_text.font_at(next) != &seg_font || m_rich_text.color_at(next) != m_rich_text.color_at(seg_start))
+					{
+						break;
+					}
+					seg_end = next;
+				}
+
+				// Extract segment text
+				String seg_text;
+				clean.slice(seg_start, seg_end+1, seg_text);
+
+				// Compute segment position
+				Point seg_pos(line_base);
+				seg_pos.move_(seg_x, 0);  // Move to the correct X position
+
+				// Adjust Y for baseline alignment: align this segment's baseline to the line's max baseline
+				Coord seg_baseline = seg_font.baseline_();
+				Coord baseline_offset = m_lines[i].baseline_ref - seg_baseline;
+				seg_pos.move_(0, baseline_offset);
+
+				Point seg_center(seg_line_center);
+
+				// Draw segment with its specific font and color
+				seg_font.draw(seg_text, seg_pos, seg_center, margin, angle, seg_color);
+
+				// Advance x position for next segment
+				for (uint32_t j = seg_start; j <= seg_end; j++)
+				{
+					seg_x += m_rich_text.char_size_at(j).width_();
+				}
+
+				seg_start = seg_end + 1;
+			}
 		}
 
 		// If the current line has a cursor
@@ -544,7 +625,7 @@ void TextBox::paint(const Point & cursor_shift, Font & font, const String & text
 					cursor_pos = position;
 					cursor_pos.move(cursor_shift);
 					cursor_pos.move_(0, m_lines[i].position.y_());
-					cursor_pos.move_(0,0-i*font.real_size().height_());
+					cursor_pos.move_(0,0-accumulated_height);
 
 				// Compute the center
 				Point cursor_center(line_center);
@@ -573,8 +654,9 @@ void TextBox::paint(const Point & cursor_shift, Font & font, const String & text
 			}
 		}
 
-		// Move rotation center to the next line
-		line_center.y_(line_center.y_() - font.real_size().height_());
+		// Move rotation center to the next line (use actual line height)
+		accumulated_height += m_lines[i].size.height_();
+		line_center.y_(line_center.y_() - m_lines[i].size.height_());
 	}
 }
 

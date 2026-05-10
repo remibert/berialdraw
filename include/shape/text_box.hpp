@@ -14,6 +14,7 @@ namespace berialdraw
 		Coord selection_end   = UINT32_MAX;
 		uint32_t line_start = UINT32_MAX;
 		uint32_t line_end   = UINT32_MAX;
+		Coord baseline_ref = 0;  ///< Reference baseline for the line (26.6 fixed point)
 	};
 
 	/** Class representing text box */
@@ -56,6 +57,7 @@ namespace berialdraw
 
 	protected:
 
+		RichText m_rich_text;
 		Vector<LineInfo> m_lines;
 		Size  m_lines_size;
 		Size m_cursor_size;

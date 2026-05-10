@@ -106,6 +106,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 // Shape
 #include "widget/entry.hpp"
 #include "shape/shape.hpp"
+#include "shape/rich_text.hpp"
 #include "shape/text_box.hpp"
 #include "shape/polygon.hpp"
 #include "shape/poly_points.hpp"

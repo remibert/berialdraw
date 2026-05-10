@@ -11,7 +11,7 @@ namespace berialdraw
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
 
-		//Button::test();
+		Label::test();
 		//Styles::test();
 		//StyleManager::test();
 		TableView::test();
