@@ -1,21 +1,22 @@
 #include "berialdraw_imp.hpp"
+#include <memory>
 
 using namespace berialdraw;
 
 Device      * UIManager::m_device = 0;
-Renderer    * UIManager::m_renderer = 0;
-Framebuf    * UIManager::m_framebuf = 0;
+std::unique_ptr<Renderer>    UIManager::m_renderer;
+std::unique_ptr<Framebuf>    UIManager::m_framebuf;
 Exporter    * UIManager::m_exporter = 0;
-Notifier    * UIManager::m_notifier = 0;
-Invalidator * UIManager::m_invalidator = 0;
-Styles      * UIManager::m_styles = 0;
-Colors      * UIManager::m_colors = 0;
-Fonts       * UIManager::m_fonts  = 0;
-Desktop     * UIManager::m_desktop = 0;
-ScreenCrc   * UIManager::m_screen_crc = 0;
-ArcCache    * UIManager::m_arc_cache = 0;
-Settings    * UIManager::m_settings = 0;
-Clipboard   * UIManager::m_clipboard = 0;
+std::unique_ptr<Notifier>    UIManager::m_notifier;
+std::unique_ptr<Invalidator> UIManager::m_invalidator;
+std::unique_ptr<Styles>      UIManager::m_styles;
+std::unique_ptr<Colors>      UIManager::m_colors;
+std::unique_ptr<Fonts>       UIManager::m_fonts;
+std::unique_ptr<Desktop>     UIManager::m_desktop;
+std::unique_ptr<ScreenCrc>   UIManager::m_screen_crc;
+std::unique_ptr<ArcCache>    UIManager::m_arc_cache;
+std::unique_ptr<Settings>    UIManager::m_settings;
+std::unique_ptr<Clipboard>   UIManager::m_clipboard;
 bool          UIManager::m_initialized= false;
 
 inline Dim adapt_scale(uint32_t scale)
@@ -40,7 +41,7 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 {
 	if(device && m_device == 0)
 	{
-		m_settings     = new Settings;
+		m_settings     = std::make_unique<Settings>();
 		scale = adapt_scale(scale);
 		String dir = File::resolve(root_dir);
 		if (dir == "")
@@ -53,19 +54,19 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 		(*m_settings)["ui"]["icons"]     = "$(ui.root-dir)/icons";
 		(*m_settings)["ui"]["colors"]    = "$(ui.root-dir)/colors";
 		(*m_settings)["ui"]["tests"]     = "$(ui.root-dir)/../test/snapshot";
-		m_notifier     = new Notifier;
-		m_invalidator  = new Invalidator;
-		m_styles       = new Styles;
-		m_colors       = new Colors;
-		m_fonts        = new Fonts;
-		m_desktop      = new Desktop;
-		m_screen_crc   = new ScreenCrc;
+		m_notifier     = std::make_unique<Notifier>();
+		m_invalidator  = std::make_unique<Invalidator>();
+		m_styles       = std::make_unique<Styles>();
+		m_colors       = std::make_unique<Colors>();
+		m_fonts        = std::make_unique<Fonts>();
+		m_desktop      = std::make_unique<Desktop>();
+		m_screen_crc   = std::make_unique<ScreenCrc>();
 		m_device       = device;
-		m_clipboard    = new Clipboard;
+		m_clipboard    = std::make_unique<Clipboard>();
 		m_device->size(width, height);
-		m_framebuf     = Framebuf::create(width, height, type);
-		m_renderer     = new Renderer(adapt_size(width,scale), adapt_size(height,scale), scale);
-		m_arc_cache    = new ArcCache;
+		m_framebuf     = std::unique_ptr<Framebuf>(Framebuf::create(width, height, type));
+		m_renderer     = std::make_unique<Renderer>(adapt_size(width,scale), adapt_size(height,scale), scale);
+		m_arc_cache    = std::make_unique<ArcCache>();
 		m_initialized = true;
 	}
 	else
@@ -76,36 +77,24 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 
 void UIManager::deinit()
 {
-	delete m_desktop;
+	m_desktop.reset();
 	delete m_device;
-	delete m_renderer;
-	delete m_framebuf;
+	m_renderer.reset();
+	m_framebuf.reset();
 	delete m_exporter;
-	delete m_notifier;
-	delete m_invalidator;
-	delete m_styles;
-	delete m_colors;
-	delete m_fonts;
-	delete m_screen_crc;
-	delete m_arc_cache;
-	delete m_clipboard;
-	delete m_settings;
+	m_notifier.reset();
+	m_invalidator.reset();
+	m_styles.reset();
+	m_colors.reset();
+	m_fonts.reset();
+	m_screen_crc.reset();
+	m_arc_cache.reset();
+	m_clipboard.reset();
+	m_settings.reset();
 
 	m_initialized = false;
 	m_device      = 0;
-	m_renderer    = 0;
-	m_framebuf    = 0;
 	m_exporter    = 0;
-	m_notifier    = 0;
-	m_invalidator = 0;
-	m_styles      = 0;
-	m_colors      = 0;
-	m_fonts       = 0;
-	m_desktop     = 0;
-	m_screen_crc  = 0;
-	m_arc_cache   = 0;
-	m_clipboard   = 0;
-	m_settings    = 0;
 }
 
 /** Indicates if the uimanager is initialized or not */
@@ -140,21 +129,21 @@ void UIManager::exporter(Exporter * export_)
 Framebuf * UIManager::framebuf()
 {
 	if (m_framebuf == 0) bd_printf("UIManager::framebuf no existing");
-	return m_framebuf;
+	return m_framebuf.get();
 }
 
 /** Return the notifier */
 Notifier * UIManager::notifier()
 {
 	if (m_notifier == 0) bd_printf("UIManager::notifier no existing");
-	return m_notifier;
+	return m_notifier.get();
 }
 
 /** Return the renderer */
 Renderer * UIManager::renderer()
 {
 	if (m_renderer == 0) bd_printf("UIManager::renderer no existing");
-	return m_renderer;
+	return m_renderer.get();
 }
 
 /** Return the screen device */
@@ -168,61 +157,61 @@ Device * UIManager::device()
 Fonts * UIManager::fonts()
 {
 	if (m_fonts == 0) bd_printf("UIManager::fonts no existing");
-	return m_fonts;
+	return m_fonts.get();
 }
 
 /** Return the dirty manager */
 Invalidator * UIManager::invalidator()
 {
 	if (m_invalidator == 0) bd_printf("UIManager::invalidator no existing");
-	return m_invalidator;
+	return m_invalidator.get();
 }
 
 /** Return the styles manager */
 Styles * UIManager::styles()
 {
 	if (m_styles == 0) bd_printf("UIManager::styles no existing");
-	return m_styles;
+	return m_styles.get();
 }
 
 /** Return the colors manager */
 Colors * UIManager::colors()
 {
 	if (m_colors == 0) bd_printf("UIManager::colors no existing");
-	return m_colors;
+	return m_colors.get();
 }
 
 /** Return the desktop */
 Desktop * UIManager::desktop()
 {
 	if (m_desktop == 0) bd_printf("UIManager::desktop no existing");
-	return m_desktop;
+	return m_desktop.get();
 }
 
 /** Return the screen crc */
 ScreenCrc * UIManager::screen_crc()
 {
 	if (m_screen_crc == 0) bd_printf("UIManager::screen_crc no existing");
-	return m_screen_crc;
+	return m_screen_crc.get();
 }
 
 /** Return the arc cache handle */
 ArcCache * UIManager::arc_cache()
 {
 	if (m_arc_cache == 0) bd_printf("UIManager::arc_cache no existing");
-	return m_arc_cache;
+	return m_arc_cache.get();
 }
 
 /** Return the settings manager */
 Settings * UIManager::settings()
 {
 	if (m_settings == 0) bd_printf("UIManager::settings no existing");
-	return m_settings;
+	return m_settings.get();
 }
 
 /** Return the clipboard manager */
 Clipboard * UIManager::clipboard()
 {
 	if (m_clipboard == 0) bd_printf("UIManager::clipboard no existing");
-	return m_clipboard;
+	return m_clipboard.get();
 }

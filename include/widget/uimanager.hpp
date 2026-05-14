@@ -78,19 +78,19 @@ namespace berialdraw
 		UIManager& operator=(const UIManager& other) = delete;
 		static bool          m_initialized;
 		static Device      * m_device;
-		static Renderer    * m_renderer;
-		static Framebuf    * m_framebuf;
+		static std::unique_ptr<Renderer>    m_renderer;
+		static std::unique_ptr<Framebuf>    m_framebuf;
 		static Exporter    * m_exporter;
-		static Notifier    * m_notifier;
-		static Invalidator * m_invalidator;
-		static Styles      * m_styles;
-		static Colors      * m_colors;
-		static Fonts       * m_fonts;
-		static Desktop     * m_desktop;
-		static ScreenCrc   * m_screen_crc;
-		static ArcCache    * m_arc_cache;
-		static Settings    * m_settings;
-		static Clipboard   * m_clipboard;
+		static std::unique_ptr<Notifier>    m_notifier;
+		static std::unique_ptr<Invalidator> m_invalidator;
+		static std::unique_ptr<Styles>      m_styles;
+		static std::unique_ptr<Colors>      m_colors;
+		static std::unique_ptr<Fonts>       m_fonts;
+		static std::unique_ptr<Desktop>     m_desktop;
+		static std::unique_ptr<ScreenCrc>   m_screen_crc;
+		static std::unique_ptr<ArcCache>    m_arc_cache;
+		static std::unique_ptr<Settings>    m_settings;
+		static std::unique_ptr<Clipboard>   m_clipboard;
 /// @endcond
 	};
 }

@@ -645,9 +645,167 @@ void String::test10()
 	assert(str14 == "hello world");
 }
 
+void String::test11()
+{
+	// Test escaped closing parenthesis
+	String str("Config: $(var\\)swith)");
+	String var;
+	int32_t pos = str.search_var(var);
+	assert(pos == 8);
+	assert(var == "var\\)swith");  // The escaped ) is included in the variable name
+
+	// Test multiple escaped parentheses
+	str = "$(var\\)with\\)multiple)";;
+	pos = str.search_var(var);
+	assert(pos == 0);
+	assert(var == "var\\)with\\)multiple");
+
+	// Test nested variables - simple nesting
+	str = "$(outer$(inner))";
+	pos = str.search_var(var);
+	assert(pos == 0);
+	assert(var == "outer$(inner)");
+
+	// Test deeply nested variables
+	str = "$(a$(b$(c)))";
+	pos = str.search_var(var);
+	assert(pos == 0);
+	assert(var == "a$(b$(c))");
+
+	// Test nested with text around
+	str = "prefix $(outer$(inner)) suffix";
+	pos = str.search_var(var);
+	assert(pos == 7);
+	assert(var == "outer$(inner)");
+
+	// Test multiple nested variables at different positions
+	str = "$(first$(a)) and $(second$(b))";
+	pos = str.search_var(var, 0);
+	assert(pos == 0);
+	assert(var == "first$(a)");
+
+	// $(first$(a)) ends at position 11, so search from position 12
+	pos = str.search_var(var, 12);
+	assert(pos == 17);
+	assert(var == "second$(b)");
+
+	// Test escaped parenthesis with nested variables
+	str = "$(outer\\)with$(inner))";
+	pos = str.search_var(var);
+	assert(pos == 0);
+	assert(var == "outer\\)with$(inner)");
+
+	// Test deeply nested with UTF-8
+	str = "$(prénom$(nom$(pays)))";
+	pos = str.search_var(var);
+	assert(pos == 0);
+	assert(var == "prénom$(nom$(pays))");
+
+	// Test edge case: only opening and closing parentheses
+	str = "$()";
+	pos = str.search_var(var);
+	assert(pos == 0);
+	assert(var == "");
+
+	// Test nested empty variables
+	str = "$(outer$())";
+	pos = str.search_var(var);
+	assert(pos == 0);
+	assert(var == "outer$()");
+
+	// Test consecutive nested variables
+	str = "$(a$(b))$(c$(d))";
+	pos = str.search_var(var, 0);
+	assert(pos == 0);
+	assert(var == "a$(b)");
+
+	// $(a$(b)) ends at position 7, so search from position 8
+	pos = str.search_var(var, 8);
+	assert(pos == 8);
+	assert(var == "c$(d)");
+}
+
+void String::test12()
+{
+	// Test JSON-like pattern with $< >
+	String str("Data: $<'name':'John','age':30>");
+	String var;
+	int32_t pos = str.search_pattern(var, "$<", ">");
+	assert(pos == 6);
+	assert(var == "'name':'John','age':30");
+
+	// Test multiple JSON patterns
+	str = "First: $<'a':1> and Second: $<'b':2>";
+	pos = str.search_pattern(var, "$<", ">", 0);
+	assert(pos == 7);
+	assert(var == "'a':1");
+
+	pos = str.search_pattern(var, "$<", ">", pos + 1);
+	assert(pos == 28);
+	assert(var == "'b':2");
+
+	// Test nested JSON brackets
+	str = "Data: $<'array':[1,2,3],'name':'test'>";
+	pos = str.search_pattern(var, "$<", ">");
+	assert(pos == 6);
+	assert(var == "'array':[1,2,3],'name':'test'");
+
+	// Test escaped closing bracket
+	str = "Data: $<'value':'test\\>'>";
+	pos = str.search_pattern(var, "$<", ">");
+	assert(pos == 6);
+	assert(var == "'value':'test\\>'");
+
+	// Test with parentheses as delimiters (variables)
+	str = "Var: $(myvar)";
+	pos = str.search_pattern(var, "$(", ")");
+	assert(pos == 5);
+	assert(var == "myvar");
+
+	// Test nested with parentheses
+	str = "Config: $(outer$(inner))";
+	pos = str.search_pattern(var, "$(", ")");
+	assert(pos == 8);
+	assert(var == "outer$(inner)");
+
+	// Test curly braces as delimiters
+	str = "Template: ${user.name}";
+	pos = str.search_pattern(var, "${", "}");
+	assert(pos == 10);
+	assert(var == "user.name");
+
+	// Test multiple different patterns in same string
+	str = "$(var1) and $<'data':'value'> and ${expr}";
+	pos = str.search_pattern(var, "$(", ")");
+	assert(pos == 0);
+	assert(var == "var1");
+
+	pos = str.search_pattern(var, "$<", ">", pos + 1);
+	assert(pos == 12);
+	assert(var == "'data':'value'");
+
+	pos = str.search_pattern(var, "${", "}", pos + 1);
+	assert(pos == 34);
+	assert(var == "expr");
+
+	// Test deeply nested JSON with custom delimiters
+	str = "$<'{\"data\":[1,[2,3]]}'>";
+	pos = str.search_pattern(var, "$<", ">");
+	assert(pos == 0);
+	assert(var == "'{\"data\":[1,[2,3]]}'");
+
+	// Test complex JSON with arrays and objects
+	str = "Result: $<{\"users\":[{\"name\":\"Alice\"},{\"name\":\"Bob\"}]}>";
+	pos = str.search_pattern(var, "$<", ">");
+	assert(pos == 8);
+	assert(var == "{\"users\":[{\"name\":\"Alice\"},{\"name\":\"Bob\"}]}");
+}
+
 void String::test()
 {
 	MemoryLeakLog
+	test12();
+	test11();
 	test10();
 	test9();
 	test8();

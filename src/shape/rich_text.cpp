@@ -29,31 +29,35 @@ void RichText::parse(const String & raw_text, Font & default_font, uint32_t defa
 		{
 			wchar_t ch = raw_text.get(i);
 
-			// Check for § character (tag delimiter)
-			if (ch == L'\u00A7' && i + 1 < raw_count)
+			// Check for $ character (tag delimiter)
+			if (ch == L'$' && i + 1 < raw_count)
 			{
 				wchar_t next = raw_text.get(i + 1);
 
-				if (next == L'{')
+				if (next == L'<')
 				{
-					// §{ : start of formatting tag definition
-					m_raw_to_clean.push_back(clean_index);
-					m_raw_to_clean.push_back(clean_index);
-					i += 2;
-
-					if (extract_tag_content(raw_text, i, clean_index, tag_content))
+					// $< : start of formatting tag - use search_pattern to find matching >
+					int32_t pattern_pos = raw_text.search_pattern(tag_content, "$<", ">", i);
+					if (pattern_pos == (int32_t)i)
 					{
+						uint32_t pattern_len = 2 + tag_content.count() + 1;
+						for (uint32_t j = 0; j < pattern_len; j++)
+						{
+							m_raw_to_clean.push_back(clean_index);
+						}
+						i += pattern_len;
+
 						close_span(current_span, clean_index);
 						TextSpan new_span;
 						new_span.start = clean_index;
 						parse_tag(tag_content, default_font, default_color, new_span);
 						current_span = new_span;
+						continue;
 					}
-					continue;
 				}
-				else if (next == L'\u00A7')
+				else if (next == L'$')
 				{
-					// §§ : reset to default style
+					// $$ : reset to default style
 					m_raw_to_clean.push_back(clean_index);
 					m_raw_to_clean.push_back(clean_index);
 					i += 2;
@@ -108,34 +112,6 @@ void RichText::close_span(TextSpan & span, uint32_t clean_index)
 		span.end = clean_index;
 		m_spans.push_back(span);
 	}
-}
-
-/** Extract tag content between §{ and }§ */
-bool RichText::extract_tag_content(const String & raw_text, uint32_t & i, uint32_t clean_index, String & tag_content)
-{
-	bool found_end = false;
-	tag_content = "";
-
-	while (i < raw_text.count())
-	{
-		wchar_t tc = raw_text.get(i);
-		if (tc == L'}' && i + 1 < raw_text.count() && raw_text.get(i + 1) == L'\u00A7')
-		{
-			m_raw_to_clean.push_back(clean_index);
-			m_raw_to_clean.push_back(clean_index);
-			i += 2;
-			found_end = true;
-			break;
-		}
-		else
-		{
-			m_raw_to_clean.push_back(clean_index);
-			tag_content.write_char(tc);
-			i++;
-		}
-	}
-
-	return found_end;
 }
 
 /** Get the clean text (without formatting tags) */

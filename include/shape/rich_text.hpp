@@ -19,9 +19,9 @@ namespace berialdraw
 	/** Parses a string containing inline formatting tags and provides
 	    access to per-character font and color information.
 
-	    Format: §{"font":"arial","size":24,"color":"#FF0000"}§styled text§§
-	    - §{json}§  starts a styled span
-	    - §§        resets to default style
+	    Format: $<"font":"arial","size":24,"color":"#FF0000">styled text$$
+	    - $<json>  starts a styled span
+	    - $$       resets to default style
 	*/
 	class RichText
 	{
@@ -86,9 +86,6 @@ namespace berialdraw
 
 		/** Close the current span and add it to the list if it has content */
 		void close_span(TextSpan & span, uint32_t clean_index);
-
-		/** Extract tag content between §{ and }§ */
-		bool extract_tag_content(const String & raw_text, uint32_t & i, uint32_t clean_index, String & tag_content);
 
 		String m_clean_text;                 ///< Text without formatting tags
 		Vector<TextSpan> m_spans;            ///< Formatting spans

@@ -827,29 +827,88 @@ String& String::to_lower()
 
 
 
-/** Search for variable pattern $(name) starting from position
-@param var String to store the variable name (without $())
+/** Search for pattern with custom delimiters starting from position
+Handles escaped closing delimiter and nested patterns like opening$(inner)closing
+@param var String to store the pattern content (without delimiters)
+@param opening Opening delimiter (e.g., "$(", "$[")
+@param closing Closing delimiter (e.g., ")", "]")
 @param pos Starting position to search from
-@return Index where the variable was found or INT32_MAX if not found */
-int32_t String::search_var(String & var, int32_t pos) const
+@return Index where the pattern was found or INT32_MAX if not found */
+int32_t String::search_pattern(String & var, const char * opening, const char * closing, int32_t pos) const
 {
 	int32_t result = INT32_MAX;
 	var.clear();
 	
-	int32_t start_pos = find("$(", pos);
+	if (!opening || !closing || opening[0] == '\0' || closing[0] == '\0')
+		return result;
+	
+	int32_t opening_len = (int32_t)strlen(opening);
+	int32_t closing_len = (int32_t)strlen(closing);
+	
+	int32_t start_pos = find(opening, pos);
 	if (start_pos != INT32_MAX)
 	{
-		// Search for the closing )
-		int32_t end_pos = find(")", start_pos + 2);
+		int32_t depth = 1;  // Count nesting level - we found the first opening
+		int32_t search_pos = start_pos + opening_len;
+		int32_t end_pos = INT32_MAX;
+		
+		while (search_pos < (int32_t)m_size && depth > 0)
+		{
+			int32_t next_close = find(closing, search_pos);
+			int32_t next_open = find(opening, search_pos);
+			
+			// Determine which comes first
+			if (next_close == INT32_MAX && next_open == INT32_MAX)
+				break;
+			
+			if (next_close != INT32_MAX && (next_open == INT32_MAX || next_close < next_open))
+			{
+				// Found a closing delimiter - check if it's escaped
+				if (next_close > 0)
+				{
+					uint32_t byte_pos = 0;
+					offset(next_close - 1, byte_pos);
+					if (m_string[byte_pos] == '\\')
+					{
+						// Closing delimiter is escaped, skip it
+						search_pos = next_close + 1;
+						continue;
+					}
+				}
+				
+				depth--;
+				if (depth == 0)
+				{
+					end_pos = next_close;
+				}
+				search_pos = next_close + 1;
+			}
+			else
+			{
+				// Found an opening delimiter
+				depth++;
+				search_pos = next_open + opening_len;
+			}
+		}
+		
 		if (end_pos != INT32_MAX)
 		{
-			// Extract the variable name between $( and )
-			slice(start_pos + 2, end_pos, var);
+			slice(start_pos + opening_len, end_pos, var);
 			result = start_pos;
 		}
 	}
 	
 	return result;
+}
+
+/** Search for variable pattern $(name) starting from position
+Handles escaped closing parenthesis \) and nested variables like $(var1$(var2))
+@param var String to store the variable name (without $())
+@param pos Starting position to search from
+@return Index where the variable was found or INT32_MAX if not found */
+int32_t String::search_var(String & var, int32_t pos) const
+{
+	return search_pattern(var, "$(", ")", pos);
 }
 
 /** Convert filename to UTF-8, handling different encodings (UTF-8, CP437, etc.) */

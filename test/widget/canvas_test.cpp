@@ -3,10 +3,6 @@ using namespace berialdraw;
 
 void Canvas::test1()
 {
-}
-
-void Canvas::test2()
-{
 	Window window;
 		window.position(0,0);
 		window.size(480,480);
@@ -16,11 +12,9 @@ void Canvas::test2()
 			Canvas * canvas = new Canvas(grid);
 				canvas->cell(0,0);
 				canvas->extend(Extend::EXTEND_ALL);
-				//canvas->color(Color::WHITE);
 
 				Text * text = new Text(canvas);
 					text->text("hello\nworld\nI am\nHappy\nRegards");
-					//text->text("hello\nhello\nhello\nhello\nhello\n");
 					text->position(240,240);
 					text->font_size(60,30);
 					text->color(JADE,64);
@@ -35,7 +29,56 @@ void Canvas::test2()
 		text->angle(angle);
 		String name;
 		name.print("$(ui.tests)/out/canvas1_%d.svg", ++id);
-		UIManager::desktop()->dispatch(name);
+		 UIManager::desktop()->dispatch(name);
+	}
+}
+
+void Canvas::test2()
+{
+	Window window;
+		window.position(0,0);
+		window.size(480,480);
+		window.color(Color::WHITE);
+
+		Grid * grid = new Grid(&window);
+			Canvas * canvas = new Canvas(grid);
+				canvas->cell(0,0);
+				canvas->extend(Extend::EXTEND_ALL);
+
+				Text * text = new Text(canvas);
+					text->position(240,240);
+					text->font_size(30,30);
+					text->color(JADE,64);
+					text->center(text->content_size().middle());
+		
+
+	int angle = 0;
+	int id = 0;
+
+	//(*UIManager::settings())["canvas"]["test2"]  = "k";
+
+	for (int angle = 0; angle <= 360; angle += 30)
+	{
+		text->angle(angle);
+		String name;
+
+		text->text(
+			"hello\n"
+			"$<'font-familly':'Cerial','font-size':{'width':30,'height':60},'text-color':0x7F00FF00>"
+			"world\n"
+			"$<'font-familly':'Cerial','font-size':{'width':40,'height':50},'text-color':0x7FFF00FF>"
+			"I am\n"
+			"$<'font-familly':'Cerial','font-size':{'width':20,'height':20},'text-color':0x7F0000FF>"
+			"Happy\n"
+			"$$"
+			"%d\n"
+			"Regards", angle
+					
+		);
+		text->center(text->content_size().middle());
+
+		name.print("$(ui.tests)/out/canvas2_%d.svg", ++id);
+		 UIManager::desktop()->dispatch(name);
 	}
 }
 
@@ -161,7 +204,7 @@ void Canvas::test3()
 		line = new Line(*line);
 			line->position(line->position().x()+10,line->position().y());
 
-	UIManager::desktop()->dispatch("$(ui.tests)/out/canvas3.svg");
+	 UIManager::desktop()->dispatch("$(ui.tests)/out/canvas3.svg");
 }
 
 void Canvas::test4()
@@ -195,7 +238,7 @@ void Canvas::test4()
 				polygon->zoom(i);
 		}
 	}
-	UIManager::desktop()->dispatch("$(ui.tests)/out/canvas4.svg");
+	 UIManager::desktop()->dispatch("$(ui.tests)/out/canvas4.svg");
 }
 
 void Canvas::test5()
@@ -209,6 +252,8 @@ void Canvas::test()
 	{
 		MemoryLeakLog
 		done = true;
+test2();
+
 		test5();
 		test4();
 		test3();

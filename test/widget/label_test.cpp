@@ -42,17 +42,16 @@ void Label::test1()
 		label5->position(0,5*s);
 		label5->font_size(s,s);
 		sleep_us(1000);
-		UIManager::desktop()->dispatch();
 
 		if (s % 18 == 0)
 		{
 			String name;
 			name.print("$(ui.tests)/out/label1_%d.svg", ++id);
-			UIManager::desktop()->dispatch(name);
+			 UIManager::desktop()->dispatch(name);
 		}
 		else
 		{
-			UIManager::desktop()->dispatch();
+			 UIManager::desktop()->dispatch();
 		}
 	}
 }
@@ -88,7 +87,7 @@ void Label::test2()
 			label->text_align(Align::CENTER);
 			label->extend(Extend::EXTEND_NONE);
 
-	UIManager::desktop()->dispatch("$(ui.tests)/out/label2_1.svg");
+	 UIManager::desktop()->dispatch("$(ui.tests)/out/label2_1.svg");
 }
 
 void Label::test3()
@@ -100,29 +99,29 @@ void Label::test3()
 
 	// Test rich text with different colors
 	Label * label1 = new Label(&window);
-		label1->text("Hello §{'text-color':4294901760}§Red§§ World");
+		label1->text("Hello $<'text-color':4294901760>Red$$ World");
 		label1->position(10,10);
 		label1->font_size(20);
 
 	// Test rich text with bold font
 	Label * label2 = new Label(&window);
-		label2->text("Normal §{'font-familly':'Cerial-bold'}§Bold§§ Normal");
+		label2->text("Normal $<'font-familly':'Cerial-bold'>Bold$$ Normal");
 		label2->position(10,50);
 		label2->font_size(20);
 
 	// Test rich text with different font size
 	Label * label3 = new Label(&window);
-		label3->text("Small §{'font-size':{'width':32,'height':32}}§BIG§§ Small");
+		label3->text("Small $<'font-size':{'width':32,'height':32}>BIG$$ Small");
 		label3->position(10,90);
 		label3->font_size(16);
 
 	// Test rich text with combined attributes: bold + color + size
 	Label * label4 = new Label(&window);
-		label4->text("Mix §{'font-familly':'Cerial-bold','font-size':{'width':28,'height':28},'text-color':4278233600}§GreenBold§§ end");
+		label4->text("Mix $<'font-familly':'Cerial-bold','font-size':{'width':28,'height':28},'text-color':4278233600>GreenBold$$ end");
 		label4->position(10,140);
 		label4->font_size(16);
 
-	UIManager::desktop()->dispatch("$(ui.tests)/out/label3_1.svg");
+	 UIManager::desktop()->dispatch("$(ui.tests)/out/label3_1.svg");
 }
 
 void Label::test4()
@@ -134,13 +133,13 @@ void Label::test4()
 
 	// Test multiline with rich text
 	Label * label1 = new Label(&window);
-		label1->text("Line1 §{'text-color':4278190335}§Blue§§\nLine2 §{'font-familly':'Cerial-bold','text-color':4294901760}§RedBold§§\nLine3 Normal");
+		label1->text("Line1 $<'text-color':4278190335>Blue$$\nLine2 $<'font-familly':'Cerial-bold','text-color':4294901760>RedBold$$\nLine3 Normal");
 		label1->position(10,10);
 		label1->font_size(20);
 
 	// Test multiple spans on same line
 	Label * label2 = new Label(&window);
-		label2->text("§{'text-color':4294901760}§R§§§{'text-color':4278233600}§G§§§{'text-color':4278190335}§B§§ RGB");
+		label2->text("$<'text-color':4294901760>R$$$<'text-color':4278233600>G$$$<'text-color':4278190335>B$$ RGB");
 		label2->position(10,100);
 		label2->font_size(24);
 
@@ -152,10 +151,10 @@ void Label::test4()
 
 	// Test different sizes on same line
 	Label * label4 = new Label(&window);
-		label4->text("A§{'font-size':{'width':30,'height':30}}§B§§§{'font-size':{'width':40,'height':40}}§C§§§{'font-size':{'width':20,'height':20}}§D§§");
+		label4->text("A$<'font-size':{'width':30,'height':30}>B$$$<'font-size':{'width':40,'height':40}>C$$$<'font-size':{'width':20,'height':20}>D$$");
 		label4->position(10,190);
 		label4->font_size(14);
-	UIManager::desktop()->dispatch("$(ui.tests)/out/label4_1.svg");
+	 UIManager::desktop()->dispatch("$(ui.tests)/out/label4_1.svg");
 }
 
 
@@ -166,27 +165,27 @@ void Label::test5()
 	Label * label4 = new Label(&window);
 		label4->position(10,140);
 		label4->font_size(16);
-		//label4->text("Mix§{'font-familly':'Cerial','font-size':{'width':32,'height':32},'text-color':0xFF00FF00}§G§§end");
-		//label4->text("Mix§{'font-familly':'Cerial','font-size':{'width':12,'height':32},'text-color':0xFF00FF00}§Green§§end\nhello §{'font-familly':'Cerial','font-size':{'width':20,'height':25},'text-color':0xFF0000FF}§World§§bonjour");
+		//label4->text("Mix$<'font-familly':'Cerial','font-size':{'width':32,'height':32},'text-color':0xFF00FF00>G$$end");
+		//label4->text("Mix$<'font-familly':'Cerial','font-size':{'width':12,'height':32},'text-color':0xFF00FF00>Green$$end\nhello $<'font-familly':'Cerial','font-size':{'width':20,'height':25},'text-color':0xFF0000FF>World$$bonjour");
 
 		label4->text(
-"§{'font-familly':'Cerial','font-size':{'width':50,'height':80},'text-color':0xFF00FF00}§"
+"$<'font-familly':'Cerial','font-size':{'width':50,'height':80},'text-color':0xFF00FF00>"
 "GreenpÂ"
-"§{'font-familly':'Cerial','font-size':{'width':20,'height':20},'text-color':0xFFFF0000}§"
-"Redp_§§endÂ"
+"$<'font-familly':'Cerial','font-size':{'width':20,'height':20},'text-color':0xFFFF0000>"
+"Redp_$$endÂ"
 );
 
 //while(1)
-	UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
+	 UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
 
-	label4->text("Mix§{'font-familly':'Cerial','font-size':{'width':32,'height':32},'text-color':0xFF00FF00}§Gr§§end");
-	UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
-	label4->text("Mix§{'font-familly':'Cerial','font-size':{'width':32,'height':32},'text-color':0xFF00FF00}§Gre§§end");
-	UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
-	label4->text("Mix§{'font-familly':'Cerial','font-size':{'width':32,'height':32},'text-color':0xFF00FF00}§Gren§§end");
-	UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
-while(1)
-	UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
+	label4->text("Mix$<'font-familly':'Cerial','font-size':{'width':32,'height':32},'text-color':0xFF00FF00>Gr$$end");
+	 UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
+	label4->text("Mix$<'font-familly':'Cerial','font-size':{'width':32,'height':32},'text-color':0xFF00FF00>Gre$$end");
+	 UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
+	label4->text("Mix$<'font-familly':'Cerial','font-size':{'width':32,'height':32},'text-color':0xFF00FF00>Gren$$end");
+	 UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
+//while(1)
+	 UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
 
 }
 

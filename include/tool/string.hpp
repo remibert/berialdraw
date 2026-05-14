@@ -235,6 +235,15 @@ namespace berialdraw
 		@return Wide character read or null if it ends */
 		virtual wchar_t read_char();
 
+		/** Search for pattern with custom delimiters starting from position
+		Handles escaped closing delimiter and nested patterns
+		@param var String to store the pattern content (without delimiters)
+		@param opening Opening delimiter (e.g., "$(", "$[")
+		@param closing Closing delimiter (e.g., ")", "]")
+		@param pos Starting position to search from
+		@return Index where the pattern was found or INT32_MAX if not found */
+		int32_t search_pattern(String & var, const char * opening, const char * closing, int32_t pos = 0) const;
+
 		/** Search for variable pattern $(name) starting from position
 		@param var String to store the variable name (without $())
 		@param pos Starting position to search from
@@ -259,6 +268,8 @@ namespace berialdraw
 		static void test8();
 		static void test9();
 		static void test10();
+		static void test11();
+		static void test12();
 #endif
 		/** Empty string */
 		static const String empty;

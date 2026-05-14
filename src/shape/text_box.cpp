@@ -594,12 +594,13 @@ void TextBox::paint(const Point & cursor_shift, Font & font, const String & text
 				Point seg_pos(line_base);
 				seg_pos.move_(seg_x, 0);  // Move to the correct X position
 
-				// Adjust Y for baseline alignment: align this segment's baseline to the line's max baseline
+				// Adjust for baseline alignment: align this segment's baseline to the line's max baseline
+				// The offset is applied via center (not position) so it rotates correctly with the text angle
 				Coord seg_baseline = seg_font.baseline_();
 				Coord baseline_offset = m_lines[i].baseline_ref - seg_baseline;
-				seg_pos.move_(0, baseline_offset);
 
 				Point seg_center(seg_line_center);
+				seg_center.y_(seg_center.y_() - baseline_offset);
 
 				// Draw segment with its specific font and color
 				seg_font.draw(seg_text, seg_pos, seg_center, margin, angle, seg_color);
