@@ -196,6 +196,7 @@ void Switch::unserialize(JsonIterator & it)
 	TextStyle::unserialize(it);
 	BorderStyle::unserialize(it);
 	SwitchStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
 

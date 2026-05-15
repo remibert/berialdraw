@@ -258,6 +258,7 @@ void Window::unserialize(JsonIterator & it)
 {
 	CommonStyle::unserialize(it);
 	WidgetStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
 /** Force flow replacement */

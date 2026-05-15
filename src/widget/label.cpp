@@ -133,6 +133,7 @@ void Label::unserialize(JsonIterator & it)
 	CommonStyle::unserialize(it);
 	WidgetStyle::unserialize(it);
 	TextStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
 

@@ -129,13 +129,24 @@ void Size::serialize(const char * name, JsonIterator & it) const
 void Size::unserialize(const char * name, JsonIterator & it)
 {
 	JsonIterator field = it[name];
-	Dim width = m_width;
-	m_width_undefined = berialdraw::unserialize("width_",field,width);
-	m_width = width;
+	if (field.type() == JsonType::INT)
+	{
+		int value = field;
+		m_width = value<<6;
+		m_height = value<<6;
+		m_width_undefined = 0;
+		m_height_undefined = 0;
+	}
+	else if (field.type() == JsonType::OBJECT)
+	{
+		Dim width = m_width;
+		m_width_undefined = berialdraw::unserialize("width_",field,width);
+		m_width = width;
 
-	Dim height = m_height;
-	m_height_undefined = berialdraw::unserialize("height_",field,height);
-	m_height = height;
+		Dim height = m_height;
+		m_height_undefined = berialdraw::unserialize("height_",field,height);
+		m_height = height;
+	}
 }
 
 /** Print content */

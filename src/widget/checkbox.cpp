@@ -202,6 +202,7 @@ void Checkbox::unserialize(JsonIterator & it)
 	TextStyle::unserialize(it);
 	BorderStyle::unserialize(it);
 	CheckboxStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
 

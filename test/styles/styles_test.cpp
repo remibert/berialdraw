@@ -6,11 +6,12 @@ void Styles::test1()
 	// Create initial window with a button
 	Window window;
 		window.size(200, 150);
+		window.color(Color::ALICE_BLUE);
 
 	Column * column = new Column(&window);
 		Button * button = new Button(column);
 			button->text("button");
-			button->margin(5);
+			button->margin(30);
 			button->id(1);
 
 	// Display the window before style application
@@ -19,13 +20,13 @@ void Styles::test1()
 	// Now create a JSON style with custom properties
 	String style_properties = 
 		"{"
-			"'text-color':0xFFFF0000,"             // Red text
-			"'font-size':24,"                      // Font size 24
-			"'text':'Styled Button',"              // New text content
-			"'radius':20,"                         // Radius (64ths of pixels, 128 = 2px)
-			"'border-color':0xFF0000FF,"           // Blue border
-			"'thickness':6,"                       // Thickness (6 in 64ths)
-			"'color':0xFFCFCFCF"
+			"'text-color':0xFFD5D6EA,"
+			"'font-size':30,"
+			"'text':'-$<\"font-size\":80,\"text-color\":0xFFFF0000>S$$tyle',"
+			"'radius':100,"
+			"'border-color':0xFFCD5C5C,"
+			"'thickness':8,"
+			"'color':0xFF7D0552"
 		"}";
 
 	UIManager::styles()->add_style("button_style",style_properties);

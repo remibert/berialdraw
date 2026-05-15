@@ -32,6 +32,8 @@ void TextStyle::unserialize(JsonIterator & it)
 	m_text        = it[StyleNames::TEXT_CONTENT]        | m_text;
 	m_font_size.unserialize(StyleNames::TEXT_FONT_SIZE,it);
 	m_padding.unserialize (StyleNames::TEXT_PADDING,it);
+	m_text_modified = 1;
+	m_font_modified = 1;
 }
 
 /** Copy operator */

@@ -341,6 +341,7 @@ void TableView::unserialize(JsonIterator & it)
 	CommonStyle::unserialize(it);
 	WidgetStyle::unserialize(it);
 	TableViewStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
 void TableView::load(TextStream& stream)
@@ -352,24 +353,31 @@ void TableView::load(TextStream& stream)
 void TableView::load_json_from_stream(TextStream& stream)
 {
 	Json json;
-	json.unserialize(stream);
-	
-	if (json.count() > 0)
+	try
 	{
-		// Load as direct array format: [[...], [...], ...]
-		for (int32_t row = 0; row < json.count(); row++)
+		json.unserialize(stream);
+		
+		if (json.count() > 0)
 		{
-			JsonIterator row_it = json[row];
-			int32_t col_count = row_it.count();
-			
-			for (int32_t col = 0; col < col_count; col++)
+			// Load as direct array format: [[...], [...], ...]
+			for (int32_t row = 0; row < json.count(); row++)
 			{
-				Label* label = new Label(m_grid);
-				String text = row_it[col] | "";
-				label->text(text.c_str());
-				label->cell(row, col);
+				JsonIterator row_it = json[row];
+				int32_t col_count = row_it.count();
+				
+				for (int32_t col = 0; col < col_count; col++)
+				{
+					Label* label = new Label(m_grid);
+					String text = row_it[col] | "";
+					label->text(text.c_str());
+					label->cell(row, col);
+				}
 			}
 		}
+	}
+	catch(...)
+	{
+		bd_printf("Unable to decode the table view\n");
 	}
 }
 

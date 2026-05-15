@@ -289,6 +289,7 @@ void Slider::unserialize(JsonIterator & it)
 	WidgetStyle::unserialize(it);
 	BorderStyle::unserialize(it);
 	SliderStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
 

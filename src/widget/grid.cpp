@@ -62,6 +62,7 @@ void Grid::unserialize(JsonIterator & it)
 {
 	WidgetStyle::unserialize(it);
 	CommonStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
 Dim Grid::row_count() const

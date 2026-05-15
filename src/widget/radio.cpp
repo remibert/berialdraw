@@ -201,6 +201,7 @@ void Radio::unserialize(JsonIterator & it)
 	TextStyle::unserialize(it);
 	BorderStyle::unserialize(it);
 	RadioStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
 /** Helper to deselect radios in the same group recursively */

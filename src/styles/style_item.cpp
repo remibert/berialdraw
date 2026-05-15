@@ -52,7 +52,14 @@ Json StyleItem::properties() const
 	Json json;
 	if (m_properties.size())
 	{
-		json.unserialize(m_properties);
+		try
+		{
+			json.unserialize(m_properties);
+		}
+		catch(...)
+		{
+			bd_printf("Unable to decode the style\n");
+		}
 	}
 	return json; 
 }

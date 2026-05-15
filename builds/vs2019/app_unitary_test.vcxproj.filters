@@ -39,9 +39,6 @@
     <ClCompile Include="..\..\src\main.cpp">
       <Filter>source\main</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\styles\style_manager.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\tool\test.cpp">
       <Filter>source\main</Filter>
     </ClCompile>
@@ -97,9 +94,6 @@
       <Filter>test\shape</Filter>
     </ClCompile>
     <ClCompile Include="..\..\test\styles\colors_test.cpp">
-      <Filter>test\styles</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\test\styles\style_manager_test.cpp">
       <Filter>test\styles</Filter>
     </ClCompile>
     <ClCompile Include="..\..\test\styles\styles_test.cpp">

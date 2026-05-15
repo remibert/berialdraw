@@ -348,6 +348,7 @@ bool Sketch::load()
 			}
 			catch(...)
 			{
+				bd_printf("Unable to decode the sketch file '%s'\n", m_filename.c_str());
 			}
 		}
 	}

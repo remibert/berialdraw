@@ -209,6 +209,7 @@ void Icon::unserialize(JsonIterator & it)
 	BorderStyle::unserialize(it);
 	IconStyle::unserialize(it);
 	TextStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
 

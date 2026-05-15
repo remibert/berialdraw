@@ -304,5 +304,6 @@ void ProgressBar::unserialize(JsonIterator & it)
 	WidgetStyle::unserialize(it);
 	BorderStyle::unserialize(it);
 	ProgressBarStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 

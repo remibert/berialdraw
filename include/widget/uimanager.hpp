@@ -4,7 +4,6 @@ namespace berialdraw
 	class Window;
 	class Renderer;
 	class Settings;
-	class StyleManager;
 
 	/** The UIManager class coordinates the display and behavior of widgets. 
 	It handles events, manages widget lifecycles, and ensures consistent rendering across the application. */

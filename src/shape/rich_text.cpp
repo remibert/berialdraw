@@ -285,6 +285,7 @@ void RichText::parse_tag(const String & tag_content, Font & default_font, uint32
 	}
 	catch (JsonUnserializeError &)
 	{
+		bd_printf("Unable to decode the rich text\n");
 		valid_json = false;
 	}
 

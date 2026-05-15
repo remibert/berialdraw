@@ -332,5 +332,6 @@ void Edit::unserialize(JsonIterator & it)
 		}
 		m_mask = new String(mask);
 	}
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 

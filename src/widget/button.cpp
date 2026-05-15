@@ -155,5 +155,6 @@ void Button::unserialize(JsonIterator & it)
 	WidgetStyle::unserialize(it);
 	TextStyle::unserialize(it);
 	BorderStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 

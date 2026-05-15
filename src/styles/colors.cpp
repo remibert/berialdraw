@@ -89,6 +89,8 @@ bool Colors::appearance(const char * name)
 			}
 			catch(...)
 			{
+				bd_printf("Unable to decode color file '%s'\n", filename_.c_str());
+
 			}
 		}
 	}
