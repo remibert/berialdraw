@@ -1,0 +1,42 @@
+{
+	"grid-color"             : 0x0000004B, # TABLE_GRID_COLOR
+	"alternating-row-color-1": 0x0000004C, # TABLE_ALTERNATING_ROW_COLOR_1
+	"alternating-row-color-2": 0x0000004D, # TABLE_ALTERNATING_ROW_COLOR_2
+	"horizontal-thickness"   : 1,
+	"vertical-thickness"     : 1,
+	"scroll-direction"       : "all-directions",
+	"align"                  : "top,left",
+	"extend"                 : "all",
+	"style"                  : "widget.table_view.defaut_cells",
+	"styles": 
+	[
+		{
+			"name": "widget.table_view.defaut_cells",
+			"properties": 
+			{
+				"grid": 
+				{
+					"color":                0x0000004B, # TABLE_GRID_COLOR
+					"horizontal-thickness": 1,
+					"vertical-thickness"  : 1
+				},
+
+				"cells": 
+				[
+					# Odd lines
+					{
+						"row-selector":    0x7FFD,
+						"column-selector": 0x7FFF,
+						"color":           0x0000004C, # TABLE_ALTERNATING_ROW_COLOR_1
+					},
+					# Even lines
+					{
+						"row-selector":    0x7FFE,
+						"column-selector": 0x7FFF,
+						"color":           0x0000004D, # TABLE_ALTERNATING_ROW_COLOR_2
+					}
+				]
+			}
+		}
+	]
+}

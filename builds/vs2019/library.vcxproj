@@ -1295,10 +1295,10 @@
     <ClInclude Include="..\..\include\widget\window.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\resources\colors\dark.json" />
-    <None Include="..\..\resources\colors\light.json" />
-    <None Include="..\..\resources\colors\test_dark.json" />
-    <None Include="..\..\resources\colors\test_light.json" />
+    <None Include="..\..\resources\colors\dark.sty" />
+    <None Include="..\..\resources\colors\light.sty" />
+    <None Include="..\..\resources\colors\test_dark.sty" />
+    <None Include="..\..\resources\colors\test_light.sty" />
     <None Include="..\..\resources\icons\account_circle.icn" />
     <None Include="..\..\resources\icons\add.icn" />
     <None Include="..\..\resources\icons\calendar_month.icn" />
@@ -1350,34 +1350,34 @@
     <None Include="..\..\resources\icons\view_agenda.icn" />
     <None Include="..\..\resources\icons\warning.icn" />
     <None Include="..\..\resources\icons\wifi.icn" />
-    <None Include="..\..\resources\styles\pearl\button.json" />
-    <None Include="..\..\resources\styles\pearl\canvas.json" />
-    <None Include="..\..\resources\styles\pearl\checkbox.json" />
-    <None Include="..\..\resources\styles\pearl\radio.json" />
-    <None Include="..\..\resources\styles\pearl\edit.json" />
-    <None Include="..\..\resources\styles\pearl\icon.json" />
-    <None Include="..\..\resources\styles\pearl\keyboard.json" />
-    <None Include="..\..\resources\styles\pearl\label.json" />
-    <None Include="..\..\resources\styles\pearl\pane.json" />
-    <None Include="..\..\resources\styles\pearl\progress_bar.json" />
-    <None Include="..\..\resources\styles\pearl\slider.json" />
-    <None Include="..\..\resources\styles\pearl\switch.json" />
-    <None Include="..\..\resources\styles\pearl\table_view.json" />
-    <None Include="..\..\resources\styles\pearl\window.json" />
-    <None Include="..\..\resources\styles\test\button.json" />
-    <None Include="..\..\resources\styles\test\canvas.json" />
-    <None Include="..\..\resources\styles\test\checkbox.json" />
-    <None Include="..\..\resources\styles\test\radio.json" />
-    <None Include="..\..\resources\styles\test\edit.json" />
-    <None Include="..\..\resources\styles\test\icon.json" />
-    <None Include="..\..\resources\styles\test\keyboard.json" />
-    <None Include="..\..\resources\styles\test\label.json" />
-    <None Include="..\..\resources\styles\test\pane.json" />
-    <None Include="..\..\resources\styles\test\progress_bar.json" />
-    <None Include="..\..\resources\styles\test\slider.json" />
-    <None Include="..\..\resources\styles\test\switch.json" />
-    <None Include="..\..\resources\styles\test\table_view.json" />
-    <None Include="..\..\resources\styles\test\window.json" />
+    <None Include="..\..\resources\styles\pearl\button.sty" />
+    <None Include="..\..\resources\styles\pearl\canvas.sty" />
+    <None Include="..\..\resources\styles\pearl\checkbox.sty" />
+    <None Include="..\..\resources\styles\pearl\radio.sty" />
+    <None Include="..\..\resources\styles\pearl\edit.sty" />
+    <None Include="..\..\resources\styles\pearl\icon.sty" />
+    <None Include="..\..\resources\styles\pearl\keyboard.sty" />
+    <None Include="..\..\resources\styles\pearl\label.sty" />
+    <None Include="..\..\resources\styles\pearl\pane.sty" />
+    <None Include="..\..\resources\styles\pearl\progress_bar.sty" />
+    <None Include="..\..\resources\styles\pearl\slider.sty" />
+    <None Include="..\..\resources\styles\pearl\switch.sty" />
+    <None Include="..\..\resources\styles\pearl\table_view.sty" />
+    <None Include="..\..\resources\styles\pearl\window.sty" />
+    <None Include="..\..\resources\styles\test\button.sty" />
+    <None Include="..\..\resources\styles\test\canvas.sty" />
+    <None Include="..\..\resources\styles\test\checkbox.sty" />
+    <None Include="..\..\resources\styles\test\radio.sty" />
+    <None Include="..\..\resources\styles\test\edit.sty" />
+    <None Include="..\..\resources\styles\test\icon.sty" />
+    <None Include="..\..\resources\styles\test\keyboard.sty" />
+    <None Include="..\..\resources\styles\test\label.sty" />
+    <None Include="..\..\resources\styles\test\pane.sty" />
+    <None Include="..\..\resources\styles\test\progress_bar.sty" />
+    <None Include="..\..\resources\styles\test\slider.sty" />
+    <None Include="..\..\resources\styles\test\switch.sty" />
+    <None Include="..\..\resources\styles\test\table_view.sty" />
+    <None Include="..\..\resources\styles\test\window.sty" />
     <None Include="..\..\src\device\clipboard_cocoa.mm">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -1388,11 +1388,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="..\..\resources\fonts\Berial-Bold.ttf" />
-    <Font Include="..\..\resources\fonts\Berial.ttf" />
+    <ResourceCompile Include="..\..\external\freetype\src\base\ftver.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\external\freetype\src\base\ftver.rc" />
+    <Font Include="..\..\resources\fonts\Cerial-Bold.ttf" />
+    <Font Include="..\..\resources\fonts\Cerial.ttf" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D2B0C9BA-6691-49BC-B111-1945063134EA}</ProjectGuid>

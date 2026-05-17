@@ -49,7 +49,8 @@
 		"queue": "cpp",
 		"stack": "cpp",
 		"cmath": "cpp",
-		"new": "cpp"
+		"new": "cpp",
+		"*.sty": "python"
 	},
 	"cmake.configureArgs": ["-DUSE_COCOA_DEVICE=ON"],
 	"cmake.configureSettings": {

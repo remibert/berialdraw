@@ -165,6 +165,8 @@ namespace berialdraw
 
 
 #define UNDEFINED_CELL 0x7FFF
+#define EVEN_CELL      0x7FFE // Paire
+#define ODD_CELL       0x7FFD // Impaire
 	protected:
 /// @cond DOXYGEN_IGNORE
 		Size m_min_size = {0,0};

@@ -40,6 +40,7 @@ std::unique_ptr<JsonIterator> JsonFileCache::get_iterator(const String & filenam
 			catch (...)
 			{
 				delete m_json;
+				bd_printf("Unable to decode the style file '%s'\n", filename.c_str());
 				m_json = 0;
 				m_filename = "";
 			}
@@ -238,7 +239,7 @@ Style * Styles::load(const char * classname, const char * property_name, StyleCr
 {
 	Style * result = nullptr;
 	String filename_;
-	filename_.print("$(ui.styles)/%s/%s.json", m_style.c_str(), classname);
+	filename_.print("$(ui.styles)/%s/%s.sty", m_style.c_str(), classname);
 
 	// Get iterator from cache (handles lazy loading and smart reuse)
 	auto it = m_json_cache.get_iterator(filename_);

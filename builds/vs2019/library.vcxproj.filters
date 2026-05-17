@@ -1710,82 +1710,82 @@
     <None Include="..\..\resources\icons\wifi.icn">
       <Filter>resources\icons</Filter>
     </None>
-    <None Include="..\..\resources\colors\dark.json">
+    <None Include="..\..\resources\colors\dark.sty">
       <Filter>resources\colors</Filter>
     </None>
-    <None Include="..\..\resources\colors\light.json">
+    <None Include="..\..\resources\colors\light.sty">
       <Filter>resources\colors</Filter>
     </None>
-    <None Include="..\..\resources\colors\test_dark.json">
+    <None Include="..\..\resources\colors\test_dark.sty">
       <Filter>resources\colors</Filter>
     </None>
-    <None Include="..\..\resources\colors\test_light.json">
+    <None Include="..\..\resources\colors\test_light.sty">
       <Filter>resources\colors</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\button.json">
+    <None Include="..\..\resources\styles\test\button.sty">
       <Filter>resources\styles\test</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\canvas.json">
+    <None Include="..\..\resources\styles\test\canvas.sty">
       <Filter>resources\styles\test</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\edit.json">
+    <None Include="..\..\resources\styles\test\edit.sty">
       <Filter>resources\styles\test</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\icon.json">
+    <None Include="..\..\resources\styles\test\icon.sty">
       <Filter>resources\styles\test</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\keyboard.json">
+    <None Include="..\..\resources\styles\test\keyboard.sty">
       <Filter>resources\styles\test</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\label.json">
+    <None Include="..\..\resources\styles\test\label.sty">
       <Filter>resources\styles\test</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\pane.json">
+    <None Include="..\..\resources\styles\test\pane.sty">
       <Filter>resources\styles\test</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\progress_bar.json">
+    <None Include="..\..\resources\styles\test\progress_bar.sty">
       <Filter>resources\styles\test</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\slider.json">
+    <None Include="..\..\resources\styles\test\slider.sty">
       <Filter>resources\styles\test</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\switch.json">
+    <None Include="..\..\resources\styles\test\switch.sty">
       <Filter>resources\styles\test</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\window.json">
+    <None Include="..\..\resources\styles\test\window.sty">
       <Filter>resources\styles\test</Filter>
     </None>
-    <None Include="..\..\resources\styles\pearl\button.json">
+    <None Include="..\..\resources\styles\pearl\button.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
-    <None Include="..\..\resources\styles\pearl\canvas.json">
+    <None Include="..\..\resources\styles\pearl\canvas.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
-    <None Include="..\..\resources\styles\pearl\edit.json">
+    <None Include="..\..\resources\styles\pearl\edit.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
-    <None Include="..\..\resources\styles\pearl\icon.json">
+    <None Include="..\..\resources\styles\pearl\icon.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
-    <None Include="..\..\resources\styles\pearl\keyboard.json">
+    <None Include="..\..\resources\styles\pearl\keyboard.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
-    <None Include="..\..\resources\styles\pearl\label.json">
+    <None Include="..\..\resources\styles\pearl\label.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
-    <None Include="..\..\resources\styles\pearl\pane.json">
+    <None Include="..\..\resources\styles\pearl\pane.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
-    <None Include="..\..\resources\styles\pearl\progress_bar.json">
+    <None Include="..\..\resources\styles\pearl\progress_bar.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
-    <None Include="..\..\resources\styles\pearl\slider.json">
+    <None Include="..\..\resources\styles\pearl\slider.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
-    <None Include="..\..\resources\styles\pearl\switch.json">
+    <None Include="..\..\resources\styles\pearl\switch.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
-    <None Include="..\..\resources\styles\pearl\window.json">
+    <None Include="..\..\resources\styles\pearl\window.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
     <None Include="..\..\src\device\clipboard_cocoa.mm">
@@ -1794,36 +1794,36 @@
     <None Include="..\..\src\device\device_cocoa.mm">
       <Filter>berialdraw\device\cocoa</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\checkbox.json">
+    <None Include="..\..\resources\styles\test\checkbox.sty">
       <Filter>resources\styles\test</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\radio.json">
+    <None Include="..\..\resources\styles\test\radio.sty">
       <Filter>resources\styles\test</Filter>
     </None>
-    <None Include="..\..\resources\styles\pearl\checkbox.json">
+    <None Include="..\..\resources\styles\pearl\checkbox.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
-    <None Include="..\..\resources\styles\pearl\radio.json">
+    <None Include="..\..\resources\styles\pearl\radio.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
-    <None Include="..\..\resources\styles\pearl\table_view.json">
+    <None Include="..\..\resources\styles\pearl\table_view.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\table_view.json">
+    <None Include="..\..\resources\styles\test\table_view.sty">
       <Filter>resources\styles\test</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="..\..\resources\fonts\Berial.ttf">
-      <Filter>resources\fonts</Filter>
-    </Font>
-    <Font Include="..\..\resources\fonts\Berial-Bold.ttf">
-      <Filter>resources\fonts</Filter>
-    </Font>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\external\freetype\src\base\ftver.rc">
       <Filter>external\freetype\base</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\..\resources\fonts\Cerial.ttf">
+      <Filter>resources\fonts</Filter>
+    </Font>
+    <Font Include="..\..\resources\fonts\Cerial-Bold.ttf">
+      <Filter>resources\fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>

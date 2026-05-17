@@ -1,5 +1,0 @@
-{
-	"text-color"  : 0x00000019, // LABEL_TEXT_COLOR
-	"margin"      : {"top":2,"left":2,"bottom":2,"right":2},
-	"font-size"   : {"width":20,"height":22},
-}
