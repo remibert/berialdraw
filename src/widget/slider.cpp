@@ -292,6 +292,10 @@ void Slider::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode Slider::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
 
 /** Call back on key */
 void Slider::on_key(Widget * widget, const KeyEvent & evt)

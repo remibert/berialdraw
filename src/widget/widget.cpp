@@ -141,6 +141,41 @@ Widget * Widget::parent()
 	return m_parent;
 }
 
+void Widget::apply_cascade_styles()
+{
+	// Apply style to this widget if parent is cascading
+	Widget * style_source = m_parent;
+	
+	while (style_source && style_source->style_cascade_mode() == StyleCascadeMode::TRANSPARENT)
+	{
+		style_source = style_source->m_parent;
+	}
+	
+	if (style_source && style_source->style_cascade_mode() == StyleCascadeMode::CASCADING)
+	{
+		const String & style_name = style_source->style();
+		if (style_name.size() > 0)
+		{
+			StyleItem * style_item = UIManager::styles()->get_style(style_name.c_str());
+			if (style_item)
+			{
+				Json style_properties = style_item->properties();
+				JsonIterator it(style_properties);
+				unserialize(it);
+				UIManager::invalidator()->dirty(this, Invalidator::ALL);
+			}
+		}
+	}
+	
+	// Recursively apply styles to all children
+	Widget * child = m_children;
+	while (child)
+	{
+		child->apply_cascade_styles();
+		child = child->m_next;
+	}
+}
+
 const Area & Widget::foreclip() const
 {
 	return m_foreclip;

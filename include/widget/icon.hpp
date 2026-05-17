@@ -22,6 +22,9 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		virtual void unserialize(JsonIterator & it);
 
+		/** Get the style cascade mode for this widget */
+		virtual StyleCascadeMode style_cascade_mode() const override;
+
 		/** Return the size of content without marges */
 		virtual Size content_size();
 

@@ -65,6 +65,11 @@ void Grid::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode Grid::style_cascade_mode() const
+{
+	return StyleCascadeMode::TRANSPARENT;
+}
+
 Dim Grid::row_count() const
 {
 	return m_cells.row_count();

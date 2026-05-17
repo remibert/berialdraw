@@ -31,3 +31,8 @@ void ScrollView::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode ScrollView::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+

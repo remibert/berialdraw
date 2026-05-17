@@ -344,6 +344,11 @@ void TableView::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode TableView::style_cascade_mode() const
+{
+	return StyleCascadeMode::CASCADING;
+}
+
 void TableView::load(TextStream& stream)
 {
 	clear();

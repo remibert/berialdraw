@@ -261,6 +261,11 @@ void Window::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode Window::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+
 /** Force flow replacement */
 void Window::force_flow_replacement()
 {

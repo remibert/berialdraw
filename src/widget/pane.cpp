@@ -92,4 +92,9 @@ void Pane::unserialize(JsonIterator & it)
 	BorderStyle::unserialize(it);
 }
 
+StyleCascadeMode Pane::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+
 

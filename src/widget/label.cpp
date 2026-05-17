@@ -136,4 +136,9 @@ void Label::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode Label::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+
 

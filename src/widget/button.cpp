@@ -158,3 +158,8 @@ void Button::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode Button::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+

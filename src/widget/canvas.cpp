@@ -213,4 +213,9 @@ void Canvas::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode Canvas::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+
 

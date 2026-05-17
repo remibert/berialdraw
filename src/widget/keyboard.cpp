@@ -152,6 +152,10 @@ void Keyboard::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode Keyboard::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
 
 /** Get the widget hovered */
 Widget * Keyboard::hovered(const Region & parent_region, const Point & position)

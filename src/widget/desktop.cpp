@@ -176,6 +176,9 @@ void Desktop::refresh(const char * snapshot)
 			{
 				if(UIManager::invalidator()->is_dirty(window))
 				{
+					// Apply cascade styles before placing
+					window->apply_cascade_styles();
+
 					window->place();
 
 					// Flow replacement detected

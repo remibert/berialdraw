@@ -19,6 +19,9 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		virtual void unserialize(JsonIterator & it);
 
+		/** Get the style cascade mode for this widget */
+		virtual StyleCascadeMode style_cascade_mode() const override;
+
 		/** Copy all styles of the pane */
 		void copy(const Pane & pane);
 

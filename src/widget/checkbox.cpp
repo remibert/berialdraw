@@ -205,6 +205,10 @@ void Checkbox::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode Checkbox::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
 
 /** Call back on key */
 void Checkbox::on_key(Widget * widget, const KeyEvent & evt)

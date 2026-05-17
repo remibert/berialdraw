@@ -212,4 +212,9 @@ void Icon::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode Icon::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+
 

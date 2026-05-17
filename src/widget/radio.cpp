@@ -204,6 +204,11 @@ void Radio::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode Radio::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+
 /** Helper to deselect radios in the same group recursively */
 void Radio::deselect_radio(Widget * widget, const String & my_group)
 {

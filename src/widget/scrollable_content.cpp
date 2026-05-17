@@ -343,3 +343,8 @@ void ScrollableContent::scroll_area(Area & area)
 	area.position().set_(min_position.x_(), min_position.y_());
 	area.size().set_(max_position.x_()-min_position.x_(), max_position.y_()-min_position.y_());
 }
+
+StyleCascadeMode ScrollableContent::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}

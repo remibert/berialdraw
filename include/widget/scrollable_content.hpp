@@ -40,6 +40,9 @@ namespace berialdraw
 		/** Return the size of content without marges */
 		virtual Size content_size();
 
+		/** Get the style cascade mode for this widget */
+		virtual StyleCascadeMode style_cascade_mode() const override;
+
 		/** Move the scroll view to see the widget with the focus */
 		void scroll_focus(Widget * widget);
 

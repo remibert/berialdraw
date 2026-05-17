@@ -335,3 +335,8 @@ void Edit::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode Edit::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+

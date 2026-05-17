@@ -117,6 +117,11 @@ void Row::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode Row::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+
 /** Get the flow */
 bool Row::flow() const
 {

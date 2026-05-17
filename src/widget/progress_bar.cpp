@@ -307,3 +307,8 @@ void ProgressBar::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode ProgressBar::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+

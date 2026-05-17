@@ -199,6 +199,10 @@ void Switch::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode Switch::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
 
 /** Call back on key */
 void Switch::on_key(Widget * widget, const KeyEvent & evt)

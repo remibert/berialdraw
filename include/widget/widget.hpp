@@ -4,6 +4,14 @@ namespace berialdraw
 	class Desktop;
 	class Region;
 
+	/** Style cascade mode for widget hierarchy */
+	enum class StyleCascadeMode
+	{
+		NONE,        /**< No cascading (default) */
+		CASCADING,   /**< Cascades style to children */
+		TRANSPARENT  /**< Passes parent's cascade through (transparent) */
+	};
+
 	/** The Widget class serves as the foundational building block for all user interface components. 
 	It provides common properties and methods such as dimensions, and event handling */
 	class Widget : public CommonStyle, public WidgetStyle
@@ -112,6 +120,9 @@ namespace berialdraw
 			return this;
 		}
 
+		/** Get the style cascade mode for this widget */
+		virtual StyleCascadeMode style_cascade_mode() const = 0;
+
 		/** Serialize the content of widget into json */
 		virtual void serialize(JsonIterator & it) = 0;
 
@@ -157,6 +168,9 @@ namespace berialdraw
 
 		/** Compute the scroll area */
 		virtual void one_space_occupied(Point & min_position, Point & max_position, const Point & position, const Size & margin_size);
+
+		/** Apply cascade styles to this widget and all its children recursively */
+		void apply_cascade_styles();
 
 		Area m_foreclip;
 		Area m_backclip;

@@ -117,6 +117,11 @@ void Column::unserialize(JsonIterator & it)
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
+StyleCascadeMode Column::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+
 /** Get the flow */
 bool Column::flow() const
 {
