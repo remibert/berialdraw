@@ -25,10 +25,10 @@ namespace berialdraw
 		virtual void front();
 
 		/** Serialize the content of widget into json */
-		virtual void serialize(JsonIterator & it);
+		virtual void serialize(JsonIterator & it) override;
 
 		/** Unserialize the content of widget from json */
-		virtual void unserialize(JsonIterator & it);
+		virtual void unserialize(JsonIterator & it) override;
 
 		/** Get the style cascade mode for this widget */
 		virtual StyleCascadeMode style_cascade_mode() const override;
@@ -72,7 +72,7 @@ namespace berialdraw
 	protected:
 /// @cond DOXYGEN_IGNORE
 		/** Return the size of content without marges */
-		virtual Size content_size();
+		virtual Size content_size() override;
 
 		/** Treat the click on widget, used to change the focus */
 		void on_click_widget(Widget * widget, const ClickEvent & evt);
@@ -84,7 +84,7 @@ namespace berialdraw
 		void on_key_focus(Widget * widget, const KeyEvent & evt);
 
 		/** Get the widget hovered */
-		virtual Widget * hovered(const Region & parent_region, const Point & position);
+		virtual Widget * hovered(const Region & parent_region, const Point & position) override;
 
 		/** Indicates if the window is allocated with a new or create on the stack */
 		bool is_allocated();
@@ -93,7 +93,7 @@ namespace berialdraw
 		virtual void place();
 
 		/** Paint on screen memory the content of this widget */
-		virtual void paint(const Region & parent_region);
+		virtual void paint(const Region & parent_region) override;
 
 		Window(const Window & window) = delete;
 		Window& operator=(const Window&) = delete;

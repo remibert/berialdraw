@@ -14,10 +14,10 @@ namespace berialdraw
 		virtual ~Pane();
 
 		/** Serialize the content of widget into json */
-		virtual void serialize(JsonIterator & it);
+		virtual void serialize(JsonIterator & it) override;
 
 		/** Unserialize the content of widget from json */
-		virtual void unserialize(JsonIterator & it);
+		virtual void unserialize(JsonIterator & it) override;
 
 		/** Get the style cascade mode for this widget */
 		virtual StyleCascadeMode style_cascade_mode() const override;
@@ -44,13 +44,13 @@ namespace berialdraw
 		Pane& operator=(const Pane& other) = delete;
 		
 		/** Return the size of content without marges */
-		virtual Size content_size();
+		virtual Size content_size() override;
 
 		/** Paint on screen memory the content of this widget */
-		virtual void paint(const Region & parent_region);
+		virtual void paint(const Region & parent_region) override;
 
 		/** Place all widget in area */
-		virtual void place(const Area & area, bool in_layout);
+		virtual void place(const Area & area, bool in_layout) override;
 /// @endcond
 	};
 }

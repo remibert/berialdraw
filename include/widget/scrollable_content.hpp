@@ -38,7 +38,7 @@ namespace berialdraw
 		void viewport_size(Dim w, Dim h);
 
 		/** Return the size of content without marges */
-		virtual Size content_size();
+		virtual Size content_size() override;
 
 		/** Get the style cascade mode for this widget */
 		virtual StyleCascadeMode style_cascade_mode() const override;
@@ -63,13 +63,13 @@ namespace berialdraw
 		void on_scroll(Widget * widget, const ScrollEvent & evt);
 
 		/** Compute the scroll area */
-		virtual void space_occupied(Point & min_position, Point & max_position);
+		virtual void space_occupied(Point & min_position, Point & max_position) override;
 
 		/** Paint on screen memory the content of this widget */
-		virtual void paint(const Region & parent_region);
+		virtual void paint(const Region & parent_region) override;
 
 		/** Place all widget in area */
-		virtual void place(const Area & area, bool in_layout);
+		virtual void place(const Area & area, bool in_layout) override;
 
 		/** Helper methods for scroll computation */
 		Point compute_scroll_view(const Area & area, Point & scroll_position, Size & scroll_size);

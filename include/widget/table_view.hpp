@@ -22,7 +22,7 @@ namespace berialdraw
 		void remove_widget(uint16_t row, uint16_t column);
 
 		/** Clear all widgets from the table */
-		void clear();
+		virtual void clear() override;
 
 		/** Get the number of rows */
 		Dim row_count() const;
@@ -31,10 +31,10 @@ namespace berialdraw
 		Dim column_count() const;
 
 		/** Serialize the content of widget into json */
-		virtual void serialize(JsonIterator & it);
+		virtual void serialize(JsonIterator & it) override;
 
 		/** Unserialize the content of widget from json */
-		virtual void unserialize(JsonIterator & it);
+		virtual void unserialize(JsonIterator & it) override;
 
 		/** Get the style cascade mode for this widget */
 		virtual StyleCascadeMode style_cascade_mode() const override;
@@ -48,10 +48,10 @@ namespace berialdraw
 		void save(TextStream& stream);
 
 		/** Return the size of content without marges */
-		virtual Size content_size();
+		virtual Size content_size() override;
 
 		/** Get the actual parent for child widgets (redirect to internal grid) */
-		virtual Widget * get_parent_for_child()
+		virtual Widget * get_parent_for_child() override
 		{
 			return m_grid;
 		}
@@ -80,10 +80,10 @@ namespace berialdraw
 		TableView& operator=(const TableView& other) = delete;
 
 		/** Paint on screen memory the content of this widget (adds table-specific rendering) */
-		virtual void paint(const Region & parent_region);
+		virtual void paint(const Region & parent_region) override;
 
 		/** Get the widget hovered */
-		virtual Widget * hovered(const Region & parent_region, const Point & position);
+		virtual Widget * hovered(const Region & parent_region, const Point & position) override;
 
 		/** Paint alternating row backgrounds */
 		void paint_row_backgrounds();

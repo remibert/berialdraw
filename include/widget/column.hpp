@@ -15,10 +15,10 @@ namespace berialdraw
 		virtual ~Column();
 
 		/** Serialize the content of widget into json */
-		virtual void serialize(JsonIterator & it);
+		virtual void serialize(JsonIterator & it) override;
 
 		/** Unserialize the content of widget from json */
-		virtual void unserialize(JsonIterator & it);
+		virtual void unserialize(JsonIterator & it) override;
 
 		/** Get the style cascade mode for this widget */
 		virtual StyleCascadeMode style_cascade_mode() const override;
@@ -41,13 +41,13 @@ namespace berialdraw
 		void flow_place(const Area & area);
 
 		/** Place all widget in area */
-		virtual void place(const Area & area, bool in_layout);
+		virtual void place(const Area & area, bool in_layout) override;
 
 		/** Return the size of content without marges */
-		virtual Size content_size();
+		virtual Size content_size() override;
 
 		/** Get the widget hovered */
-		virtual Widget * hovered(const Region & parent_region, const Point & position);
+		virtual Widget * hovered(const Region & parent_region, const Point & position) override;
 
 		Cells m_cells;
 /// @endcond

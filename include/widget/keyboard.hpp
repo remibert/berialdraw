@@ -15,10 +15,10 @@ namespace berialdraw
 		virtual ~Keyboard();
 
 		/** Serialize the content of widget into json */
-		virtual void serialize(JsonIterator & it);
+		virtual void serialize(JsonIterator & it) override;
 
 		/** Unserialize the content of widget from json */
-		virtual void unserialize(JsonIterator & it);
+		virtual void unserialize(JsonIterator & it) override;
 
 		/** Get the style cascade mode for this widget */
 		virtual StyleCascadeMode style_cascade_mode() const override;
@@ -35,10 +35,10 @@ namespace berialdraw
 		Keyboard& operator=(const Keyboard& other) = delete;
 
 		/** Place all widget in area */
-		virtual void place(const Area & area, bool in_layout);
+		virtual void place(const Area & area, bool in_layout) override;
 
 		/** Get the widget hovered */
-		virtual Widget * hovered(const Region & parent_region, const Point & position);
+		virtual Widget * hovered(const Region & parent_region, const Point & position) override;
 
 		/** Internal grid for all keys */
 		Grid * m_grid = 0;
