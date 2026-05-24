@@ -76,6 +76,7 @@ set(SRCS_LIB
 	src/widget/column.cpp
 	src/widget/progress_bar.cpp
 	src/widget/icon.cpp
+	src/widget/picture.cpp
 	src/widget/uimanager.cpp
 	src/widget/table_view.cpp
 
@@ -97,6 +98,7 @@ set(SRCS_LIB
 	src/styles/slider_style.cpp
 	src/styles/progress_bar_style.cpp
 	src/styles/icon_style.cpp
+	src/styles/picture_style.cpp
 	src/styles/scroll_view_style.cpp
 	src/styles/table_view_style.cpp
 	src/styles/grid_style.cpp
@@ -104,6 +106,11 @@ set(SRCS_LIB
 	src/styles/cells_style.cpp
 	src/styles/style_item.cpp
 	src/styles/colors.cpp
+
+	src/image/image_decoder.cpp
+	src/image/png_decoder.cpp
+	src/image/jpeg_decoder.cpp
+	src/image/image_processor.cpp
 
 	src/shape/shape.cpp
 	src/shape/circle.cpp
@@ -238,6 +245,75 @@ set(SRCS_LIB
 	external/minizip/compat/unzip.c
 	external/minizip/compat/ioapi.c
 	src/tool/mz_stream_os_berialdraw.c
+
+	# libpng
+	external/libpng/png.c
+	external/libpng/pngerror.c
+	external/libpng/pngget.c
+	external/libpng/pngmem.c
+	external/libpng/pngpread.c
+	external/libpng/pngread.c
+	external/libpng/pngrio.c
+	external/libpng/pngrtran.c
+	external/libpng/pngrutil.c
+	external/libpng/pngset.c
+	external/libpng/pngsimd.c
+	external/libpng/pngtrans.c
+	external/libpng/pngwio.c
+	external/libpng/pngwrite.c
+	external/libpng/pngwtran.c
+	external/libpng/pngwutil.c
+
+	# libjpeg-turbo (decode only)
+	external/libjpeg-turbo/jcapimin.c
+	external/libjpeg-turbo/jcapistd.c
+	external/libjpeg-turbo/jccoefct.c
+	external/libjpeg-turbo/jccolor.c
+	external/libjpeg-turbo/jcdctmgr.c
+	external/libjpeg-turbo/jchuff.c
+	external/libjpeg-turbo/jcicc.c
+	external/libjpeg-turbo/jcinit.c
+	external/libjpeg-turbo/jcmainct.c
+	external/libjpeg-turbo/jcmarker.c
+	external/libjpeg-turbo/jcmaster.c
+	external/libjpeg-turbo/jcomapi.c
+	external/libjpeg-turbo/jcparam.c
+	external/libjpeg-turbo/jcphuff.c
+	external/libjpeg-turbo/jcprepct.c
+	external/libjpeg-turbo/jcsample.c
+	external/libjpeg-turbo/jctrans.c
+	external/libjpeg-turbo/jdapimin.c
+	external/libjpeg-turbo/jdapistd.c
+	external/libjpeg-turbo/jdatadst.c
+	external/libjpeg-turbo/jdatasrc.c
+	external/libjpeg-turbo/jdcoefct.c
+	external/libjpeg-turbo/jdcolor.c
+	external/libjpeg-turbo/jddctmgr.c
+	external/libjpeg-turbo/jdhuff.c
+	external/libjpeg-turbo/jdicc.c
+	external/libjpeg-turbo/jdinput.c
+	external/libjpeg-turbo/jdmainct.c
+	external/libjpeg-turbo/jdmarker.c
+	external/libjpeg-turbo/jdmaster.c
+	external/libjpeg-turbo/jdmerge.c
+	external/libjpeg-turbo/jdphuff.c
+	external/libjpeg-turbo/jdpostct.c
+	external/libjpeg-turbo/jdsample.c
+	external/libjpeg-turbo/jdtrans.c
+	external/libjpeg-turbo/jerror.c
+	external/libjpeg-turbo/jfdctflt.c
+	external/libjpeg-turbo/jfdctfst.c
+	external/libjpeg-turbo/jfdctint.c
+	external/libjpeg-turbo/jidctflt.c
+	external/libjpeg-turbo/jidctfst.c
+	external/libjpeg-turbo/jidctint.c
+	external/libjpeg-turbo/jidctred.c
+	external/libjpeg-turbo/jmemmgr.c
+	external/libjpeg-turbo/jmemnobs.c
+	external/libjpeg-turbo/jquant1.c
+	external/libjpeg-turbo/jquant2.c
+	external/libjpeg-turbo/jsimd_none.c
+	external/libjpeg-turbo/jutils.c
 )
 
 set(INCLUDES_LIB 
@@ -247,6 +323,8 @@ set(INCLUDES_LIB
 	"${CMAKE_CURRENT_SOURCE_DIR}/external/zlib;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/external/minizip;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/external/minizip/compat;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/external/libpng;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/external/libjpeg-turbo;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include;"
 	"${CMAKE_CURRENT_SOURCE_DIR};"
 )

@@ -104,6 +104,7 @@ void Styles::style(const String & name)
 /** Clear styles */
 void Styles::clear()
 {
+	clear_properties_cache();
 	for (int i = 0; i < (int)m_items.size(); i++)
 	{
 		StyleItem* item = m_items[i];
@@ -111,6 +112,79 @@ void Styles::clear()
 	}
 	m_items.clear();
 	m_json_cache.clear();
+}
+
+/** Clear the properties cache */
+void Styles::clear_properties_cache()
+{
+	for (uint32_t i = 0; i < STYLE_PROPERTIES_CACHE_SIZE; i++)
+	{
+		if (m_properties_cache[i].json)
+		{
+			delete m_properties_cache[i].json;
+			m_properties_cache[i].json = nullptr;
+		}
+		m_properties_cache[i].name = "";
+		m_properties_cache[i].age = 0;
+	}
+	m_properties_cache_age = 0;
+}
+
+/** Get cached parsed style properties by name */
+Json* Styles::get_style_properties(const char* name)
+{
+	Json* result = nullptr;
+
+	// Search in cache
+	for (uint32_t i = 0; i < STYLE_PROPERTIES_CACHE_SIZE; i++)
+	{
+		if (m_properties_cache[i].json && m_properties_cache[i].name == name)
+		{
+			m_properties_cache[i].age = ++m_properties_cache_age;
+			result = m_properties_cache[i].json;
+			break;
+		}
+	}
+
+	// Not in cache, parse and add
+	if (result == nullptr)
+	{
+		StyleItem* style_item = get_style(name);
+		if (style_item)
+		{
+			// Find slot: first empty or oldest
+			uint32_t slot = 0;
+			uint32_t oldest_age = UINT32_MAX;
+
+			for (uint32_t i = 0; i < STYLE_PROPERTIES_CACHE_SIZE; i++)
+			{
+				if (m_properties_cache[i].json == nullptr)
+				{
+					slot = i;
+					break;
+				}
+				if (m_properties_cache[i].age < oldest_age)
+				{
+					oldest_age = m_properties_cache[i].age;
+					slot = i;
+				}
+			}
+
+			// Evict if needed
+			if (m_properties_cache[slot].json)
+			{
+				delete m_properties_cache[slot].json;
+			}
+
+			// Parse and cache
+			m_properties_cache[slot].json = new Json(style_item->properties());
+			m_properties_cache[slot].name = name;
+			m_properties_cache[slot].age = ++m_properties_cache_age;
+			result = m_properties_cache[slot].json;
+		}
+	}
+
+	return result;
 }
 
 /** Find style item index by name */
@@ -135,6 +209,7 @@ void Styles::add_style(const String& name, const String& properties)
 	// Create and add new StyleItem
 	StyleItem* item = new StyleItem(name, properties);
 	m_items.push_back(item);
+	clear_properties_cache();
 }
 
 
@@ -177,6 +252,7 @@ bool Styles::remove_style(const String& name)
 	if (index != ~0)
 	{
 		m_items.remove(index);
+		clear_properties_cache();
 		return true;
 	}
 	return false;
@@ -288,6 +364,7 @@ template bool Styles::apply<Keys>(Widget* widget, Keys* properties);
 template bool Styles::apply<PieStyle>(Widget* widget, PieStyle* properties);
 template bool Styles::apply<LineStyle>(Widget* widget, LineStyle* properties);
 template bool Styles::apply<RoundStyle>(Widget* widget, RoundStyle* properties);
+template bool Styles::apply<PictureStyle>(Widget* widget, PictureStyle* properties);
 
 /** Specialization for Key to resolve ambiguous 'create()' from multiple inheritance */
 template<>

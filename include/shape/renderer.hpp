@@ -40,6 +40,18 @@ namespace berialdraw
 		@param color Color for drawing */
 		void draw_buffer(Coord x_, Coord y_, const uint8_t * buffer, Dim width, Dim height, uint32_t color);
 
+		/** Draw an ARGB8888 image with rotation and alpha blending
+		@param position Position of the image
+		@param size Size of the display area
+		@param center Center point for rotation
+		@param margin Margin around the image
+		@param angle Angle of rotation (in 64th of degrees)
+		@param pixels Pixel data in ARGB8888 format
+		@param width Width of the image in pixels
+		@param height Height of the image in pixels
+		@param alpha Global alpha (0-255) */
+		void draw_image(const Point & position, const Size & size, const Point & center, const Margin & margin, Coord angle, const uint32_t * pixels, uint32_t width, uint32_t height, uint8_t alpha);
+
 		/** Draw freetype outline object
 		@param position Position for drawing
 		@param margin Margin for drawing

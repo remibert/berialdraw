@@ -10,3 +10,9 @@
 [submodule "minizip"]
 	path = external/minizip
 	url = https://github.com/nmoinvaz/minizip.git
+[submodule "external/libpng"]
+	path = external/libpng
+	url = https://github.com/glennrp/libpng.git
+[submodule "external/libjpeg-turbo"]
+	path = external/libjpeg-turbo
+	url = https://github.com/libjpeg-turbo/libjpeg-turbo.git

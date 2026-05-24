@@ -224,6 +224,113 @@ void Renderer::draw(const Shape & shape, const Point & shift)
 	draw(shape.position(), shape.margin(), shift, shape.center(), shape.color(), shape.angle_(), copy_poly.outline());
 }
 
+void Renderer::draw_image(const Point & position, const Size & size, const Point & center, const Margin & margin, Coord angle, const uint32_t * pixels, uint32_t width, uint32_t height, uint8_t alpha)
+{
+	Framebuf * framebuf = UIManager::framebuf();
+	if (pixels == nullptr || width == 0 || height == 0 || alpha == 0 || framebuf == nullptr)
+	{
+		return;
+	}
+
+	// Normalize angle to 0, 90, 180, 270
+	int32_t angle_deg = 0;
+	if (angle != 0)
+	{
+		angle_deg = (int32_t)(angle % 360);
+		if (angle_deg < 0)
+		{
+			angle_deg += 360;
+		}
+	}
+
+	// Determine rotated image dimensions
+	uint32_t dst_width  = width;
+	uint32_t dst_height = height;
+	if (angle_deg == 90 || angle_deg == 270)
+	{
+		dst_width  = height;
+		dst_height = width;
+	}
+
+	// Compute position with margins
+	FT_Matrix matrix = vector_matrix((angle << 10));
+	FT_Vector vec;
+
+	Coord xx = position.x_() + margin.left_();
+	Coord yy = position.y_() + margin.top_();
+
+	// Apply center of rotation
+	if (center.x_() != 0 || center.y_() != 0)
+	{
+		vec.x = -center.x_();
+		vec.y = -center.y_();
+		FT_Vector_Transform(&vec, &matrix);
+		xx += vec.x;
+		yy += vec.y;
+	}
+
+	// Apply scale
+	Coord sx = (xx * (Coord)m_scale) >> 12;
+	Coord sy = (yy * (Coord)m_scale) >> 12;
+
+	// Export image to SVG if exporter active
+	Exporter * exporter = UIManager::exporter();
+	if (exporter)
+	{
+		exporter->add_image(pixels, width, height, (int32_t)(xx >> 6), (int32_t)(yy >> 6), dst_width, dst_height, alpha, angle);
+	}
+
+	// Check visibility
+	if (m_region->is_inside_scale(sx, sy, dst_width, dst_height, m_scale) == Region::OUT)
+	{
+		return;
+	}
+
+	// Draw pixels with rotation
+	for (uint32_t py = 0; py < dst_height; py++)
+	{
+		for (uint32_t px = 0; px < dst_width; px++)
+		{
+			// Map destination (px, py) to source pixel based on rotation
+			uint32_t src_x;
+			uint32_t src_y;
+
+			switch (angle_deg)
+			{
+			default:
+			case 0:
+				src_x = px;
+				src_y = py;
+				break;
+			case 90:
+				src_x = py;
+				src_y = (dst_width - 1) - px;
+				break;
+			case 180:
+				src_x = (dst_width  - 1) - px;
+				src_y = (dst_height - 1) - py;
+				break;
+			case 270:
+				src_x = (dst_height - 1) - py;
+				src_y = px;
+				break;
+			}
+
+			uint32_t pixel = pixels[src_y * width + src_x];
+			uint8_t pixel_alpha = (uint8_t)((pixel >> 24) & 0xFF);
+
+			// Combine pixel alpha with widget alpha
+			uint8_t final_alpha = (uint8_t)(((uint32_t)pixel_alpha * (uint32_t)alpha) / 255);
+
+			if (final_alpha > 0)
+			{
+				uint32_t col = (pixel & 0x00FFFFFF);
+				draw_line(sx + px, sy + py, 1, 255, final_alpha, col);
+			}
+		}
+	}
+}
+
 void Renderer::draw(const Point & position, const Margin & margin, const Point & shift, const Point & center, uint32_t color, Coord angle_, Outline & out)
 {
 	FT_Outline & outline = out.get();

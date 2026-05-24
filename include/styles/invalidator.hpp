@@ -12,10 +12,10 @@ namespace berialdraw
 	public:
 		enum Status
 		{
-			NOTHING = 0,
-			REDRAW  = 1,
+			NOTHING  = 0,
+			REDRAW   = 1,
 			GEOMETRY = 2,
-			ALL     = GEOMETRY|REDRAW
+			ALL      = GEOMETRY|REDRAW
 		};
 
 		/** Constructor */

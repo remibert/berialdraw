@@ -182,9 +182,10 @@ namespace berialdraw
 		unsigned int m_align:4;
 		unsigned int m_angle_modified:1;
 		unsigned int m_geometry_modified:1;
-		unsigned int m_hidden :1;
-		int m_light:8;
-		int m_saturation:8;
+		unsigned int m_style_modified:1;
+		unsigned int m_hidden:1;
+		int          m_light:8;
+		int          m_saturation:8;
 		Borders m_borders;
 /// @endcond 
 	}; 

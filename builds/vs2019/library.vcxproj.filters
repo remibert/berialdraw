@@ -43,8 +43,8 @@
     <Filter Include="berialdraw\styles">
       <UniqueIdentifier>{f6fd56d9-3ed0-414f-af2b-ceb407410df4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="berialdraw\resources">
-      <UniqueIdentifier>{32d59020-9b0e-42a6-9aaf-d71905b3148f}</UniqueIdentifier>
+    <Filter Include="berialdraw\image">
+      <UniqueIdentifier>{a3c5d2e1-7b6f-4890-bc12-3d4e5f6a7b8c}</UniqueIdentifier>
     </Filter>
     <Filter Include="resources">
       <UniqueIdentifier>{f6a616fb-eb95-45f2-a895-86b3f6eb42bf}</UniqueIdentifier>
@@ -105,6 +105,15 @@
     </Filter>
     <Filter Include="external\zlib">
       <UniqueIdentifier>{8a7d4cda-1a5c-49bc-bd5e-1f8c7e9a0d3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external\libpng">
+      <UniqueIdentifier>{b2c3d4e5-f6a7-4890-1bcd-ef1234567890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external\libjpeg-turbo">
+      <UniqueIdentifier>{c3d4e5f6-a7b8-4901-2cde-f12345678901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\images">
+      <UniqueIdentifier>{c5c69a5d-5972-4db5-9fa1-72a6afaaefa6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -252,6 +261,9 @@
     <ClCompile Include="..\..\src\widget\icon.cpp">
       <Filter>berialdraw\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\widget\picture.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\widget\keyboard.cpp">
       <Filter>berialdraw\widget</Filter>
     </ClCompile>
@@ -371,6 +383,218 @@
     </ClCompile>
     <ClCompile Include="..\..\src\styles\icon_style.cpp">
       <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\picture_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\image\image_decoder.cpp">
+      <Filter>berialdraw\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\image\png_decoder.cpp">
+      <Filter>berialdraw\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\image\jpeg_decoder.cpp">
+      <Filter>berialdraw\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\image\image_processor.cpp">
+      <Filter>berialdraw\image</Filter>
+    </ClCompile>
+    <!-- libpng sources -->
+    <ClCompile Include="..\..\external\libpng\png.c">
+      <Filter>external\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libpng\pngerror.c">
+      <Filter>external\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libpng\pngget.c">
+      <Filter>external\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libpng\pngmem.c">
+      <Filter>external\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libpng\pngpread.c">
+      <Filter>external\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libpng\pngread.c">
+      <Filter>external\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libpng\pngrio.c">
+      <Filter>external\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libpng\pngrtran.c">
+      <Filter>external\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libpng\pngrutil.c">
+      <Filter>external\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libpng\pngset.c">
+      <Filter>external\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libpng\pngsimd.c">
+      <Filter>external\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libpng\pngtrans.c">
+      <Filter>external\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libpng\pngwio.c">
+      <Filter>external\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libpng\pngwrite.c">
+      <Filter>external\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libpng\pngwtran.c">
+      <Filter>external\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libpng\pngwutil.c">
+      <Filter>external\libpng</Filter>
+    </ClCompile>
+    <!-- libjpeg-turbo sources -->
+    <ClCompile Include="..\..\external\libjpeg-turbo\jcapimin.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jcapistd.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jccoefct.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jccolor.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jcdctmgr.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jchuff.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jcicc.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jcinit.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jcmainct.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jcmarker.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jcmaster.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jcomapi.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jcparam.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jcphuff.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jcprepct.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jcsample.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jctrans.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdapimin.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdapistd.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdatadst.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdatasrc.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdcoefct.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdcolor.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jddctmgr.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdhuff.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdicc.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdinput.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdmainct.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdmarker.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdmaster.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdmerge.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdphuff.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdpostct.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdsample.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jdtrans.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jerror.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jfdctflt.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jfdctfst.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jfdctint.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jidctflt.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jidctfst.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jidctint.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jidctred.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jmemmgr.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jmemnobs.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jquant1.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jquant2.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jsimd_none.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jutils.c">
+      <Filter>external\libjpeg-turbo</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\styles\progress_bar_style.cpp">
       <Filter>berialdraw\styles</Filter>
@@ -907,6 +1131,9 @@
     <ClInclude Include="..\..\include\widget\icon.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\widget\picture.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\widget\keyboard.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
@@ -1056,6 +1283,24 @@
     </ClInclude>
     <ClInclude Include="..\..\include\styles\icon_style.hpp">
       <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\styles\picture_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\image\image_fit.hpp">
+      <Filter>berialdraw\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\image\image_decoder.hpp">
+      <Filter>berialdraw\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\image\png_decoder.hpp">
+      <Filter>berialdraw\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\image\jpeg_decoder.hpp">
+      <Filter>berialdraw\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\image\image_processor.hpp">
+      <Filter>berialdraw\image</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\styles\progress_bar_style.hpp">
       <Filter>berialdraw\styles</Filter>
@@ -1825,5 +2070,13 @@
     <Font Include="..\..\resources\fonts\Cerial-Bold.ttf">
       <Filter>resources\fonts</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\resources\images\filleperle.jpg">
+      <Filter>resources\images</Filter>
+    </Image>
+    <Image Include="..\..\resources\images\Maison.png">
+      <Filter>resources\images</Filter>
+    </Image>
   </ItemGroup>
 </Project>

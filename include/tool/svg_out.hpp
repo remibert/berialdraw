@@ -37,6 +37,18 @@ namespace berialdraw
 		@param color Color of the text */
 		virtual void add_text(const Point & position, const Size & size, const Point & center, const Margin & margin, Coord angle, const String & text, const Font & font, uint32_t color);
 
+		/** Add image in svg
+		@param pixels Pixel data in ARGB8888 format
+		@param width Width of the image in pixels
+		@param height Height of the image in pixels
+		@param x X position in the SVG (in pixels)
+		@param y Y position in the SVG (in pixels)
+		@param display_width Display width in the SVG (in pixels)
+		@param display_height Display height in the SVG (in pixels)
+		@param alpha Global alpha (0-255)
+		@param angle Rotation angle (in degrees) */
+		virtual void add_image(const uint32_t * pixels, uint32_t width, uint32_t height, int32_t x, int32_t y, uint32_t display_width, uint32_t display_height, uint8_t alpha, Coord angle = 0);
+
 		/** Open clipping and group 
 		@param position Position of the group
 		@param size Size of the group */

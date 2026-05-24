@@ -69,6 +69,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/styles/common_style.cpp
 	src/pybind/styles/edit_style.cpp
 	src/pybind/styles/icon_style.cpp
+	src/pybind/styles/picture_style.cpp
 	src/pybind/styles/line_style.cpp
 	src/pybind/styles/pie_style.cpp
 	src/pybind/styles/progress_bar_style.cpp
@@ -101,6 +102,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/widget/entry.cpp
 	src/pybind/widget/grid.cpp
 	src/pybind/widget/icon.cpp
+	src/pybind/widget/picture.cpp
 	src/pybind/widget/keyboard.cpp
 	src/pybind/widget/label.cpp
 	src/pybind/widget/pane.cpp
@@ -128,6 +130,8 @@ set(INCLUDES_PYBIND11
 	"${CMAKE_CURRENT_SOURCE_DIR}/../include;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/../external/freetype/include;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/../external/freetype/include/freetype;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../external/libpng;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../external/libjpeg-turbo;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/inc;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/.."
 	"${CMAKE_CURRENT_SOURCE_DIR}/../external/pybind11/include;"

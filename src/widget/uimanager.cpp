@@ -52,6 +52,7 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 		(*m_settings)["ui"]["fonts"]     = "$(ui.root-dir)/fonts";
 		(*m_settings)["ui"]["styles"]    = "$(ui.root-dir)/styles";
 		(*m_settings)["ui"]["icons"]     = "$(ui.root-dir)/icons";
+		(*m_settings)["ui"]["images"]    = "$(ui.root-dir)/images";
 		(*m_settings)["ui"]["colors"]    = "$(ui.root-dir)/colors";
 		(*m_settings)["ui"]["tests"]     = "$(ui.root-dir)/../test/snapshot";
 		m_notifier     = std::make_unique<Notifier>();

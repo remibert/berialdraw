@@ -151,5 +151,10 @@ namespace berialdraw
 		static constexpr const char* WIDGET_MIN_SIZE = "min-size";
 		static constexpr const char* WIDGET_MAX_SIZE = "max-size";
 		static constexpr const char* WIDGET_STYLE = "style";
+
+		// Picture style
+		static constexpr const char* PICTURE_FILENAME = "picture-filename";
+		static constexpr const char* PICTURE_ALPHA = "picture-alpha";
+		static constexpr const char* PICTURE_FIT_MODE = "picture-fit-mode";
 	};
 }

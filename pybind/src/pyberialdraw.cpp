@@ -51,6 +51,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_grid_style(m);
     bind_cell_style(m);
     bind_cells_style(m);
+    bind_picture_style(m);
     
     // Bind framebuf classes
     bind_framebuf(m);
@@ -110,6 +111,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_scroll_view(m);
     bind_table_view(m);
     bind_icon(m);
+    bind_picture(m);
     bind_keyboard(m);
     bind_desktop(m);
     bind_uimanager(m);

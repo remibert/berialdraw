@@ -119,6 +119,11 @@ namespace berialdraw
 		@return true if style exists */
 		bool has_style(const String& name) const;
 
+		/** Get cached parsed style properties by name.
+		Uses an internal LRU cache to avoid re-parsing JSON each time.
+		@param name Name of the style
+		@return Pointer to cached Json or nullptr if style not found */
+		Json* get_style_properties(const char* name);
 
 
 #ifdef _DEBUG
@@ -138,9 +143,24 @@ namespace berialdraw
 		/** Load the style according to the name specified */
 		Style * load(const char * classname, const char * property_name, StyleCreator_t creator);
 
+		/** Clear the properties cache */
+		void clear_properties_cache();
+
+		static const uint32_t STYLE_PROPERTIES_CACHE_SIZE = 10;
+
+		/** Cache entry for parsed style properties */
+		struct StylePropertiesCacheEntry
+		{
+			String name;
+			Json* json = nullptr;
+			uint32_t age = 0;
+		};
+
 		Vector<StyleItem*>    m_items;
 		JsonFileCache        m_json_cache;
 		String m_style;
+		StylePropertiesCacheEntry m_properties_cache[STYLE_PROPERTIES_CACHE_SIZE];
+		uint32_t m_properties_cache_age = 0;
 /// @endcond
 	};
 }

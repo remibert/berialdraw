@@ -159,6 +159,9 @@
     <ClCompile Include="..\..\test\widget\pane_test.cpp">
       <Filter>test\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\test\widget\picture_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\test\widget\progress_bar_test.cpp">
       <Filter>test\widget</Filter>
     </ClCompile>

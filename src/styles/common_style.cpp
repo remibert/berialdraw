@@ -9,6 +9,7 @@ CommonStyle::CommonStyle()
 	m_angle = 0;
 	m_angle_modified = 1;
 	m_geometry_modified = 1;
+	m_style_modified = 1;
 	m_borders = ALL_BORDERS;
 	m_light = 0;
 	m_hidden = false;
@@ -54,6 +55,7 @@ void CommonStyle::unserialize(JsonIterator & it)
 	berialdraw::unserialize(it, m_borders);
 	m_angle_modified = 1;
 	m_geometry_modified = 1;
+	m_style_modified = 1;
 }
 
 /** Set properties with another */

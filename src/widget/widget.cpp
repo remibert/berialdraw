@@ -150,21 +150,25 @@ void Widget::apply_cascade_styles()
 	{
 		style_source = style_source->m_parent;
 	}
-	
-	if (style_source && style_source->style_cascade_mode() == StyleCascadeMode::CASCADING)
+	if (m_style_modified == 1)
 	{
-		const String & style_name = style_source->style();
-		if (style_name.size() > 0)
+		// If we found a cascading parent with a style, apply it
+		if (style_source && style_source->style_cascade_mode() == StyleCascadeMode::CASCADING)
 		{
-			StyleItem * style_item = UIManager::styles()->get_style(style_name.c_str());
-			if (style_item)
+			const String & style_name = style_source->style();
+			if (style_name.size() > 0)
 			{
-				Json style_properties = style_item->properties();
-				JsonIterator it(style_properties);
-				unserialize(it);
-				UIManager::invalidator()->dirty(this, Invalidator::ALL);
+				// Use cached parsed properties to avoid re-parsing JSON for each cell
+				Json * cached_properties = UIManager::styles()->get_style_properties(style_name.c_str());
+				if (cached_properties)
+				{
+					JsonIterator it(*cached_properties);
+					unserialize(it);
+					UIManager::invalidator()->dirty(this, Invalidator::ALL);
+				}
 			}
 		}
+		m_style_modified = 0;
 	}
 	
 	// Recursively apply styles to all children

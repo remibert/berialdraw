@@ -11,12 +11,12 @@ namespace berialdraw
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
 
-		Label::test();
+		//Label::test();
 		//Styles::test();
-		//StyleManager::test();
-		TableView::test();
+		//TableView::test();
 
 		// Widgets
+		Picture::test();
 		Icon::test();
 		ProgressBar::test();
 		Slider::test();

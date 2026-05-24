@@ -59,6 +59,13 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "font/font.hpp"
 #include "font/fonts.hpp"
 
+// Image
+#include "image/image_fit.hpp"
+#include "image/image_decoder.hpp"
+#include "image/png_decoder.hpp"
+#include "image/jpeg_decoder.hpp"
+#include "image/image_processor.hpp"
+
 // Styles
 #include "styles/color.hpp"
 #include "styles/invalidator.hpp"
@@ -79,6 +86,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "styles/mappings.hpp"
 #include "styles/keys.hpp"
 #include "styles/icon_style.hpp"
+#include "styles/picture_style.hpp"
 #include "styles/colors.hpp"
 #include "styles/scroll_view_style.hpp"
 #include "styles/table_view_style.hpp"
@@ -161,6 +169,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "widget/slider.hpp"
 #include "widget/progress_bar.hpp"
 #include "widget/icon.hpp"
+#include "widget/picture.hpp"
 #include "widget/table_view.hpp"
 
 #if defined(WIN32)
