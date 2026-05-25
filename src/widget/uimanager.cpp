@@ -17,6 +17,7 @@ std::unique_ptr<ScreenCrc>   UIManager::m_screen_crc;
 std::unique_ptr<ArcCache>    UIManager::m_arc_cache;
 std::unique_ptr<Settings>    UIManager::m_settings;
 std::unique_ptr<Clipboard>   UIManager::m_clipboard;
+std::unique_ptr<ImageCache>  UIManager::m_image_cache;
 bool          UIManager::m_initialized= false;
 
 inline Dim adapt_scale(uint32_t scale)
@@ -68,6 +69,7 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 		m_framebuf     = std::unique_ptr<Framebuf>(Framebuf::create(width, height, type));
 		m_renderer     = std::make_unique<Renderer>(adapt_size(width,scale), adapt_size(height,scale), scale);
 		m_arc_cache    = std::make_unique<ArcCache>();
+		m_image_cache  = std::make_unique<ImageCache>();
 		m_initialized = true;
 	}
 	else
@@ -91,6 +93,7 @@ void UIManager::deinit()
 	m_screen_crc.reset();
 	m_arc_cache.reset();
 	m_clipboard.reset();
+	m_image_cache.reset();
 	m_settings.reset();
 
 	m_initialized = false;
@@ -201,6 +204,13 @@ ArcCache * UIManager::arc_cache()
 {
 	if (m_arc_cache == 0) bd_printf("UIManager::arc_cache no existing");
 	return m_arc_cache.get();
+}
+
+/** Return the image cache */
+ImageCache * UIManager::image_cache()
+{
+	if (m_image_cache == 0) bd_printf("UIManager::image_cache no existing");
+	return m_image_cache.get();
 }
 
 /** Return the settings manager */

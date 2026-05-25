@@ -114,6 +114,5 @@ namespace berialdraw
 #ifdef WIN32
 	#include <windows.h>
 #endif
-
 #undef SIZE_MAX
 /// @endcond

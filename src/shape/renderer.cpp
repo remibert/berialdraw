@@ -273,20 +273,13 @@ void Renderer::draw_image(const Point & position, const Size & size, const Point
 	Coord sx = (xx * (Coord)m_scale) >> 12;
 	Coord sy = (yy * (Coord)m_scale) >> 12;
 
-	// Export image to SVG if exporter active
-	Exporter * exporter = UIManager::exporter();
-	if (exporter)
-	{
-		exporter->add_image(pixels, width, height, (int32_t)(xx >> 6), (int32_t)(yy >> 6), dst_width, dst_height, alpha, angle);
-	}
-
 	// Check visibility
 	if (m_region->is_inside_scale(sx, sy, dst_width, dst_height, m_scale) == Region::OUT)
 	{
 		return;
 	}
 
-	// Draw pixels with rotation
+	// Draw pixels 1:1 with rotation (image is expected at screen resolution)
 	for (uint32_t py = 0; py < dst_height; py++)
 	{
 		for (uint32_t px = 0; px < dst_width; px++)

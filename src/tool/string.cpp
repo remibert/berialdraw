@@ -970,4 +970,54 @@ String String::convert_filename_encoding(const char* src)
 	return result;
 }
 
+/** Encode binary data to base64 and append to the current string */
+void String::base64_encode(const uint8_t * data, uint32_t length)
+{
+	static const char table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+	if (data && length > 0)
+	{
+		uint32_t output_size = ((length + 2) / 3) * 4;
+		char * dst = tmp_alloc(output_size + 1);
+
+		if (dst)
+		{
+			uint32_t pos = 0;
+			uint32_t i;
+
+			for (i = 0; i + 2 < length; i += 3)
+			{
+				uint32_t triplet = ((uint32_t)data[i] << 16) | ((uint32_t)data[i+1] << 8) | (uint32_t)data[i+2];
+				dst[pos++] = table[(triplet >> 18) & 0x3F];
+				dst[pos++] = table[(triplet >> 12) & 0x3F];
+				dst[pos++] = table[(triplet >>  6) & 0x3F];
+				dst[pos++] = table[(triplet      ) & 0x3F];
+			}
+
+			if (i < length)
+			{
+				uint32_t triplet = (uint32_t)data[i] << 16;
+				if (i + 1 < length)
+				{
+					triplet |= (uint32_t)data[i+1] << 8;
+				}
+				dst[pos++] = table[(triplet >> 18) & 0x3F];
+				dst[pos++] = table[(triplet >> 12) & 0x3F];
+				if (i + 1 < length)
+				{
+					dst[pos++] = table[(triplet >> 6) & 0x3F];
+				}
+				else
+				{
+					dst[pos++] = '=';
+				}
+				dst[pos++] = '=';
+			}
+
+			dst[pos] = '\0';
+			tmp_dealloc(dst, pos);
+		}
+	}
+}
+
 

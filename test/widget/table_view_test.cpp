@@ -281,7 +281,7 @@ void TableView::test9()
 	
 	String script9("[{'type':'key','key':9208,'state':'press'}]"); // Large table top-left
 	UIManager::notifier()->play_script(script9, "$(ui.tests)/out/tableview9.svg");
-	UIManager::desktop()->mainloop();
+	//UIManager::desktop()->mainloop();
 }
 
 /** Main test runner - execute all tests */

@@ -96,6 +96,11 @@ bool PngDecoder::decode(const char* filename)
 								m_has_alpha = true;
 							}
 
+							// Swap R and B channels to match ARGB8888 (0xAARRGGBB) format
+							// libpng outputs RGBA bytes, which on little-endian gives 0xAABBGGRR
+							// png_set_bgr swaps to BGRA bytes = 0xAARRGGBB on little-endian
+							png_set_bgr(png_ptr);
+
 							png_read_update_info(png_ptr, info_ptr);
 
 							// Allocate pixel buffer

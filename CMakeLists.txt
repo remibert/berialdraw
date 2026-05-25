@@ -108,6 +108,7 @@ set(SRCS_LIB
 	src/styles/colors.cpp
 
 	src/image/image_decoder.cpp
+	src/image/image_cache.cpp
 	src/image/png_decoder.cpp
 	src/image/jpeg_decoder.cpp
 	src/image/image_processor.cpp

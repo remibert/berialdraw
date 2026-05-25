@@ -63,6 +63,9 @@ namespace berialdraw
 		/** Return the arc cache handle */
 		static ArcCache * arc_cache();
 
+		/** Return the image cache */
+		static ImageCache * image_cache();
+
 		/** Return the settings manager */
 		static Settings * settings();
 
@@ -90,6 +93,7 @@ namespace berialdraw
 		static std::unique_ptr<ArcCache>    m_arc_cache;
 		static std::unique_ptr<Settings>    m_settings;
 		static std::unique_ptr<Clipboard>   m_clipboard;
+		static std::unique_ptr<ImageCache>  m_image_cache;
 /// @endcond
 	};
 }

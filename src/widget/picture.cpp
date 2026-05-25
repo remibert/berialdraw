@@ -17,10 +17,6 @@ Picture::~Picture()
 	{
 		delete[] m_cached_pixels;
 	}
-	if (m_decoder)
-	{
-		delete m_decoder;
-	}
 }
 
 /** Load and decode the image file */
@@ -28,12 +24,8 @@ void Picture::load_image()
 {
 	if (m_image_modified)
 	{
-		// Free previous decoder
-		if (m_decoder)
-		{
-			delete m_decoder;
-			m_decoder = nullptr;
-		}
+		// Reset cache entry
+		m_cache_entry = nullptr;
 
 		// Free cached pixels
 		if (m_cached_pixels)
@@ -46,15 +38,7 @@ void Picture::load_image()
 
 		if (m_filename.size() > 0)
 		{
-			m_decoder = ImageDecoder::create(m_filename.c_str());
-			if (m_decoder)
-			{
-				if (m_decoder->decode(m_filename.c_str()) == false)
-				{
-					delete m_decoder;
-					m_decoder = nullptr;
-				}
-			}
+			m_cache_entry = UIManager::image_cache()->get(m_filename.c_str());
 		}
 		m_image_modified = false;
 	}
@@ -63,14 +47,14 @@ void Picture::load_image()
 /** Rebuild the resized cache if needed */
 void Picture::rebuild_cache(uint32_t area_width, uint32_t area_height)
 {
-	if (m_decoder && m_decoder->pixel_data())
+	if (m_cache_entry && m_cache_entry->pixel_data())
 	{
 		uint32_t dst_width = 0;
 		uint32_t dst_height = 0;
 
 		ImageProcessor::compute_fit_size(
-			m_decoder->width(),
-			m_decoder->height(),
+			m_cache_entry->width(),
+			m_cache_entry->height(),
 			area_width,
 			area_height,
 			m_fit_mode,
@@ -87,11 +71,11 @@ void Picture::rebuild_cache(uint32_t area_width, uint32_t area_height)
 			}
 
 			// If same size as source, just copy
-			if (dst_width == m_decoder->width() && dst_height == m_decoder->height())
+			if (dst_width == m_cache_entry->width() && dst_height == m_cache_entry->height())
 			{
 				uint32_t count = dst_width * dst_height;
 				m_cached_pixels = new uint32_t[count];
-				const uint32_t* src = m_decoder->pixel_data();
+				const uint32_t* src = m_cache_entry->pixel_data();
 				for (uint32_t i = 0; i < count; i++)
 				{
 					m_cached_pixels[i] = src[i];
@@ -100,9 +84,9 @@ void Picture::rebuild_cache(uint32_t area_width, uint32_t area_height)
 			else
 			{
 				m_cached_pixels = ImageProcessor::resize_bicubic(
-					m_decoder->pixel_data(),
-					m_decoder->width(),
-					m_decoder->height(),
+					m_cache_entry->pixel_data(),
+					m_cache_entry->width(),
+					m_cache_entry->height(),
 					dst_width,
 					dst_height);
 			}
@@ -119,10 +103,10 @@ Size Picture::content_size()
 
 	load_image();
 
-	if (m_decoder)
+	if (m_cache_entry)
 	{
-		result.width_(m_decoder->width());
-		result.height_(m_decoder->height());
+		result.width_(m_cache_entry->width() << 6);
+		result.height_(m_cache_entry->height() << 6);
 	}
 
 	return result;
@@ -138,8 +122,10 @@ void Picture::place(const Area & area, bool in_layout)
 	// Place background rectangle
 	place_in_area(area, in_layout);
 
-	// Place all children
+	// Place all children (save/restore m_backclip so border area is preserved)
+	Area backclip(m_backclip);
 	Widget::place(m_foreclip, in_layout);
+	m_backclip = backclip;
 }
 
 void Picture::paint(const Region & parent_region)
@@ -167,34 +153,58 @@ void Picture::paint(const Region & parent_region)
 		// Load image if needed
 		load_image();
 
-		if (m_decoder && m_decoder->pixel_data())
+		if (m_cache_entry && m_cache_entry->pixel_data())
 		{
-			// Compute available area (foreclip in pixels)
+			// Compute available area in logical pixels (64th pixels >> 6)
 			Dim scale = UIManager::renderer()->scale_();
-			uint32_t area_w = (uint32_t)(m_foreclip.size().width_() / scale);
-			uint32_t area_h = (uint32_t)(m_foreclip.size().height_() / scale);
+			uint32_t scale_factor = scale >> 6;
+			if (scale_factor == 0) scale_factor = 1;
 
-			if (area_w > 0 && area_h > 0)
+			uint32_t area_w_logical = (uint32_t)(m_foreclip.size().width_() >> 6);
+			uint32_t area_h_logical = (uint32_t)(m_foreclip.size().height_() >> 6);
+
+			// Cache at screen resolution for best quality with zoom
+			uint32_t area_w_screen = area_w_logical * scale_factor;
+			uint32_t area_h_screen = area_h_logical * scale_factor;
+
+			if (area_w_screen > 0 && area_h_screen > 0)
 			{
-				// Rebuild cache if area size changed
-				rebuild_cache(area_w, area_h);
+				// Rebuild cache at screen resolution
+				rebuild_cache(area_w_screen, area_h_screen);
 
 				if (m_cached_pixels && m_cached_width > 0 && m_cached_height > 0)
 				{
-					// Compute offset to center the image in the area
+					// Convert cached dimensions back to logical for centering and SVG
+					uint32_t cached_w_logical = m_cached_width / scale_factor;
+					uint32_t cached_h_logical = m_cached_height / scale_factor;
+
+					// Compute offset to center the image in the area (result in 64th pixels)
 					Coord offset_x = m_foreclip.position().x_();
 					Coord offset_y = m_foreclip.position().y_();
 
-					if (m_cached_width < area_w)
+					if (cached_w_logical < area_w_logical)
 					{
-						offset_x += (((Coord)area_w - (Coord)m_cached_width) * scale) / 2;
+						offset_x += (((Coord)area_w_logical - (Coord)cached_w_logical) << 5);
 					}
-					if (m_cached_height < area_h)
+					if (cached_h_logical < area_h_logical)
 					{
-						offset_y += (((Coord)area_h - (Coord)m_cached_height) * scale) / 2;
+						offset_y += (((Coord)area_h_logical - (Coord)cached_h_logical) << 5);
 					}
 
-					// Delegate rendering to the Renderer (handles framebuf abstraction, SVG export, rotation)
+					// Export image to SVG using original file if exporter active
+					Exporter * exporter = UIManager::exporter();
+					if (exporter)
+					{
+						exporter->add_image_file(
+							m_filename.c_str(),
+							(int32_t)(offset_x >> 6),
+							(int32_t)(offset_y >> 6),
+							cached_w_logical,
+							cached_h_logical,
+							m_alpha);
+					}
+
+					// Delegate rendering to the Renderer (1:1 since cache is at screen resolution)
 					Point img_pos;
 					img_pos.x_(offset_x);
 					img_pos.y_(offset_y);

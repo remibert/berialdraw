@@ -55,7 +55,7 @@ namespace berialdraw
 		/** Get the widget hovered */
 		virtual Widget * hovered(const Region & parent_region, const Point & position) override;
 
-		ImageDecoder* m_decoder = nullptr;
+		const ImageCacheEntry * m_cache_entry = nullptr;
 		uint32_t*     m_cached_pixels = nullptr;
 		uint32_t      m_cached_width = 0;
 		uint32_t      m_cached_height = 0;

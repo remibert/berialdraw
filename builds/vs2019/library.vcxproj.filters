@@ -973,6 +973,9 @@
     <ClCompile Include="..\..\src\shape\rich_text.cpp">
       <Filter>berialdraw\shape</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\image\image_cache.cpp">
+      <Filter>berialdraw\image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\berialdraw_imp.hpp">
@@ -1799,6 +1802,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\shape\rich_text.hpp">
       <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\image\image_cache.hpp">
+      <Filter>berialdraw\image</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

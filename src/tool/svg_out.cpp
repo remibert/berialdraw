@@ -1,5 +1,4 @@
 #include "berialdraw_imp.hpp"
-#include "png.h"
 
 using namespace berialdraw;
 
@@ -111,133 +110,91 @@ void SvgOut::add_path(Outline & outline_, uint32_t color)
 	}
 }
 
-// Callback for png_set_write_fn: append PNG data to a vector buffer
-static void png_write_to_buffer(png_structp png_ptr, png_bytep data, png_size_t length)
+// Determine MIME type from filename extension
+static const char * mime_type_from_filename(const char * filename)
 {
-	std::vector<uint8_t> * buffer = (std::vector<uint8_t> *)png_get_io_ptr(png_ptr);
-	buffer->insert(buffer->end(), data, data + length);
-}
-
-// Flush callback (no-op for memory writes)
-static void png_flush_buffer(png_structp)
-{
-}
-
-// Encode binary data to base64
-static void base64_encode(const uint8_t * data, size_t length, String & output)
-{
-	static const char table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-	size_t i;
-	for (i = 0; i + 2 < length; i += 3)
+	const char * result = nullptr;
+	if (filename)
 	{
-		uint32_t triplet = ((uint32_t)data[i] << 16) | ((uint32_t)data[i+1] << 8) | (uint32_t)data[i+2];
-		output += (wchar_t)table[(triplet >> 18) & 0x3F];
-		output += (wchar_t)table[(triplet >> 12) & 0x3F];
-		output += (wchar_t)table[(triplet >>  6) & 0x3F];
-		output += (wchar_t)table[(triplet      ) & 0x3F];
-	}
-	if (i < length)
-	{
-		uint32_t triplet = (uint32_t)data[i] << 16;
-		if (i + 1 < length)
+		// Find last dot
+		const char * dot = nullptr;
+		for (const char * p = filename; *p; p++)
 		{
-			triplet |= (uint32_t)data[i+1] << 8;
-		}
-		output += (wchar_t)table[(triplet >> 18) & 0x3F];
-		output += (wchar_t)table[(triplet >> 12) & 0x3F];
-		if (i + 1 < length)
-		{
-			output += (wchar_t)table[(triplet >> 6) & 0x3F];
-		}
-		else
-		{
-			output += (wchar_t)'=';
-		}
-		output += (wchar_t)'=';
-	}
-}
-
-// Add image in svg
-void SvgOut::add_image(const uint32_t * pixels, uint32_t width, uint32_t height, int32_t x, int32_t y, uint32_t display_width, uint32_t display_height, uint8_t alpha, Coord angle)
-{
-	if (pixels && width > 0 && height > 0 && m_closed == false)
-	{
-		// Encode pixels to PNG in memory
-		png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
-		if (png_ptr)
-		{
-			png_infop info_ptr = png_create_info_struct(png_ptr);
-			if (info_ptr)
+			if (*p == '.')
 			{
-				if (setjmp(png_jmpbuf(png_ptr)) == 0)
-				{
-					std::vector<uint8_t> png_buffer;
-					png_set_write_fn(png_ptr, &png_buffer, png_write_to_buffer, png_flush_buffer);
-
-					png_set_IHDR(png_ptr, info_ptr, width, height, 8,
-						PNG_COLOR_TYPE_RGBA,
-						PNG_INTERLACE_NONE,
-						PNG_COMPRESSION_TYPE_DEFAULT,
-						PNG_FILTER_TYPE_DEFAULT);
-
-					png_write_info(png_ptr, info_ptr);
-
-					// Convert ARGB8888 to RGBA row by row
-					std::vector<uint8_t> row(width * 4);
-					for (uint32_t py = 0; py < height; py++)
-					{
-						for (uint32_t px = 0; px < width; px++)
-						{
-							uint32_t pixel = pixels[py * width + px];
-							uint8_t a = (uint8_t)((pixel >> 24) & 0xFF);
-							uint8_t r = (uint8_t)((pixel >> 16) & 0xFF);
-							uint8_t g = (uint8_t)((pixel >>  8) & 0xFF);
-							uint8_t b = (uint8_t)((pixel      ) & 0xFF);
-							row[px * 4 + 0] = r;
-							row[px * 4 + 1] = g;
-							row[px * 4 + 2] = b;
-							row[px * 4 + 3] = a;
-						}
-						png_bytep row_ptr = row.data();
-						png_write_rows(png_ptr, &row_ptr, 1);
-					}
-
-					png_write_end(png_ptr, info_ptr);
-					png_destroy_write_struct(&png_ptr, &info_ptr);
-
-					// Encode PNG data to base64
-					String base64_data;
-					base64_encode(png_buffer.data(), png_buffer.size(), base64_data);
-
-					// Compute center of the image for SVG rotation
-					int32_t cx = x + (int32_t)display_width / 2;
-					int32_t cy = y + (int32_t)display_height / 2;
-
-					// Write SVG <image> element
-					m_content.write_format("\t<image x=\"%d\" y=\"%d\" width=\"%d\" height=\"%d\" ",
-						x, y, display_width, display_height);
-					if (alpha < 255)
-					{
-						m_content.write_format("opacity=\"%1d.%02d\" ", (alpha == 255 ? 1 : 0), (alpha * 100) / 255);
-					}
-					if (angle != 0)
-					{
-						m_content.write_format("transform=\"rotate(");
-						add_value(m_content, -angle);
-						m_content.write_format(" %d %d)\" ", cx, cy);
-					}
-					m_content.write_format("href=\"data:image/png;base64,");
-					m_content.write_string(base64_data.c_str());
-					m_content.write_format("\" />\r");
-				}
-				else
-				{
-					png_destroy_write_struct(&png_ptr, &info_ptr);
-				}
+				dot = p;
 			}
-			else
+		}
+		if (dot)
+		{
+			dot++; // skip the dot
+			// Case-insensitive compare
+			if ((dot[0] == 'p' || dot[0] == 'P') && (dot[1] == 'n' || dot[1] == 'N') && (dot[2] == 'g' || dot[2] == 'G') && dot[3] == '\0')
 			{
-				png_destroy_write_struct(&png_ptr, nullptr);
+				result = "image/png";
+			}
+			else if ((dot[0] == 'j' || dot[0] == 'J') && (dot[1] == 'p' || dot[1] == 'P') && (dot[2] == 'g' || dot[2] == 'G') && dot[3] == '\0')
+			{
+				result = "image/jpeg";
+			}
+			else if ((dot[0] == 'j' || dot[0] == 'J') && (dot[1] == 'p' || dot[1] == 'P') && (dot[2] == 'e' || dot[2] == 'E') && (dot[3] == 'g' || dot[3] == 'G') && dot[4] == '\0')
+			{
+				result = "image/jpeg";
+			}
+		}
+	}
+	return result;
+}
+
+// Add image from original file (PNG, JPEG)
+void SvgOut::add_image_file(const char * filename, int32_t x, int32_t y, uint32_t display_width, uint32_t display_height, uint8_t alpha, Coord angle)
+{
+	if (filename && display_width > 0 && display_height > 0 && m_closed == false)
+	{
+		const char * mime = mime_type_from_filename(filename);
+		if (mime)
+		{
+			// Read original file data
+			File file;
+			if (file.open(filename, "rb") != -1)
+			{
+				uint32_t file_size = file.size();
+				if (file_size > 0)
+				{
+					uint8_t * file_data = new uint8_t[file_size];
+					if (file.read(file_data, file_size) == (int)file_size)
+					{
+						// Base64 encode the raw file content
+						String base64_data;
+						base64_data.base64_encode(file_data, file_size);
+
+						// Compute center for rotation
+						int32_t cx = x + (int32_t)display_width / 2;
+						int32_t cy = y + (int32_t)display_height / 2;
+
+						// Write SVG <image> element
+						m_content.write_format("\t<image x=\"%d\" y=\"%d\" width=\"%d\" height=\"%d\" ",
+							x, y, display_width, display_height);
+						m_content.write_format("preserveAspectRatio=\"none\" ");
+						if (alpha < 255)
+						{
+							m_content.write_format("opacity=\"%1d.%02d\" ", (alpha == 255 ? 1 : 0), (alpha * 100) / 255);
+						}
+						if (angle != 0)
+						{
+							m_content.write_format("transform=\"rotate(");
+							add_value(m_content, -angle);
+							m_content.write_format(" %d %d)\" ", cx, cy);
+						}
+						m_content.write_format("href=\"data:");
+						m_content.write_string(mime);
+						m_content.write_format(";base64,");
+						m_content.write_string(base64_data.c_str());
+						m_content.write_format("\" />\r");
+					}
+					delete[] file_data;
+				}
+				file.close();
 			}
 		}
 	}

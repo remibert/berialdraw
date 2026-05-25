@@ -250,6 +250,11 @@ namespace berialdraw
 		@return Index where the variable was found or INT32_MAX if not found */
 		int32_t search_var(String & var, int32_t pos = 0) const;
 
+		/** Encode binary data to base64 and append to the current string
+		@param data Pointer to the binary data to encode
+		@param length Length in bytes of the data to encode */
+		void base64_encode(const uint8_t * data, uint32_t length);
+
 		/** Convert filename to UTF-8, handling different encodings (UTF-8, CP437, etc.)
 		@param src Source filename string which may be in CP437, Latin-1, or already UTF-8
 		@return UTF-8 encoded string */
