@@ -26,6 +26,9 @@
     <Filter Include="pybind\vector">
       <UniqueIdentifier>{b5d2c9d7-8d41-4f09-93f4-0487e08539df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="pybind\image">
+      <UniqueIdentifier>{7c3d8e9f-5a42-4b8c-9f1e-2d4c5e6f7a8b}</UniqueIdentifier>
+    </Filter>
     <Filter Include="pybind\widget">
       <UniqueIdentifier>{95fbee52-3a0b-4ee9-b699-fe96bfd974c3}</UniqueIdentifier>
     </Filter>
@@ -305,6 +308,9 @@
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\vector\scroll_direction.cpp">
       <Filter>pybind\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\image\image_fit.cpp">
+      <Filter>pybind\image</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\widget\scrollable_content.cpp">
       <Filter>pybind\widget</Filter>

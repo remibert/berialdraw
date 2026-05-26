@@ -399,6 +399,9 @@
     <ClCompile Include="..\..\src\image\image_processor.cpp">
       <Filter>berialdraw\image</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\image\image_fit.cpp">
+      <Filter>berialdraw\image</Filter>
+    </ClCompile>
     <!-- libpng sources -->
     <ClCompile Include="..\..\external\libpng\png.c">
       <Filter>external\libpng</Filter>
@@ -2081,7 +2084,7 @@
     <Image Include="..\..\resources\images\filleperle.jpg">
       <Filter>resources\images</Filter>
     </Image>
-    <Image Include="..\..\resources\images\Maison.png">
+    <Image Include="..\..\resources\images\house.png">
       <Filter>resources\images</Filter>
     </Image>
   </ItemGroup>

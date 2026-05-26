@@ -30,6 +30,8 @@ void sample_icon_menu()
 	dialog.bind("ScrollView" , "$(ui.icons)/scrollable_header.icn" ,sample_scroll_view );
 	dialog.bind("Slider"     , "$(ui.icons)/tune.icn"              ,sample_slider      );
 	dialog.bind("Switch"     , "$(ui.icons)/toggle_on.icn"         ,sample_switch      );
+	dialog.bind("TableView"  , "$(ui.icons)/grid_on.icn"           ,sample_tableview   );
+	dialog.bind("Picture"    , "$(ui.icons)/image.icn"             ,sample_picture     );
 	dialog.bind("Window"     , "$(ui.icons)/select_window.icn"     ,sample_window      );
 	dialog.bind("Speedometer", "$(ui.icons)/speed.icn"             ,sample_speedometer );
 	dialog.bind("Theme"      , "$(ui.icons)/filter_vintage.icn"    ,sample_palette       );
@@ -62,6 +64,8 @@ void sample_menu()
 	dialog.bind("ScrollView" ,sample_scroll_view );
 	dialog.bind("Slider"     ,sample_slider      );
 	dialog.bind("Switch"     ,sample_switch      );
+	dialog.bind("TableView"  ,sample_tableview   );
+	dialog.bind("Picture"    ,sample_picture     );
 	dialog.bind("Window"     ,sample_window      );
 	dialog.bind("Speedometer",sample_speedometer );
 	dialog.bind("Theme"      ,sample_palette       );

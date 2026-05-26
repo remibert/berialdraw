@@ -251,6 +251,7 @@ void bind_margin(py::module& m);
 void bind_size_policy(py::module& m);
 void bind_extend(py::module& m);
 void bind_align(py::module& m);
+void bind_image_fit_mode(py::module& m);
 void bind_scroll_direction(py::module& m);
 
 // Style bindings

@@ -153,8 +153,8 @@ namespace berialdraw
 		static constexpr const char* WIDGET_STYLE = "style";
 
 		// Picture style
-		static constexpr const char* PICTURE_FILENAME = "picture-filename";
-		static constexpr const char* PICTURE_ALPHA = "picture-alpha";
-		static constexpr const char* PICTURE_FIT_MODE = "picture-fit-mode";
+		static constexpr const char* PICTURE_FILENAME = "filename";
+		static constexpr const char* PICTURE_ALPHA = "alpha";
+		static constexpr const char* PICTURE_FIT_MODE = "fit-mode";
 	};
 }

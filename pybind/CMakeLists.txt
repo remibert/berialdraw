@@ -47,6 +47,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/vector/point.cpp
 	src/pybind/vector/margin.cpp
 	src/pybind/vector/area.cpp
+	src/pybind/image/image_fit.cpp
 	src/pybind/framebuf/framebuf.cpp
 	src/pybind/framebuf/argb8888.cpp
 	src/pybind/shape/circle.cpp
@@ -149,6 +150,10 @@ target_compile_definitions(${BD_PY11_LIB} PRIVATE
 	FT2_BUILD_LIBRARY=1
 	FT_ERR_PREFIX=FT_Err_
 	PYBIND11_SIMPLE_GIL_MANAGEMENT)
+
+# Precompiled Header for faster compilation
+target_precompile_headers(${BD_PY11_LIB} PRIVATE 
+	inc/pybind/pyberialdraw.hpp)
 
 if(APPLE)
 	target_compile_definitions(${BD_PY11_LIB} PRIVATE DVERSION_INFO=\"dev\")

@@ -101,7 +101,7 @@ class Dialog:
 		
 		# Charger les données du tableau avec la méthode load()
 		table_data = [
-			["Nom", "Prénom", "Âge", "Ville"],
+			["Name", "First Name", "Age", "City"],
 			["Dupont", "Jean", "28", "Paris"],
 			["Martin", "Marie", "35", "Lyon"],
 			["Bernard", "Pierre", "42", "Marseille"],
@@ -110,6 +110,20 @@ class Dialog:
 		]
 		self.table.load(table_data)
 		self.table.on_click = self.on_table_row_clicked
+
+		# Picture View Example
+		self.picture_label = Label(self.layout)
+		self.picture_label.text = "Picture Example"
+
+		self.png_picture = Picture(self.layout)
+		self.png_picture.filename = "$(ui.images)/house.png"
+		self.png_picture.fit_mode = ImageFitMode.IMAGE_FIT_ASPECT_FIT
+		self.png_picture.margin = (10, 10)
+
+		self.jpg_picture = Picture(self.layout)
+		self.jpg_picture.filename = "$(ui.images)/filleperle.jpg"
+		self.jpg_picture.fit_mode = ImageFitMode.IMAGE_FIT_ASPECT_FIT
+		self.jpg_picture.margin = (10, 10)
 
 	def on_click_button(self, widget, event):
 		print(f"Click! Button '{widget.text}' at position {event.position}")

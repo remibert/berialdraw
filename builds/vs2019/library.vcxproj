@@ -415,6 +415,12 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\..\src\image\image_fit.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+    </ClCompile>
     <!-- libpng sources (C files - no PCH) -->
     <ClCompile Include="..\..\external\libpng\png.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -1710,7 +1716,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\resources\images\filleperle.jpg" />
-    <Image Include="..\..\resources\images\Maison.png" />
+    <Image Include="..\..\resources\images\house.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D2B0C9BA-6691-49BC-B111-1945063134EA}</ProjectGuid>

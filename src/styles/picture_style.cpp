@@ -17,7 +17,7 @@ void PictureStyle::serialize(JsonIterator & it)
 {
 	it[StyleNames::PICTURE_FILENAME]  = m_filename;
 	it[StyleNames::PICTURE_ALPHA]     = (int)m_alpha;
-	it[StyleNames::PICTURE_FIT_MODE]  = (int)m_fit_mode;
+	berialdraw::serialize(StyleNames::PICTURE_FIT_MODE, it, m_fit_mode);
 }
 
 /** Unserialize the content of style from json */
@@ -30,7 +30,7 @@ void PictureStyle::unserialize(JsonIterator & it)
 		m_image_modified = true;
 	}
 	m_alpha    = (uint8_t)((int)(it[StyleNames::PICTURE_ALPHA]    | (int)m_alpha));
-	m_fit_mode = (ImageFitMode)(int)(it[StyleNames::PICTURE_FIT_MODE] | (int)m_fit_mode);
+	berialdraw::unserialize(StyleNames::PICTURE_FIT_MODE, it, m_fit_mode);
 }
 
 /** Set filename value with string */
