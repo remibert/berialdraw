@@ -34,6 +34,7 @@ namespace berialdraw
 		static void test5();
 		static void test6();
 		static void test7();
+		static void test8();
 #endif
 	protected:
 	/// @cond DOXYGEN_IGNORE
@@ -59,6 +60,10 @@ namespace berialdraw
 		uint32_t*     m_cached_pixels = nullptr;
 		uint32_t      m_cached_width = 0;
 		uint32_t      m_cached_height = 0;
+
+		// Cached proportional size computed after first place() pass
+		Size          m_fit_content_size;
+		Dim           m_fit_ref_width = 0;
 	/// @endcond
 	};
 }

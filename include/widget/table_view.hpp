@@ -104,7 +104,6 @@ namespace berialdraw
 		void paint_vertical_lines();
 
 		Grid* m_grid;
-		Size m_content_size;
 		uint8_t m_table_view_modified;
 /// @endcond
 	};

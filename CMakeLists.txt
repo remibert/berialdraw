@@ -327,6 +327,8 @@ set(INCLUDES_LIB
 	"${CMAKE_CURRENT_SOURCE_DIR}/external/minizip/compat;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/external/libpng;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/external/libjpeg-turbo;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include/external/libpng;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include/external/libjpeg-turbo;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include;"
 	"${CMAKE_CURRENT_SOURCE_DIR};"
 )

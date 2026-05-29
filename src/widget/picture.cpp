@@ -36,6 +36,9 @@ void Picture::load_image()
 			m_cached_height = 0;
 		}
 
+		// Invalidate the fit size cache (image or fit_mode changed)
+		m_fit_ref_width = 0;
+
 		if (m_filename.size() > 0)
 		{
 			m_cache_entry = UIManager::image_cache()->get(m_filename.c_str());
@@ -105,9 +108,42 @@ Size Picture::content_size()
 
 	if (m_cache_entry)
 	{
-		result.width_(m_cache_entry->width() << 6);
-		result.height_(m_cache_entry->height() << 6);
+		uint32_t img_w = m_cache_entry->width();
+		uint32_t img_h = m_cache_entry->height();
+
+		if (img_w == 0 || img_h == 0)
+		{
+			// No image dimensions
+		}
+		else if (!m_size.is_width_undefined() && !m_size.is_height_undefined())
+		{
+			// Both dimensions explicitly set: widget has fixed-size bounding box
+			result.width_(m_size.width_());
+			result.height_(m_size.height_());
+		}
+		else if (m_fit_mode == IMAGE_FIT_NONE || m_fit_mode == IMAGE_FIT_STRETCH)
+		{
+			// These modes don't preserve aspect ratio: return natural image size
+			result.width_(img_w << 6);
+			result.height_(img_h << 6);
+		}
+		else if (m_fit_ref_width > 0)
+		{
+			// Cached proportional size from a previous place() pass: use it directly.
+			// This avoids recomputing on every scroll and ensures the layout uses
+			// the correct proportional dimensions from the second pass onward.
+			result = m_fit_content_size;
+		}
+		else
+		{
+			// First pass: no reference width available yet.
+			// Return natural image size; place() will compute the correct
+			// proportional size and trigger a second layout pass.
+			result.width_(img_w << 6);
+			result.height_(img_h << 6);
+		}
 	}
+	result.set(100,100);
 
 	return result;
 }
@@ -121,6 +157,44 @@ void Picture::place(const Area & area, bool in_layout)
 
 	// Place background rectangle
 	place_in_area(area, in_layout);
+
+	// For aspect-ratio modes without explicit size, compute the correct
+	// proportional content size based on the actual placed width.
+	// On the first pass, content_size() returned the natural image size,
+	// so the layout allocated too much height. Here we compute the correct
+	// size and cache it, then trigger a re-layout (similar to flow_replacement).
+	if (m_cache_entry &&
+		(m_size.is_width_undefined() || m_size.is_height_undefined()) &&
+		m_fit_mode != IMAGE_FIT_NONE && m_fit_mode != IMAGE_FIT_STRETCH)
+	{
+		uint32_t img_w = m_cache_entry->width();
+		uint32_t img_h = m_cache_entry->height();
+
+		if (img_w > 0 && img_h > 0)
+		{
+			// The placed width after margins is the real available area
+			Dim current_w = m_foreclip.size().width_();
+
+			if (current_w > 0 && current_w != m_fit_ref_width)
+			{
+				// Reference width changed: recompute proportional size
+				uint32_t ref_w_px = (uint32_t)(current_w >> 6);
+				uint32_t ref_h_px = img_h;
+				uint32_t dst_w = 0, dst_h = 0;
+				ImageProcessor::compute_fit_size(img_w, img_h, ref_w_px, ref_h_px, m_fit_mode, dst_w, dst_h);
+
+				m_fit_content_size.width_(dst_w << 6);
+				m_fit_content_size.height_(dst_h << 6);
+				m_fit_ref_width = current_w;
+
+				// Trigger a second layout pass so content_size() returns the cached value
+				if (m_parent)
+				{
+					UIManager::invalidator()->dirty(m_parent, Invalidator::GEOMETRY);
+				}
+			}
+		}
+	}
 
 	// Place all children (save/restore m_backclip so border area is preserved)
 	Area backclip(m_backclip);

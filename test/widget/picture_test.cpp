@@ -210,6 +210,103 @@ void Picture::test7()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/picture7_0.svg");
 }
 
+
+
+void Picture::test8()
+{
+	Window * window = new Window();
+		window->size(120, 800);
+		window->color(Color::WHITE);
+
+	ScrollView * scroll = new ScrollView(window);
+
+	Column * layout = new Column(scroll);
+
+	//Label * label = new Label(layout);
+	//	label->text("hello");
+
+	//Edit * first_name = new Edit(layout);
+	//	first_name->text("");
+	//	first_name->place_holder("Test first name");
+
+	//Edit * last_name = new Edit(layout);
+	//	last_name->text("");
+	//	last_name->place_holder("Test last name");
+
+	//Edit * age = new Edit(layout);
+	//	age->text("Age");
+	//	age->place_holder("");
+
+	//Slider * slider = new Slider(layout);
+
+	//Slider * sliderv = new Slider(layout);
+	//	sliderv->extend(Extend::EXTEND_HEIGHT);
+	//	sliderv->min_size(100, 100);
+
+	//Button * button = new Button(layout);
+	//	button->text("hello\nworld");
+	//	button->margin(20, 10);
+
+	Radio * radio1 = new Radio(layout);
+		radio1->text("Radio1");
+		radio1->group("group1");
+
+	Radio * radio2 = new Radio(layout);
+		radio2->text("Radio2");
+		radio2->group("group1");
+		radio2->checked(true);
+
+	//Checkbox * checkbox = new Checkbox(layout);
+	//	checkbox->text("Checkbox");
+	//	checkbox->checked(true);
+
+	//Switch * switch_widget = new Switch(layout);
+	//	switch_widget->text("Switch");
+	//	switch_widget->checked(true);
+
+	//// Table View Example
+	//Label * table_label = new Label(layout);
+	//	table_label->text("Table View Example");
+
+	TableView * table = new TableView(layout);
+		table->extend(Extend::EXTEND_ALL);
+		table->min_size(400, 150);
+		
+	// Load table data
+	String table_data("["
+		"['Name','First Name','Age','City'],"
+		"['Dupont','Jean','28','Paris'],"
+		"['Martin','Marie','35','Lyon'],"
+		"['Bernard','Pierre','42','Marseille'],"
+		"['Thomas','Sophie','31','Toulouse'],"
+		"['Robert','Luc','55','Nice']"
+	"]");
+	table->load(table_data);
+
+	// Picture View Example
+	Label * picture_label = new Label(layout);
+		picture_label->text("Picture Example");
+
+	Picture * png_picture = new Picture(layout);
+		png_picture->filename("$(ui.images)/house.png");
+		png_picture->fit_mode(IMAGE_FIT_ASPECT_FIT);
+		png_picture->margin(10, 10);
+
+	Switch * switch_widget2 = new Switch(layout);
+		switch_widget2->text("Switch");
+		switch_widget2->checked(true);
+	Picture * jpg_picture = new Picture(layout);
+		jpg_picture->filename("$(ui.images)/filleperle.jpg");
+		jpg_picture->fit_mode(IMAGE_FIT_ASPECT_FIT);
+		jpg_picture->margin(10, 10);
+	Switch * switch_widget3 = new Switch(layout);
+		switch_widget3->text("Switch");
+		switch_widget3->checked(true);
+UIManager::desktop()->mainloop();
+while(1)
+	UIManager::desktop()->dispatch("$(ui.tests)/out/picture8_0.svg");
+}
+
 void Picture::test()
 {
 	static bool done = false;
@@ -217,6 +314,7 @@ void Picture::test()
 	{
 		MemoryLeakLog
 		done = true;
+		test8();
 		test7();
 		test6();
 		test5();

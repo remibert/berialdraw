@@ -5,7 +5,6 @@ using namespace berialdraw;
 TableView::TableView(Widget * parent):
 	ScrollableContent("table_view", parent, sizeof(TableView)),
 	m_grid(nullptr),
-	m_content_size(),
 	m_table_view_modified(1)
 {
 	UIManager::styles()->apply(this, (CommonStyle*)this);
@@ -307,13 +306,14 @@ Dim TableView::column_count() const
 
 Widget * TableView::hovered(const Region & parent_region, const Point & position)
 {
-	Widget* result = this;
+	Widget* result = nullptr;
 
 	Region region(parent_region);
 	region.intersect(m_foreclip);
 
 	if (region.is_inside(position) != Region::Overlap::OUT)
 	{
+		result = this;
 		if (m_grid)
 		{
 			Widget* hovered = m_grid->hovered(region, position);
