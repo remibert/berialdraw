@@ -1809,6 +1809,18 @@
     <ClInclude Include="..\..\include\image\image_cache.hpp">
       <Filter>berialdraw\image</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\external\libjpeg-turbo\jconfig.h">
+      <Filter>berialdraw\external</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\external\libjpeg-turbo\jconfigint.h">
+      <Filter>berialdraw\external</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\external\libjpeg-turbo\jversion.h">
+      <Filter>berialdraw\external</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\external\libpng\pnglibconf.h">
+      <Filter>berialdraw\external</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\resources\icons\account_circle.icn">

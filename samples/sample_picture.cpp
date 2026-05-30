@@ -16,13 +16,13 @@ public:
 		// Display PNG image
 		Picture * png_image = new Picture(row);                   // Creates a picture for PNG image
 			png_image->filename("$(ui.images)/house.png");        // Sets the PNG filename
-			png_image->fit_mode(IMAGE_FIT_ASPECT_FIT);            // Keep aspect ratio
+			png_image->fit_mode(FIT);                   // Keep aspect ratio
 			png_image->margin(10);                                // Adds margin
 
 		// Display JPG image
 		Picture * jpg_image = new Picture(row);                   // Creates a picture for JPG image
 			jpg_image->filename("$(ui.images)/filleperle.jpg");   // Sets the JPG filename
-			jpg_image->fit_mode(IMAGE_FIT_ASPECT_FIT);            // Keep aspect ratio
+			jpg_image->fit_mode(FIT);                   // Keep aspect ratio
 			jpg_image->margin(10);                                // Adds margin
 	}
 

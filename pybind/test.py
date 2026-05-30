@@ -117,12 +117,12 @@ class Dialog:
 
 		self.png_picture = Picture(self.layout)
 		self.png_picture.filename = "$(ui.images)/house.png"
-		self.png_picture.fit_mode = ImageFitMode.IMAGE_FIT_ASPECT_FIT
+		self.png_picture.fit_mode = ImageFitMode.FIT
 		self.png_picture.margin = (10, 10)
 
 		self.jpg_picture = Picture(self.layout)
 		self.jpg_picture.filename = "$(ui.images)/filleperle.jpg"
-		self.jpg_picture.fit_mode = ImageFitMode.IMAGE_FIT_ASPECT_FIT
+		self.jpg_picture.fit_mode = ImageFitMode.FIT
 		self.jpg_picture.margin = (10, 10)
 
 	def on_click_button(self, widget, event):

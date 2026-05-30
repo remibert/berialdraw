@@ -45,11 +45,6 @@ namespace berialdraw
 		static uint8_t combine_alpha(uint8_t pixel_alpha, uint8_t widget_alpha);
 
 	protected:
-		/** Bicubic interpolation weight function
-		@param t Distance parameter
-		@return Weight value */
-		static double bicubic_weight(double t);
-
 		/** Clamp a value to 0-255 range
 		@param val Value to clamp
 		@return Clamped value */

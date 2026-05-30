@@ -1,7 +1,7 @@
 #include "berialdraw_imp.hpp"
 using namespace berialdraw;
 
-// Test 1: Display PNG image with default settings (aspect fit)
+// Display PNG image with default settings (aspect fit)
 void Picture::test1()
 {
 	Window window;
@@ -14,7 +14,7 @@ void Picture::test1()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/picture1_0.svg");
 }
 
-// Test 2: Display JPEG image with default settings
+// Display JPEG image with default settings
 void Picture::test2()
 {
 	Window window;
@@ -27,7 +27,7 @@ void Picture::test2()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/picture2_0.svg");
 }
 
-// Test 3: Test all fit modes with PNG
+// Test all fit modes with PNG
 void Picture::test3()
 {
 	Window window;
@@ -40,34 +40,34 @@ void Picture::test3()
 	Picture * p1 = new Picture(grid);
 		p1->cell(0, 0);
 		p1->filename("$(ui.images)/house.png");
-		p1->fit_mode(IMAGE_FIT_STRETCH);
+		p1->fit_mode(STRETCH);
 		p1->size(220, 220);
 		p1->border_color(Color::RED);
 		p1->thickness(1);
 
-	// ASPECT_FIT
+	// FIT
 	Picture * p2 = new Picture(grid);
 		p2->cell(1, 0);
 		p2->filename("$(ui.images)/house.png");
-		p2->fit_mode(IMAGE_FIT_ASPECT_FIT);
+		p2->fit_mode(FIT);
 		p2->size(220, 220);
 		p2->border_color(Color::GREEN);
 		p2->thickness(1);
 
-	// ASPECT_FILL
+	// FIT
 	Picture * p3 = new Picture(grid);
 		p3->cell(0, 1);
 		p3->filename("$(ui.images)/house.png");
-		p3->fit_mode(IMAGE_FIT_ASPECT_FILL);
+		p3->fit_mode(FIT);
 		p3->size(220, 220);
 		p3->border_color(Color::BLUE);
 		p3->thickness(1);
 
-	// NONE (native size)
+	// STRETCH
 	Picture * p4 = new Picture(grid);
 		p4->cell(1, 1);
 		p4->filename("$(ui.images)/house.png");
-		p4->fit_mode(IMAGE_FIT_NONE);
+		p4->fit_mode(STRETCH);
 		p4->size(220, 220);
 		p4->border_color(Color::ORANGE);
 		p4->thickness(1);
@@ -75,7 +75,7 @@ void Picture::test3()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/picture3_0.svg");
 }
 
-// Test 4: Test all fit modes with JPEG
+// Test all fit modes with JPEG
 void Picture::test4()
 {
 	Window window;
@@ -84,20 +84,20 @@ void Picture::test4()
 
 	Grid * grid = new Grid(&window);
 
-	// ASPECT_WIDTH
+	// FIT
 	Picture * p1 = new Picture(grid);
 		p1->cell(0, 0);
 		p1->filename("$(ui.images)/filleperle.jpg");
-		p1->fit_mode(IMAGE_FIT_ASPECT_WIDTH);
+		p1->fit_mode(FIT);
 		p1->size(220, 220);
 		p1->border_color(Color::RED);
 		p1->thickness(1);
 
-	// ASPECT_HEIGHT
+	// FIT
 	Picture * p2 = new Picture(grid);
 		p2->cell(1, 0);
 		p2->filename("$(ui.images)/filleperle.jpg");
-		p2->fit_mode(IMAGE_FIT_ASPECT_HEIGHT);
+		p2->fit_mode(FIT);
 		p2->size(220, 220);
 		p2->border_color(Color::GREEN);
 		p2->thickness(1);
@@ -106,16 +106,16 @@ void Picture::test4()
 	Picture * p3 = new Picture(grid);
 		p3->cell(0, 1);
 		p3->filename("$(ui.images)/filleperle.jpg");
-		p3->fit_mode(IMAGE_FIT_STRETCH);
+		p3->fit_mode(STRETCH);
 		p3->size(220, 220);
 		p3->border_color(Color::BLUE);
 		p3->thickness(1);
 
-	// ASPECT_FIT
+	// FIT
 	Picture * p4 = new Picture(grid);
 		p4->cell(1, 1);
 		p4->filename("$(ui.images)/filleperle.jpg");
-		p4->fit_mode(IMAGE_FIT_ASPECT_FIT);
+		p4->fit_mode(FIT);
 		p4->size(220, 220);
 		p4->border_color(Color::ORANGE);
 		p4->thickness(1);
@@ -123,7 +123,7 @@ void Picture::test4()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/picture4_0.svg");
 }
 
-// Test 5: Alpha transparency
+// Alpha transparency
 void Picture::test5()
 {
 	Window window;
@@ -160,7 +160,7 @@ void Picture::test5()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/picture5_0.svg");
 }
 
-// Test 6: Resize and position changes
+// Resize and position changes
 void Picture::test6()
 {
 	Window window;
@@ -184,7 +184,7 @@ void Picture::test6()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/picture6_2.svg");
 }
 
-// Test 7: Both PNG and JPEG side by side in a Row
+// Both PNG and JPEG side by side in a Row
 void Picture::test7()
 {
 	Window window;
@@ -210,101 +210,151 @@ void Picture::test7()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/picture7_0.svg");
 }
 
-
-
+// Picture with vertical scrolling - narrow window
 void Picture::test8()
 {
-	Window * window = new Window();
-		window->size(120, 800);
-		window->color(Color::WHITE);
+	Window window;
+		window.size(250, 400);
+		window.color(Color::WHITE);
 
-	ScrollView * scroll = new ScrollView(window);
+	ScrollView * scroll = new ScrollView(&window);
+		scroll->scroll_direction(SCROLL_VERTICAL);
 
 	Column * layout = new Column(scroll);
 
-	//Label * label = new Label(layout);
-	//	label->text("hello");
+	Picture * png_picture = new Picture(layout);
+		png_picture->filename("$(ui.images)/house.png");
+		png_picture->fit_mode(FIT);
+		png_picture->margin(10);
+		png_picture->border_color(Color::BLUE);
+		png_picture->thickness(2);
 
-	//Edit * first_name = new Edit(layout);
-	//	first_name->text("");
-	//	first_name->place_holder("Test first name");
+	Label * label = new Label(layout);
+		label->text("Image 1: House (PNG)");
+		label->margin(10);
 
-	//Edit * last_name = new Edit(layout);
-	//	last_name->text("");
-	//	last_name->place_holder("Test last name");
+	Picture * jpg_picture = new Picture(layout);
+		jpg_picture->filename("$(ui.images)/filleperle.jpg");
+		jpg_picture->fit_mode(FIT);
+		jpg_picture->margin(10);
+		jpg_picture->border_color(Color::GREEN);
+		jpg_picture->thickness(2);
 
-	//Edit * age = new Edit(layout);
-	//	age->text("Age");
-	//	age->place_holder("");
+	Label * label2 = new Label(layout);
+		label2->text("Image 2: Filleperle (JPG)");
+		label2->margin(10);
 
-	//Slider * slider = new Slider(layout);
+	String script(
+	"["
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 
-	//Slider * sliderv = new Slider(layout);
-	//	sliderv->extend(Extend::EXTEND_HEIGHT);
-	//	sliderv->min_size(100, 100);
+		"{'type':'touch','x':240,'y': 427,'state':'down'},"
+		"{'type':'touch','x':230,'y':-100,'state':'move'},"
+		"{'type':'touch','x':230,'y':-100,'state':'up'},"
 
-	//Button * button = new Button(layout);
-	//	button->text("hello\nworld");
-	//	button->margin(20, 10);
-
-	Radio * radio1 = new Radio(layout);
-		radio1->text("Radio1");
-		radio1->group("group1");
-
-	Radio * radio2 = new Radio(layout);
-		radio2->text("Radio2");
-		radio2->group("group1");
-		radio2->checked(true);
-
-	//Checkbox * checkbox = new Checkbox(layout);
-	//	checkbox->text("Checkbox");
-	//	checkbox->checked(true);
-
-	//Switch * switch_widget = new Switch(layout);
-	//	switch_widget->text("Switch");
-	//	switch_widget->checked(true);
-
-	//// Table View Example
-	//Label * table_label = new Label(layout);
-	//	table_label->text("Table View Example");
-
-	TableView * table = new TableView(layout);
-		table->extend(Extend::EXTEND_ALL);
-		table->min_size(400, 150);
-		
-	// Load table data
-	String table_data("["
-		"['Name','First Name','Age','City'],"
-		"['Dupont','Jean','28','Paris'],"
-		"['Martin','Marie','35','Lyon'],"
-		"['Bernard','Pierre','42','Marseille'],"
-		"['Thomas','Sophie','31','Toulouse'],"
-		"['Robert','Luc','55','Nice']"
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 	"]");
-	table->load(table_data);
+	UIManager::notifier()->play_script(script, "$(ui.tests)/out/picture8_%d.svg");
+}
 
-	// Picture View Example
-	Label * picture_label = new Label(layout);
-		picture_label->text("Picture Example");
+// Picture with horizontal scrolling - wide window
+void Picture::test9()
+{
+	Window window;
+		window.size(400, 250);
+		window.color(Color::WHITE);
+
+	ScrollView * scroll = new ScrollView(&window);
+		scroll->scroll_direction(SCROLL_HORIZONTAL);
+
+	Row * layout = new Row(scroll);
 
 	Picture * png_picture = new Picture(layout);
 		png_picture->filename("$(ui.images)/house.png");
-		png_picture->fit_mode(IMAGE_FIT_ASPECT_FIT);
-		png_picture->margin(10, 10);
+		png_picture->fit_mode(FIT);
+		png_picture->margin(10);
+		png_picture->border_color(Color::RED);
+		png_picture->thickness(2);
 
-	Switch * switch_widget2 = new Switch(layout);
-		switch_widget2->text("Switch");
-		switch_widget2->checked(true);
+	Label * label = new Label(layout);
+		label->text("Image 1:\nHouse");
+		label->margin(10);
+
 	Picture * jpg_picture = new Picture(layout);
 		jpg_picture->filename("$(ui.images)/filleperle.jpg");
-		jpg_picture->fit_mode(IMAGE_FIT_ASPECT_FIT);
-		jpg_picture->margin(10, 10);
-	Switch * switch_widget3 = new Switch(layout);
-		switch_widget3->text("Switch");
-		switch_widget3->checked(true);
-UIManager::desktop()->mainloop();
-while(1)
-	UIManager::desktop()->dispatch("$(ui.tests)/out/picture8_0.svg");
+		jpg_picture->fit_mode(FIT);
+		jpg_picture->margin(10);
+		jpg_picture->border_color(Color::ORANGE);
+		jpg_picture->thickness(2);
+
+	Label * label2 = new Label(layout);
+		label2->text("Image 2:\nFilleperle");
+		label2->margin(10);
+
+	String script(
+	"["
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+
+		"{'type':'touch','x':435,'y':250,'state':'down'},"
+		"{'type':'touch','x':100,'y':250,'state':'move'},"
+		"{'type':'touch','x':100,'y':250,'state':'up'},"
+
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+	"]");
+	UIManager::notifier()->play_script(script, "$(ui.tests)/out/picture9_%d.svg");
+}
+
+// Picture with bidirectional scrolling - square window
+void Picture::test10()
+{
+	Window window;
+		window.size(350, 350);
+		window.color(Color::WHITE);
+
+	ScrollView * scroll = new ScrollView(&window);
+		scroll->scroll_direction(SCROLL_ALL_DIRECTIONS);
+
+	Row * layout = new Row(scroll);
+
+	Picture * png_picture = new Picture(layout);
+		png_picture->filename("$(ui.images)/house.png");
+		png_picture->fit_mode(FIT);
+		png_picture->margin(10);
+		png_picture->border_color(Color::PURPLE);
+		png_picture->thickness(2);
+
+	Label * label = new Label(layout);
+		label->text("Image 1:\nHouse");
+		label->margin(10);
+
+	Picture * jpg_picture = new Picture(layout);
+		jpg_picture->filename("$(ui.images)/filleperle.jpg");
+		jpg_picture->fit_mode(FIT);
+		jpg_picture->margin(10);
+		jpg_picture->border_color(Color::CYAN);
+		jpg_picture->thickness(2);
+
+	Label * label2 = new Label(layout);
+		label2->text("Image 2:\nFilleperle");
+		label2->margin(10);
+
+	String script(
+	"["
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+
+		"{'type':'touch','x':414,'y':414,'state':'down'},"
+		"{'type':'touch','x': -100,'y':0,'state':'move'},"
+		"{'type':'touch','x': -100,'y':0,'state':'up'},"
+
+		"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+		"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+	"]");
+	UIManager::notifier()->play_script(script, "$(ui.tests)/out/picture10_%d.svg");
 }
 
 void Picture::test()
@@ -314,6 +364,8 @@ void Picture::test()
 	{
 		MemoryLeakLog
 		done = true;
+		test10();
+		test9();
 		test8();
 		test7();
 		test6();

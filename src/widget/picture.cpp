@@ -37,7 +37,7 @@ void Picture::load_image()
 		}
 
 		// Invalidate the fit size cache (image or fit_mode changed)
-		m_fit_ref_width = 0;
+		m_picture_placed = false;
 
 		if (m_filename.size() > 0)
 		{
@@ -106,44 +106,12 @@ Size Picture::content_size()
 
 	load_image();
 
-	if (m_cache_entry)
+	if (m_picture_placed)
 	{
-		uint32_t img_w = m_cache_entry->width();
-		uint32_t img_h = m_cache_entry->height();
-
-		if (img_w == 0 || img_h == 0)
-		{
-			// No image dimensions
-		}
-		else if (!m_size.is_width_undefined() && !m_size.is_height_undefined())
-		{
-			// Both dimensions explicitly set: widget has fixed-size bounding box
-			result.width_(m_size.width_());
-			result.height_(m_size.height_());
-		}
-		else if (m_fit_mode == IMAGE_FIT_NONE || m_fit_mode == IMAGE_FIT_STRETCH)
-		{
-			// These modes don't preserve aspect ratio: return natural image size
-			result.width_(img_w << 6);
-			result.height_(img_h << 6);
-		}
-		else if (m_fit_ref_width > 0)
-		{
-			// Cached proportional size from a previous place() pass: use it directly.
-			// This avoids recomputing on every scroll and ensures the layout uses
-			// the correct proportional dimensions from the second pass onward.
-			result = m_fit_content_size;
-		}
-		else
-		{
-			// First pass: no reference width available yet.
-			// Return natural image size; place() will compute the correct
-			// proportional size and trigger a second layout pass.
-			result.width_(img_w << 6);
-			result.height_(img_h << 6);
-		}
+		// After place() computed the correct size, return it
+		result = m_fit_content_size;
 	}
-	result.set(100,100);
+	// else: first pass returns (0,0) minimal size
 
 	return result;
 }
@@ -158,40 +126,149 @@ void Picture::place(const Area & area, bool in_layout)
 	// Place background rectangle
 	place_in_area(area, in_layout);
 
-	// For aspect-ratio modes without explicit size, compute the correct
-	// proportional content size based on the actual placed width.
-	// On the first pass, content_size() returned the natural image size,
-	// so the layout allocated too much height. Here we compute the correct
-	// size and cache it, then trigger a re-layout (similar to flow_replacement).
-	if (m_cache_entry &&
-		(m_size.is_width_undefined() || m_size.is_height_undefined()) &&
-		m_fit_mode != IMAGE_FIT_NONE && m_fit_mode != IMAGE_FIT_STRETCH)
+	// Compute image content size only once (or after image change)
+	if (m_cache_entry && !m_picture_placed)
 	{
 		uint32_t img_w = m_cache_entry->width();
 		uint32_t img_h = m_cache_entry->height();
 
 		if (img_w > 0 && img_h > 0)
 		{
-			// The placed width after margins is the real available area
-			Dim current_w = m_foreclip.size().width_();
+			Size new_size;
 
-			if (current_w > 0 && current_w != m_fit_ref_width)
+			// Check if explicit size constraints are set
+			bool has_width  = !m_size.is_width_undefined();
+			bool has_height = !m_size.is_height_undefined();
+
+			if (has_width && has_height)
 			{
-				// Reference width changed: recompute proportional size
-				uint32_t ref_w_px = (uint32_t)(current_w >> 6);
-				uint32_t ref_h_px = img_h;
-				uint32_t dst_w = 0, dst_h = 0;
-				ImageProcessor::compute_fit_size(img_w, img_h, ref_w_px, ref_h_px, m_fit_mode, dst_w, dst_h);
+				// Both dimensions explicitly set
+				new_size.width_(m_size.width_());
+				new_size.height_(m_size.height_());
+			}
+			else if (m_fit_mode == STRETCH)
+			{
+				// Stretch: fill the available area
+				new_size.width_(m_foreclip.size().width_());
+				new_size.height_(m_foreclip.size().height_());
+			}
+			else
+			{
+				// FIT: preserve aspect ratio
+				// Walk up parents to find the first ScrollView/ScrollableContent
+				Widget * scrollable = scrollable_content();
+				ScrollViewStyle * sv_style = dynamic_cast<ScrollViewStyle*>(scrollable);
 
-				m_fit_content_size.width_(dst_w << 6);
-				m_fit_content_size.height_(dst_h << 6);
-				m_fit_ref_width = current_w;
-
-				// Trigger a second layout pass so content_size() returns the cached value
-				if (m_parent)
+				if (sv_style)
 				{
-					UIManager::invalidator()->dirty(m_parent, Invalidator::GEOMETRY);
+					ScrollDirection dir = sv_style->scroll_direction();
+
+					if (dir == SCROLL_VERTICAL)
+					{
+						// Vertical scroll: use width as reference, compute height keeping ratio
+						Dim ref_w = area.size().width_();
+						if (has_width)
+						{
+							ref_w = m_size.width_();
+						}
+						uint32_t ref_w_px = (uint32_t)(ref_w >> 6);
+						if (ref_w_px > 0)
+						{
+							uint32_t dst_h_px = (uint32_t)(((uint64_t)img_h * (uint64_t)ref_w_px) / (uint64_t)img_w);
+							new_size.width_(ref_w);
+							new_size.height_(dst_h_px << 6);
+						}
+					}
+					else if (dir == SCROLL_HORIZONTAL)
+					{
+						// Horizontal scroll: use height as reference, compute width keeping ratio
+						Dim ref_h = area.size().height_();
+						if (has_height)
+						{
+							ref_h = m_size.height_();
+						}
+						uint32_t ref_h_px = (uint32_t)(ref_h >> 6);
+						if (ref_h_px > 0)
+						{
+							uint32_t dst_w_px = (uint32_t)(((uint64_t)img_w * (uint64_t)ref_h_px) / (uint64_t)img_h);
+							new_size.width_(dst_w_px << 6);
+							new_size.height_(ref_h);
+						}
+					}
+					else
+					{
+						// SCROLL_ALL_DIRECTIONS: use real image dimensions unless constrained
+						if (has_width)
+						{
+							new_size.width_(m_size.width_());
+						}
+						else
+						{
+							new_size.width_(img_w << 6);
+						}
+						if (has_height)
+						{
+							new_size.height_(m_size.height_());
+						}
+						else
+						{
+							new_size.height_(img_h << 6);
+						}
+					}
 				}
+				else
+				{
+					// No ScrollView: adapt to available area keeping ratio
+					Dim area_w = area.size().width_();
+					Dim area_h = area.size().height_();
+					if (has_width)
+					{
+						area_w = m_size.width_();
+					}
+					if (has_height)
+					{
+						area_h = m_size.height_();
+					}
+					uint32_t area_w_px = (uint32_t)(area_w >> 6);
+					uint32_t area_h_px = (uint32_t)(area_h >> 6);
+
+					if (area_w_px > 0 && area_h_px > 0)
+					{
+						uint32_t dst_w = 0, dst_h = 0;
+						ImageProcessor::compute_fit_size(img_w, img_h, area_w_px, area_h_px, FIT, dst_w, dst_h);
+						new_size.width_(dst_w << 6);
+						new_size.height_(dst_h << 6);
+					}
+				}
+			}
+
+			// Apply max_size constraints
+			if (!m_max_size.is_width_undefined() && new_size.width_() > m_max_size.width_())
+			{
+				new_size.width_(m_max_size.width_());
+			}
+			if (!m_max_size.is_height_undefined() && new_size.height_() > m_max_size.height_())
+			{
+				new_size.height_(m_max_size.height_());
+			}
+
+			m_fit_content_size = new_size;
+			m_picture_placed = true;
+
+			// Reset parent ScrollView scroll position to top-left
+			// (first pass had wrong content size, scroll was centered)
+			Widget * scrollable = scrollable_content();
+			ScrollableContent * sc = dynamic_cast<ScrollableContent*>(scrollable);
+			if (sc)
+			{
+				sc->scroll_position(0, 0);
+			}
+
+			// Trigger a second layout pass so content_size() returns the computed value
+			Window * win = dynamic_cast<Window*>(root());
+			if (win)
+			{
+				win->force_flow_replacement();
 			}
 		}
 	}

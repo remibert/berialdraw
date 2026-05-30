@@ -34,5 +34,5 @@ void bind_picture_style(pybind11::module_& m) {
         [](berialdraw::PictureStyle& self, int value) {
             self.fit_mode((berialdraw::ImageFitMode)value);
         },
-        "Image fit mode (0=stretch, 1=aspect_width, 2=aspect_height, 3=aspect_fit, 4=aspect_fill, 5=none)");
+        "Image fit mode (0=stretch, 1=fit)");
 }

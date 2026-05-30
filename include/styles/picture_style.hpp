@@ -52,7 +52,7 @@ namespace berialdraw
 	/// @cond DOXYGEN_IGNORE
 		String m_filename;
 		uint8_t m_alpha = 255;
-		ImageFitMode m_fit_mode = IMAGE_FIT_ASPECT_FIT;
+		ImageFitMode m_fit_mode = FIT;
 		bool m_image_modified = true;
 	/// @endcond
 	};
