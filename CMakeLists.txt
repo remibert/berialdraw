@@ -120,6 +120,8 @@ set(SRCS_LIB
 	src/shape/pie.cpp
 	src/shape/polygon.cpp
 	src/shape/sketch.cpp
+	src/shape/image.cpp
+	src/shape/illustration.cpp
 	src/shape/cross.cpp
 	src/shape/marker.cpp
 	src/shape/outline.cpp

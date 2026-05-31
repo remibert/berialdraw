@@ -357,6 +357,104 @@ void Picture::test10()
 	UIManager::notifier()->play_script(script, "$(ui.tests)/out/picture10_%d.svg");
 }
 
+// Display ICN image with default settings
+void Picture::test11()
+{
+	Window window;
+		window.size(480, 480);
+		window.color(Color::WHITE);
+
+	Picture * picture = new Picture(&window);
+		picture->filename("$(ui.icons)/maison.icn");
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/picture11_0.svg");
+}
+
+// Test all fit modes with ICN (vector)
+void Picture::test12()
+{
+	Window window;
+		window.size(480, 480);
+		window.color(Color::LIGHT_GRAY);
+
+	Grid * grid = new Grid(&window);
+
+	// FIT
+	Picture * p1 = new Picture(grid);
+		p1->cell(0, 0);
+		p1->filename("$(ui.icons)/maison.icn");
+		p1->fit_mode(FIT);
+		p1->size(220, 220);
+		p1->border_color(Color::RED);
+		p1->thickness(1);
+
+	// STRETCH
+	Picture * p2 = new Picture(grid);
+		p2->cell(1, 0);
+		p2->filename("$(ui.icons)/maison.icn");
+		p2->fit_mode(STRETCH);
+		p2->size(220, 220);
+		p2->border_color(Color::GREEN);
+		p2->thickness(1);
+
+	// FIT
+	Picture * p3 = new Picture(grid);
+		p3->cell(0, 1);
+		p3->filename("$(ui.icons)/maison.icn");
+		p3->fit_mode(FIT);
+		p3->size(220, 220);
+		p3->border_color(Color::BLUE);
+		p3->thickness(1);
+
+	// STRETCH
+	Picture * p4 = new Picture(grid);
+		p4->cell(1, 1);
+		p4->filename("$(ui.icons)/maison.icn");
+		p4->fit_mode(STRETCH);
+		p4->size(220, 220);
+		p4->border_color(Color::ORANGE);
+		p4->thickness(1);
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/picture12_0.svg");
+}
+
+// Alpha transparency with ICN
+void Picture::test13()
+{
+	Window window;
+		window.size(480, 480);
+		window.color(Color::LIGHT_GREEN);
+
+	// Fully opaque
+	Picture * p1 = new Picture(&window);
+		p1->position(10, 10);
+		p1->size(200, 200);
+		p1->filename("$(ui.icons)/maison.icn");
+		p1->alpha(255);
+		p1->border_color(Color::BLACK);
+		p1->thickness(1);
+
+	// Semi-transparent
+	Picture * p2 = new Picture(&window);
+		p2->position(120, 120);
+		p2->size(200, 200);
+		p2->filename("$(ui.icons)/maison.icn");
+		p2->alpha(128);
+		p2->border_color(Color::BLACK);
+		p2->thickness(1);
+
+	// Mostly transparent
+	Picture * p3 = new Picture(&window);
+		p3->position(240, 240);
+		p3->size(200, 200);
+		p3->filename("$(ui.icons)/maison.icn");
+		p3->alpha(64);
+		p3->border_color(Color::BLACK);
+		p3->thickness(1);
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/picture13_0.svg");
+}
+
 void Picture::test()
 {
 	static bool done = false;
@@ -364,6 +462,9 @@ void Picture::test()
 	{
 		MemoryLeakLog
 		done = true;
+		test13();
+		test12();
+		test11();
 		test10();
 		test9();
 		test8();

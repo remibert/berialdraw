@@ -979,6 +979,12 @@
     <ClCompile Include="..\..\src\image\image_cache.cpp">
       <Filter>berialdraw\image</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\shape\illustration.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\image.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\berialdraw_imp.hpp">
@@ -1820,6 +1826,12 @@
     </ClInclude>
     <ClInclude Include="..\..\include\external\libpng\pnglibconf.h">
       <Filter>berialdraw\external</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\image.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\illustration.hpp">
+      <Filter>berialdraw\shape</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

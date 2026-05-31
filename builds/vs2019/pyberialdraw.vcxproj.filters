@@ -284,6 +284,12 @@
     <ClCompile Include="..\..\pybind\src\pybind\shape\sketch.cpp">
       <Filter>pybind\shape</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\shape\image.cpp">
+      <Filter>pybind\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\shape\illustration.cpp">
+      <Filter>pybind\shape</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\device\device_screen.cpp">
       <Filter>pybind\device</Filter>
     </ClCompile>
@@ -317,6 +323,12 @@
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\widget\table_view.cpp">
       <Filter>pybind\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\widget\picture.cpp">
+      <Filter>pybind\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\styles\picture_style.cpp">
+      <Filter>pybind\styles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

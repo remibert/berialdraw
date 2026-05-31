@@ -132,6 +132,8 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "shape/cross.hpp"
 #include "shape/text.hpp"
 #include "shape/sketch.hpp"
+#include "shape/image.hpp"
+#include "shape/illustration.hpp"
 
 // Chart
 #include "chart/data_set.hpp"

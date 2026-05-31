@@ -1,9 +1,9 @@
 #pragma once
 namespace berialdraw
 {
-	/** The Picture class displays a raster image (PNG or JPEG) with support for
-	transparency, bicubic resizing, and multiple fit modes. 
-	It supports reading images from files including ZIP archives via the File abstraction. */
+	/** The Picture class displays images (raster or vector) with support for
+	transparency, bicubic resizing, and multiple fit modes.
+	It uses an Illustration shape internally to handle both PNG/JPEG and SVG/Sketch files. */
 	class Picture: public Widget, public BorderStyle, public PictureStyle
 	{
 	public:
@@ -37,17 +37,26 @@ namespace berialdraw
 		static void test8();
 		static void test9();
 		static void test10();
+		static void test11();
+		static void test12();
+		static void test13();
 #endif
 	protected:
 	/// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		Picture& operator=(const Picture& other) = delete;
 
-		/** Load and decode the image file */
-		void load_image();
+		/** Load the illustration from the current filename */
+		void load_illustration();
 
-		/** Rebuild the resized cache if needed */
-		void rebuild_cache(uint32_t area_width, uint32_t area_height);
+		/** Compute the fit size based on image dimensions, constraints and context */
+		Size compute_fit_size(uint32_t img_w, uint32_t img_h, const Area & area);
+
+		/** Apply max_size constraints to the computed size */
+		void apply_max_size_constraints(Size & size);
+
+		/** Reset scroll position and trigger re-layout */
+		void reset_scroll_position();
 
 		/** Paint on screen memory the content of this widget */
 		virtual void paint(const Region & parent_region) override;
@@ -58,10 +67,7 @@ namespace berialdraw
 		/** Get the widget hovered */
 		virtual Widget * hovered(const Region & parent_region, const Point & position) override;
 
-		const ImageCacheEntry * m_cache_entry = nullptr;
-		uint32_t*     m_cached_pixels = nullptr;
-		uint32_t      m_cached_width = 0;
-		uint32_t      m_cached_height = 0;
+		Illustration * m_illustration = nullptr;
 
 		// Computed content size after place() analysis
 		Size          m_fit_content_size;
