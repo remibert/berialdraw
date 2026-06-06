@@ -149,30 +149,27 @@ void Image::test4()
 		canvas->position(0, 0);
 		canvas->size(window.size());
 
+	// Debug rectangle - same size/position/center/angle as image
+	Rect * debug_rect = new Rect(canvas);
+		debug_rect->position(240, 240);
+		debug_rect->size(160, 240);
+		debug_rect->center(80, 120);
+		debug_rect->color(Color::BLUE, 64);  // Semi-transparent blue
+
+	Image * img = new Image(canvas);
+		img->filename("$(ui.images)/house.png");
+		img->position(240, 240);
+		img->size(160, 240);
+		img->center(80, 120);
+
 	int id = 0;
 	for (int angle = 0; angle <= 360; angle += 45)
 	{
-		// Debug rectangle - same size/position/center/angle as image
-		Rect * debug_rect = new Rect(canvas);
-			debug_rect->position(240, 240);
-			debug_rect->size(200, 200);
-			debug_rect->center(100, 100);
-			debug_rect->angle(angle);
-			debug_rect->color(Color::BLUE, 64);  // Semi-transparent blue
-
-		Image * img = new Image(canvas);
-			img->filename("$(ui.images)/house.png");
-			img->position(240, 240);
-			img->size(200, 200);
-			img->center(100, 100);
-			img->angle(angle);
-
+		debug_rect->angle(angle);
+		img->angle(angle);
 		String name;
 		name.print("$(ui.tests)/out/image4_%d.svg", ++id);
 		UIManager::desktop()->dispatch(name);
-
-		delete img;
-		delete debug_rect;
 	}
 }
 
@@ -298,7 +295,6 @@ void Image::test()
 	{
 		MemoryLeakLog
 		done = true;
-test4();
 		test6();
 		test5();
 		test4();

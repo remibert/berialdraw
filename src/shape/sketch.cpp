@@ -213,7 +213,7 @@ void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t state
 				vectors_script.parse();
 
 				// Paint icon path
-				UIManager::renderer()->draw(position, 0, shift, m_center, path_color, m_angle, m_polygon.outline());
+				UIManager::renderer()->draw_outline(position, 0, shift, m_center, path_color, m_angle, m_polygon.outline());
 			}
 		}
 	}

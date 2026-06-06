@@ -147,7 +147,7 @@ static const char * mime_type_from_filename(const char * filename)
 }
 
 // Add image from original file (PNG, JPEG)
-void SvgOut::add_image_file(const char * filename, int32_t x, int32_t y, uint32_t display_width, uint32_t display_height, uint8_t alpha, Coord angle, int32_t center_x, int32_t center_y)
+void SvgOut::add_image_file(const char * filename, int32_t x, int32_t y, uint32_t display_width, uint32_t display_height, uint8_t alpha, ImageFitMode fit_mode, uint32_t src_width, uint32_t src_height, Coord angle, int32_t center_x, int32_t center_y)
 {
 	if (filename && display_width > 0 && display_height > 0 && m_closed == false)
 	{
@@ -168,24 +168,33 @@ void SvgOut::add_image_file(const char * filename, int32_t x, int32_t y, uint32_
 						String base64_data;
 						base64_data.base64_encode(file_data, file_size);
 
+						// Compute fitted image dimensions and centering offset
+						uint32_t img_w = display_width;
+						uint32_t img_h = display_height;
+						int32_t img_x = x;
+						int32_t img_y = y;
+						const char * aspect_ratio = "none";
+
+						if (fit_mode == FIT && src_width > 0 && src_height > 0)
+						{
+							// Compute fitted size preserving aspect ratio
+							ImageProcessor::compute_fit_size(src_width, src_height,
+								display_width, display_height, FIT, img_w, img_h);
+
+							// Center the fitted image in the display area
+							img_x = x + (int32_t)(display_width - img_w) / 2;
+							img_y = y + (int32_t)(display_height - img_h) / 2;
+							aspect_ratio = "none";
+						}
+
 						// Compute center for rotation
-						// If center is provided, use it; otherwise use image center
-						int32_t cx, cy;
-						if (center_x != 0 || center_y != 0)
-						{
-							cx = x + center_x;
-							cy = y + center_y;
-						}
-						else
-						{
-							cx = x + (int32_t)display_width / 2;
-							cy = y + (int32_t)display_height / 2;
-						}
+						int32_t cx = x + center_x;
+						int32_t cy = y + center_y;
 
 						// Write SVG <image> element
 						m_content.write_format("\t<image x=\"%d\" y=\"%d\" width=\"%d\" height=\"%d\" ",
-							x, y, display_width, display_height);
-						m_content.write_format("preserveAspectRatio=\"none\" ");
+							img_x, img_y, img_w, img_h);
+						m_content.write_format("preserveAspectRatio=\"%s\" ", aspect_ratio);
 						if (alpha < 255)
 						{
 							m_content.write_format("opacity=\"%1d.%02d\" ", (alpha == 255 ? 1 : 0), (alpha * 100) / 255);

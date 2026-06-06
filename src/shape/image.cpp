@@ -163,15 +163,7 @@ void Image::paint(const Area & foreclip, const Margin & padding, uint8_t alpha)
 		pos.y_(foreclip.position().y_() + padding.top_());
 
 		// Let the renderer handle everything: resize, rotate, center offset, and SVG export
-		UIManager::renderer()->draw_image(
-			pos,
-			target_size,
-			m_center,
-			Margin(),
-			m_angle,
-			m_rotated_cache,
-			m_fit_mode,
-			alpha);
+		UIManager::renderer()->draw_image(pos, target_size, m_center, Margin(), m_angle, m_rotated_cache, m_fit_mode, alpha);
 	}
 }
 

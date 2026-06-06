@@ -44,10 +44,13 @@ namespace berialdraw
 		@param display_width Display width in the SVG (in logical pixels)
 		@param display_height Display height in the SVG (in logical pixels)
 		@param alpha Global alpha (0-255)
+		@param fit_mode How the image fits in its area
+		@param src_width Source image width in pixels
+		@param src_height Source image height in pixels
 		@param angle Rotation angle (in Q6 degrees)
 		@param center_x X coordinate of the rotation center (in logical pixels)
 		@param center_y Y coordinate of the rotation center (in logical pixels) */
-		virtual void add_image_file(const char * filename, int32_t x, int32_t y, uint32_t display_width, uint32_t display_height, uint8_t alpha, Coord angle = 0, int32_t center_x = 0, int32_t center_y = 0);
+		virtual void add_image_file(const char * filename, int32_t x, int32_t y, uint32_t display_width, uint32_t display_height, uint8_t alpha, ImageFitMode fit_mode = FIT, uint32_t src_width = 0, uint32_t src_height = 0, Coord angle = 0, int32_t center_x = 0, int32_t center_y = 0);
 
 		/** Open clipping and group 
 		@param position Position of the group

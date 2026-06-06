@@ -60,7 +60,7 @@ namespace berialdraw
 		@param color Color for drawing
 		@param angle_ Angle for drawing
 		@param outline Reference to the Outline object */
-		void draw(const Point & position, const Margin & margin, const Point & shift, const Point & center, uint32_t color, Coord angle_, Outline & outline);
+		void draw_outline(const Point & position, const Margin & margin, const Point & shift, const Point & center, uint32_t color, Coord angle_, Outline & outline);
 
 		/** Fill a rectangle
 		@param x X-coordinate
@@ -137,7 +137,7 @@ namespace berialdraw
 		@param angle Rotation angle in Q6
 		@param out_min_x Output: min X of bounding box (screen pixels)
 		@param out_min_y Output: min Y of bounding box (screen pixels) */
-		void transform_rect(Dim rect_w, Dim rect_h, const Point & position, const Margin & margin, const Point & center, Coord angle, Coord & out_min_x, Coord & out_min_y);
+		void transform_rect(Coord origin_x, Coord origin_y, Dim rect_w, Dim rect_h, const Point & position, const Margin & margin, const Point & center, Coord angle, Coord & out_min_x, Coord & out_min_y);
 /// @endcond
 	};
 }

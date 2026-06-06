@@ -7,3 +7,4 @@ cmake.db
 */resources.zip
 requirements.txt
 todo.txt
+.vs/*

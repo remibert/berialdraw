@@ -332,14 +332,16 @@ uint32_t* ImageProcessor::rotate_bilinear(
 		if (a < 0) a += (360 << 6);
 
 		// Get sin/cos via FreeType in Q16.16
+		// Note: FreeType uses Y-up convention, screen uses Y-down
+		// sincos.y is sin(θ) in Y-up = -sin(θ) in screen coords
+		// This means using the forward matrix with FreeType values
+		// gives the inverse rotation in screen coordinates
 		int32_t angle_ft = (int32_t)((int64_t)a << 10);
 		FT_Vector sincos;
 		FT_Vector_Unit(&sincos, angle_ft);
 
-		// We need the INVERSE rotation to map dst -> src
-		// inv_cos = cos(-angle) = cos(angle), inv_sin = sin(-angle) = -sin(angle)
-		int64_t inv_cos = sincos.x;   // Q16.16
-		int64_t inv_sin = -sincos.y;  // Q16.16
+		int64_t ft_cos = sincos.x;   // cos(angle) in Q16.16
+		int64_t ft_sin = sincos.y;   // sin(angle) Y-up in Q16.16
 
 		// Center of source and destination images in Q16.16
 		int64_t src_cx = ((int64_t)src_width  << 15);  // (src_width / 2) in Q16.16
@@ -356,11 +358,11 @@ uint32_t* ImageProcessor::rotate_bilinear(
 			{
 				int64_t rel_x = ((int64_t)dx << 16) + (1LL << 15) - dst_cx;
 
-				// Apply inverse rotation: src_rel = R^-1 * dst_rel
-				// src_rel_x = rel_x * cos + rel_y * sin  (inv_sin = -sin, so rel_y * (-(-sin)) = rel_y * sin)
-				// Actually: inv rotation matrix is [cos, sin; -sin, cos] for standard rotation
-				int64_t src_rel_x = (rel_x * inv_cos - rel_y * inv_sin) >> 16;
-				int64_t src_rel_y = (rel_x * inv_sin + rel_y * inv_cos) >> 16;
+				// Map destination pixel back to source via inverse rotation
+				// FreeType Y-up sin acts as -sin in screen coords,
+				// so forward matrix with FT values = inverse in screen coords
+				int64_t src_rel_x = (rel_x * ft_cos - rel_y * ft_sin) >> 16;
+				int64_t src_rel_y = (rel_x * ft_sin + rel_y * ft_cos) >> 16;
 
 				// Convert back to source coordinates in Q16.16
 				int64_t src_x_fp = src_rel_x + src_cx;

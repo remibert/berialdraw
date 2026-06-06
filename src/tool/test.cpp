@@ -15,7 +15,6 @@ namespace berialdraw
 		//Styles::test();
 		//TableView::test();
 		Image::test();
-		Canvas::test();
 
 		// Widgets
 		Picture::test();

@@ -221,7 +221,7 @@ void Renderer::draw(const Shape & shape, const Point & shift)
 {
 	// Copy and create polygon
 	Polygon copy_poly(shape.polygon());
-	draw(shape.position(), shape.margin(), shift, shape.center(), shape.color(), shape.angle_(), copy_poly.outline());
+	draw_outline(shape.position(), shape.margin(), shift, shape.center(), shape.color(), shape.angle_(), copy_poly.outline());
 }
 
 /** Apply common outline transformations: translate to center, rotate, translate to position.
@@ -254,15 +254,16 @@ void Renderer::apply_outline_transforms(FT_Outline & outline, const Point & posi
 }
 
 /** Transform a rectangle using the same FT_Outline logic as draw().
-Creates a 4-point outline, applies the same transformations (including scale), then extracts bounding box. */
-void Renderer::transform_rect(Dim rect_w, Dim rect_h, const Point & position, const Margin & margin, const Point & center, Coord angle, Coord & out_min_x, Coord & out_min_y)
+Creates a 4-point outline, applies the same transformations (including scale), then extracts bounding box.
+origin_x/origin_y allow placing the rect at an offset in the widget's local coordinate system (for centering). */
+void Renderer::transform_rect(Coord origin_x, Coord origin_y, Dim rect_w, Dim rect_h, const Point & position, const Margin & margin, const Point & center, Coord angle, Coord & out_min_x, Coord & out_min_y)
 {
-	// Create a 4-point outline representing the rectangle
+	// Create a 4-point outline representing the rectangle (with optional origin offset)
 	FT_Vector points[4];
-	points[0].x = 0;                   points[0].y = 0;
-	points[1].x = (Coord)rect_w;       points[1].y = 0;
-	points[2].x = (Coord)rect_w;       points[2].y = (Coord)rect_h;
-	points[3].x = 0;                   points[3].y = (Coord)rect_h;
+	points[0].x = origin_x;                     points[0].y = origin_y;
+	points[1].x = origin_x + (Coord)rect_w;     points[1].y = origin_y;
+	points[2].x = origin_x + (Coord)rect_w;     points[2].y = origin_y + (Coord)rect_h;
+	points[3].x = origin_x;                     points[3].y = origin_y + (Coord)rect_h;
 
 	unsigned char tags[4] = {FT_CURVE_TAG_ON, FT_CURVE_TAG_ON, FT_CURVE_TAG_ON, FT_CURVE_TAG_ON};
 	unsigned short contours[1] = {3};  // Last point index of contour
@@ -313,26 +314,29 @@ void Renderer::draw_image(const Point & position, const Size & size, const Point
 	// Validation phase
 	if (framebuf && item && item->is_valid() && alpha > 0 && size.width_() > 0 && size.height_() > 0)
 	{
-		// Compute bounding box of rotated image zone (in Q6 logical coordinates)
-		transform_rect(size.width_(), size.height_(), position, margin, center, angle, sx, sy);
-
-		// Step 4: Apply scale (convert to screen pixels)
-		if (m_scale != 1 << 6)
-		{
-			sx = (sx * m_scale) >> 6;
-			sy = (sy * m_scale) >> 6;
-		}
-
-		// Calculate final screen dimensions (Q6 → pixels × scale_factor)
-		uint32_t size_px_w = size.width_() >> 6;   // Logical pixels
+		// Calculate screen dimensions
+		uint32_t size_px_w = size.width_() >> 6;
 		uint32_t size_px_h = size.height_() >> 6;
-		uint32_t scale_factor = m_scale >> 6;      // Scale factor (1, 2, 3, ...)
+		uint32_t scale_factor = m_scale >> 6;
 		uint32_t final_w = size_px_w * scale_factor;
 		uint32_t final_h = size_px_h * scale_factor;
 
 		if (final_w > 0 && final_h > 0)
 		{
-			// Get pre-rotated pixels from cache (padded/stretched to fill area)
+			// Compute fitted image dimensions in logical pixels
+			uint32_t fit_lpx_w = 0, fit_lpx_h = 0;
+			ImageProcessor::compute_fit_size(item->source_width(), item->source_height(),
+				size_px_w, size_px_h, fit_mode, fit_lpx_w, fit_lpx_h);
+
+			// Centering offset in Q6 (image within widget area)
+			Coord off_x = (Coord)(size.width_()  - (fit_lpx_w << 6)) / 2;
+			Coord off_y = (Coord)(size.height_() - (fit_lpx_h << 6)) / 2;
+
+			// Transform fitted image rect with centering offset
+			transform_rect(off_x, off_y, (Dim)(fit_lpx_w << 6), (Dim)(fit_lpx_h << 6),
+				position, margin, center, angle, sx, sy);
+
+			// Get pre-rotated pixels from cache
 			pixels = item->get_pixels(angle, final_w, final_h, fit_mode, rot_w, rot_h);
 
 			// Finalize drawing conditions
@@ -347,16 +351,27 @@ void Renderer::draw_image(const Point & position, const Size & size, const Point
 	// Export image to SVG if exporter active
 	if (item && UIManager::exporter())
 	{
+		// Compute area top-left: position is reference point, center is offset to widget origin
+		int32_t svg_x = (int32_t)((position.x_() - center.x_()) >> 6);
+		int32_t svg_y = (int32_t)((position.y_() - center.y_()) >> 6);
+
+		// Rotation center offset from area top-left (includes margin)
+		int32_t svg_cx = (int32_t)((center.x_() + (Coord)margin.left_()) >> 6);
+		int32_t svg_cy = (int32_t)((center.y_() + (Coord)margin.top_()) >> 6);
+
 		UIManager::exporter()->add_image_file(
 			item->filename().c_str(),
-			(int32_t)(position.x_() >> 6),
-			(int32_t)(position.y_() >> 6),
+			svg_x,
+			svg_y,
 			(uint32_t)(size.width_() >> 6),
 			(uint32_t)(size.height_() >> 6),
 			alpha,
+			fit_mode,
+			item->source_width(),
+			item->source_height(),
 			angle,
-			(int32_t)(center.x_() >> 6),
-			(int32_t)(center.y_() >> 6));
+			svg_cx,
+			svg_cy);
 	}
 
 	// Single point of exit: perform drawing
@@ -382,7 +397,7 @@ void Renderer::draw_image(const Point & position, const Size & size, const Point
 	}
 }
 
-void Renderer::draw(const Point & position, const Margin & margin, const Point & shift, const Point & center, uint32_t color, Coord angle_, Outline & out)
+void Renderer::draw_outline(const Point & position, const Margin & margin, const Point & shift, const Point & center, uint32_t color, Coord angle_, Outline & out)
 {
 	FT_Outline & outline = out.get();
 	m_color = color;
