@@ -79,15 +79,18 @@ static void jpeg_set_file_source(j_decompress_ptr cinfo, JpegFileSourceManager* 
 	cinfo->src = (struct jpeg_source_mgr*)src;
 }
 
+// Constructor
 JpegDecoder::JpegDecoder()
 {
 }
 
+// Destructor
 JpegDecoder::~JpegDecoder()
 {
 	clear();
 }
 
+// Decode JPEG file to RGBA pixels
 bool JpegDecoder::decode(const char* filename)
 {
 	bool result = false;
@@ -110,7 +113,7 @@ bool JpegDecoder::decode(const char* filename)
 			{
 				jpeg_create_decompress(&cinfo);
 
-				// Use custom File-based source manager
+				// Configure custom source manager
 				jpeg_set_file_source(&cinfo, &src_mgr, &file);
 
 				jpeg_read_header(&cinfo, TRUE);
@@ -120,19 +123,20 @@ bool JpegDecoder::decode(const char* filename)
 				m_width = cinfo.output_width;
 				m_height = cinfo.output_height;
 
-				// Allocate RGBA pixel buffer
+				// Allocate output buffer
 				m_pixels = new uint32_t[m_width * m_height];
 
 				// Allocate one scanline buffer (RGB)
 				uint8_t* row_buffer = new uint8_t[m_width * 3];
 
+				// Decode scanlines
 				uint32_t row = 0;
 				while (cinfo.output_scanline < cinfo.output_height)
 				{
 					JSAMPROW row_ptr = row_buffer;
 					jpeg_read_scanlines(&cinfo, &row_ptr, 1);
 
-					// Convert RGB to RGBA with full opacity
+					// Convert RGB scanline to RGBA pixels
 					for (uint32_t x = 0; x < m_width; x++)
 					{
 						uint8_t r = row_buffer[x * 3 + 0];
@@ -161,26 +165,31 @@ bool JpegDecoder::decode(const char* filename)
 	return result;
 }
 
+// Get decoded pixels
 const uint32_t* JpegDecoder::pixel_data() const
 {
 	return m_pixels;
 }
 
+// Get image width
 uint32_t JpegDecoder::width() const
 {
 	return m_width;
 }
 
+// Get image height
 uint32_t JpegDecoder::height() const
 {
 	return m_height;
 }
 
+// Check for alpha channel (JPEG never has alpha)
 bool JpegDecoder::has_alpha() const
 {
 	return false;
 }
 
+// Clear and deallocate
 void JpegDecoder::clear()
 {
 	if (m_pixels)

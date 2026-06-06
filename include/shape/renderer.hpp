@@ -40,17 +40,17 @@ namespace berialdraw
 		@param color Color for drawing */
 		void draw_buffer(Coord x_, Coord y_, const uint8_t * buffer, Dim width, Dim height, uint32_t color);
 
-		/** Draw an ARGB8888 image with rotation and alpha blending
+		/** Draw a raster image from an image item.
+		This method handles center/angle the same way as draw() for vector shapes.
 		@param position Position of the image
-		@param size Size of the display area
-		@param center Center point for rotation
+		@param size Size of the target area (for fit computation)
+		@param center Center point for rotation (relative to image origin)
 		@param margin Margin around the image
 		@param angle Angle of rotation (in 64th of degrees)
-		@param pixels Pixel data in ARGB8888 format
-		@param width Width of the image in pixels
-		@param height Height of the image in pixels
+		@param item The image item containing cached pixels and metadata
+		@param fit_mode How to fit the image in the target area
 		@param alpha Global alpha (0-255) */
-		void draw_image(const Point & position, const Size & size, const Point & center, const Margin & margin, Coord angle, const uint32_t * pixels, uint32_t width, uint32_t height, uint8_t alpha);
+		void draw_image(const Point & position, const Size & size, const Point & center, const Margin & margin, Coord angle, ImageItem* item, ImageFitMode fit_mode, uint8_t alpha);
 
 		/** Draw freetype outline object
 		@param position Position for drawing
@@ -118,6 +118,26 @@ namespace berialdraw
 		Region *         m_region = 0;    /**< Pointer to the Region object */
 		Dim              m_scale = 1*64;    /**< Scale factor for screen resolution. A value of 64 corresponds to a scale factor of 1 (1 << 6). */
 		Size             m_size;          /**< Renderer size in points */
+
+		/** Apply common outline transformations: translate to center, rotate, translate to position.
+		@param outline FreeType outline to transform
+		@param position Target position (Q6)
+		@param margin Margin to apply
+		@param center Center of rotation (Q6)
+		@param angle Rotation angle in Q6 */
+		void apply_outline_transforms(FT_Outline & outline, const Point & position, const Margin & margin, const Point & center, Coord angle);
+
+		/** Transform a rectangle with the same logic as Outline rendering.
+		Applies: translate(-(center+margin)), rotate(angle), translate(position), then scale.
+		@param rect_w Rectangle width in Q6
+		@param rect_h Rectangle height in Q6
+		@param position Target position
+		@param margin Margin to apply
+		@param center Center of rotation
+		@param angle Rotation angle in Q6
+		@param out_min_x Output: min X of bounding box (screen pixels)
+		@param out_min_y Output: min Y of bounding box (screen pixels) */
+		void transform_rect(Dim rect_w, Dim rect_h, const Point & position, const Margin & margin, const Point & center, Coord angle, Coord & out_min_x, Coord & out_min_y);
 /// @endcond
 	};
 }

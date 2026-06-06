@@ -35,8 +35,10 @@ namespace berialdraw
 		@param display_width The display width in the SVG (in logical pixels).
 		@param display_height The display height in the SVG (in logical pixels).
 		@param alpha The global alpha (0-255).
-		@param angle The rotation angle (in degrees). */
-		virtual void add_image_file(const char * filename, int32_t x, int32_t y, uint32_t display_width, uint32_t display_height, uint8_t alpha, Coord angle = 0) = 0;
+		@param angle The rotation angle (in Q6 degrees).
+		@param center_x The x coordinate of the rotation center (in logical pixels).
+		@param center_y The y coordinate of the rotation center (in logical pixels). */
+		virtual void add_image_file(const char * filename, int32_t x, int32_t y, uint32_t display_width, uint32_t display_height, uint8_t alpha, Coord angle = 0, int32_t center_x = 0, int32_t center_y = 0) = 0;
 
 		/** Opens a clipping and grouping section.
 		@param position The position of the group.

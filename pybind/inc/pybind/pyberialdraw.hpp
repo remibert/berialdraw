@@ -305,7 +305,6 @@ void bind_poly_lines(py::module& m);
 void bind_poly_points(py::module& m);
 void bind_sketch(py::module& m);
 void bind_image(py::module& m);
-void bind_illustration(py::module& m);
 
 // Event bindings
 void bind_event(pybind11::module_& m);

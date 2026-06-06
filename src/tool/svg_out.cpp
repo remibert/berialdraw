@@ -147,7 +147,7 @@ static const char * mime_type_from_filename(const char * filename)
 }
 
 // Add image from original file (PNG, JPEG)
-void SvgOut::add_image_file(const char * filename, int32_t x, int32_t y, uint32_t display_width, uint32_t display_height, uint8_t alpha, Coord angle)
+void SvgOut::add_image_file(const char * filename, int32_t x, int32_t y, uint32_t display_width, uint32_t display_height, uint8_t alpha, Coord angle, int32_t center_x, int32_t center_y)
 {
 	if (filename && display_width > 0 && display_height > 0 && m_closed == false)
 	{
@@ -169,8 +169,18 @@ void SvgOut::add_image_file(const char * filename, int32_t x, int32_t y, uint32_
 						base64_data.base64_encode(file_data, file_size);
 
 						// Compute center for rotation
-						int32_t cx = x + (int32_t)display_width / 2;
-						int32_t cy = y + (int32_t)display_height / 2;
+						// If center is provided, use it; otherwise use image center
+						int32_t cx, cy;
+						if (center_x != 0 || center_y != 0)
+						{
+							cx = x + center_x;
+							cy = y + center_y;
+						}
+						else
+						{
+							cx = x + (int32_t)display_width / 2;
+							cy = y + (int32_t)display_height / 2;
+						}
 
 						// Write SVG <image> element
 						m_content.write_format("\t<image x=\"%d\" y=\"%d\" width=\"%d\" height=\"%d\" ",

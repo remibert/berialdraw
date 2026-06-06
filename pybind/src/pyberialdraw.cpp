@@ -78,7 +78,6 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_poly_points(m);
     bind_sketch(m);
     bind_image(m);
-    bind_illustration(m);
     
     // Event bindings
     bind_event(m);

@@ -287,9 +287,6 @@
     <ClCompile Include="..\..\pybind\src\pybind\shape\image.cpp">
       <Filter>pybind\shape</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pybind\src\pybind\shape\illustration.cpp">
-      <Filter>pybind\shape</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\device\device_screen.cpp">
       <Filter>pybind\device</Filter>
     </ClCompile>

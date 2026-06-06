@@ -2,18 +2,20 @@
 
 using namespace berialdraw;
 
+// Serialize ImageFitMode to JSON
 void berialdraw::serialize(const char * name, JsonIterator & it, ImageFitMode value)
 {
 	const char * text;
 	switch(value)
 	{
-	case STRETCH :text = "stretch" ;break;
-	case FIT     :text = "fit"     ;break;
-	default                :text = "fit"     ;break;      
+	case STRETCH: text = "stretch"; break;
+	case FIT: text = "fit"; break;
+	default: text = "fit"; break;      
 	}
 	it[name] = text;
 }
 
+// Deserialize ImageFitMode from JSON
 void berialdraw::unserialize(const char * name, JsonIterator & it, ImageFitMode & value)
 {
 	String text = it[name] | "fit";

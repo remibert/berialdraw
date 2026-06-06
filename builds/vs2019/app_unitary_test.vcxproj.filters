@@ -184,6 +184,9 @@
       <Filter>test\widget</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\tool\test.cpp" />
+    <ClCompile Include="..\..\test\shape\image_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\build.sh" />

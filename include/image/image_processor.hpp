@@ -38,6 +38,37 @@ namespace berialdraw
 			uint32_t & dst_width,
 			uint32_t & dst_height);
 
+		/** Rotate an image using bilinear interpolation (Q6 fixed-point, no float/double).
+		The output image is larger to contain the full rotated image, with transparent pixels
+		in areas outside the rotated source.
+		@param src_pixels Source pixel data (RGBA 32-bit)
+		@param src_width Source image width
+		@param src_height Source image height
+		@param angle_q6 Rotation angle in Q6 fixed-point degrees (64 = 1 degree)
+		@param dst_width Output: width of the rotated image
+		@param dst_height Output: height of the rotated image
+		@return Newly allocated pixel buffer with rotated image. Caller owns the pointer. */
+		static uint32_t* rotate_bilinear(
+			const uint32_t* src_pixels,
+			uint32_t src_width,
+			uint32_t src_height,
+			Coord angle_q6,
+			uint32_t & dst_width,
+			uint32_t & dst_height);
+
+		/** Compute the bounding box size of a rotated image
+		@param src_width Source image width
+		@param src_height Source image height
+		@param angle_q6 Rotation angle in Q6 fixed-point degrees (64 = 1 degree)
+		@param dst_width Output: width of the bounding box
+		@param dst_height Output: height of the bounding box */
+		static void compute_rotated_size(
+			uint32_t src_width,
+			uint32_t src_height,
+			Coord angle_q6,
+			uint32_t & dst_width,
+			uint32_t & dst_height);
+
 		/** Combine pixel alpha with widget alpha
 		@param pixel_alpha The pixel's own alpha (0-255)
 		@param widget_alpha The widget-level alpha (0-255)

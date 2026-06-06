@@ -66,6 +66,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "image/jpeg_decoder.hpp"
 #include "image/image_processor.hpp"
 #include "image/image_cache.hpp"
+#include "image/image_item.hpp"
 
 // Styles
 #include "styles/color.hpp"
@@ -133,7 +134,6 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "shape/text.hpp"
 #include "shape/sketch.hpp"
 #include "shape/image.hpp"
-#include "shape/illustration.hpp"
 
 // Chart
 #include "chart/data_set.hpp"

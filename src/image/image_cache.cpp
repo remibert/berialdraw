@@ -4,10 +4,12 @@ using namespace berialdraw;
 
 // ImageCacheEntry
 
+// Constructor
 ImageCacheEntry::ImageCacheEntry()
 {
 }
 
+// Destructor
 ImageCacheEntry::~ImageCacheEntry()
 {
 	if (m_pixels)
@@ -17,19 +19,23 @@ ImageCacheEntry::~ImageCacheEntry()
 	}
 }
 
+// ============================================================================
 // ImageCache
+// ============================================================================
 
+// Constructor
 ImageCache::ImageCache(uint32_t max_entries) :
 	m_max_entries(max_entries)
 {
 }
 
+// Destructor
 ImageCache::~ImageCache()
 {
 	clear();
 }
 
-/** Find an entry by filename */
+// Find an entry by filename
 uint32_t ImageCache::find(const char * filename) const
 {
 	uint32_t result = m_entries.size();
@@ -49,12 +55,12 @@ uint32_t ImageCache::find(const char * filename) const
 	return result;
 }
 
-/** Evict the least recently used entry */
+// Evict the least recently used entry
 void ImageCache::evict_oldest()
 {
 	if (m_entries.size() > 0)
 	{
-		// Find entry with lowest access count
+		// Find entry with lowest access count (LRU)
 		uint32_t oldest = 0;
 		uint32_t oldest_access = m_entries[0]->m_access_count;
 
@@ -74,19 +80,19 @@ void ImageCache::evict_oldest()
 	}
 }
 
-/** Set the maximum number of entries in the cache */
+// Set the maximum number of entries in the cache
 void ImageCache::max_entries(uint32_t value)
 {
 	m_max_entries = value;
 
-	// Evict oldest entries until we fit within the new limit
+	// Enforce new limit by evicting
 	while (m_entries.size() > m_max_entries)
 	{
 		evict_oldest();
 	}
 }
 
-/** Get a decoded image from cache, or decode and cache it */
+// Get a decoded image from cache, or decode and cache it
 const ImageCacheEntry * ImageCache::get(const char * filename)
 {
 	const ImageCacheEntry * result = nullptr;
@@ -98,14 +104,14 @@ const ImageCacheEntry * ImageCache::get(const char * filename)
 
 		if (index < m_entries.size())
 		{
-			// Cache hit: update access counter
+			// Cache hit: update LRU counter
 			m_access_counter++;
 			m_entries[index]->m_access_count = m_access_counter;
 			result = m_entries[index];
 		}
 		else
 		{
-			// Cache miss: decode the image
+			// Cache miss: decode and store
 			ImageDecoder * decoder = ImageDecoder::create(filename);
 			if (decoder)
 			{
@@ -150,7 +156,7 @@ const ImageCacheEntry * ImageCache::get(const char * filename)
 	return result;
 }
 
-/** Remove all entries from the cache */
+// Remove all entries from the cache
 void ImageCache::clear()
 {
 	for (uint32_t i = 0; i < m_entries.size(); i++)

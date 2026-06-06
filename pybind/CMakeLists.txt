@@ -63,7 +63,6 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/shape/shape.cpp
 	src/pybind/shape/sketch.cpp
 	src/pybind/shape/image.cpp
-	src/pybind/shape/illustration.cpp
 	src/pybind/shape/square.cpp
 	src/pybind/shape/text.cpp
 	src/pybind/shape/triangle.cpp

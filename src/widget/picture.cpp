@@ -5,7 +5,6 @@ using namespace berialdraw;
 Picture::Picture(Widget * parent):
 	Widget("picture", parent, sizeof(Picture))
 {
-	m_illustration = new Illustration(this);
 	UIManager::styles()->apply(this, (CommonStyle*)this);
 	UIManager::styles()->apply(this, (WidgetStyle*)this);
 	UIManager::styles()->apply(this, (BorderStyle*)this);
@@ -14,14 +13,55 @@ Picture::Picture(Widget * parent):
 
 Picture::~Picture()
 {
-	if (m_illustration)
+	if (m_image)
 	{
-		delete m_illustration;
+		delete m_image;
+	}
+	if (m_sketch)
+	{
+		delete m_sketch;
 	}
 }
 
-/** Load the illustration from the current filename */
-void Picture::load_illustration()
+/** Check if filename has a vector extension */
+bool Picture::is_vector_extension(const String & filename)
+{
+	bool result = false;
+
+	int32_t dot_pos = -1;
+	for (int32_t i = (int32_t)filename.size() - 1; i >= 0; i--)
+	{
+		if (filename[i] == '.')
+		{
+			dot_pos = i;
+			break;
+		}
+	}
+
+	if (dot_pos >= 0)
+	{
+		String ext;
+		for (int32_t i = dot_pos + 1; i < (int32_t)filename.size(); i++)
+		{
+			char c = filename[i];
+			if (c >= 'A' && c <= 'Z')
+			{
+				c = c + ('a' - 'A');
+			}
+			ext += c;
+		}
+
+		if (ext == "icn" || ext == "svg")
+		{
+			result = true;
+		}
+	}
+
+	return result;
+}
+
+/** Load the image or sketch from the current filename */
+void Picture::load_picture()
 {
 	if (m_image_modified)
 	{
@@ -29,10 +69,55 @@ void Picture::load_illustration()
 
 		if (m_filename.size() > 0)
 		{
-			m_illustration->filename(m_filename);
-			m_illustration->fit_mode(m_fit_mode);
-			m_illustration->alpha(m_alpha);
-			m_illustration->load();
+			bool new_is_vector = is_vector_extension(m_filename);
+
+			// Type changed: destroy old shape and create new one
+			if (new_is_vector != m_is_vector || (m_image == nullptr && m_sketch == nullptr))
+			{
+				if (m_image)
+				{
+					delete m_image;
+					m_image = nullptr;
+				}
+				if (m_sketch)
+				{
+					delete m_sketch;
+					m_sketch = nullptr;
+				}
+
+				m_is_vector = new_is_vector;
+
+				if (m_is_vector)
+				{
+					m_sketch = new Sketch(this);
+					m_sketch->filename(m_filename);
+					m_sketch->load();
+				}
+				else
+				{
+					m_image = new Image(this);
+					m_image->filename(m_filename);
+					m_image->fit_mode(m_fit_mode);
+					m_image->alpha(m_alpha);
+					m_image->load();
+				}
+			}
+			else
+			{
+				// Same type: just update filename and reload
+				if (m_sketch)
+				{
+					m_sketch->filename(m_filename);
+					m_sketch->load();
+				}
+				if (m_image)
+				{
+					m_image->filename(m_filename);
+					m_image->fit_mode(m_fit_mode);
+					m_image->alpha(m_alpha);
+					m_image->load();
+				}
+			}
 		}
 		m_image_modified = false;
 	}
@@ -178,7 +263,7 @@ Size Picture::content_size()
 {
 	Size result;
 
-	load_illustration();
+	load_picture();
 
 	if (m_picture_placed)
 	{
@@ -197,11 +282,25 @@ void Picture::place(const Area & area, bool in_layout)
 
 	place_in_area(area, in_layout);
 
-	if (m_illustration && m_illustration->is_loaded() && !m_picture_placed)
-	{
-		uint32_t img_w = m_illustration->image_width();
-		uint32_t img_h = m_illustration->image_height();
+	bool is_loaded = false;
+	uint32_t img_w = 0;
+	uint32_t img_h = 0;
 
+	if (m_image && m_image->is_loaded())
+	{
+		is_loaded = true;
+		img_w = m_image->image_width();
+		img_h = m_image->image_height();
+	}
+	else if (m_sketch && m_sketch->resolution().width_() > 0)
+	{
+		is_loaded = true;
+		img_w = (uint32_t)(m_sketch->resolution().width_() >> 6);
+		img_h = (uint32_t)(m_sketch->resolution().height_() >> 6);
+	}
+
+	if (is_loaded && !m_picture_placed)
+	{
 		if (img_w > 0 && img_h > 0)
 		{
 			Size new_size = compute_fit_size(img_w, img_h, area);
@@ -239,11 +338,16 @@ void Picture::paint(const Region & parent_region)
 			stated_color(m_focus_color),
 			m_focused);
 
-		load_illustration();
+		load_picture();
 
-		if (m_illustration && m_illustration->is_loaded())
+		if (m_image && m_image->is_loaded())
 		{
-			m_illustration->paint(m_foreclip, Margin(), m_alpha, stated_color(m_color));
+			m_image->paint(m_foreclip, Margin(), m_alpha);
+		}
+		else if (m_sketch && m_sketch->resolution().width_() > 0)
+		{
+			m_sketch->size(m_foreclip.size());
+			m_sketch->paint(m_foreclip, Margin(), stated_color(m_color));
 		}
 
 		// Paint children

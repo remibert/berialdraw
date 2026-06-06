@@ -2,10 +2,12 @@
 
 using namespace berialdraw;
 
+// Destructor
 ImageDecoder::~ImageDecoder()
 {
 }
 
+// Factory: create decoder based on file extension
 ImageDecoder* ImageDecoder::create(const char* filename)
 {
 	ImageDecoder* result = nullptr;
@@ -15,7 +17,7 @@ ImageDecoder* ImageDecoder::create(const char* filename)
 		String name(filename);
 		int32_t dot_pos = -1;
 
-		// Find last dot in filename
+		// Extract file extension
 		for (int32_t i = (int32_t)name.size() - 1; i >= 0; i--)
 		{
 			if (name[i] == '.')
@@ -27,6 +29,7 @@ ImageDecoder* ImageDecoder::create(const char* filename)
 
 		if (dot_pos >= 0)
 		{
+			// Build lowercase extension
 			String ext;
 			for (int32_t i = dot_pos + 1; i < (int32_t)name.size(); i++)
 			{
@@ -39,6 +42,7 @@ ImageDecoder* ImageDecoder::create(const char* filename)
 				ext += c;
 			}
 
+			// Instantiate appropriate decoder
 			if (ext == "png")
 			{
 				result = new PngDecoder();

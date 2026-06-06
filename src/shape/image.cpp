@@ -125,63 +125,22 @@ bool Image::load()
 	return result;
 }
 
-/** Free cached pixels */
+/** Free rotated image cache */
 void Image::clear_cache()
 {
-	if (m_cached_pixels)
+	if (m_rotated_cache)
 	{
-		delete[] m_cached_pixels;
-		m_cached_pixels = nullptr;
+		delete m_rotated_cache;
+		m_rotated_cache = nullptr;
 	}
-	m_cached_width = 0;
-	m_cached_height = 0;
 }
 
-/** Rebuild the resized cache if needed */
-void Image::rebuild_cache(uint32_t area_width, uint32_t area_height)
+/** Ensure the rotated cache exists */
+void Image::ensure_cache()
 {
-	if (m_cache_entry && m_cache_entry->pixel_data())
+	if (m_cache_entry && !m_rotated_cache)
 	{
-		uint32_t dst_width = 0;
-		uint32_t dst_height = 0;
-
-		ImageProcessor::compute_fit_size(
-			m_cache_entry->width(),
-			m_cache_entry->height(),
-			area_width,
-			area_height,
-			m_fit_mode,
-			dst_width,
-			dst_height);
-
-		// Rebuild only if size changed
-		if (dst_width != m_cached_width || dst_height != m_cached_height)
-		{
-			clear_cache();
-
-			// If same size as source, just copy
-			if (dst_width == m_cache_entry->width() && dst_height == m_cache_entry->height())
-			{
-				uint32_t count = dst_width * dst_height;
-				m_cached_pixels = new uint32_t[count];
-				const uint32_t* src = m_cache_entry->pixel_data();
-				for (uint32_t i = 0; i < count; i++)
-				{
-					m_cached_pixels[i] = src[i];
-				}
-			}
-			else
-			{
-				m_cached_pixels = ImageProcessor::resize_bicubic(
-					m_cache_entry->pixel_data(),
-					m_cache_entry->width(),
-					m_cache_entry->height(),
-					dst_width,
-					dst_height);
-			}
-			m_cached_width = dst_width;
-			m_cached_height = dst_height;
-		}
+		m_rotated_cache = new ImageItem(m_cache_entry, m_filename);
 	}
 }
 
@@ -189,79 +148,30 @@ void Image::rebuild_cache(uint32_t area_width, uint32_t area_height)
 void Image::paint(const Area & foreclip, const Margin & padding, uint8_t alpha)
 {
 	load();
+	ensure_cache();
 
-	if (m_cache_entry && m_cache_entry->pixel_data())
+	if (m_rotated_cache && m_rotated_cache->is_valid())
 	{
-		Dim area_w = foreclip.size().width_() - padding.left_() - padding.right_();
-		Dim area_h = foreclip.size().height_() - padding.top_() - padding.bottom_();
+		// Compute target area
+		Size target_size;
+		target_size.width_(foreclip.size().width_() - padding.left_() - padding.right_());
+		target_size.height_(foreclip.size().height_() - padding.top_() - padding.bottom_());
 
-		uint32_t area_w_px = (uint32_t)(area_w >> 6);
-		uint32_t area_h_px = (uint32_t)(area_h >> 6);
+		// Base position
+		Point pos;
+		pos.x_(foreclip.position().x_() + padding.left_());
+		pos.y_(foreclip.position().y_() + padding.top_());
 
-		// Account for renderer scale (HiDPI)
-		Dim scale = UIManager::renderer()->scale_();
-		uint32_t scale_factor = scale >> 6;
-		if (scale_factor == 0)
-		{
-			scale_factor = 1;
-		}
-
-		uint32_t area_w_screen = area_w_px * scale_factor;
-		uint32_t area_h_screen = area_h_px * scale_factor;
-
-		if (area_w_screen > 0 && area_h_screen > 0)
-		{
-			rebuild_cache(area_w_screen, area_h_screen);
-
-			if (m_cached_pixels && m_cached_width > 0 && m_cached_height > 0)
-			{
-				// Convert cached dimensions back to logical for centering
-				uint32_t cached_w_logical = m_cached_width / scale_factor;
-				uint32_t cached_h_logical = m_cached_height / scale_factor;
-
-				// Compute offset to center the image in the area
-				Coord offset_x = foreclip.position().x_() + padding.left_();
-				Coord offset_y = foreclip.position().y_() + padding.top_();
-
-				if (cached_w_logical < area_w_px)
-				{
-					offset_x += (((Coord)area_w_px - (Coord)cached_w_logical) << 5);
-				}
-				if (cached_h_logical < area_h_px)
-				{
-					offset_y += (((Coord)area_h_px - (Coord)cached_h_logical) << 5);
-				}
-
-				// Export image to SVG if exporter active
-				Exporter * exporter = UIManager::exporter();
-				if (exporter)
-				{
-					exporter->add_image_file(
-						m_filename.c_str(),
-						(int32_t)(offset_x >> 6),
-						(int32_t)(offset_y >> 6),
-						cached_w_logical,
-						cached_h_logical,
-						alpha);
-				}
-
-				// Render the image
-				Point img_pos;
-				img_pos.x_(offset_x);
-				img_pos.y_(offset_y);
-
-				UIManager::renderer()->draw_image(
-					img_pos,
-					foreclip.size(),
-					Point(0, 0),
-					Margin(),
-					0,
-					m_cached_pixels,
-					m_cached_width,
-					m_cached_height,
-					alpha);
-			}
-		}
+		// Let the renderer handle everything: resize, rotate, center offset, and SVG export
+		UIManager::renderer()->draw_image(
+			pos,
+			target_size,
+			m_center,
+			Margin(),
+			m_angle,
+			m_rotated_cache,
+			m_fit_mode,
+			alpha);
 	}
 }
 
@@ -269,7 +179,11 @@ void Image::paint(const Area & foreclip, const Margin & padding, uint8_t alpha)
 void Image::paint(const Point & shift)
 {
 	Area foreclip;
-	foreclip.position(shift);
+	
+	// Combine shift with image position
+	Point pos(shift);
+	pos.move_(m_position.x_(), m_position.y_());
+	foreclip.position(pos);
 
 	// Use explicit size if set, otherwise use image native size
 	if (!m_size.is_width_undefined() && !m_size.is_height_undefined())

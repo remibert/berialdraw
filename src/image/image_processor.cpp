@@ -2,6 +2,7 @@
 
 using namespace berialdraw;
 
+// Clamp value to uint8 range [0, 255]
 uint8_t ImageProcessor::clamp_byte(int32_t val)
 {
 	uint8_t result;
@@ -22,6 +23,7 @@ uint8_t ImageProcessor::clamp_byte(int32_t val)
 	return result;
 }
 
+// Resize image with bicubic interpolation (Q6 fixed-point, no float)
 uint32_t* ImageProcessor::resize_bicubic(
 	const uint32_t* src_pixels,
 	uint32_t src_width,
@@ -162,6 +164,7 @@ void ImageProcessor::compute_fit_size(
 	}
 	else if (fit_mode == STRETCH)
 	{
+		// Stretch to fill area
 		dst_width = area_width;
 		dst_height = area_height;
 	}
@@ -189,7 +192,263 @@ void ImageProcessor::compute_fit_size(
 	if (dst_height == 0) dst_height = 1;
 }
 
+// Combine alpha channels: pixel_alpha * widget_alpha
 uint8_t ImageProcessor::combine_alpha(uint8_t pixel_alpha, uint8_t widget_alpha)
 {
 	return (uint8_t)(((uint32_t)pixel_alpha * (uint32_t)widget_alpha) / 255u);
+}
+
+// Compute bounding box size after rotation (Q6 angles, Q16.16 trig)
+void ImageProcessor::compute_rotated_size(
+	uint32_t src_width,
+	uint32_t src_height,
+	Coord angle_q6,
+	uint32_t & dst_width,
+	uint32_t & dst_height)
+{
+	bool needs_complex_rotation = true;
+
+	// Handle zero dimensions
+	if (src_width == 0 || src_height == 0)
+	{
+		dst_width = 0;
+		dst_height = 0;
+		needs_complex_rotation = false;
+	}
+
+	if (needs_complex_rotation)
+	{
+		// Normalize angle to [0, 360) in Q6
+		int32_t a = (int32_t)(angle_q6 % (360 << 6));
+		if (a < 0) a += (360 << 6);
+
+		// Handle exact multiples of 90 degrees
+		if (a == 0)
+		{
+			dst_width = src_width;
+			dst_height = src_height;
+			needs_complex_rotation = false;
+		}
+		else if (a == (90 << 6) || a == (270 << 6))
+		{
+			dst_width = src_height;
+			dst_height = src_width;
+			needs_complex_rotation = false;
+		}
+		else if (a == (180 << 6))
+		{
+			dst_width = src_width;
+			dst_height = src_height;
+			needs_complex_rotation = false;
+		}
+	}
+
+	// Perform complex rotation calculation if needed
+	if (needs_complex_rotation)
+	{
+		// Normalize angle to [0, 360) in Q6
+		int32_t a = (int32_t)(angle_q6 % (360 << 6));
+		if (a < 0) a += (360 << 6);
+
+		// Use FreeType's FT_Vector_Unit to get cos/sin in Q16.16
+		// FT_ANGLE_PI2 = 90 degrees in FreeType angle units
+		// FreeType angle = degrees * 65536 / 360 * 2*PI... actually FT_ANGLE_PI = 180*65536 = 0x10000 * 180
+		// Actually FT_ANGLE_2PI = 0x40000 (= 2*PI), so angle_ft = angle_degrees * 0x40000 / 360
+		// But we have angle in Q6 degrees, so angle_degrees_q16 = angle_q6 << 10
+		int32_t angle_ft = (int32_t)((int64_t)a << 10);
+
+		FT_Vector sincos;
+		FT_Vector_Unit(&sincos, angle_ft);
+
+		// sincos.x = cos(angle) in Q16.16, sincos.y = sin(angle) in Q16.16
+		int64_t abs_cos = (sincos.x < 0) ? -sincos.x : sincos.x;
+		int64_t abs_sin = (sincos.y < 0) ? -sincos.y : sincos.y;
+
+		// new_w = |W * cos| + |H * sin|, new_h = |W * sin| + |H * cos| in Q16.16
+		int64_t new_w = ((int64_t)src_width * abs_cos + (int64_t)src_height * abs_sin + (1LL << 15)) >> 16;
+		int64_t new_h = ((int64_t)src_width * abs_sin + (int64_t)src_height * abs_cos + (1LL << 15)) >> 16;
+
+		dst_width  = (uint32_t)(new_w > 0 ? new_w : 1);
+		dst_height = (uint32_t)(new_h > 0 ? new_h : 1);
+	}
+}
+
+// Rotate image with bilinear interpolation (Q6 angles, Q16.16 mapping, no float)
+uint32_t* ImageProcessor::rotate_bilinear(
+	const uint32_t* src_pixels,
+	uint32_t src_width,
+	uint32_t src_height,
+	Coord angle_q6,
+	uint32_t & dst_width,
+	uint32_t & dst_height)
+{
+	uint32_t* result = nullptr;
+	bool should_perform_rotation = false;
+
+	if (src_pixels == nullptr || src_width == 0 || src_height == 0)
+	{
+		dst_width = 0;
+		dst_height = 0;
+	}
+	else
+	{
+		// Normalize angle
+		int32_t a = (int32_t)(angle_q6 % (360 << 6));
+		if (a < 0) a += (360 << 6);
+
+		// No rotation needed
+		if (a == 0)
+		{
+			dst_width = src_width;
+			dst_height = src_height;
+			uint32_t count = src_width * src_height;
+			result = new uint32_t[count];
+			for (uint32_t i = 0; i < count; i++)
+			{
+				result[i] = src_pixels[i];
+			}
+		}
+		else
+		{
+			should_perform_rotation = true;
+		}
+	}
+
+	if (should_perform_rotation)
+	{
+		// Compute rotated bounding box
+		compute_rotated_size(src_width, src_height, angle_q6, dst_width, dst_height);
+
+		result = new uint32_t[dst_width * dst_height];
+
+		// Initialize all pixels to transparent
+		for (uint32_t i = 0; i < dst_width * dst_height; i++)
+		{
+			result[i] = 0;
+		}
+
+		// Normalize angle again for computation
+		int32_t a = (int32_t)(angle_q6 % (360 << 6));
+		if (a < 0) a += (360 << 6);
+
+		// Get sin/cos via FreeType in Q16.16
+		int32_t angle_ft = (int32_t)((int64_t)a << 10);
+		FT_Vector sincos;
+		FT_Vector_Unit(&sincos, angle_ft);
+
+		// We need the INVERSE rotation to map dst -> src
+		// inv_cos = cos(-angle) = cos(angle), inv_sin = sin(-angle) = -sin(angle)
+		int64_t inv_cos = sincos.x;   // Q16.16
+		int64_t inv_sin = -sincos.y;  // Q16.16
+
+		// Center of source and destination images in Q16.16
+		int64_t src_cx = ((int64_t)src_width  << 15);  // (src_width / 2) in Q16.16
+		int64_t src_cy = ((int64_t)src_height << 15);
+		int64_t dst_cx = ((int64_t)dst_width  << 15);
+		int64_t dst_cy = ((int64_t)dst_height << 15);
+
+		for (uint32_t dy = 0; dy < dst_height; dy++)
+		{
+			// Vector from dst center in Q16.16
+			int64_t rel_y = ((int64_t)dy << 16) + (1LL << 15) - dst_cy;
+
+			for (uint32_t dx = 0; dx < dst_width; dx++)
+			{
+				int64_t rel_x = ((int64_t)dx << 16) + (1LL << 15) - dst_cx;
+
+				// Apply inverse rotation: src_rel = R^-1 * dst_rel
+				// src_rel_x = rel_x * cos + rel_y * sin  (inv_sin = -sin, so rel_y * (-(-sin)) = rel_y * sin)
+				// Actually: inv rotation matrix is [cos, sin; -sin, cos] for standard rotation
+				int64_t src_rel_x = (rel_x * inv_cos - rel_y * inv_sin) >> 16;
+				int64_t src_rel_y = (rel_x * inv_sin + rel_y * inv_cos) >> 16;
+
+				// Convert back to source coordinates in Q16.16
+				int64_t src_x_fp = src_rel_x + src_cx;
+				int64_t src_y_fp = src_rel_y + src_cy;
+
+				// Convert from Q16.16 to integer + fraction for bilinear interpolation
+				// Subtract 0.5 pixel (Q16.16: 1<<15) to center the sampling
+				src_x_fp -= (1LL << 15);
+				src_y_fp -= (1LL << 15);
+
+				int32_t src_x0 = (int32_t)(src_x_fp >> 16);
+				int32_t src_y0 = (int32_t)(src_y_fp >> 16);
+
+				// Check if completely outside source
+				if (src_x0 < -1 || src_x0 >= (int32_t)src_width ||
+					src_y0 < -1 || src_y0 >= (int32_t)src_height)
+				{
+					continue;  // Transparent pixel
+				}
+
+				// Fractional parts in Q16 (0..65535)
+				uint32_t frac_x = (uint32_t)(src_x_fp & 0xFFFF);
+				uint32_t frac_y = (uint32_t)(src_y_fp & 0xFFFF);
+
+				// Handle negative coordinates properly
+				if (src_x_fp < 0)
+				{
+					src_x0 = -1;
+					frac_x = (uint32_t)((src_x_fp + (1LL << 16)) & 0xFFFF);
+				}
+				if (src_y_fp < 0)
+				{
+					src_y0 = -1;
+					frac_y = (uint32_t)((src_y_fp + (1LL << 16)) & 0xFFFF);
+				}
+
+				int32_t x1 = src_x0 + 1;
+				int32_t y1 = src_y0 + 1;
+
+				// Bilinear weights in Q16
+				uint32_t w_x1 = frac_x;
+				uint32_t w_x0 = (1 << 16) - frac_x;
+				uint32_t w_y1 = frac_y;
+				uint32_t w_y0 = (1 << 16) - frac_y;
+
+				// Sample 4 pixels (clamp to transparent if outside)
+				uint32_t p00 = 0, p10 = 0, p01 = 0, p11 = 0;
+
+				if (src_x0 >= 0 && src_x0 < (int32_t)src_width && src_y0 >= 0 && src_y0 < (int32_t)src_height)
+				{
+					p00 = src_pixels[src_y0 * src_width + src_x0];
+				}
+				if (x1 >= 0 && x1 < (int32_t)src_width && src_y0 >= 0 && src_y0 < (int32_t)src_height)
+				{
+					p10 = src_pixels[src_y0 * src_width + x1];
+				}
+				if (src_x0 >= 0 && src_x0 < (int32_t)src_width && y1 >= 0 && y1 < (int32_t)src_height)
+				{
+					p01 = src_pixels[y1 * src_width + src_x0];
+				}
+				if (x1 >= 0 && x1 < (int32_t)src_width && y1 >= 0 && y1 < (int32_t)src_height)
+				{
+					p11 = src_pixels[y1 * src_width + x1];
+				}
+
+				// Bilinear interpolation for each channel using Q16 fixed-point
+				// w = w_x * w_y >> 16 gives weight in Q16
+				int64_t w00 = ((int64_t)w_x0 * w_y0) >> 16;
+				int64_t w10 = ((int64_t)w_x1 * w_y0) >> 16;
+				int64_t w01 = ((int64_t)w_x0 * w_y1) >> 16;
+				int64_t w11 = ((int64_t)w_x1 * w_y1) >> 16;
+
+				int64_t r = (((p00 >> 16) & 0xFF) * w00 + ((p10 >> 16) & 0xFF) * w10 +
+							 ((p01 >> 16) & 0xFF) * w01 + ((p11 >> 16) & 0xFF) * w11 + (1LL << 15)) >> 16;
+				int64_t g = (((p00 >> 8) & 0xFF) * w00 + ((p10 >> 8) & 0xFF) * w10 +
+							 ((p01 >> 8) & 0xFF) * w01 + ((p11 >> 8) & 0xFF) * w11 + (1LL << 15)) >> 16;
+				int64_t b = ((p00 & 0xFF) * w00 + (p10 & 0xFF) * w10 +
+							 (p01 & 0xFF) * w01 + (p11 & 0xFF) * w11 + (1LL << 15)) >> 16;
+				int64_t aa = (((p00 >> 24) & 0xFF) * w00 + ((p10 >> 24) & 0xFF) * w10 +
+							  ((p01 >> 24) & 0xFF) * w01 + ((p11 >> 24) & 0xFF) * w11 + (1LL << 15)) >> 16;
+
+				result[dy * dst_width + dx] = ((uint32_t)clamp_byte((int32_t)aa) << 24) |
+											  ((uint32_t)clamp_byte((int32_t)r)  << 16) |
+											  ((uint32_t)clamp_byte((int32_t)g)  << 8)  |
+											   (uint32_t)clamp_byte((int32_t)b);
+			}
+		}
+	}
+
+	return result;
 }

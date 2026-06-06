@@ -76,24 +76,32 @@ namespace berialdraw
 		/** Get the content size of the image */
 		Size content_size();
 
+	#ifdef _DEBUG
+		static void test();
+		static void test1();
+		static void test2();
+		static void test3();
+		static void test4();
+		static void test5();
+		static void test6();
+	#endif
+
 	protected:
 /// @cond DOXYGEN_IGNORE
-		/** Rebuild the resized cache if needed */
-		void rebuild_cache(uint32_t area_width, uint32_t area_height);
-
-		/** Free cached pixels */
+		/** Free rotated image cache */
 		void clear_cache();
 
-		Polygon              m_polygon;
-		String               m_filename;
-		const ImageCacheEntry * m_cache_entry = nullptr;
-		uint32_t*            m_cached_pixels = nullptr;
-		uint32_t             m_cached_width = 0;
-		uint32_t             m_cached_height = 0;
-		ImageFitMode         m_fit_mode = FIT;
-		uint8_t              m_alpha = 255;
-		bool                 m_image_modified = true;
-		void *               m_parent = 0;
+		/** Ensure the rotated cache exists */
+		void ensure_cache();
+
+		Polygon               m_polygon;
+		String                m_filename;
+		const ImageCacheEntry* m_cache_entry = nullptr;
+		ImageItem*            m_rotated_cache = nullptr;
+		ImageFitMode          m_fit_mode = FIT;
+		uint8_t               m_alpha = 255;
+		bool                  m_image_modified = true;
+		void *                m_parent = 0;
 /// @endcond
 	};
 }

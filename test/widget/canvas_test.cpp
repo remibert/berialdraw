@@ -241,8 +241,147 @@ void Canvas::test4()
 	 UIManager::desktop()->dispatch("$(ui.tests)/out/canvas4.svg");
 }
 
-void Canvas::test5()
+// Test Sketch shape on canvas with ICN (vector)
+void Canvas::test6()
 {
+	Window window;
+		window.position(0, 0);
+		window.size(480, 480);
+		window.color(Color::LIGHT_GRAY);
+
+	Canvas * canvas = new Canvas(&window);
+		canvas->position(0, 0);
+		canvas->size(window.size());
+
+	Sketch * sketch1 = new Sketch(canvas);
+		sketch1->filename("$(ui.icons)/maison.icn");
+		sketch1->position(20, 20);
+		sketch1->size(200, 200);
+
+	Sketch * sketch2 = new Sketch(canvas);
+		sketch2->filename("$(ui.icons)/maison.icn");
+		sketch2->position(240, 20);
+		sketch2->size(200, 200);
+
+	Sketch * sketch3 = new Sketch(canvas);
+		sketch3->filename("$(ui.icons)/maison.icn");
+		sketch3->position(20, 240);
+		sketch3->size(100, 100);
+
+	Sketch * sketch4 = new Sketch(canvas);
+		sketch4->filename("$(ui.icons)/maison.icn");
+		sketch4->position(140, 240);
+		sketch4->size(150, 200);
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/canvas6.svg");
+}
+
+// Test mixed Image and Sketch on same canvas
+void Canvas::test8()
+{
+	Window window;
+		window.position(0, 0);
+		window.size(480, 480);
+		window.color(Color::LIGHT_BLUE);
+
+	Canvas * canvas = new Canvas(&window);
+		canvas->position(0, 0);
+		canvas->size(window.size());
+
+	// Image shapes
+	Image * img1 = new Image(canvas);
+		img1->filename("$(ui.images)/house.png");
+		img1->position(10, 10);
+		img1->size(150, 150);
+
+	Image * img2 = new Image(canvas);
+		img2->filename("$(ui.images)/filleperle.jpg");
+		img2->position(170, 10);
+		img2->size(150, 150);
+		img2->alpha(200);
+
+	// Sketch shapes (vector)
+	Sketch * sketch1 = new Sketch(canvas);
+		sketch1->filename("$(ui.icons)/maison.icn");
+		sketch1->position(330, 10);
+		sketch1->size(140, 140);
+
+	// Image shapes (bitmap)
+	Image * img5 = new Image(canvas);
+		img5->filename("$(ui.images)/house.png");
+		img5->position(10, 170);
+		img5->size(150, 150);
+		img5->alpha(180);
+
+	Image * img6 = new Image(canvas);
+		img6->filename("$(ui.images)/filleperle.jpg");
+		img6->position(170, 170);
+		img6->size(150, 150);
+
+	Sketch * sketch2 = new Sketch(canvas);
+		sketch2->filename("$(ui.icons)/maison.icn");
+		sketch2->position(330, 170);
+		sketch2->size(140, 140);
+
+	// Bottom row with overlapping
+	Image * img3 = new Image(canvas);
+		img3->filename("$(ui.images)/house.png");
+		img3->position(50, 340);
+		img3->size(200, 130);
+		img3->alpha(200);
+
+	Sketch * sketch3 = new Sketch(canvas);
+		sketch3->filename("$(ui.icons)/maison.icn");
+		sketch3->position(200, 340);
+		sketch3->size(130, 130);
+
+	Image * img4 = new Image(canvas);
+		img4->filename("$(ui.images)/filleperle.jpg");
+		img4->position(280, 340);
+		img4->size(180, 130);
+		img4->alpha(180);
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/canvas8.svg");
+}
+
+// Test Image and Sketch rotation on canvas
+void Canvas::test10()
+{
+	Window window;
+		window.position(0, 0);
+		window.size(480, 480);
+		window.color(Color::LIGHT_GRAY);
+
+	Canvas * canvas = new Canvas(&window);
+		canvas->position(0, 0);
+		canvas->size(window.size());
+
+	int id = 0;
+	for (int angle = 0; angle <= 360; angle += 45)
+	{
+		// Raster image with rotation
+		Image * img_raster = new Image(canvas);
+			img_raster->filename("$(ui.images)/filleperle.jpg");
+			img_raster->position(120, 240);
+			img_raster->size(200, 200);
+			img_raster->center(100, 100);
+			img_raster->angle(angle);
+
+		// Vector sketch with rotation
+		Sketch * sketch_vector = new Sketch(canvas);
+			sketch_vector->filename("$(ui.icons)/maison.icn");
+			sketch_vector->position(360, 240);
+			sketch_vector->size(150, 150);
+			sketch_vector->center(75, 75);
+			sketch_vector->angle(angle);
+
+		String name;
+		name.print("$(ui.tests)/out/canvas10_%d.svg", ++id);
+		UIManager::desktop()->dispatch(name);
+
+		delete img_raster;
+		delete sketch_vector;
+	}
 }
 
 void Canvas::test()
@@ -252,9 +391,9 @@ void Canvas::test()
 	{
 		MemoryLeakLog
 		done = true;
-test2();
-
-		test5();
+		test10();
+		test8();
+		test6();
 		test4();
 		test3();
 		test2();

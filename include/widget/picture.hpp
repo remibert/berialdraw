@@ -3,7 +3,7 @@ namespace berialdraw
 {
 	/** The Picture class displays images (raster or vector) with support for
 	transparency, bicubic resizing, and multiple fit modes.
-	It uses an Illustration shape internally to handle both PNG/JPEG and SVG/Sketch files. */
+	It uses Image for raster files (PNG/JPEG) and Sketch for vector files (ICN/SVG). */
 	class Picture: public Widget, public BorderStyle, public PictureStyle
 	{
 	public:
@@ -46,8 +46,11 @@ namespace berialdraw
 		/** Remove operator = */
 		Picture& operator=(const Picture& other) = delete;
 
-		/** Load the illustration from the current filename */
-		void load_illustration();
+		/** Check if filename has a vector extension (icn, svg) */
+		static bool is_vector_extension(const String & filename);
+
+		/** Load the image or sketch from the current filename */
+		void load_picture();
 
 		/** Compute the fit size based on image dimensions, constraints and context */
 		Size compute_fit_size(uint32_t img_w, uint32_t img_h, const Area & area);
@@ -67,7 +70,9 @@ namespace berialdraw
 		/** Get the widget hovered */
 		virtual Widget * hovered(const Region & parent_region, const Point & position) override;
 
-		Illustration * m_illustration = nullptr;
+		Image * m_image = nullptr;
+		Sketch * m_sketch = nullptr;
+		bool m_is_vector = false;
 
 		// Computed content size after place() analysis
 		Size          m_fit_content_size;

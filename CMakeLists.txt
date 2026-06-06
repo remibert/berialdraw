@@ -47,10 +47,26 @@ elseif(APPLE)
 	add_definitions(-DUSE_COCOA_DEVICE=1)
 else()
 	message(STATUS "Architecture Linux")
-	set(SDL3_STATIC ON)
-	find_package(SDL3 REQUIRED)
-	set(SRCS_DEVICE src/device/device_sdl.cpp src/device/clipboard_sdl.cpp)
-	set(DEVICE_LIBRARIES ${SDL3_LIBRARIES})
+	
+	# Option to use SDL instead of XCB (OFF by default)
+	option(USE_SDL "Use SDL3 instead of XCB for Linux backend" OFF)
+	
+	if(USE_SDL)
+		message(STATUS "Using SDL3 backend")
+		set(SDL3_STATIC ON)
+		find_package(SDL3 REQUIRED)
+		set(SRCS_DEVICE src/device/device_sdl.cpp src/device/clipboard_sdl.cpp)
+		set(DEVICE_LIBRARIES ${SDL3_LIBRARIES})
+		add_definitions(-DUSE_SDL_DEVICE=1)
+	else()
+		message(STATUS "Using XCB (X11) backend")
+		find_package(PkgConfig REQUIRED)
+		pkg_check_modules(XCB REQUIRED xcb xcb-image xcb-keysyms xcb-icccm)
+		set(SRCS_DEVICE src/device/device_xcb.cpp src/device/clipboard_xcb.cpp)
+		set(DEVICE_LIBRARIES ${XCB_LIBRARIES})
+		include_directories(${XCB_INCLUDE_DIRS})
+		add_definitions(-DUSE_XCB_DEVICE=1)
+	endif()
 endif()
 
 set(SRCS_LIB
@@ -109,6 +125,7 @@ set(SRCS_LIB
 
 	src/image/image_decoder.cpp
 	src/image/image_cache.cpp
+	src/image/image_item.cpp
 	src/image/image_fit.cpp
 	src/image/png_decoder.cpp
 	src/image/jpeg_decoder.cpp
@@ -121,7 +138,6 @@ set(SRCS_LIB
 	src/shape/polygon.cpp
 	src/shape/sketch.cpp
 	src/shape/image.cpp
-	src/shape/illustration.cpp
 	src/shape/cross.cpp
 	src/shape/marker.cpp
 	src/shape/outline.cpp
@@ -321,7 +337,6 @@ set(SRCS_LIB
 )
 
 set(INCLUDES_LIB 
-	${SDL3_INCLUDE_DIRS}
 	"${CMAKE_CURRENT_SOURCE_DIR}/external/freetype/include;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/external/freetype/include/freetype;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/external/zlib;"

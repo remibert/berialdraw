@@ -224,101 +224,159 @@ void Renderer::draw(const Shape & shape, const Point & shift)
 	draw(shape.position(), shape.margin(), shift, shape.center(), shape.color(), shape.angle_(), copy_poly.outline());
 }
 
-void Renderer::draw_image(const Point & position, const Size & size, const Point & center, const Margin & margin, Coord angle, const uint32_t * pixels, uint32_t width, uint32_t height, uint8_t alpha)
+/** Apply common outline transformations: translate to center, rotate, translate to position.
+This is the core transform logic shared by draw() and transform_rect(). */
+void Renderer::apply_outline_transforms(FT_Outline & outline, const Point & position, const Margin & margin, const Point & center, Coord angle)
 {
-	Framebuf * framebuf = UIManager::framebuf();
-	if (pixels == nullptr || width == 0 || height == 0 || alpha == 0 || framebuf == nullptr)
-	{
-		return;
-	}
+	// Add margins
+	Coord dx = margin.left_();
+	Coord dy = margin.top_();
 
-	// Normalize angle to 0, 90, 180, 270
-	int32_t angle_deg = 0;
+	// Position + margin
+	Coord x = position.x_() + dx;
+	Coord y = position.y_() + dy;
+
+	// Step 1: Move to rotation center
+	FT_Outline_Translate(&outline, -(center.x_() + dx), -(center.y_() + dy));
+
+	// Step 2: Apply rotation if needed
 	if (angle != 0)
 	{
-		angle_deg = (int32_t)(angle % 360);
-		if (angle_deg < 0)
+		FT_Matrix rotation = vector_matrix((angle << 10));
+		FT_Outline_Transform(&outline, &rotation);
+	}
+
+	// Step 3: Translate to final position
+	if (x != 0 || y != 0)
+	{
+		FT_Outline_Translate(&outline, x, y);
+	}
+}
+
+/** Transform a rectangle using the same FT_Outline logic as draw().
+Creates a 4-point outline, applies the same transformations (including scale), then extracts bounding box. */
+void Renderer::transform_rect(Dim rect_w, Dim rect_h, const Point & position, const Margin & margin, const Point & center, Coord angle, Coord & out_min_x, Coord & out_min_y)
+{
+	// Create a 4-point outline representing the rectangle
+	FT_Vector points[4];
+	points[0].x = 0;                   points[0].y = 0;
+	points[1].x = (Coord)rect_w;       points[1].y = 0;
+	points[2].x = (Coord)rect_w;       points[2].y = (Coord)rect_h;
+	points[3].x = 0;                   points[3].y = (Coord)rect_h;
+
+	unsigned char tags[4] = {FT_CURVE_TAG_ON, FT_CURVE_TAG_ON, FT_CURVE_TAG_ON, FT_CURVE_TAG_ON};
+	unsigned short contours[1] = {3};  // Last point index of contour
+
+	FT_Outline outline;
+	outline.n_contours = 1;
+	outline.n_points = 4;
+	outline.points = points;
+	outline.tags = tags;
+	outline.contours = contours;
+	outline.flags = 0;
+
+	// Apply common transformations (steps 1-3)
+	apply_outline_transforms(outline, position, margin, center, angle);
+
+	// Step 4: Apply scale (same as draw() after export)
+	if (m_scale != 1 << 6)
+	{
+		FT_Matrix matrix;
+		matrix.xx = (FT_Fixed)m_scale << 10;
+		matrix.xy = 0;
+		matrix.yx = 0;
+		matrix.yy = (FT_Fixed)m_scale << 10;
+		FT_Outline_Transform(&outline, &matrix);
+	}
+
+	// Extract bounding box from transformed points (now in screen coordinates)
+	out_min_x = points[0].x >> 6;  // Convert from Q6 to screen pixels
+	out_min_y = points[0].y >> 6;
+	for (int i = 1; i < 4; i++)
+	{
+		Coord px = points[i].x >> 6;
+		Coord py = points[i].y >> 6;
+		if (px < out_min_x) out_min_x = px;
+		if (py < out_min_y) out_min_y = py;
+	}
+}
+
+void Renderer::draw_image(const Point & position, const Size & size, const Point & center, const Margin & margin, Coord angle, ImageItem* item, ImageFitMode fit_mode, uint8_t alpha)
+{
+	Framebuf * framebuf = UIManager::framebuf();
+	
+	bool should_draw = false;
+	Coord sx = 0, sy = 0;
+	uint32_t rot_w = 0, rot_h = 0;
+	const uint32_t* pixels = nullptr;
+
+	// Validation phase
+	if (framebuf && item && item->is_valid() && alpha > 0 && size.width_() > 0 && size.height_() > 0)
+	{
+		// Compute bounding box of rotated image zone (in Q6 logical coordinates)
+		transform_rect(size.width_(), size.height_(), position, margin, center, angle, sx, sy);
+
+		// Step 4: Apply scale (convert to screen pixels)
+		if (m_scale != 1 << 6)
 		{
-			angle_deg += 360;
+			sx = (sx * m_scale) >> 6;
+			sy = (sy * m_scale) >> 6;
+		}
+
+		// Calculate final screen dimensions (Q6 → pixels × scale_factor)
+		uint32_t size_px_w = size.width_() >> 6;   // Logical pixels
+		uint32_t size_px_h = size.height_() >> 6;
+		uint32_t scale_factor = m_scale >> 6;      // Scale factor (1, 2, 3, ...)
+		uint32_t final_w = size_px_w * scale_factor;
+		uint32_t final_h = size_px_h * scale_factor;
+
+		if (final_w > 0 && final_h > 0)
+		{
+			// Get pre-rotated pixels from cache (padded/stretched to fill area)
+			pixels = item->get_pixels(angle, final_w, final_h, fit_mode, rot_w, rot_h);
+
+			// Finalize drawing conditions
+			if (pixels && rot_w > 0 && rot_h > 0 && 
+				m_region->is_inside_scale(sx, sy, rot_w, rot_h, m_scale) != Region::OUT)
+			{
+				should_draw = true;
+			}
 		}
 	}
 
-	// Determine rotated image dimensions
-	uint32_t dst_width  = width;
-	uint32_t dst_height = height;
-	if (angle_deg == 90 || angle_deg == 270)
+	// Export image to SVG if exporter active
+	if (item && UIManager::exporter())
 	{
-		dst_width  = height;
-		dst_height = width;
+		UIManager::exporter()->add_image_file(
+			item->filename().c_str(),
+			(int32_t)(position.x_() >> 6),
+			(int32_t)(position.y_() >> 6),
+			(uint32_t)(size.width_() >> 6),
+			(uint32_t)(size.height_() >> 6),
+			alpha,
+			angle,
+			(int32_t)(center.x_() >> 6),
+			(int32_t)(center.y_() >> 6));
 	}
 
-	// Compute position with margins
-	FT_Matrix matrix = vector_matrix((angle << 10));
-	FT_Vector vec;
-
-	Coord xx = position.x_() + margin.left_();
-	Coord yy = position.y_() + margin.top_();
-
-	// Apply center of rotation
-	if (center.x_() != 0 || center.y_() != 0)
+	// Single point of exit: perform drawing
+	if (should_draw)
 	{
-		vec.x = -center.x_();
-		vec.y = -center.y_();
-		FT_Vector_Transform(&vec, &matrix);
-		xx += vec.x;
-		yy += vec.y;
-	}
-
-	// Apply scale
-	Coord sx = (xx * (Coord)m_scale) >> 12;
-	Coord sy = (yy * (Coord)m_scale) >> 12;
-
-	// Check visibility
-	if (m_region->is_inside_scale(sx, sy, dst_width, dst_height, m_scale) == Region::OUT)
-	{
-		return;
-	}
-
-	// Draw pixels 1:1 with rotation (image is expected at screen resolution)
-	for (uint32_t py = 0; py < dst_height; py++)
-	{
-		for (uint32_t px = 0; px < dst_width; px++)
+		for (uint32_t py = 0; py < rot_h; py++)
 		{
-			// Map destination (px, py) to source pixel based on rotation
-			uint32_t src_x;
-			uint32_t src_y;
-
-			switch (angle_deg)
+			for (uint32_t px = 0; px < rot_w; px++)
 			{
-			default:
-			case 0:
-				src_x = px;
-				src_y = py;
-				break;
-			case 90:
-				src_x = py;
-				src_y = (dst_width - 1) - px;
-				break;
-			case 180:
-				src_x = (dst_width  - 1) - px;
-				src_y = (dst_height - 1) - py;
-				break;
-			case 270:
-				src_x = (dst_height - 1) - py;
-				src_y = px;
-				break;
-			}
+				uint32_t pixel = pixels[py * rot_w + px];
+				uint8_t pixel_alpha = (uint8_t)((pixel >> 24) & 0xFF);
 
-			uint32_t pixel = pixels[src_y * width + src_x];
-			uint8_t pixel_alpha = (uint8_t)((pixel >> 24) & 0xFF);
+				// Combine pixel alpha with widget alpha
+				uint8_t final_alpha = (uint8_t)(((uint32_t)pixel_alpha * (uint32_t)alpha) / 255);
 
-			// Combine pixel alpha with widget alpha
-			uint8_t final_alpha = (uint8_t)(((uint32_t)pixel_alpha * (uint32_t)alpha) / 255);
-
-			if (final_alpha > 0)
-			{
-				uint32_t col = (pixel & 0x00FFFFFF);
-				draw_line(sx + px, sy + py, 1, 255, final_alpha, col);
+				if (final_alpha > 0)
+				{
+					uint32_t col = (pixel & 0x00FFFFFF);
+					draw_line(sx + px, sy + py, 1, 255, final_alpha, col);
+				}
 			}
 		}
 	}
@@ -329,14 +387,6 @@ void Renderer::draw(const Point & position, const Margin & margin, const Point &
 	FT_Outline & outline = out.get();
 	m_color = color;
 	m_params.gray_spans = (FT_SpanFunc)draw_vector;
-
-	// Add margins
-	Coord dx = margin.left_();
-	Coord dy = margin.top_();
-
-	// Move to position + margin + shift
-	Coord x  = position.x_() + dx + shift.x_();
-	Coord y  = position.y_() + dy + shift.y_();
 
 	// If the polygon must be zoomed
 	if (out.zoom_() != 1<< 6)
@@ -349,28 +399,13 @@ void Renderer::draw(const Point & position, const Margin & margin, const Point &
 		FT_Outline_Transform(&outline, &matrix);
 	}
 
-	// If no rotation
-	if(angle_ == 0)
-	{
-		// Move to shape to take into account the rotation center
-		FT_Outline_Translate(&outline, -(center.x_()+dx), -(center.y_()+dy));
-	}
-	else
-	{
-		FT_Matrix rotation = vector_matrix((angle_ << 10));
+	// Create position with shift included
+	Point pos_with_shift;
+	pos_with_shift.x_(position.x_() + shift.x_());
+	pos_with_shift.y_(position.y_() + shift.y_());
 
-		// Move to shape to take into account the rotation center
-		FT_Outline_Translate(&outline, -(center.x_()+dx), -(center.y_()+dy));
-
-		// Rotation
-		FT_Outline_Transform (&outline, &rotation);
-	}
-
-	// If shape must be moved
-	if(x != 0 || y != 0)
-	{
-		FT_Outline_Translate(&outline, x, y);
-	}
+	// Apply common transformations (steps 1-3)
+	apply_outline_transforms(outline, pos_with_shift, margin, center, angle_);
 
 	// If export svg required
 	if (UIManager::exporter())
@@ -378,7 +413,7 @@ void Renderer::draw(const Point & position, const Margin & margin, const Point &
 		UIManager::exporter()->add_path(out, m_color);
 	}
 
-	// If the scale different than 1 defined
+	// If the scale different than 1 defined (step 4)
 	if (m_scale != 1<<6)
 	{
 		// Resize the polygon according to the render scale

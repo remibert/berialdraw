@@ -14,6 +14,8 @@ namespace berialdraw
 		//Label::test();
 		//Styles::test();
 		//TableView::test();
+		Image::test();
+		Canvas::test();
 
 		// Widgets
 		Picture::test();
@@ -35,6 +37,7 @@ namespace berialdraw
 
 		// Shapes
 		Sketch::test();
+		Image::test();
 		Rect::test();
 		Pie::test();
 		Grid::test();

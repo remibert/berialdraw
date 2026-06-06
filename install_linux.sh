@@ -1,20 +1,18 @@
 #!/usr/bin/bash
-# Install all dependencies
+# Install all dependencies for BerialDraw on Linux
+
+# XCB dependencies (default backend - lightweight X11)
 sudo apt update
-sudo apt install -y git cmake build-essential libwayland-dev libxkbcommon-dev libdrm-dev libgbm-dev libpulse-dev libudev-dev libegl1-mesa-dev libgles2-mesa-dev
-sudo apt-get install -y libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxi-dev libxinerama-dev libxxf86vm-dev libwayland-dev libxkbcommon-dev wayland-protocols
+sudo apt install -y git cmake build-essential pkg-config
+sudo apt install -y libxcb1-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-icccm4-dev
 
-# Clone SDL3, build it and install
+# Build BerialDraw with XCB backend (default)
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
-cd ../..
-git clone https://github.com/libsdl-org/SDL.git
-cd SDL
-cmake -S . -B build
-cmake --build build -j$(nproc)
-sudo cmake --install build
-
-# Berialdraw rebuilt
 cd "$REPO_DIR"
 cmake -S . -B build
-cmake --build build
+cmake --build build -j$(nproc)
+
+# To use SDL3 instead (optional), run:
+# cmake -S . -B build -DUSE_SDL=ON
+# (requires SDL3 to be installed separately)
 

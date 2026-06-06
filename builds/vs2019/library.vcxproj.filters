@@ -115,6 +115,9 @@
     <Filter Include="resources\images">
       <UniqueIdentifier>{c5c69a5d-5972-4db5-9fa1-72a6afaaefa6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="berialdraw\device\xcb">
+      <UniqueIdentifier>{7a1e70be-10fc-4eb0-ab2f-92182131b177}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\shape\text_box.cpp">
@@ -979,11 +982,17 @@
     <ClCompile Include="..\..\src\image\image_cache.cpp">
       <Filter>berialdraw\image</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\shape\illustration.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\shape\image.cpp">
       <Filter>berialdraw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\image\image_item.cpp">
+      <Filter>berialdraw\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\clipboard_xcb.cpp">
+      <Filter>berialdraw\device\xcb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\device_xcb.cpp">
+      <Filter>berialdraw\device\xcb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1830,8 +1839,14 @@
     <ClInclude Include="..\..\include\shape\image.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\shape\illustration.hpp">
-      <Filter>berialdraw\shape</Filter>
+    <ClInclude Include="..\..\include\image\image_item.hpp">
+      <Filter>berialdraw\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\device\clipboard_xcb.hpp">
+      <Filter>berialdraw\device\xcb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\device\device_xcb.hpp">
+      <Filter>berialdraw\device\xcb</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
