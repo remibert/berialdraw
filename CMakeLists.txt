@@ -367,64 +367,17 @@ target_compile_definitions (${BD_LIB} PRIVATE ${COMPILE_DEF}
 add_subdirectory(pybind)
 add_subdirectory(samples)
 
-# Write the Python script as a template in the source directory
-set(COPY_DELIVERY_PY_IN "${CMAKE_CURRENT_SOURCE_DIR}/copy_delivery.py.in")
-file(WRITE "${COPY_DELIVERY_PY_IN}" "
-import os
-import shutil
-import glob
-import platform
-import stat
+# Documentation target
+option(BUILD_DOCS "Build Doxygen documentation" OFF)
+if(BUILD_DOCS)
+	add_subdirectory(doc)
+endif()
 
-copy_jobs = [
-    ('@CMAKE_SOURCE_DIR@/resources',              'delivery/resources', '**/*', lambda path, name: 'test' not in path.split(os.sep) and not name.startswith('test_')),
-    ('@CMAKE_CURRENT_SOURCE_DIR@/include',        'delivery/include', '**/*', None),
-    ('@CMAKE_CURRENT_BINARY_DIR@/lib@BD_LIB@.a',  'delivery/lib/%s/' % (platform.system().lower().replace('darwin','macos')), None, None),
-    ('@CMAKE_CURRENT_BINARY_DIR@/samples',        'delivery/app', '*', lambda path, name: os.access(os.path.join(path, name), os.X_OK) and os.path.isfile(os.path.join(path, name))),
-    # Only copy .so files, skip CMakeFiles directory
-    ('@CMAKE_CURRENT_BINARY_DIR@/pybind',         'delivery/python', 'pyberialdraw*.so', lambda path, name: 'CMakeFiles' not in path.split(os.sep)),
-    ('@CMAKE_CURRENT_SOURCE_DIR@/pybind/test.py', 'delivery/python/test.py', None, None),
-]
-
-def copy_with_filter(src, dst, wildcard=None, filter_func=None):
-    if os.path.isdir(src):
-        if wildcard is None:
-            wildcard = '**/*'
-        for root, dirs, files in os.walk(src):
-            # Skip CMakeFiles directory for all jobs
-            dirs[:] = [d for d in dirs if d != 'CMakeFiles']
-            rel_root = os.path.relpath(root, src)
-            for name in files:
-                src_file = os.path.join(root, name)
-                rel_path = os.path.normpath(os.path.join(rel_root, name))
-                dst_file = os.path.join(dst, rel_path)
-                if filter_func is None or filter_func(root, name):
-                    os.makedirs(os.path.dirname(dst_file), exist_ok=True)
-                    shutil.copy2(src_file, dst_file)
-    elif wildcard:
-        for src_file in glob.glob(os.path.join(src, wildcard), recursive=True):
-            # Skip any file inside CMakeFiles
-            if 'CMakeFiles' in src_file.split(os.sep):
-                continue
-            if os.path.isfile(src_file):
-                rel_path = os.path.relpath(src_file, src)
-                dst_file = os.path.join(dst, rel_path)
-                os.makedirs(os.path.dirname(dst_file), exist_ok=True)
-                shutil.copy2(src_file, dst_file)
-    else:
-        os.makedirs(os.path.dirname(dst), exist_ok=True)
-        shutil.copy2(src, dst)
-
-for job in copy_jobs:
-    src, dst, wildcard, filter_func = job
-    if os.path.exists(src):
-        copy_with_filter(src, dst, wildcard, filter_func)
-")
-
-# Configure the script into the build directory at every configure step
+# Use Python delivery script from builds/cmake/
+# Configure it into the build directory at every configure step
 configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/copy_delivery.py.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/copy_delivery.py"
+    "${CMAKE_CURRENT_SOURCE_DIR}/builds/cmake/deliver.py"
+    "${CMAKE_CURRENT_BINARY_DIR}/deliver.py"
     @ONLY
 )
 
@@ -433,9 +386,9 @@ file(REMOVE "${CMAKE_CURRENT_BINARY_DIR}/delivery/.copy_delivery_stamp")
 
 add_custom_command(
     OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/delivery/.copy_delivery_stamp"
-    COMMAND python3 "${CMAKE_CURRENT_BINARY_DIR}/copy_delivery.py"
+    COMMAND python3 "${CMAKE_CURRENT_BINARY_DIR}/deliver.py"
     #COMMAND ${CMAKE_COMMAND} -E touch "${CMAKE_CURRENT_BINARY_DIR}/delivery/.copy_delivery_stamp"
-    #COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_CURRENT_BINARY_DIR}/copy_delivery.py"
+    #COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_CURRENT_BINARY_DIR}/deliver.py"
     WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
     DEPENDS ${BD_LIB} ${BD_PY11_LIB}
     COMMENT "Copying resources and testing ARM64 after build completion"

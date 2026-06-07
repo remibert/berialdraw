@@ -7,7 +7,7 @@
 #include <vector>
 #include <mutex>
 #include <stdexcept>
-
+ 
 // Tools
 #include "tool/memory_leak_tracer.hpp"
 #include "tool/hsl.hpp"
@@ -204,91 +204,118 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 
 
 /**
-@mainpage
+@mainpage BerialDraw - C++20 UI Framework
 
-Programme simple hello world
+A lightweight, cross-platform C++20 UI framework for embedded systems, desktop (Win32, macOS/Cocoa, Linux/XCB/SDL3), and headless rendering. 
+Features anti-aliased vector graphics and raster image rendering via FreeType's rasterizer, without GPU acceleration.
 
+@section widgets Widgets for user interface
+<ul>
+	<li>@ref berialdraw::Button - Clickable button widget</li>
+	<li>@ref berialdraw::Checkbox - Checkbox widget</li>
+	<li>@ref berialdraw::Edit - Text input widget</li>
+	<li>@ref berialdraw::Icon - Icon/image display widget</li>
+	<li>@ref berialdraw::Keyboard - On-screen keyboard widget</li>
+	<li>@ref berialdraw::Label - Text label widget</li>
+	<li>@ref berialdraw::Pane - Container widget with borders</li>
+	<li>@ref berialdraw::Picture - Picture/image widget</li>
+	<li>@ref berialdraw::ProgressBar - Progress bar widget</li>
+	<li>@ref berialdraw::Radio - Radio button widget</li>
+	<li>@ref berialdraw::Slider - Slider/seek bar widget</li>
+	<li>@ref berialdraw::Switch - Toggle switch widget</li>
+	<li>@ref berialdraw::ScrollView - Scrollable view container</li>
+	<li>@ref berialdraw::TableView - Table with rows and columns</li>
+	<li>@ref berialdraw::Widget - Base widget class</li>
+	<li>@ref berialdraw::Window - Top-level window widget</li>
+</ul>
+
+@section layouts Layout managers
+<ul>
+	<li>@ref berialdraw::Column - Stack widgets vertically</li>
+	<li>@ref berialdraw::Row - Stack widgets horizontally</li>
+	<li>@ref berialdraw::Grid - Arrange widgets in a grid</li>
+</ul>
+
+@section drawing Drawing and Shapes
+<ul>
+	<li>@ref berialdraw::Canvas - Vector drawing canvas</li>
+	
+	<li><b>Vector Shapes:</b>
+	<ul>
+		<li>@ref berialdraw::Circle - Circle marker</li>
+		<li>@ref berialdraw::Compass - Directional compass shape</li>
+		<li>@ref berialdraw::Cross - Cross/plus marker</li>
+		<li>@ref berialdraw::Line - Line shape</li>
+		<li>@ref berialdraw::Pie - Pie/arc shape</li>
+		<li>@ref berialdraw::PolyLines - Connected line segments</li>
+		<li>@ref berialdraw::PolyPoints - Point collection</li>
+		<li>@ref berialdraw::Polygon - Polygon shape</li>
+		<li>@ref berialdraw::Rect - Rectangle shape</li>
+		<li>@ref berialdraw::Square - Square marker</li>
+		<li>@ref berialdraw::Text - Text shape</li>
+		<li>@ref berialdraw::Triangle - Triangle marker</li>
+	</ul>
+	</li>
+	
+	<li><b>Raster Shapes:</b>
+	<ul>
+		<li>@ref berialdraw::Image - Raster image shape</li>
+		<li>@ref berialdraw::Sketch - Vector graphic from file (.icn/.svg)</li>
+	</ul>
+	</li>
+	
+	<li><b>Charts:</b>
+	<ul>
+		<li>@ref berialdraw::LineChart - Line chart visualization</li>
+	</ul>
+	</li>
+</ul>
+
+@section ui UIManager and Desktop
+<ul>
+	<li>@ref berialdraw::UIManager - Singleton manager for rendering, events, and resources</li>
+	<li>@ref berialdraw::Desktop - Manages window tree and refresh cycle</li>
+	<li>@ref berialdraw::Renderer - Vector rasterizer using FreeType outlines</li>
+</ul>
+
+@section font Font Management
+<ul>
+	<li>@ref berialdraw::Font - Font instance</li>
+	<li>@ref berialdraw::Fonts - Font cache and manager</li>
+	<li>@ref berialdraw::Utf8 - UTF-8 text utilities</li>
+</ul>
+
+@section events Events
+<ul>
+	<li>@ref berialdraw::TouchEvent - Touch/mouse input event</li>
+	<li>@ref berialdraw::KeyEvent - Keyboard event</li>
+	<li>@ref berialdraw::ClickEvent - Widget click event</li>
+	<li>@ref berialdraw::CheckEvent - Checkbox state change event</li>
+	<li>@ref berialdraw::SelectEvent - Item selection event</li>
+	<li>@ref berialdraw::SlideEvent - Slider movement event</li>
+	<li>@ref berialdraw::ScrollEvent - Scroll event</li>
+	<li>@ref berialdraw::FocusEvent - Focus change event</li>
+	<li>@ref berialdraw::Notifier - Event dispatcher and test script player</li>
+</ul>
+
+@section platform Platform Backends
+<ul>
+	<li>@ref berialdraw::Device - Abstract device interface</li>
+	<li>@ref berialdraw::DeviceWin32 - Windows native backend (Win32 API)</li>
+	<li>@ref berialdraw::DeviceCocoa - macOS native backend (Cocoa/CoreGraphics)</li>
+	<li>@ref berialdraw::DeviceSdl - SDL3 backend (Linux, cross-platform)</li>
+	<li>@ref berialdraw::DeviceXcb - X11/XCB backend (Linux default)</li>
+</ul>
+
+@section image Image Processing
+<ul>
+	<li>@ref berialdraw::ImageProcessor - Bicubic resize and bilinear rotation</li>
+	<li>@ref berialdraw::ImageCache - LRU decoded image cache</li>
+	<li>@ref berialdraw::PngDecoder - PNG image decoder</li>
+	<li>@ref berialdraw::JpegDecoder - JPEG image decoder</li>
+</ul>
+
+@section example Quick Start
 @include sample_hello_world.cpp
-
-
-Widgets used for user interface :
-<ul>
-	<li>@ref berialdraw::Button</li>
-	<li>@ref berialdraw::Edit</li>
-	<li>@ref berialdraw::Icon</li>
-	<li>@ref berialdraw::Keyboard</li>
-	<li>@ref berialdraw::Label</li>
-	<li>@ref berialdraw::Pane</li>
-	<li>@ref berialdraw::ProgressBar</li>
-	<li>@ref berialdraw::Slider</li>
-	<li>@ref berialdraw::Switch</li>
-	<li>@ref berialdraw::ScrollView</li>
-	<li>@ref berialdraw::Widget</li>
-	<li>@ref berialdraw::Window</li>
-</ul>
-
-Layout to place elements in the window :
-<ul>
-	<li>@ref berialdraw::Column : Place widgets in a column</li>
-	<li>@ref berialdraw::Row : Place widgets in a row</li>
-	<li>@ref berialdraw::Grid : Place widgets in a grid</li>
-</ul>
-
-Classes used for drawing :
-<ul>
-	<li>@ref berialdraw::Canvas : </li>
-
-	Shapes :
-	<ul>
-		<li>@ref berialdraw::Line</li>
-		<li>@ref berialdraw::Pie</li>
-		<li>@ref berialdraw::PolyLines</li>
-		<li>@ref berialdraw::PolyPoints</li>
-		<li>@ref berialdraw::Polygon</li>
-		<li>@ref berialdraw::Rect</li>
-		<li>@ref berialdraw::Text</li>
-	</ul>
-
-	Markers :
-	<ul>
-		<li>@ref berialdraw::Circle</li>
-		<li>@ref berialdraw::Cross</li>
-		<li>@ref berialdraw::Square</li>
-		<li>@ref berialdraw::Triangle</li>
-	</ul>
-</ul>
-
-Desktop and ui manager :
-<ul>
-	<li>@ref berialdraw::Desktop : manages refresh and windows</li>
-	<li>@ref berialdraw::UIManager : </li>
-</ul>
-
-Font :
-<ul>
-	<li>@ref berialdraw::Font</li>
-	<li>@ref berialdraw::Fonts</li>
-	<li>@ref berialdraw::FontFace</li>
-	<li>@ref berialdraw::Utf8</li>
-</ul>
-
-Events :
-<ul>
-	<li>@ref berialdraw::CheckEvent : </li>
-	<li>@ref berialdraw::ClickEvent</li>
-	<li>@ref berialdraw::KeyEvent</li>
-	<li>@ref berialdraw::ScrollEvent</li>
-	<li>@ref berialdraw::SelectEvent</li>
-	<li>@ref berialdraw::SlideEvent</li>
-	<li>@ref berialdraw::TouchEvent</li>
-	<li>@ref berialdraw::Notifier : handles events, calls callbacks, logs events and play tests events scripts</li>
-</ul>
-
-OS interface class for rendering and events :
-<ul>
-	<li>@ref berialdraw::Device : abstract class </li>
-	<li>@ref berialdraw::DeviceSdl : interfacing with SDL</li>
-	<li>@ref berialdraw::DeviceWin32 : win32 interface</li>
-</ul>
 
 */

@@ -4142,5 +4142,9 @@
 		"$(ui.tests)/out/canvas6.svg" : 
 		{
 			"scale_2" : 4040557006
+		},
+		"$(ui.tests)/out/sample_picture_1.svg" : 
+		{
+			"scale_2" : 66514237
 		}
 	}

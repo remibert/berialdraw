@@ -5,8 +5,8 @@ namespace berialdraw
 	It is commonly used for boolean selections or multiple choice options. */
 	class Checkbox: public Widget, public TextStyle, public BorderStyle, public CheckboxStyle
 	{
-	/** @image html sample_checkbox_1.svg "example" width=200px height=200px
-	@example sample_checkbox.cpp*/
+	/** @image html sample_switch_1.svg "example" width=200px height=200px
+	@example sample_switch.cpp*/
 	public:
 		/** Create widget */
 		Checkbox(Widget * parent);

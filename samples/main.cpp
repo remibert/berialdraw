@@ -15,6 +15,9 @@ int main(int argc, char* args[])
 	UIManager::init(new DeviceScreen("Samples BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888, ZOOM, "../resources;./resources");
 	//UIManager::init(new DeviceScreen("Samples BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888, ZOOM, "zip://resources.zip/resources");
 
+	// Starts the user event logger, useful if you want to script user interface tests
+	UIManager::notifier()->log();
+
 	// Execute menu with all samples
 	sample_icon_menu();
 	sample_menu();

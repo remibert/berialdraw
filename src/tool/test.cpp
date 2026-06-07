@@ -16,6 +16,9 @@ namespace berialdraw
 		//TableView::test();
 		Image::test();
 
+		// Other
+		Styles::test();
+
 		// Widgets
 		Picture::test();
 		Icon::test();
@@ -605,10 +608,26 @@ namespace berialdraw
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
 				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 
-
-
 				"{'type':'touch','x': 54,'y': 20,'state':'down'},"
 				"{'type':'touch','x': 54,'y': 20,'state':'up'},"
+
+				"{'type':'touch','x':368,'y':429,'state':'down'},"
+				"{'type':'touch','x':368,'y':429,'state':'move'},"
+				"{'type':'touch','x':353,'y':295,'state':'move'},"
+				"{'type':'touch','x':365,'y':225,'state':'move'},"
+				"{'type':'touch','x':367,'y':197,'state':'move'},"
+				"{'type':'touch','x':367,'y':194,'state':'move'},"
+				"{'type':'touch','x':367,'y':193,'state':'up'},"
+
+				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_picture_%d.svg'},"
+
+				"{'type':'touch','x':316,'y':396,'state':'down'},"
+				"{'type':'touch','x':316,'y':396,'state':'up'},"
+				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+
+				"{'type':'touch','x': 60,'y': 23,'state':'down'},"
+				"{'type':'touch','x': 60,'y': 23,'state':'up'},"
 
 				"{'type':'touch','x': 54,'y': 20,'state':'down'},"
 				"{'type':'touch','x': 54,'y': 20,'state':'up'},"

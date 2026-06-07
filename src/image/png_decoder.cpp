@@ -3,10 +3,7 @@
 
 using namespace berialdraw;
 
-// ============================================================================
-// Custom libpng source manager using File abstraction
-// ============================================================================
-
+/** Custom read callback for libpng using berialdraw File abstraction */
 static void png_read_from_file(png_structp png_ptr, png_bytep data, png_size_t length)
 {
 	File* file = (File*)png_get_io_ptr(png_ptr);
@@ -67,21 +64,25 @@ bool PngDecoder::decode(const char* filename)
 								png_set_palette_to_rgb(png_ptr);
 							}
 
+							// Convert grayscale to 8 bits
 							if (color_type == PNG_COLOR_TYPE_GRAY && bit_depth < 8)
 							{
 								png_set_expand_gray_1_2_4_to_8(png_ptr);
 							}
 
+							// Add alpha channel if transparency info exists
 							if (png_get_valid(png_ptr, info_ptr, PNG_INFO_tRNS))
 							{
 								png_set_tRNS_to_alpha(png_ptr);
 							}
 
+							// Convert 16 bit to 8 bit
 							if (bit_depth == 16)
 							{
 								png_set_strip_16(png_ptr);
 							}
 
+							// Convert grayscale to RGB
 							if (color_type == PNG_COLOR_TYPE_GRAY || color_type == PNG_COLOR_TYPE_GRAY_ALPHA)
 							{
 								png_set_gray_to_rgb(png_ptr);
@@ -98,13 +99,17 @@ bool PngDecoder::decode(const char* filename)
 								m_has_alpha = true;
 							}
 
-							// Swap channels for ARGB8888
+							// Swap R and B channels to match ARGB8888 (0xAARRGGBB) format
+							// libpng outputs RGBA bytes, which on little-endian gives 0xAABBGGRR
+							// png_set_bgr swaps to BGRA bytes = 0xAARRGGBB on little-endian
 							png_set_bgr(png_ptr);
 
 							png_read_update_info(png_ptr, info_ptr);
 
 							// Allocate and setup row pointers
 							m_pixels = new uint32_t[m_width * m_height];
+
+							// Allocate row pointers
 							png_bytep* row_pointers = new png_bytep[m_height];
 							for (uint32_t y = 0; y < m_height; y++)
 							{

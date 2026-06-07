@@ -8,3 +8,11 @@ cmake.db
 requirements.txt
 todo.txt
 .vs/*
+
+# Doxygen generated documentation
+doc/html/
+doc/latex/
+doc/xml/
+doc/*.log
+doc/doxygen_sqlite3.db
+delivery/doc/

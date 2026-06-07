@@ -6,6 +6,8 @@ namespace berialdraw
 	It uses Image for raster files (PNG/JPEG) and Sketch for vector files (ICN/SVG). */
 	class Picture: public Widget, public BorderStyle, public PictureStyle
 	{
+	/** @image html sample_picture_1.svg "example" width=200px height=200px
+	@example sample_picture.cpp*/
 	public:
 		/** Create widget */
 		Picture(Widget * parent);

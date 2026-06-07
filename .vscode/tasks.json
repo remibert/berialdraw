@@ -2,6 +2,60 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "CMake: Configure with Docs",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-B",
+                "build",
+                "-DBUILD_DOCS=ON"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": [],
+            "detail": "⚙️ Configure CMake with Doxygen documentation (run once)"
+        },
+        {
+            "label": "CMake: Build All with Docs",
+            "type": "shell",
+            "command": "sh",
+            "args": [
+                "-c",
+                "cmake -B build -DBUILD_DOCS=ON && cmake --build build"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": ["$gcc", "$msCompile"],
+            "detail": "🚀 Configure & build everything including documentation (binaires + doc)"
+        },
+        {
+            "label": "CMake: Build Documentation Only",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "build",
+                "--target",
+                "docs"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "detail": "Build only Doxygen documentation"
+        },
+        {
             "label": "build",
             "type": "shell",
             "command": "msbuild",

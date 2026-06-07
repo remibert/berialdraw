@@ -5,8 +5,8 @@ namespace berialdraw
 	Radio buttons are grouped by the group property, and only one can be selected at a time within the same group. */
 	class Radio: public Widget, public TextStyle, public BorderStyle, public RadioStyle
 	{
-	/** @image html sample_radio_1.svg "example" width=200px height=200px
-	@example sample_radio.cpp*/
+	/** @image html sample_switch_1.svg "example" width=200px height=200px
+	@example sample_switch.cpp*/
 	public:
 		/** Create widget */
 		Radio(Widget * parent);
