@@ -65,7 +65,7 @@ void ScrollView::test1()
 	UIManager::desktop()->dispatch();
 
 	Size size = scroll_view->scroll_size();
-	size.decrease(scroll_view->viewport_size());
+	size.decrease(scroll_view->backclip().size());
 	Point position = scroll_view->scroll_position();
 	int id = 0;
 	int i = 0;
@@ -323,7 +323,8 @@ void ScrollView::test5()
 			ScrollView * imbricated_scrollview = new ScrollView(grid);
 				imbricated_scrollview->scroll_direction(SCROLL_VERTICAL);
 				imbricated_scrollview->id(456);
-				imbricated_scrollview->viewport_size(Size::MAX_SIZE, 60);
+				//imbricated_scrollview->viewport_size(Size::MAX_SIZE, 60);
+				imbricated_scrollview->size(Size::MAX_SIZE, 60);
 				imbricated_scrollview->margin(5);
 
 			Column * imbricated_grid = new Column(imbricated_scrollview);

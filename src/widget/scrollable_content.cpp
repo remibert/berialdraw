@@ -9,8 +9,9 @@ ScrollableContent::ScrollableContent(const char * classname, Widget * parent, si
 {
 	UIManager::styles()->apply(this, (WidgetStyle*)this);
 	UIManager::styles()->apply(this, (ScrollViewStyle*)this);
+	UIManager::styles()->apply(this, (ScrollbarStyle*)this);
 	m_color = Color::TRANSPARENT;
-	m_size.clean();
+	//m_size.clean();
 	bind(this, &ScrollableContent::on_scroll);
 }
 
@@ -120,34 +121,34 @@ Point ScrollableContent::compute_scroll_view(const Area & area, Point & scroll_p
 	// If scroll size not specified
 	if (m_scroll_size.is_width_undefined() || m_scroll_size.is_height_undefined())
 	{
-		m_size = Widget::content_size();
+		m_content_size = Widget::content_size();
 
 		// Compute the absolute positionned widget area
 		scroll_area(fixed_area);
 
-		if (m_size.width_() < fixed_area.width_())
+		if (m_content_size.width_() < fixed_area.width_())
 		{
-			m_size.width_(fixed_area.width_());
+			m_content_size.width_(fixed_area.width_());
 		}
 
-		if (m_size.height_() < fixed_area.height_())
+		if (m_content_size.height_() < fixed_area.height_())
 		{
-			m_size.height_(fixed_area.height_());
+			m_content_size.height_(fixed_area.height_());
 		}
 
 		// If the scrolled content can extend only to the width (vertical scroll)
 		if (m_scroll_direction == SCROLL_VERTICAL)
 		{
 			// Reduce the scrolled content width to the viewport width
-			m_size.width(area.width());
+			m_content_size.width(area.width());
 		}
 		// If the scrolled content can extend only to the height (horizontal scroll)
 		else if (m_scroll_direction == SCROLL_HORIZONTAL)
 		{
 			// Reduce the scrolled content height to the viewport height
-			m_size.height(area.height());
+			m_content_size.height(area.height());
 		}
-		scroll_size = m_size;
+		scroll_size = m_content_size;
 	}
 
 	Coord scroll_position_x   = scroll_position.x();
@@ -171,16 +172,22 @@ Point ScrollableContent::compute_scroll_view(const Area & area, Point & scroll_p
 
 void ScrollableContent::place(const Area & area, bool in_layout)
 {
-	Area scroll_area;
-	Size scroll_size(m_scroll_size);
-	Point previous_position(m_scroll_position);
-	Point scroll_position(m_scroll_position);
-	Area marged_area(area);
 
-	marged_area.decrease(margin());
+	if (!is_absolute())
+	{
+		// Consider the placement in layout
+		in_layout = true;
+	}
+
+	// Place the viewport
+	place_in_area(area, in_layout);
+
+	
+	Size scroll_size(m_scroll_size);
+	Point scroll_position(m_scroll_position);
 
 	// Compute the scroll position and size
-	Point scroll_out = compute_scroll_view(marged_area, scroll_position, scroll_size);
+	Point scroll_out = compute_scroll_view(m_foreclip, scroll_position, scroll_size);
 
 	if (scroll_out.x() | scroll_out.y())
 	{
@@ -191,17 +198,16 @@ void ScrollableContent::place(const Area & area, bool in_layout)
 	}
 
 	// Move to the screen position
-	scroll_position.move(marged_area.position());
+	scroll_position.move(m_foreclip.position());
 
 	// Set the scroll area to calculate the position of all widgets in the scrolled content
-	scroll_area.set(scroll_position, scroll_size);
+	Area scroll_area(scroll_position, scroll_size);
 
 	// Place all children in scrolled area
 	Widget::place(scroll_area, false);
 	
-	// Define the visible area (clipping area) for this scrollable widget
-	m_foreclip = area;
-	m_backclip = marged_area;
+	// Define the viewport
+	m_backclip = m_foreclip;
 }
 
 /** Paint on screen memory the content of this widget */
@@ -222,6 +228,9 @@ void ScrollableContent::paint(const Region & parent_region)
 
 		Widget::paint(region);
 
+		// Paint scrollbar indicator if visible
+		paint_scrollbar();
+
 		if (exporter)
 		{
 			exporter->close_group();
@@ -234,7 +243,7 @@ const Size & ScrollableContent::scroll_size() const
 {
 	if (m_scroll_size.is_width_undefined() && m_scroll_size.is_height_undefined())
 	{
-		return m_size;
+		return m_content_size;
 	}
 	else
 	{
@@ -277,43 +286,43 @@ const Point & ScrollableContent::scroll_position() const
 }
 
 /** Get viewport size */
-const Size & ScrollableContent::viewport_size() const
-{
-	if (m_viewport_size.is_width_undefined() && m_viewport_size.is_height_undefined())
-	{
-		return m_backclip.size();
-	}
-	else
-	{
-		return m_viewport_size;
-	}
-}
-
-/** Set viewport size */
-void ScrollableContent::viewport_size(const Size & size)
-{
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_viewport_size = size;
-}
-
-/** Set the viewport size with width and height in pixels */
-void ScrollableContent::viewport_size(Dim w, Dim h)
-{
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_viewport_size.set(w,h);
-}
+//const Size & ScrollableContent::viewport_size() const
+//{
+//	if (m_size.is_width_undefined() && m_size.is_height_undefined())
+//	{
+//		return m_backclip.size();
+//	}
+//	else
+//	{
+//		return m_size;
+//	}
+//}
+//
+///** Set viewport size */
+//void ScrollableContent::viewport_size(const Size & size)
+//{
+//	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+//	m_size = size;
+//}
+//
+///** Set the viewport size with width and height in pixels */
+//void ScrollableContent::viewport_size(Dim w, Dim h)
+//{
+//	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+//	m_size.set(w,h);
+//}
 
 /** Return the size of content without marges */
 Size ScrollableContent::content_size()
 {
 	Size result = Widget::content_size();
-	if (!m_viewport_size.is_width_undefined())
+	if (!/*m_viewport_size*/m_size.is_width_undefined())
 	{
-		result.width_(m_viewport_size.width_());
+		result.width_(/*m_viewport_size*/m_size.width_());
 	}
-	if (!m_viewport_size.is_height_undefined())
+	if (!/*m_viewport_size*/m_size.is_height_undefined())
 	{
-		result.height_(m_viewport_size.height_());
+		result.height_(/*m_viewport_size*/m_size.height_());
 	}
 	return result;
 }
@@ -347,4 +356,127 @@ void ScrollableContent::scroll_area(Area & area)
 StyleCascadeMode ScrollableContent::style_cascade_mode() const
 {
 	return StyleCascadeMode::NONE;
+}
+
+/** Paint the scrollbar indicator */
+void ScrollableContent::paint_scrollbar()
+{
+	// Check if scrollbar should be visible
+	if (!m_scrollbar_visible)
+	{
+		return;
+	}
+
+	// Get sizes
+	const Size & content_size = scroll_size();
+	const Size & viewport_size = m_backclip.size();
+	
+	// Calculate scrollbar dimensions for vertical scrollbar
+	bool need_vertical = (m_scroll_direction != SCROLL_HORIZONTAL) && 
+	                     (content_size.height_() > viewport_size.height_());
+	
+	// Calculate scrollbar dimensions for horizontal scrollbar
+	bool need_horizontal = (m_scroll_direction != SCROLL_VERTICAL) && 
+	                       (content_size.width_() > viewport_size.width_());
+
+	// Draw vertical scrollbar
+	if (need_vertical)
+	{
+		// Calculate thumb height proportional to visible content
+		Dim scrollbar_height = viewport_size.height_() - (m_scrollbar_margin << 1);
+		Dim thumb_height = (viewport_size.height_() * scrollbar_height) / content_size.height_();
+		
+		// Minimum thumb height
+		Dim min_thumb_height = m_scrollbar_width << 1;
+		if (thumb_height < min_thumb_height)
+		{
+			thumb_height = min_thumb_height;
+		}
+		
+		// Calculate thumb position based on scroll position
+		Dim available_track = scrollbar_height - thumb_height;
+		Dim content_scroll_range = content_size.height_() - viewport_size.height_();
+		Dim thumb_position = 0;
+		
+		if (content_scroll_range > 0)
+		{
+			// m_scroll_position is negated for display
+			Coord scroll_pos = -m_scroll_position.y_();
+			if (scroll_pos < 0)
+			{
+				scroll_pos = 0;
+			}
+			if ((Dim)scroll_pos > content_scroll_range)
+			{
+				scroll_pos = content_scroll_range;
+			}
+			thumb_position = (scroll_pos * available_track) / content_scroll_range;
+		}
+		
+		// Build scrollbar area (right side of viewport)
+		Area scrollbar_area(
+			m_backclip.x_() + viewport_size.width_() - m_scrollbar_width - m_scrollbar_margin,
+			m_backclip.y_() + m_scrollbar_margin + thumb_position,
+			m_scrollbar_width,
+			thumb_height,
+			false
+		);
+		
+		scrollbar_area.nearest_pixel();
+		
+		// Draw scrollbar thumb with rounded corners
+		Rect::build_polygon(scrollbar_area, m_scrollbar_radius, 0, 0, ALL_BORDERS, 
+		                    scrollbar_thumb_color(), Color::TRANSPARENT);
+	}
+	
+	// Draw horizontal scrollbar
+	if (need_horizontal)
+	{
+		// Calculate thumb width proportional to visible content
+		Dim scrollbar_width = viewport_size.width_() - (m_scrollbar_margin << 1);
+		Dim thumb_width = (viewport_size.width_() * scrollbar_width) / content_size.width_();
+		
+		// Minimum thumb width
+		Dim min_thumb_width = m_scrollbar_width << 1;
+		if (thumb_width < min_thumb_width)
+		{
+			thumb_width = min_thumb_width;
+		}
+		
+		// Calculate thumb position based on scroll position
+		Dim available_track = scrollbar_width - thumb_width;
+		Dim content_scroll_range = content_size.width_() - viewport_size.width_();
+		Dim thumb_position = 0;
+		
+		if (content_scroll_range > 0)
+		{
+			// m_scroll_position is negated for display
+			Coord scroll_pos = -m_scroll_position.x_();
+			if (scroll_pos < 0)
+			{
+				scroll_pos = 0;
+			}
+			if ((Dim)scroll_pos > content_scroll_range)
+			{
+				scroll_pos = content_scroll_range;
+			}
+			thumb_position = (scroll_pos * available_track) / content_scroll_range;
+		}
+		
+		// Build scrollbar area (bottom of viewport, adjust for vertical scrollbar if present)
+		Dim width_adjust = need_vertical ? (m_scrollbar_width + m_scrollbar_margin) : 0;
+		Area scrollbar_area(
+			m_backclip.x_() + m_scrollbar_margin + thumb_position,
+			m_backclip.y_() + viewport_size.height_() - m_scrollbar_width - m_scrollbar_margin,
+			thumb_width - width_adjust,
+			m_scrollbar_width,
+			false
+		);
+		
+		scrollbar_area.nearest_pixel();
+		
+		// Draw scrollbar thumb with rounded corners
+		Rect::build_polygon(scrollbar_area, m_scrollbar_radius, 0, 0, ALL_BORDERS, 
+		                    scrollbar_thumb_color(), Color::TRANSPARENT);
+	}
 }

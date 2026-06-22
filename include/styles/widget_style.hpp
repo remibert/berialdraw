@@ -148,6 +148,13 @@ namespace berialdraw
 		void focused(bool v);
 
 
+		/** Get the enabled state */
+		bool enabled() const { return m_enabled; }
+
+		/** Set the enabled state (disabled widgets are grayed and not interactive) */
+		void enabled(bool v);
+
+
 		/** Get the style string (empty string if not set) */
 		const String & style() const;
 
@@ -183,6 +190,8 @@ namespace berialdraw
 		unsigned int m_focusable :1;
 
 		unsigned int m_selectable:1;
+
+		unsigned int m_enabled   :1;
 
 		unsigned int m_edited    :1;
 		unsigned int m_refocus   :1;

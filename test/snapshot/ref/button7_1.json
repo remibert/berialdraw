@@ -53,6 +53,7 @@
 		"selectable" : 0,
 		"pressable" : 0,
 		"flow" : 0,
+		"enabled" : 1,
 		"children" : 
 		[
 			{
@@ -81,6 +82,7 @@
 				"selectable" : 0,
 				"pressable" : 0,
 				"flow" : 0,
+				"enabled" : 1,
 				"position" : 
 				{
 					"x" : 0,
@@ -138,6 +140,7 @@
 						"selectable" : 0,
 						"pressable" : 0,
 						"flow" : 0,
+						"enabled" : 1,
 						"position" : 
 						{
 							"x" : 0,
@@ -224,6 +227,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "q",
 								"font-familly" : "",
 								"font-size" : 
@@ -302,6 +306,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "w",
 								"font-familly" : "",
 								"font-size" : 
@@ -380,6 +385,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "e",
 								"font-familly" : "",
 								"font-size" : 
@@ -458,6 +464,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "r",
 								"font-familly" : "",
 								"font-size" : 
@@ -536,6 +543,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "t",
 								"font-familly" : "",
 								"font-size" : 
@@ -614,6 +622,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "y",
 								"font-familly" : "",
 								"font-size" : 
@@ -692,6 +701,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "u",
 								"font-familly" : "",
 								"font-size" : 
@@ -770,6 +780,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "i",
 								"font-familly" : "",
 								"font-size" : 
@@ -848,6 +859,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "o",
 								"font-familly" : "",
 								"font-size" : 
@@ -926,6 +938,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "p",
 								"font-familly" : "",
 								"font-size" : 
@@ -977,6 +990,7 @@
 						"selectable" : 0,
 						"pressable" : 0,
 						"flow" : 0,
+						"enabled" : 1,
 						"position" : 
 						{
 							"x" : 0,
@@ -1063,6 +1077,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "a",
 								"font-familly" : "",
 								"font-size" : 
@@ -1141,6 +1156,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "s",
 								"font-familly" : "",
 								"font-size" : 
@@ -1219,6 +1235,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "d",
 								"font-familly" : "",
 								"font-size" : 
@@ -1297,6 +1314,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "f",
 								"font-familly" : "",
 								"font-size" : 
@@ -1375,6 +1393,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "g",
 								"font-familly" : "",
 								"font-size" : 
@@ -1453,6 +1472,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "h",
 								"font-familly" : "",
 								"font-size" : 
@@ -1531,6 +1551,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "j",
 								"font-familly" : "",
 								"font-size" : 
@@ -1609,6 +1630,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "k",
 								"font-familly" : "",
 								"font-size" : 
@@ -1687,6 +1709,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "l",
 								"font-familly" : "",
 								"font-size" : 
@@ -1765,6 +1788,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "'",
 								"font-familly" : "",
 								"font-size" : 
@@ -1816,6 +1840,7 @@
 						"selectable" : 0,
 						"pressable" : 0,
 						"flow" : 0,
+						"enabled" : 1,
 						"position" : 
 						{
 							"x" : 0,
@@ -1902,6 +1927,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "\x06",
 								"font-familly" : "",
 								"font-size" : 
@@ -1980,6 +2006,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "z",
 								"font-familly" : "",
 								"font-size" : 
@@ -2058,6 +2085,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "x",
 								"font-familly" : "",
 								"font-size" : 
@@ -2136,6 +2164,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "c",
 								"font-familly" : "",
 								"font-size" : 
@@ -2214,6 +2243,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "v",
 								"font-familly" : "",
 								"font-size" : 
@@ -2292,6 +2322,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "b",
 								"font-familly" : "",
 								"font-size" : 
@@ -2370,6 +2401,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "n",
 								"font-familly" : "",
 								"font-size" : 
@@ -2448,6 +2480,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "m",
 								"font-familly" : "",
 								"font-size" : 
@@ -2526,6 +2559,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : "⌫",
 								"font-familly" : "",
 								"font-size" : 
@@ -2577,6 +2611,7 @@
 						"selectable" : 0,
 						"pressable" : 0,
 						"flow" : 0,
+						"enabled" : 1,
 						"position" : 
 						{
 							"x" : 0,
@@ -2663,6 +2698,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : " 123 ",
 								"font-familly" : "",
 								"font-size" : 
@@ -2741,6 +2777,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : " ",
 								"font-familly" : "",
 								"font-size" : 
@@ -2819,6 +2856,7 @@
 								"selectable" : 0,
 								"pressable" : 1,
 								"flow" : 0,
+								"enabled" : 1,
 								"text" : " ↩ ",
 								"font-familly" : "",
 								"font-size" : 

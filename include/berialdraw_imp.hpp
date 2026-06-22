@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 /// @cond DOXYGEN_IGNORE
 #ifdef __APPLE__
 #include <uuid/uuid.h>
@@ -24,7 +24,6 @@
 #include <cstdint>
 #include <cstring>
 #include <algorithm>
-
 
 #ifdef LINUX
 	#include <time.h>

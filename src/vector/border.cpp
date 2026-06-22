@@ -7,7 +7,7 @@ namespace berialdraw
 	/** Unserialize the content of extend from json */
 	void unserialize(JsonIterator & it, Borders & borders)
 	{
-		String str = it["borders"] | "nothing";
+		String str = it[StyleNames::WIDGET_BORDERS] | "nothing";
 	
 		if (str != "nothing")
 		{
@@ -92,7 +92,7 @@ namespace berialdraw
 		{
 			value = value + ",right-angle-without-border";
 		}
-		it["borders"] = value;
+		it[StyleNames::WIDGET_BORDERS] = value;
 	}
 }
 

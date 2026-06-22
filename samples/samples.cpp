@@ -14,8 +14,6 @@ void sample_icon_menu()
 	dialog.title("Samples");
 	dialog.add_back_button("Back");
 
-	//dialog.bind("Form"       , "$(ui.icons)/view_agenda.icn"       ,sample_forms      );
-
 	dialog.bind("Button"     , "$(ui.icons)/view_agenda.icn"       ,sample_button      );
 	dialog.bind("Canvas"     , "$(ui.icons)/draw_abstract.icn"     ,sample_canvas      );
 	dialog.bind("Column"     , "$(ui.icons)/table_rows_narrow.icn" ,sample_column      );
@@ -66,7 +64,7 @@ void sample_menu()
 	dialog.bind("Switch"     ,sample_switch      );
 	dialog.bind("Window"     ,sample_window      );
 	dialog.bind("Speedometer",sample_speedometer );
-	dialog.bind("Theme"      ,sample_palette       );
+	dialog.bind("Theme"      ,sample_palette     );
 	dialog.bind("TableView"  ,sample_tableview   );
 	dialog.bind("Picture"    ,sample_picture     );
 	while (dialog.exec() != "<quit>");

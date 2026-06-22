@@ -45,7 +45,7 @@ namespace berialdraw
 		Size             m_scroll_size;
 		Point            m_scroll_position;
 		ScrollDirection  m_scroll_direction = SCROLL_VERTICAL;
-		Size             m_viewport_size;
+		//Size             m_viewport_size;
 /// @endcond
 	}; 
 }

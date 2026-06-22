@@ -25,7 +25,8 @@ void ScreenCrc::add(const String & filename, uint32_t crc_value)
 
 		if (m_crcs->operator[](filename)[scale].exist())
 		{
-			if ((int)crc_value != (int)m_crcs->operator[](filename)[scale])
+			int crc_ref = (int)m_crcs->operator[](filename)[scale];
+			if ((int)crc_value != crc_ref)
 			{
 				bd_printf("%s the screen image CRC does not match the reference \n",filename.c_str());
 			}

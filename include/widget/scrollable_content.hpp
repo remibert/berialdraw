@@ -3,7 +3,7 @@ namespace berialdraw
 {
 	/** Base class for scrollable content (ScrollView and TableView).
 	Provides common scrolling behavior and rendering for widgets that need to scroll their content. */
-	class ScrollableContent : public Widget, public ScrollViewStyle
+	class ScrollableContent : public Widget, public ScrollViewStyle, public ScrollbarStyle
 	{
 	public:
 		/** Get scroll size */
@@ -28,14 +28,14 @@ namespace berialdraw
 		/** Set the scroll position with x and y in pixels */
 		void scroll_position(Coord x, Coord y);
 
-		/** Get viewport size */
-		const Size & viewport_size() const;
+		///** Get viewport size */
+		//const Size & viewport_size() const;
 
-		/** Set viewport size */
-		void viewport_size(const Size & size);
+		///** Set viewport size */
+		//void viewport_size(const Size & size);
 
-		/** Set the viewport size with width and height in pixels */
-		void viewport_size(Dim w, Dim h);
+		///** Set the viewport size with width and height in pixels */
+		//void viewport_size(Dim w, Dim h);
 
 		/** Return the size of content without marges */
 		virtual Size content_size() override;
@@ -71,10 +71,16 @@ namespace berialdraw
 		/** Place all widget in area */
 		virtual void place(const Area & area, bool in_layout) override;
 
+		/** Paint the scrollbar indicator */
+		void paint_scrollbar();
+
 		/** Helper methods for scroll computation */
 		Point compute_scroll_view(const Area & area, Point & scroll_position, Size & scroll_size);
 		Coord compute_scroll(Coord & scroll_position, Coord & m_scroll_position, Dim scroll_size, Dim area, Align align);
 		Coord calc_shift_focus(Coord widget_position, Dim widget_size, Coord viewport_position, Dim viewport_size);
+
+		/** Content of scroll area */
+		Size m_content_size;
 /// @endcond
 	};
 }

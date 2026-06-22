@@ -159,6 +159,7 @@ namespace berialdraw
 		void focusables(Vector<Widget *> & lst);
 		void focus_next(Widget * & widget);
 		void focus_previous(Widget * & widget);
+		void change_focus(Widget * & widget, Widget * & new_widget_focus, Vector<Widget *> & all);
 
 		/** Compute the size according to different size defined */
 		Size compute_size(const Size & size, const Size & min_size, const Size & max_size, const Margin & margin);

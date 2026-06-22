@@ -180,6 +180,9 @@
     <ClCompile Include="..\..\test\widget\table_view_test.cpp">
       <Filter>test\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\test\widget\list_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\test\widget\window_test.cpp">
       <Filter>test\widget</Filter>
     </ClCompile>

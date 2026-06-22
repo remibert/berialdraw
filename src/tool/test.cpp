@@ -1,25 +1,25 @@
 #include "berialdraw_imp.hpp"
 #include "samples/samples.hpp"
-
+#define ALL_TESTS
 namespace berialdraw
 {
 	void test_widget()
 	{
-	#if _DEBUG
+		// Starts the user event logger, useful if you want to script user interface tests
+		//UIManager::notifier()->log();
+
 		MemoryLeakLog
 		tools_test2();
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
 
-		//Label::test();
-		//Styles::test();
-		//TableView::test();
-		Image::test();
-
+		//List::test();
+#if defined(_DEBUG) && defined(ALL_TESTS)
 		// Other
 		Styles::test();
 
 		// Widgets
+		List::test();
 		Picture::test();
 		Icon::test();
 		ProgressBar::test();
@@ -54,16 +54,16 @@ namespace berialdraw
 		Outline::test();
 		Font::test();
 		Colors::test();
-	#endif
+#endif
 	}
 	void test_samples()
 	{
+#if defined(_DEBUG) && defined(ALL_TESTS)
 		static bool done = false;
 		if (done == false)
 		{
 			MemoryLeakLog
 			done = true;
-
 			String script(
 			"["
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_icon_list_%d.svg'},"
@@ -639,6 +639,7 @@ namespace berialdraw
 				sample_icon_menu();
 			}
 		}
+#endif
 	}
 
 	void test_unitary()
@@ -649,7 +650,7 @@ namespace berialdraw
 		{
 			MemoryLeakLog
 			done = true;
-#if _DEBUG
+#if defined(_DEBUG) && defined(ALL_TESTS)
 			File::test();
 			Directory::test();
 			MaskValidator::test();

@@ -91,6 +91,8 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "styles/picture_style.hpp"
 #include "styles/colors.hpp"
 #include "styles/scroll_view_style.hpp"
+#include "styles/scrollbar_style.hpp"
+#include "styles/list_style.hpp"
 #include "styles/table_view_style.hpp"
 #include "styles/grid_style.hpp"
 #include "styles/cell_style.hpp"
@@ -174,6 +176,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "widget/icon.hpp"
 #include "widget/picture.hpp"
 #include "widget/table_view.hpp"
+#include "widget/list.hpp"
 
 #if defined(WIN32)
 	#define Polygon Polygon_

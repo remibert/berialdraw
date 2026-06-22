@@ -7,7 +7,6 @@ ScrollViewStyle::ScrollViewStyle()
 {
 	m_scroll_size.clean();
 	m_scroll_position.set(0, 0);
-	m_viewport_size.clean();
 }
 
 /** Serialize the content of widget into json */
@@ -16,7 +15,6 @@ void ScrollViewStyle::serialize(JsonIterator & it)
 	m_scroll_size.serialize(StyleNames::SCROLLVIEW_SIZE, it);
 	m_scroll_position.serialize(StyleNames::SCROLLVIEW_POSITION, it);
 	berialdraw::serialize(StyleNames::SCROLLVIEW_DIRECTION, it, m_scroll_direction);
-	m_viewport_size.serialize(StyleNames::SCROLLVIEW_VIEWPORT_SIZE, it);
 }
 
 /** Unserialize the content of widget from json */
@@ -25,7 +23,6 @@ void ScrollViewStyle::unserialize(JsonIterator & it)
 	m_scroll_size.unserialize(StyleNames::SCROLLVIEW_SIZE, it);
 	m_scroll_position.unserialize(StyleNames::SCROLLVIEW_POSITION, it);
 	berialdraw::unserialize(StyleNames::SCROLLVIEW_DIRECTION, it, m_scroll_direction);
-	m_viewport_size.unserialize(StyleNames::SCROLLVIEW_VIEWPORT_SIZE, it);
 }
 
 /** Copy operator */
@@ -44,7 +41,6 @@ void ScrollViewStyle::copy_from(const ScrollViewStyle & other)
 	m_scroll_size     = other.m_scroll_size;
 	m_scroll_position = other.m_scroll_position;
 	m_scroll_direction = other.m_scroll_direction;
-	m_viewport_size  = other.m_viewport_size;
 }
 
 /** Set properties with another */

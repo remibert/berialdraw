@@ -95,7 +95,6 @@ namespace berialdraw
 		static constexpr const char* SCROLLVIEW_SIZE = "scroll-size";
 		static constexpr const char* SCROLLVIEW_POSITION = "scroll-position";
 		static constexpr const char* SCROLLVIEW_DIRECTION = "scroll-direction";
-		static constexpr const char* SCROLLVIEW_VIEWPORT_SIZE = "viewport-size";
 
 		// Slider style
 		static constexpr const char* SLIDER_TRACK_COLOR = "track-color";
@@ -151,6 +150,7 @@ namespace berialdraw
 		static constexpr const char* WIDGET_MIN_SIZE = "min-size";
 		static constexpr const char* WIDGET_MAX_SIZE = "max-size";
 		static constexpr const char* WIDGET_STYLE = "style";
+		static constexpr const char* WIDGET_BORDERS = "borders";
 
 		// Picture style
 		static constexpr const char* PICTURE_FILENAME = "filename";

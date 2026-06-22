@@ -157,36 +157,24 @@ void Label::test4()
 	 UIManager::desktop()->dispatch("$(ui.tests)/out/label4_1.svg");
 }
 
-
 void Label::test5()
 {
 	Window window;
-
 	Label * label4 = new Label(&window);
 		label4->position(10,140);
 		label4->font_size(16);
-		//label4->text("Mix$<'font-familly':'Cerial','font-size':{'width':32,'height':32},'text-color':0xFF00FF00>G$$end");
-		//label4->text("Mix$<'font-familly':'Cerial','font-size':{'width':12,'height':32},'text-color':0xFF00FF00>Green$$end\nhello $<'font-familly':'Cerial','font-size':{'width':20,'height':25},'text-color':0xFF0000FF>World$$bonjour");
-
 		label4->text(
-"$<'font-familly':'Cerial','font-size':{'width':50,'height':80},'text-color':0xFF00FF00>"
-"GreenpÂ"
-"$<'font-familly':'Cerial','font-size':{'width':20,'height':20},'text-color':0xFFFF0000>"
-"Redp_$$endÂ"
-);
-
-//while(1)
-	 UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
-
+			"$<'font-familly':'Cerial','font-size':{'width':50,'height':80},'text-color':0xFF00FF00>"
+			"GreenpÂ"
+			"$<'font-familly':'Cerial','font-size':{'width':20,'height':20},'text-color':0xFFFF0000>"
+			"Redp_$$endÂ");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
 	label4->text("Mix$<'font-familly':'Cerial','font-size':{'width':32,'height':32},'text-color':0xFF00FF00>Gr$$end");
-	 UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/label5_2.svg");
 	label4->text("Mix$<'font-familly':'Cerial','font-size':{'width':32,'height':32},'text-color':0xFF00FF00>Gre$$end");
-	 UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/label5_3.svg");
 	label4->text("Mix$<'font-familly':'Cerial','font-size':{'width':32,'height':32},'text-color':0xFF00FF00>Gren$$end");
-	 UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
-//while(1)
-	 UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
-
+	UIManager::desktop()->dispatch("$(ui.tests)/out/label5_4.svg");
 }
 
 void Label::test()

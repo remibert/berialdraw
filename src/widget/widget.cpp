@@ -261,6 +261,12 @@ Widget * Widget::scrollable_content()
 		{
 			break;
 		}
+
+		result = dynamic_cast<List*>(current);
+		if(result)
+		{
+			break;
+		}
 		current = current->m_parent;
 	}
 	return result;
@@ -503,6 +509,7 @@ void Widget::space_occupied(Point & min_position, Point & max_position)
 	Size marged = content_size(); //marged_size();
 	while (child)
 	{
+		Point pos = position();
 		one_space_occupied(min_position, max_position, position(), marged);
 		child->space_occupied(min_position,max_position);
 		child = child->next();
@@ -667,53 +674,7 @@ void Widget::focus_next(Widget * & widget)
 			}
 		}
 
-		// If no widget widget was found
-		if (new_widget_focus == 0)
-		{
-			// If no widget has yet received focus
-			if (widget == 0)
-			{
-				// Checks if a widget has focus
-				for (uint32_t i= 0; i < all.size(); i++)
-				{
-					// If a widget has focus
-					if (all[i]->focused())
-					{
-						// If a widget with focus has not already been found
-						if (widget == 0)
-						{
-							widget = all[i];
-							new_widget_focus = all[i];
-						}
-						else
-						{
-							// Remove focus
-							all[i]->focused(false);
-						}
-					}
-				}
-			}
-
-			// If no next widget was found
-			if (new_widget_focus == 0)
-			{
-				new_widget_focus = all[0];
-			}
-		}
-
-		if (new_widget_focus)
-		{
-			UIManager::invalidator()->dirty(new_widget_focus, Invalidator::REDRAW);
-			UIManager::notifier()->push_event(new FocusEvent(true, new_widget_focus));
-			widget = new_widget_focus;
-			new_widget_focus->m_focused = 1;
-
-			ScrollView * scroll_view = dynamic_cast<ScrollView*>(widget->scrollable_content());
-			if (scroll_view)
-			{
-				scroll_view->scroll_focus(widget);
-			}
-		}
+		change_focus(widget, new_widget_focus, all);
 	}
 	else
 	{
@@ -752,57 +713,74 @@ void Widget::focus_previous(Widget * & widget)
 			}
 		}
 
-		// If no previous widget was found
-		if (new_widget_focus == 0)
-		{
-			// If no widget has yet received focus
-			if (widget == 0)
-			{
-				// Checks if a widget has focus
-				for (uint32_t i= 0; i < all.size(); i++)
-				{
-					// If a widget has focus
-					if (all[i]->focused())
-					{
-						// If a widget with focus has not already been found
-						if (widget == 0)
-						{
-							widget = all[i];
-							new_widget_focus = all[i];
-						}
-						else
-						{
-							// Remove focus
-							all[i]->focused(false);
-						}
-					}
-				}
-			}
-
-			// If no previous widget was found
-			if (new_widget_focus == 0)
-			{
-				new_widget_focus = all[0];
-			}
-		}
-		if (new_widget_focus)
-		{
-			UIManager::invalidator()->dirty(new_widget_focus, Invalidator::REDRAW);
-			UIManager::notifier()->push_event(new FocusEvent(true, new_widget_focus));
-			widget = new_widget_focus;
-			new_widget_focus->m_focused = 1;
-			ScrollView * scroll_view = dynamic_cast<ScrollView*>(widget->scrollable_content());
-			if (scroll_view)
-			{
-				scroll_view->scroll_focus(widget);
-			}
-		}
+		change_focus(widget, new_widget_focus, all);
 	}
 	else
 	{
 		widget = 0;
 	}
 }
+
+
+void Widget::change_focus(Widget * & widget, Widget * & new_widget_focus, Vector<Widget *> & all)
+{
+	// If no widget widget was found
+	if (new_widget_focus == 0)
+	{
+		// If no widget has yet received focus
+		if (widget == 0)
+		{
+			// Checks if a widget has focus
+			for (uint32_t i= 0; i < all.size(); i++)
+			{
+				// If a widget has focus
+				if (all[i]->focused())
+				{
+					// If a widget with focus has not already been found
+					if (widget == 0)
+					{
+						widget = all[i];
+						new_widget_focus = all[i];
+					}
+					else
+					{
+						// Remove focus
+						all[i]->focused(false);
+					}
+				}
+			}
+		}
+
+		// If no next widget was found
+		if (new_widget_focus == 0)
+		{
+			new_widget_focus = all[0];
+		}
+	}
+
+	if (new_widget_focus)
+	{
+		UIManager::invalidator()->dirty(new_widget_focus, Invalidator::REDRAW);
+		UIManager::notifier()->push_event(new FocusEvent(true, new_widget_focus));
+		widget = new_widget_focus;
+		new_widget_focus->m_focused = 1;
+
+		ScrollView * scroll_view = dynamic_cast<ScrollView*>(widget->scrollable_content());
+		if (scroll_view)
+		{
+			scroll_view->scroll_focus(widget);
+		}
+		else
+		{
+			List * list = dynamic_cast<List*>(widget->scrollable_content());
+			if (list)
+			{
+				list->scroll_focus(widget);
+			}
+		}
+	}
+}
+
 
 /** Get the widget hovered */
 Widget * Widget::hovered(const Region & parent_region, const Point & position)

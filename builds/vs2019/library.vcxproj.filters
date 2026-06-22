@@ -818,6 +818,12 @@
     <ClCompile Include="..\..\src\styles\scroll_view_style.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\styles\scrollbar_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\list_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\tool\settings.cpp">
       <Filter>berialdraw\tool</Filter>
     </ClCompile>
@@ -952,6 +958,9 @@
     <ClCompile Include="..\..\src\widget\table_view.cpp">
       <Filter>berialdraw\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\widget\list.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\styles\table_view_style.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
@@ -996,13 +1005,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\berialdraw_imp.hpp">
-      <Filter>berialdraw\lib</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\config.h">
-      <Filter>berialdraw\lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\berialdraw.hpp">
       <Filter>berialdraw\lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\shape\circle.hpp">
@@ -1716,6 +1719,12 @@
     <ClInclude Include="..\..\include\styles\scroll_view_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\styles\scrollbar_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\styles\list_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\tool\settings.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
@@ -1791,6 +1800,9 @@
     <ClInclude Include="..\..\include\widget\table_view.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\widget\list.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\styles\table_view_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
@@ -1847,6 +1859,12 @@
     </ClInclude>
     <ClInclude Include="..\..\include\device\device_xcb.hpp">
       <Filter>berialdraw\device\xcb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\berialdraw_imp.hpp">
+      <Filter>berialdraw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\berialdraw.hpp">
+      <Filter>berialdraw</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2104,6 +2122,30 @@
     </None>
     <None Include="..\..\resources\styles\test\table_view.sty">
       <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\list.sty">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\.DS_Store">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\list.sty">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\picture.sty">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\reorg_color.py">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\scroll_view.sty">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\picture.sty">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\scroll_view.sty">
+      <Filter>resources\styles\pearl</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

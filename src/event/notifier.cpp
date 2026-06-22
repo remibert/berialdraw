@@ -335,6 +335,7 @@ Widget * Notifier::find_scrollable(Widget * widget)
 		{
 			scrollable = dynamic_cast<ScrollView*>(widget->scrollable_content());
 		}
+
 		
 		// Try TableView if ScrollView not found
 		if (!scrollable)
@@ -343,6 +344,16 @@ Widget * Notifier::find_scrollable(Widget * widget)
 			if (!scrollable)
 			{
 				scrollable = dynamic_cast<TableView*>(widget->scrollable_content());
+			}
+		}
+
+		// Try other not found
+		if (!scrollable)
+		{
+			scrollable = dynamic_cast<List*>(widget);
+			if (!scrollable)
+			{
+				scrollable = dynamic_cast<List*>(widget->scrollable_content());
 			}
 		}
 	}

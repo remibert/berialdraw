@@ -96,6 +96,13 @@ namespace berialdraw
 		TABLE_ALTERNATING_ROW_COLOR_1 = 0x0000004C, ///< Table alternating row color 1
 		TABLE_ALTERNATING_ROW_COLOR_2 = 0x0000004D, ///< Table alternating row color 2
 
+		SCROLLBAR_THUMB_COLOR      = 0x0000004E, ///< Scrollbar thumb color (indicator)
+		SCROLLBAR_TRACK_COLOR      = 0x0000004F, ///< Scrollbar track color (background)
+
+		LIST_BORDER_COLOR          = 0x00000050, ///< List border color
+		LIST_SEPARATOR_COLOR       = 0x00000051, ///< List item separator color
+		LIST_DISABLED_TEXT_COLOR   = 0x00000052, ///< List disabled item text color
+
 		PALETTE_BACK_COLOR                = 0x000000E0,
 		PALETTE_BACK_COLOR_LIGHT_1        = 0x000000E1,
 		PALETTE_BACK_COLOR_LIGHT_2        = 0x000000E2,

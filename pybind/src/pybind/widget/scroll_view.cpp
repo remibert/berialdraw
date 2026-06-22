@@ -17,11 +17,6 @@ void bind_scroll_view(pybind11::module_& m) {
         static_cast<void (berialdraw::ScrollView::*)(berialdraw::Coord, berialdraw::Coord)>(&berialdraw::ScrollView::scroll_position),
         "Scroll position as (x, y) tuple");
 
-    bind_size_property<berialdraw::ScrollView>(cls, "viewport_size",
-        &berialdraw::ScrollView::viewport_size,
-        static_cast<void (berialdraw::ScrollView::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::ScrollView::viewport_size),
-        "Viewport size: int (square) or (width, height)");
-
     cls.def("content_size", &berialdraw::ScrollView::content_size)
        .def("marged_size", &berialdraw::ScrollView::marged_size)
        .def("scroll_focus", &berialdraw::ScrollView::scroll_focus)

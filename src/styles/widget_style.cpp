@@ -13,6 +13,7 @@ WidgetStyle::WidgetStyle()
 	m_pressable   = 0;
 	m_flow_place  = 0;
 	m_selectable  = 0;
+	m_enabled     = 1;  // Enabled by default
 	m_flow        = 0;
 	m_flow_in_children = 0;
 }
@@ -33,6 +34,7 @@ void WidgetStyle::serialize(JsonIterator & it)
 	it[StyleNames::WIDGET_SELECTABLE]    = (int)m_selectable;
 	it[StyleNames::WIDGET_PRESSABLE]     = (int)m_pressable;
 	it[StyleNames::WIDGET_FLOW]    = (int)m_flow;
+	it["enabled"]     = (int)m_enabled;
 	if (m_style)
 	{
 		it[StyleNames::WIDGET_STYLE] = m_style->c_str();
@@ -60,6 +62,7 @@ void WidgetStyle::unserialize(JsonIterator & it)
 	m_selectable = (int)it[StyleNames::WIDGET_SELECTABLE] | m_selectable;
 	m_pressable  = (int)it[StyleNames::WIDGET_PRESSABLE] | m_pressable;
 	m_flow       = (int)it[StyleNames::WIDGET_FLOW] | m_flow;
+	m_enabled    = (int)it["enabled"] | m_enabled;
 
 	if (it.exists(StyleNames::WIDGET_STYLE))
 	{
@@ -92,6 +95,7 @@ void WidgetStyle::set(const WidgetStyle & other)
 		m_checked         = other.m_checked;
 		m_selectable      = other.m_selectable;
 		m_pressable       = other.m_pressable;
+		m_enabled         = other.m_enabled;
 		m_flow_place      = other.m_flow_place;
 		m_flow            = other.m_flow;
 		m_flow_in_children = other.m_flow_in_children;
@@ -240,6 +244,13 @@ void WidgetStyle::focused(bool v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_focused = v;
+}
+
+/** Set the enabled state */
+void WidgetStyle::enabled(bool v)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	m_enabled = v;
 }
 
 /** Get the style string (empty string if not set) */
