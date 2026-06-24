@@ -145,7 +145,7 @@ void List::test7()
 
 		//UIManager::styles()->style("pearl");
 		//UIManager::colors()->appearance("light");
-	Window window;
+/*	Window window;
 	window.color(Color::WHITE_BLUE);
 	
 	List* list = new List(&window);
@@ -167,7 +167,54 @@ void List::test7()
 		"{'type':'key','key':9208,'state':'press'}"
 	"]");
 //UIManager::desktop()->mainloop();
-	UIManager::notifier()->play_script(script, "$(ui.tests)/out/list7.svg");
+	UIManager::notifier()->play_script(script, "$(ui.tests)/out/list7.svg");*/
+/*
+	Window window;
+	ScrollView * scrollview = new ScrollView(&window);
+	Column * column = new Column(scrollview);
+	for (int i = 0; i < 1; i+= 2)
+	{
+		Row * row = new Row(column);
+		Label * label;
+		label = new Label(row);
+			label->text("< ");
+			label->font_size(40);
+
+		Picture * maison = new Picture(row);
+			//maison->position(rect->position());
+			//maison->size(rect->size());
+			//maison->color(Color::TRANSPARENT);
+			maison->size(100,40);
+			maison->icon_color(Color::RED);
+//maison->zoom(2);
+			maison->filename("$(ui.icons)/settings.icn");
+
+		label = new Label(row);
+			label->text("%0*d",i,i);
+			label->font_size(40);
+			label->size_policy(SizePolicy::ENLARGE_WIDTH);
+			label->text_align(Align::ALIGN_LEFT);
+
+		label = new Label(row);
+			label->text(" >");
+			label->font_size(40);
+	}
+*/
+	Window window;
+	List* list = new List(&window);
+		//list->size(200, 300);
+		//list->position(50, 50);
+
+		list->add({"<","Menu",""});
+		list->add({"","Menu",">"});
+		list->add({"","Menu",""});
+
+		list->add({"$(ui.icons)/settings.icn","Menu",""});
+		list->add({"","$<'font-familly':'Cerial','font-size':{'width':30,'height':60},'text-color':0x7F00FF00>Menu","$(ui.icons)/settings.icn"});
+		//list->add({"","$<'text-align':'right','font-familly':'Cerial','font-size':{'width':30,'height':60},'text-color':0x7F00FF00>Menu","$(ui.icons)/settings.icn"});
+		list->add({"","$(ui.icons)/settings.icn",""});
+
+	//UIManager::desktop()->mainloop();
 }
 
 /** Test orchestrator */

@@ -51,7 +51,7 @@ Size Edit::content_size()
 	{
 		m_edited = 0;
 		select_all();
-		entry_align((Align)m_text_align);
+		entry_align(m_text_align);
 	}
 
 	if(m_text_modified)
@@ -95,7 +95,7 @@ void Edit::place(const Area & area, bool in_layout)
 		{
 			size.width_(m_foreclip.width_());
 		}
-		place_in_layout(backclip, size, marg, EXTEND_NONE, m_foreclip, (Align)m_align);
+		place_in_layout(backclip, size, marg, EXTEND_NONE, m_foreclip, m_align);
 	}
 
 	// Place text
@@ -177,7 +177,7 @@ void Edit::paint(const Region & parent_region)
 
 		if (m_font.get())
 		{
-			m_text_box.parse(m_text_foreclip, *m_font, display, m_cursor_position, m_selection_start, m_selection_end, (Align)m_text_align);
+			m_text_box.parse(m_text_foreclip, *m_font, display, m_cursor_position, m_selection_start, m_selection_end, m_text_align);
 		}
 		
 		Rect::build_focused_polygon(m_foreclip, 
@@ -259,11 +259,11 @@ void Edit::on_select(Widget * widget, const SelectEvent & evt)
 
 		if (evt.status() == SelectEvent::SELECT_START)
 		{
-			m_select_from = m_text_box.cursor_position(evt.position(), m_text_foreclip, m_cursor_shift, *m_font.get(), m_text, (Align)m_text_align);
+			m_select_from = m_text_box.cursor_position(evt.position(), m_text_foreclip, m_cursor_shift, *m_font.get(), m_text, m_text_align);
 		}
 		else if (evt.status() == SelectEvent::SELECT_PROGRESS || evt.status() == SelectEvent::SELECT_END)
 		{
-			to   = m_text_box.cursor_position(evt.position(),   m_text_foreclip, m_cursor_shift, *m_font.get(), m_text, (Align)m_text_align);
+			to   = m_text_box.cursor_position(evt.position(),   m_text_foreclip, m_cursor_shift, *m_font.get(), m_text, m_text_align);
 		}
 	
 		if (to != UINT32_MAX && m_select_from != UINT32_MAX)
@@ -287,7 +287,7 @@ void Edit::on_click(Widget * widget, const ClickEvent & evt)
 		uint32_t position  =UINT32_MAX;
 
 		select_font();
-		position = m_text_box.cursor_position(evt.position(), m_text_foreclip, m_cursor_shift, *m_font.get(), m_text, (Align)m_text_align);
+		position = m_text_box.cursor_position(evt.position(), m_text_foreclip, m_cursor_shift, *m_font.get(), m_text, m_text_align);
 	
 		if (position != UINT32_MAX)
 		{

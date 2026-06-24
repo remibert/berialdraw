@@ -28,12 +28,16 @@ void IconStyle::serialize(JsonIterator & it)
 /** Unserialize the content of widget from json */
 void IconStyle::unserialize(JsonIterator & it)
 {
-	m_filename        = it[StyleNames::ICON_FILENAME]        | m_filename;
+	String new_filename = it[StyleNames::PICTURE_FILENAME] | m_filename;
 	m_icon_color       = (int)(it[StyleNames::ICON_COLOR]        | (int)m_icon_color);
-	Dim zoom  = it[StyleNames::ICON_ZOOM]   | Size::MAX_SIZE;
-
-	m_icon_size.unserialize(StyleNames::ICON_SIZE, it);
 	m_icon_padding.unserialize (StyleNames::ICON_PADDING,it);
+	if (new_filename != m_filename)
+	{
+		m_filename = new_filename;
+		m_icon_modified = true;
+	}
+	m_icon_size.unserialize(StyleNames::ICON_SIZE, it);
+	Dim zoom  = it[StyleNames::ICON_ZOOM]   | Size::MAX_SIZE;
 	m_zoom    = (zoom == Size::MAX_SIZE) ? m_zoom  : zoom;
 }
 

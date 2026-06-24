@@ -1,7 +1,7 @@
 #pragma once
 namespace berialdraw
 {
-	enum Align
+	enum class Align : uint8_t
 	{
 		CENTER              = 0x00                        ,  ///< Placed in the center
 		ALIGN_LEFT          = 0x01                        ,  ///< Placed in horizontal on the left
@@ -27,4 +27,29 @@ namespace berialdraw
 	@param it JSON iterator.*/
 	void unserialize(const char * name, JsonIterator & it, Align & value);
 
+	inline Align operator|(Align a, Align b)
+	{
+		return static_cast<Align>(static_cast<uint8_t>(a) | static_cast<uint8_t>(b));
+	}
+
+	inline Align operator&(Align a, Align b)
+	{
+		return static_cast<Align>(static_cast<uint8_t>(a) & static_cast<uint8_t>(b));
+	}
+
+	inline Align& operator|=(Align& a, Align b)
+	{
+		a = a | b;
+		return a;
+	}
+
+	inline bool has_flag(Align value, Align flag)
+	{
+		return (value & flag) == flag;
+	}
+
+	inline Align operator>>(Align a, int shift)
+	{
+		return static_cast<Align>(static_cast<uint8_t>(a) >> shift);
+	}
 }

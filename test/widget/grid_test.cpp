@@ -21,25 +21,25 @@ void Grid::test1()
 		label->text("0^0");
 		label->cell(0,0);
 		label->id(0);
-		label->align(ALIGN_TOP);
+		label->align(Align::ALIGN_TOP);
 
 	label = new Label(grid);
 		label->text("0v0");
 		label->cell(0,0);
 		label->id(0);
-		label->align(ALIGN_BOTTOM);
+		label->align(Align::ALIGN_BOTTOM);
 
 	label = new Label(grid);
 		label->text("0<0");
 		label->cell(0,0);
 		label->id(0);
-		label->align(ALIGN_LEFT);
+		label->align(Align::ALIGN_LEFT);
 
 	label = new Label(grid);
 		label->text("0>0");
 		label->cell(0,0);
 		label->id(0);
-		label->align(ALIGN_RIGHT);
+		label->align(Align::ALIGN_RIGHT);
 
 	rect = new Pane(grid);
 		rect->cell(0,1);

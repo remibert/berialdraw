@@ -93,7 +93,7 @@ namespace berialdraw
 
 
 		/** Get the text align */
-		Align text_align() const { return (Align)m_text_align; }
+		Align text_align() const { return m_text_align; }
 
 		/** Set the text align */
 		void text_align(Align v);
@@ -111,9 +111,9 @@ namespace berialdraw
 		Size    m_text_size = {0,0};
 
 		Margin m_padding = {0,0,0,0};
+		Align m_text_align;
 		unsigned int m_font_modified:1;
 		unsigned int m_text_modified:1;
-		unsigned int m_text_align:4;
 /// @endcond 
 	};
 }

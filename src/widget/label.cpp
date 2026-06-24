@@ -40,7 +40,7 @@ Size Label::content_size()
 		select_font();
 		if (m_font.get())
 		{
-			m_text_box.parse(area, *m_font, m_text, UINT32_MAX, UINT32_MAX, UINT32_MAX, (Align)m_text_align);
+			m_text_box.parse(area, *m_font, m_text, UINT32_MAX, UINT32_MAX, UINT32_MAX, m_text_align);
 		}
 		m_text_modified = m_font_modified = 0;
 		m_text_size = m_text_box.content_size();
@@ -68,10 +68,10 @@ Size Label::content_size()
 
 void Label::place(const Area & area, bool in_layout)
 {
-	if (m_text_align != ALIGN_DEFAULT && m_align == ALIGN_DEFAULT)
+	if (m_text_align != Align::ALIGN_DEFAULT && m_align == Align::ALIGN_DEFAULT)
 	{
 		m_align     = m_text_align;
-		m_text_align = ALIGN_DEFAULT;
+		m_text_align = Align::ALIGN_DEFAULT;
 	}
 	Margin marg;
 
@@ -85,7 +85,7 @@ void Label::place(const Area & area, bool in_layout)
 
 	Area text_backclip = m_foreclip;
 	text_backclip.decrease(padding());
-	place_in_layout(text_backclip, m_text_size, marg, EXTEND_NONE, m_foreclip, (Align)m_text_align);
+	place_in_layout(text_backclip, m_text_size, marg, EXTEND_NONE, m_foreclip, m_text_align);
 }
 
 void Label::paint(const Region & parent_region)

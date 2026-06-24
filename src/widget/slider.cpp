@@ -108,7 +108,7 @@ void Slider::place(const Area & area, bool in_layout)
 		{
 			size.width_(m_foreclip.width_());
 		}
-		place_in_layout(backclip, size, marg, EXTEND_NONE, m_foreclip, (Align)m_align);
+		place_in_layout(backclip, size, marg, EXTEND_NONE, m_foreclip, m_align);
 	}
 }
 

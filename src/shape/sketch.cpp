@@ -162,7 +162,7 @@ void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t state
 			content.height_((m_resolution.height_() * zoom) >> 6);
 			Area foreclip_sketch;
 
-			place_in_layout(foreclip, content, m_margin, EXTEND_NONE, foreclip_sketch, (Align)m_align);
+			place_in_layout(foreclip, content, m_margin, EXTEND_NONE, foreclip_sketch, m_align);
 			position = foreclip_sketch.position();
 		}
 		else

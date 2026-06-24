@@ -17,6 +17,8 @@ void PictureStyle::serialize(JsonIterator & it)
 {
 	it[StyleNames::PICTURE_FILENAME]  = m_filename;
 	it[StyleNames::PICTURE_ALPHA]     = (int)m_alpha;
+	it[StyleNames::ICON_COLOR]        = m_icon_color;
+	m_icon_padding.serialize (StyleNames::ICON_PADDING,it);
 	berialdraw::serialize(StyleNames::PICTURE_FIT_MODE, it, m_fit_mode);
 }
 
@@ -24,6 +26,8 @@ void PictureStyle::serialize(JsonIterator & it)
 void PictureStyle::unserialize(JsonIterator & it)
 {
 	String new_filename = it[StyleNames::PICTURE_FILENAME] | m_filename;
+	m_icon_color       = (int)(it[StyleNames::ICON_COLOR]        | (int)m_icon_color);
+	m_icon_padding.unserialize (StyleNames::ICON_PADDING,it);
 	if (new_filename != m_filename)
 	{
 		m_filename = new_filename;
@@ -64,3 +68,39 @@ Style * PictureStyle::create()
 {
 	return new PictureStyle;
 }
+
+/** Set the icon_padding */
+void PictureStyle::icon_padding(const Margin & m)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_icon_padding = m;
+}
+
+/** Set the icon_padding in pixels */
+void PictureStyle::icon_padding(Dim top, Dim left, Dim bottom, Dim right)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_icon_padding.set(top,left,bottom,right);
+}
+
+/** Set the icon_padding with a precision of 64th of a pixel */
+void PictureStyle::icon_padding_(Dim top, Dim left, Dim bottom, Dim right)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_icon_padding.set_(top,left,bottom,right);
+}
+
+/** Set the back icon_color */
+void PictureStyle::icon_color(uint32_t col)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	m_icon_color = col;
+}
+
+/** Set the back icon_color with alpha */
+void PictureStyle::icon_color(uint32_t col, uint8_t alpha)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	m_icon_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
+}
+

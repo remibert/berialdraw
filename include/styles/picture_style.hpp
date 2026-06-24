@@ -45,6 +45,25 @@ namespace berialdraw
 		/** Set the image fit mode */
 		void fit_mode(ImageFitMode mode);
 
+
+		/** Get the back icon color */
+		uint32_t icon_color() const { return m_icon_color; }
+
+		/** Set the back icon color */
+		void icon_color(uint32_t col);
+
+		/** Set the back icon color with alpha */
+		void icon_color(uint32_t col, uint8_t alpha);
+
+		/** Set the padding */
+		void icon_padding(const Margin & m);
+
+		/** Set the padding in pixels */
+		void icon_padding(Dim top, Dim left, Dim bottom, Dim right);
+
+		/** Set the padding with a precision of 64th of a pixel */
+		void icon_padding_(Dim top, Dim left, Dim bottom, Dim right);
+
 		/** Get the property name for this style */
 		const char* property_name() const override { return "picture"; }
 
@@ -53,6 +72,8 @@ namespace berialdraw
 		String m_filename;
 		uint8_t m_alpha = 255;
 		ImageFitMode m_fit_mode = FIT;
+		Margin m_icon_padding;
+		uint32_t m_icon_color = Color::TRANSPARENT;
 		bool m_image_modified = true;
 	/// @endcond
 	};

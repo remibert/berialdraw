@@ -189,7 +189,7 @@ void Pane::test4()
 				label->cell(row,column);
 				label->text("thick\nness\n%d",thickness);
 				label->font_size(15);
-				label->text_align(CENTER);
+				label->text_align(Align::CENTER);
 				label->text_color(Color::CLEMATIS_VIOLET);
 			thickness++;
 			if (radius < 15) radius++;

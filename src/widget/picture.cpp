@@ -51,7 +51,7 @@ bool Picture::is_vector_extension(const String & filename)
 			ext += c;
 		}
 
-		if (ext == "icn" || ext == "svg")
+		if (ext == "icn")
 		{
 			result = true;
 		}
@@ -347,7 +347,7 @@ void Picture::paint(const Region & parent_region)
 		else if (m_sketch && m_sketch->resolution().width_() > 0)
 		{
 			m_sketch->size(m_foreclip.size());
-			m_sketch->paint(m_foreclip, Margin(), stated_color(m_color));
+			m_sketch->paint(m_foreclip, Margin(), stated_color(m_icon_color));
 		}
 
 		// Paint children

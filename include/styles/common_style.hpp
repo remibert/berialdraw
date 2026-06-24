@@ -136,7 +136,7 @@ namespace berialdraw
 
 
 		/** Get the align */
-		Align align() const { return (Align)m_align; }
+		Align align() const { return m_align; }
 
 		/** Set the align */
 		void align(Align v);
@@ -179,7 +179,7 @@ namespace berialdraw
 		Coord m_angle = 0;
 		uint32_t m_color   = 0xFF000000;
 
-		unsigned int m_align:4;
+		Align m_align;
 		unsigned int m_angle_modified:1;
 		unsigned int m_geometry_modified:1;
 		unsigned int m_style_modified:1;

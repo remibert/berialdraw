@@ -157,8 +157,8 @@ Point ScrollableContent::compute_scroll_view(const Area & area, Point & scroll_p
 	Coord m_scroll_position_y = m_scroll_position.y();
 	Coord result_x;
 	Coord result_y;
-	result_x = compute_scroll(scroll_position_x, m_scroll_position_x, scroll_size.width(),  area.width(),  (Align)m_align);
-	result_y = compute_scroll(scroll_position_y, m_scroll_position_y, scroll_size.height(), area.height(), (Align)(m_align>>2));
+	result_x = compute_scroll(scroll_position_x, m_scroll_position_x, scroll_size.width(),  area.width(),  m_align);
+	result_y = compute_scroll(scroll_position_y, m_scroll_position_y, scroll_size.height(), area.height(), (m_align>>2));
 	result.set(result_x, result_y);
 
 	scroll_position_x -= fixed_area.position().x();

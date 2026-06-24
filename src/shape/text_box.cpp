@@ -237,12 +237,12 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 	if (text_area.width_())
 	{
 		// If text align is center in edit field
-		if ((text_align & ALIGN_HORIZONTAL) == CENTER)
+		if ((text_align & Align::ALIGN_HORIZONTAL) == Align::CENTER)
 		{
 			movex = 0-(((Coord)m_lines_size.width_() - (Coord)text_area.width_())/2);
 		}
 		// If text align is right in edit field
-		else if ((text_align & ALIGN_HORIZONTAL) == ALIGN_RIGHT)
+		else if ((text_align & Align::ALIGN_HORIZONTAL) == Align::ALIGN_RIGHT)
 		{
 			movex = 0-((Coord)m_lines_size.width_() - (Coord)text_area.width_());
 		}
@@ -255,12 +255,12 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		deltax = 0;
 
 		// If text align is center
-		if ((text_align & ALIGN_HORIZONTAL) == CENTER)
+		if ((text_align & Align::ALIGN_HORIZONTAL) == Align::CENTER)
 		{
 			deltax = movex+(m_lines_size.width_() - m_lines[i].size.width_())/2;
 		}
 		// If text align is right
-		else if ((text_align & ALIGN_HORIZONTAL) == ALIGN_RIGHT)
+		else if ((text_align & Align::ALIGN_HORIZONTAL) == Align::ALIGN_RIGHT)
 		{
 			deltax = movex+m_lines_size.width_() - m_lines[i].size.width_();
 		}

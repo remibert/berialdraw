@@ -48,7 +48,7 @@ Size Checkbox::content_size()
 		select_font();
 		if (m_font.get())
 		{
-			m_text_box.parse(area, *m_font, m_text, UINT32_MAX, UINT32_MAX, UINT32_MAX, (Align)m_text_align);
+			m_text_box.parse(area, *m_font, m_text, UINT32_MAX, UINT32_MAX, UINT32_MAX, m_text_align);
 		}
 		m_text_modified = m_font_modified = 0;
 		m_text_size = m_text_box.content_size();
@@ -88,7 +88,7 @@ void Checkbox::place(const Area & area, bool in_layout)
 		// Place switch text
 		m_text_backclip = m_foreclip;
 		marg.left_(m_checkbox_size.width_() + padding().left_());
-		place_in_layout(m_text_backclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, (Align)(m_text_align | ALIGN_BOTTOM));
+		place_in_layout(m_text_backclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, (m_text_align | Align::ALIGN_BOTTOM));
 	
 		m_check_foreclip = m_text_foreclip;
 		m_check_foreclip.size(m_checkbox_size);

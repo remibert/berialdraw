@@ -40,7 +40,7 @@ Size Button::content_size()
 		select_font();
 		if (m_font.get())
 		{
-			m_text_box.parse(area, *m_font, m_text, UINT32_MAX, UINT32_MAX, UINT32_MAX, (Align)m_text_align);
+			m_text_box.parse(area, *m_font, m_text, UINT32_MAX, UINT32_MAX, UINT32_MAX, m_text_align);
 		}
 		m_text_modified = m_font_modified = 0;
 		m_text_size = m_text_box.content_size();
@@ -81,7 +81,7 @@ void Button::place(const Area & area, bool in_layout)
 	// Place button text
 	m_text_backclip = m_foreclip;
 	m_text_backclip.decrease(padding());
-	place_in_layout(m_text_backclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, (Align)m_text_align);
+	place_in_layout(m_text_backclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, m_text_align);
 
 	// Place all children
 	Area backclip(m_backclip);

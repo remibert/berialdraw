@@ -83,7 +83,7 @@ void Button::test4()
 		  	button->min_size(230,70);
 			button->padding(3,3,3,3);
 			button->margin(5,5,5,5);
-			button->text_align(ALIGN_BOTTOM_RIGHT);
+			button->text_align(Align::ALIGN_BOTTOM_RIGHT);
 			button->color(Color::DODGER_BLUE, 32);
 
 		button = new Button(&window);
@@ -92,7 +92,7 @@ void Button::test4()
 		  	button->min_size(230,70);
 			button->padding(3,3,3,3);
 			button->margin(5,5,5,5);
-			button->text_align(ALIGN_BOTTOM_LEFT);
+			button->text_align(Align::ALIGN_BOTTOM_LEFT);
 			button->color(Color::DODGER_BLUE, 32);
 
 		button = new Button(&window);
@@ -109,7 +109,7 @@ void Button::test4()
 		  	button->min_size(230,70);
 			button->padding(3,3,3,3);
 			button->margin(5,5,5,5);
-			button->text_align(ALIGN_TOP_LEFT);
+			button->text_align(Align::ALIGN_TOP_LEFT);
 			button->color(Color::DODGER_BLUE, 32);
 
 		button = new Button(&window);
@@ -118,7 +118,7 @@ void Button::test4()
 		  	button->min_size(230,70);
 			button->padding(3,3,3,3);
 			button->margin(5,5,5,5);
-			button->text_align(ALIGN_TOP_RIGHT);
+			button->text_align(Align::ALIGN_TOP_RIGHT);
 			button->color(Color::DODGER_BLUE, 32);
 
 		button = new Button(&window);
@@ -244,7 +244,7 @@ void Button::test5()
 		button->text_color(Color::YELLOW);
 		button->thickness(5);
 		button->radius(10);
-		button->align(CENTER);
+		button->align(Align::CENTER);
 		button->padding(25,25,25,25);
 
 	button = dynamic_cast<Button*>(window.search(123));
@@ -885,7 +885,7 @@ void Button::test12()
 			button->text_color(Color::NEW_MIDNIGHT_BLUE);
 			button->thickness(3);
 			button->radius(20);
-			button->align(CENTER);
+			button->align(Align::CENTER);
 			button->margin(10);
 			button->padding(10);
 
@@ -955,7 +955,7 @@ void Button::test13()
 				buttonRef->text_color(Color::NEW_MIDNIGHT_BLUE);
 				buttonRef->thickness_(1);
 				buttonRef->radius(11);
-				buttonRef->align(CENTER);
+				buttonRef->align(Align::CENTER);
 				buttonRef->margin(20);
 
 				buttonRef->focus_color(Color::OCEAN_BLUE);
@@ -1221,7 +1221,7 @@ void Button::test15()
 				button->text_color(Color::NEW_MIDNIGHT_BLUE);
 				button->thickness(5);
 				button->radius(60);
-				button->align(CENTER);
+				button->align(Align::CENTER);
 				button->margin(100);
 				button->focus_color(Color::OCEAN_BLUE);
 				button->focus_gap(0);
@@ -1251,7 +1251,7 @@ void Button::test16()
 				button->text_color(Color::NEW_MIDNIGHT_BLUE);
 				button->thickness(5);
 				button->radius(60);
-				button->align(CENTER);
+				button->align(Align::CENTER);
 				button->margin(100);
 				button->focus_color(Color::OCEAN_BLUE);
 				button->focus_gap(0);
@@ -1284,7 +1284,7 @@ void Button::test17()
 				button->text_color(Color::NEW_MIDNIGHT_BLUE);
 				button->thickness(5);
 				button->radius(60);
-				button->align(CENTER);
+				button->align(Align::CENTER);
 				button->margin(100);
 				button->focus_color(Color::OCEAN_BLUE);
 				button->focus_gap(0);

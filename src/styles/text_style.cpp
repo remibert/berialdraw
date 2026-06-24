@@ -5,7 +5,7 @@ using namespace berialdraw;
 /** Constructor */
 TextStyle::TextStyle()
 {
-	m_text_align    = ALIGN_DEFAULT;
+	m_text_align    = Align::ALIGN_DEFAULT;
 	m_text_modified = 1;
 	m_font_modified = 1;
 }
@@ -17,14 +17,14 @@ void TextStyle::serialize(JsonIterator & it)
 	it[StyleNames::TEXT_FONT_FAMILY] = m_font_familly;
 	m_font_size.serialize(StyleNames::TEXT_FONT_SIZE,it);
 	m_padding.serialize (StyleNames::TEXT_PADDING,it);
-	berialdraw::serialize(StyleNames::TEXT_ALIGN,it, (Align)m_text_align);
+	berialdraw::serialize(StyleNames::TEXT_ALIGN,it, m_text_align);
 	it[StyleNames::TEXT_COLOR  ] = (int)m_text_color;
 }
 
 /** Unserialize the content of widget from json */
 void TextStyle::unserialize(JsonIterator & it)
 {
-	Align align = (Align)m_text_align;
+	Align align = m_text_align;
 	berialdraw::unserialize(StyleNames::TEXT_ALIGN,it, align);
 	m_text_align   = align;
 	m_text_color   = it[StyleNames::TEXT_COLOR]   | m_text_color;
@@ -216,5 +216,5 @@ void TextStyle::padding(Dim value)
 void TextStyle::text_align(Align v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_text_align = (Align)v;
+	m_text_align = v;
 }

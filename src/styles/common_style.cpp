@@ -5,7 +5,7 @@ using namespace berialdraw;
 /** Constructor */
 CommonStyle::CommonStyle()
 {
-	m_align = ALIGN_DEFAULT;
+	m_align = Align::ALIGN_DEFAULT;
 	m_angle = 0;
 	m_angle_modified = 1;
 	m_geometry_modified = 1;
@@ -22,7 +22,7 @@ void CommonStyle::serialize(JsonIterator & it)
 	m_position.serialize(StyleNames::COMMON_POSITION,it);
 	m_size.serialize (StyleNames::COMMON_SIZE,it);
 	m_margin.serialize (StyleNames::COMMON_MARGIN,it);
-	berialdraw::serialize(StyleNames::COMMON_ALIGN,it, (Align)m_align);
+	berialdraw::serialize(StyleNames::COMMON_ALIGN,it, m_align);
 	it[StyleNames::COMMON_COLOR]        = m_color;
 	it[StyleNames::COMMON_LIGHT]        = m_light;
 	it[StyleNames::COMMON_SATURATION]   = m_saturation;
@@ -48,7 +48,7 @@ void CommonStyle::unserialize(JsonIterator & it)
 
 	m_hidden      = (int)(it[StyleNames::COMMON_HIDDEN] | (int)m_hidden);
 
-	Align align = (Align)m_align;
+	Align align = m_align;
 	berialdraw::unserialize(StyleNames::COMMON_ALIGN,it, align);
 	m_align = align;
 	m_center.unserialize(StyleNames::COMMON_CENTER,it);
@@ -101,11 +101,11 @@ Coord CommonStyle::get_position(Coord position, Coord size, Coord marge_begin, C
 {
 	Coord result;
 
-	if (align == ALIGN_LEFT)
+	if (align == Align::ALIGN_LEFT)
 	{
 		result = position + marge_begin; 
 	}
-	else if (align == ALIGN_RIGHT)
+	else if (align == Align::ALIGN_RIGHT)
 	{
 		result = position + area /*- marge_begin*/ - size - marge_end;
 	}
@@ -155,49 +155,49 @@ void CommonStyle::place_in_layout(const Area & area, const Size & content, const
 {
 	foreclip.set(area.position(), content);
 
-	if (align == ALIGN_DEFAULT)
+	if (align == Align::ALIGN_DEFAULT)
 	{
-		align = CENTER;
+		align = Align::CENTER;
 	}
 
 	Align al;
 
 	if(extend & Extend::EXTEND_WIDTH || (content.width_() + margin.left_() + margin.right_()) >= area.size().width_())
 	{
-		al = CENTER;
+		al = Align::CENTER;
 		foreclip.width_(reduce(area.size().width_(), margin.left_() + margin.right_()));
 	}
-	else if ((align & ALIGN_HORIZONTAL) == ALIGN_LEFT)
+	else if ((align & Align::ALIGN_HORIZONTAL) == Align::ALIGN_LEFT)
 	{
-		al = ALIGN_LEFT;
+		al = Align::ALIGN_LEFT;
 	}
-	else if ((align & ALIGN_HORIZONTAL) == ALIGN_RIGHT)
+	else if ((align & Align::ALIGN_HORIZONTAL) == Align::ALIGN_RIGHT)
 	{
-		al = ALIGN_RIGHT;
+		al = Align::ALIGN_RIGHT;
 	}
 	else
 	{
-		al = CENTER;
+		al = Align::CENTER;
 	}
 
 	foreclip.x_(get_position(foreclip.x_(), foreclip.width_(), margin.left_(), margin.right_(), (Coord)area.width_(), al));
 
 	if(extend & Extend::EXTEND_HEIGHT || (content.height_() + margin.top_() + margin.bottom_()) >= area.size().height_())
 	{
-		al = CENTER;
+		al = Align::CENTER;
 		foreclip.height_(reduce(area.height_(), margin.top_() + margin.bottom_()));
 	}
-	if ((align & ALIGN_VERTICAL) == ALIGN_TOP)
+	if ((align & Align::ALIGN_VERTICAL) == Align::ALIGN_TOP)
 	{
-		al = ALIGN_LEFT;
+		al = Align::ALIGN_LEFT;
 	}
-	else if ((align & ALIGN_VERTICAL) == ALIGN_BOTTOM)
+	else if ((align & Align::ALIGN_VERTICAL) == Align::ALIGN_BOTTOM)
 	{
-		al = ALIGN_RIGHT;
+		al = Align::ALIGN_RIGHT;
 	}
 	else
 	{
-		al = CENTER;
+		al = Align::CENTER;
 	}
 
 	foreclip.y_(get_position(foreclip.y_(), foreclip.height_(), margin.top_(), margin.bottom_(), area.height_(), al));
@@ -447,7 +447,7 @@ void CommonStyle::align(Align v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_geometry_modified = 1;
-	m_align = (Align)v;
+	m_align = v;
 }
 
 /** Select the displayed border of the rectangle */

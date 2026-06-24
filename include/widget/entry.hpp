@@ -152,11 +152,11 @@ namespace berialdraw
 		// Selection end
 		uint32_t m_selection_end=0;
 
+		// Text alignement
+		Align m_entry_align;
+
 		// Input typing_mode
 		unsigned int m_typing_mode:2;
-
-		// Text alignement
-		unsigned int m_entry_align:4;
 
 		// String mask
 		String * m_mask = 0;

@@ -9,12 +9,12 @@ namespace berialdraw
 		//UIManager::notifier()->log();
 
 		MemoryLeakLog
-		tools_test2();
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
 
-		//List::test();
+		List::test();
 #if defined(_DEBUG) && defined(ALL_TESTS)
+		
 		// Other
 		Styles::test();
 
@@ -54,6 +54,8 @@ namespace berialdraw
 		Outline::test();
 		Font::test();
 		Colors::test();
+
+		tools_test2();
 #endif
 	}
 	void test_samples()
