@@ -5165,26 +5165,38 @@
 		},
 		"$(ui.tests)/out/list6.svg" : 
 		{
-			"scale_1" : 3101907544
+			"scale_1" : 615700032
 		},
 		"$(ui.tests)/out/list5.svg" : 
 		{
-			"scale_1" : 2974952097
+			"scale_1" : 1834237234
 		},
 		"$(ui.tests)/out/list4.svg" : 
 		{
-			"scale_1" : 3653181506
+			"scale_1" : 3448976127
 		},
 		"$(ui.tests)/out/list3.svg" : 
 		{
-			"scale_1" : 313610349
+			"scale_1" : 4278780907
 		},
 		"$(ui.tests)/out/list2.svg" : 
 		{
-			"scale_1" : 518822674
+			"scale_1" : 1764561321
 		},
 		"$(ui.tests)/out/list1.svg" : 
 		{
-			"scale_1" : 2403051035
+			"scale_1" : 511653201
+		},
+		"$(ui.tests)/out/tableview7_1.svg" : 
+		{
+			"scale_1" : 2936115631
+		},
+		"$(ui.tests)/out/tableview7_2.svg" : 
+		{
+			"scale_1" : 2936115631
+		},
+		"$(ui.tests)/out/tableview7_3.svg" : 
+		{
+			"scale_1" : 2199608104
 		}
 	}

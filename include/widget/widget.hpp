@@ -5,7 +5,7 @@ namespace berialdraw
 	class Region;
 
 	/** Style cascade mode for widget hierarchy */
-	enum class StyleCascadeMode
+	enum class StyleCascadeMode : uint8_t
 	{
 		NONE,        /**< No cascading (default) */
 		CASCADING,   /**< Cascades style to children */
@@ -37,6 +37,9 @@ namespace berialdraw
 		/** Return the parent of this widget */
 		virtual Widget * parent();
 
+		/** Return the focusable widget parent of this widget */
+		virtual Widget * focusable_parent();
+
 		/** Return the root widget parent of this widget (window pointer generaly) */
 		virtual Widget * root();
 
@@ -45,6 +48,9 @@ namespace berialdraw
 
 		/** Return the size of content without marges */
 		virtual Size content_size();
+
+		/** Return the size of children content without marges */
+		virtual Size children_content_size();
 
 		/** Return the size of content with its marges */
 		virtual Size marged_size();
@@ -137,6 +143,9 @@ namespace berialdraw
 
 		/** Return the stated color */
 		uint32_t stated_color(uint32_t color);
+
+		/** Return the parent focus color */
+		uint32_t parent_focus_color(uint32_t color);
 
 	protected:
 /// @cond DOXYGEN_IGNORE

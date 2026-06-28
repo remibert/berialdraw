@@ -17,13 +17,6 @@ void bind_scrollbar_style(py::module& m) {
             [](berialdraw::ScrollbarStyle& self, uint32_t c) { 
                 self.scrollbar_thumb_color(c); 
             }, "Scrollbar thumb color")
-        .def_property("scrollbar_track_color",
-            [](berialdraw::ScrollbarStyle& self) -> uint32_t { 
-                return self.scrollbar_track_color(); 
-            },
-            [](berialdraw::ScrollbarStyle& self, uint32_t c) { 
-                self.scrollbar_track_color(c); 
-            }, "Scrollbar track color")
         .def_property("scrollbar_width",
             [](berialdraw::ScrollbarStyle& self) -> berialdraw::Dim { 
                 return self.scrollbar_width(); 

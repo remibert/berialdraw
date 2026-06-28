@@ -233,6 +233,22 @@ void Widget::paint(const Region & parent_region)
 	}
 }
 
+/** Return the focusable widget parent of this widget */
+Widget * Widget::focusable_parent()
+{
+	Widget * result = 0;
+	Widget * parent = this;
+	while(parent->m_parent)
+	{
+		parent = parent->m_parent;
+		if (parent->m_focusable)
+		{
+			result = parent;
+		}
+	}
+	return result;
+}
+
 Widget * Widget::root()
 {
 	Widget * parent = this;
@@ -308,35 +324,50 @@ bool Widget::is_absolute()
 	return true;
 }
 
-
-Size Widget::content_size()
+/** Return the size of children content without marges */
+Size Widget::children_content_size()
 {
-	Size result = size() ;
+	Size result;
 	Size size;
-	if (result.is_width_undefined())
-	{
-		result.width_(0);
-	}
-	if (result.is_height_undefined())
-	{
-		result.height_(0);
-	}
 
 	Widget* child = m_children;
 	while (child)
 	{
 		size = child->content_size();
 
-		if(size.height_() > result.height_())
+		if (size.height_() > result.height_())
 		{
 			result.height_(size.height_());
 		}
-		if(size.width_() > result.width_())
+		if (size.width_() > result.width_())
 		{
 			result.width_(size.width_());
 		}
 		child = child->next();
 	}
+	return result;
+}
+
+Size Widget::content_size()
+{
+	Size result = children_content_size();
+
+	if (size().is_width_defined())
+	{
+		if (size().width_() > result.width_())
+		{
+			result.width_(size().width_());
+		}
+	}
+
+	if (size().is_height_defined())
+	{
+		if (size().height_() > result.height_())
+		{
+			result.height_(size().height_());
+		}
+	}
+
 	return result;
 }
 
@@ -506,13 +537,16 @@ void Widget::one_space_occupied(Point & min_position, Point & max_position, cons
 void Widget::space_occupied(Point & min_position, Point & max_position)
 {
 	Widget* child = m_children;
-	Size marged = content_size(); //marged_size();
-	while (child)
+	if (child)
 	{
-		Point pos = position();
-		one_space_occupied(min_position, max_position, position(), marged);
-		child->space_occupied(min_position,max_position);
-		child = child->next();
+		Size marged = child->content_size();
+		while (child)
+		{
+			Point pos = child->position();
+			one_space_occupied(min_position, max_position, pos, marged);
+			child->space_occupied(min_position, max_position);
+			child = child->next();
+		}
 	}
 }
 
@@ -570,6 +604,32 @@ uint32_t Widget::stated_color(uint32_t color)
 	result = pressed_color(result, m_pressed);
 	return result;
 }
+
+
+/** Return the parent focus color */
+uint32_t Widget::parent_focus_color(uint32_t color)
+{
+	uint32_t result = color;
+
+	// If focus color inherited from focusable parent
+	if (m_inherited_focus_color)
+	{
+		Widget * parent = focusable_parent();
+	
+		if (parent)
+		{
+			TextStyle * style = dynamic_cast<TextStyle*>(parent);
+			if (style)
+			{
+				result = parent->stated_color(style->text_color());
+			}				
+		}
+	}
+
+	return result;
+}
+
+
 
 
 Widget * Widget::search(uint16_t id)

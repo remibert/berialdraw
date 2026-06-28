@@ -99,7 +99,6 @@ Size Icon::content_size()
 	// Add text height in the icon content size
 	if (m_text_size.width_() > 0 && m_text_size.height_() > 0)
 	{
-		//result.height_(result.height_()+ padding().top_() + m_text_size.height_() + padding().bottom_());
 		result.increase_(0, padding().top_() + m_text_size.height_() + padding().bottom_());
 	}
 	return result;

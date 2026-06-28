@@ -87,14 +87,14 @@ namespace berialdraw
 		/** Close the current span and add it to the list if it has content */
 		void close_span(TextSpan & span, uint32_t clean_index);
 
-		String m_clean_text;                 ///< Text without formatting tags
-		Vector<TextSpan> m_spans;            ///< Formatting spans
-		Vector<uint32_t> m_raw_to_clean;     ///< Mapping from raw index to clean index
-		Vector<uint32_t> m_clean_to_raw;     ///< Mapping from clean index to raw index
-		Font * m_default_font = 0;           ///< Default font (non-owning)
-		uint32_t m_default_color = 0;        ///< Default color
-		FontPtr m_font_ptrs[16];             ///< Keeps fonts alive (max 16 different fonts)
-		uint32_t m_font_ptrs_count = 0;      ///< Number of stored font pointers
+		String           m_clean_text;              ///< Text without formatting tags
+		Vector<TextSpan> m_spans;                   ///< Formatting spans
+		Vector<uint32_t> m_raw_to_clean;            ///< Mapping from raw index to clean index
+		Vector<uint32_t> m_clean_to_raw;            ///< Mapping from clean index to raw index
+		Font *           m_default_font = 0;        ///< Default font (non-owning)
+		uint32_t         m_default_color = 0;       ///< Default color
+		FontPtr          m_font_ptrs[16];           ///< Keeps fonts alive (max 16 different fonts)
+		uint32_t         m_font_ptrs_count = 0;     ///< Number of stored font pointers
 	};
 /// @endcond
 #endif

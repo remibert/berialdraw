@@ -181,6 +181,11 @@ namespace berialdraw
 		@param margin Margin to increase by */
 		void increase(const Margin& margin);
 
+		/** Decrease the thickness border of the size and position in the area
+		@param thickness thickess to remove */
+		void decrease_thickness(Dim thickness);
+
+
 		/** Return position of area according to the shift
 		@return Position of the area */
 		inline const Point& position() const

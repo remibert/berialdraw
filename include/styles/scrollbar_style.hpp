@@ -45,12 +45,6 @@ namespace berialdraw
 		void scrollbar_thumb_color(uint32_t c);
 
 
-		/** Get the scrollbar track color */
-		uint32_t scrollbar_track_color() const;
-
-		/** Set the scrollbar track color */
-		void scrollbar_track_color(uint32_t c);
-
 
 		/** Get the scrollbar width in pixels */
 		Dim scrollbar_width() const { return m_scrollbar_width >> 6; }
@@ -94,11 +88,10 @@ namespace berialdraw
 	protected:
 /// @cond DOXYGEN_IGNORE
 		uint32_t m_scrollbar_thumb_color = Color::SCROLLBAR_THUMB_COLOR;
-		uint32_t m_scrollbar_track_color = Color::SCROLLBAR_TRACK_COLOR;
-		Dim      m_scrollbar_width = 6 << 6;   ///< Default 6 pixels
-		Dim      m_scrollbar_radius = 3 << 6;  ///< Default 3 pixels (half of width for round ends)
-		Dim      m_scrollbar_margin = 2 << 6;  ///< Default 2 pixels margin
-		bool     m_scrollbar_visible = false;
+		Dim      m_scrollbar_width = 4 << 6;   ///< Default 6 pixels
+		Dim      m_scrollbar_radius = 2 << 6;  ///< Default 3 pixels (half of width for round ends)
+		Dim      m_scrollbar_margin = 1 << 6;  ///< Default 2 pixels margin
+		bool     m_scrollbar_visible = true;
 /// @endcond
 	};
 }

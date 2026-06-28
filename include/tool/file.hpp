@@ -86,6 +86,11 @@ namespace berialdraw
 		@return True if pattern matches string */
 		static bool match_pattern(const char *pattern, const char *string, bool ignore_case = false);
 
+		/** Resolve all variables in the paths
+		@param path with variables
+		@return path resolved */
+		static String resolve_path(const char* path);
+
 	protected:
 /// @cond DOXYGEN_IGNORE
 		/** Allocate temporary string

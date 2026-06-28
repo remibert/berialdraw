@@ -96,6 +96,7 @@ set(SRCS_LIB
 	src/widget/uimanager.cpp
 	src/widget/table_view.cpp
 	src/widget/list.cpp
+	src/widget/list_item.cpp
 
 	src/styles/invalidator.cpp
 	src/styles/border_style.cpp
@@ -119,6 +120,7 @@ set(SRCS_LIB
 	src/styles/scroll_view_style.cpp
 	src/styles/scrollbar_style.cpp
 	src/styles/list_style.cpp
+	src/styles/list_item_style.cpp
 	src/styles/table_view_style.cpp
 	src/styles/grid_style.cpp
 	src/styles/cell_style.cpp

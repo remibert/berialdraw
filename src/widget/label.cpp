@@ -92,6 +92,7 @@ void Label::paint(const Region & parent_region)
 {
 	Region region(parent_region);
 	region.intersect(m_backclip);
+	uint32_t color = parent_focus_color(stated_color(m_text_color));
 
 	// If widget visible
 	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
@@ -100,7 +101,7 @@ void Label::paint(const Region & parent_region)
 		UIManager::renderer()->region(region);
 
 		Point shift;
-		m_text_box.paint(shift, *m_font.get(), m_text, m_foreclip.position(), m_backclip, stated_color(m_text_color), 0, 0, true);
+		m_text_box.paint(shift, *m_font.get(), m_text, m_foreclip.position(), m_backclip, color, 0, 0, true);
 	}
 }
 

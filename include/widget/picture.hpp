@@ -48,9 +48,6 @@ namespace berialdraw
 		/** Remove operator = */
 		Picture& operator=(const Picture& other) = delete;
 
-		/** Check if filename has a vector extension (icn, svg) */
-		static bool is_vector_extension(const String & filename);
-
 		/** Load the image or sketch from the current filename */
 		void load_picture();
 

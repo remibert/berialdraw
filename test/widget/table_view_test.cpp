@@ -224,7 +224,7 @@ void TableView::test7()
 		"{'type':'touch','x':150,'y':200,'state':'up'},"
 		"{'type':'key','key':9208,'state':'press'}" // after horizontal scroll
 	"]");
-	UIManager::notifier()->play_script(script7, "$(ui.tests)/out/tableview7.svg");
+	UIManager::notifier()->play_script(script7, "$(ui.tests)/out/tableview7_%d.svg");
 	//UIManager::desktop()->mainloop();
 }
 

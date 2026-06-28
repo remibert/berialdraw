@@ -269,7 +269,8 @@ uint32_t RichText::span_index_at(uint32_t clean_index) const
 }
 
 /** Parse a JSON formatting tag using TextStyle and create a font span */
-void RichText::parse_tag(const String & tag_content, Font & default_font, uint32_t default_color, TextSpan & span)
+void RichText::parse_tag(const String & tag_content, Font & default_font, 
+	uint32_t default_color, TextSpan & span)
 {
 	init_default_span(span, span.start, default_font, default_color);
 

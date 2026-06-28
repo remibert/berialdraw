@@ -23,43 +23,6 @@ Picture::~Picture()
 	}
 }
 
-/** Check if filename has a vector extension */
-bool Picture::is_vector_extension(const String & filename)
-{
-	bool result = false;
-
-	int32_t dot_pos = -1;
-	for (int32_t i = (int32_t)filename.size() - 1; i >= 0; i--)
-	{
-		if (filename[i] == '.')
-		{
-			dot_pos = i;
-			break;
-		}
-	}
-
-	if (dot_pos >= 0)
-	{
-		String ext;
-		for (int32_t i = dot_pos + 1; i < (int32_t)filename.size(); i++)
-		{
-			char c = filename[i];
-			if (c >= 'A' && c <= 'Z')
-			{
-				c = c + ('a' - 'A');
-			}
-			ext += c;
-		}
-
-		if (ext == "icn")
-		{
-			result = true;
-		}
-	}
-
-	return result;
-}
-
 /** Load the image or sketch from the current filename */
 void Picture::load_picture()
 {
@@ -69,7 +32,7 @@ void Picture::load_picture()
 
 		if (m_filename.size() > 0)
 		{
-			bool new_is_vector = is_vector_extension(m_filename);
+			bool new_is_vector = FileTools::match_pattern("*.icn",m_filename,true);
 
 			// Type changed: destroy old shape and create new one
 			if (new_is_vector != m_is_vector || (m_image == nullptr && m_sketch == nullptr))
@@ -346,8 +309,9 @@ void Picture::paint(const Region & parent_region)
 		}
 		else if (m_sketch && m_sketch->resolution().width_() > 0)
 		{
+			uint32_t color = parent_focus_color(stated_color(m_icon_color));
 			m_sketch->size(m_foreclip.size());
-			m_sketch->paint(m_foreclip, Margin(), stated_color(m_icon_color));
+			m_sketch->paint(m_foreclip, Margin(), color);
 		}
 
 		// Paint children

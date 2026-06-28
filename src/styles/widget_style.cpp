@@ -13,6 +13,7 @@ WidgetStyle::WidgetStyle()
 	m_pressable   = 0;
 	m_flow_place  = 0;
 	m_selectable  = 0;
+	m_inherited_focus_color   = 0;
 	m_enabled     = 1;  // Enabled by default
 	m_flow        = 0;
 	m_flow_in_children = 0;
@@ -32,9 +33,10 @@ void WidgetStyle::serialize(JsonIterator & it)
 	it[StyleNames::WIDGET_CHECKED]       = (int)m_checked;
 	it[StyleNames::WIDGET_FOCUSABLE]     = (int)m_focusable;
 	it[StyleNames::WIDGET_SELECTABLE]    = (int)m_selectable;
+	it[StyleNames::WIDGET_INHERITED_FOCUS_COLOR]     = (int)m_inherited_focus_color;
 	it[StyleNames::WIDGET_PRESSABLE]     = (int)m_pressable;
 	it[StyleNames::WIDGET_FLOW]    = (int)m_flow;
-	it["enabled"]     = (int)m_enabled;
+	it[StyleNames::WIDGET_ENABLED]     = (int)m_enabled;
 	if (m_style)
 	{
 		it[StyleNames::WIDGET_STYLE] = m_style->c_str();
@@ -60,9 +62,10 @@ void WidgetStyle::unserialize(JsonIterator & it)
 	m_checked   = (int)it[StyleNames::WIDGET_CHECKED]  | m_checked;
 	m_focusable = (int)it[StyleNames::WIDGET_FOCUSABLE] | m_focusable;
 	m_selectable = (int)it[StyleNames::WIDGET_SELECTABLE] | m_selectable;
+	m_inherited_focus_color  = (int)it[StyleNames::WIDGET_INHERITED_FOCUS_COLOR] | m_inherited_focus_color;
 	m_pressable  = (int)it[StyleNames::WIDGET_PRESSABLE] | m_pressable;
 	m_flow       = (int)it[StyleNames::WIDGET_FLOW] | m_flow;
-	m_enabled    = (int)it["enabled"] | m_enabled;
+	m_enabled    = (int)it[StyleNames::WIDGET_ENABLED] | m_enabled;
 
 	if (it.exists(StyleNames::WIDGET_STYLE))
 	{
@@ -94,6 +97,7 @@ void WidgetStyle::set(const WidgetStyle & other)
 		m_focusable       = other.m_focusable;
 		m_checked         = other.m_checked;
 		m_selectable      = other.m_selectable;
+		m_inherited_focus_color       = other.m_inherited_focus_color;
 		m_pressable       = other.m_pressable;
 		m_enabled         = other.m_enabled;
 		m_flow_place      = other.m_flow_place;
@@ -253,6 +257,14 @@ void WidgetStyle::enabled(bool v)
 	m_enabled = v;
 }
 
+/** Set the inherited focus color from focusable parent */
+void WidgetStyle::inherited_focus_color(bool v)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_inherited_focus_color = v;
+}
+
+
 /** Get the style string (empty string if not set) */
 const String & WidgetStyle::style() const
 {
@@ -272,4 +284,5 @@ void WidgetStyle::style(const String & s)
 		*m_style = s;
 	}
 }
+
 

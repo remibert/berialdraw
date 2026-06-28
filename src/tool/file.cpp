@@ -13,13 +13,9 @@ File::~File()
 
 int File::open(const char *pathname, const char *mode)
 {
-	String p(pathname);
-	if (strchr(pathname,'$') != 0 && UIManager::settings())
-	{
-		p = UIManager::settings()->resolve(pathname);
-	}
+	String resolved_path = File::resolve_path(pathname);
 
-	if (p.find("zip://", 0) == 0)
+	if (resolved_path.find("zip://", 0) == 0)
 	{
 		m_file = std::make_unique<ZipFile>();
 	}
@@ -28,7 +24,7 @@ int File::open(const char *pathname, const char *mode)
 		m_file = std::make_unique<LocalFile>();
 	}
 	
-	return m_file ? m_file->open(p.c_str(), mode) : -1;
+	return m_file ? m_file->open(resolved_path.c_str(), mode) : -1;
 }
 
 int File::close()
@@ -93,25 +89,21 @@ wchar_t File::read_char()
 
 bool File::exists(const char* file_name)
 {
-	if (file_name == nullptr)
+	bool result = false;
+	if (file_name != nullptr && file_name[0] != '\0')
 	{
-		return false;
-	}
+		String resolved_path = File::resolve_path(file_name);
 
-	String p(file_name);
-	if (strchr(file_name,'$') != 0 && UIManager::settings())
-	{
-		p = UIManager::settings()->resolve(file_name);
+		if (resolved_path.find("zip://", 0) == 0)
+		{
+			result = ZipFile::exists(resolved_path);
+		}
+		else
+		{
+			result = LocalFile::exists(resolved_path);
+		}
 	}
-
-	if (p.find("zip://", 0) == 0)
-	{
-		return ZipFile::exists(p);
-	}
-	else
-	{
-		return LocalFile::exists(p);
-	}
+	return result;
 }
 
 String File::resolve(const String & dir)
@@ -131,6 +123,20 @@ char * File::tmp_alloc(uint32_t length)
 void File::tmp_dealloc(char * tmp, uint32_t length)
 {
 	if (m_file) m_file->tmp_dealloc(tmp, length);
+}
+
+/** Resolve all variables in the paths */
+String File::resolve_path(const char* path)
+{
+	String result(path);
+	if (path)
+	{
+		if (strchr(path, '$') != nullptr && UIManager::settings())
+		{
+			result = UIManager::settings()->resolve(path);
+		}
+	}
+	return result;
 }
 
 

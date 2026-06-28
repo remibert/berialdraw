@@ -59,6 +59,7 @@ void Pane::place(const Area & area, bool in_layout)
 	// Add border for the backclip
 	m_backclip.position().move_(0-(m_thickness),0-(m_thickness));
 	m_backclip.size().increase_(m_thickness+m_thickness,m_thickness+m_thickness);
+	m_backclip.print("pane");
 }
 
 void Pane::paint(const Region & parent_region)

@@ -28,15 +28,6 @@ namespace berialdraw
 		/** Set the scroll position with x and y in pixels */
 		void scroll_position(Coord x, Coord y);
 
-		///** Get viewport size */
-		//const Size & viewport_size() const;
-
-		///** Set viewport size */
-		//void viewport_size(const Size & size);
-
-		///** Set the viewport size with width and height in pixels */
-		//void viewport_size(Dim w, Dim h);
-
 		/** Return the size of content without marges */
 		virtual Size content_size() override;
 

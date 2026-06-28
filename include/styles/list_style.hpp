@@ -51,34 +51,10 @@ namespace berialdraw
 		void separator_thickness_(Dim t);
 
 
-		/** Get whether to show arrow indicator (for menus) */
-		bool show_arrow() const { return m_show_arrow; }
-
-		/** Set whether to show arrow indicator */
-		void show_arrow(bool v);
-
-
-		/** Get the arrow direction (true = right ">", false = left "<") */
-		bool arrow_right() const { return m_arrow_right; }
-
-		/** Set the arrow direction */
-		void arrow_right(bool v);
-
-
-		/** Get the disabled text color */
-		uint32_t disabled_text_color() const;
-
-		/** Set the disabled text color */
-		void disabled_text_color(uint32_t c);
-
-
 	protected:
 /// @cond DOXYGEN_IGNORE
 		uint32_t m_separator_color = Color::LIST_SEPARATOR_COLOR;
-		uint32_t m_disabled_text_color = Color::LIST_DISABLED_TEXT_COLOR;
 		Dim      m_separator_thickness = 1 << 6;  ///< Default 1 pixel
-		bool     m_show_arrow = false;
-		bool     m_arrow_right = true;  ///< Default: right arrow ">"
 /// @endcond
 	};
 }

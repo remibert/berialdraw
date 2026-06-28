@@ -394,6 +394,12 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\..\src\styles\list_item_style.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="..\..\src\styles\picture_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -1154,6 +1160,12 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\..\src\widget\list_item.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="..\..\src\widget\picture.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -1551,6 +1563,7 @@
     <ClInclude Include="..\..\include\styles\invalidator.hpp" />
     <ClInclude Include="..\..\include\styles\edit_style.hpp" />
     <ClInclude Include="..\..\include\styles\icon_style.hpp" />
+    <ClInclude Include="..\..\include\styles\list_item_style.hpp" />
     <ClInclude Include="..\..\include\styles\picture_style.hpp" />
     <ClInclude Include="..\..\include\image\image_fit.hpp" />
     <ClInclude Include="..\..\include\image\image_decoder.hpp" />
@@ -1646,6 +1659,7 @@
     <ClInclude Include="..\..\include\widget\entry.hpp" />
     <ClInclude Include="..\..\include\widget\grid.hpp" />
     <ClInclude Include="..\..\include\widget\icon.hpp" />
+    <ClInclude Include="..\..\include\widget\list_item.hpp" />
     <ClInclude Include="..\..\include\widget\picture.hpp" />
     <ClInclude Include="..\..\include\widget\keyboard.hpp" />
     <ClInclude Include="..\..\include\widget\label.hpp" />
@@ -1723,6 +1737,7 @@
     <None Include="..\..\resources\styles\pearl\button.sty" />
     <None Include="..\..\resources\styles\pearl\canvas.sty" />
     <None Include="..\..\resources\styles\pearl\checkbox.sty" />
+    <None Include="..\..\resources\styles\pearl\list_item.sty" />
     <None Include="..\..\resources\styles\pearl\picture.sty" />
     <None Include="..\..\resources\styles\pearl\radio.sty" />
     <None Include="..\..\resources\styles\pearl\edit.sty" />
@@ -1742,6 +1757,7 @@
     <None Include="..\..\resources\styles\test\canvas.sty" />
     <None Include="..\..\resources\styles\test\checkbox.sty" />
     <None Include="..\..\resources\styles\test\list.sty" />
+    <None Include="..\..\resources\styles\test\list_item.sty" />
     <None Include="..\..\resources\styles\test\picture.sty" />
     <None Include="..\..\resources\styles\test\radio.sty" />
     <None Include="..\..\resources\styles\test\edit.sty" />

@@ -137,6 +137,17 @@ namespace berialdraw
 		static constexpr const char* TEXT_ALIGN = "text-align";
 		static constexpr const char* TEXT_PADDING = "padding";
 
+		// Scrollbar style
+		static constexpr const char* SCROLLBAR_VISIBLE     = "scrollbar-visible";
+		static constexpr const char* SCROLLBAR_THUMB_COLOR = "scrollbar-thumb-color";
+		static constexpr const char* SCROLLBAR_WIDTH       = "scrollbar-width";
+		static constexpr const char* SCROLLBAR_RADIUS      = "scrollbar-radius";
+		static constexpr const char* SCROLLBAR_MARGIN      = "scrollbar-margin";
+
+		// List style
+		static constexpr const char* SEPARATOR_COLOR     = "separator-color";
+		static constexpr const char* SEPARATOR_THICKNESS = "separator-thickness";
+
 		// Widget style
 		static constexpr const char* WIDGET_CELL = "cell";
 		static constexpr const char* WIDGET_ROW = "row";
@@ -151,6 +162,13 @@ namespace berialdraw
 		static constexpr const char* WIDGET_MAX_SIZE = "max-size";
 		static constexpr const char* WIDGET_STYLE = "style";
 		static constexpr const char* WIDGET_BORDERS = "borders";
+		static constexpr const char* WIDGET_INHERITED_FOCUS_COLOR = "inherited-focus-color";
+		static constexpr const char* WIDGET_ENABLED = "enabled";
+		
+		// List item style
+		static constexpr const char* LIST_ITEM_LEADING = "leading";
+		static constexpr const char* LIST_ITEM_TRAILING = "trailing";
+
 
 		// Picture style
 		static constexpr const char* PICTURE_FILENAME = "filename";

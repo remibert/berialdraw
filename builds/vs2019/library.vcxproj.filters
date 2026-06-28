@@ -1003,6 +1003,12 @@
     <ClCompile Include="..\..\src\device\device_xcb.cpp">
       <Filter>berialdraw\device\xcb</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\styles\list_item_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\list_item.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\config.h">
@@ -1860,6 +1866,12 @@
     <ClInclude Include="..\..\include\device\device_xcb.hpp">
       <Filter>berialdraw\device\xcb</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\widget\list_item.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\styles\list_item_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\berialdraw_imp.hpp">
       <Filter>berialdraw</Filter>
     </ClInclude>
@@ -2146,6 +2158,12 @@
     </None>
     <None Include="..\..\resources\styles\pearl\scroll_view.sty">
       <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\list_item.sty">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\list_item.sty">
+      <Filter>resources\styles\test</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

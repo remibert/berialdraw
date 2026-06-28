@@ -119,76 +119,79 @@ void Rect::build_focused_polygon(const Area & area,
 	uint32_t focus_border_color,
 	bool focused)
 {
-	Borders borders = (Borders)common_style.borders();
-	if (focused && border_style.focus_thickness())
+	if (color || border_color || focus_color || focus_border_color)
 	{
-		Area focus_area(area);
-		Dim reduce = (border_style.focus_gap()<<6) +(border_style.focus_thickness()<<6);
-		switch((uint8_t)borders & ALL_BORDERS)
+		Borders borders = (Borders)common_style.borders();
+		if (focused && border_style.focus_thickness())
 		{
-		case BOTTOM_BORDER | LEFT_BORDER | RIGHT_BORDER:
-			focus_area.size().decrease_(0,reduce);
-			focus_area.position().move_(0,reduce);
-			break;
+			Area focus_area(area);
+			Dim reduce = (border_style.focus_gap() << 6) + (border_style.focus_thickness() << 6);
+			switch ((uint8_t)borders & ALL_BORDERS)
+			{
+			case BOTTOM_BORDER | LEFT_BORDER | RIGHT_BORDER:
+				focus_area.size().decrease_(0, reduce);
+				focus_area.position().move_(0, reduce);
+				break;
 
-		case TOP_BORDER    | LEFT_BORDER | RIGHT_BORDER:
-			focus_area.size().decrease_(0,reduce);
-			break;
-		
-		case LEFT_BORDER  | BOTTOM_BORDER | TOP_BORDER:
-				focus_area.size().decrease_(reduce,0);
-			break;
+			case TOP_BORDER | LEFT_BORDER | RIGHT_BORDER:
+				focus_area.size().decrease_(0, reduce);
+				break;
 
-		case RIGHT_BORDER | BOTTOM_BORDER | TOP_BORDER:
-			focus_area.size().decrease_(reduce,0);
-			focus_area.position().move_(reduce,0);
-			break;
-	
-		case BOTTOM_BORDER | LEFT_BORDER:
-			focus_area.position().move_(0,reduce);
-			focus_area.size().decrease_(reduce,reduce);
-			break;
+			case LEFT_BORDER | BOTTOM_BORDER | TOP_BORDER:
+				focus_area.size().decrease_(reduce, 0);
+				break;
 
-		case TOP_BORDER    | LEFT_BORDER:
-			focus_area.size().decrease_(reduce,reduce);
-			break;
+			case RIGHT_BORDER | BOTTOM_BORDER | TOP_BORDER:
+				focus_area.size().decrease_(reduce, 0);
+				focus_area.position().move_(reduce, 0);
+				break;
 
-		case RIGHT_BORDER  | TOP_BORDER:
-			focus_area.position().move_(reduce,0);
-			focus_area.size().decrease_(reduce,reduce);
-			break;
+			case BOTTOM_BORDER | LEFT_BORDER:
+				focus_area.position().move_(0, reduce);
+				focus_area.size().decrease_(reduce, reduce);
+				break;
 
-		case RIGHT_BORDER  | BOTTOM_BORDER:
-			focus_area.position().move_(reduce,reduce);
-			focus_area.size().decrease_(reduce,reduce);
-			break;
+			case TOP_BORDER | LEFT_BORDER:
+				focus_area.size().decrease_(reduce, reduce);
+				break;
 
-		case BOTTOM_BORDER:
-			focus_area.size().decrease_(reduce<<1,reduce);
-			focus_area.position().move_(reduce,reduce);
-			break;
+			case RIGHT_BORDER | TOP_BORDER:
+				focus_area.position().move_(reduce, 0);
+				focus_area.size().decrease_(reduce, reduce);
+				break;
 
-		case TOP_BORDER:
-			focus_area.size().decrease_(reduce<<1,reduce);
-			focus_area.position().move_(reduce,0);
-			break;
+			case RIGHT_BORDER | BOTTOM_BORDER:
+				focus_area.position().move_(reduce, reduce);
+				focus_area.size().decrease_(reduce, reduce);
+				break;
 
-		case RIGHT_BORDER:
-			focus_area.size().decrease_(reduce,reduce<<1);
-			focus_area.position().move_(reduce,reduce);
-			break;
+			case BOTTOM_BORDER:
+				focus_area.size().decrease_(reduce << 1, reduce);
+				focus_area.position().move_(reduce, reduce);
+				break;
 
-		case LEFT_BORDER:
-			focus_area.size().decrease_(reduce,reduce<<1);
-			focus_area.position().move_(0,reduce);
-			break;
+			case TOP_BORDER:
+				focus_area.size().decrease_(reduce << 1, reduce);
+				focus_area.position().move_(reduce, 0);
+				break;
+
+			case RIGHT_BORDER:
+				focus_area.size().decrease_(reduce, reduce << 1);
+				focus_area.position().move_(reduce, reduce);
+				break;
+
+			case LEFT_BORDER:
+				focus_area.size().decrease_(reduce, reduce << 1);
+				focus_area.position().move_(0, reduce);
+				break;
+			}
+
+			// Draw focus
+			Rect::build_polygon(focus_area, border_style.radius_(), border_style.thickness_(), border_style.focus_gap() << 6, borders, focus_color, focus_border_color, border_style.focus_thickness() << 6);
 		}
-
-		// Draw focus
-		Rect::build_polygon(focus_area, border_style.radius_(), border_style.thickness_(), border_style.focus_gap()<<6, borders, focus_color, focus_border_color, border_style.focus_thickness()<<6);
+		// Draw background
+		Rect::build_polygon(area, border_style.radius_(), border_style.thickness_(), 0, borders, color, border_color);
 	}
-	// Draw background
-	Rect::build_polygon(area, border_style.radius_(), border_style.thickness_(), 0, borders, color, border_color);
 }
 
 

@@ -162,6 +162,14 @@ namespace berialdraw
 		void style(const String & s);
 
 
+		/** Get the inherited focus color from focusable parent */
+		bool inherited_focus_color() const { return m_inherited_focus_color; }
+
+		/** Set the inherited focus color from focusable parent */
+		void inherited_focus_color(bool v);
+
+
+
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -201,6 +209,7 @@ namespace berialdraw
 		unsigned int m_flow_place :1;
 		unsigned int m_flow_in_children:1;
 		unsigned int m_flow       :1;
+		unsigned int m_inherited_focus_color  :1;
 		std::unique_ptr<String> m_style;
 /// @endcond 
 	};

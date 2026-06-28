@@ -41,6 +41,22 @@ void Area::increase(const Margin& margin)
 	m_position.move_(0-margin.left_(), 0-margin.top_());
 	m_size.increase_(margin.left_() + margin.right_(), margin.top_() + margin.bottom_());
 }
+
+/** Decrease the thickness border of the size and position in the area
+@param thickness thickess to remove */
+void Area::decrease_thickness(Dim thickness)
+{
+	m_position.move_(thickness>>1, thickness>>1);
+	m_size.decrease_(thickness,thickness);
+	Point position(m_position);
+	nearest_pixel();
+
+	if (position.x_() != m_position.x_() && position.y_() != m_position.y_())
+	{
+		m_size.decrease(1, 1);
+	}
+}
+
 /** Clip this area against another area */
 void Area::clip(const Area& clip_area)
 {
