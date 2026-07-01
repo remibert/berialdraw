@@ -177,8 +177,8 @@ void Notifier::treat_touch_move(TouchEvent & evt)
 		
 			if (m_clicked->selectable())
 			{
-				Coord move_x = abs(m_down_position.x_() - evt.position().x_());
-				Coord move_y = abs(m_down_position.y_() - evt.position().y_());
+				Coord move_x = abs(m_down_position.x_q6() - evt.position().x_q6());
+				Coord move_y = abs(m_down_position.y_q6() - evt.position().y_q6());
 
 				if (String(m_clicked->classname()) == "slider")
 				{
@@ -879,3 +879,4 @@ void Notifier::play_script(const String & script, const String & snapshot_name)
 	String temp(script);
 	play_script_impl(temp, snapshot_name);
 }
+

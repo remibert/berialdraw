@@ -65,10 +65,10 @@ void CheckboxStyle::checkbox_size(Dim w, Dim h)
 }
 
 /** Set the checkbox box size with a precision of 64th of a pixel */
-void CheckboxStyle::checkbox_size_(Dim w, Dim h)
+void CheckboxStyle::checkbox_size_q6(Dim w, Dim h)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_checkbox_size.set_(w, h);
+	m_checkbox_size.set_q6(w, h);
 }
 
 /** Set the checkbox padding in pixels */
@@ -97,3 +97,4 @@ void CheckboxStyle::check_sketch(const String & sketch)
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_check_sketch = sketch;
 }
+

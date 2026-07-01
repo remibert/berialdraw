@@ -57,9 +57,8 @@ void Pane::place(const Area & area, bool in_layout)
 	m_backclip = m_foreclip;
 
 	// Add border for the backclip
-	m_backclip.position().move_(0-(m_thickness),0-(m_thickness));
-	m_backclip.size().increase_(m_thickness+m_thickness,m_thickness+m_thickness);
-	m_backclip.print("pane");
+	m_backclip.position().move_q6(0-(m_thickness),0-(m_thickness));
+	m_backclip.size().increase_q6(m_thickness+m_thickness,m_thickness+m_thickness);
 }
 
 void Pane::paint(const Region & parent_region)
@@ -97,5 +96,6 @@ StyleCascadeMode Pane::style_cascade_mode() const
 {
 	return StyleCascadeMode::NONE;
 }
+
 
 

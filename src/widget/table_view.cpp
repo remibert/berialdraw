@@ -24,8 +24,8 @@ Size TableView::content_size()
 	// Set grid line thickness for cell placement
 	if (m_grid)
 	{
-		m_grid->m_cells.horizontal_line_thickness(horizontal_thickness_());
-		m_grid->m_cells.vertical_line_thickness(vertical_thickness_());
+		m_grid->m_cells.horizontal_line_thickness(horizontal_thickness_q6());
+		m_grid->m_cells.vertical_line_thickness(vertical_thickness_q6());
 	}	
 	return ScrollableContent::content_size();
 }
@@ -58,12 +58,12 @@ void TableView::paint_row_backgrounds()
 		const Area& grid_foreclip = m_grid->foreclip();
 		
 		// Calculate grid content width
-		Dim grid_width = grid_foreclip.width_();
+		Dim grid_width = grid_foreclip.width_q6();
 		if (col_count > 0)
 		{
 			Dim last_col_x = col_positions[col_count - 1];
 			Dim last_col_width = m_grid->m_cells.column_width(col_count - 1);
-			grid_width = last_col_x + last_col_width - grid_foreclip.x_();
+			grid_width = last_col_x + last_col_width - grid_foreclip.x_q6();
 		}
 
 		for (Dim row = 0; row < row_count; row++)
@@ -72,7 +72,7 @@ void TableView::paint_row_backgrounds()
 			Dim row_height = m_grid->m_cells.row_height(row);
 			
 			// Create rectangle for this row in 64ths, limited to grid content width
-			Area row_area(grid_foreclip.x_(), row_y, grid_width, row_height, false);
+			Area row_area(grid_foreclip.x_q6(), row_y, grid_width, row_height, false);
 			row_area.nearest_pixel();
 			row_area.clip(m_foreclip);
 			
@@ -121,7 +121,7 @@ void TableView::paint_top_border_line()
 		
 		Dim line_y = row_positions[0] - horizontal_thickness;
 		
-		Area line_area(foreclip.x_(), line_y, foreclip.width_(), horizontal_thickness, false);
+		Area line_area(foreclip.x_q6(), line_y, foreclip.width_q6(), horizontal_thickness, false);
 		line_area.nearest_pixel();
 		line_area.clip(m_foreclip);
 		if (line_area.is_not_empty())
@@ -141,7 +141,7 @@ void TableView::paint_left_border_line()
 		uint32_t line_color = grid_color();
 		
 		Dim line_x = col_positions[0] - vertical_thickness;
-		Area line_area(line_x, foreclip.y_(), vertical_thickness, foreclip.height_(), false);
+		Area line_area(line_x, foreclip.y_q6(), vertical_thickness, foreclip.height_q6(), false);
 		line_area.nearest_pixel();
 		line_area.clip(m_foreclip);
 		if (line_area.is_not_empty())
@@ -174,7 +174,7 @@ void TableView::paint_horizontal_lines()
 			line_y = row_y + row_height;
 		}
 
-		Area line_area(foreclip.x_(), line_y, foreclip.width_(), horizontal_thickness, false);
+		Area line_area(foreclip.x_q6(), line_y, foreclip.width_q6(), horizontal_thickness, false);
 		line_area.nearest_pixel();
 		line_area.clip(m_foreclip);
 		
@@ -208,7 +208,7 @@ void TableView::paint_vertical_lines()
 			line_x = col_x + col_width;
 		}
 		
-		Area line_area(line_x, foreclip.y_(), vertical_thickness, foreclip.height_(), false);
+		Area line_area(line_x, foreclip.y_q6(), vertical_thickness, foreclip.height_q6(), false);
 		line_area.nearest_pixel();
 		line_area.clip(m_foreclip);
 		
@@ -418,4 +418,6 @@ void TableView::populate_json_from_data(Json& json)
 		}
 	}
 }
+
+
 

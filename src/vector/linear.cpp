@@ -11,7 +11,7 @@ Linear::Linear()
 
 Linear::Linear(const Point& p1, const Point& p2)
 {
-	set_coef(p1.x_(), p1.y_(), p2.x_(), p2.y_());
+	set_coef(p1.x_q6(), p1.y_q6(), p2.x_q6(), p2.y_q6());
 }
 
 bool Linear::set_coef(Coord  x1, Coord  y1, Coord  x2, Coord  y2)
@@ -42,13 +42,13 @@ bool Linear::get_intersection(Linear& line, Point& point)
 
 	if (line.vertical && vertical == false)
 	{
-		point.x_((int32_t)(line.b));
-		point.y_((int32_t)(a * point.x_() + b));
+		point.x_q6((int32_t)(line.b));
+		point.y_q6((int32_t)(a * point.x_q6() + b));
 	}
 	else if (line.vertical == false && vertical)
 	{
-		point.x_((int32_t)b);
-		point.y_((int32_t)(line.a * point.x_() + line.b));
+		point.x_q6((int32_t)b);
+		point.y_q6((int32_t)(line.a * point.x_q6() + line.b));
 	}
 	else if (line.vertical == true && vertical)
 	{
@@ -56,8 +56,8 @@ bool Linear::get_intersection(Linear& line, Point& point)
 	}
 	else if ((a - line.a) != 0.)
 	{
-		point.x_((int32_t)((line.b - b) / (a - line.a)));
-		point.y_((int32_t)(a * point.x_() + b));
+		point.x_q6((int32_t)((line.b - b) / (a - line.a)));
+		point.y_q6((int32_t)(a * point.x_q6() + b));
 	}
 	else
 	{
@@ -76,7 +76,7 @@ int64_t Linear::norms(Coord  x1, Coord  y1, Coord  x2, Coord  y2)
 
 int64_t Linear::norms(const Point& p1, const Point& p2)
 {
-	return norms(p1.x_(), p1.y_(), p2.x_(), p2.y_());
+	return norms(p1.x_q6(), p1.y_q6(), p2.x_q6(), p2.y_q6());
 }
 
 int64_t Linear::cross_product(Coord  x1, Coord  y1, Coord  x2, Coord  y2, Coord  x3, Coord  y3)
@@ -91,7 +91,7 @@ int64_t Linear::cross_product(Coord  x1, Coord  y1, Coord  x2, Coord  y2, Coord 
 
 int64_t Linear::cross_product(const Point & p1, const Point & p2, const Point & p3)
 {
-	return cross_product(p1.x_(), p1.y_(), p2.x_(), p2.y_(), p3.x_(), p3.y_());
+	return cross_product(p1.x_q6(), p1.y_q6(), p2.x_q6(), p2.y_q6(), p3.x_q6(), p3.y_q6());
 }
 
 int64_t  Linear::dot_product(Coord  x1, Coord  y1, Coord  x2, Coord  y2, Coord  x3, Coord  y3)
@@ -106,7 +106,7 @@ int64_t  Linear::dot_product(Coord  x1, Coord  y1, Coord  x2, Coord  y2, Coord  
 
 int64_t Linear::dot_product(const Point& p1, const Point& p2, const Point& p3)
 {
-	return dot_product(p1.x_(), p1.y_(), p2.x_(), p2.y_(), p3.x_(), p3.y_());
+	return dot_product(p1.x_q6(), p1.y_q6(), p2.x_q6(), p2.y_q6(), p3.x_q6(), p3.y_q6());
 }
 
 void Linear::add_vector(Coord  x1, Coord  y1, Coord  x2, Coord  y2, Coord  x3, Coord  y3, Coord & x4, Coord & y4)
@@ -119,8 +119,8 @@ void Linear::add_vector(const Point& p1, const Point& p2, const Point& p3, Point
 {
 	Coord x4;
 	Coord y4;
-	add_vector(p1.x_(), p1.y_(), p2.x_(), p2.y_(), p3.x_(), p3.y_(), x4, y4);
-	p4.set_(x4,y4);
+	add_vector(p1.x_q6(), p1.y_q6(), p2.x_q6(), p2.y_q6(), p3.x_q6(), p3.y_q6(), x4, y4);
+	p4.set_q6(x4,y4);
 }
 
 Coord Linear::fx(Coord  x)
@@ -135,7 +135,7 @@ Coord Linear::fy(Coord  y)
 
 bool Linear::is_in_segment(const Point& p,const Point& p1,const Point& p2)
 {
-	return is_in_segment(p.x_(), p.y_(), p1.x_(), p1.y_(), p2.x_(), p2.y_());
+	return is_in_segment(p.x_q6(), p.y_q6(), p1.x_q6(), p1.y_q6(), p2.x_q6(), p2.y_q6());
 }
 
 bool Linear::is_in_segment(Coord  x, Coord  y, Coord  x1, Coord  y1, Coord  x2, Coord  y2)
@@ -173,5 +173,6 @@ bool Linear::is_in_segment(Coord  x, Coord  y, Coord  x1, Coord  y1, Coord  x2, 
 	}
 	return in_x && in_y;
 }
+
 
 

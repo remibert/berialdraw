@@ -29,7 +29,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 	bool selection = false;
 
 	// Default line height and space size from default font
-	line_height = font.real_size().height_();
+	line_height = font.real_size().height_q6();
 	space_size = font.char_size(' ');
 
 	m_lines.clear();
@@ -40,7 +40,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 
 	// Track max line height for current line (may vary with rich text)
 	Dim max_line_height = line_height;
-	Coord max_baseline = font.baseline_();  ///< Track the maximum baseline on the line
+	Coord max_baseline = font.baseline_q6();  ///< Track the maximum baseline on the line
 
 	// Parse all character to search new lines
 	for (i=0; i < count; i++)
@@ -88,7 +88,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		if (character == '\n')
 		{
 			// Set the size of line (use max line height for this line)
-			info.size.set_(line_width, max_line_height);
+			info.size.set_q6(line_width, max_line_height);
 			info.baseline_ref = max_baseline;
 
 			if (cursor_pos != UINT32_MAX)
@@ -98,7 +98,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 				{
 					// Set cursor position, adapt cursor size to font at cursor position
 					Size cursor_space = m_rich_text.font_at(i).char_size(' ');
-					m_cursor_pos.set_(line_width, m_lines_size.height_());
+					m_cursor_pos.set_q6(line_width, m_lines_size.height_q6());
 					m_cursor_size = cursor_space;
 					m_cursor_line = m_lines.size();
 				}
@@ -108,24 +108,24 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 			info.line_end = i;
 
 			// If the line width is greater than previously width found
-			if (m_lines_size.width_() < line_width)
+			if (m_lines_size.width_q6() < line_width)
 			{
 				// Keep this width
-				m_lines_size.width_(line_width);
+				m_lines_size.width_q6(line_width);
 			}
 
 			// Save the y position of line
-			info.position.y_(m_lines_size.height_());
+			info.position.y_q6(m_lines_size.height_q6());
 
 			// Add the height of line in the line size (use max height for this line)
-			m_lines_size.height_(m_lines_size.height_() + max_line_height);
+			m_lines_size.height_q6(m_lines_size.height_q6() + max_line_height);
 
 			// Add this line sizes to the lines list
 			m_lines.push_back(info);
 
 			line_width = 0;
 			max_line_height = line_height;
-			max_baseline = font.baseline_();  ///< Reset baseline reference to default
+			max_baseline = font.baseline_q6();  ///< Reset baseline reference to default
 
 			// Clear line informations
 			info.selection_end   = UINT32_MAX;
@@ -148,14 +148,14 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 				if (i == cursor_pos)
 				{
 					// Save cursor position, adapt cursor size to font at cursor position
-					m_cursor_pos.set_(line_width, m_lines_size.height_());
+					m_cursor_pos.set_q6(line_width, m_lines_size.height_q6());
 					m_cursor_size = char_size;
 					m_cursor_line = m_lines.size();
 				}
 			}
 
 			// Increase the line width with character width
-			line_width  += char_size.width_();
+			line_width  += char_size.width_q6();
 		}
 	}
 
@@ -163,13 +163,13 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 	if (i == cursor_pos && info.line_start == UINT32_MAX && info.line_end == UINT32_MAX)
 	{
 		Size cursor_space = (i > 0) ? m_rich_text.font_at(i - 1).char_size(' ') : space_size;
-		m_cursor_pos.set_(line_width, m_lines_size.height_());
+		m_cursor_pos.set_q6(line_width, m_lines_size.height_q6());
 		m_cursor_size = cursor_space;
 		m_cursor_line = m_lines.size();
 		info.line_end = i;
 		info.line_start = i;
-		info.position.y_(m_lines_size.height_());
-		info.size.set_(line_width, max_line_height);
+		info.position.y_q6(m_lines_size.height_q6());
+		info.size.set_q6(line_width, max_line_height);
 		info.baseline_ref = max_baseline;
 		m_lines.push_back(info);
 	}
@@ -181,17 +181,17 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		info.line_end = i;
 
 		// If the line width is greater than previously width found
-		if (m_lines_size.width_() < line_width)
+		if (m_lines_size.width_q6() < line_width)
 		{
 			// Keep this width
-			m_lines_size.width_(line_width);
+			m_lines_size.width_q6(line_width);
 		}
 
 		// Save the y position of line
-		info.position.y_(m_lines_size.height_());
+		info.position.y_q6(m_lines_size.height_q6());
 
 		// Add the height of line in the line size (use max height for this line)
-		m_lines_size.height_(m_lines_size.height_() + max_line_height);
+		m_lines_size.height_q6(m_lines_size.height_q6() + max_line_height);
 
 		if (sel_start != UINT32_MAX)
 		{
@@ -209,14 +209,14 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 			{
 				// Save cursor position, adapt cursor size to font at cursor position
 				Size cursor_space = (i > 0) ? m_rich_text.font_at(i - 1).char_size(' ') : space_size;
-				m_cursor_pos.set_(line_width, m_lines_size.height_() - cursor_space.height_());
+				m_cursor_pos.set_q6(line_width, m_lines_size.height_q6() - cursor_space.height_q6());
 				m_cursor_size = cursor_space;
 				m_cursor_line = m_lines.size();
 			}
 		}
 
 		// Set line size (use max height for this line)
-		info.size.set_(line_width, max_line_height);
+		info.size.set_q6(line_width, max_line_height);
 		info.baseline_ref = max_baseline;
 
 		// Add the current line into the lines list
@@ -228,23 +228,23 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		m_cursor_size = space_size;
 
 		// Add the height of line in the line size
-		m_lines_size.height_(m_lines_size.height_() + max_line_height);
+		m_lines_size.height_q6(m_lines_size.height_q6() + max_line_height);
 	}
 	
 	Coord movex = 0;
 
 	// If edit field is defined
-	if (text_area.width_())
+	if (text_area.width_q6())
 	{
 		// If text align is center in edit field
 		if ((text_align & Align::ALIGN_HORIZONTAL) == Align::CENTER)
 		{
-			movex = 0-(((Coord)m_lines_size.width_() - (Coord)text_area.width_())/2);
+			movex = 0-(((Coord)m_lines_size.width_q6() - (Coord)text_area.width_q6())/2);
 		}
 		// If text align is right in edit field
 		else if ((text_align & Align::ALIGN_HORIZONTAL) == Align::ALIGN_RIGHT)
 		{
-			movex = 0-((Coord)m_lines_size.width_() - (Coord)text_area.width_());
+			movex = 0-((Coord)m_lines_size.width_q6() - (Coord)text_area.width_q6());
 		}
 	}
 	Coord deltax = 0;
@@ -257,15 +257,15 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		// If text align is center
 		if ((text_align & Align::ALIGN_HORIZONTAL) == Align::CENTER)
 		{
-			deltax = movex+(m_lines_size.width_() - m_lines[i].size.width_())/2;
+			deltax = movex+(m_lines_size.width_q6() - m_lines[i].size.width_q6())/2;
 		}
 		// If text align is right
 		else if ((text_align & Align::ALIGN_HORIZONTAL) == Align::ALIGN_RIGHT)
 		{
-			deltax = movex+m_lines_size.width_() - m_lines[i].size.width_();
+			deltax = movex+m_lines_size.width_q6() - m_lines[i].size.width_q6();
 		}
 
-		m_lines[i].position.x_(deltax);
+		m_lines[i].position.x_q6(deltax);
 		m_lines[i].selection_start += deltax;
 		m_lines[i].selection_end   += deltax;
 
@@ -274,7 +274,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 			// If the line contains a cursor
 			if (cursor_pos >= m_lines[i].line_start && cursor_pos <= m_lines[i].line_end)
 			{
-				m_cursor_pos.move_(deltax,0);
+				m_cursor_pos.move_q6(deltax,0);
 			}
 		}
 	}
@@ -293,24 +293,24 @@ uint32_t TextBox::cursor_position(const Point & click_location, const Area & tex
 	// Search the line clicked
 	for (uint32_t i = 0; i < m_lines.size(); i++)
 	{
-		if (click_location.y_() >= current_line.y_() && 
-			click_location.y_() <= current_line.y_() + (Coord)m_lines[i].size.height_())
+		if (click_location.y_q6() >= current_line.y_q6() && 
+			click_location.y_q6() <= current_line.y_q6() + (Coord)m_lines[i].size.height_q6())
 		{
 			line_detected = i;
 			break;
 		}
-		last_line = current_line.y_() + (Coord)m_lines[i].size.height_();
-		current_line.move_(0, m_lines[i].size.height_());
+		last_line = current_line.y_q6() + (Coord)m_lines[i].size.height_q6();
+		current_line.move_q6(0, m_lines[i].size.height_q6());
 	}
 
 
 	if (line_detected == UINT32_MAX && m_lines.size() > 0)
 	{
-		if (click_location.y_() < current_line.y_())
+		if (click_location.y_q6() < current_line.y_q6())
 		{
 			line_detected = 0;
 		}
-		else if (click_location.y_() > last_line)
+		else if (click_location.y_q6() > last_line)
 		{
 			line_detected = m_lines.size() -1;
 		}
@@ -328,13 +328,13 @@ uint32_t TextBox::cursor_position(const Point & click_location, const Area & tex
 		uint32_t char_end   = m_lines[line_detected].line_end;
 
 		// If click is before the text
-		if (click_location.x_() < line_position.x_())
+		if (click_location.x_q6() < line_position.x_q6())
 		{
 			// Cursor is on the start of line
 			result = m_lines[line_detected].line_start;
 		}
 		// If click is after the text
-		else if (click_location.x_() > (line_position.x_() + (Coord)m_lines[line_detected].size.width_()))
+		else if (click_location.x_q6() > (line_position.x_q6() + (Coord)m_lines[line_detected].size.width_q6()))
 		{
 			// Cursor is on the end of line
 			result = m_lines[line_detected].line_end;
@@ -351,12 +351,12 @@ uint32_t TextBox::cursor_position(const Point & click_location, const Area & tex
 				Size char_size = m_rich_text.char_size_at(i);
 
 				// If cursor position found
-				if (click_location.x_() >= (line_position.x_() + coord_char.x_()) &&
-					click_location.x_() <= (line_position.x_() + coord_char.x_() + (Coord)char_size.width_()))
+				if (click_location.x_q6() >= (line_position.x_q6() + coord_char.x_q6()) &&
+					click_location.x_q6() <= (line_position.x_q6() + coord_char.x_q6() + (Coord)char_size.width_q6()))
 				{
 					result = i;
 					// If the click past the half of char
-					if (click_location.x_() >= (line_position.x_() + coord_char.x_() + ((Coord)char_size.width_()/2)))
+					if (click_location.x_q6() >= (line_position.x_q6() + coord_char.x_q6() + ((Coord)char_size.width_q6()/2)))
 					{
 						// If not the last character
 						if (i < char_end)
@@ -367,7 +367,7 @@ uint32_t TextBox::cursor_position(const Point & click_location, const Area & tex
 					}
 					break;
 				}
-				coord_char.move_(char_size.width_(),0);
+				coord_char.move_q6(char_size.width_q6(),0);
 			}
 		}
 	}
@@ -530,20 +530,20 @@ void TextBox::paint(const Point & cursor_shift, Font & font, const String & text
 			Point select_pos;
 				select_pos = position;
 				select_pos.move(cursor_shift);
-				select_pos.move_(0, m_lines[i].position.y_());
-				select_pos.move_(0,0-accumulated_height);
+				select_pos.move_q6(0, m_lines[i].position.y_q6());
+				select_pos.move_q6(0,0-accumulated_height);
 
 			// Compute the center
 			Point select_center(line_center);
-				select_center.move_(0-m_lines[i].selection_start,0);
+				select_center.move_q6(0-m_lines[i].selection_start,0);
 
 			// Draw rectangle
 			Rect rect(0);
-				rect.size_((m_lines[i].selection_end-m_lines[i].selection_start), m_lines[i].size.height_());
+				rect.size_q6((m_lines[i].selection_end-m_lines[i].selection_start), m_lines[i].size.height_q6());
 				rect.position(select_pos);
 				rect.center(select_center);
-				rect.thickness_(0);
-				rect.radius_(0);
+				rect.thickness_q6(0);
+				rect.radius_q6(0);
 				rect.angle((angle>>6) + (90<<6));
 				rect.color(select_color);
 				rect.paint(shift);
@@ -558,7 +558,7 @@ void TextBox::paint(const Point & cursor_shift, Font & font, const String & text
 			Point line_base(position);
 				line_base.move(cursor_shift);
 				line_base.move(m_lines[i].position);
-				line_base.move_(0,0-accumulated_height);
+				line_base.move_q6(0,0-accumulated_height);
 
 			Point seg_offset;
 			Coord seg_x = 0;
@@ -592,15 +592,15 @@ void TextBox::paint(const Point & cursor_shift, Font & font, const String & text
 
 				// Compute segment position
 				Point seg_pos(line_base);
-				seg_pos.move_(seg_x, 0);  // Move to the correct X position
+				seg_pos.move_q6(seg_x, 0);  // Move to the correct X position
 
 				// Adjust for baseline alignment: align this segment's baseline to the line's max baseline
 				// The offset is applied via center (not position) so it rotates correctly with the text angle
-				Coord seg_baseline = seg_font.baseline_();
+				Coord seg_baseline = seg_font.baseline_q6();
 				Coord baseline_offset = m_lines[i].baseline_ref - seg_baseline;
 
 				Point seg_center(seg_line_center);
-				seg_center.y_(seg_center.y_() - baseline_offset);
+				seg_center.y_q6(seg_center.y_q6() - baseline_offset);
 
 				// Draw segment with its specific font and color
 				seg_font.draw(seg_text, seg_pos, seg_center, margin, angle, seg_color);
@@ -608,7 +608,7 @@ void TextBox::paint(const Point & cursor_shift, Font & font, const String & text
 				// Advance x position for next segment
 				for (uint32_t j = seg_start; j <= seg_end; j++)
 				{
-					seg_x += m_rich_text.char_size_at(j).width_();
+					seg_x += m_rich_text.char_size_at(j).width_q6();
 				}
 
 				seg_start = seg_end + 1;
@@ -619,36 +619,36 @@ void TextBox::paint(const Point & cursor_shift, Font & font, const String & text
 		if (i == m_cursor_line && cursor_color != 0)
 		{
 			// If cursor is visible
-			if (m_cursor_size.width_() > 0 && m_cursor_size.height_() > 0)
+			if (m_cursor_size.width_q6() > 0 && m_cursor_size.height_q6() > 0)
 			{
 				// Compute cursor position according to the line and center
 				Point cursor_pos;
 					cursor_pos = position;
 					cursor_pos.move(cursor_shift);
-					cursor_pos.move_(0, m_lines[i].position.y_());
-					cursor_pos.move_(0,0-accumulated_height);
+					cursor_pos.move_q6(0, m_lines[i].position.y_q6());
+					cursor_pos.move_q6(0,0-accumulated_height);
 
 				// Compute the center
 				Point cursor_center(line_center);
-				cursor_center.move_(0-m_cursor_pos.x_(),0);
+				cursor_center.move_q6(0-m_cursor_pos.x_q6(),0);
 
 				// Draw cursor
 				Rect rect(0);
 					if (insertion)
 					{
-						rect.size_(2<<6, m_cursor_size.height_());
+						rect.size_q6(2<<6, m_cursor_size.height_q6());
 						cursor_center.move(1,0);
 					}
 					else
 					{
-						cursor_center.move_(0, 0-(m_cursor_size.height_()-(3<<6)));
-						rect.size_(m_cursor_size.width_(), 3<<6);
+						cursor_center.move_q6(0, 0-(m_cursor_size.height_q6()-(3<<6)));
+						rect.size_q6(m_cursor_size.width_q6(), 3<<6);
 					}
 
 					rect.position(cursor_pos);
 					rect.center(cursor_center);
-					rect.thickness_(0);
-					rect.radius_(0);
+					rect.thickness_q6(0);
+					rect.radius_q6(0);
 					rect.angle((angle>>6) + (90<<6));
 					rect.color(cursor_color);
 					rect.paint(shift);
@@ -656,8 +656,10 @@ void TextBox::paint(const Point & cursor_shift, Font & font, const String & text
 		}
 
 		// Move rotation center to the next line (use actual line height)
-		accumulated_height += m_lines[i].size.height_();
-		line_center.y_(line_center.y_() - m_lines[i].size.height_());
+		accumulated_height += m_lines[i].size.height_q6();
+		line_center.y_q6(line_center.y_q6() - m_lines[i].size.height_q6());
 	}
 }
+
+
 

@@ -60,10 +60,10 @@ void LineStyle::point1(Coord x, Coord y)
 }
 
 /** Set the point1 with a precision of 64th of a pixel */
-void LineStyle::point1_(Coord x, Coord y)
+void LineStyle::point1_q6(Coord x, Coord y)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
-	m_point1.set_(x,y);
+	m_point1.set_q6(x,y);
 }
 
 /** Set the point2 */
@@ -81,8 +81,9 @@ void LineStyle::point2(Coord x, Coord y)
 }
 
 /** Set the point2 with a precision of 64th of a pixel */
-void LineStyle::point2_(Coord x, Coord y)
+void LineStyle::point2_q6(Coord x, Coord y)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
-	m_point2.set_(x,y);
+	m_point2.set_q6(x,y);
 }
+

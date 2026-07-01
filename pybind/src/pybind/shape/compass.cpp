@@ -13,7 +13,7 @@ void bind_compass(py::module& m) {
                 if (py::isinstance<py::int_>(value)) {
                     static_cast<berialdraw::CommonStyle&>(self).angle(value.cast<int>());
                 } else if (py::isinstance<py::float_>(value)) {
-                    static_cast<berialdraw::CommonStyle&>(self).angle_(static_cast<int>(value.cast<double>() * 64));
+                    static_cast<berialdraw::CommonStyle&>(self).angle_q6(static_cast<int>(value.cast<double>() * 64));
                 }
             }, "Angle (int for normal precision, float for high precision)")
             
@@ -23,7 +23,7 @@ void bind_compass(py::module& m) {
                 if (py::isinstance<py::int_>(value)) {
                     static_cast<berialdraw::RoundStyle&>(self).radius(value.cast<int>());
                 } else if (py::isinstance<py::float_>(value)) {
-                    static_cast<berialdraw::RoundStyle&>(self).radius_(static_cast<int>(value.cast<double>() * 64));
+                    static_cast<berialdraw::RoundStyle&>(self).radius_q6(static_cast<int>(value.cast<double>() * 64));
                 }
             }, "Radius (int for normal precision, float for high precision)")
             
@@ -38,7 +38,7 @@ void bind_compass(py::module& m) {
                         if (py::isinstance<py::int_>(tuple[0])) {
                             static_cast<berialdraw::CommonStyle&>(self).center(tuple[0].cast<int>(), tuple[1].cast<int>());
                         } else {
-                            static_cast<berialdraw::CommonStyle&>(self).center_(static_cast<int>(tuple[0].cast<double>() * 64), 
+                            static_cast<berialdraw::CommonStyle&>(self).center_q6(static_cast<int>(tuple[0].cast<double>() * 64), 
                                                                               static_cast<int>(tuple[1].cast<double>() * 64));
                         }
                     }

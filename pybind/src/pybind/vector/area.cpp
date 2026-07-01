@@ -33,25 +33,25 @@ void bind_area(py::module& m) {
     bind_precision_property(cls, "width",
         &berialdraw::Area::width,
         &berialdraw::Area::width,
-        &berialdraw::Area::width_,
+        &berialdraw::Area::width_q6,
         "Width (int for normal, float for high precision)");
     
     bind_precision_property(cls, "height",
         &berialdraw::Area::height,
         &berialdraw::Area::height,
-        &berialdraw::Area::height_,
+        &berialdraw::Area::height_q6,
         "Height (int for normal, float for high precision)");
     
     bind_precision_property(cls, "x",
         &berialdraw::Area::x,
         &berialdraw::Area::x,
-        &berialdraw::Area::x_,
+        &berialdraw::Area::x_q6,
         "X coordinate (int for normal, float for high precision)");
     
     bind_precision_property(cls, "y",
         &berialdraw::Area::y,
         &berialdraw::Area::y,
-        &berialdraw::Area::y_,
+        &berialdraw::Area::y_q6,
         "Y coordinate (int for normal, float for high precision)");
 
     // Position and size properties

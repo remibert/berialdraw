@@ -46,7 +46,7 @@ void bind_sketch(py::module& m) {
                         if (py::isinstance<py::int_>(tuple[0])) {
                             self.resolution(tuple[0].cast<int>(), tuple[1].cast<int>());
                         } else {
-                            self.resolution_(static_cast<int>(tuple[0].cast<double>() * 64), 
+                            self.resolution_q6(static_cast<int>(tuple[0].cast<double>() * 64), 
                                            static_cast<int>(tuple[1].cast<double>() * 64));
                         }
                     }
@@ -55,7 +55,7 @@ void bind_sketch(py::module& m) {
                 } else if (py::isinstance<py::int_>(value)) {
                     self.resolution(value.cast<int>());
                 } else {
-                    self.resolution_(static_cast<int>(value.cast<double>() * 64));
+                    self.resolution_q6(static_cast<int>(value.cast<double>() * 64));
                 }
             }, "Resolution (Size object, int, float for high precision, or tuple(w,h))")
             
@@ -65,7 +65,7 @@ void bind_sketch(py::module& m) {
                 if (py::isinstance<py::int_>(value)) {
                     self.zoom(value.cast<int>());
                 } else if (py::isinstance<py::float_>(value)) {
-                    self.zoom_(static_cast<int>(value.cast<double>() * 64));
+                    self.zoom_q6(static_cast<int>(value.cast<double>() * 64));
                 }
             }, "Zoom ratio (int for normal precision, float for high precision)")
             

@@ -54,7 +54,7 @@ namespace berialdraw
 		}
 
 		/** Get the horizontal grid thickness with a precision of 64th of a pixel */
-		inline Dim horizontal_thickness_() const
+		inline Dim horizontal_thickness_q6() const
 		{
 			return m_horizontal_thickness;
 		}
@@ -63,7 +63,7 @@ namespace berialdraw
 		void horizontal_thickness(Dim v);
 
 		/** Set the horizontal grid thickness with a precision of 64th of a pixel */
-		void horizontal_thickness_(Dim v);
+		void horizontal_thickness_q6(Dim v);
 
 
 		/** Get the vertical grid thickness in pixels */
@@ -73,7 +73,7 @@ namespace berialdraw
 		}
 
 		/** Get the vertical grid thickness with a precision of 64th of a pixel */
-		inline Dim vertical_thickness_() const
+		inline Dim vertical_thickness_q6() const
 		{
 			return m_vertical_thickness;
 		}
@@ -82,7 +82,7 @@ namespace berialdraw
 		void vertical_thickness(Dim v);
 
 		/** Set the vertical grid thickness with a precision of 64th of a pixel */
-		void vertical_thickness_(Dim v);
+		void vertical_thickness_q6(Dim v);
 
 		/** Get the property name for this style */
 		const char* property_name() const override { return "grid"; }

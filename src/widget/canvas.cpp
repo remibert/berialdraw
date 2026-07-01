@@ -47,13 +47,13 @@ Size Canvas::content_size()
 				{
 					Size marged_size = m_shapes[i]->marged_size();
 					Point position = m_shapes[i]->position();
-					if (marged_size.width_() + position.x_() > size.width_())
+					if (marged_size.width_q6() + position.x_q6() > size.width_q6())
 					{
-						size.width_(marged_size.width_() + position.x_());
+						size.width_q6(marged_size.width_q6() + position.x_q6());
 					}
-					if (marged_size.height_() + position.y_() > size.height_())
+					if (marged_size.height_q6() + position.y_q6() > size.height_q6())
 					{
-						size.height_(marged_size.height_() + position.y_());
+						size.height_q6(marged_size.height_q6() + position.y_q6());
 					}
 				}
 			}
@@ -217,5 +217,6 @@ StyleCascadeMode Canvas::style_cascade_mode() const
 {
 	return StyleCascadeMode::NONE;
 }
+
 
 

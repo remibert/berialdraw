@@ -83,7 +83,7 @@ void Glyph::paint(Point & position, const Point & center, const Margin & margin,
 	// If glyph bitmap not yet loaded
 	if (m_bitmap == 0)
 	{
-		Dim scale = UIManager::renderer()->scale_();
+		Dim scale = UIManager::renderer()->scale_q6();
 
 		if (scale != (1<<6))
 		{
@@ -112,7 +112,7 @@ void Glyph::paint(Point & position, const Point & center, const Margin & margin,
 		int32_t        y_top;
 
 		// Compute the position of glyph
-		Dim scale = UIManager::renderer()->scale_();
+		Dim scale = UIManager::renderer()->scale_q6();
 		if (scale != 1<<6)
 		{
 			x_left = (int32_t)((int64_t)(bitmap->left<<12)/(int64_t)scale);
@@ -124,22 +124,22 @@ void Glyph::paint(Point & position, const Point & center, const Margin & margin,
 			y_top  = (bitmap->top<<6);
 		}
 
-		xx = position.x_()+x_left;
-		yy = position.y_()-y_top;
+		xx = position.x_q6()+x_left;
+		yy = position.y_q6()-y_top;
 
 		// Rotation of the text line according to the center of rotation
-		if (center.x_() != 0 || center.y_() != 0)
+		if (center.x_q6() != 0 || center.y_q6() != 0)
 		{
-			vec.x = -center.x_();
-			vec.y = -center.y_();
+			vec.x = -center.x_q6();
+			vec.y = -center.y_q6();
 			FT_Vector_Transform(&vec, &matrix);
 			xx += vec.x;
 			yy += vec.y;
 		}
 
 		//Set the origin of text in top left corner
-		vec.x = margin.left_();
-		vec.y = margin.top_() + m_font->baseline_();
+		vec.x = margin.left_q6();
+		vec.y = margin.top_q6() + m_font->baseline_q6();
 		FT_Vector_Transform(&vec, &matrix);
 		m_baselinex = vec.x;
 		m_baseliney = vec.y;
@@ -149,6 +149,8 @@ void Glyph::paint(Point & position, const Point & center, const Margin & margin,
 	}
 
 	// Move position to next character
-	position.x_(position.x_() + m_advancex);
-	position.y_(position.y_() + m_advancey);
+	position.x_q6(position.x_q6() + m_advancex);
+	position.y_q6(position.y_q6() + m_advancey);
 }
+
+

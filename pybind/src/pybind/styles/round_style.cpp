@@ -10,7 +10,7 @@ void bind_round_style(py::module& m) {
                 if (py::isinstance<py::int_>(value)) {
                     self.thickness(value.cast<berialdraw::Dim>());
                 } else if (py::isinstance<py::float_>(value)) {
-                    self.thickness_(static_cast<berialdraw::Dim>(value.cast<double>() * 64));
+                    self.thickness_q6(static_cast<berialdraw::Dim>(value.cast<double>() * 64));
                 } else {
                     throw std::invalid_argument("thickness must be int or float");
                 }
@@ -21,7 +21,7 @@ void bind_round_style(py::module& m) {
                 if (py::isinstance<py::int_>(value)) {
                     self.radius(value.cast<berialdraw::Dim>());
                 } else if (py::isinstance<py::float_>(value)) {
-                    self.radius_(static_cast<berialdraw::Dim>(value.cast<double>() * 64));
+                    self.radius_q6(static_cast<berialdraw::Dim>(value.cast<double>() * 64));
                 } else {
                     throw std::invalid_argument("radius must be int or float");
                 }

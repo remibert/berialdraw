@@ -58,7 +58,7 @@ void PieStyle::start_angle(Coord v)
 }
 
 /** Set the start angle with a precision of 64th of a pixel */
-void PieStyle::start_angle_(Coord v)
+void PieStyle::start_angle_q6(Coord v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_start_angle = v;
@@ -72,7 +72,7 @@ void PieStyle::end_angle(Coord v)
 }
 
 /** Set the end angle with a precision of 64th of a pixel */
-void PieStyle::end_angle_(Coord v)
+void PieStyle::end_angle_q6(Coord v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_end_angle = v;

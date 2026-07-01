@@ -87,7 +87,7 @@ void Pie::dial(const Point & origin, Canvas * canvas)
 		marks->point1(0,0);
 		marks->point2(0,10);
 		marks->position(origin);
-		marks->thickness_(1<<5);
+		marks->thickness_q6(1<<5);
 		marks->center(0,90);
 		marks->repeat(Shape::REPEAT_ANGLE, 180, 0, 18);
 
@@ -334,4 +334,5 @@ void Pie::test()
 		test1();
 	}
 }
+
 

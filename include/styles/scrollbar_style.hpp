@@ -50,39 +50,39 @@ namespace berialdraw
 		Dim scrollbar_width() const { return m_scrollbar_width >> 6; }
 
 		/** Get the scrollbar width in 64ths of pixels */
-		Dim scrollbar_width_() const { return m_scrollbar_width; }
+		Dim scrollbar_width_q6() const { return m_scrollbar_width; }
 
 		/** Set the scrollbar width in pixels */
 		void scrollbar_width(Dim w);
 
 		/** Set the scrollbar width in 64ths of pixels */
-		void scrollbar_width_(Dim w);
+		void scrollbar_width_q6(Dim w);
 
 
 		/** Get the scrollbar radius in pixels */
 		Dim scrollbar_radius() const { return m_scrollbar_radius >> 6; }
 
 		/** Get the scrollbar radius in 64ths of pixels */
-		Dim scrollbar_radius_() const { return m_scrollbar_radius; }
+		Dim scrollbar_radius_q6() const { return m_scrollbar_radius; }
 
 		/** Set the scrollbar radius in pixels */
 		void scrollbar_radius(Dim r);
 
 		/** Set the scrollbar radius in 64ths of pixels */
-		void scrollbar_radius_(Dim r);
+		void scrollbar_radius_q6(Dim r);
 
 
 		/** Get the scrollbar margin in pixels */
 		Dim scrollbar_margin() const { return m_scrollbar_margin >> 6; }
 
 		/** Get the scrollbar margin in 64ths of pixels */
-		Dim scrollbar_margin_() const { return m_scrollbar_margin; }
+		Dim scrollbar_margin_q6() const { return m_scrollbar_margin; }
 
 		/** Set the scrollbar margin in pixels */
 		void scrollbar_margin(Dim m);
 
 		/** Set the scrollbar margin in 64ths of pixels */
-		void scrollbar_margin_(Dim m);
+		void scrollbar_margin_q6(Dim m);
 
 
 	protected:

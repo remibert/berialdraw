@@ -292,8 +292,8 @@ enum VectorsScript::Error VectorsScript::parse()
 				next();
 				parse_command(2);
 				Point p;
-				p.x_(get_variable(0));
-				p.y_(get_variable(1));
+				p.x_q6(get_variable(0));
+				p.y_q6(get_variable(1));
 				m_polygon.add_point(p);
 #ifdef TRACE
 			bd_printf(");     // %s, %s\n", (const char*)format_coord(get_variable(0)), (const char*)format_coord(get_variable(1)));
@@ -308,8 +308,8 @@ enum VectorsScript::Error VectorsScript::parse()
 				next();
 				parse_command(2);
 				Point p;
-				p.x_(get_variable(0));
-				p.y_(get_variable(1));
+				p.x_q6(get_variable(0));
+				p.y_q6(get_variable(1));
 				m_polygon.add_conic(p);
 #ifdef TRACE
 			bd_printf(");     // %s, %s\n", (const char*)format_coord(get_variable(0)), (const char*)format_coord(get_variable(1)));
@@ -324,8 +324,8 @@ enum VectorsScript::Error VectorsScript::parse()
 				next();
 				parse_command(2);
 				Point p;
-				p.x_(get_variable(0));
-				p.y_(get_variable(1));
+				p.x_q6(get_variable(0));
+				p.y_q6(get_variable(1));
 				m_polygon.add_cubic(p);
 #ifdef TRACE
 			bd_printf(");     // %s, %s\n", (const char*)format_coord(get_variable(0)), (const char*)format_coord(get_variable(1)));
@@ -384,4 +384,5 @@ uint32_t VectorsScript::count_contours()
 	}
 	return result;
 }
+
 

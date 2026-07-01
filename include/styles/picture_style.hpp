@@ -62,7 +62,7 @@ namespace berialdraw
 		void icon_padding(Dim top, Dim left, Dim bottom, Dim right);
 
 		/** Set the padding with a precision of 64th of a pixel */
-		void icon_padding_(Dim top, Dim left, Dim bottom, Dim right);
+		void icon_padding_q6(Dim top, Dim left, Dim bottom, Dim right);
 
 		/** Get the property name for this style */
 		const char* property_name() const override { return "picture"; }

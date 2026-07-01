@@ -52,7 +52,7 @@ namespace berialdraw
 		void handle_size(Dim size_);
 
 		/** Set the handle size with a precision of 64th of a pixel */
-		void handle_size_(Dim size_);
+		void handle_size_q6(Dim size_);
 
 
 		/** Get the track size */
@@ -62,7 +62,7 @@ namespace berialdraw
 		void track_size(Dim size_);
 
 		/** Set the track size with a precision of 64th of a pixel */
-		void track_size_(Dim size_);
+		void track_size_q6(Dim size_);
 
 
 		/** Get the value of slider */

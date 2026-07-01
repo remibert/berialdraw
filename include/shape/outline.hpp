@@ -57,11 +57,11 @@ namespace berialdraw
 
 		/** Set the zoom ratio for the polygon with a precision of 64th of a pixel 
 		@param z zoom value */
-		void zoom_(uint32_t z);
+		void zoom_q6(uint32_t z);
 
 		/** Return the zoom ratio for the polygon with a precision of 64th of a pixel 
 		@return zoom value */
-		uint32_t zoom_();
+		uint32_t zoom_q6();
 
 		/** Set the FreeType outline object
 		@param outline FreeType FT_Outline object to set */

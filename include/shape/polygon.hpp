@@ -32,7 +32,7 @@ namespace berialdraw
 		/** Add a point to the polygon with a precision of 64th of a pixel 
 		@param x X-coordinate
 		@param y Y-coordinate */
-		void add_point_(Coord x, Coord y);
+		void add_point_q6(Coord x, Coord y);
 
 		/** Add a cubic bezier curve to the polygon
 		@param p Point object representing the curve control point */
@@ -46,7 +46,7 @@ namespace berialdraw
 		/** Add a cubic bezier curve to the polygon with a precision of 64th of a pixel 
 		@param x X-coordinate
 		@param y Y-coordinate */
-		void add_cubic_(Coord x, Coord y);
+		void add_cubic_q6(Coord x, Coord y);
 
 		/** Add a conic bezier curve to the polygon
 		@param p Point object representing the curve control point */
@@ -60,7 +60,7 @@ namespace berialdraw
 		/** Add a conic bezier curve to the polygon with a precision of 64th of a pixel 
 		@param x X-coordinate
 		@param y Y-coordinate*/
-		void add_conic_(Coord x, Coord y);
+		void add_conic_q6(Coord x, Coord y);
 
 		/** Resize the FT_Outline buffer
 		@param nb_points Number of points to resize the buffer to
@@ -91,11 +91,11 @@ namespace berialdraw
 
 		/** Set the zoom ratio for the polygon with a precision of 64th of a pixel 
 		@param z zoom value */
-		void zoom_(int z);
+		void zoom_q6(int z);
 		
 		/** Get the zoom ratio for the polygon with a precision of 64th of a pixel 
 		@return zoom zoom value */
-		uint32_t zoom_();
+		uint32_t zoom_q6();
 
 
 		/** Render the polygon outline

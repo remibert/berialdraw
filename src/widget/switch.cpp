@@ -57,10 +57,10 @@ Size Switch::content_size()
 	// Add text size to the right if not empty
 	if (m_text.size() > 0)
 	{
-		result.increase_(padding().left_() + (10<<6) + m_text_size.width_() + padding().right_(), 0);
-		if (m_text_size.height_() > m_switch_size.height_())
+		result.increase_q6(padding().left_q6() + (10<<6) + m_text_size.width_q6() + padding().right_q6(), 0);
+		if (m_text_size.height_q6() > m_switch_size.height_q6())
 		{
-			result.height_(m_text_size.height_());
+			result.height_q6(m_text_size.height_q6());
 		}
 	}
 	return result;
@@ -87,13 +87,13 @@ void Switch::place(const Area & area, bool in_layout)
 
 		// Place switch text
 		m_text_backclip = m_foreclip;
-		marg.left_(m_switch_size.width_() + padding().left_());
+		marg.left_q6(m_switch_size.width_q6() + padding().left_q6());
 		place_in_layout(m_text_backclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, (m_text_align | Align::ALIGN_BOTTOM));
 	
 		m_switch_foreclip = m_text_foreclip;
 		m_switch_foreclip.size(m_switch_size);
-		Coord move_y = (m_switch_size.height_() > m_text_size.height_() ? 0-((m_switch_size.height_() - m_text_size.height_())>>1) : ((m_text_size.height_()-m_switch_size.height_())>>1));
-		m_switch_foreclip.position().move_(0-(m_switch_size.width_() + padding().left_()), move_y);
+		Coord move_y = (m_switch_size.height_q6() > m_text_size.height_q6() ? 0-((m_switch_size.height_q6() - m_text_size.height_q6())>>1) : ((m_text_size.height_q6()-m_switch_size.height_q6())>>1));
+		m_switch_foreclip.position().move_q6(0-(m_switch_size.width_q6() + padding().left_q6()), move_y);
 		m_switch_foreclip.position().nearest_pixel();
 	}
 }
@@ -120,8 +120,8 @@ void Switch::paint_switch(Region & region)
 
 	Area area_thumb(area_track);
 
-	area_thumb.size().decrease_(m_thumb_padding << 1, m_thumb_padding << 1);
-	area_thumb.position().move_(m_thumb_padding, m_thumb_padding);
+	area_thumb.size().decrease_q6(m_thumb_padding << 1, m_thumb_padding << 1);
+	area_thumb.position().move_q6(m_thumb_padding, m_thumb_padding);
 
 	// Change position of thumb
 	if (m_checked)
@@ -246,5 +246,7 @@ void Switch::on_click(Widget * widget, const ClickEvent & evt)
 	UIManager::notifier()->check(m_checked, this);
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 }
+
+
 
 

@@ -21,7 +21,7 @@ namespace berialdraw
 		/** Prepend a point to the polyline with a precision of 64th of a pixel 
 		@param x X-coordinate
 		@param y Y-coordinate */
-		void prepend_(Coord x, Coord y);
+		void prepend_q6(Coord x, Coord y);
 
 		/** Prepend a point to the polyline
 		@param p Point object to prepend */
@@ -35,7 +35,7 @@ namespace berialdraw
 		/** Append a point to the polyline with a precision of 64th of a pixel 
 		@param x X-coordinate 
 		@param y Y-coordinate */
-		void append_(Coord x, Coord y);
+		void append_q6(Coord x, Coord y);
 
 		/** Append a point to the polyline
 		@param p Point object to append */

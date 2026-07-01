@@ -126,66 +126,66 @@ namespace berialdraw
 		@param left Left margin.
 		@param bottom Bottom margin.
 		@param right Right margin. */
-		inline void set_(Dim top, Dim left, Dim bottom, Dim right)
+		inline void set_q6(Dim top, Dim left, Dim bottom, Dim right)
 		{
-			top_(top);
-			left_(left);
-			bottom_(bottom);
-			right_(right);
+			top_q6(top);
+			left_q6(left);
+			bottom_q6(bottom);
+			right_q6(right);
 		}
 
 		/** Set top margin with a precision of 64th of a pixel 
 		@param t Top margin. */
-		inline void top_(Dim t)
+		inline void top_q6(Dim t)
 		{
 			m_top = t;
 		}
 
 		/** Set left margin with a precision of 64th of a pixel 
 		@param l Left margin. */
-		inline void left_(Dim l)
+		inline void left_q6(Dim l)
 		{
 			m_left = l;
 		}
 
 		/** Set bottom margin with a precision of 64th of a pixel 
 		@param b Bottom margin. */
-		inline void bottom_(Dim b)
+		inline void bottom_q6(Dim b)
 		{
 			m_bottom = b;
 		}
 
 		/** Set right margin with a precision of 64th of a pixel 
 		@param r Right margin. */
-		inline void right_(Dim r)
+		inline void right_q6(Dim r)
 		{
 			m_right = r;
 		}
 
 		/** Get top margin with a precision of 64th of a pixel 
 		@return Top margin. */
-		inline Dim top_() const
+		inline Dim top_q6() const
 		{
 			return m_top;
 		}
 
 		/** Get left margin with a precision of 64th of a pixel 
 		@return Left margin. */
-		inline Dim left_() const
+		inline Dim left_q6() const
 		{
 			return m_left;
 		}
 
 		/** Get bottom margin with a precision of 64th of a pixel 
 		@return Bottom margin.*/
-		inline Dim bottom_() const
+		inline Dim bottom_q6() const
 		{
 			return m_bottom;
 		}
 
 		/** Get right margin with a precision of 64th of a pixel 
 		@return Right margin. */
-		inline Dim right_() const
+		inline Dim right_q6() const
 		{
 			return m_right;
 		}

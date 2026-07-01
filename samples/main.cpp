@@ -2,7 +2,7 @@
 #include "samples/samples.hpp"
 
 // Screen resolution
-const int ZOOM = 2;
+const int ZOOM = 1;
 const int SCREEN_WIDTH  = 480*ZOOM;
 const int SCREEN_HEIGHT = 480*ZOOM;
 

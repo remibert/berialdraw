@@ -35,11 +35,12 @@ void Marker::paint(const Point & shift, const char * filled, const char * un_fil
 		}
 		vectors_script.set('t', m_thickness);
 		vectors_script.set('r', m_radius);
-		vectors_script.set('x', m_center.x_());
-		vectors_script.set('y', m_center.y_());
+		vectors_script.set('x', m_center.x_q6());
+		vectors_script.set('y', m_center.y_q6());
 		vectors_script.parse();
 	}
 	UIManager::renderer()->draw(*this, shift);
 }
+
 
 

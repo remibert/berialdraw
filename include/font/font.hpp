@@ -51,7 +51,7 @@ namespace berialdraw
 
 		/** Get the baseline of the font with a precision of 64th of a pixel 
 		@return The baseline coordinate */
-		Coord baseline_() const;
+		Coord baseline_q6() const;
 
 		/** Indicates is this font is monospaced 
 		@return true if monospaced else return false */

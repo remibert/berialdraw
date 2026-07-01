@@ -111,19 +111,19 @@ void Outline::resize(uint32_t nb_points, uint32_t nb_contours)
 // Add point
 void Outline::add_point(const Point& p)
 {
-	add(p.x_(), p.y_(), FT_CURVE_TAG_ON);
+	add(p.x_q6(), p.y_q6(), FT_CURVE_TAG_ON);
 }
 
 // Add conic curve
 void Outline::add_conic(const Point& p)
 {
-	add(p.x_(), p.y_(), FT_CURVE_TAG_CONIC);
+	add(p.x_q6(), p.y_q6(), FT_CURVE_TAG_CONIC);
 }
 
 // Add bezier curve
 void Outline::add_cubic(const Point& p) 
 {
-	add(p.x_(), p.y_(), FT_CURVE_TAG_CUBIC);
+	add(p.x_q6(), p.y_q6(), FT_CURVE_TAG_CUBIC);
 }
 
 // Add point in freetype FT_Outline object
@@ -206,15 +206,16 @@ void Outline::clear()
 
 /** Set the zoom ratio for the polygon
 @param z zoom value shifted by 6 bits */
-void Outline::zoom_(uint32_t z)
+void Outline::zoom_q6(uint32_t z)
 {
 	m_zoom = z;
 }
 
 /** Return the zoom ratio for the polygon
 @return zoom value shifted by 6 bits */
-uint32_t Outline::zoom_()
+uint32_t Outline::zoom_q6()
 {
 	return m_zoom;
 }
+
 

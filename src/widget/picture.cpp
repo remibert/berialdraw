@@ -96,13 +96,13 @@ Size Picture::compute_fit_size(uint32_t img_w, uint32_t img_h, const Area & area
 
 	if (has_width && has_height)
 	{
-		new_size.width_(m_size.width_());
-		new_size.height_(m_size.height_());
+		new_size.width_q6(m_size.width_q6());
+		new_size.height_q6(m_size.height_q6());
 	}
 	else if (m_fit_mode == STRETCH)
 	{
-		new_size.width_(m_foreclip.size().width_());
-		new_size.height_(m_foreclip.size().height_());
+		new_size.width_q6(m_foreclip.size().width_q6());
+		new_size.height_q6(m_foreclip.size().height_q6());
 	}
 	else
 	{
@@ -115,65 +115,65 @@ Size Picture::compute_fit_size(uint32_t img_w, uint32_t img_h, const Area & area
 
 			if (dir == SCROLL_VERTICAL)
 			{
-				Dim ref_w = area.size().width_();
+				Dim ref_w = area.size().width_q6();
 				if (has_width)
 				{
-					ref_w = m_size.width_();
+					ref_w = m_size.width_q6();
 				}
 				uint32_t ref_w_px = (uint32_t)(ref_w >> 6);
 				if (ref_w_px > 0)
 				{
 					uint32_t dst_h_px = (uint32_t)(((uint64_t)img_h * (uint64_t)ref_w_px) / (uint64_t)img_w);
-					new_size.width_(ref_w);
-					new_size.height_(dst_h_px << 6);
+					new_size.width_q6(ref_w);
+					new_size.height_q6(dst_h_px << 6);
 				}
 			}
 			else if (dir == SCROLL_HORIZONTAL)
 			{
-				Dim ref_h = area.size().height_();
+				Dim ref_h = area.size().height_q6();
 				if (has_height)
 				{
-					ref_h = m_size.height_();
+					ref_h = m_size.height_q6();
 				}
 				uint32_t ref_h_px = (uint32_t)(ref_h >> 6);
 				if (ref_h_px > 0)
 				{
 					uint32_t dst_w_px = (uint32_t)(((uint64_t)img_w * (uint64_t)ref_h_px) / (uint64_t)img_h);
-					new_size.width_(dst_w_px << 6);
-					new_size.height_(ref_h);
+					new_size.width_q6(dst_w_px << 6);
+					new_size.height_q6(ref_h);
 				}
 			}
 			else
 			{
 				if (has_width)
 				{
-					new_size.width_(m_size.width_());
+					new_size.width_q6(m_size.width_q6());
 				}
 				else
 				{
-					new_size.width_(img_w << 6);
+					new_size.width_q6(img_w << 6);
 				}
 				if (has_height)
 				{
-					new_size.height_(m_size.height_());
+					new_size.height_q6(m_size.height_q6());
 				}
 				else
 				{
-					new_size.height_(img_h << 6);
+					new_size.height_q6(img_h << 6);
 				}
 			}
 		}
 		else
 		{
-			Dim area_w = area.size().width_();
-			Dim area_h = area.size().height_();
+			Dim area_w = area.size().width_q6();
+			Dim area_h = area.size().height_q6();
 			if (has_width)
 			{
-				area_w = m_size.width_();
+				area_w = m_size.width_q6();
 			}
 			if (has_height)
 			{
-				area_h = m_size.height_();
+				area_h = m_size.height_q6();
 			}
 			uint32_t area_w_px = (uint32_t)(area_w >> 6);
 			uint32_t area_h_px = (uint32_t)(area_h >> 6);
@@ -182,8 +182,8 @@ Size Picture::compute_fit_size(uint32_t img_w, uint32_t img_h, const Area & area
 			{
 				uint32_t dst_w = 0, dst_h = 0;
 				ImageProcessor::compute_fit_size(img_w, img_h, area_w_px, area_h_px, FIT, dst_w, dst_h);
-				new_size.width_(dst_w << 6);
-				new_size.height_(dst_h << 6);
+				new_size.width_q6(dst_w << 6);
+				new_size.height_q6(dst_h << 6);
 			}
 		}
 	}
@@ -194,13 +194,13 @@ Size Picture::compute_fit_size(uint32_t img_w, uint32_t img_h, const Area & area
 /** Apply max_size constraints to the computed size */
 void Picture::apply_max_size_constraints(Size & size)
 {
-	if (!m_max_size.is_width_undefined() && size.width_() > m_max_size.width_())
+	if (!m_max_size.is_width_undefined() && size.width_q6() > m_max_size.width_q6())
 	{
-		size.width_(m_max_size.width_());
+		size.width_q6(m_max_size.width_q6());
 	}
-	if (!m_max_size.is_height_undefined() && size.height_() > m_max_size.height_())
+	if (!m_max_size.is_height_undefined() && size.height_q6() > m_max_size.height_q6())
 	{
-		size.height_(m_max_size.height_());
+		size.height_q6(m_max_size.height_q6());
 	}
 }
 
@@ -255,11 +255,11 @@ void Picture::place(const Area & area, bool in_layout)
 		img_w = m_image->image_width();
 		img_h = m_image->image_height();
 	}
-	else if (m_sketch && m_sketch->resolution().width_() > 0)
+	else if (m_sketch && m_sketch->resolution().width_q6() > 0)
 	{
 		is_loaded = true;
-		img_w = (uint32_t)(m_sketch->resolution().width_() >> 6);
-		img_h = (uint32_t)(m_sketch->resolution().height_() >> 6);
+		img_w = (uint32_t)(m_sketch->resolution().width_q6() >> 6);
+		img_h = (uint32_t)(m_sketch->resolution().height_q6() >> 6);
 	}
 
 	if (is_loaded && !m_picture_placed)
@@ -307,7 +307,7 @@ void Picture::paint(const Region & parent_region)
 		{
 			m_image->paint(m_foreclip, Margin(), m_alpha);
 		}
-		else if (m_sketch && m_sketch->resolution().width_() > 0)
+		else if (m_sketch && m_sketch->resolution().width_q6() > 0)
 		{
 			uint32_t color = parent_focus_color(stated_color(m_icon_color));
 			m_sketch->size(m_foreclip.size());
@@ -359,3 +359,4 @@ StyleCascadeMode Picture::style_cascade_mode() const
 {
 	return StyleCascadeMode::NONE;
 }
+

@@ -57,10 +57,10 @@ Size Radio::content_size()
 	// Add text height in the icon content size
 	if (m_text.size() > 0)
 	{
-		result.increase_(padding().left_() + m_text_size.width_() + padding().right_(), 0);
-		if (m_text_size.height_() > m_radio_size.height_())
+		result.increase_q6(padding().left_q6() + m_text_size.width_q6() + padding().right_q6(), 0);
+		if (m_text_size.height_q6() > m_radio_size.height_q6())
 		{
-			result.height_(m_text_size.height_());
+			result.height_q6(m_text_size.height_q6());
 		}
 	}
 	return result;
@@ -86,13 +86,13 @@ void Radio::place(const Area & area, bool in_layout)
 		Margin marg;
 
 		m_text_backclip = m_foreclip;
-		marg.left_(m_radio_size.width_() + padding().left_());
+		marg.left_q6(m_radio_size.width_q6() + padding().left_q6());
 		place_in_layout(m_text_backclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, (m_text_align | Align::ALIGN_BOTTOM));
 	
 		m_radio_foreclip = m_text_foreclip;
 		m_radio_foreclip.size(m_radio_size);
-		Coord move_y = (m_radio_size.height_() > m_text_size.height_() ? 0-((m_radio_size.height_() - m_text_size.height_())>>1) : ((m_text_size.height_()-m_radio_size.height_())>>1));
-		m_radio_foreclip.position().move_(0-(m_radio_size.width_() + padding().left_()), move_y);
+		Coord move_y = (m_radio_size.height_q6() > m_text_size.height_q6() ? 0-((m_radio_size.height_q6() - m_text_size.height_q6())>>1) : ((m_text_size.height_q6()-m_radio_size.height_q6())>>1));
+		m_radio_foreclip.position().move_q6(0-(m_radio_size.width_q6() + padding().left_q6()), move_y);
 		m_radio_foreclip.position().nearest_pixel();
 	}
 }
@@ -111,7 +111,7 @@ void Radio::paint(const Region & parent_region)
 
 		// Create an area for just the radio (not including text)
 		Area area_box(m_radio_foreclip);
-		area_box.size().set_(m_radio_size.width_(), m_radio_size.height_());
+		area_box.size().set_q6(m_radio_size.width_q6(), m_radio_size.height_q6());
 
 		// Draw radio box
 		Rect::build_focused_polygon(area_box, 
@@ -127,8 +127,8 @@ void Radio::paint(const Region & parent_region)
 		if (m_checked)
 		{
 			Area area_radio(area_box);
-			area_radio.size().decrease_(m_radio_padding << 1, m_radio_padding << 1);
-			area_radio.position().move_(m_radio_padding, m_radio_padding);
+			area_radio.size().decrease_q6(m_radio_padding << 1, m_radio_padding << 1);
+			area_radio.position().move_q6(m_radio_padding, m_radio_padding);
 
 			// Parse and draw the radio indicator sketch using VectorScript
 			if (m_radio_sketch.size() > 0)
@@ -143,10 +143,10 @@ void Radio::paint(const Region & parent_region)
 					// Render the radio indicator polygon in the specified color
 					polygon.color(stated_color(m_radio_color));
 
-					Coord min_size = min(area_radio.size().width_(), area_radio.size().height_());
-					polygon.zoom_((min_size << 6)/resolution);
+					Coord min_size = min(area_radio.size().width_q6(), area_radio.size().height_q6());
+					polygon.zoom_q6((min_size << 6)/resolution);
 
-					UIManager::renderer()->draw(polygon, Point(area_radio.position().x_(), area_radio.position().y_(),false));
+					UIManager::renderer()->draw(polygon, Point(area_radio.position().x_q6(), area_radio.position().y_q6(),false));
 				}
 			}
 			else
@@ -291,5 +291,8 @@ void Radio::on_click(Widget * widget, const ClickEvent & evt)
 	// Deselect all radios in the same group in the window
 	deselect_all();
 }
+
+
+
 
 

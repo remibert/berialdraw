@@ -138,8 +138,8 @@ KeyEvent::Modifier DeviceSdl::get_modifier()
 /** Adapt the ratio of coordinates */
 void DeviceSdl::adapt_ratio(Point & position)
 {
-	position.x_(position.x_()*m_pixel_ratio);
-	position.y_(position.y_()*m_pixel_ratio);
+	position.x_q6(position.x_q6()*m_pixel_ratio);
+	position.y_q6(position.y_q6()*m_pixel_ratio);
 }
 
 bool DeviceSdl::dispatch(bool blocking)
@@ -402,3 +402,4 @@ namespace berialdraw
 		return((long)result);
 	}
 }
+

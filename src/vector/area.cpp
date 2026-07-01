@@ -31,27 +31,27 @@ void Area::nearest_pixel()
 /** Decrease size and position of area with margin */
 void Area::decrease(const Margin& margin)
 {
-	m_position.move_(margin.left_(), margin.top_());
-	m_size.decrease_(margin.left_() + margin.right_(), margin.top_() + margin.bottom_());
+	m_position.move_q6(margin.left_q6(), margin.top_q6());
+	m_size.decrease_q6(margin.left_q6() + margin.right_q6(), margin.top_q6() + margin.bottom_q6());
 }
 
 /** Increase size and position of area with margin */
 void Area::increase(const Margin& margin)
 {
-	m_position.move_(0-margin.left_(), 0-margin.top_());
-	m_size.increase_(margin.left_() + margin.right_(), margin.top_() + margin.bottom_());
+	m_position.move_q6(0-margin.left_q6(), 0-margin.top_q6());
+	m_size.increase_q6(margin.left_q6() + margin.right_q6(), margin.top_q6() + margin.bottom_q6());
 }
 
 /** Decrease the thickness border of the size and position in the area
 @param thickness thickess to remove */
 void Area::decrease_thickness(Dim thickness)
 {
-	m_position.move_(thickness>>1, thickness>>1);
-	m_size.decrease_(thickness,thickness);
+	m_position.move_q6(thickness>>1, thickness>>1);
+	m_size.decrease_q6(thickness,thickness);
 	Point position(m_position);
 	nearest_pixel();
 
-	if (position.x_() != m_position.x_() && position.y_() != m_position.y_())
+	if (position.x_q6() != m_position.x_q6() && position.y_q6() != m_position.y_q6())
 	{
 		m_size.decrease(1, 1);
 	}
@@ -61,42 +61,42 @@ void Area::decrease_thickness(Dim thickness)
 void Area::clip(const Area& clip_area)
 {
 	// Get coordinates in 64ths of a pixel for precision
-	Coord this_x = m_position.x_();
-	Coord this_y = m_position.y_();
-	Dim this_width = m_size.width_();
-	Dim this_height = m_size.height_();
+	Coord this_x = m_position.x_q6();
+	Coord this_y = m_position.y_q6();
+	Dim this_width = m_size.width_q6();
+	Dim this_height = m_size.height_q6();
 	
 	// Handle negative position: clamp to 0 and reduce size accordingly
 	if (this_x < 0)
 	{
 		Dim offset = static_cast<Dim>(abs(this_x));
 		if (this_width > offset)
-			m_size.width_(this_width - offset);
+			m_size.width_q6(this_width - offset);
 		else
-			m_size.width_(0);
-		m_position.x_(0);
+			m_size.width_q6(0);
+		m_position.x_q6(0);
 	}
 	
 	if (this_y < 0)
 	{
 		Dim offset = static_cast<Dim>(abs(this_y));
 		if (this_height > offset)
-			m_size.height_(this_height - offset);
+			m_size.height_q6(this_height - offset);
 		else
-			m_size.height_(0);
-		m_position.y_(0);
+			m_size.height_q6(0);
+		m_position.y_q6(0);
 	}
 	
 	// Recalculate after negative position handling
-	this_x = m_position.x_();
-	this_y = m_position.y_();
-	this_width = m_size.width_();
-	this_height = m_size.height_();
+	this_x = m_position.x_q6();
+	this_y = m_position.y_q6();
+	this_width = m_size.width_q6();
+	this_height = m_size.height_q6();
 	
-	Coord clip_x = clip_area.m_position.x_();
-	Coord clip_y = clip_area.m_position.y_();
-	Dim clip_width = clip_area.m_size.width_();
-	Dim clip_height = clip_area.m_size.height_();
+	Coord clip_x = clip_area.m_position.x_q6();
+	Coord clip_y = clip_area.m_position.y_q6();
+	Dim clip_width = clip_area.m_size.width_q6();
+	Dim clip_height = clip_area.m_size.height_q6();
 	
 	// Calculate right and bottom edges
 	Coord this_right = this_x + this_width;
@@ -108,29 +108,29 @@ void Area::clip(const Area& clip_area)
 	if (this_x < clip_x)
 	{
 		Coord diff = clip_x - this_x;
-		m_position.x_(clip_x);
+		m_position.x_q6(clip_x);
 		if (this_width > static_cast<Dim>(diff))
-			m_size.width_(this_width - static_cast<Dim>(diff));
+			m_size.width_q6(this_width - static_cast<Dim>(diff));
 		else
-			m_size.width_(0);
+			m_size.width_q6(0);
 	}
 	
 	// Adjust top edge: if y < clip_y, move to clip_y
 	if (this_y < clip_y)
 	{
 		Coord diff = clip_y - this_y;
-		m_position.y_(clip_y);
+		m_position.y_q6(clip_y);
 		if (this_height > static_cast<Dim>(diff))
-			m_size.height_(this_height - static_cast<Dim>(diff));
+			m_size.height_q6(this_height - static_cast<Dim>(diff));
 		else
-			m_size.height_(0);
+			m_size.height_q6(0);
 	}
 	
 	// Recalculate right and bottom with potentially new position
-	this_x = m_position.x_();
-	this_y = m_position.y_();
-	this_width = m_size.width_();
-	this_height = m_size.height_();
+	this_x = m_position.x_q6();
+	this_y = m_position.y_q6();
+	this_width = m_size.width_q6();
+	this_height = m_size.height_q6();
 	this_right = this_x + this_width;
 	this_bottom = this_y + this_height;
 	
@@ -139,9 +139,9 @@ void Area::clip(const Area& clip_area)
 	{
 		Coord new_width = clip_right - this_x;
 		if (new_width > 0)
-			m_size.width_(new_width);
+			m_size.width_q6(new_width);
 		else
-			m_size.width_(0);
+			m_size.width_q6(0);
 	}
 	
 	// Adjust height: if bottom edge exceeds clip_bottom
@@ -149,9 +149,9 @@ void Area::clip(const Area& clip_area)
 	{
 		Coord new_height = clip_bottom - this_y;
 		if (new_height > 0)
-			m_size.height_(new_height);
+			m_size.height_q6(new_height);
 		else
-			m_size.height_(0);
+			m_size.height_q6(0);
 	}
 }
 /** Print content */
@@ -162,4 +162,6 @@ void Area::print(const char * name) const
 	m_size.print("");
 	bd_printf("\n");
 }
+
+
 

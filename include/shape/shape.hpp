@@ -71,7 +71,7 @@ namespace berialdraw
 		@param start Start value for repetition
 		@param end End value for repetition
 		@param step Step value for repetition */
-		void repeat_(Repetition type, int start, int end, int step);
+		void repeat_q6(Repetition type, int start, int end, int step);
 
 	protected:
 /// @cond DOXYGEN_IGNORE

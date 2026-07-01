@@ -335,13 +335,13 @@ Size Widget::children_content_size()
 	{
 		size = child->content_size();
 
-		if (size.height_() > result.height_())
+		if (size.height_q6() > result.height_q6())
 		{
-			result.height_(size.height_());
+			result.height_q6(size.height_q6());
 		}
-		if (size.width_() > result.width_())
+		if (size.width_q6() > result.width_q6())
 		{
-			result.width_(size.width_());
+			result.width_q6(size.width_q6());
 		}
 		child = child->next();
 	}
@@ -354,17 +354,17 @@ Size Widget::content_size()
 
 	if (size().is_width_defined())
 	{
-		if (size().width_() > result.width_())
+		if (size().width_q6() > result.width_q6())
 		{
-			result.width_(size().width_());
+			result.width_q6(size().width_q6());
 		}
 	}
 
 	if (size().is_height_defined())
 	{
-		if (size().height_() > result.height_())
+		if (size().height_q6() > result.height_q6())
 		{
-			result.height_(size().height_());
+			result.height_q6(size().height_q6());
 		}
 	}
 
@@ -374,8 +374,8 @@ Size Widget::content_size()
 Size Widget::marged_size()
 {
 	Size result = content_size();
-	result.height_(result.height_()+ margin().bottom_() + margin().top_());
-	result.width_(result.width_()  + margin().left_() + margin().right_());
+	result.height_q6(result.height_q6()+ margin().bottom_q6() + margin().top_q6());
+	result.width_q6(result.width_q6()  + margin().left_q6() + margin().right_q6());
 	//result.print(String("\nmarged size ")+ m_classname);
 	return result;
 }
@@ -388,11 +388,11 @@ Size Widget::children_size()
 	// If size not defined, set null size
 	if (result.is_width_undefined())
 	{
-		result.width_(0);
+		result.width_q6(0);
 	}
 	if (result.is_height_undefined())
 	{
-		result.height_(0);
+		result.height_q6(0);
 	}
 
 	// Compute the children with marged size
@@ -403,17 +403,17 @@ Size Widget::children_size()
 		size = child->marged_size();
 
 		// If the children height is greater than pane height
-		if(size.height_() > result.height_())
+		if(size.height_q6() > result.height_q6())
 		{
 			// Keep the greater height
-			result.height_(size.height_());
+			result.height_q6(size.height_q6());
 		}
 
 		// If the children width is greater than pane width
-		if(size.width_() > result.width_())
+		if(size.width_q6() > result.width_q6())
 		{
 			// Keep the greater width
-			result.width_(size.width_());
+			result.width_q6(size.width_q6());
 		}
 		child = child->next();
 	}
@@ -445,49 +445,49 @@ Size Widget::compute_size(const Size & size, const Size & min_size, const Size &
 
 	if (!size.is_height_undefined())
 	{
-		result.height_(size.height_());
+		result.height_q6(size.height_q6());
 	}
 
 	if (!size.is_width_undefined())
 	{
-		result.width_(size.width_());
+		result.width_q6(size.width_q6());
 	}
 
 	if (!min_size.is_height_undefined())
 	{
-		if (result.height_() < min_size.height_())
+		if (result.height_q6() < min_size.height_q6())
 		{
-			result.height_(min_size.height_());
+			result.height_q6(min_size.height_q6());
 		}
 	}
 
 	if (!min_size.is_width_undefined())
 	{
-		if (result.width_() < min_size.width_())
+		if (result.width_q6() < min_size.width_q6())
 		{
-			result.width_(min_size.width_());
+			result.width_q6(min_size.width_q6());
 		}
 	}
 
 	if (!max_size.is_height_undefined())
 	{
-		if (result.height_() > max_size.height_())
+		if (result.height_q6() > max_size.height_q6())
 		{
-			result.height_(max_size.height_());
+			result.height_q6(max_size.height_q6());
 		}
 	}
 
 	if (!max_size.is_width_undefined())
 	{
-		if (result.width_() > max_size.width_())
+		if (result.width_q6() > max_size.width_q6())
 		{
-			result.width_(max_size.width_());
+			result.width_q6(max_size.width_q6());
 		}
 	}
 
 	if (result.is_height_undefined() == false || result.is_width_undefined() == false)
 	{
-		result.increase_(margin.left_() + margin.right_(), margin.top_() + margin.bottom_());
+		result.increase_q6(margin.left_q6() + margin.right_q6(), margin.top_q6() + margin.bottom_q6());
 	}
 	return result;
 }
@@ -499,36 +499,36 @@ void Widget::one_space_occupied(Point & min_position, Point & max_position, cons
 	Point max;
 	if (position.is_x_undefined() == false)
 	{
-		min.move_(position.x_(),0);
+		min.move_q6(position.x_q6(),0);
 	}
 
 	if (position.is_y_undefined() == false)
 	{
-		min.move_(0,position.y_());
+		min.move_q6(0,position.y_q6());
 	}
 
 	max = min;
 
-	max.move_(marged.width_(),marged.height_());
+	max.move_q6(marged.width_q6(),marged.height_q6());
 
-	if (min.x_() < min_position.x_())
+	if (min.x_q6() < min_position.x_q6())
 	{
-		min_position.x_(min.x_());
+		min_position.x_q6(min.x_q6());
 	}
 
-	if (min.y_() < min_position.y_())
+	if (min.y_q6() < min_position.y_q6())
 	{
-		min_position.y_(min.y_());
+		min_position.y_q6(min.y_q6());
 	}
 
-	if (max.x_() > max_position.x_())
+	if (max.x_q6() > max_position.x_q6())
 	{
-		max_position.x_(max.x_());
+		max_position.x_q6(max.x_q6());
 	}
 
-	if (max.y_() > max_position.y_())
+	if (max.y_q6() > max_position.y_q6())
 	{
-		max_position.y_(max.y_());
+		max_position.y_q6(max.y_q6());
 	}
 }
 
@@ -895,4 +895,5 @@ void Widget::serialize(JsonIterator & it)
 		child = child->m_next;
 	}
 }
+
 

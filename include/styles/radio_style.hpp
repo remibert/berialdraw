@@ -44,7 +44,7 @@ namespace berialdraw
 		void radio_size(Dim w, Dim h);
 
 		/** Set the radio box size with a precision of 64th of a pixel */
-		void radio_size_(Dim w, Dim h);
+		void radio_size_q6(Dim w, Dim h);
 
 		/** Get the radio padding in pixels */
 		Dim radio_padding() const { return m_radio_padding >> 6; }

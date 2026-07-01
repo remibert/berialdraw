@@ -13,7 +13,7 @@ void bind_icon_style(pybind11::module_& m) {
             if (pybind11::isinstance<pybind11::int_>(value)) {
                 self.zoom(value.cast<berialdraw::Dim>());
             } else if (pybind11::isinstance<pybind11::float_>(value)) {
-                self.zoom_(static_cast<berialdraw::Dim>(value.cast<double>() * 64));
+                self.zoom_q6(static_cast<berialdraw::Dim>(value.cast<double>() * 64));
             } else {
                 throw std::invalid_argument("zoom must be int or float");
             }
@@ -33,7 +33,7 @@ void bind_icon_style(pybind11::module_& m) {
                     self.icon_padding(static_cast<berialdraw::Dim>(dim), static_cast<berialdraw::Dim>(dim),
                                       static_cast<berialdraw::Dim>(dim), static_cast<berialdraw::Dim>(dim));
                 } else {
-                    self.icon_padding_(static_cast<berialdraw::Dim>(dim * 64), static_cast<berialdraw::Dim>(dim * 64),
+                    self.icon_padding_q6(static_cast<berialdraw::Dim>(dim * 64), static_cast<berialdraw::Dim>(dim * 64),
                                        static_cast<berialdraw::Dim>(dim * 64), static_cast<berialdraw::Dim>(dim * 64));
                 }
             } else if (pybind11::isinstance<pybind11::tuple>(value) || pybind11::isinstance<pybind11::list>(value)) {
@@ -48,7 +48,7 @@ void bind_icon_style(pybind11::module_& m) {
                         auto right = seq[1].cast<double>();
                         auto bottom = seq[2].cast<double>();
                         auto left = seq[3].cast<double>();
-                        self.icon_padding_(static_cast<berialdraw::Dim>(top * 64), static_cast<berialdraw::Dim>(right * 64),
+                        self.icon_padding_q6(static_cast<berialdraw::Dim>(top * 64), static_cast<berialdraw::Dim>(right * 64),
                                            static_cast<berialdraw::Dim>(bottom * 64), static_cast<berialdraw::Dim>(left * 64));
                     }
                 } else {

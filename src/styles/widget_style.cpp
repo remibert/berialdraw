@@ -164,10 +164,10 @@ void WidgetStyle::min_size(Dim w, Dim h)
 }
 
 /** Set the minsize with a precision of 64th of a pixel */
-void WidgetStyle::min_size_(Dim w, Dim h)
+void WidgetStyle::min_size_q6(Dim w, Dim h)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_min_size.set_(w,h);
+	m_min_size.set_q6(w,h);
 }
 
 /** Set the max size */
@@ -185,10 +185,10 @@ void WidgetStyle::max_size(Dim w, Dim h)
 }
 
 /** Set the max size with a precision of 64th of a pixel */
-void WidgetStyle::max_size_(Dim w, Dim h)
+void WidgetStyle::max_size_q6(Dim w, Dim h)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_max_size.set_(w,h);
+	m_max_size.set_q6(w,h);
 }
 
 /** Set the id */
@@ -284,5 +284,6 @@ void WidgetStyle::style(const String & s)
 		*m_style = s;
 	}
 }
+
 
 

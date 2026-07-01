@@ -154,13 +154,13 @@ void Image::paint(const Area & foreclip, const Margin & padding, uint8_t alpha)
 	{
 		// Compute target area
 		Size target_size;
-		target_size.width_(foreclip.size().width_() - padding.left_() - padding.right_());
-		target_size.height_(foreclip.size().height_() - padding.top_() - padding.bottom_());
+		target_size.width_q6(foreclip.size().width_q6() - padding.left_q6() - padding.right_q6());
+		target_size.height_q6(foreclip.size().height_q6() - padding.top_q6() - padding.bottom_q6());
 
 		// Base position
 		Point pos;
-		pos.x_(foreclip.position().x_() + padding.left_());
-		pos.y_(foreclip.position().y_() + padding.top_());
+		pos.x_q6(foreclip.position().x_q6() + padding.left_q6());
+		pos.y_q6(foreclip.position().y_q6() + padding.top_q6());
 
 		// Let the renderer handle everything: resize, rotate, center offset, and SVG export
 		UIManager::renderer()->draw_image(pos, target_size, m_center, Margin(), m_angle, m_rotated_cache, m_fit_mode, alpha);
@@ -174,7 +174,7 @@ void Image::paint(const Point & shift)
 	
 	// Combine shift with image position
 	Point pos(shift);
-	pos.move_(m_position.x_(), m_position.y_());
+	pos.move_q6(m_position.x_q6(), m_position.y_q6());
 	foreclip.position(pos);
 
 	// Use explicit size if set, otherwise use image native size
@@ -188,8 +188,8 @@ void Image::paint(const Point & shift)
 		if (m_cache_entry)
 		{
 			Size s;
-			s.width_(m_cache_entry->width() << 6);
-			s.height_(m_cache_entry->height() << 6);
+			s.width_q6(m_cache_entry->width() << 6);
+			s.height_q6(m_cache_entry->height() << 6);
 			foreclip.size(s);
 		}
 	}
@@ -209,22 +209,23 @@ Size Image::content_size()
 	{
 		if (!m_size.is_width_undefined())
 		{
-			result.width_(m_size.width_());
+			result.width_q6(m_size.width_q6());
 		}
 		else
 		{
-			result.width_(m_cache_entry->width() << 6);
+			result.width_q6(m_cache_entry->width() << 6);
 		}
 
 		if (!m_size.is_height_undefined())
 		{
-			result.height_(m_size.height_());
+			result.height_q6(m_size.height_q6());
 		}
 		else
 		{
-			result.height_(m_cache_entry->height() << 6);
+			result.height_q6(m_cache_entry->height() << 6);
 		}
 	}
 
 	return result;
 }
+

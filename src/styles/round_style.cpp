@@ -54,7 +54,7 @@ void RoundStyle::thickness(Dim v)
 }
 
 /** Set the thickness with a precision of 64th of a pixel */
-void RoundStyle::thickness_(Dim v)
+void RoundStyle::thickness_q6(Dim v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_thickness = v;
@@ -68,7 +68,7 @@ void RoundStyle::radius(Dim v)
 }
 
 /** Set the radius with a precision of 64th of a pixel */
-void RoundStyle::radius_(Dim v)
+void RoundStyle::radius_q6(Dim v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_radius = v;

@@ -83,7 +83,7 @@ void Keyboard::create(const String & name)
 					label->cell(0, column);
 					label->text(" ");
 					label->size_policy(SHRINK_WIDTH);
-					label->font_size_(m_font_size.width_()>>2,m_font_size.height_()>>2);
+					label->font_size_q6(m_font_size.width_q6()>>2,m_font_size.height_q6()>>2);
 					column ++;
 				}
 				else if(key == '\r')
@@ -201,4 +201,6 @@ void Keyboard::on_touch_key(Widget * widget, const TouchEvent & evt)
 		}
 	}
 }
+
+
 

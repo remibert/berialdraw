@@ -221,7 +221,7 @@ void Renderer::draw(const Shape & shape, const Point & shift)
 {
 	// Copy and create polygon
 	Polygon copy_poly(shape.polygon());
-	draw_outline(shape.position(), shape.margin(), shift, shape.center(), shape.color(), shape.angle_(), copy_poly.outline());
+	draw_outline(shape.position(), shape.margin(), shift, shape.center(), shape.color(), shape.angle_q6(), copy_poly.outline());
 }
 
 /** Apply common outline transformations: translate to center, rotate, translate to position.
@@ -229,15 +229,15 @@ This is the core transform logic shared by draw() and transform_rect(). */
 void Renderer::apply_outline_transforms(FT_Outline & outline, const Point & position, const Margin & margin, const Point & center, Coord angle)
 {
 	// Add margins
-	Coord dx = margin.left_();
-	Coord dy = margin.top_();
+	Coord dx = margin.left_q6();
+	Coord dy = margin.top_q6();
 
 	// Position + margin
-	Coord x = position.x_() + dx;
-	Coord y = position.y_() + dy;
+	Coord x = position.x_q6() + dx;
+	Coord y = position.y_q6() + dy;
 
 	// Step 1: Move to rotation center
-	FT_Outline_Translate(&outline, -(center.x_() + dx), -(center.y_() + dy));
+	FT_Outline_Translate(&outline, -(center.x_q6() + dx), -(center.y_q6() + dy));
 
 	// Step 2: Apply rotation if needed
 	if (angle != 0)
@@ -312,11 +312,11 @@ void Renderer::draw_image(const Point & position, const Size & size, const Point
 	const uint32_t* pixels = nullptr;
 
 	// Validation phase
-	if (framebuf && item && item->is_valid() && alpha > 0 && size.width_() > 0 && size.height_() > 0)
+	if (framebuf && item && item->is_valid() && alpha > 0 && size.width_q6() > 0 && size.height_q6() > 0)
 	{
 		// Calculate screen dimensions
-		uint32_t size_px_w = size.width_() >> 6;
-		uint32_t size_px_h = size.height_() >> 6;
+		uint32_t size_px_w = size.width_q6() >> 6;
+		uint32_t size_px_h = size.height_q6() >> 6;
 		uint32_t scale_factor = m_scale >> 6;
 		uint32_t final_w = size_px_w * scale_factor;
 		uint32_t final_h = size_px_h * scale_factor;
@@ -329,8 +329,8 @@ void Renderer::draw_image(const Point & position, const Size & size, const Point
 				size_px_w, size_px_h, fit_mode, fit_lpx_w, fit_lpx_h);
 
 			// Centering offset in Q6 (image within widget area)
-			Coord off_x = (Coord)(size.width_()  - (fit_lpx_w << 6)) / 2;
-			Coord off_y = (Coord)(size.height_() - (fit_lpx_h << 6)) / 2;
+			Coord off_x = (Coord)(size.width_q6()  - (fit_lpx_w << 6)) / 2;
+			Coord off_y = (Coord)(size.height_q6() - (fit_lpx_h << 6)) / 2;
 
 			// Transform fitted image rect with centering offset
 			transform_rect(off_x, off_y, (Dim)(fit_lpx_w << 6), (Dim)(fit_lpx_h << 6),
@@ -352,19 +352,19 @@ void Renderer::draw_image(const Point & position, const Size & size, const Point
 	if (item && UIManager::exporter())
 	{
 		// Compute area top-left: position is reference point, center is offset to widget origin
-		int32_t svg_x = (int32_t)((position.x_() - center.x_()) >> 6);
-		int32_t svg_y = (int32_t)((position.y_() - center.y_()) >> 6);
+		int32_t svg_x = (int32_t)((position.x_q6() - center.x_q6()) >> 6);
+		int32_t svg_y = (int32_t)((position.y_q6() - center.y_q6()) >> 6);
 
 		// Rotation center offset from area top-left (includes margin)
-		int32_t svg_cx = (int32_t)((center.x_() + (Coord)margin.left_()) >> 6);
-		int32_t svg_cy = (int32_t)((center.y_() + (Coord)margin.top_()) >> 6);
+		int32_t svg_cx = (int32_t)((center.x_q6() + (Coord)margin.left_q6()) >> 6);
+		int32_t svg_cy = (int32_t)((center.y_q6() + (Coord)margin.top_q6()) >> 6);
 
 		UIManager::exporter()->add_image_file(
 			item->filename().c_str(),
 			svg_x,
 			svg_y,
-			(uint32_t)(size.width_() >> 6),
-			(uint32_t)(size.height_() >> 6),
+			(uint32_t)(size.width_q6() >> 6),
+			(uint32_t)(size.height_q6() >> 6),
 			alpha,
 			fit_mode,
 			item->source_width(),
@@ -404,20 +404,20 @@ void Renderer::draw_outline(const Point & position, const Margin & margin, const
 	m_params.gray_spans = (FT_SpanFunc)draw_vector;
 
 	// If the polygon must be zoomed
-	if (out.zoom_() != 1<< 6)
+	if (out.zoom_q6() != 1<< 6)
 	{
 		FT_Matrix matrix;
-		matrix.xx = (FT_Fixed)out.zoom_() << 10;
+		matrix.xx = (FT_Fixed)out.zoom_q6() << 10;
 		matrix.xy = 0;
 		matrix.yx = 0;
-		matrix.yy = (FT_Fixed)out.zoom_() << 10;
+		matrix.yy = (FT_Fixed)out.zoom_q6() << 10;
 		FT_Outline_Transform(&outline, &matrix);
 	}
 
 	// Create position with shift included
 	Point pos_with_shift;
-	pos_with_shift.x_(position.x_() + shift.x_());
-	pos_with_shift.y_(position.y_() + shift.y_());
+	pos_with_shift.x_q6(position.x_q6() + shift.x_q6());
+	pos_with_shift.y_q6(position.y_q6() + shift.y_q6());
 
 	// Apply common transformations (steps 1-3)
 	apply_outline_transforms(outline, pos_with_shift, margin, center, angle_);
@@ -448,7 +448,7 @@ void Renderer::draw_outline(const Point & position, const Margin & margin, const
 
 /** Get the scale factor for screen resolution. A value of 64 corresponds to a scale factor of 1 (1 << 6).
 @return The current scale factor. */
-Dim Renderer::scale_()
+Dim Renderer::scale_q6()
 {
 	return m_scale;
 }
@@ -466,3 +466,5 @@ Size Renderer::size() const
 {
 	return m_size;
 }
+
+

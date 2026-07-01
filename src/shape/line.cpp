@@ -22,7 +22,7 @@ Line::Line(const Line & other) :
 
 void Line::compute_thickness(Coord &dx, Coord &dy)
 {
-	get_thickness(m_point1.x_(), m_point1.y_(), m_point2.x_(), m_point2.y_(), m_thickness, dx, dy);
+	get_thickness(m_point1.x_q6(), m_point1.y_q6(), m_point2.x_q6(), m_point2.y_q6(), m_thickness, dx, dy);
 }
 
 void Line::get_thickness(Coord x1, Coord y1, Coord x2, Coord y2, Dim thickness, Coord & dx, Coord & dy)
@@ -71,12 +71,14 @@ void Line::paint(const Point & shift)
 		compute_thickness(dx,dy);
 		m_polygon.clear();
 	
-		m_polygon.add_point_(m_point1.x_() - dx, m_point1.y_() + dy);
-		m_polygon.add_point_(m_point1.x_() + dx, m_point1.y_() - dy);
-		m_polygon.add_point_(m_point2.x_() + dx, m_point2.y_() - dy);
-		m_polygon.add_point_(m_point2.x_() - dx, m_point2.y_() + dy);
+		m_polygon.add_point_q6(m_point1.x_q6() - dx, m_point1.y_q6() + dy);
+		m_polygon.add_point_q6(m_point1.x_q6() + dx, m_point1.y_q6() - dy);
+		m_polygon.add_point_q6(m_point2.x_q6() + dx, m_point2.y_q6() - dy);
+		m_polygon.add_point_q6(m_point2.x_q6() - dx, m_point2.y_q6() + dy);
 		m_polygon.next_contour();
 	}
 	UIManager::renderer()->draw(*this, shift);
 }
+
+
 

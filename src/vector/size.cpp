@@ -47,17 +47,17 @@ Size::Size(const Size& p) :
 /** Decrease size with width and height in pixels */
 void Size::decrease(const Margin & margin)
 {
-	decrease_(margin.left_() + margin.right_(), margin.top_() + margin.bottom_());
+	decrease_q6(margin.left_q6() + margin.right_q6(), margin.top_q6() + margin.bottom_q6());
 }
 
 /** Increase size with width and height in pixels */
 void Size::increase(const Margin & margin)
 {
-	increase_(margin.left_() + margin.right_(), margin.top_() + margin.bottom_());
+	increase_q6(margin.left_q6() + margin.right_q6(), margin.top_q6() + margin.bottom_q6());
 }
 
 /** Decrease size with width and height with a precision of 64th of a pixel */
-void Size::decrease_(Dim w, Dim h)
+void Size::decrease_q6(Dim w, Dim h)
 {
 	if(m_width == MAX_SIZE || w == MAX_SIZE)
 	{
@@ -95,7 +95,7 @@ void Size::decrease_(Dim w, Dim h)
 }
 
 /** Increase size with width and height with a precision of 64th of a pixel */
-void Size::increase_(Dim w, Dim h)
+void Size::increase_q6(Dim w, Dim h)
 {
 	if(m_width == MAX_SIZE || w == MAX_SIZE)
 	{
@@ -154,5 +154,8 @@ void Size::print(const char * name) const
 {
 	bd_printf("%s w=%s h=%s", name, (const char*)format_dim(m_width), (const char*)format_dim(m_height));
 }
+
+
+
 
 

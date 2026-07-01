@@ -266,7 +266,7 @@ void SvgOut::add_text(const Point & position, const Size & size, const Point & c
 
 	if (line_count != 0)
 	{
-		shift = size.height_() / line_count;
+		shift = size.height_q6() / line_count;
 	}
 
 	for (i = 0; i < count; i++)
@@ -274,10 +274,10 @@ void SvgOut::add_text(const Point & position, const Size & size, const Point & c
 		character = text.get(i);
 		if (character == '\n')
 		{
-			part_size.height_(size.height_());
+			part_size.height_q6(size.height_q6());
 			if (max_length != 0)
 			{
-				part_size.width_((size.width_() * part.count())/max_length);
+				part_size.width_q6((size.width_q6() * part.count())/max_length);
 			}
 			else
 			{
@@ -285,7 +285,7 @@ void SvgOut::add_text(const Point & position, const Size & size, const Point & c
 			}
 
 			add_text_line(position, part_size, ct, margin, angle, part, font, color);
-			ct.move_(0,0-shift);
+			ct.move_q6(0,0-shift);
 			part.clear();
 		}
 		else
@@ -296,10 +296,10 @@ void SvgOut::add_text(const Point & position, const Size & size, const Point & c
 
 	if (part.size() > 0)
 	{
-		part_size.height_(size.height_());
+		part_size.height_q6(size.height_q6());
 		if (max_length != 0)
 		{
-			part_size.width_((size.width_() * part.count())/max_length);
+			part_size.width_q6((size.width_q6() * part.count())/max_length);
 		}
 		else
 		{
@@ -324,22 +324,22 @@ void SvgOut::add_text_line(const Point & position, const Size & size, const Poin
 		String transform;
 
 		// Compute the position of text
-		xx = position.x_();
-		yy = position.y_();
+		xx = position.x_q6();
+		yy = position.y_q6();
 
 		// Rotation of the text line according to the center of rotation
-		if (center.x_() != 0 || center.y_() != 0)
+		if (center.x_q6() != 0 || center.y_q6() != 0)
 		{
-			vec.x = -center.x_();
-			vec.y = -center.y_();
+			vec.x = -center.x_q6();
+			vec.y = -center.y_q6();
 			FT_Vector_Transform(&vec, &matrix);
 			xx += vec.x;
 			yy += vec.y;
 		}
 
 		// Set the origin of text in top left corner
-		vec.x = margin.left_();
-		vec.y = margin.top_() + font.real_size().height_();
+		vec.x = margin.left_q6();
+		vec.y = margin.top_q6() + font.real_size().height_q6();
 		FT_Vector_Transform(&vec, &matrix);
 
 		xx += vec.x;
@@ -359,10 +359,10 @@ void SvgOut::add_text_line(const Point & position, const Size & size, const Poin
 			if (alpha != 255) m_content.write_format("opacity:%1d.%02d;",(alpha == 255 ? 1 : 0), (alpha == 255 ? 0 : (alpha * 100)/255));
 		m_content.write_format("\" ");
 
-		if (size.height_() != 0 && size.width_() != 0)
+		if (size.height_q6() != 0 && size.width_q6() != 0)
 		{
 			m_content.write_format("textLength=\"");
-			add_value(m_content, size.width_());
+			add_value(m_content, size.width_q6());
 			m_content.write_format("\" lengthAdjust=\"spacingAndGlyphs\" ");
 		}
 
@@ -463,4 +463,5 @@ void SvgOut::size(const Size & size)
 		"viewBox=\"0 0 %d %d\" "
 		">\r", size.width(), size.height());
 }
+
 

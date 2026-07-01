@@ -19,7 +19,7 @@ void bind_margin(py::module& m) {
         .def("set", &berialdraw::Margin::set,
              py::arg("top"), py::arg("left"), py::arg("bottom"), py::arg("right"),
              "Set margin values")
-        .def("set_", &berialdraw::Margin::set_,
+        .def("set_", &berialdraw::Margin::set_q6,
              py::arg("top"), py::arg("left"), py::arg("bottom"), py::arg("right"),
              "Set margin values with a precision of 64th of a pixel");
              
@@ -27,21 +27,21 @@ void bind_margin(py::module& m) {
     bind_precision_property(cls, "top",
         &berialdraw::Margin::top,
         &berialdraw::Margin::top,
-        &berialdraw::Margin::top_,
+        &berialdraw::Margin::top_q6,
         "Top margin (int for normal, float for high precision)");
     bind_precision_property(cls, "left",
         &berialdraw::Margin::left,
         &berialdraw::Margin::left,
-        &berialdraw::Margin::left_,
+        &berialdraw::Margin::left_q6,
         "Left margin (int for normal, float for high precision)");
     bind_precision_property(cls, "bottom",
         &berialdraw::Margin::bottom,
         &berialdraw::Margin::bottom,
-        &berialdraw::Margin::bottom_,
+        &berialdraw::Margin::bottom_q6,
         "Bottom margin (int for normal, float for high precision)");
     bind_precision_property(cls, "right",
         &berialdraw::Margin::right,
         &berialdraw::Margin::right,
-        &berialdraw::Margin::right_,
+        &berialdraw::Margin::right_q6,
         "Right margin (int for normal, float for high precision)");
 }

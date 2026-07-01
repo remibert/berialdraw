@@ -1,17 +1,17 @@
-﻿#include "berialdraw_imp.hpp"
+#include "berialdraw_imp.hpp"
 
 using namespace berialdraw;
 
 inline void calc_point(Point & p, Dim radius, FT_Vector & sincos)
 {
-	p.x_(p.x_() + (Coord)((((int64_t)(sincos.x)*(int64_t)(radius)) + (1 << 15))>>16));
-	p.y_(p.y_() + (Coord)((((int64_t)(sincos.y)*(int64_t)(radius)) + (1 << 15))>>16));
+	p.x_q6(p.x_q6() + (Coord)((((int64_t)(sincos.x)*(int64_t)(radius)) + (1 << 15))>>16));
+	p.y_q6(p.y_q6() + (Coord)((((int64_t)(sincos.y)*(int64_t)(radius)) + (1 << 15))>>16));
 }
 
 inline void calc_cubic(Point & p, Dim radius, FT_Vector & sincos)
 {
-	p.x_(p.x_() + (Coord)((((int64_t)(sincos.y)*(int64_t)(radius)) + (1 << 15))>>16));
-	p.y_(p.y_() + (Coord)((((int64_t)(sincos.x)*(int64_t)(radius)) + (1 << 15))>>16));
+	p.x_q6(p.x_q6() + (Coord)((((int64_t)(sincos.y)*(int64_t)(radius)) + (1 << 15))>>16));
+	p.y_q6(p.y_q6() + (Coord)((((int64_t)(sincos.x)*(int64_t)(radius)) + (1 << 15))>>16));
 }
 
 Pie::Pie(Canvas * canvas) : 
@@ -41,15 +41,15 @@ void Pie::get_slice(const Point & center, Dim radius, Coord start_angle, Coord s
 	p1 = center;
 	calc_point(p1, radius, sincos);
 	calc_cubic(c1, d, sincos);
-	c1.x_(p1.x_() - c1.x_());
-	c1.y_(p1.y_() + c1.y_());
+	c1.x_q6(p1.x_q6() - c1.x_q6());
+	c1.y_q6(p1.y_q6() + c1.y_q6());
 
 	FT_Vector_Unit(&sincos, (sweep_angle + start_angle)<<10);
 	p2 = center;
 	calc_point(p2, radius, sincos);
 	calc_cubic(c2, d, sincos);
-	c2.x_(p2.x_() + c2.x_());
-	c2.y_(p2.y_() - c2.y_());
+	c2.x_q6(p2.x_q6() + c2.x_q6());
+	c2.y_q6(p2.y_q6() - c2.y_q6());
 }
 
 void Pie::build_filled(Dim radius)
@@ -178,7 +178,7 @@ void Pie::paint(const Point & shift)
 				get_slice(m_center, m_radius + (m_thickness >>1), - m_start_angle - sweep_angle, sweep_angle, p1, c1, c2, p2);
 
 				PolyLines lines(0);
-				lines.thickness_(m_thickness);
+				lines.thickness_q6(m_thickness);
 				lines.append(p1);
 				lines.append(m_center);
 				lines.append(p2);
@@ -190,4 +190,5 @@ void Pie::paint(const Point & shift)
 	}
 	UIManager::renderer()->draw(*this, shift);
 }
+
 

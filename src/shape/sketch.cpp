@@ -116,7 +116,7 @@ void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t state
 			}
 		}
 
-		int zoom = zoom_();
+		int zoom = zoom_q6();
 
 		// Adapt the zoom factor according to the size if it has been defined
 		if (m_size.is_width_undefined() == false || m_size.is_height_undefined() == false)
@@ -124,31 +124,31 @@ void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t state
 			Dim zoom_width = 0;
 			Dim zoom_height = 0;
 			Size size(m_size);
-			size.decrease_(padding.left_() + padding.right_(), padding.top_() + padding.bottom_());
+			size.decrease_q6(padding.left_q6() + padding.right_q6(), padding.top_q6() + padding.bottom_q6());
 
-			if (m_size.is_width_undefined() == false && size.width_() > 0 && m_resolution.width_() != 0)
+			if (m_size.is_width_undefined() == false && size.width_q6() > 0 && m_resolution.width_q6() != 0)
 			{
-				zoom_width = (size.width_() << 6)/ m_resolution.width_();
+				zoom_width = (size.width_q6() << 6)/ m_resolution.width_q6();
 			}
-			if (m_size.is_height_undefined() == false && size.height_() > 0 && m_resolution.height_() != 0)
+			if (m_size.is_height_undefined() == false && size.height_q6() > 0 && m_resolution.height_q6() != 0)
 			{
-				zoom_height = (size.height_() << 6) / m_resolution.height_();
+				zoom_height = (size.height_q6() << 6) / m_resolution.height_q6();
 			}
 
 			if (zoom_width < zoom_height && zoom_width != 0)
 			{
 				zoom = zoom_width;
-				if (size.height_() > m_resolution.height_())
+				if (size.height_q6() > m_resolution.height_q6())
 				{
-					position.move_(0, (size.height_() - size.width_())>>1);
+					position.move_q6(0, (size.height_q6() - size.width_q6())>>1);
 				}
 			}
 			else if (zoom_height < zoom_width && zoom_height != 0)
 			{
 				zoom = zoom_height;
-				if (size.width_() > m_resolution.width_())
+				if (size.width_q6() > m_resolution.width_q6())
 				{
-					position.move_((size.width_() - size.height_())>>1, 0);
+					position.move_q6((size.width_q6() - size.height_q6())>>1, 0);
 				}
 			}
 			else if (zoom_height == zoom_width && zoom_height != 0)
@@ -158,8 +158,8 @@ void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t state
 
 			Area foreclip(m_position,m_size);
 			Size content;
-			content.width_ ((m_resolution.width_ () * zoom) >> 6);
-			content.height_((m_resolution.height_() * zoom) >> 6);
+			content.width_q6((m_resolution.width_q6() * zoom) >> 6);
+			content.height_q6((m_resolution.height_q6() * zoom) >> 6);
 			Area foreclip_sketch;
 
 			place_in_layout(foreclip, content, m_margin, EXTEND_NONE, foreclip_sketch, m_align);
@@ -168,7 +168,7 @@ void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t state
 		else
 		{
 			position = m_position;
-			position.move_(padding.right_(), padding.top_());
+			position.move_q6(padding.right_q6(), padding.top_q6());
 		}
 
 
@@ -205,7 +205,7 @@ void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t state
 				}
 
 				// Apply icon zoom
-				m_polygon.zoom_(zoom);
+				m_polygon.zoom_q6(zoom);
 					
 				// Parse icon path
 				VectorsScript vectors_script(m_polygon);
@@ -278,10 +278,10 @@ void Sketch::resolution(Dim w, Dim h)
 }
 
 /** Set the resolution with a precision of 64th of a pixel */
-void Sketch::resolution_(Dim w, Dim h)
+void Sketch::resolution_q6(Dim w, Dim h)
 {
 	UIManager::invalidator()->dirty(m_parent, Invalidator::GEOMETRY);
-	m_resolution.set_(w,h);
+	m_resolution.set_q6(w,h);
 }
 
 /** Set the zoom ratio for the icon
@@ -301,7 +301,7 @@ Dim Sketch::zoom() const
 
 /** Set the zoom ratio for the icon
 @param z zoom value shifted by 6 bits */
-void Sketch::zoom_(Dim z)
+void Sketch::zoom_q6(Dim z)
 {
 	UIManager::invalidator()->dirty(m_parent, Invalidator::GEOMETRY);
 	m_zoom = z;
@@ -309,7 +309,7 @@ void Sketch::zoom_(Dim z)
 
 /** Get the zoom ratio for the icon
 @return zoom zoom value shifted by 6 bits */
-Dim Sketch::zoom_() const
+Dim Sketch::zoom_q6() const
 {
 	return m_zoom;
 }
@@ -383,4 +383,7 @@ void Sketch::unserialize(JsonIterator & it)
 		m_paths.push_back(path);
 	}
 }
+
+
+
 

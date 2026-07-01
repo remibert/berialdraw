@@ -47,20 +47,20 @@ Size Button::content_size()
 	}
 
 	result = m_text_size;
-	result.height_(result.height_()+ padding().bottom_() + padding().top_());
-	result.width_(result.width_()  + padding().left_() + padding().right_());
+	result.height_q6(result.height_q6()+ padding().bottom_q6() + padding().top_q6());
+	result.width_q6(result.width_q6()  + padding().left_q6() + padding().right_q6());
 
 	if (m_children)
 	{
 		// Compute the children with marged size
 		Size children_size = Widget::children_size();
-		if (children_size.width_() > result.width_())
+		if (children_size.width_q6() > result.width_q6())
 		{
-			result.width_(children_size.width_());
+			result.width_q6(children_size.width_q6());
 		}
-		if (children_size.height_() > result.height_())
+		if (children_size.height_q6() > result.height_q6())
 		{
-			result.height_(children_size.height_());
+			result.height_q6(children_size.height_q6());
 		}
 	}
 	return result;
@@ -162,4 +162,5 @@ StyleCascadeMode Button::style_cascade_mode() const
 {
 	return StyleCascadeMode::NONE;
 }
+
 

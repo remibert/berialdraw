@@ -84,10 +84,10 @@ void PictureStyle::icon_padding(Dim top, Dim left, Dim bottom, Dim right)
 }
 
 /** Set the icon_padding with a precision of 64th of a pixel */
-void PictureStyle::icon_padding_(Dim top, Dim left, Dim bottom, Dim right)
+void PictureStyle::icon_padding_q6(Dim top, Dim left, Dim bottom, Dim right)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_icon_padding.set_(top,left,bottom,right);
+	m_icon_padding.set_q6(top,left,bottom,right);
 }
 
 /** Set the back icon_color */
@@ -103,4 +103,5 @@ void PictureStyle::icon_color(uint32_t col, uint8_t alpha)
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_icon_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
+
 

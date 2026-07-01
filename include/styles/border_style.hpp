@@ -32,7 +32,7 @@ namespace berialdraw
 		}
 
 		/** Get the radius with a precision of 64th of a pixel */
-		inline Dim radius_() const
+		inline Dim radius_q6() const
 		{
 			return m_radius;
 		}
@@ -41,7 +41,7 @@ namespace berialdraw
 		void radius(Dim v);
 
 		/** Set the radius with a precision of 64th of a pixel */
-		void radius_(Dim v);
+		void radius_q6(Dim v);
 
 
 		/** Get the thickness */
@@ -51,7 +51,7 @@ namespace berialdraw
 		}
 
 		/** Get the thickness with a precision of 64th of a pixel */
-		inline Dim thickness_() const
+		inline Dim thickness_q6() const
 		{
 			return m_thickness;
 		}
@@ -60,7 +60,7 @@ namespace berialdraw
 		void thickness(Dim v);
 
 		/** Set the thickness with a precision of 64th of a pixel */
-		void thickness_(Dim v);
+		void thickness_q6(Dim v);
 
 
 		/** Get the border color */

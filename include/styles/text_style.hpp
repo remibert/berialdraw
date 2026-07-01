@@ -51,7 +51,7 @@ namespace berialdraw
 		void font_size(Dim w, Dim h=0);
 
 		/** Set the font size with a precision of 64th of a pixel */
-		void font_size_(Dim w, Dim h=0);
+		void font_size_q6(Dim w, Dim h=0);
 
 		/** Select font */
 		void select_font();
@@ -81,7 +81,7 @@ namespace berialdraw
 		void padding(Dim top, Dim left, Dim bottom, Dim right);
 		
 		/** Set the padding with a precision of 64th of a pixel */
-		void padding_(Dim top, Dim left, Dim bottom, Dim right);
+		void padding_q6(Dim top, Dim left, Dim bottom, Dim right);
 
 		/** Set the padding */
 		void padding(Dim horizontal, Dim vertical);

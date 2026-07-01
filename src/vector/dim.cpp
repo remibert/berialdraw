@@ -17,7 +17,7 @@ Dim berialdraw::multiply(Dim a, Dim b)
 	return a*b;
 }
 
-Dim berialdraw::multiply_(Dim a, Dim b)
+Dim berialdraw::multiply_q6(Dim a, Dim b)
 {
 	Dim result;
 	result = (Dim)(((uint64_t) a * (uint64_t) b)>>6);
@@ -37,3 +37,4 @@ bool berialdraw::unserialize(const char * name, JsonIterator & it, uint16_t & va
 	value     = (v    == Size::MAX_SIZE) ? value    : v;
 	return v == Size::MAX_SIZE;
 }
+

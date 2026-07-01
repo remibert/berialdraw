@@ -93,13 +93,13 @@ Size ListItem::content_size()
 	}
 
 	// Add the widths and set the greater height
-	result.set_(
-		m_leading_size.width_()+m_text_size.width_()+m_trailing_size.width_(),
-		max(m_text_size.height_(),max(m_leading_size.height_(), m_trailing_size.height_())));
+	result.set_q6(
+		m_leading_size.width_q6()+m_text_size.width_q6()+m_trailing_size.width_q6(),
+		max(m_text_size.height_q6(),max(m_leading_size.height_q6(), m_trailing_size.height_q6())));
 
 	// Add padding
-	result.height_(result.height_() + padding().bottom_() + padding().top_());
-	result.width_ (result.width_()  + padding().left_()   + padding().right_());
+	result.height_q6(result.height_q6() + padding().bottom_q6() + padding().top_q6());
+	result.width_q6(result.width_q6()  + padding().left_q6()   + padding().right_q6());
 
 	return result;
 }
@@ -127,8 +127,8 @@ void ListItem::place(const Area& area, bool in_layout)
 	if (m_text.size() > 0)
 	{
 		m_text_foreclip = item_area;
-		m_text_foreclip.position().move_(m_leading_size.width_(), 0);
-		m_text_foreclip.size().decrease_(m_leading_size.width_() + m_trailing_size.width_(), 0);
+		m_text_foreclip.position().move_q6(m_leading_size.width_q6(), 0);
+		m_text_foreclip.size().decrease_q6(m_leading_size.width_q6() + m_trailing_size.width_q6(), 0);
 		place_in_layout(m_text_foreclip, m_text_foreclip.size(), marg, EXTEND_NONE, m_text_foreclip, m_text_align);
 	}
 
@@ -136,7 +136,7 @@ void ListItem::place(const Area& area, bool in_layout)
 	if (m_leading.size() > 0)
 	{
 		m_leading_foreclip = item_area;
-		m_leading_foreclip.size().width_(m_leading_size.width_());
+		m_leading_foreclip.size().width_q6(m_leading_size.width_q6());
 		place_in_layout(m_leading_foreclip, m_leading_size, marg, EXTEND_NONE, m_leading_foreclip, Align::ALIGN_DEFAULT);
 	}
 
@@ -144,8 +144,8 @@ void ListItem::place(const Area& area, bool in_layout)
 	if (m_trailing.size() > 0)
 	{
 		m_trailing_foreclip = item_area;
-		m_trailing_foreclip.position().move_(m_text_foreclip.width_() + m_leading_foreclip.width_(), 0);
-		m_trailing_foreclip.size().width_(m_trailing_size.width_());
+		m_trailing_foreclip.position().move_q6(m_text_foreclip.width_q6() + m_leading_foreclip.width_q6(), 0);
+		m_trailing_foreclip.size().width_q6(m_trailing_size.width_q6());
 		place_in_layout(m_trailing_foreclip, m_trailing_size, marg, EXTEND_NONE, m_trailing_foreclip, Align::ALIGN_DEFAULT);
 	}
 }
@@ -263,4 +263,6 @@ StyleCascadeMode ListItem::style_cascade_mode() const
 {
 	return StyleCascadeMode::NONE;
 }
+
+
 

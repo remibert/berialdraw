@@ -7,13 +7,13 @@ void bind_pie_style(py::module& m) {
     bind_precision_property<berialdraw::PieStyle>(cls, "start_angle",
         &berialdraw::PieStyle::start_angle,
         &berialdraw::PieStyle::start_angle,
-        &berialdraw::PieStyle::start_angle_,
+        &berialdraw::PieStyle::start_angle_q6,
         "Start angle (int for normal, float for high precision)");
     
     bind_precision_property<berialdraw::PieStyle>(cls, "end_angle",
         &berialdraw::PieStyle::end_angle,
         &berialdraw::PieStyle::end_angle,
-        &berialdraw::PieStyle::end_angle_,
+        &berialdraw::PieStyle::end_angle_q6,
         "End angle (int for normal, float for high precision)");
     
     bind_scalar_property<berialdraw::PieStyle, bool>(cls, "rope",

@@ -38,7 +38,7 @@ void Polygon::add_point(Coord x, Coord y)
 	m_outline->add_point(p);
 }
 
-void Polygon::add_point_(Coord x, Coord y)
+void Polygon::add_point_q6(Coord x, Coord y)
 {
 	Point p(x,y, false);
 	m_outline->add_point(p);
@@ -56,7 +56,7 @@ void Polygon::add_conic(Coord x, Coord y)
 	m_outline->add_conic(p);
 }
 
-void Polygon::add_conic_(Coord x, Coord y)
+void Polygon::add_conic_q6(Coord x, Coord y)
 {
 	Point p(x,y, false);
 	m_outline->add_conic(p);
@@ -74,7 +74,7 @@ void Polygon::add_cubic(Coord x, Coord y)
 	m_outline->add_cubic(p);
 }
 
-void Polygon::add_cubic_(Coord x, Coord y)
+void Polygon::add_cubic_q6(Coord x, Coord y)
 {
 	Point p(x,y, false);
 	m_outline->add_cubic(p);
@@ -103,28 +103,28 @@ void Polygon::paint(const Point & shift)
 @param z zoom value */
 void Polygon::zoom(int z)
 {
-	m_outline->zoom_(abs(z) <<6);
+	m_outline->zoom_q6(abs(z) <<6);
 }
 		
 /** Get the zoom ratio for the polygon
 @return zoom zoom value */
 uint32_t Polygon::zoom()
 {
-	return m_outline->zoom_() >> 6;
+	return m_outline->zoom_q6() >> 6;
 }
 
 /** Set the zoom ratio for the polygon
 @param z zoom value shifted by 6 bits */
-void Polygon::zoom_(int z)
+void Polygon::zoom_q6(int z)
 {
-	m_outline->zoom_(abs(z));
+	m_outline->zoom_q6(abs(z));
 }
 
 /** Get the zoom ratio for the polygon
 @return zoom zoom value shifted by 6 bits */
-uint32_t Polygon::zoom_()
+uint32_t Polygon::zoom_q6()
 {
-	return m_outline->zoom_();
+	return m_outline->zoom_q6();
 }
 
 // Draws a rounded arc at a given point with specified parameters.
@@ -133,7 +133,7 @@ void Polygon::arc_(Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags
 	// If no thickness and no radius : optimize treatment
 	if (thickness == 0 && radius == 0)
 	{
-		add_point_(x,y);
+		add_point_q6(x,y);
 	}
 	else
 	{
@@ -144,7 +144,7 @@ void Polygon::arc_(Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags
 
 		enum Polygon::ArcFlags arc_tip = (enum Polygon::ArcFlags)(flags_ & EDGE_MASK);
 
-		p1.set_(x,y);
+		p1.set_q6(x,y);
 
 		bool right_angle_end   = (flags_ & FLAG_RIGHT_ANGLE_END) != 0;
 		bool straight          = (flags_ & FLAG_STRAIGHT) != 0;
@@ -186,18 +186,18 @@ void Polygon::arc_(Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags
 
 			switch(arc_tip)
 			{
-			case TOP_TO_RIGHT:    case TOP_TO_LEFT:    d1.y_(y);           d2.y_(y + (width-vec_y));        p2.y_(y + width);        break;
-			case BOTTOM_TO_RIGHT: case BOTTOM_TO_LEFT: d1.y_(y);           d2.y_(y - (width-vec_y));        p2.y_(y - width);        break;
-			case RIGHT_TO_TOP:    case LEFT_TO_TOP:    d1.y_(y - handle);  d2.y_(y - (intersection-vec_x)); p2.y_(y - intersection); break;
-			case RIGHT_TO_BOTTOM: case LEFT_TO_BOTTOM: d1.y_(y + handle);  d2.y_(y + (intersection-vec_x)); p2.y_(y + intersection); break;
+			case TOP_TO_RIGHT:    case TOP_TO_LEFT:    d1.y_q6(y);           d2.y_q6(y + (width-vec_y));        p2.y_q6(y + width);        break;
+			case BOTTOM_TO_RIGHT: case BOTTOM_TO_LEFT: d1.y_q6(y);           d2.y_q6(y - (width-vec_y));        p2.y_q6(y - width);        break;
+			case RIGHT_TO_TOP:    case LEFT_TO_TOP:    d1.y_q6(y - handle);  d2.y_q6(y - (intersection-vec_x)); p2.y_q6(y - intersection); break;
+			case RIGHT_TO_BOTTOM: case LEFT_TO_BOTTOM: d1.y_q6(y + handle);  d2.y_q6(y + (intersection-vec_x)); p2.y_q6(y + intersection); break;
 			default:break;
 			}
 			switch(arc_tip)
 			{
-			case BOTTOM_TO_RIGHT: case TOP_TO_RIGHT:    d1.x_(x + handle); d2.x_(x + (intersection-vec_x)); p2.x_(x + intersection); break;
-			case BOTTOM_TO_LEFT:  case TOP_TO_LEFT:     d1.x_(x - handle); d2.x_(x - (intersection-vec_x)); p2.x_(x - intersection); break;
-			case RIGHT_TO_TOP:    case RIGHT_TO_BOTTOM: d1.x_(x);          d2.x_(x - (width-vec_y));        p2.x_(x - width);        break;
-			case LEFT_TO_TOP:     case LEFT_TO_BOTTOM:  d1.x_(x);          d2.x_(x + (width-vec_y));        p2.x_(x + width);        break;
+			case BOTTOM_TO_RIGHT: case TOP_TO_RIGHT:    d1.x_q6(x + handle); d2.x_q6(x + (intersection-vec_x)); p2.x_q6(x + intersection); break;
+			case BOTTOM_TO_LEFT:  case TOP_TO_LEFT:     d1.x_q6(x - handle); d2.x_q6(x - (intersection-vec_x)); p2.x_q6(x - intersection); break;
+			case RIGHT_TO_TOP:    case RIGHT_TO_BOTTOM: d1.x_q6(x);          d2.x_q6(x - (width-vec_y));        p2.x_q6(x - width);        break;
+			case LEFT_TO_TOP:     case LEFT_TO_BOTTOM:  d1.x_q6(x);          d2.x_q6(x + (width-vec_y));        p2.x_q6(x + width);        break;
 			default:break;
 			}
 
@@ -209,13 +209,13 @@ void Polygon::arc_(Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags
 				case TOP_TO_LEFT:
 				case BOTTOM_TO_RIGHT:
 				case BOTTOM_TO_LEFT:
-					p1.x_(p2.x_());
+					p1.x_q6(p2.x_q6());
 					break;
 				case RIGHT_TO_TOP:
 				case RIGHT_TO_BOTTOM:
 				case LEFT_TO_TOP:
 				case LEFT_TO_BOTTOM:
-					p1.y_(p2.y_());
+					p1.y_q6(p2.y_q6());
 					break;
 					default:break;
 				}
@@ -225,10 +225,10 @@ void Polygon::arc_(Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags
 			{
 				switch(arc_tip)
 				{
-				case LEFT_TO_TOP:   case RIGHT_TO_TOP   : p1.move_(0,-move); d1.move_(0,-move); d2.move_(0,-move); p2.move_(0,-move); break;
-				case LEFT_TO_BOTTOM:case RIGHT_TO_BOTTOM: p1.move_(0,move) ; d1.move_(0,move) ; d2.move_(0,move) ; p2.move_(0,move);  break;
-				case TOP_TO_LEFT:   case BOTTOM_TO_LEFT : p1.move_(-move,0); d1.move_(-move,0); d2.move_(-move,0); p2.move_(-move,0); break;
-				case TOP_TO_RIGHT:  case BOTTOM_TO_RIGHT: p1.move_(move,0) ; d1.move_(move,0) ; d2.move_(move,0) ; p2.move_(move,0);  break;
+				case LEFT_TO_TOP:   case RIGHT_TO_TOP   : p1.move_q6(0,-move); d1.move_q6(0,-move); d2.move_q6(0,-move); p2.move_q6(0,-move); break;
+				case LEFT_TO_BOTTOM:case RIGHT_TO_BOTTOM: p1.move_q6(0,move) ; d1.move_q6(0,move) ; d2.move_q6(0,move) ; p2.move_q6(0,move);  break;
+				case TOP_TO_LEFT:   case BOTTOM_TO_LEFT : p1.move_q6(-move,0); d1.move_q6(-move,0); d2.move_q6(-move,0); p2.move_q6(-move,0); break;
+				case TOP_TO_RIGHT:  case BOTTOM_TO_RIGHT: p1.move_q6(move,0) ; d1.move_q6(move,0) ; d2.move_q6(move,0) ; p2.move_q6(move,0);  break;
 				default:break;
 				}
 			}
@@ -239,10 +239,10 @@ void Polygon::arc_(Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags
 				{
 					switch(arc_tip)
 					{
-					case TOP_TO_RIGHT:   case TOP_TO_LEFT:    p22.move_(0,thickness-radius)  ;break;
-					case BOTTOM_TO_RIGHT:case BOTTOM_TO_LEFT: p22.move_(0,0-(thickness-radius));break;
-					case RIGHT_TO_TOP:   case RIGHT_TO_BOTTOM:p22.move_(0-(thickness-radius),0);break;
-					case LEFT_TO_TOP:    case LEFT_TO_BOTTOM: p22.move_(thickness-radius,0)  ;break;
+					case TOP_TO_RIGHT:   case TOP_TO_LEFT:    p22.move_q6(0,thickness-radius)  ;break;
+					case BOTTOM_TO_RIGHT:case BOTTOM_TO_LEFT: p22.move_q6(0,0-(thickness-radius));break;
+					case RIGHT_TO_TOP:   case RIGHT_TO_BOTTOM:p22.move_q6(0-(thickness-radius),0);break;
+					case LEFT_TO_TOP:    case LEFT_TO_BOTTOM: p22.move_q6(thickness-radius,0)  ;break;
 					default:break;
 					}
 					add_point(p22);
@@ -269,10 +269,10 @@ void Polygon::arc_(Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags
 				{
 					switch(arc_tip)
 					{
-					case TOP_TO_RIGHT:   case TOP_TO_LEFT:    p2.move_(0,thickness-radius)  ;break;
-					case BOTTOM_TO_RIGHT:case BOTTOM_TO_LEFT: p2.move_(0,0-(thickness-radius));break;
-					case RIGHT_TO_TOP:   case RIGHT_TO_BOTTOM:p2.move_(0-(thickness-radius),0);break;
-					case LEFT_TO_TOP:    case LEFT_TO_BOTTOM: p2.move_(thickness-radius,0)  ;break;
+					case TOP_TO_RIGHT:   case TOP_TO_LEFT:    p2.move_q6(0,thickness-radius)  ;break;
+					case BOTTOM_TO_RIGHT:case BOTTOM_TO_LEFT: p2.move_q6(0,0-(thickness-radius));break;
+					case RIGHT_TO_TOP:   case RIGHT_TO_BOTTOM:p2.move_q6(0-(thickness-radius),0);break;
+					case LEFT_TO_TOP:    case LEFT_TO_BOTTOM: p2.move_q6(thickness-radius,0)  ;break;
 					default:break;
 					}
 					add_point(p2);
@@ -286,30 +286,30 @@ void Polygon::arc_(Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags
 			case TOP_TO_RIGHT:
 			case TOP_TO_LEFT:
 				if (intern)
-					p1.x_(p1.x_()+radius);
+					p1.x_q6(p1.x_q6()+radius);
 				else        
-					p1.x_(p1.x_()-radius);
+					p1.x_q6(p1.x_q6()-radius);
 				break;
 			case BOTTOM_TO_RIGHT:
 			case BOTTOM_TO_LEFT:
 				if (intern)
-					p1.x_(p1.x_()-radius);
+					p1.x_q6(p1.x_q6()-radius);
 				else        
-					p1.x_(p1.x_()+radius);
+					p1.x_q6(p1.x_q6()+radius);
 				break;
 			case RIGHT_TO_TOP:
 			case RIGHT_TO_BOTTOM:
 				if (intern)
-					p1.y_(p1.y_()+radius);
+					p1.y_q6(p1.y_q6()+radius);
 				else        
-					p1.y_(p1.y_()-radius);
+					p1.y_q6(p1.y_q6()-radius);
 				break;
 			case LEFT_TO_TOP:
 			case LEFT_TO_BOTTOM:
 				if (intern)
-					p1.y_(p1.y_()-radius);
+					p1.y_q6(p1.y_q6()-radius);
 				else        
-					p1.y_(p1.y_()+radius);
+					p1.y_q6(p1.y_q6()+radius);
 				break;
 			default:break;
 			}
@@ -317,3 +317,5 @@ void Polygon::arc_(Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags
 		}
 	}
 }
+
+

@@ -26,7 +26,7 @@ void PolyLines::prepend(Coord x, Coord y)
 	m_points.prepend(p);
 }
 
-void PolyLines::prepend_(Coord x, Coord y)
+void PolyLines::prepend_q6(Coord x, Coord y)
 {
 	UIManager::invalidator()->dirty(m_canvas, Invalidator::REDRAW);
 	Point p(x,y,false);
@@ -46,7 +46,7 @@ void PolyLines::append(Coord x, Coord y)
 	m_points.append(p);
 }
 
-void PolyLines::append_(Coord x, Coord y)
+void PolyLines::append_q6(Coord x, Coord y)
 {
 	UIManager::invalidator()->dirty(m_canvas, Invalidator::REDRAW);
 	Point p(x,y,false);
@@ -80,16 +80,16 @@ void PolyLines::get_side(const Point& p1, const Point& p2, Dim thickness, bool r
 	Linear result;
 	Coord dx;
 	Coord dy;
-	Line::get_thickness(p1.x_(), p1.y_(), p2.x_(), p2.y_(), thickness, dx, dy);
-	int64_t angle  = Linear::cross_product(p1.x_(), p1.y_(), p2.x_(), p2.y_(), p1.x_() - dx, p1.y_() + dy);
+	Line::get_thickness(p1.x_q6(), p1.y_q6(), p2.x_q6(), p2.y_q6(), thickness, dx, dy);
+	int64_t angle  = Linear::cross_product(p1.x_q6(), p1.y_q6(), p2.x_q6(), p2.y_q6(), p1.x_q6() - dx, p1.y_q6() + dy);
 
 	if ((angle < 0 && right) || (angle >= 0 && !right))
 	{
-		linear.set_coef(p1.x_() - dx, p1.y_() + dy, p2.x_() - dx, p2.y_() + dy);
+		linear.set_coef(p1.x_q6() - dx, p1.y_q6() + dy, p2.x_q6() - dx, p2.y_q6() + dy);
 	}
 	else
 	{
-		linear.set_coef(p1.x_() + dx, p1.y_()- dy, p2.x_() + dx, p2.y_() - dy);
+		linear.set_coef(p1.x_q6() + dx, p1.y_q6()- dy, p2.x_q6() + dx, p2.y_q6() - dy);
 	}
 }
 
@@ -157,23 +157,23 @@ void PolyLines::get_start(const Point& p1,const Point& p2,Point & right,Point & 
 	Coord dx;
 	Coord dy;
 
-	Line::get_thickness(p1.x_(), p1.y_(), p2.x_(), p2.y_(), m_thickness, dx, dy);
+	Line::get_thickness(p1.x_q6(), p1.y_q6(), p2.x_q6(), p2.y_q6(), m_thickness, dx, dy);
 
-	int64_t angle = Linear::cross_product(p1.x_(), p1.y_(), p2.x_(), p2.y_(), p1.x_() - dx, p1.y_() + dy);
+	int64_t angle = Linear::cross_product(p1.x_q6(), p1.y_q6(), p2.x_q6(), p2.y_q6(), p1.x_q6() - dx, p1.y_q6() + dy);
 
 	if (angle > 0)
 	{
-		left.x_ (p1.x_() - dx);
-		left.y_ (p1.y_() + dy);
-		right.x_(p1.x_() + dx);
-		right.y_(p1.y_() - dy);
+		left.x_q6(p1.x_q6() - dx);
+		left.y_q6(p1.y_q6() + dy);
+		right.x_q6(p1.x_q6() + dx);
+		right.y_q6(p1.y_q6() - dy);
 	}
 	else
 	{
-		left.x_ (p1.x_() + dx);
-		left.y_ (p1.y_() - dy);
-		right.x_(p1.x_() - dx);
-		right.y_(p1.y_() + dy);
+		left.x_q6(p1.x_q6() + dx);
+		left.y_q6(p1.y_q6() - dy);
+		right.x_q6(p1.x_q6() - dx);
+		right.y_q6(p1.y_q6() + dy);
 	}
 }
 
@@ -184,7 +184,7 @@ void PolyLines::add_start(const Point& p1, const Point& p2)
 	get_start(p1, p2, right, left);
 	add_left(left);
 	add_right(right);
-	///bd_printf("start %d,%d %d,%d\n",left.x,left.y_(),right.x,right.y_());
+	///bd_printf("start %d,%d %d,%d\n",left.x,left.y_q6(),right.x,right.y_q6());
 }
 
 void PolyLines::get_end(const Point& p1,const Point& p2,Point & right,Point & left)
@@ -192,23 +192,23 @@ void PolyLines::get_end(const Point& p1,const Point& p2,Point & right,Point & le
 	Coord dx;
 	Coord dy;
 
-	Line::get_thickness(p1.x_(), p1.y_(), p2.x_(), p2.y_(), m_thickness, dx, dy);
+	Line::get_thickness(p1.x_q6(), p1.y_q6(), p2.x_q6(), p2.y_q6(), m_thickness, dx, dy);
 
-	int64_t angle = Linear::cross_product(p1.x_(), p1.y_(), p2.x_(), p2.y_(), p1.x_() - dx, p1.y_() + dy);
+	int64_t angle = Linear::cross_product(p1.x_q6(), p1.y_q6(), p2.x_q6(), p2.y_q6(), p1.x_q6() - dx, p1.y_q6() + dy);
 
 	if (angle > 0)
 	{
-		left. x_(p2.x_() - dx);
-		left. y_(p2.y_() + dy);
-		right.x_(p2.x_() + dx);
-		right.y_(p2.y_() - dy);
+		left. x_q6(p2.x_q6() - dx);
+		left. y_q6(p2.y_q6() + dy);
+		right.x_q6(p2.x_q6() + dx);
+		right.y_q6(p2.y_q6() - dy);
 	}
 	else
 	{
-		left. x_(p2.x_() + dx);
-		left. y_(p2.y_() - dy);
-		right.x_(p2.x_() - dx);
-		right.y_(p2.y_() + dy);
+		left. x_q6(p2.x_q6() + dx);
+		left. y_q6(p2.y_q6() - dy);
+		right.x_q6(p2.x_q6() - dx);
+		right.y_q6(p2.y_q6() + dy);
 	}
 }
 
@@ -219,7 +219,7 @@ void PolyLines::add_end(const Point& p1, const Point& p2)
 	get_end(p1, p2, right, left);
 	add_left(left);
 	add_right(right);
-	//bd_printf("end %d,%d %d,%d\n",left.x,left.y_(),right.x,right.y_());
+	//bd_printf("end %d,%d %d,%d\n",left.x,left.y_q6(),right.x,right.y_q6());
 }
 
 void PolyLines::build()
@@ -265,4 +265,6 @@ void PolyLines::paint(const Point & shift)
 	}
 	UIManager::renderer()->draw(*this, shift);
 }
+
+
 

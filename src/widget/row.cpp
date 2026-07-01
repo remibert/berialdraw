@@ -25,12 +25,12 @@ void Row::flow_place(const Area & area)
 	{
 		Size size = child->marged_size();
 
-		linear_size += size.width_();
-		if (linear_size > area.width_())
+		linear_size += size.width_q6();
+		if (linear_size > area.width_q6())
 		{
 			row = 0;
 			column ++;
-			linear_size = size.width_();
+			linear_size = size.width_q6();
 		}
 		child->cell(column,row++);
 		child = child->next();
@@ -139,4 +139,5 @@ void Row::flow(bool v)
 	}
 	m_flow = v;
 }
+
 

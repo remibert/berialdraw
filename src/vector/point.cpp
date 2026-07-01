@@ -13,7 +13,7 @@ Point::Point()
 
 Point::Point(const Size & s)
 {
-	set_((Coord)s.width_(), (Coord)s.height_());
+	set_q6((Coord)s.width_q6(), (Coord)s.height_q6());
 }
 
 Point::Point(Coord x, Coord y, bool pixel)
@@ -24,7 +24,7 @@ Point::Point(Coord x, Coord y, bool pixel)
 	}
 	else
 	{
-		set_(x,y);
+		set_q6(x,y);
 	}
 }
 
@@ -38,7 +38,7 @@ Point::Point(const Point& p) :
 
 void Point::move(const Point & p)
 {
-	move_(p.x_(),p.y_());
+	move_q6(p.x_q6(),p.y_q6());
 }
 
 void Point::diff(const Point & position)
@@ -77,10 +77,12 @@ void Point::print(const char * name) const
 /** Adapt point to the UIManager scale */
 void Point::adapt_scale()
 {
-	Dim scale = UIManager::renderer()->scale_();
+	Dim scale = UIManager::renderer()->scale_q6();
 	if (scale != 1<<6 && scale != 0)
 	{
 		m_x = (Coord)((((int64_t)m_x)<<6) / (int64_t)scale);
 		m_y = (Coord)((((int64_t)m_y)<<6) / (int64_t)scale);
 	}
 }
+
+

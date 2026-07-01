@@ -63,13 +63,13 @@ void RadioStyle::radio_size(const Size & s)
 /** Set the radio box size with width and height in pixels */
 void RadioStyle::radio_size(Dim w, Dim h)
 {
-	radio_size_(w << 6, h << 6);
+	radio_size_q6(w << 6, h << 6);
 }
 
 /** Set the radio box size with a precision of 64th of a pixel */
-void RadioStyle::radio_size_(Dim w, Dim h)
+void RadioStyle::radio_size_q6(Dim w, Dim h)
 {
-	m_radio_size.set_(w, h);
+	m_radio_size.set_q6(w, h);
 }
 
 /** Set the radio padding in pixels */
@@ -95,4 +95,6 @@ void RadioStyle::group(const String & g)
 {
 	m_group = g;
 }
+
+
 

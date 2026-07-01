@@ -57,10 +57,10 @@ Size Checkbox::content_size()
 	// Add text height in the icon content size
 	if (m_text.size() > 0)
 	{
-		result.increase_(padding().left_() + m_text_size.width_() + padding().right_(), 0);
-		if (m_text_size.height_() > m_checkbox_size.height_())
+		result.increase_q6(padding().left_q6() + m_text_size.width_q6() + padding().right_q6(), 0);
+		if (m_text_size.height_q6() > m_checkbox_size.height_q6())
 		{
-			result.height_(m_text_size.height_());
+			result.height_q6(m_text_size.height_q6());
 		}
 	}
 	return result;
@@ -87,13 +87,13 @@ void Checkbox::place(const Area & area, bool in_layout)
 
 		// Place switch text
 		m_text_backclip = m_foreclip;
-		marg.left_(m_checkbox_size.width_() + padding().left_());
+		marg.left_q6(m_checkbox_size.width_q6() + padding().left_q6());
 		place_in_layout(m_text_backclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, (m_text_align | Align::ALIGN_BOTTOM));
 	
 		m_check_foreclip = m_text_foreclip;
 		m_check_foreclip.size(m_checkbox_size);
-		Coord move_y = (m_checkbox_size.height_() > m_text_size.height_() ? 0-((m_checkbox_size.height_() - m_text_size.height_())>>1) : ((m_text_size.height_()-m_checkbox_size.height_())>>1));
-		m_check_foreclip.position().move_(0-(m_checkbox_size.width_() + padding().left_()), move_y);
+		Coord move_y = (m_checkbox_size.height_q6() > m_text_size.height_q6() ? 0-((m_checkbox_size.height_q6() - m_text_size.height_q6())>>1) : ((m_text_size.height_q6()-m_checkbox_size.height_q6())>>1));
+		m_check_foreclip.position().move_q6(0-(m_checkbox_size.width_q6() + padding().left_q6()), move_y);
 		m_check_foreclip.position().nearest_pixel();
 	}
 }
@@ -112,7 +112,7 @@ void Checkbox::paint(const Region & parent_region)
 
 		// Create an area for just the checkbox (not including text)
 		Area area_box(m_check_foreclip);
-		area_box.size().set_(m_checkbox_size.width_(), m_checkbox_size.height_());
+		area_box.size().set_q6(m_checkbox_size.width_q6(), m_checkbox_size.height_q6());
 
 		// Draw checkbox box
 		Rect::build_focused_polygon(area_box, 
@@ -128,8 +128,8 @@ void Checkbox::paint(const Region & parent_region)
 		if (m_checked)
 		{
 			Area area_check(area_box);
-			area_check.size().decrease_(m_check_padding << 1, m_check_padding << 1);
-			area_check.position().move_(m_check_padding, m_check_padding);
+			area_check.size().decrease_q6(m_check_padding << 1, m_check_padding << 1);
+			area_check.position().move_q6(m_check_padding, m_check_padding);
 
 			// Parse and draw the check sketch using VectorScript
 			if (m_check_sketch.size() > 0)
@@ -144,10 +144,10 @@ void Checkbox::paint(const Region & parent_region)
 					// Render the check mark polygon in the specified color
 					polygon.color(stated_color(m_check_color));
 
-					Coord min_size = min(area_check.size().width_(), area_check.size().height_());
-					polygon.zoom_((min_size << 6)/resolution);
+					Coord min_size = min(area_check.size().width_q6(), area_check.size().height_q6());
+					polygon.zoom_q6((min_size << 6)/resolution);
 
-					UIManager::renderer()->draw(polygon, Point(area_check.position().x_(), area_check.position().y_(),false));
+					UIManager::renderer()->draw(polygon, Point(area_check.position().x_q6(), area_check.position().y_q6(),false));
 				}
 			}
 			else
@@ -252,5 +252,8 @@ void Checkbox::on_click(Widget * widget, const ClickEvent & evt)
 	UIManager::notifier()->check(m_checked, this);
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 }
+
+
+
 
 

@@ -36,7 +36,7 @@ namespace berialdraw
 		void margin(Dim top, Dim left, Dim bottom, Dim right);
 		
 		/** Set the margin with a precision of 64th of a pixel */
-		void margin_(Dim top, Dim left, Dim bottom, Dim right);
+		void margin_q6(Dim top, Dim left, Dim bottom, Dim right);
 
 		/** Set the margin */
 		void margin(Dim value);
@@ -61,13 +61,13 @@ namespace berialdraw
 		Coord angle() const { return m_angle >> 6; }
 
 		/** Get the angle with a precision of 64th of a degres */
-		Coord angle_() const { return m_angle; }
+		Coord angle_q6() const { return m_angle; }
 	
 		/** Set the angle in pixels */
 		void angle(Coord v);
 
 		/** Set the angle with a precision of 64th of a degres */
-		void angle_(Coord v);
+		void angle_q6(Coord v);
 
 
 
@@ -81,7 +81,7 @@ namespace berialdraw
 		void center(Coord x, Coord y=0);
 
 		/** Set the center with a precision of 64th of a pixel */
-		void center_(Coord x, Coord y=0);
+		void center_q6(Coord x, Coord y=0);
 
 
 		/** Get the position */
@@ -94,7 +94,7 @@ namespace berialdraw
 		void position(Coord x, Coord y=0);
 
 		/** Set the position with a precision of 64th of a pixel */
-		void position_(Coord x, Coord y=0);
+		void position_q6(Coord x, Coord y=0);
 
 
 		/** Get the color */
@@ -131,7 +131,7 @@ namespace berialdraw
 		void size(Dim w, Dim h=0);
 
 		/** Set the size with a precision of 64th of a pixel */
-		void size_(Dim w, Dim h=0);
+		void size_q6(Dim w, Dim h=0);
 
 
 

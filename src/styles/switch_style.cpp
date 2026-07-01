@@ -110,10 +110,10 @@ void SwitchStyle::switch_size(Dim w, Dim h)
 }
 
 /** Set the switch size with a precision of 64th of a pixel */
-void SwitchStyle::switch_size_(Dim w, Dim h)
+void SwitchStyle::switch_size_q6(Dim w, Dim h)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_switch_size.set_(w,h);
+	m_switch_size.set_q6(w,h);
 }
 
 /** Set the thumb padding in pixels */
@@ -121,3 +121,4 @@ void SwitchStyle::thumb_padding(Dim pad)
 {
 	m_thumb_padding = pad<<6;
 }
+

@@ -26,10 +26,10 @@ void bind_point(py::module& m) {
         .def("set", &berialdraw::Point::set,
              py::arg("x"), py::arg("y"),
              "Set the coordinates")
-        .def("set_", &berialdraw::Point::set_,
+        .def("set_", &berialdraw::Point::set_q6,
              py::arg("x"), py::arg("y"),
              "Set the coordinates with a precision of 64th of a pixel")
-        .def("move_", &berialdraw::Point::move_,
+        .def("move_", &berialdraw::Point::move_q6,
              py::arg("x_"), py::arg("y_"),
              "Move the point with a precision of 64th of a pixel")
         .def("nearest_pixel", &berialdraw::Point::nearest_pixel,
@@ -48,11 +48,11 @@ void bind_point(py::module& m) {
     bind_precision_property(cls, "x",
         &berialdraw::Point::x,
         &berialdraw::Point::x,
-        &berialdraw::Point::x_,
+        &berialdraw::Point::x_q6,
         "X coordinate (int for normal, float for high precision)");
     bind_precision_property(cls, "y",
         &berialdraw::Point::y,
         &berialdraw::Point::y,
-        &berialdraw::Point::y_,
+        &berialdraw::Point::y_q6,
         "Y coordinate (int for normal, float for high precision)");
 }

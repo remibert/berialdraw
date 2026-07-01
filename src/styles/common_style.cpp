@@ -162,10 +162,10 @@ void CommonStyle::place_in_layout(const Area & area, const Size & content, const
 
 	Align al;
 
-	if(extend & Extend::EXTEND_WIDTH || (content.width_() + margin.left_() + margin.right_()) >= area.size().width_())
+	if(extend & Extend::EXTEND_WIDTH || (content.width_q6() + margin.left_q6() + margin.right_q6()) >= area.size().width_q6())
 	{
 		al = Align::CENTER;
-		foreclip.width_(reduce(area.size().width_(), margin.left_() + margin.right_()));
+		foreclip.width_q6(reduce(area.size().width_q6(), margin.left_q6() + margin.right_q6()));
 	}
 	else if ((align & Align::ALIGN_HORIZONTAL) == Align::ALIGN_LEFT)
 	{
@@ -180,12 +180,12 @@ void CommonStyle::place_in_layout(const Area & area, const Size & content, const
 		al = Align::CENTER;
 	}
 
-	foreclip.x_(get_position(foreclip.x_(), foreclip.width_(), margin.left_(), margin.right_(), (Coord)area.width_(), al));
+	foreclip.x_q6(get_position(foreclip.x_q6(), foreclip.width_q6(), margin.left_q6(), margin.right_q6(), (Coord)area.width_q6(), al));
 
-	if(extend & Extend::EXTEND_HEIGHT || (content.height_() + margin.top_() + margin.bottom_()) >= area.size().height_())
+	if(extend & Extend::EXTEND_HEIGHT || (content.height_q6() + margin.top_q6() + margin.bottom_q6()) >= area.size().height_q6())
 	{
 		al = Align::CENTER;
-		foreclip.height_(reduce(area.height_(), margin.top_() + margin.bottom_()));
+		foreclip.height_q6(reduce(area.height_q6(), margin.top_q6() + margin.bottom_q6()));
 	}
 	if ((align & Align::ALIGN_VERTICAL) == Align::ALIGN_TOP)
 	{
@@ -200,17 +200,17 @@ void CommonStyle::place_in_layout(const Area & area, const Size & content, const
 		al = Align::CENTER;
 	}
 
-	foreclip.y_(get_position(foreclip.y_(), foreclip.height_(), margin.top_(), margin.bottom_(), area.height_(), al));
+	foreclip.y_q6(get_position(foreclip.y_q6(), foreclip.height_q6(), margin.top_q6(), margin.bottom_q6(), area.height_q6(), al));
 
 	foreclip.nearest_pixel();
 }
 
 void CommonStyle::place_absolutly(const Point & root, const Size & content, Area & foreclip, const Size & size, const Size & min_size, const Size & max_size)
 {
-	foreclip.x_(root.x_() + m_position.x_() + m_margin.left_());
-	foreclip.y_(root.y_() + m_position.y_() + m_margin.top_());
-	foreclip.width_ (adapt_size(content.width_() , size.is_width_undefined()  ? content.width_()  : size.width_(),  min_size.width_(),  max_size.width_()));
-	foreclip.height_(adapt_size(content.height_(), size.is_height_undefined() ? content.height_() : size.height_(), min_size.height_(), max_size.height_()));
+	foreclip.x_q6(root.x_q6() + m_position.x_q6() + m_margin.left_q6());
+	foreclip.y_q6(root.y_q6() + m_position.y_q6() + m_margin.top_q6());
+	foreclip.width_q6(adapt_size(content.width_q6() , size.is_width_undefined()  ? content.width_q6()  : size.width_q6(),  min_size.width_q6(),  max_size.width_q6()));
+	foreclip.height_q6(adapt_size(content.height_q6(), size.is_height_undefined() ? content.height_q6() : size.height_q6(), min_size.height_q6(), max_size.height_q6()));
 }
 
 
@@ -248,10 +248,10 @@ void CommonStyle::margin(Dim top, Dim left, Dim bottom, Dim right)
 }
 
 /** Set the margin with a precision of 64th of a pixel */
-void CommonStyle::margin_(Dim top, Dim left, Dim bottom, Dim right)
+void CommonStyle::margin_q6(Dim top, Dim left, Dim bottom, Dim right)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_margin.set_(top,left,bottom,right);
+	m_margin.set_q6(top,left,bottom,right);
 }
 
 /** Set the margin top in pixels */
@@ -292,7 +292,7 @@ void CommonStyle::angle(Coord v)
 }
 
 /** Set the angle with a precision of 64th of a pixel */
-void CommonStyle::angle_(Coord v)
+void CommonStyle::angle_q6(Coord v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_angle_modified = 1;
@@ -317,11 +317,11 @@ void CommonStyle::center(Coord x, Coord y)
 }
 
 /** Set the center with a precision of 64th of a pixel */
-void CommonStyle::center_(Coord x, Coord y)
+void CommonStyle::center_q6(Coord x, Coord y)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_geometry_modified = 1;
-	m_center.set_(x,y);
+	m_center.set_q6(x,y);
 }
 
 /** Set the position */
@@ -341,11 +341,11 @@ void CommonStyle::position(Coord x, Coord y)
 }
 
 /** Set the position with a precision of 64th of a pixel */
-void CommonStyle::position_(Coord x, Coord y)
+void CommonStyle::position_q6(Coord x, Coord y)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_geometry_modified = 1;
-	m_position.set_(x,y);
+	m_position.set_q6(x,y);
 }
 
 /** Get the back color */
@@ -435,11 +435,11 @@ void CommonStyle::size(Dim w, Dim h)
 }
 
 /** Set the size with a precision of 64th of a pixel */
-void CommonStyle::size_(Dim w, Dim h)
+void CommonStyle::size_q6(Dim w, Dim h)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_geometry_modified = 1;
-	m_size.set_(w,h);
+	m_size.set_q6(w,h);
 }
 
 /** Set the align */
@@ -470,3 +470,5 @@ void CommonStyle::hidden(bool v)
 		m_hidden = 0;
 	}
 }
+
+

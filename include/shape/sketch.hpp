@@ -95,7 +95,7 @@ namespace berialdraw
 		void resolution(Dim w, Dim h=0);
 
 		/** Set the resolution with a precision of 64th of a pixel */
-		void resolution_(Dim w, Dim h=0);
+		void resolution_q6(Dim w, Dim h=0);
 
 
 		/** Set the zoom ratio for the polygon
@@ -108,11 +108,11 @@ namespace berialdraw
 
 		/** Set the zoom ratio for the polygon
 		@param z zoom value shifted by 6 bits */
-		void zoom_(Dim z);
+		void zoom_q6(Dim z);
 		
 		/** Get the zoom ratio for the polygon
 		@return zoom zoom value shifted by 6 bits */
-		Dim zoom_() const;
+		Dim zoom_q6() const;
 
 
 		/** Get the filename value */

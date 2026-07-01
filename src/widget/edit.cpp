@@ -59,13 +59,13 @@ Size Edit::content_size()
 		Size char_size = m_font->text_size(" ");
 
 		// Adapt the size of text according to its size specified
-		m_text_size.set_(char_size.width_() * m_max_columns, char_size.height_() * m_max_lines);
+		m_text_size.set_q6(char_size.width_q6() * m_max_columns, char_size.height_q6() * m_max_lines);
 		m_text_modified = 0;
 	}
 
 	result = m_text_size;
-	result.height_(result.height_()+ padding().bottom_() + padding().top_() + m_focus_gap +m_focus_gap);
-	result.width_(result.width_()  + padding().left_()   + padding().right_() + m_focus_gap + m_focus_gap);
+	result.height_q6(result.height_q6()+ padding().bottom_q6() + padding().top_q6() + m_focus_gap +m_focus_gap);
+	result.width_q6(result.width_q6()  + padding().left_q6()   + padding().right_q6() + m_focus_gap + m_focus_gap);
 
 	return result;
 }
@@ -89,11 +89,11 @@ void Edit::place(const Area & area, bool in_layout)
 
 		if (m_extend == Extend::EXTEND_HEIGHT)
 		{
-			size.height_(m_foreclip.height_());
+			size.height_q6(m_foreclip.height_q6());
 		}
 		else
 		{
-			size.width_(m_foreclip.width_());
+			size.width_q6(m_foreclip.width_q6());
 		}
 		place_in_layout(backclip, size, marg, EXTEND_NONE, m_foreclip, m_align);
 	}
@@ -103,17 +103,17 @@ void Edit::place(const Area & area, bool in_layout)
 	m_text_backclip.decrease(padding());
 
 	// If text area greater than the max columns authorised
-	if (m_text_backclip.width_() > m_text_size.width_())
+	if (m_text_backclip.width_q6() > m_text_size.width_q6())
 	{
 		// Reduce size to the max columns
-		m_text_backclip.width_(m_text_size.width_());
+		m_text_backclip.width_q6(m_text_size.width_q6());
 	}
 	
 	// If text area greater than the max lines authorised
-	if (m_text_backclip.height_() > m_text_size.height_())
+	if (m_text_backclip.height_q6() > m_text_size.height_q6())
 	{
 		// Reduce size to the max lines
-		m_text_backclip.height_(m_text_size.height_());
+		m_text_backclip.height_q6(m_text_size.height_q6());
 	}
 
 	Margin marg;
@@ -339,4 +339,5 @@ StyleCascadeMode Edit::style_cascade_mode() const
 {
 	return StyleCascadeMode::NONE;
 }
+
 

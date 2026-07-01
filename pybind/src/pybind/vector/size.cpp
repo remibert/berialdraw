@@ -17,7 +17,7 @@ void bind_size(py::module& m) {
         .def("set", &berialdraw::Size::set,
              py::arg("w"), py::arg("h"),
              "Set size with width and height in pixels")
-        .def("set_", &berialdraw::Size::set_,
+        .def("set_", &berialdraw::Size::set_q6,
              py::arg("w"), py::arg("h"),
              "Set size with a precision of 64th of a pixel")
         .def("middle", &berialdraw::Size::middle,
@@ -40,10 +40,10 @@ void bind_size(py::module& m) {
         .def("increase", py::overload_cast<berialdraw::Dim, berialdraw::Dim>(&berialdraw::Size::increase),
              py::arg("w"), py::arg("h"),
              "Increase size with width and height in pixels")
-        .def("decrease_", &berialdraw::Size::decrease_,
+        .def("decrease_", &berialdraw::Size::decrease_q6,
              py::arg("w"), py::arg("h"),
              "Decrease size with a precision of 64th of a pixel")
-        .def("increase_", &berialdraw::Size::increase_,
+        .def("increase_", &berialdraw::Size::increase_q6,
              py::arg("w"), py::arg("h"),
              "Increase size with a precision of 64th of a pixel")
         .def("nearest_pixel", &berialdraw::Size::nearest_pixel,
@@ -62,11 +62,11 @@ void bind_size(py::module& m) {
     bind_precision_property(cls, "width",
         &berialdraw::Size::width,
         &berialdraw::Size::width,
-        &berialdraw::Size::width_,
+        &berialdraw::Size::width_q6,
         "Width (int for normal, float for high precision)");
     bind_precision_property(cls, "height",
         &berialdraw::Size::height,
         &berialdraw::Size::height,
-        &berialdraw::Size::height_,
+        &berialdraw::Size::height_q6,
         "Height (int for normal, float for high precision)");
 }

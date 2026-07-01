@@ -19,7 +19,7 @@ PolyPoints::PolyPoints(const PolyPoints & other):
 	PolyPoint* current = other.m_first_point;
 	while (current != 0)
 	{
-		append_(current->x_(), current->y_());
+		append_q6(current->x_q6(), current->y_q6());
 		current = current->next;
 	}
 }
@@ -34,8 +34,8 @@ bool PolyPoints::get_first(Point& p)
 	if (m_count > 0)
 	{
 		m_current = m_first_point;
-		p.x_(m_current->x_());
-		p.y_(m_current->y_());
+		p.x_q6(m_current->x_q6());
+		p.y_q6(m_current->y_q6());
 		return true;
 	}
 	return false;
@@ -49,8 +49,8 @@ bool PolyPoints::get_next(Point& p)
 	}
 	if (m_current)
 	{
-		p.x_(m_current->x_());
-		p.y_(m_current->y_());
+		p.x_q6(m_current->x_q6());
+		p.y_q6(m_current->y_q6());
 		return true;
 	}
 	return false;
@@ -78,7 +78,7 @@ void PolyPoints::prepend(Coord x, Coord y)
 {
 	prepend(Point(x,y,true));
 }
-void PolyPoints::prepend_(Coord x, Coord y)
+void PolyPoints::prepend_q6(Coord x, Coord y)
 {
 	prepend(Point(x,y,false));
 }
@@ -105,7 +105,7 @@ void PolyPoints::append(Coord x, Coord y)
 	append(Point(x,y,true));
 }
 
-void PolyPoints::append_(Coord x, Coord y)
+void PolyPoints::append_q6(Coord x, Coord y)
 {
 	append(Point(x,y,false));
 }
@@ -131,5 +131,7 @@ uint32_t PolyPoints::count()
 {
 	return m_count;
 }
+
+
 
 

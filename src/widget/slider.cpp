@@ -42,11 +42,11 @@ Size Slider::content_size()
 	Size size;
 	if (m_handle_size > m_track_size)
 	{
-		size.set_(m_handle_size,m_handle_size);
+		size.set_q6(m_handle_size,m_handle_size);
 	}
 	else
 	{
-		size.set_(m_track_size,m_track_size);
+		size.set_q6(m_track_size,m_track_size);
 	}
 
 	if (m_extend == Extend::EXTEND_HEIGHT)
@@ -102,11 +102,11 @@ void Slider::place(const Area & area, bool in_layout)
 
 		if (m_extend == Extend::EXTEND_HEIGHT)
 		{
-			size.height_(m_foreclip.height_());
+			size.height_q6(m_foreclip.height_q6());
 		}
 		else
 		{
-			size.width_(m_foreclip.width_());
+			size.width_q6(m_foreclip.width_q6());
 		}
 		place_in_layout(backclip, size, marg, EXTEND_NONE, m_foreclip, m_align);
 	}
@@ -175,14 +175,14 @@ void Slider::draw_track()
 		// Vertical slider
 		if (m_extend == Extend::EXTEND_HEIGHT)
 		{
-			y = m_foreclip.y_() + get_location(substract(m_foreclip.height_(),dif_radius+dif_radius)) + dif_radius;
-			x = m_foreclip.x_() + dif_radius;
+			y = m_foreclip.y_q6() + get_location(substract(m_foreclip.height_q6(),dif_radius+dif_radius)) + dif_radius;
+			x = m_foreclip.x_q6() + dif_radius;
 		}
 		// Horizontal slider
 		else
 		{
-			x = m_foreclip.x_() + get_location(substract(m_foreclip.width_(),dif_radius+dif_radius)) + dif_radius;
-			y = m_foreclip.y_() + dif_radius;
+			x = m_foreclip.x_q6() + get_location(substract(m_foreclip.width_q6(),dif_radius+dif_radius)) + dif_radius;
+			y = m_foreclip.y_q6() + dif_radius;
 		}
 	}
 	// If the track is thinner than fill
@@ -200,32 +200,32 @@ void Slider::draw_track()
 		// Vertical slider
 		if (m_extend == Extend::EXTEND_HEIGHT)
 		{
-			track_area.x_(m_foreclip.x_()+dif_radius);
-			track_area.y_(m_foreclip.y_()+dif_radius);
+			track_area.x_q6(m_foreclip.x_q6()+dif_radius);
+			track_area.y_q6(m_foreclip.y_q6()+dif_radius);
 
-			track_area.width_(track_size);
-			track_area.height_(substract(track_area.height_(),dif_radius+dif_radius));
+			track_area.width_q6(track_size);
+			track_area.height_q6(substract(track_area.height_q6(),dif_radius+dif_radius));
 
-			y = m_foreclip.y_() + get_location(m_foreclip.height_());
-			x = m_foreclip.x_();
+			y = m_foreclip.y_q6() + get_location(m_foreclip.height_q6());
+			x = m_foreclip.x_q6();
 		}
 		// Horizontal slider
 		else
 		{
-			track_area.x_(m_foreclip.x_()+dif_radius);
-			track_area.y_(m_foreclip.y_()+dif_radius);
+			track_area.x_q6(m_foreclip.x_q6()+dif_radius);
+			track_area.y_q6(m_foreclip.y_q6()+dif_radius);
 
-			track_area.width_(substract(track_area.width_(),dif_radius+dif_radius));
-			track_area.height_(track_size);
+			track_area.width_q6(substract(track_area.width_q6(),dif_radius+dif_radius));
+			track_area.height_q6(track_size);
 			
-			x = m_foreclip.x_() + get_location(m_foreclip.width_());
-			y = m_foreclip.y_();
+			x = m_foreclip.x_q6() + get_location(m_foreclip.width_q6());
+			y = m_foreclip.y_q6();
 		}
 	}
 
 	// Move handle
-	handle_area.position().set_(x,y);
-	handle_area.size().set_(m_handle_size,m_handle_size);
+	handle_area.position().set_q6(x,y);
+	handle_area.size().set_q6(m_handle_size,m_handle_size);
 
 	// Draw track
 	track_area.nearest_pixel();
@@ -338,13 +338,13 @@ void Slider::touch_handle(const Point & touch_position)
 
 	if (m_extend == Extend::EXTEND_HEIGHT)
 	{
-		position = (int64_t)touch_position.y_() - (int64_t)m_foreclip.position().y_()- (int64_t)(m_handle_size>>1);
-		length = m_foreclip.height_();
+		position = (int64_t)touch_position.y_q6() - (int64_t)m_foreclip.position().y_q6()- (int64_t)(m_handle_size>>1);
+		length = m_foreclip.height_q6();
 	}
 	else
 	{
-		position = (int64_t)touch_position.x_() - (int64_t)m_foreclip.position().x_() - (int64_t)(m_handle_size>>1);
-		length = m_foreclip.width_();
+		position = (int64_t)touch_position.x_q6() - (int64_t)m_foreclip.position().x_q6() - (int64_t)(m_handle_size>>1);
+		length = m_foreclip.width_q6();
 	}
 
 	if (m_track_size >= m_handle_size)
@@ -373,5 +373,6 @@ void Slider::on_select(Widget * widget, const SelectEvent & evt)
 {
 	touch_handle(evt.position());
 }
+
 
 

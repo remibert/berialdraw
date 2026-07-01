@@ -117,11 +117,11 @@ void TextStyle::font_size(Dim w, Dim h)
 }
 
 /** Set the font size with a precision of 64th of a pixel */
-void TextStyle::font_size_(Dim w, Dim h)
+void TextStyle::font_size_q6(Dim w, Dim h)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_font_modified = 1;
-	m_font_size.set_(w,h);
+	m_font_size.set_q6(w,h);
 }
 
 /** Select font */
@@ -192,10 +192,10 @@ void TextStyle::padding(Dim top, Dim left, Dim bottom, Dim right)
 }
 
 /** Set the padding with a precision of 64th of a pixel */
-void TextStyle::padding_(Dim top, Dim left, Dim bottom, Dim right)
+void TextStyle::padding_q6(Dim top, Dim left, Dim bottom, Dim right)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_padding.set_(top,left,bottom,right);
+	m_padding.set_q6(top,left,bottom,right);
 }
 
 /** Set the padding */
@@ -218,3 +218,4 @@ void TextStyle::text_align(Align v)
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_text_align = v;
 }
+

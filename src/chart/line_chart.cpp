@@ -123,9 +123,9 @@ void LineChart::compute_lines()
 		{
 			data = m_data_sets[ds]->data(d);
 			y = data - min;
-			y = (y * ((int32_t) m_size.height_()))/(max-min);
-			x = (d*(int32_t)(m_size.width_())/(int32_t)(width));
-			m_lines.append_(x,y);
+			y = (y * ((int32_t) m_size.height_q6()))/(max-min);
+			x = (d*(int32_t)(m_size.width_q6())/(int32_t)(width));
+			m_lines.append_q6(x,y);
 		}
 		m_lines.color(m_data_sets[ds]->border_color());
 		m_lines.thickness(m_data_sets[ds]->thickness());
@@ -134,4 +134,6 @@ void LineChart::compute_lines()
 		m_lines.clear();
 	}
 }
+
+
 

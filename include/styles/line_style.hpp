@@ -34,7 +34,7 @@ namespace berialdraw
 		void point1(Coord x, Coord y);
 
 		/** Set the point1 with a precision of 64th of a pixel */
-		void point1_(Coord x, Coord y);
+	void point1_q6(Coord x, Coord y);
 
 
 
@@ -48,7 +48,7 @@ namespace berialdraw
 		void point2(Coord x, Coord y);
 
 		/** Set the point2 with a precision of 64th of a pixel */
-		void point2_(Coord x, Coord y);
+	void point2_q6(Coord x, Coord y);
 
 		/** Get the property name for this style */
 		const char* property_name() const override { return "line"; }

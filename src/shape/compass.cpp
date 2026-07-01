@@ -17,9 +17,10 @@ Point Compass::position()
 
 	FT_Vector_Transform(&vec, &matrix);
 
-	result.x_(m_center.x_() + vec.x);
-	result.y_(m_center.y_() + vec.y);
+	result.x_q6(m_center.x_q6() + vec.x);
+	result.y_q6(m_center.y_q6() + vec.y);
 	return result;
 }
+
 
 

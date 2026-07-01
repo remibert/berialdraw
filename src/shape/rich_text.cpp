@@ -100,8 +100,8 @@ void RichText::init_default_span(TextSpan & span, uint32_t start, Font & font, u
 	span.font = &font;
 	span.color = color;
 	span.color_set = false;
-	span.line_height = font.real_size().height_();
-	span.baseline = font.baseline_();
+	span.line_height = font.real_size().height_q6();
+	span.baseline = font.baseline_q6();
 }
 
 /** Close the current span and add it to the list if it has content */
@@ -179,7 +179,7 @@ Size RichText::char_size_at(uint32_t clean_index) const
 Dim RichText::line_height_at(uint32_t clean_index) const
 {
 	Font & font = font_at(clean_index);
-	return font.real_size().height_();
+	return font.real_size().height_q6();
 }
 
 /** Get the baseline for the font at a given clean text index */
@@ -329,8 +329,10 @@ void RichText::parse_tag(const String & tag_content, Font & default_font,
 		// Update line_height and baseline from resolved font
 		if (span.font != 0)
 		{
-			span.line_height = span.font->real_size().height_();
-			span.baseline = span.font->baseline_();
+			span.line_height = span.font->real_size().height_q6();
+			span.baseline = span.font->baseline_q6();
 		}
 	}
 }
+
+

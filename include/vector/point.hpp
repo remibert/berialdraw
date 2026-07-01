@@ -112,7 +112,7 @@ namespace berialdraw
 		/** Set the coordinates with a precision of 64th of a pixel 
 		@param x X coordinate.
 		@param y Y coordinate. */
-		inline void set_(Coord x, Coord y)
+		inline void set_q6(Coord x, Coord y)
 		{
 			m_x_undefined = 0;
 			m_y_undefined = 0;
@@ -123,7 +123,7 @@ namespace berialdraw
 		/** Move the point by specified coordinates with a precision of 64th of a pixel 
 		@param x_ X coordinate to move by.
 		@param y_ Y coordinate to move by. */
-		inline void move_(Coord x_, Coord y_)
+		inline void move_q6(Coord x_, Coord y_)
 		{
 			m_x_undefined = 0;
 			m_y_undefined = 0;
@@ -133,21 +133,21 @@ namespace berialdraw
 
 		/** Get the y coordinate with a precision of 64th of a pixel 
 		@return Y coordinate. */
-		inline Coord y_() const
+		inline Coord y_q6() const
 		{
 			return m_y;
 		}
 
 		/** Get the x coordinate with a precision of 64th of a pixel 
 		@return X coordinate. */
-		inline Coord x_() const
+		inline Coord x_q6() const
 		{
 			return m_x;
 		}
 
 		/** Set the y coordinate with a precision of 64th of a pixel 
 		@param y Y coordinate. */
-		inline void y_(Coord y)
+		inline void y_q6(Coord y)
 		{
 			m_y_undefined = 0;
 			m_y = y;
@@ -155,7 +155,7 @@ namespace berialdraw
 
 		/** Set the x coordinate with a precision of 64th of a pixel 
 		@param x X coordinate. */
-		inline void x_(Coord x)
+		inline void x_q6(Coord x)
 		{
 			m_x_undefined = 0;
 			m_x = x;

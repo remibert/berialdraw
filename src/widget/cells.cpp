@@ -180,119 +180,119 @@ Size Cells::calc_sizes(Widget * widget)
 				}
 
 				// If the min size is greater than the max size
-				if(min_size.width_() > max_size.width_())
+				if(min_size.width_q6() > max_size.width_q6())
 				{
-					max_size.width_(min_size.width_());
+					max_size.width_q6(min_size.width_q6());
 				}
-				if(min_size.height_() > max_size.height_())
+				if(min_size.height_q6() > max_size.height_q6())
 				{
-					max_size.height_(min_size.height_());
+					max_size.height_q6(min_size.height_q6());
 				}
 	
 				marged_size = current->marged_size();
 
 				// If the mininal size is smaller than content size, set to the content size
-				if (min_size.width_() < marged_size.width_())
+				if (min_size.width_q6() < marged_size.width_q6())
 				{
-					min_size.width_(marged_size.width_());
+					min_size.width_q6(marged_size.width_q6());
 				}
-				if (min_size.height_() < marged_size.height_())
+				if (min_size.height_q6() < marged_size.height_q6())
 				{
-					min_size.height_(marged_size.height_());
+					min_size.height_q6(marged_size.height_q6());
 				}
 
 				// If the maximal size is smaller than content size, set to the content size
-				if (max_size.width_() < marged_size.width_())
+				if (max_size.width_q6() < marged_size.width_q6())
 				{
-					max_size.width_(marged_size.width_());
+					max_size.width_q6(marged_size.width_q6());
 				}
-				if (max_size.height_() < marged_size.height_())
+				if (max_size.height_q6() < marged_size.height_q6())
 				{
-					max_size.height_(marged_size.height_());
+					max_size.height_q6(marged_size.height_q6());
 				}
 
 				// Keep the maximal of content width
-				if(marged_size.width_() > m_widths[column].m_marged)
+				if(marged_size.width_q6() > m_widths[column].m_marged)
 				{
-					m_widths[column].m_marged = marged_size.width_();
+					m_widths[column].m_marged = marged_size.width_q6();
 				}
 
 				// Keep the maximal of content height
-				if (marged_size.height_() > m_heights[row].m_marged)
+				if (marged_size.height_q6() > m_heights[row].m_marged)
 				{
-					m_heights[row].m_marged = marged_size.height_();
+					m_heights[row].m_marged = marged_size.height_q6();
 				}
 
 				// Keep the maximal of minimal width
-				if (min_size.width_() > m_widths[column].m_mini)
+				if (min_size.width_q6() > m_widths[column].m_mini)
 				{
-					m_widths [column].m_mini = min_size.width_();
+					m_widths [column].m_mini = min_size.width_q6();
 				}
 
 				// Keep the maximal of minimal height
-				if (min_size.height_() > m_heights[row].m_mini)
+				if (min_size.height_q6() > m_heights[row].m_mini)
 				{
-					m_heights[row].m_mini = min_size.height_();
+					m_heights[row].m_mini = min_size.height_q6();
 				}
 
 				// Keep the minimal of maximal width
-				if (max_size.width_() < m_widths[column].m_maxi)
+				if (max_size.width_q6() < m_widths[column].m_maxi)
 				{
-					m_widths [column].m_maxi = max_size.width_();
+					m_widths [column].m_maxi = max_size.width_q6();
 				}
 
 				// Keep the minimal of maximal height
-				if (max_size.height_() < m_heights[row].m_maxi)
+				if (max_size.height_q6() < m_heights[row].m_maxi)
 				{
-					m_heights[row].m_maxi = max_size.height_();
+					m_heights[row].m_maxi = max_size.height_q6();
 				}
 			}
 			current = current->m_next;
 		}
 
 		// Compute all row sizes
-		m_min_size.height_(0);
-		m_max_size.height_(0);
-		m_marged_size.height_(0);
+		m_min_size.height_q6(0);
+		m_max_size.height_q6(0);
+		m_marged_size.height_q6(0);
 		for (row = 0; row < m_rows_count; row ++)
 		{
-			m_min_size.increase_   (0, m_heights[row].m_mini);
-			m_max_size.increase_   (0, m_heights[row].m_maxi);
-			m_marged_size.increase_(0, m_heights[row].m_marged);
+			m_min_size.increase_q6   (0, m_heights[row].m_mini);
+			m_max_size.increase_q6   (0, m_heights[row].m_maxi);
+			m_marged_size.increase_q6(0, m_heights[row].m_marged);
 		}
 
 		// Compute all column sizes
-		m_min_size.width_(0);
-		m_max_size.width_(0);
-		m_marged_size.width_(0);
+		m_min_size.width_q6(0);
+		m_max_size.width_q6(0);
+		m_marged_size.width_q6(0);
 		for (column = 0; column < m_columns_count; column++)
 		{
-			m_min_size.increase_   (m_widths[column].m_mini  , 0);
-			m_max_size.increase_   (m_widths[column].m_maxi  , 0);
-			m_marged_size.increase_(m_widths[column].m_marged, 0);
+			m_min_size.increase_q6   (m_widths[column].m_mini  , 0);
+			m_max_size.increase_q6   (m_widths[column].m_maxi  , 0);
+			m_marged_size.increase_q6(m_widths[column].m_marged, 0);
 		}
 	}
 
 	Size result = m_marged_size;
 
-	if (m_min_size.width_() > m_marged_size.width_())
+	if (m_min_size.width_q6() > m_marged_size.width_q6())
 	{
-		result.width_(m_min_size.width_());
+		result.width_q6(m_min_size.width_q6());
 	}
 
-	if (m_min_size.height_() > m_marged_size.height_())
+	if (m_min_size.height_q6() > m_marged_size.height_q6())
 	{
-		result.height_(m_min_size.height_());
+		result.height_q6(m_min_size.height_q6());
 	}
 
 	// Add space reserved for grid lines
 	if (m_vertical_line_thickness > 0 && m_columns_count > 0)
 	{
-		result.increase_((m_columns_count + 1) * m_vertical_line_thickness, 0);
+		result.increase_q6((m_columns_count + 1) * m_vertical_line_thickness, 0);
 	}
 	if (m_horizontal_line_thickness > 0 && m_rows_count > 0)
 	{
-		result.increase_(0, (m_rows_count + 1) * m_horizontal_line_thickness);
+		result.increase_q6(0, (m_rows_count + 1) * m_horizontal_line_thickness);
 	}
 
 	return result;
@@ -617,8 +617,8 @@ Dim Cells::resize_dim(Cell * cells, Dim count, Dim area_size, bool on_width)
 Size Cells::resize(const Area & area)
 {
 	Size result;
-	Dim available_width = area.width_();
-	Dim available_height = area.height_();
+	Dim available_width = area.width_q6();
+	Dim available_height = area.height_q6();
 	
 	// Reserve space for grid lines BEFORE distributing to cells
 	if (m_vertical_line_thickness > 0 && m_columns_count > 0)
@@ -631,8 +631,8 @@ Size Cells::resize(const Area & area)
 	}
 	
 	// Distribute only the remaining space to cells
-	result.width_(resize_dim(m_widths, m_columns_count, available_width, true));
-	result.height_(resize_dim(m_heights, m_rows_count, available_height, false));
+	result.width_q6(resize_dim(m_widths, m_columns_count, available_width, true));
+	result.height_q6(resize_dim(m_heights, m_rows_count, available_height, false));
 	
 	return result;
 }
@@ -651,7 +651,7 @@ void Cells::place(Widget *widget, const Area & area)
 
 		// Precompute row positions
 		Dim inc;
-		Dim y_pos = area.y_() + m_horizontal_line_thickness;
+		Dim y_pos = area.y_q6() + m_horizontal_line_thickness;
 		Dim true_pos = y_pos;
 		for (Dim i = 0; i < m_rows_count; i++)
 		{
@@ -672,7 +672,7 @@ void Cells::place(Widget *widget, const Area & area)
 		}
 
 		// Precompute column positions and widths
-		Dim x_pos = area.x_() + m_vertical_line_thickness;
+		Dim x_pos = area.x_q6() + m_vertical_line_thickness;
 		true_pos = x_pos;
 		for (Dim i = 0; i < m_columns_count; i++)
 		{
@@ -702,10 +702,10 @@ void Cells::place(Widget *widget, const Area & area)
 			// Only place if widget is in a valid cell
 			if (row < m_rows_count && column < m_columns_count)
 			{
-				cell.x_     (m_col_positions[column]);
-				cell.y_     (m_row_positions[row   ]);
-				cell.width_ (nearest_pixel(m_widths [column].m_placed));
-				cell.height_(nearest_pixel(m_heights[row   ].m_placed));
+				cell.x_q6(m_col_positions[column]);
+				cell.y_q6(m_row_positions[row   ]);
+				cell.width_q6(nearest_pixel(m_widths [column].m_placed));
+				cell.height_q6(nearest_pixel(m_heights[row   ].m_placed));
 				current->place(cell, true);
 			}
 			current = current->m_next;
@@ -748,3 +748,5 @@ void Cells::rebound(Widget * widget)
 		reallocate(1, 1);
 	}
 }
+
+

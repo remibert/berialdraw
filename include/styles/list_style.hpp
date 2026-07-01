@@ -42,13 +42,13 @@ namespace berialdraw
 		Dim separator_thickness() const { return m_separator_thickness >> 6; }
 
 		/** Get the separator thickness in 64ths of pixels */
-		Dim separator_thickness_() const { return m_separator_thickness; }
+		Dim separator_thickness_q6() const { return m_separator_thickness; }
 
 		/** Set the separator thickness in pixels */
 		void separator_thickness(Dim t);
 
 		/** Set the separator thickness in 64ths of pixels */
-		void separator_thickness_(Dim t);
+		void separator_thickness_q6(Dim t);
 
 
 	protected:

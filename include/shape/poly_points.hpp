@@ -52,7 +52,7 @@ namespace berialdraw
 		/** Append a point with a precision of 64th of a pixel to the end of the polyline.
 		@param x X-coordinate of the point shifted by 6 bits
 		@param y Y-coordinate of the point shifted by 6 bits */
-		void append_(Coord x, Coord y);
+		void append_q6(Coord x, Coord y);
 
 		/** Append a Point object to the end of the polyline.
 		@param p Point object to append */
@@ -66,7 +66,7 @@ namespace berialdraw
 		/** Prepend a point  with a precision of 64th of a pixel to the start of the polyline.
 		@param x X-coordinate of the point shifted by 6 bits
 		@param y Y-coordinate of the point shifted by 6 bits */
-		void prepend_(Coord x, Coord y);
+		void prepend_q6(Coord x, Coord y);
 
 		/** Prepend a Point object to the start of the polyline.
 		@param p Point object to prepend */

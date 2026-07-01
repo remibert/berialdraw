@@ -61,7 +61,7 @@ Size Window::content_size()
 	if (m_size.is_width_undefined() == false)
 	{
 		// Set the width specified
-		result.width_(m_size.width_());
+		result.width_q6(m_size.width_q6());
 	}
 	else
 	{
@@ -73,7 +73,7 @@ Size Window::content_size()
 	if (m_size.is_height_undefined() == false)
 	{
 		// Set the height specified
-		result.height_(m_size.height_());
+		result.height_q6(m_size.height_q6());
 	}
 	else
 	{
@@ -175,7 +175,7 @@ void Window::paint(const Region & parent_region)
 		Rect rect(0);
 			rect.size(m_backclip.size());
 			rect.position(m_backclip.position());
-			rect.radius_(0);
+			rect.radius_q6(0);
 			rect.color(stated_color(m_color));
 			rect.paint(shift);
 
@@ -305,5 +305,6 @@ void Window::on_select_widget(Widget * widget, const SelectEvent & evt)
 {
 	focus_to(m_with_focus, widget);
 }
+
 
 

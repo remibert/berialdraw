@@ -190,7 +190,7 @@ void PolyLines::test2()
 			axis->point1(0,0);
 			axis->point2(460,0);
 			axis->color(Color::LIGHT_BLACK);
-			axis->thickness_(1<<5);
+			axis->thickness_q6(1<<5);
 			axis->center(0,0);
 			axis->position(10,470);
 
@@ -199,7 +199,7 @@ void PolyLines::test2()
 			axis->point1(0,0);
 			axis->point2(460,0);
 			axis->color(Color::LIGHT_BLACK);
-			axis->thickness_(1<<5);
+			axis->thickness_q6(1<<5);
 			axis->center(0,0);
 			axis->position(10,470);
 			axis->angle(90);
@@ -282,3 +282,4 @@ void PolyLines::test()
 		test0();
 	}
 }
+

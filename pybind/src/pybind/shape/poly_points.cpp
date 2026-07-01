@@ -23,7 +23,7 @@ void bind_poly_points(py::module& m) {
             self.append(x, y);  // Version entière normale
         }, py::arg("x"), py::arg("y"), "Append point with integer coordinates")
         .def("append", [](berialdraw::PolyPoints& self, double x, double y) {
-            self.append_(static_cast<berialdraw::Coord>(x * 64), static_cast<berialdraw::Coord>(y * 64));  // Version float avec précision
+            self.append_q6(static_cast<berialdraw::Coord>(x * 64), static_cast<berialdraw::Coord>(y * 64));  // Version float avec précision
         }, py::arg("x"), py::arg("y"), "Append point with float coordinates (high precision)")
         
         .def("prepend", py::overload_cast<const berialdraw::Point&>(&berialdraw::PolyPoints::prepend),
@@ -33,7 +33,7 @@ void bind_poly_points(py::module& m) {
             self.prepend(x, y);  // Version entière normale
         }, py::arg("x"), py::arg("y"), "Prepend point with integer coordinates")
         .def("prepend", [](berialdraw::PolyPoints& self, double x, double y) {
-            self.prepend_(static_cast<berialdraw::Coord>(x * 64), static_cast<berialdraw::Coord>(y * 64));  // Version float avec précision
+            self.prepend_q6(static_cast<berialdraw::Coord>(x * 64), static_cast<berialdraw::Coord>(y * 64));  // Version float avec précision
         }, py::arg("x"), py::arg("y"), "Prepend point with float coordinates (high precision)")
         
         .def("clear", &berialdraw::PolyPoints::clear,

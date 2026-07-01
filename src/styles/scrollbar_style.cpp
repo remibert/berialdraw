@@ -94,7 +94,7 @@ void ScrollbarStyle::scrollbar_width(Dim w)
 }
 
 /** Set the scrollbar width in 64ths of pixels */
-void ScrollbarStyle::scrollbar_width_(Dim w)
+void ScrollbarStyle::scrollbar_width_q6(Dim w)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_scrollbar_width = w;
@@ -108,7 +108,7 @@ void ScrollbarStyle::scrollbar_radius(Dim r)
 }
 
 /** Set the scrollbar radius in 64ths of pixels */
-void ScrollbarStyle::scrollbar_radius_(Dim r)
+void ScrollbarStyle::scrollbar_radius_q6(Dim r)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_scrollbar_radius = r;
@@ -122,7 +122,7 @@ void ScrollbarStyle::scrollbar_margin(Dim m)
 }
 
 /** Set the scrollbar margin in 64ths of pixels */
-void ScrollbarStyle::scrollbar_margin_(Dim m)
+void ScrollbarStyle::scrollbar_margin_q6(Dim m)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_scrollbar_margin = m;

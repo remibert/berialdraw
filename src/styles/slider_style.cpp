@@ -88,7 +88,7 @@ void SliderStyle::track_size(Dim size_)
 }
 
 /** Set the track size with a precision of 64th of a pixel */
-void SliderStyle::track_size_(Dim size_)
+void SliderStyle::track_size_q6(Dim size_)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_track_size = size_;
@@ -116,7 +116,7 @@ void SliderStyle::handle_size(Dim size_)
 }
 
 /** Set the handle size with a precision of 64th of a pixel */
-void SliderStyle::handle_size_(Dim size_)
+void SliderStyle::handle_size_q6(Dim size_)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_handle_size = size_;

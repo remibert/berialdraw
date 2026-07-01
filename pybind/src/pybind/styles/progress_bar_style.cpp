@@ -15,13 +15,13 @@ void bind_progress_bar_style(py::module& m) {
     bind_precision_property<berialdraw::ProgressBarStyle>(cls, "fill_size",
         &berialdraw::ProgressBarStyle::fill_size,
         &berialdraw::ProgressBarStyle::fill_size,
-        &berialdraw::ProgressBarStyle::fill_size_,
+        &berialdraw::ProgressBarStyle::fill_size_q6,
         "Fill size (int for normal, float for high precision)");
     
     bind_precision_property<berialdraw::ProgressBarStyle>(cls, "track_size",
         &berialdraw::ProgressBarStyle::track_size,
         &berialdraw::ProgressBarStyle::track_size,
-        &berialdraw::ProgressBarStyle::track_size_,
+        &berialdraw::ProgressBarStyle::track_size_q6,
         "Track size (int for normal, float for high precision)");
     
     bind_scalar_property<berialdraw::ProgressBarStyle, int32_t>(cls, "value",

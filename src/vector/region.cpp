@@ -1342,7 +1342,7 @@ Region::Region()
 
 Region::Region(const Area & area)
 {
-	init_rect(&m_region, area.position().x_(), area.position().y_(), area.size().width_(), area.size().height_());
+	init_rect(&m_region, area.position().x_q6(), area.position().y_q6(), area.size().width_q6(), area.size().height_q6());
 }
 
 Region::Region(const Region & other)
@@ -1469,10 +1469,10 @@ Region::Overlap Region::is_inside(const Point & position) const
 	if(!is_empty(&m_region))
 	{
 		RegionBox rect;
-		rect.x1 = position.x_();
-		rect.y1 = position.y_();
-		rect.x2 = position.x_() + 64;
-		rect.y2 = position.y_() + 64;
+		rect.x1 = position.x_q6();
+		rect.y1 = position.y_q6();
+		rect.x2 = position.x_q6() + 64;
+		rect.y2 = position.y_q6() + 64;
 		result = is_contains_rectangle (&m_region, &rect);
 	}
 	return result;
@@ -1485,10 +1485,10 @@ Region::Overlap Region::is_inside(const Point & position, const Size & size) con
 	if(!is_empty(&m_region))
 	{
 		RegionBox rect;
-		rect.x1 = position.x_();
-		rect.y1 = position.y_();
-		rect.x2 = position.x_() + size.width_();
-		rect.y2 = position.y_() + size.height_();
+		rect.x1 = position.x_q6();
+		rect.y1 = position.y_q6();
+		rect.x2 = position.x_q6() + size.width_q6();
+		rect.y2 = position.y_q6() + size.height_q6();
 		result = is_contains_rectangle (&m_region, &rect);
 	}
 	return result;
@@ -1550,4 +1550,5 @@ void Region::print(const char * name) const
 	extents.print("");
 	bd_printf("\n");
 }
+
 

@@ -28,26 +28,26 @@ namespace berialdraw
 		Dim thickness() const { return m_thickness >> 6; }
 
 		/** Get the thickness with a precision of 64th of a pixel */
-		Dim thickness_() const { return m_thickness; }
+		Dim thickness_q6() const { return m_thickness; }
 	
 		/** Set the thickness in pixels */
 		void thickness(Dim v);
 
 		/** Set the thickness with a precision of 64th of a pixel */
-		void thickness_(Dim v);
+		void thickness_q6(Dim v);
 
 
 		/** Get the radius */
 		Dim radius() const { return m_radius >> 6; }
 
 		/** Get the radius with a precision of 64th of a pixel */
-		Dim radius_() const { return m_radius; }
+		Dim radius_q6() const { return m_radius; }
 	
 		/** Set the radius in pixels */
 		void radius(Dim v);
 
 		/** Set the radius with a precision of 64th of a pixel */
-		void radius_(Dim v);
+		void radius_q6(Dim v);
 
 		/** Get the property name for this style */
 		const char* property_name() const override { return "round"; }

@@ -354,7 +354,7 @@ void test_keyboard(Grid * grid, String & keyboard)
 			}
 			button->cell(0, column);
 			button->radius(7);
-			button->thickness_(32);
+			button->thickness_q6(32);
 			button->margin(3, 3, 3, 3);
 			button->border_color(0xFF7ABBE8);
 			button->color(0xFFE7FCFF);
@@ -719,7 +719,7 @@ static Button * new_menu_item(Widget * parent, uint32_t hue, const char * menu, 
 				icn->margin(3);
 				//icn->padding(10);
 				icn->radius(100);
-				icn->zoom_((64+64));
+				icn->zoom_q6((64+64));
 				Size icon_size = icn->content_size();
 				button->padding(0,icon_size.width()+5,0,0);
 		}
@@ -953,7 +953,7 @@ void Button::test13()
 				buttonRef->color(Color::LIGHT_DAY_BLUE,128);
 				buttonRef->border_color(Color::OCEAN_BLUE,128);
 				buttonRef->text_color(Color::NEW_MIDNIGHT_BLUE);
-				buttonRef->thickness_(1);
+				buttonRef->thickness_q6(1);
 				buttonRef->radius(11);
 				buttonRef->align(Align::CENTER);
 				buttonRef->margin(20);
@@ -1329,3 +1329,4 @@ void Button::test()
 		test1();
 	}
 }
+

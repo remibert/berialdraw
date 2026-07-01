@@ -7,7 +7,7 @@ Coord berialdraw::multiply(Coord a, Coord b)
 	return a*b;
 }
 
-Coord berialdraw::multiply_(Coord a, Coord b)
+Coord berialdraw::multiply_q6(Coord a, Coord b)
 {
 	Coord result;
 	result = (Coord)(((uint64_t) a * (uint64_t) b)>>6);

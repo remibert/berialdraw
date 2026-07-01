@@ -81,7 +81,7 @@ void GridStyle::horizontal_thickness(Dim v)
 }
 
 /** Set the horizontal grid thickness with a precision of 64th of a pixel */
-void GridStyle::horizontal_thickness_(Dim v)
+void GridStyle::horizontal_thickness_q6(Dim v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_horizontal_thickness = v;
@@ -95,7 +95,7 @@ void GridStyle::vertical_thickness(Dim v)
 }
 
 /** Set the vertical grid thickness with a precision of 64th of a pixel */
-void GridStyle::vertical_thickness_(Dim v)
+void GridStyle::vertical_thickness_q6(Dim v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_vertical_thickness = v;

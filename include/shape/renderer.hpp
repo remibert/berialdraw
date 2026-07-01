@@ -94,7 +94,7 @@ namespace berialdraw
 		/** Get the scale factor for screen resolution. A value of 64 corresponds to a scale factor of 1 (1 << 6).
 		The scale is defined in the class constructor.
 		@return The current scale factor (<< 6). */
-		Dim scale_();
+		Dim scale_q6();
 
 		/** Get the scale factor for screen resolution. The scale is defined in the class constructor.
 		@return The current scale factor. */

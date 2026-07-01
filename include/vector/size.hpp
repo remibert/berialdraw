@@ -94,7 +94,7 @@ namespace berialdraw
 		}
 
 		/** Set size with width and height with a precision of 64th of a pixel */
-		inline void set_(Dim w, Dim h)
+		inline void set_q6(Dim w, Dim h)
 		{
 			m_width  = w;
 			m_height = h;
@@ -103,26 +103,26 @@ namespace berialdraw
 		}
 
 		/** Get the height with a precision of 64th of a pixel */
-		inline Dim height_() const
+		inline Dim height_q6() const
 		{
 			return m_height;
 		}
 
 		/** Get the width with a precision of 64th of a pixel */
-		inline Dim width_() const
+		inline Dim width_q6() const
 		{
 			return m_width;
 		}
 
 		/** Set the height with a precision of 64th of a pixel */
-		inline void height_(Dim h)
+		inline void height_q6(Dim h)
 		{
 			m_height = h;
 			m_height_undefined = 0;
 		}
 
 		/** Set the width and height with a precision of 64th of a pixel */
-		inline void width_(Dim w)
+		inline void width_q6(Dim w)
 		{
 			m_width = w;
 			m_width_undefined = 0;
@@ -144,32 +144,32 @@ namespace berialdraw
 		/** Decrease size with width and height in pixels */
 		void decrease(const Size & size)
 		{
-			decrease_(size.width_(), size.height_());
+			decrease_q6(size.width_q6(), size.height_q6());
 		}
 
 		/** Increase size with width and height in pixels */
 		void increase(const Size & size)
 		{
-			increase(size.width_(), size.height_());
+			increase(size.width_q6(), size.height_q6());
 		}
 
 		/** Decrease size with width and height in pixels */
 		void decrease(Dim w, Dim h)
 		{
-			decrease_(w<<6, h<<6);
+			decrease_q6(w<<6, h<<6);
 		}
 
 		/** Increase size with width and height in pixels */
 		void increase(Dim w, Dim h)
 		{
-			increase_(w<<6, h<<6);
+			increase_q6(w<<6, h<<6);
 		}
 
 		/** Decrease size with width and height with a precision of 64th of a pixel */
-		void decrease_(Dim w, Dim h);
+		void decrease_q6(Dim w, Dim h);
 
 		/** Increase size with width and height with a precision of 64th of a pixel */
-		void increase_(Dim w, Dim h);
+		void increase_q6(Dim w, Dim h);
 
 		/** Serialize the content of size to json */
 		void serialize(const char * name, JsonIterator & it) const;

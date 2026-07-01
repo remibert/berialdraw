@@ -80,10 +80,10 @@ void ScrollViewStyle::padding(Dim top, Dim left, Dim bottom, Dim right)
 }
 
 /** Set the padding with a precision of 64th of a pixel */
-void ScrollViewStyle::padding_(Dim top, Dim left, Dim bottom, Dim right)
+void ScrollViewStyle::padding_q6(Dim top, Dim left, Dim bottom, Dim right)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_padding.set_(top, left, bottom, right);
+	m_padding.set_q6(top, left, bottom, right);
 }
 
 /** Set the padding */
@@ -99,3 +99,4 @@ void ScrollViewStyle::padding(Dim value)
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_padding.set(value, value, value, value);
 }
+

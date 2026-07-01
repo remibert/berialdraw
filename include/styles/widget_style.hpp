@@ -73,7 +73,7 @@ namespace berialdraw
 		void min_size(Dim w, Dim h=0);
 
 		/** Set the minsize with a precision of 64th of a pixel */
-		void min_size_(Dim w, Dim h=0);
+		void min_size_q6(Dim w, Dim h=0);
 
 
 		/** Get the max size */
@@ -89,7 +89,7 @@ namespace berialdraw
 		void max_size(Dim w, Dim h=0);
 
 		/** Set the max size with a precision of 64th of a pixel */
-		void max_size_(Dim w, Dim h=0);
+		void max_size_q6(Dim w, Dim h=0);
 
 
 		/** Get the id */

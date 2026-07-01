@@ -57,16 +57,16 @@ namespace berialdraw
 
 		/** Set the width of the area with a precision of 64th of a pixel 
 		@param w New width of the area */
-		inline void width_(Dim w)
+		inline void width_q6(Dim w)
 		{
-			m_size.width_(w);
+			m_size.width_q6(w);
 		}
 
 		/** Set the height of the area with a precision of 64th of a pixel 
 		@param h New height of the area */
-		inline void height_(Dim h)
+		inline void height_q6(Dim h)
 		{
-			m_size.height_(h);
+			m_size.height_q6(h);
 		}
 
 		/** Set the width of the area in pixels
@@ -85,16 +85,16 @@ namespace berialdraw
 
 		/** Set the x coordinate of the area with a precision of 64th of a pixel 
 		@param x New x coordinate of the area */
-		inline void x_(Coord x)
+		inline void x_q6(Coord x)
 		{
-			m_position.x_(x);
+			m_position.x_q6(x);
 		}
 
 		/** Set the y coordinate of the area with a precision of 64th of a pixel 
 		@param y New y coordinate of the area */
-		inline void y_(Coord y)
+		inline void y_q6(Coord y)
 		{
-			m_position.y_(y);
+			m_position.y_q6(y);
 		}
 
 		/** Set the x coordinate of the area in pixels
@@ -113,30 +113,30 @@ namespace berialdraw
 
 		/** Get the width of the area with a precision of 64th of a pixel 
 		@return Width of the area */
-		inline Dim width_() const
+		inline Dim width_q6() const
 		{
-			return m_size.width_();
+			return m_size.width_q6();
 		}
 
 		/** Get the height of the area with a precision of 64th of a pixel 
 		@return Height of the area */
-		inline Dim height_() const
+		inline Dim height_q6() const
 		{
-			return m_size.height_();
+			return m_size.height_q6();
 		}
 
 		/** Get the x coordinate of the area with a precision of 64th of a pixel 
 		@return X coordinate of the area */
-		inline Coord x_() const
+		inline Coord x_q6() const
 		{
-			return m_position.x_();
+			return m_position.x_q6();
 		}
 
 		/** Get the y coordinate of the area with a precision of 64th of a pixel 
 		@return Y coordinate of the area */
-		inline Coord y_() const
+		inline Coord y_q6() const
 		{
-			return m_position.y_();
+			return m_position.y_q6();
 		}
 
 		/** Get the width of the area in pixels
@@ -239,7 +239,7 @@ namespace berialdraw
 		@return true if area has non-zero width and height */
 		inline bool is_not_empty() const
 		{
-			return m_size.width_() > 0 && m_size.height_() > 0;
+			return m_size.width_q6() > 0 && m_size.height_q6() > 0;
 		}
 
 		/** Fast check if this area is completely outside another area (no overlap)
@@ -248,16 +248,16 @@ namespace berialdraw
 		inline bool is_outside(const Area& other) const
 		{
 			// Get coordinates and bounds for this area
-			Coord this_x1 = x_();
-			Coord this_y1 = y_();
-			Coord this_x2 = this_x1 + width_();
-			Coord this_y2 = this_y1 + height_();
+			Coord this_x1 = x_q6();
+			Coord this_y1 = y_q6();
+			Coord this_x2 = this_x1 + width_q6();
+			Coord this_y2 = this_y1 + height_q6();
 			
 			// Get coordinates and bounds for other area
-			Coord other_x1 = other.x_();
-			Coord other_y1 = other.y_();
-			Coord other_x2 = other_x1 + other.width_();
-			Coord other_y2 = other_y1 + other.height_();
+			Coord other_x1 = other.x_q6();
+			Coord other_y1 = other.y_q6();
+			Coord other_x2 = other_x1 + other.width_q6();
+			Coord other_y2 = other_y1 + other.height_q6();
 			
 			// Check if this area is completely to the right, left, below or above the other area
 			// This handles negative coordinates correctly
@@ -277,3 +277,5 @@ namespace berialdraw
 /// @endcond 
 	};
 }
+
+

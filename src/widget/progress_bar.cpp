@@ -38,11 +38,11 @@ Size ProgressBar::content_size()
 	Size size;
 	if (m_fill_size > m_track_size)
 	{
-		size.set_(m_fill_size,m_fill_size);
+		size.set_q6(m_fill_size,m_fill_size);
 	}
 	else
 	{
-		size.set_(m_track_size,m_track_size);
+		size.set_q6(m_track_size,m_track_size);
 	}
 
 	if (m_extend == Extend::EXTEND_HEIGHT)
@@ -80,11 +80,11 @@ void ProgressBar::place(const Area & area, bool in_layout)
 
 		if (m_extend == Extend::EXTEND_HEIGHT)
 		{
-			size.height_(m_foreclip.height_());
+			size.height_q6(m_foreclip.height_q6());
 		}
 		else
 		{
-			size.width_(m_foreclip.width_());
+			size.width_q6(m_foreclip.width_q6());
 		}
 		place_in_layout(backclip, size, marg, EXTEND_NONE, m_foreclip, m_align);
 	}
@@ -159,34 +159,34 @@ void ProgressBar::draw_track()
 		if (m_extend == Extend::EXTEND_HEIGHT)
 		{
 			width  = substract(fill_size,half_thickness+half_thickness);
-			height = get_bar_length(substract(m_foreclip.height_(), radius_dif + radius_dif + half_thickness + half_thickness));
-			x      = m_foreclip.x_() + radius_dif + half_thickness;
+			height = get_bar_length(substract(m_foreclip.height_q6(), radius_dif + radius_dif + half_thickness + half_thickness));
+			x      = m_foreclip.x_q6() + radius_dif + half_thickness;
 
 			// Align the fill in track
 			if ((m_align & Align::ALIGN_VERTICAL) == Align::ALIGN_TOP)
 			{
-				y = m_foreclip.y_() + radius_dif + half_thickness;
+				y = m_foreclip.y_q6() + radius_dif + half_thickness;
 			}
 			else
 			{
-				y = m_foreclip.y_() + substract(m_foreclip.height_(), (height+radius_dif+half_thickness));
+				y = m_foreclip.y_q6() + substract(m_foreclip.height_q6(), (height+radius_dif+half_thickness));
 			}
 		}
 		// Horizontal progress bar
 		else
 		{
 			height  = substract(fill_size,half_thickness+half_thickness);
-			width  = get_bar_length(substract(m_foreclip.width_(), radius_dif + radius_dif + half_thickness + half_thickness));
-			y      = m_foreclip.y_() + radius_dif + half_thickness;
+			width  = get_bar_length(substract(m_foreclip.width_q6(), radius_dif + radius_dif + half_thickness + half_thickness));
+			y      = m_foreclip.y_q6() + radius_dif + half_thickness;
 
 			// Align the fill in track
 			if ((m_align & Align::ALIGN_HORIZONTAL) == Align::ALIGN_LEFT)
 			{
-				x = m_foreclip.x_() + radius_dif + half_thickness;
+				x = m_foreclip.x_q6() + radius_dif + half_thickness;
 			}
 			else
 			{
-				x = m_foreclip.x_() + substract(m_foreclip.width_(), (width+radius_dif+half_thickness));
+				x = m_foreclip.x_q6() + substract(m_foreclip.width_q6(), (width+radius_dif+half_thickness));
 			}
 		}
 	}
@@ -208,46 +208,46 @@ void ProgressBar::draw_track()
 		// Vertical progress bar
 		if (m_extend == Extend::EXTEND_HEIGHT)
 		{
-			track_area.width_(track_size);
-			track_area.x_(m_foreclip.x_()+radius_dif);
+			track_area.width_q6(track_size);
+			track_area.x_q6(m_foreclip.x_q6()+radius_dif);
 
 			width = fill_size;
-			height = get_bar_length(m_foreclip.height_());
-			x      = m_foreclip.x_();
+			height = get_bar_length(m_foreclip.height_q6());
+			x      = m_foreclip.x_q6();
 
 			// Align the fill in track
 			if ((m_align & Align::ALIGN_VERTICAL) == Align::ALIGN_TOP)
 			{
-				y = m_foreclip.y_();
+				y = m_foreclip.y_q6();
 			}
 			else
 			{
-				y = m_foreclip.y_()+ substract(m_foreclip.height_(),height);
+				y = m_foreclip.y_q6()+ substract(m_foreclip.height_q6(),height);
 			}
 		}
 		// Horizontal progress bar
 		else
 		{
-			track_area.height_(track_size);
-			track_area.y_(m_foreclip.y_()+radius_dif);
+			track_area.height_q6(track_size);
+			track_area.y_q6(m_foreclip.y_q6()+radius_dif);
 			
-			width = get_bar_length(m_foreclip.width_());
+			width = get_bar_length(m_foreclip.width_q6());
 			height = fill_size;
-			y     = m_foreclip.y_();
+			y     = m_foreclip.y_q6();
 
 			// Align the fill in track
 			if ((m_align & Align::ALIGN_HORIZONTAL) == Align::ALIGN_LEFT)
 			{
-				x = m_foreclip.x_();
+				x = m_foreclip.x_q6();
 			}
 			else
 			{
-				x = m_foreclip.x_() + substract(m_foreclip.width_(),width);
+				x = m_foreclip.x_q6() + substract(m_foreclip.width_q6(),width);
 			}
 		}
 	}
-	fill_area.position().set_(x,y);
-	fill_area.size().set_(width,height);
+	fill_area.position().set_q6(x,y);
+	fill_area.size().set_q6(width,height);
 
 	// Draw track
 	track_area.nearest_pixel();
@@ -311,4 +311,5 @@ StyleCascadeMode ProgressBar::style_cascade_mode() const
 {
 	return StyleCascadeMode::NONE;
 }
+
 

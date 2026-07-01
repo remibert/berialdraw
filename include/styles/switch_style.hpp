@@ -66,7 +66,7 @@ namespace berialdraw
 		void switch_size(Dim w, Dim h);
 
 		/** Set the switch size with a precision of 64th of a pixel */
-		void switch_size_(Dim w, Dim h);
+		void switch_size_q6(Dim w, Dim h);
 
 
 		/** Get the thumb_padding in pixels */

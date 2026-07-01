@@ -18,7 +18,7 @@ void bind_slider_style(py::module& m) {
                 if (py::isinstance<py::int_>(value)) {
                     self.handle_size(value.cast<berialdraw::Dim>());
                 } else if (py::isinstance<py::float_>(value)) {
-                    self.handle_size_(static_cast<berialdraw::Coord>(value.cast<double>() * 64));
+                    self.handle_size_q6(static_cast<berialdraw::Coord>(value.cast<double>() * 64));
                 } else {
                     throw std::invalid_argument("handle_size must be int or float");
                 }
@@ -29,7 +29,7 @@ void bind_slider_style(py::module& m) {
                 if (py::isinstance<py::int_>(value)) {
                     self.track_size(value.cast<berialdraw::Dim>());
                 } else if (py::isinstance<py::float_>(value)) {
-                    self.track_size_(static_cast<berialdraw::Coord>(value.cast<double>() * 64));
+                    self.track_size_q6(static_cast<berialdraw::Coord>(value.cast<double>() * 64));
                 } else {
                     throw std::invalid_argument("track_size must be int or float");
                 }

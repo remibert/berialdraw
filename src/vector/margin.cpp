@@ -15,7 +15,7 @@ Margin::Margin(Dim t, Dim l, Dim b, Dim r, bool pixel)
 	}
 	else
 	{
-		set_(t,l,b,r);
+		set_q6(t,l,b,r);
 	}
 }
 
@@ -43,3 +43,4 @@ void Margin::unserialize(const char * name, JsonIterator & it)
 	m_bottom  = (bottom == Size::MAX_SIZE) ? m_bottom : bottom;
 	m_right   = (right  == Size::MAX_SIZE) ? m_right  : right ;
 }
+

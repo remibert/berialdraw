@@ -33,11 +33,11 @@ namespace berialdraw
 
 		/** Set the zoom ratio for the polygon
 		@param z zoom value shifted by 6 bits */
-		void zoom_(Dim z);
+		void zoom_q6(Dim z);
 
 		/** Get the zoom ratio for the polygon
 		@return zoom zoom value shifted by 6 bits */
-		Dim zoom_() const { return m_zoom; }
+		Dim zoom_q6() const { return m_zoom; }
 
 		// Filename properties
 
@@ -59,7 +59,7 @@ namespace berialdraw
 		void icon_padding(Dim top, Dim left, Dim bottom, Dim right);
 
 		/** Set the padding with a precision of 64th of a pixel */
-		void icon_padding_(Dim top, Dim left, Dim bottom, Dim right);
+		void icon_padding_q6(Dim top, Dim left, Dim bottom, Dim right);
 
 		// Icon color properties
 

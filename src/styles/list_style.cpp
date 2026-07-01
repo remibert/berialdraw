@@ -74,7 +74,7 @@ void ListStyle::separator_thickness(Dim t)
 }
 
 /** Set the separator thickness in 64ths of pixels */
-void ListStyle::separator_thickness_(Dim t)
+void ListStyle::separator_thickness_q6(Dim t)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_separator_thickness = t;

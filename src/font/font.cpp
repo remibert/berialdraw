@@ -113,7 +113,7 @@ void Font::size(const Size & size)
 	if (m_font->m_fontface.get() && m_font->m_fontface->face())
 	{
 		// If the size has changed or font not loaded
-		if(m_font->m_pixel_size.height_() != size.height_() || m_font->m_pixel_size.width_() != size.width_() || m_font->m_ft_size == 0)
+		if(m_font->m_pixel_size.height_q6() != size.height_q6() || m_font->m_pixel_size.width_q6() != size.width_q6() || m_font->m_ft_size == 0)
 		{
 			// If size allocated
 			if (m_font->m_ft_size)
@@ -131,7 +131,7 @@ void Font::size(const Size & size)
 			// Extract font informations
 			m_font->m_pixel_size = size;
 			m_font->m_real_size = size;
-			m_font->m_real_size.height_(abs(m_font->m_fontface->face()->size->metrics.ascender) + abs(m_font->m_fontface->face()->size->metrics.descender));
+			m_font->m_real_size.height_q6(abs(m_font->m_fontface->face()->size->metrics.ascender) + abs(m_font->m_fontface->face()->size->metrics.descender));
 			m_font->m_baseline = m_font->m_fontface->face()->size->metrics.ascender;
 			m_font->m_glyphs.clear();
 		}
@@ -145,7 +145,7 @@ Coord Font::baseline() const
 	return m_font->m_baseline>>6 ;
 }
 
-Coord Font::baseline_() const
+Coord Font::baseline_q6() const
 {
 	if (m_font == 0)
 		return 0;
@@ -177,7 +177,7 @@ void Font::draw(const String & text, const Point & position, const Point & cente
 		if (exporter)
 		{
 			Size size;
-			if (m_font->m_pixel_size.width_() != m_font->m_pixel_size.height_())
+			if (m_font->m_pixel_size.width_q6() != m_font->m_pixel_size.height_q6())
 			{
 				size = text_size(text);
 			}
@@ -218,8 +218,8 @@ Size Font::text_size(const String & text)
 				glyph = m_font->m_glyphs.load(character,0);
 				if (glyph)
 				{
-					result.width_ (result.width_() + glyph->m_advancex);
-					result.height_(result.height_()+ glyph->m_advancey);
+					result.width_q6(result.width_q6() + glyph->m_advancex);
+					result.height_q6(result.height_q6()+ glyph->m_advancey);
 				}
 			}
 		}
@@ -242,8 +242,8 @@ Size Font::char_size(wchar_t character)
 			glyph = m_font->m_glyphs.load(character, 0);
 			if (glyph)
 			{
-				result.width_ (result.width_() + glyph->m_advancex);
-				result.height_(result.height_()+ glyph->m_advancey);
+				result.width_q6(result.width_q6() + glyph->m_advancex);
+				result.height_q6(result.height_q6()+ glyph->m_advancey);
 			}
 		}
 	}

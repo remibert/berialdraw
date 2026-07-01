@@ -47,7 +47,7 @@ namespace berialdraw
 		void padding(Dim top, Dim left, Dim bottom, Dim right);
 
 		/** Set the padding with a precision of 64th of a pixel */
-		void padding_(Dim top, Dim left, Dim bottom, Dim right);
+		void padding_q6(Dim top, Dim left, Dim bottom, Dim right);
 
 		/** Set the padding */
 		void padding(Dim horizontal, Dim vertical);

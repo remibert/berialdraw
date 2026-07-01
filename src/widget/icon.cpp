@@ -50,24 +50,24 @@ Size Icon::icon_size()
 	{
 		m_sketch->filename(m_filename);
 		m_icon_modified = false;
-		m_sketch->zoom_(m_zoom);
+		m_sketch->zoom_q6(m_zoom);
 		if (m_sketch->load())
 		{
-			m_icon_size.set_(compute_zoom(m_sketch->resolution().width_(), zoom_()), compute_zoom(m_sketch->resolution().height_(), zoom_()));
-			m_icon_size.height_(m_icon_size.height_() + icon_padding().bottom_() + icon_padding().top_());
-			m_icon_size.width_ (m_icon_size.width_()  + icon_padding().left_()   + icon_padding().right_());
+			m_icon_size.set_q6(compute_zoom(m_sketch->resolution().width_q6(), zoom_q6()), compute_zoom(m_sketch->resolution().height_q6(), zoom_q6()));
+			m_icon_size.height_q6(m_icon_size.height_q6() + icon_padding().bottom_q6() + icon_padding().top_q6());
+			m_icon_size.width_q6(m_icon_size.width_q6()  + icon_padding().left_q6()   + icon_padding().right_q6());
 
 			if (m_children)
 			{
 				// Compute the children with marged size
 				Size children_size = Widget::children_size();
-				if (children_size.width_() > m_icon_size.width_())
+				if (children_size.width_q6() > m_icon_size.width_q6())
 				{
-					m_icon_size.width_(children_size.width_());
+					m_icon_size.width_q6(children_size.width_q6());
 				}
-				if (children_size.height_() > m_icon_size.height_())
+				if (children_size.height_q6() > m_icon_size.height_q6())
 				{
-					m_icon_size.height_(children_size.height_());
+					m_icon_size.height_q6(children_size.height_q6());
 				}
 			}
 		}
@@ -97,9 +97,9 @@ Size Icon::content_size()
 	}
 	
 	// Add text height in the icon content size
-	if (m_text_size.width_() > 0 && m_text_size.height_() > 0)
+	if (m_text_size.width_q6() > 0 && m_text_size.height_q6() > 0)
 	{
-		result.increase_(0, padding().top_() + m_text_size.height_() + padding().bottom_());
+		result.increase_q6(0, padding().top_q6() + m_text_size.height_q6() + padding().bottom_q6());
 	}
 	return result;
 }
@@ -118,16 +118,16 @@ void Icon::place(const Area & area, bool in_layout)
 
 	// Place button text
 	m_text_backclip = m_foreclip;
-	marg.bottom_(padding().bottom_());
+	marg.bottom_q6(padding().bottom_q6());
 	place_in_layout(m_text_backclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, (m_text_align | Align::ALIGN_BOTTOM));
 	
 	// Place the icon
 	m_icon_foreclip = m_foreclip;
 
 	// Add text height in the icon content size
-	if (m_text_size.width_() > 0 && m_text_size.height_() > 0)
+	if (m_text_size.width_q6() > 0 && m_text_size.height_q6() > 0)
 	{
-		m_icon_foreclip.size().decrease_(0,padding().top_() + m_text_size.height_() + padding().bottom_());
+		m_icon_foreclip.size().decrease_q6(0,padding().top_q6() + m_text_size.height_q6() + padding().bottom_q6());
 	}
 
 	// Place all children
@@ -215,5 +215,8 @@ StyleCascadeMode Icon::style_cascade_mode() const
 {
 	return StyleCascadeMode::NONE;
 }
+
+
+
 
 

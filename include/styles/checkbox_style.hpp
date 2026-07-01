@@ -41,7 +41,7 @@ namespace berialdraw
 		void checkbox_size(Dim w, Dim h);
 
 		/** Set the checkbox box size with a precision of 64th of a pixel */
-		void checkbox_size_(Dim w, Dim h);
+		void checkbox_size_q6(Dim w, Dim h);
 
 
 		/** Get the checkbox padding in pixels */
