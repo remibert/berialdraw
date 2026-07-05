@@ -309,8 +309,79 @@ void Widget::place_in_area(const Area & area, bool in_layout)
 	}
 	else
 	{
-		place_absolutly(area.position(), content_size(), m_foreclip, m_size, m_min_size, m_max_size);
+		place_absolutly(area.position(), content_size(), 
+			m_foreclip, m_size, m_min_size, m_max_size);
+		//m_foreclip.print(m_classname, true);
 	}
+}
+
+// Place widget in area not extend widget and align it in the area
+void Widget::place_in_area_extend(const Area& area, bool & in_layout)
+{
+	if (!is_absolute())
+	{
+		in_layout = true;
+	}
+	place_in_area(area, in_layout);
+}
+
+// Place widget in area not extend widget and align it in the area
+void Widget::place_in_area_not_extend(const Area & area, bool & in_layout)
+{
+	if (!is_absolute())
+	{
+		in_layout = true;
+	}
+	
+	place_in_area(area, in_layout);
+	
+	// If absolute place, handle extend-aware centering
+	if (in_layout == false)
+	{
+		Area backclip = m_foreclip;
+		Margin marg;
+		Size size(content_size());
+		
+		if (m_extend == Extend::EXTEND_HEIGHT)
+		{
+			size.height_q6(m_foreclip.height_q6());
+		}
+		else
+		{
+			size.width_q6(m_foreclip.width_q6());
+		}
+		place_in_layout(backclip, size, marg, EXTEND_NONE, m_foreclip, m_align);
+	}
+}
+
+// Place widget in area with thickness reduced from all sides
+void Widget::place_in_area_with_thickness(const Area & area, bool in_layout, uint16_t thickness)
+{
+	place_in_area_extend(area, in_layout);
+	m_backclip = m_foreclip;
+	m_foreclip.decrease_thickness(thickness);
+}
+
+// Place text beside an element (checkbox, radio, switch)
+void Widget::place_text_with_element(
+	const Size & text_size,
+	const Size & element_size,
+	Area & text_backclip,
+	Area & text_foreclip,
+	Area & element_foreclip,
+	Align text_align_with_bottom,
+	const Margin & padding)
+{
+	Margin marg;
+	text_backclip = m_foreclip;
+	marg.left_q6(element_size.width_q6() + padding.left_q6());
+	place_in_layout(text_backclip, text_size, marg, EXTEND_NONE, text_foreclip, text_align_with_bottom);
+	
+	element_foreclip = text_foreclip;
+	element_foreclip.size(element_size);
+	Coord move_y = (element_size.height_q6() > text_size.height_q6() ? 0-((element_size.height_q6() - text_size.height_q6())>>1) : ((text_size.height_q6()-element_size.height_q6())>>1));
+	element_foreclip.position().move_q6(0-(element_size.width_q6() + padding.left_q6()), move_y);
+	element_foreclip.position().nearest_pixel();
 }
 
 /** Indicates whether the widget is positioned absolutely */
@@ -605,6 +676,11 @@ uint32_t Widget::stated_color(uint32_t color)
 	return result;
 }
 
+/** Return the stated color with alpha */
+uint32_t Widget::stated_color(uint32_t color, uint8_t alpha)
+{
+	return (stated_color(color) & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
+}
 
 /** Return the parent focus color */
 uint32_t Widget::parent_focus_color(uint32_t color)
@@ -625,12 +701,14 @@ uint32_t Widget::parent_focus_color(uint32_t color)
 			}				
 		}
 	}
-
 	return result;
 }
 
-
-
+/** Return the parent focus color with alpha */
+uint32_t Widget::parent_focus_color(uint32_t color, uint8_t alpha)
+{
+	return (parent_focus_color(color) & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
+}
 
 Widget * Widget::search(uint16_t id)
 {

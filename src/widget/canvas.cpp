@@ -7,6 +7,7 @@ Canvas::Canvas(Widget * parent):
 {
 	UIManager::styles()->apply(this, (CommonStyle*)this);
 	UIManager::styles()->apply(this, (WidgetStyle*)this);
+	UIManager::styles()->apply(this, (BorderStyle*)this);
 }
 
 Canvas::~Canvas()
@@ -19,6 +20,7 @@ void Canvas::copy(const Canvas & canvas)
 {
 	*((CommonStyle*)this) = *(CommonStyle*)(&canvas);
 	*((WidgetStyle*)this) = *(WidgetStyle*)(&canvas);
+	*((BorderStyle*)this) = *(BorderStyle*)(&canvas);
 }
 
 /** Copy all styles of the canvas */
@@ -69,12 +71,8 @@ Size Canvas::content_size()
 
 void Canvas::place(const Area & area, bool in_layout)
 {
-	if (!is_absolute())
-	{
-		in_layout = true;
-	}
-	place_in_area(area, in_layout);
-	Widget::place(area, in_layout);
+	place_in_area_with_thickness(area, in_layout, m_thickness);
+	Widget::place(m_foreclip, in_layout);
 }
 
 void Canvas::paint(const Region & parent_region)
@@ -203,6 +201,7 @@ void Canvas::serialize(JsonIterator & it)
 	it["type"] = m_classname;
 	CommonStyle::serialize(it);
 	WidgetStyle::serialize(it);
+	BorderStyle::serialize(it);
 }
 
 /** Unserialize the content of widget from json */
@@ -210,6 +209,7 @@ void Canvas::unserialize(JsonIterator & it)
 {
 	CommonStyle::unserialize(it);
 	WidgetStyle::unserialize(it);
+	BorderStyle::unserialize(it);
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 

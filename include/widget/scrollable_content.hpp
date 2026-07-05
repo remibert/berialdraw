@@ -3,7 +3,7 @@ namespace berialdraw
 {
 	/** Base class for scrollable content (ScrollView and TableView).
 	Provides common scrolling behavior and rendering for widgets that need to scroll their content. */
-	class ScrollableContent : public Widget, public ScrollViewStyle, public ScrollbarStyle
+	class ScrollableContent : public Widget, public ScrollViewStyle, public ScrollbarStyle, public BorderStyle
 	{
 	public:
 		/** Get scroll size */
@@ -39,6 +39,18 @@ namespace berialdraw
 
 		/** Compute the scroll area */
 		void scroll_area(Area & area);
+
+		/** Copy all styles of the scrollable content */
+		void copy(const ScrollableContent& scroll_content);
+
+		/** Copy all styles of the scrollable content */
+		void copy(const ScrollableContent* scroll_content);
+
+		/** Serialize the content of widget into json */
+		void serialize(JsonIterator& it);
+
+		/** Unserialize the content of widget from json */
+		void unserialize(JsonIterator& it);
 
 	protected:
 		/** Constructor for subclasses */

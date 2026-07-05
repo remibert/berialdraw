@@ -223,7 +223,7 @@ namespace berialdraw
 		}
 
 		/** Print content */
-		void print(const char * name) const;
+		void print(const char * name, bool newline=true) const;
 
 		/** Positions itself on the nearest pixel */
 		void nearest_pixel()

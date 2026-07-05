@@ -16,12 +16,26 @@ void Grid::place(const Area & area, bool in_layout)
 {
 	if (UIManager::invalidator()->is_dirty(this))
 	{
-		Area marged_area(area);
-		marged_area.decrease(margin());
-		m_cells.place(this, marged_area);
-		UIManager::invalidator()->undirty(this,Invalidator::GEOMETRY);
-		m_foreclip = area;
-		m_backclip = area;
+		// Only use absolute placement when explicitly positioned or sized
+		bool is_placed = m_size.is_width_defined() || m_size.is_height_defined() || 
+		                 m_position.is_x_defined() || m_position.is_y_defined();
+
+		if (is_placed)
+		{
+			// Absolute mode: compute bounds from position/size
+			place_in_area(area, false);
+		}
+		else
+		{
+			// Layout mode: fill the available area minus margin
+			m_backclip = area;
+			m_foreclip = area;
+			m_foreclip.decrease(margin());
+		}
+
+		// Place cells within own bounds
+		m_cells.place(this, m_foreclip);
+		UIManager::invalidator()->undirty(this, Invalidator::GEOMETRY);
 	}
 }
 
@@ -29,7 +43,6 @@ Size Grid::content_size()
 {
 	m_cells.rebound(this);
 	Size result = m_cells.calc_sizes(this);
-	result.increase(margin());
 	return result;
 }
 

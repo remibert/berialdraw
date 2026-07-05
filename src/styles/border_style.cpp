@@ -78,14 +78,14 @@ void BorderStyle::radius_q6(Dim v)
 /** Set the thickness in pixels */
 void BorderStyle::thickness(Dim v)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_thickness = v << 6;
 }
 
 /** Set the thickness with a precision of 64th of a pixel */
 void BorderStyle::thickness_q6(Dim v)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_thickness = v;
 }
 

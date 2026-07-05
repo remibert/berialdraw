@@ -39,7 +39,7 @@ void bind_point(py::module& m) {
         .def("is_y_undefined", &berialdraw::Point::is_y_undefined,
              "Indicates if y is not defined")
         .def("print", &berialdraw::Point::print,
-             py::arg("name"),
+             py::arg("name"), py::arg("newline") = false,
              "Print content")
         .def("adapt_scale", &berialdraw::Point::adapt_scale,
              "Adapt point to the UIManager scale");

@@ -10,6 +10,7 @@ ScrollableContent::ScrollableContent(const char * classname, Widget * parent, si
 	UIManager::styles()->apply(this, (WidgetStyle*)this);
 	UIManager::styles()->apply(this, (ScrollViewStyle*)this);
 	UIManager::styles()->apply(this, (ScrollbarStyle*)this);
+	UIManager::styles()->apply(this, (BorderStyle*)this);
 	m_color = Color::TRANSPARENT;
 	//m_size.clean();
 	bind(this, &ScrollableContent::on_scroll);
@@ -18,6 +19,44 @@ ScrollableContent::ScrollableContent(const char * classname, Widget * parent, si
 ScrollableContent::~ScrollableContent()
 {
 }
+
+/** Copy all styles of the scrollable content */
+void ScrollableContent::copy(const ScrollableContent& scroll_content)
+{
+	*((WidgetStyle    *)this) = *(WidgetStyle    *)(&scroll_content);
+	*((ScrollViewStyle*)this) = *(ScrollViewStyle*)(&scroll_content);
+	*((ScrollbarStyle *)this) = *(ScrollbarStyle *)(&scroll_content);
+	*((BorderStyle    *)this) = *(BorderStyle    *)(&scroll_content);
+}
+
+/** Copy all styles of the scrollable content */
+void ScrollableContent::copy(const ScrollableContent* scroll_content)
+{
+	if (scroll_content)
+	{
+		copy(*scroll_content);
+	}
+}
+
+/** Serialize the content of widget into json */
+void ScrollableContent::serialize(JsonIterator& it)
+{
+	WidgetStyle::serialize(it);
+	ScrollViewStyle::serialize(it);
+	ScrollbarStyle::serialize(it);
+	BorderStyle::serialize(it);
+}
+
+/** Unserialize the content of widget from json */
+void ScrollableContent::unserialize(JsonIterator& it)
+{
+	WidgetStyle::unserialize(it);
+	ScrollViewStyle::unserialize(it);
+	ScrollbarStyle::unserialize(it);
+	BorderStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
+
 
 /** Call back on scroll */
 void ScrollableContent::on_scroll(Widget * widget, const ScrollEvent & evt)
@@ -172,26 +211,22 @@ Point ScrollableContent::compute_scroll_view(const Area & area, Point & scroll_p
 
 void ScrollableContent::place(const Area & area, bool in_layout)
 {
-	if (!is_absolute())
-	{
-		// Consider the placement in layout
-		in_layout = true;
-	}
-
 	// Place the viewport
-	place_in_area(area, in_layout);
+	place_in_area_with_thickness(area, in_layout, m_thickness);
 	
-	// Define the viewport
-	Area backclip = m_foreclip;
+	// Save the viewport
+	Area backclip = m_backclip;
+	Area foreclip = m_foreclip;
+	Area scrollclip = m_foreclip;
 
 	// Remove padding
-	m_foreclip.decrease(padding());
+	scrollclip.decrease(padding());
 
 	Size scroll_size(m_scroll_size);
 	Point scroll_position(m_scroll_position);
 
 	// Compute the scroll position and size
-	Point scroll_out = compute_scroll_view(m_foreclip, scroll_position, scroll_size);
+	Point scroll_out = compute_scroll_view(scrollclip, scroll_position, scroll_size);
 
 	if (scroll_out.x() | scroll_out.y())
 	{
@@ -202,7 +237,7 @@ void ScrollableContent::place(const Area & area, bool in_layout)
 	}
 
 	// Move to the screen position
-	scroll_position.move(m_foreclip.position());
+	scroll_position.move(scrollclip.position());
 
 	// Set the scroll area to calculate the position of all widgets in the scrolled content
 	Area scroll_area(scroll_position, scroll_size);
@@ -210,17 +245,19 @@ void ScrollableContent::place(const Area & area, bool in_layout)
 	// Place all children in scrolled area
 	Widget::place(scroll_area, false);
 
+	// Restore viewport
 	m_backclip = backclip;
+	m_foreclip = foreclip;
 }
 
 /** Paint on screen memory the content of this widget */
 void ScrollableContent::paint(const Region & parent_region)
 {
-	Region region(parent_region);
-	region.intersect(m_backclip);
+	Region back_region(parent_region);
+	back_region.intersect(m_backclip);
 
 	// If widget visible
-	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
+	if (back_region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
 	{
 		Exporter * exporter = UIManager::exporter();
 
@@ -229,11 +266,40 @@ void ScrollableContent::paint(const Region & parent_region)
 			exporter->open_group(m_backclip.position(), m_backclip.size());
 		}
 
-		Widget::paint(region);
-		UIManager::renderer()->region(region);
+		// Paint background and border
+		{
+			UIManager::renderer()->region(back_region);
 
-		// Paint scrollbar indicator if visible
-		paint_scrollbar();
+			Area border_area(m_backclip);
+
+			// Increase with the half of border thickness
+			border_area.decrease_thickness(m_thickness >> 1);
+
+			// Paint background and border
+			Rect::build_focused_polygon(border_area, *(CommonStyle*)this, *(BorderStyle*)this,
+				stated_color(m_color), stated_color(m_border_color), Color::TRANSPARENT,
+				stated_color(m_focus_color), m_focused);
+		}
+
+		// Paint scroll content
+		{
+			Area scroll_clip(m_foreclip);
+			scroll_clip.decrease(padding());
+			Region scroll_region(back_region);
+			scroll_region.intersect(scroll_clip);
+			UIManager::renderer()->region(scroll_region);
+			Widget::paint(scroll_region);
+		}
+
+		// Paint scroll bar
+		{
+			Region scrollbar_region(parent_region);
+			scrollbar_region.intersect(m_foreclip);
+			UIManager::renderer()->region(scrollbar_region);
+
+			// Paint scrollbar indicator if visible
+			paint_scrollbar();
+		}
 
 		if (exporter)
 		{

@@ -69,9 +69,9 @@ void Point::unserialize(const char * name, JsonIterator & it)
 
 
 /** Print content */
-void Point::print(const char * name) const
+void Point::print(const char * name, bool newline) const
 {
-	bd_printf("%s x=%s y=%s", name, (const char*)format_coord(m_x), (const char*)format_coord(m_y));
+	bd_printf("%s x=%s y=%s%s", name, (const char*)format_coord(m_x), (const char*)format_coord(m_y), newline ? "\n" : "");
 }
 
 /** Adapt point to the UIManager scale */

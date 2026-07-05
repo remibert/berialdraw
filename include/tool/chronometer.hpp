@@ -50,10 +50,7 @@ namespace berialdraw
 		String elapsed_with_delta();
 
 		/** Print the elapsed time */
-		void print(const String & name = "time") const;
-
-		/** Print the elapsed time with newline */
-		void println(const String & name = "time") const;
+		void print(const String & name = "time", bool newline=true) const;
 	};
 
 

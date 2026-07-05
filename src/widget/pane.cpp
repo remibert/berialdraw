@@ -38,14 +38,7 @@ Size Pane::content_size()
 
 void Pane::place(const Area & area, bool in_layout)
 {
-	if (!is_absolute())
-	{
-		// Consider the placement in layout
-		in_layout = true;
-	}
-
-	// Place the rectangle in area
-	place_in_area(area, in_layout);
+	place_in_area_with_thickness(area, in_layout, m_thickness);
 
 	// Save backclip
 	Area backclip(m_backclip);
@@ -54,11 +47,11 @@ void Pane::place(const Area & area, bool in_layout)
 	Widget::place(m_foreclip,true);
 
 	// Restore backclip
-	m_backclip = m_foreclip;
+	//m_backclip = m_foreclip;
 
 	// Add border for the backclip
-	m_backclip.position().move_q6(0-(m_thickness),0-(m_thickness));
-	m_backclip.size().increase_q6(m_thickness+m_thickness,m_thickness+m_thickness);
+	//m_backclip.position().move_q6(0-(m_thickness),0-(m_thickness));
+	//m_backclip.size().increase_q6(m_thickness+m_thickness,m_thickness+m_thickness);
 }
 
 void Pane::paint(const Region & parent_region)
@@ -70,7 +63,7 @@ void Pane::paint(const Region & parent_region)
 	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
 	{
 		UIManager::renderer()->region(region);
-		Rect::build_polygon(m_foreclip, m_radius, m_thickness, 0, m_borders, stated_color(m_color), stated_color(m_border_color));
+		Rect::build_polygon(m_backclip, m_radius, m_thickness, 0, m_borders, stated_color(m_color), stated_color(m_border_color));
 		Widget::paint(region);
 	}
 }

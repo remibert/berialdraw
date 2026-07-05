@@ -69,13 +69,8 @@ Size Checkbox::content_size()
 /** Place all widget in area */
 void Checkbox::place(const Area & area, bool in_layout)
 {
-	if (!is_absolute())
-	{
-		in_layout = true;
-	}
-
 	// Place background rectangle
-	place_in_area(area, in_layout);
+	place_in_area_not_extend(area, in_layout);
 
 	// Place the check box
 	m_check_foreclip = m_foreclip;
@@ -83,18 +78,7 @@ void Checkbox::place(const Area & area, bool in_layout)
 	// If text not empty
 	if (m_text.size() > 0)
 	{
-		Margin marg;
-
-		// Place switch text
-		m_text_backclip = m_foreclip;
-		marg.left_q6(m_checkbox_size.width_q6() + padding().left_q6());
-		place_in_layout(m_text_backclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, (m_text_align | Align::ALIGN_BOTTOM));
-	
-		m_check_foreclip = m_text_foreclip;
-		m_check_foreclip.size(m_checkbox_size);
-		Coord move_y = (m_checkbox_size.height_q6() > m_text_size.height_q6() ? 0-((m_checkbox_size.height_q6() - m_text_size.height_q6())>>1) : ((m_text_size.height_q6()-m_checkbox_size.height_q6())>>1));
-		m_check_foreclip.position().move_q6(0-(m_checkbox_size.width_q6() + padding().left_q6()), move_y);
-		m_check_foreclip.position().nearest_pixel();
+		place_text_with_element(m_text_size, m_checkbox_size, m_text_backclip, m_text_foreclip, m_check_foreclip, (m_text_align | Align::ALIGN_BOTTOM), padding());
 	}
 }
 

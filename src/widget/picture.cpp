@@ -238,13 +238,7 @@ Size Picture::content_size()
 
 void Picture::place(const Area & area, bool in_layout)
 {
-	if (!is_absolute())
-	{
-		in_layout = true;
-	}
-
-	place_in_area(area, in_layout);
-
+	place_in_area_with_thickness(area, in_layout, m_thickness);
 	bool is_loaded = false;
 	uint32_t img_w = 0;
 	uint32_t img_h = 0;

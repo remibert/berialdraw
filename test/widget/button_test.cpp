@@ -79,7 +79,7 @@ void Button::test4()
 
 		button = new Button(&window);
 		 	button->text("Bottom Right");
-		 	button->position(240,0);
+		 	button->position(245,5);
 		  	button->min_size(230,70);
 			button->padding(3,3,3,3);
 			button->margin(5,5,5,5);
@@ -88,8 +88,8 @@ void Button::test4()
 
 		button = new Button(&window);
 		 	button->text("Bottom Left");
-		 	button->position(240,0);
-		  	button->min_size(230,70);
+			button->position(245, 5);
+			button->min_size(230,70);
 			button->padding(3,3,3,3);
 			button->margin(5,5,5,5);
 			button->text_align(Align::ALIGN_BOTTOM_LEFT);
@@ -97,16 +97,16 @@ void Button::test4()
 
 		button = new Button(&window);
 		 	button->text("Center");
-		 	button->position(240,0);
-		  	button->min_size(230,70);
+			button->position(245, 5);
+			button->min_size(230,70);
 			button->padding(3,3,3,3);
 			button->margin(5,5,5,5);
 			button->color(Color::DODGER_BLUE, 32);
 
 		button = new Button(&window);
 		 	button->text("Top Left");
-		 	button->position(240,0);
-		  	button->min_size(230,70);
+			button->position(245, 5);
+			button->min_size(230,70);
 			button->padding(3,3,3,3);
 			button->margin(5,5,5,5);
 			button->text_align(Align::ALIGN_TOP_LEFT);
@@ -114,8 +114,8 @@ void Button::test4()
 
 		button = new Button(&window);
 		 	button->text("Top Right");
-		 	button->position(240,0);
-		  	button->min_size(230,70);
+			button->position(245, 5);
+			button->min_size(230,70);
 			button->padding(3,3,3,3);
 			button->margin(5,5,5,5);
 			button->text_align(Align::ALIGN_TOP_RIGHT);

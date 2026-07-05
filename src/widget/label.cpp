@@ -75,13 +75,7 @@ void Label::place(const Area & area, bool in_layout)
 	}
 	Margin marg;
 
-	if (!is_absolute())
-	{
-		in_layout = true;
-	}
-
-	// Place background rectangle
-	place_in_area(area, in_layout);
+	place_in_area_extend(area, in_layout);
 
 	Area text_backclip = m_foreclip;
 	text_backclip.decrease(padding());

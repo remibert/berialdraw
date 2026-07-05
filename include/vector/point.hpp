@@ -192,8 +192,20 @@ namespace berialdraw
 			return m_y_undefined;
 		}
 
+		/** Indicates if x is defined */
+		bool is_x_defined() const
+		{
+			return m_x_undefined == 0;
+		}
+
+		/** Indicates if y is defined */
+		bool is_y_defined() const
+		{
+			return m_y_undefined == 0;
+		}
+
 		/** Print content */
-		void print(const char * name) const;
+		void print(const char * name, bool newline=true) const;
 
 		/** Adapt point to the UIManager scale */
 		void adapt_scale();

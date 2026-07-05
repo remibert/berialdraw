@@ -150,9 +150,9 @@ void Size::unserialize(const char * name, JsonIterator & it)
 }
 
 /** Print content */
-void Size::print(const char * name) const
+void Size::print(const char * name, bool newline) const
 {
-	bd_printf("%s w=%s h=%s", name, (const char*)format_dim(m_width), (const char*)format_dim(m_height));
+	bd_printf("%s w=%s h=%s%s", name, (const char*)format_dim(m_width), (const char*)format_dim(m_height), newline ? "\n" : "");
 }
 
 

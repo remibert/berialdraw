@@ -147,6 +147,12 @@ namespace berialdraw
 		/** Return the parent focus color */
 		uint32_t parent_focus_color(uint32_t color);
 
+		/** Return the stated color with alpha */
+		uint32_t stated_color(uint32_t color, uint8_t alpha);
+
+		/** Return the parent focus color with alpha */
+		uint32_t parent_focus_color(uint32_t color, uint8_t alpha);
+
 	protected:
 /// @cond DOXYGEN_IGNORE
 
@@ -192,6 +198,10 @@ namespace berialdraw
 
 		
 		void place_in_area(const Area & area, bool in_layout);
+		void place_in_area_not_extend(const Area & area, bool & in_layout);
+		void place_in_area_extend(const Area& area, bool & in_layout);		
+		void place_in_area_with_thickness(const Area & area, bool in_layout, uint16_t thickness);
+		void place_text_with_element(const Size & text_size, const Size & element_size, Area & text_backclip, Area & text_foreclip, Area & element_foreclip, Align text_align_with_bottom, const Margin& padding);
 /// @endcond 
 	};
 }

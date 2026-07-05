@@ -23,6 +23,12 @@ namespace berialdraw
 		/** Get the style cascade mode for this widget */
 		virtual StyleCascadeMode style_cascade_mode() const override;
 
+		/** Copy all styles of the scrollview */
+		void copy(const ScrollView& scroll_view);
+
+		/** Copy all styles of the scrollview */
+		void copy(const ScrollView* scroll_view);
+
 #ifdef _DEBUG
 	public:
 		static void test();

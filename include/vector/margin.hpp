@@ -200,6 +200,9 @@ namespace berialdraw
 		@param it JSON iterator.     */
 		void unserialize(const char * name, JsonIterator & it);
 
+		/** Print content */
+		void print(const char* name, bool newline=true) const;
+
 	protected:
 /// @cond DOXYGEN_IGNORE
 		uint16_t m_top;    ///< Top margin

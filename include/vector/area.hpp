@@ -185,7 +185,6 @@ namespace berialdraw
 		@param thickness thickess to remove */
 		void decrease_thickness(Dim thickness);
 
-
 		/** Return position of area according to the shift
 		@return Position of the area */
 		inline const Point& position() const
@@ -268,7 +267,7 @@ namespace berialdraw
 		}
 
 		/** Print content */
-		void print(const char * name) const;
+		void print(const char * name, bool newline=true) const;
 
 	protected:
 /// @cond DOXYGEN_IGNORE

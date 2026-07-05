@@ -524,6 +524,8 @@ void Window::test7()
 		window_test7(new Canvas(&window), id);
 		window_test7(new Keyboard(&window), id);
 		window_test7(new ProgressBar(&window), id);
+		window_test7(new Checkbox(&window), id);
+		window_test7(new Radio(&window), id);
 }
 
 static void window_all_widgets(Window & window)

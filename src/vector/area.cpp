@@ -42,12 +42,11 @@ void Area::increase(const Margin& margin)
 	m_size.increase_q6(margin.left_q6() + margin.right_q6(), margin.top_q6() + margin.bottom_q6());
 }
 
-/** Decrease the thickness border of the size and position in the area
-@param thickness thickess to remove */
+/** Decrease the thickness border of the size and position in the area */
 void Area::decrease_thickness(Dim thickness)
 {
-	m_position.move_q6(thickness>>1, thickness>>1);
-	m_size.decrease_q6(thickness,thickness);
+	m_position.move_q6(thickness, thickness);
+	m_size.decrease_q6(thickness<<1,thickness<<1);
 	Point position(m_position);
 	nearest_pixel();
 
@@ -155,12 +154,11 @@ void Area::clip(const Area& clip_area)
 	}
 }
 /** Print content */
-void Area::print(const char * name) const
+void Area::print(const char * name, bool newline) const
 {
-	bd_printf("%s",name);
-	m_position.print("");
-	m_size.print("");
-	bd_printf("\n");
+	bd_printf("%s ",name);
+	m_position.print("", false);
+	m_size.print("",newline);
 }
 
 

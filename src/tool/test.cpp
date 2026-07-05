@@ -13,6 +13,8 @@ namespace berialdraw
 		UIManager::colors()->appearance("test_light");
 
 		List::test();
+		Slider::test();
+		Window::test();
 #if defined(_DEBUG) && defined(ALL_TESTS)
 		
 		// Other

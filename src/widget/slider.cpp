@@ -69,12 +69,7 @@ Size Slider::content_size()
 
 void Slider::place(const Area & area, bool in_layout)
 {
-	if (!is_absolute())
-	{
-		in_layout = true;
-	}
-
-	// If margin not support the focus thickness enlarge it
+/*	// If margin not support the focus thickness enlarge it
 	if (m_margin.left() < (Dim)(m_focus_thickness>>1))
 	{
 		m_margin.left(m_focus_thickness>>1);
@@ -90,26 +85,10 @@ void Slider::place(const Area & area, bool in_layout)
 	if (m_margin.bottom() < (Dim)(m_focus_thickness>>1))
 	{
 		m_margin.bottom(m_focus_thickness>>1);
-	}
-	place_in_area(area, in_layout);
+	}*/
 
-	// If absolute place
-	if (in_layout == false)
-	{
-		Area backclip = m_foreclip;
-		Margin marg;
-		Size size(content_size());
-
-		if (m_extend == Extend::EXTEND_HEIGHT)
-		{
-			size.height_q6(m_foreclip.height_q6());
-		}
-		else
-		{
-			size.width_q6(m_foreclip.width_q6());
-		}
-		place_in_layout(backclip, size, marg, EXTEND_NONE, m_foreclip, m_align);
-	}
+	// Place background rectangle
+	place_in_area_not_extend(area, in_layout);
 }
 
 Dim Slider::get_location(Dim length)

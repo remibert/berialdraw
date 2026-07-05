@@ -109,13 +109,7 @@ void ListItem::place(const Area& area, bool in_layout)
 {
 	Margin marg;
 
-	if (!is_absolute())
-	{
-		in_layout = true;
-	}
-
-	// Place background rectangle
-	place_in_area(area, in_layout);
+	place_in_area_extend(area, in_layout);
 
 	// Place the item area
 	Area item_area(m_foreclip);
@@ -165,8 +159,8 @@ void ListItem::paint(const Region& parent_region)
 
 		// Paint background and border
 		Rect::build_focused_polygon(m_foreclip, *(CommonStyle*)this, *(BorderStyle*)this,
-			stated_color(m_color), stated_color(m_border_color), Color::TRANSPARENT,
-			stated_color(m_focus_color), m_focused);
+			stated_color(m_color, 127), stated_color(m_border_color), Color::TRANSPARENT,
+			stated_color(m_focus_color, 127), m_focused);
 
 		select_font();
 

@@ -151,7 +151,8 @@ Dim CommonStyle::adapt_size(Dim content, Dim size, Dim mini, Dim maxi)
 	return result;
 }
 
-void CommonStyle::place_in_layout(const Area & area, const Size & content, const Margin & margin, Extend extend, Area & foreclip, Align align)
+void CommonStyle::place_in_layout(const Area & area, const Size & content, 
+	const Margin & margin, Extend extend, Area & foreclip, Align align)
 {
 	foreclip.set(area.position(), content);
 
@@ -205,12 +206,24 @@ void CommonStyle::place_in_layout(const Area & area, const Size & content, const
 	foreclip.nearest_pixel();
 }
 
-void CommonStyle::place_absolutly(const Point & root, const Size & content, Area & foreclip, const Size & size, const Size & min_size, const Size & max_size)
+void CommonStyle::place_absolutly(const Point & root, const Size & content, Area & foreclip, 
+	const Size & size, const Size & min_size, const Size & max_size)
 {
-	foreclip.x_q6(root.x_q6() + m_position.x_q6() + m_margin.left_q6());
-	foreclip.y_q6(root.y_q6() + m_position.y_q6() + m_margin.top_q6());
-	foreclip.width_q6(adapt_size(content.width_q6() , size.is_width_undefined()  ? content.width_q6()  : size.width_q6(),  min_size.width_q6(),  max_size.width_q6()));
-	foreclip.height_q6(adapt_size(content.height_q6(), size.is_height_undefined() ? content.height_q6() : size.height_q6(), min_size.height_q6(), max_size.height_q6()));
+	foreclip.x_q6(root.x_q6() + m_position.x_q6());
+	foreclip.y_q6(root.y_q6() + m_position.y_q6());
+	foreclip.width_q6 (adapt_size(content.width_q6() , size.is_width_undefined()  ? 
+			content.width_q6() : 
+			size.width_q6(),  
+			min_size.width_q6(),  
+			max_size.width_q6()));
+	foreclip.height_q6(
+		adapt_size(
+			content.height_q6(), 
+			size.is_height_undefined() ? 
+			content.height_q6() : 
+			size.height_q6(), 
+			min_size.height_q6(), 
+			max_size.height_q6()));
 }
 
 

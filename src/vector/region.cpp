@@ -1543,12 +1543,11 @@ void Region::clear()
 
 
 /** Print the bounding box of the region */
-void Region::print(const char * name) const
+void Region::print(const char * name, bool newline) const
 {
 	bd_printf("%s", name);
 	Area extents = get_extents();
-	extents.print("");
-	bd_printf("\n");
+	extents.print("", newline);
 }
 
 

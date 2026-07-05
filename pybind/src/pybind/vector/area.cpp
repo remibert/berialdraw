@@ -26,7 +26,7 @@ void bind_area(py::module& m) {
              py::arg("margin"),
              "Increase size and position of area with margin")
         .def("print", &berialdraw::Area::print,
-             py::arg("name"),
+             py::arg("name"), py::arg("newline") = false,
              "Print content");
 
     // Propriétés avec précision automatique (int ou float*64)

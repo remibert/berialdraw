@@ -44,3 +44,8 @@ void Margin::unserialize(const char * name, JsonIterator & it)
 	m_right   = (right  == Size::MAX_SIZE) ? m_right  : right ;
 }
 
+/** Print content */
+void Margin::print(const char* name, bool newline) const
+{
+	bd_printf("%s t=%s l=%s b=%s r=%s%s", name, format_dim(m_top).c_str(), format_dim(m_left).c_str(), format_dim(m_bottom).c_str(), format_dim(m_right).c_str(), newline ? "\n" : "");
+}

@@ -27,7 +27,7 @@ void LineChart::test()
 				data1.add(get_rand(-100,100));
 			}
 			data1.border_color(DARK_GREEN);
-			data1.thickness(1);
+			//data1.thickness(1);
 
 		DataSet data2;
 			data2.text("Data set 2");
@@ -36,7 +36,7 @@ void LineChart::test()
 				data2.add(get_rand(-100,100));
 			}
 			data2.border_color(ROSY_BROWN);
-			data2.thickness(1);
+			//data2.thickness(1);
 
 		LineChart * chart = new LineChart(canvas);
 			chart->size(460,460);

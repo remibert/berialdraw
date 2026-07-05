@@ -3,7 +3,7 @@
 namespace berialdraw
 {
 	/** The List class provides a scrollable list container for displaying items with optional icons and arrows. It supports selection, enabled/disabled state, and menu-style arrows. */
-	class List : public ScrollableContent, public ListStyle, public BorderStyle
+	class List : public ScrollableContent, public ListStyle
 	{
 	public:
 		/** Create widget */
@@ -11,13 +11,6 @@ namespace berialdraw
 
 		/** Destroy widget */
 		virtual ~List();
-
-
-		///** Add an item to the list */
-		//uint16_t add(const String & text);
-
-		///** Add an item to the list */
-		//uint16_t add(const String & text, const String & leading, const String & trailing);
 
 		/** Create new list item */
 		ListItem* new_item();
@@ -31,8 +24,12 @@ namespace berialdraw
 		/** Get the style cascade mode for this widget */
 		virtual StyleCascadeMode style_cascade_mode() const override;
 
-		/** Return the size of content without marges */
-		virtual Size content_size() override;
+		/** Copy all styles of the list */
+		void copy(const List& list);
+
+		/** Copy all styles of the list */
+		void copy(const List* list);
+
 
 #ifdef _DEBUG
 		static void test();
@@ -49,12 +46,6 @@ namespace berialdraw
 /// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		List& operator=(const List& other) = delete;
-
-		/** Paint on screen memory the content of this widget */
-		virtual void paint(const Region & parent_region) override;
-
-		/** Place all widget in area */
-		virtual void place(const Area& area, bool in_layout) override;
 
 		/** Internal column container */
 		Column * m_column;

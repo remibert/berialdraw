@@ -17,19 +17,31 @@ ScrollView::~ScrollView()
 void ScrollView::serialize(JsonIterator & it)
 {
 	it["type"] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
-	ScrollViewStyle::serialize(it);
+	ScrollableContent::serialize(it);
 }
 
 /** Unserialize the content of widget from json */
 void ScrollView::unserialize(JsonIterator & it)
 {
 	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
-	ScrollViewStyle::unserialize(it);
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
+
+/** Copy all styles of the scroll_view */
+void ScrollView::copy(const ScrollView& scroll_view)
+{
+	ScrollableContent::copy(*(ScrollableContent*)(&scroll_view));
+}
+
+/** Copy all styles of the scroll_view */
+void ScrollView::copy(const ScrollView* scroll_view)
+{
+	if (scroll_view)
+	{
+		copy(scroll_view);
+	}
+}
+
 
 StyleCascadeMode ScrollView::style_cascade_mode() const
 {

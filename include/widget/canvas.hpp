@@ -3,7 +3,7 @@ namespace berialdraw
 {
 	/** The Canvas class provides a flexible area for custom graphics and rendering. 
 	It is ideal for applications requiring charts. */
-	class Canvas: public Widget
+	class Canvas: public Widget, public BorderStyle
 	{
 	/** @image html sample_canvas_1.svg "example" width=200px height=200px
 	@example sample_canvas.cpp*/

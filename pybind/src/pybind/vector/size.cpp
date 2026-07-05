@@ -55,7 +55,7 @@ void bind_size(py::module& m) {
         .def("clean", &berialdraw::Size::clean,
              "Clean the size and set to undefined")
         .def("print", &berialdraw::Size::print,
-             py::arg("name"),
+             py::arg("name"), py::arg("newline") = false,
              "Print content");
              
     // Propriétés avec précision automatique

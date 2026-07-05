@@ -157,14 +157,8 @@ String Chronometer::elapsed_with_delta()
 }
 
 /** Print the elapsed time */
-void Chronometer::print(const String & name) const
+void Chronometer::print(const String & name, bool newline) const
 {
-	bd_printf("%s:%s", name.c_str(), elapsed().c_str());
+	bd_printf("%s:%s%s", name.c_str(), elapsed().c_str(), newline ? "\n" : "");
 }
 
-/** Print the elapsed time with newline */
-void Chronometer::println(const String & name) const
-{
-	print(name);
-	bd_printf("\n");
-}
