@@ -88,7 +88,7 @@ void Radio::paint(const Region & parent_region)
 	region.intersect(m_backclip);
 
 	// If widget visible
-	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Overlap::OUT)
 	{
 		Dim thickness = (m_focused == 0 ? m_thickness: m_thickness + (m_focus_thickness<<6));
 
@@ -99,7 +99,7 @@ void Radio::paint(const Region & parent_region)
 		area_box.size().set_q6(m_radio_size.width_q6(), m_radio_size.height_q6());
 
 		// Draw radio box
-		Rect::build_focused_polygon(area_box, 
+		Rect::paint_focused_rounded_rect(area_box, 
 			*(CommonStyle*)this,
 			*(BorderStyle*)this,
 			stated_color(m_color),
@@ -137,7 +137,7 @@ void Radio::paint(const Region & parent_region)
 			else
 			{
 				// Default radio indicator (simple circle/filled area)
-				Rect::build_polygon(area_radio, m_radius, 0, 0, ALL_BORDERS, stated_color(m_radio_color), 0);
+				Rect::paint_rounded_rect(area_radio, m_radius, 0, 0, ALL_BORDERS, stated_color(m_radio_color), 0);
 			}
 		}
 		
@@ -160,7 +160,7 @@ Widget * Radio::hovered(const Region & parent_region, const Point & position)
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if(region.is_inside(position) != Region::Overlap::OUT)
+	if(region.is_inside(position) != Overlap::OUT)
 	{
 		return this;
 	}

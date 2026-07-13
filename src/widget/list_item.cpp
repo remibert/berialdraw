@@ -152,13 +152,13 @@ void ListItem::paint(const Region& parent_region)
 	region.intersect(m_backclip);
 
 	// If list_item visible
-	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Overlap::OUT)
 	{
 		UIManager::renderer()->region(region);
 		Point shift;
 
 		// Paint background and border
-		Rect::build_focused_polygon(m_foreclip, *(CommonStyle*)this, *(BorderStyle*)this,
+		Rect::paint_focused_rounded_rect(m_foreclip, *(CommonStyle*)this, *(BorderStyle*)this,
 			stated_color(m_color, 127), stated_color(m_border_color), Color::TRANSPARENT,
 			stated_color(m_focus_color, 127), m_focused);
 
@@ -224,7 +224,7 @@ Widget* ListItem::hovered(const Region& parent_region, const Point& position)
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if (region.is_inside(position) != Region::Overlap::OUT)
+	if (region.is_inside(position) != Overlap::OUT)
 	{
 		return this;
 	}

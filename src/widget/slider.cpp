@@ -208,12 +208,12 @@ void Slider::draw_track()
 
 	// Draw track
 	track_area.nearest_pixel();
-	Rect::build_polygon(track_area, track_radius, track_thickness, 0, m_borders, stated_color(m_track_color), track_border_color);
+	Rect::paint_rounded_rect(track_area, track_radius, track_thickness, 0, m_borders, stated_color(m_track_color), track_border_color);
 
 	// Draw fill
 	handle_area.nearest_pixel();
 
-	Rect::build_focused_polygon(handle_area, 
+	Rect::paint_focused_rounded_rect(handle_area, 
 		*(CommonStyle*)this,
 		*(BorderStyle*)this,
 		stated_color(m_handle_color), 
@@ -229,7 +229,7 @@ void Slider::paint(const Region & parent_region)
 	region.intersect(m_backclip);
 
 	// If widget visible
-	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Overlap::OUT)
 	{
 		UIManager::renderer()->region(region);
 		check_slider();
@@ -244,7 +244,7 @@ Widget * Slider::hovered(const Region & parent_region, const Point & position)
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if(region.is_inside(position) != Region::Overlap::OUT)
+	if(region.is_inside(position) != Overlap::OUT)
 	{
 		return this;
 	}

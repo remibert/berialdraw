@@ -12,7 +12,7 @@ void bind_widget(pybind11::module_& m) {
         .def("clean_all", &berialdraw::Widget::clean_all)
         .def("search", &berialdraw::Widget::search, pybind11::return_value_policy::reference_internal)
         
-        // Color methods need parameters, so they stay as methods
+        // Color methods that return uint32_t
         .def("pressed_color", &berialdraw::Widget::pressed_color, pybind11::arg("color"), pybind11::arg("pressed"))
-        .def("stated_color", &berialdraw::Widget::stated_color, pybind11::arg("color"));
+        .def("stated_color", static_cast<uint32_t (berialdraw::Widget::*)(uint32_t)>(&berialdraw::Widget::stated_color), pybind11::arg("color"));
 }

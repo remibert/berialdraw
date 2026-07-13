@@ -47,10 +47,10 @@ namespace berialdraw
 		void copy(const ScrollableContent* scroll_content);
 
 		/** Serialize the content of widget into json */
-		void serialize(JsonIterator& it);
+		void serialize(JsonIterator& it) override;
 
 		/** Unserialize the content of widget from json */
-		void unserialize(JsonIterator& it);
+		void unserialize(JsonIterator& it) override;
 
 	protected:
 		/** Constructor for subclasses */
@@ -76,6 +76,9 @@ namespace berialdraw
 
 		/** Paint the scrollbar indicator */
 		void paint_scrollbar();
+
+		// Paint scrollbar thumb with given orientation and layout
+		void paint_scrollbar_thumb_internal(bool is_vertical, const Size& content_size, const Area& viewport_area);
 
 		/** Helper methods for scroll computation */
 		Point compute_scroll_view(const Area & area, Point & scroll_position, Size & scroll_size);

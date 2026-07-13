@@ -934,7 +934,7 @@ Widget * Widget::hovered(const Region & parent_region, const Point & position)
 		region.intersect(m_backclip);
 
 		// If the widget hovered
-		if(region.is_inside(position) != Region::Overlap::OUT)
+		if(region.is_inside(position) != Overlap::OUT)
 		{
 			Widget * result_child = 0;
 			Widget* child = m_children;

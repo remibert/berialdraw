@@ -1009,6 +1009,9 @@
     <ClCompile Include="..\..\src\widget\list_item.cpp">
       <Filter>berialdraw\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\vector\clip_mask.cpp">
+      <Filter>berialdraw\vector</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\config.h">
@@ -1877,6 +1880,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\berialdraw.hpp">
       <Filter>berialdraw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\vector\clip_mask.hpp">
+      <Filter>berialdraw\vector</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

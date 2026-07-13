@@ -3,6 +3,15 @@ namespace berialdraw
 {
 	class Renderer;
 	class Desktop;
+	class ClipMask;
+
+	/** Type of overlap */
+	enum class Overlap : uint8_t
+	{
+		OUT, ///< No point of the rectangle resides within the region
+		IN, ///< The region contains the entire rectangle
+		PART ///< The region contains part of the rectangle
+	} ;
 
 	/** The Region class is responsible for defining and applying clipping regions.
 	Clipping is used to restrict drawing operations to a specific area, 
@@ -10,14 +19,6 @@ namespace berialdraw
 	class Region
 	{
 	public:
-		/** Type of overlap */
-		typedef enum
-		{
-			OUT, ///< No point of the rectangle resides within the region
-			IN, ///< The region contains the entire rectangle
-			PART ///< The region contains part of the rectangle
-		} Overlap;
-
 		/** Create empty region */
 		Region();
 
@@ -54,11 +55,8 @@ namespace berialdraw
 		/** Test if a region contains an area */
 		Overlap is_inside(const Area & area) const;
 
-		/** Test if a region contains a point (for renderer) */
-		bool is_inside_scale(Coord x,Coord y, Dim scale) const;
-
 		/** Test if a region contains a rectangle (for rendeder) */
-		Overlap is_inside_scale(Coord x,Coord y,Dim width,Dim height, Dim scale) const;
+		Overlap is_inside_scale(Coord x, Coord y, Dim width, Dim height, Dim scale, uint8_t alpha) const;
 
 		/** Get the bounding box (extents) of the region */
 		Area get_extents() const;
@@ -66,9 +64,17 @@ namespace berialdraw
 		/** Clear the content of the region */
 		void clear();
 
+		/** Attach a clip mask to this region (non-owning pointer).
+		The mask is propagated when the region is copied or assigned.
+		Pass nullptr to detach.
+		@param mask Pointer to the clip mask or nullptr */
+		void set_clip_mask(ClipMask * mask);
+
 		/** Print the bounding box of the region */
 		void print(const char * name, bool newline=true) const;
 
+		/** Copy regions */
+		void copy(const Region& other);
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -160,7 +166,7 @@ namespace berialdraw
 		bool subtract (RegionBoxes *reg_d, RegionBoxes *reg_m, RegionBoxes *reg_s);
 		bool inverse (RegionBoxes *new_reg, RegionBoxes *reg1, RegionBox *  inv_rect);
 		const RegionBox * find_box_for_y (const RegionBox *begin, const RegionBox *end, Coord y) const;
-		Region::Overlap is_contains_rectangle (const RegionBoxes * region, RegionBox *   prect) const;
+		Overlap is_contains_rectangle (const RegionBoxes * region, RegionBox *   prect) const;
 		void translate (RegionBoxes *region, Coord x, Coord y);
 		void reset (RegionBoxes *region, RegionBox *box);
 		void clear (RegionBoxes *region);
@@ -175,6 +181,7 @@ namespace berialdraw
 		static Region::RegionData *g_broken_data;
 
 		RegionBoxes m_region;
+		ClipMask *  m_clip_mask = nullptr; ///< Optional non-owning clip mask (propagated on copy)
 /// @endcond
 	};
 }

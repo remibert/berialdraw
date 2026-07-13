@@ -115,7 +115,7 @@ void Edit::paint(const Region & parent_region)
 	region.intersect(m_backclip);
 
 	// If widget visible
-	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Overlap::OUT)
 	{
 		UIManager::renderer()->region(region);
 
@@ -157,7 +157,7 @@ void Edit::paint(const Region & parent_region)
 			m_text_box.parse(m_text_foreclip, *m_font, display, m_cursor_position, m_selection_start, m_selection_end, m_text_align);
 		}
 		
-		Rect::build_focused_polygon(m_foreclip, 
+		Rect::paint_focused_rounded_rect(m_foreclip, 
 			*(CommonStyle*)this,
 			*(BorderStyle*)this,
 			stated_color(m_color), 
@@ -201,7 +201,7 @@ Widget * Edit::hovered(const Region & parent_region, const Point & position)
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if(region.is_inside(position) != Region::Overlap::OUT)
+	if(region.is_inside(position) != Overlap::OUT)
 	{
 		return this;
 	}

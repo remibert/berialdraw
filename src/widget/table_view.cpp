@@ -38,7 +38,7 @@ void TableView::paint(const Region & parent_region)
 
 	UIManager::renderer()->region(region);
 
-	if (region.is_inside(m_foreclip.position(), m_foreclip.size()) != Region::OUT)
+	if (region.is_inside(m_foreclip.position(), m_foreclip.size()) != Overlap::OUT)
 	{
 		paint_row_backgrounds();
 		paint_grid_lines();
@@ -86,7 +86,7 @@ void TableView::paint_row_backgrounds()
 				border_style.focus_color(Color::TRANSPARENT);
 				
 				// Draw background with focus support
-				Rect::build_focused_polygon(row_area,
+				Rect::paint_focused_rounded_rect(row_area,
 					*(CommonStyle*)this,
 					border_style,
 					row_color,
@@ -126,7 +126,7 @@ void TableView::paint_top_border_line()
 		line_area.clip(m_foreclip);
 		if (line_area.is_not_empty())
 		{
-			Rect::build_polygon(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
+			Rect::paint_rounded_rect(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
 		}
 	}
 }
@@ -146,7 +146,7 @@ void TableView::paint_left_border_line()
 		line_area.clip(m_foreclip);
 		if (line_area.is_not_empty())
 		{
-			Rect::build_polygon(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
+			Rect::paint_rounded_rect(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
 		}
 	}
 }
@@ -180,7 +180,7 @@ void TableView::paint_horizontal_lines()
 		
 		if (line_area.is_not_empty())
 		{
-			Rect::build_polygon(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
+			Rect::paint_rounded_rect(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
 		}
 	}
 }
@@ -214,7 +214,7 @@ void TableView::paint_vertical_lines()
 		
 		if (line_area.is_not_empty())
 		{
-			Rect::build_polygon(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
+			Rect::paint_rounded_rect(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
 		}
 	}
 }
@@ -311,7 +311,7 @@ Widget * TableView::hovered(const Region & parent_region, const Point & position
 	Region region(parent_region);
 	region.intersect(m_foreclip);
 
-	if (region.is_inside(position) != Region::Overlap::OUT)
+	if (region.is_inside(position) != Overlap::OUT)
 	{
 		result = this;
 		if (m_grid)

@@ -161,6 +161,7 @@ set(SRCS_LIB
 
 	src/vector/area.cpp
 	src/vector/region.cpp
+	src/vector/clip_mask.cpp
 	src/vector/linear.cpp
 	src/vector/point.cpp
 	src/vector/size.cpp

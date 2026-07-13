@@ -83,7 +83,7 @@ void Canvas::paint(const Region & parent_region)
 	region.intersect(m_foreclip);
 
 	// If widget visible
-	if (region.is_inside(m_foreclip.position(), m_foreclip.size()) != Region::OUT)
+	if (region.is_inside(m_foreclip.position(), m_foreclip.size()) != Overlap::OUT)
 	{
 		UIManager::renderer()->region(region);
 
@@ -188,7 +188,7 @@ Widget * Canvas::hovered(const Region & parent_region, const Point & position)
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if(region.is_inside(position) != Region::Overlap::OUT)
+	if(region.is_inside(position) != Overlap::OUT)
 	{
 		return this;
 	}

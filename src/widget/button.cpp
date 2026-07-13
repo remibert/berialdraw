@@ -93,12 +93,12 @@ void Button::paint(const Region & parent_region)
 	region.intersect(m_backclip);
 
 	// If button visible
-	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Overlap::OUT)
 	{
 		UIManager::renderer()->region(region);
 		Point shift;
 
-		Rect::build_focused_polygon(m_foreclip, 
+		Rect::paint_focused_rounded_rect(m_foreclip, 
 			*(CommonStyle*)this,
 			*(BorderStyle*)this,
 			stated_color(m_color), 
@@ -125,7 +125,7 @@ Widget * Button::hovered(const Region & parent_region, const Point & position)
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if(region.is_inside(position) != Region::Overlap::OUT)
+	if(region.is_inside(position) != Overlap::OUT)
 	{
 		return this;
 	}

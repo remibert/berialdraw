@@ -234,35 +234,46 @@ bool Region::region_break (RegionBoxes *region)
 
 bool Region::copy(RegionBoxes *dst, RegionBoxes *src)
 {
-	if (dst == src)
-		return true;
+	bool result = true;
 
-	dst->extents = src->extents;
-
-	if (!src->data || !src->data->size)
+	if (dst != src)
 	{
-		destroy (*dst);
-		dst->data = src->data;
-		return true;
-	}
- 
-	if (!dst->data || (dst->data->size < src->data->num_rects))
-	{
-		destroy (*dst);
+		dst->extents = src->extents;
 
-		dst->data = alloc_data (src->data->num_rects);
-
-		if (!dst->data)
+		if (!src->data || !src->data->size)
 		{
-			return region_break (dst);
+			destroy(*dst);
+			dst->data = src->data;
 		}
+		else
+		{
+			bool canContinue = true;
+			if (!dst->data || (dst->data->size < src->data->num_rects))
+			{
+				destroy(*dst);
 
-		dst->data->size = src->data->num_rects;
+				dst->data = alloc_data(src->data->num_rects);
+
+				if (!dst->data)
+				{
+					result = region_break(dst);
+					canContinue = false;
+				}
+				else
+				{
+					dst->data->size = src->data->num_rects;
+				}
+			}
+
+			if (canContinue)
+			{
+				dst->data->num_rects = src->data->num_rects;
+				memmove(box_pointer(dst), box_pointer(src),dst->data->num_rects * sizeof(RegionBox));
+			}
+		}
 	}
 
-	dst->data->num_rects = src->data->num_rects;
-	memmove ((char *)box_pointer (dst), (char *)box_pointer (src), dst->data->num_rects * sizeof(RegionBox));
-	return true;
+	return result;
 }
 
 int32_t Region::coalesce (RegionBoxes * region, int32_t prev_start, int32_t cur_start)
@@ -1055,7 +1066,7 @@ const Region::RegionBox * Region::find_box_for_y (const RegionBox *begin, const 
 	}
 }
 
-Region::Overlap Region::is_contains_rectangle (const RegionBoxes * region, RegionBox *  prect) const
+Overlap Region::is_contains_rectangle (const RegionBoxes * region, RegionBox *  prect) const
 {
 	const RegionBox *  pbox;
 	const RegionBox *  pbox_end;
@@ -1067,18 +1078,18 @@ Region::Overlap Region::is_contains_rectangle (const RegionBoxes * region, Regio
 
 	if (!numRects || !extent_check (&region->extents, prect))
 	{
-		return(Region::OUT);
+		return(Overlap::OUT);
 	}
 
 	if (numRects == 1)
 	{
 		if (is_contains (&region->extents, prect))
 		{
-			return Region::IN;
+			return Overlap::IN;
 		}
 		else
 		{
-			return Region::PART;
+			return Overlap::PART;
 		}
 	}
 
@@ -1151,16 +1162,16 @@ Region::Overlap Region::is_contains_rectangle (const RegionBoxes * region, Regio
 	{
 		if (y < prect->y2)
 		{
-			return Region::PART;
+			return Overlap::PART;
 		}
 		else
 		{
-			return Region::IN;
+			return Overlap::IN;
 		}
 	}
 	else
 	{
-		return Region::OUT;
+		return Overlap::OUT;
 	}
 }
 
@@ -1338,17 +1349,20 @@ bool Region::is_contains_point (RegionBoxes * region, Coord x, Coord y, RegionBo
 Region::Region()
 {
 	create(&m_region);
+	m_clip_mask = nullptr;
 }
 
 Region::Region(const Area & area)
 {
 	init_rect(&m_region, area.position().x_q6(), area.position().y_q6(), area.size().width_q6(), area.size().height_q6());
+	m_clip_mask = nullptr;
 }
 
 Region::Region(const Region & other)
 {
 	create(&m_region);
 	copy(&m_region,(RegionBoxes*)&other.m_region);
+	m_clip_mask = other.m_clip_mask;
 }
 
 Region::~Region()
@@ -1356,14 +1370,22 @@ Region::~Region()
 	destroy (m_region);
 }
 
-Region& Region::operator=(const Region& other)
+/** Copy regions */
+void Region::copy(const Region& other)
 {
 	if(this != &other)
 	{
 		destroy(m_region);
 		create(&m_region);
 		copy(&m_region,(RegionBoxes*)&other.m_region);
+		m_clip_mask = other.m_clip_mask;
 	}
+}
+
+
+Region& Region::operator=(const Region& other)
+{
+	copy(other);
 	return *this;
 }
 
@@ -1424,48 +1446,55 @@ void Region::dump(const String & name, const RegionBoxes & reg)
 	}
 }
 
-
-/** Test if a region contains a point (for renderer) */
-bool Region::is_inside_scale(Coord x, Coord y, Dim scale) const
-{
-	if (is_inside((x<<6)/scale, (y<<6)/scale, 1, 1) != Region::OUT)
-	{
-		return true;
-	}
-	return false;
-}
-
 /** Test if a region contains a rectangle (for rendeder) */
-Region::Overlap Region::is_inside_scale(Coord x, Coord y, Dim width, Dim height, Dim scale) const
+Overlap Region::is_inside_scale(Coord x, Coord y, Dim width, Dim height, Dim scale, uint8_t alpha) const
 {
-	Dim w = (width <<6) / scale;
-	Dim h = (height<<6) / scale;
+	Dim scaled_width = (width <<6) / scale;
+	Dim scaled_height = (height<<6) / scale;
 
 	if ((width<<6) % scale)
 	{
-		w+=1;
+		scaled_width+=1;
 	}
 
 	// If the scale completely overwrites the value
-	if (w == 0 && width != 0)
+	if (scaled_width == 0 && width != 0)
 	{
 		// Set the minimal width
-		w = 1;
+		scaled_width = 1;
 	}
 	
 	// If the scale completely overwrites the value
-	if (h == 0 && height != 0)
+	if (scaled_height == 0 && height != 0)
 	{
 		// Set the minimal height
-		h = 1;
+		scaled_height = 1;
 	}
-	return Region::is_inside((x<<6)/(Coord)scale, (y<<6)/(Coord)scale, w, h, true);
+	Coord scaled_x = (x << 6) / (Coord)scale;
+	Coord scaled_y = (y << 6) / (Coord)scale;
+	Overlap result = Region::is_inside(scaled_x, scaled_y, scaled_width, scaled_height, true);
+
+	// Additional per-pixel clip mask check (rounded corner clipping)
+	if (result != Overlap::OUT && m_clip_mask != nullptr && !m_clip_mask->is_empty())
+	{
+		Overlap clip_result = m_clip_mask->is_inside(x, y, width);
+		if (clip_result == Overlap::OUT)
+		{
+			result = Overlap::OUT;
+		}
+		else if (clip_result == Overlap::PART && result == Overlap::IN)
+		{
+			result = Overlap::PART;
+		}
+	}
+
+	return result;
 }
 
 /** Test if a region contains a point */
-Region::Overlap Region::is_inside(const Point & position) const
+Overlap Region::is_inside(const Point & position) const
 {
-	Region::Overlap result = Region::OUT;
+	Overlap result = Overlap::OUT;
 	if(!is_empty(&m_region))
 	{
 		RegionBox rect;
@@ -1479,9 +1508,9 @@ Region::Overlap Region::is_inside(const Point & position) const
 }
 
 /** Test if a region contains a rectangle */
-Region::Overlap Region::is_inside(const Point & position, const Size & size) const
+Overlap Region::is_inside(const Point & position, const Size & size) const
 {
-	Region::Overlap result = Region::OUT;
+	Overlap result = Overlap::OUT;
 	if(!is_empty(&m_region))
 	{
 		RegionBox rect;
@@ -1495,7 +1524,7 @@ Region::Overlap Region::is_inside(const Point & position, const Size & size) con
 }
 
 /** Test if a region contains an area */
-Region::Overlap Region::is_inside(const Area & area) const
+Overlap Region::is_inside(const Area & area) const
 {
 	return is_inside(area.position(), area.size());
 }
@@ -1516,9 +1545,9 @@ Area Region::get_extents() const
 }
 
 
-Region::Overlap Region::is_inside(Coord x, Coord y, Dim width, Dim height, bool pixel) const
+Overlap Region::is_inside(Coord x, Coord y, Dim width, Dim height, bool pixel) const
 {
-	Region::Overlap result = Region::OUT;
+	Overlap result = Overlap::OUT;
 	if(!is_empty(&m_region))
 	{
 		RegionBox rect;
@@ -1540,7 +1569,11 @@ void Region::clear()
 	clear(&m_region);
 }
 
-
+/** Attach a non-owning clip mask to this region */
+void Region::set_clip_mask(ClipMask * mask)
+{
+	m_clip_mask = mask;
+}
 
 /** Print the bounding box of the region */
 void Region::print(const char * name, bool newline) const

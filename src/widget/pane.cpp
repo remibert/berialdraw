@@ -60,10 +60,10 @@ void Pane::paint(const Region & parent_region)
 	region.intersect(m_backclip);
 
 	// If widget visible
-	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Overlap::OUT)
 	{
 		UIManager::renderer()->region(region);
-		Rect::build_polygon(m_backclip, m_radius, m_thickness, 0, m_borders, stated_color(m_color), stated_color(m_border_color));
+		Rect::paint_rounded_rect(m_backclip, m_radius, m_thickness, 0, m_borders, stated_color(m_color), stated_color(m_border_color));
 		Widget::paint(region);
 	}
 }

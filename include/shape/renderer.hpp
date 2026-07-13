@@ -2,6 +2,7 @@
 namespace berialdraw
 {
 	class Widget;
+	class ClipMask;
 
 	/** Rendering motor, use freetype to show all vector shapes and widgets */
 	class Renderer
@@ -16,6 +17,15 @@ namespace berialdraw
 
 		/** Destructor */
 		~Renderer();
+
+		/** Build a clip mask from a shape's outline using the FreeType rasterizer.
+		Uses the same transforms as draw() but routes spans to the ClipMask
+		instead of the framebuffer. The shape's polygon must already be built
+		(create_part() called). mask is cleared and finalized inside this call.
+		@param shape Shape whose polygon defines the clip boundary
+		@param shift Position shift (same semantics as draw())
+		@param mask  Output clip mask */
+		void build_clip_from_shape(const Shape & shape, const Point & shift, ClipMask & mask);
 
 		/** Draw a shape with a shift
 		@param shape Reference to the Shape object
@@ -85,7 +95,7 @@ namespace berialdraw
 
 		/** Set the drawing region
 		@param region Reference to the Region object */
-		void region(Region & region);
+		void region(Region& region);
 
 		/** Get the drawing region
 		@return Reference to the Region object */

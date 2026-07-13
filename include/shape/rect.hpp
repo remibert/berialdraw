@@ -1,6 +1,7 @@
 #pragma once
 namespace berialdraw
 {
+	class ClipMask;
 /** This class represents a rectangle shape that can be drawn on a canvas.
 It extends the Shape class and provides methods for rendering and 
 defining the rectangle's outline. */
@@ -37,10 +38,20 @@ public:
 	@param borders Number of borders of the polygon (approximating a rounded rectangle).
 	@param backcolor Background color of the rectangle.
 	@param bordercolor Border color of the rectangle. */
-	static void build_polygon(const Area & area, Dim radius, Dim thickness, Dim gap, uint8_t borders, uint32_t backcolor, uint32_t bordercolor, Dim focus_thickness=0);
+	static void paint_rounded_rect(const Area & area, Dim radius, Dim thickness, Dim gap, uint8_t borders, uint32_t backcolor, uint32_t bordercolor, Dim focus_thickness=0);
+
+	/** Build a clip mask from the inner area of a rounded rectangle,
+	with the same geometry as the backcolor path of paint_rounded_rect.
+	@param area      Bounding area of the rounded rect
+	@param radius    Corner radius in Q6
+	@param thickness Border thickness in Q6
+	@param gap       Gap between border and fill in Q6
+	@param borders   Which borders are active
+	@param mask      Output clip mask (cleared and filled by this call) */
+	static void build_clip_mask_rounded_rect(const Area & area, Dim radius, Dim thickness, Dim gap, uint8_t borders, ClipMask & mask);
 
 
-	static void build_focused_polygon(const Area & area, 
+	static void paint_focused_rounded_rect(const Area & area, 
 		const CommonStyle & common_style,
 		const BorderStyle & border_style,
 		uint32_t color,

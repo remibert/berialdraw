@@ -25,7 +25,7 @@ Coord round_(Coord value)
 	return value;
 }
 
-void Rect::build_polygon(const Area & area, Dim radius, 
+void Rect::paint_rounded_rect(const Area & area, Dim radius, 
 	Dim thickness, Dim gap, uint8_t borders, uint32_t backcolor, uint32_t bordercolor, 
 	Dim focus_thickness)
 {
@@ -110,7 +110,37 @@ void Rect::build_polygon(const Area & area, Dim radius,
 	}
 }
 
-void Rect::build_focused_polygon(const Area & area, 
+// Build a clip mask from the inner (backcolor) area of a rounded rectangle
+void Rect::build_clip_mask_rounded_rect(const Area & area, Dim radius, Dim thickness, Dim gap, uint8_t borders, ClipMask & mask)
+{
+	thickness = (Dim)min((Coord)area.size().width_q6(), min((Coord)area.size().height_q6(), (Coord)thickness));
+
+	Size  siz = area.size();
+	Point pos = area.position();
+
+	Rect rect(0);
+	rect.radius_q6(radius);
+	rect.thickness_q6(thickness);
+
+	// Apply the same geometry as the backcolor path of paint_rounded_rect
+	Coord delta = (Coord)thickness >> 7;
+	siz.decrease((Dim)(delta << 1), (Dim)(delta << 1));
+	siz.increase_q6(thickness, thickness);
+
+	// If the thickness is odd, shift by half a pixel
+	if ((thickness >> 6) % 2)
+	{
+		pos.move_q6(-32, -32);
+	}
+
+	rect.size(siz);
+	rect.borders((uint8_t)(borders | Borders::INNER_AREA));
+	rect.create_part();
+
+	UIManager::renderer()->build_clip_from_shape(rect, pos, mask);
+}
+
+void Rect::paint_focused_rounded_rect(const Area & area, 
 	const CommonStyle & common_style,
 	const BorderStyle & border_style,
 	uint32_t color,
@@ -187,10 +217,10 @@ void Rect::build_focused_polygon(const Area & area,
 			}
 
 			// Draw focus
-			Rect::build_polygon(focus_area, border_style.radius_q6(), border_style.thickness_q6(), border_style.focus_gap() << 6, borders, focus_color, focus_border_color, border_style.focus_thickness() << 6);
+			Rect::paint_rounded_rect(focus_area, border_style.radius_q6(), border_style.thickness_q6(), border_style.focus_gap() << 6, borders, focus_color, focus_border_color, border_style.focus_thickness() << 6);
 		}
 		// Draw background
-		Rect::build_polygon(area, border_style.radius_q6(), border_style.thickness_q6(), 0, borders, color, border_color);
+		Rect::paint_rounded_rect(area, border_style.radius_q6(), border_style.thickness_q6(), 0, borders, color, border_color);
 	}
 }
 

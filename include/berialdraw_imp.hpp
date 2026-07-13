@@ -74,6 +74,7 @@
 #include "shape/outline.hpp"
 
 #include "vector/region.hpp"
+#include "vector/clip_mask.hpp"
 
 #include "styles/style_names.hpp"
 #include "styles/style_item.hpp"

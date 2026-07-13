@@ -155,7 +155,7 @@ void Window::paint(const Region & parent_region)
 	region.subtract(parent_region);
 
 	// If widget visible
-	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Overlap::OUT)
 	{
 		// Register region
 		UIManager::renderer()->region(region);
@@ -203,7 +203,7 @@ Widget * Window::hovered(const Region & parent_region, const Point & position)
 	region.subtract(parent_region);
 
 	// If the touch is in the current window
-	if(region.is_inside(position) != Region::Overlap::OUT)
+	if(region.is_inside(position) != Overlap::OUT)
 	{
 		Widget* child = m_children;
 		Widget * hovered = 0;

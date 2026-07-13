@@ -7,6 +7,15 @@ extern "C"
 	#include "ft_system.c"
 }
 
+// FreeType span callback that routes spans to a ClipMask instead of the framebuffer
+static void clip_vector(int y, int count, const FT_Span * spans, void * user)
+{
+	if (user)
+	{
+		reinterpret_cast<ClipMask*>(user)->add_span_row(y, count, spans);
+	}
+}
+
 inline uint32_t compute_alpha(uint8_t a_, uint32_t b_) 
 {
 	return ((((a_)+1)*(b_))>>8) ;
@@ -52,7 +61,9 @@ uint32_t Renderer::color()
 	return m_color;
 }
 
-void Renderer::region(Region & region)
+/** Set the drawing region
+@param region Reference to the Region object */
+void Renderer::region(Region& region)
 {
 	*m_region = region;
 }
@@ -83,14 +94,14 @@ void Renderer::draw_line(Coord x, Coord y, uint32_t length, uint32_t coverage, u
 		}
 
 		// Check if the horizontal line is fully within the drawable region
-		Region::Overlap draw = m_region->is_inside_scale(x, y, length+add, m_scale >> 6, m_scale);
+		Overlap draw = m_region->is_inside_scale(x, y, length+add, m_scale >> 6, m_scale, alpha);
 
-		if (draw == Region::IN)
+		if (draw == Overlap::IN)
 		{
 			// Draw the entire line in one go
 			framebuf->fill_rect(x, y, length, 1, pixel_color);
 		}
-		else if (draw == Region::PART)
+		else if (draw == Overlap::PART)
 		{
 			// The line is partially visible, so we draw it in segments
 			uint32_t step = 64;
@@ -107,18 +118,18 @@ void Renderer::draw_line(Coord x, Coord y, uint32_t length, uint32_t coverage, u
 				}
 
 				// Check if the current segment is fully visible
-				draw = m_region->is_inside_scale(x + pos, y, len+add, m_scale >> 6, m_scale);
-				if (draw == Region::IN)
+				draw = m_region->is_inside_scale(x + pos, y, len+add, m_scale >> 6, m_scale, alpha);
+				if (draw == Overlap::IN)
 				{
 					// Draw the visible segment
 					framebuf->fill_rect(x + pos, y, len, 1, pixel_color);
 				}
-				else if (draw == Region::PART)
+				else if (draw == Overlap::PART)
 				{
 					// Segment is partially visible, draw pixel by pixel
 					for (uint32_t i = 0; i < len; i++)
 					{
-						if (m_region->is_inside_scale((x + i + pos), y, m_scale))
+						if (m_region->is_inside_scale((x + i + pos), y, 1, 1, m_scale, alpha) != Overlap::OUT)
 						{
 							// Draw individual visible pixel
 							framebuf->pixel(x + i + pos, y, pixel_color);
@@ -128,10 +139,10 @@ void Renderer::draw_line(Coord x, Coord y, uint32_t length, uint32_t coverage, u
 				else
 				{
 					// Check if the rest of the line is completely outside the drawable region
-					draw = m_region->is_inside_scale(x + pos, y, length - pos+add, m_scale >> 6, m_scale);
+					draw = m_region->is_inside_scale(x + pos, y, length - pos+add, m_scale >> 6, m_scale, alpha);
 
 					// If so, stop drawing
-					if (draw == Region::OUT)
+					if (draw == Overlap::OUT)
 					{
 						break;
 					}
@@ -154,7 +165,7 @@ void Renderer::fillrect(Coord x, Coord y, Dim width, Dim height, uint32_t color)
 	height = (height * m_scale) >> 6;
 
 	// If the buffer is visible
-	if(m_region->is_inside_scale(x, y, width, height, m_scale) != Region::OUT)
+	if(m_region->is_inside_scale(x, y, width, height, m_scale, alpha) != Overlap::OUT)
 	{
 		// Fill rectangle
 		for (uint32_t row = 0; row < height; row++)
@@ -186,7 +197,7 @@ void Renderer::draw_buffer(Coord x_, Coord y_, const uint8_t * buffer, Dim width
 	Coord y = (y_ * (Coord)m_scale) >> 12;
 
 	// If the buffer is visible
-	if(m_region->is_inside_scale(x, y, width, height, m_scale) != Region::OUT)
+	if(m_region->is_inside_scale(x, y, width, height, m_scale, alpha) != Overlap::OUT)
 	{
 		// For each bitmap pixel draw it
 		for (uint32_t row = 0; row < height; row++)
@@ -222,6 +233,61 @@ void Renderer::draw(const Shape & shape, const Point & shift)
 	// Copy and create polygon
 	Polygon copy_poly(shape.polygon());
 	draw_outline(shape.position(), shape.margin(), shift, shape.center(), shape.color(), shape.angle_q6(), copy_poly.outline());
+}
+
+// Build a clip mask from a shape outline using the same transforms as draw()
+void Renderer::build_clip_from_shape(const Shape & shape, const Point & shift, ClipMask & mask)
+{
+	mask.clear();
+
+	// Copy polygon so transforms don't mutate the original
+	Polygon      copy_poly(shape.polygon());
+	Outline &    out     = copy_poly.outline();
+	FT_Outline & outline = out.get();
+
+	// Apply zoom if present
+	if (out.zoom_q6() != 1 << 6)
+	{
+		FT_Matrix matrix;
+		matrix.xx = (FT_Fixed)out.zoom_q6() << 10;
+		matrix.xy = 0;
+		matrix.yx = 0;
+		matrix.yy = (FT_Fixed)out.zoom_q6() << 10;
+		FT_Outline_Transform(&outline, &matrix);
+	}
+
+	// Build position with shift
+	Point pos;
+	pos.x_q6(shape.position().x_q6() + shift.x_q6());
+	pos.y_q6(shape.position().y_q6() + shift.y_q6());
+
+	// Apply common transforms (center, rotation, translation)
+	apply_outline_transforms(outline, pos, shape.margin(), shape.center(), shape.angle_q6());
+
+	// Apply scale (same as draw_outline step 4)
+	if (m_scale != 1 << 6)
+	{
+		FT_Matrix matrix;
+		matrix.xx = (FT_Fixed)m_scale << 10;
+		matrix.xy = 0;
+		matrix.yx = 0;
+		matrix.yy = (FT_Fixed)m_scale << 10;
+		FT_Outline_Transform(&outline, &matrix);
+	}
+
+	// Rasterize with clip mask callback
+	m_params.gray_spans = (FT_SpanFunc)clip_vector;
+	m_params.user       = &mask;
+	m_params.source     = &outline;
+
+	ft_grays_vector_raster.raster_reset(m_raster, m_pool, (unsigned long)m_pool_size);
+	ft_grays_vector_raster.raster_render(m_raster, &m_params);
+
+	// Restore drawing callback
+	m_params.gray_spans = (FT_SpanFunc)draw_vector;
+	m_params.user       = this;
+
+	mask.finalize();
 }
 
 /** Apply common outline transformations: translate to center, rotate, translate to position.
@@ -341,7 +407,7 @@ void Renderer::draw_image(const Point & position, const Size & size, const Point
 
 			// Finalize drawing conditions
 			if (pixels && rot_w > 0 && rot_h > 0 && 
-				m_region->is_inside_scale(sx, sy, rot_w, rot_h, m_scale) != Region::OUT)
+				m_region->is_inside_scale(sx, sy, rot_w, rot_h, m_scale, alpha) != Overlap::OUT)
 			{
 				should_draw = true;
 			}

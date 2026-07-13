@@ -93,7 +93,7 @@ void Switch::paint_switch(Region & region)
 	// Create an area for just the switch (not including text)
 	Area area_track(m_switch_foreclip);
 
-	Rect::build_focused_polygon(area_track, 
+	Rect::paint_focused_rounded_rect(area_track, 
 		*(CommonStyle*)this,
 		*(BorderStyle*)this,
 		stated_color(track_color), 
@@ -120,7 +120,7 @@ void Switch::paint_switch(Region & region)
 		}
 	}
 	area_thumb.size().width(area_thumb.size().height());
-	Rect::build_polygon(area_thumb, substract(m_radius, m_thumb_padding), 0, 0, ALL_BORDERS, stated_color(m_thumb_color), 0);
+	Rect::paint_rounded_rect(area_thumb, substract(m_radius, m_thumb_padding), 0, 0, ALL_BORDERS, stated_color(m_thumb_color), 0);
 
 }
 
@@ -131,7 +131,7 @@ void Switch::paint(const Region & parent_region)
 	region.intersect(m_backclip);
 
 	// If widget visible
-	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Overlap::OUT)
 	{
 		paint_switch(region);
 		
@@ -154,7 +154,7 @@ Widget * Switch::hovered(const Region & parent_region, const Point & position)
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if(region.is_inside(position) != Region::Overlap::OUT)
+	if(region.is_inside(position) != Overlap::OUT)
 	{
 		return this;
 	}

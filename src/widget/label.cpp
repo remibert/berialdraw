@@ -89,7 +89,7 @@ void Label::paint(const Region & parent_region)
 	uint32_t color = parent_focus_color(stated_color(m_text_color));
 
 	// If widget visible
-	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Overlap::OUT)
 	{
 		select_font();
 		UIManager::renderer()->region(region);
@@ -106,7 +106,7 @@ Widget * Label::hovered(const Region & parent_region, const Point & position)
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if(region.is_inside(position) != Region::Overlap::OUT)
+	if(region.is_inside(position) != Overlap::OUT)
 	{
 		return this;
 	}

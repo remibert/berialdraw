@@ -229,11 +229,11 @@ void ProgressBar::draw_track()
 
 	// Draw track
 	track_area.nearest_pixel();
-	Rect::build_polygon(track_area, track_radius, track_thickness, 0, m_borders, stated_color(m_track_color), track_border_color);
+	Rect::paint_rounded_rect(track_area, track_radius, track_thickness, 0, m_borders, stated_color(m_track_color), track_border_color);
 
 	// Draw fill
 	fill_area.nearest_pixel();
-	Rect::build_polygon(fill_area, fill_radius, fill_thickness, 0, m_borders, stated_color(m_fill_color), fill_border_color);
+	Rect::paint_rounded_rect(fill_area, fill_radius, fill_thickness, 0, m_borders, stated_color(m_fill_color), fill_border_color);
 }
 
 void ProgressBar::paint(const Region & parent_region)
@@ -242,7 +242,7 @@ void ProgressBar::paint(const Region & parent_region)
 	region.intersect(m_backclip);
 
 	// If widget visible
-	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Region::OUT)
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Overlap::OUT)
 	{
 		UIManager::renderer()->region(region);
 		check_progress_bar();
@@ -257,7 +257,7 @@ Widget * ProgressBar::hovered(const Region & parent_region, const Point & positi
 	region.intersect(m_foreclip);
 
 	// If the widget hovered
-	if(region.is_inside(position) != Region::Overlap::OUT)
+	if(region.is_inside(position) != Overlap::OUT)
 	{
 		return this;
 	}
