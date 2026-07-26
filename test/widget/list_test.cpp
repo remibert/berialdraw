@@ -84,14 +84,19 @@ void List::test7()
 	List* list = new List(&window);
 
 	//list->color(Color::PLATINUM);
-	list->thickness(1);
+	list->thickness(10);
 	list->border_color(Color::GRAY);
-	list->radius(20);
-	//list->padding(30);
-	list->margin(10);
+	list->radius(40);
+	list->padding(3);
+	//list->margin(10);
 	list->size(200, 300);
 	list->position(10, 10);
 	ListItem* item;
+
+		//item = list->new_item();
+		//item->leading("< ");
+		//item->trailing(" >");
+		//item->text("abcdefg");
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -132,13 +137,13 @@ void List::test7()
 		UIManager::desktop()->dispatch();
 	}*/
 
-	for (int i = 0; i < 30; i++)
-	{
-		bd_printf("\n--%d--\n", i);
-		list->thickness(i);
-		//list->padding(i);
-		UIManager::desktop()->dispatch();
-	}
+	// for (int i = 0; i < 30; i++)
+	// {
+	// 	bd_printf("\n--%d--\n", i);
+	// 	list->thickness(i);
+	// 	//list->padding(i);
+	// 	UIManager::desktop()->dispatch();
+	// }
 	
 	UIManager::desktop()->dispatch("$(ui.tests)/out/list7_1.svg");
 	UIManager::desktop()->mainloop();
@@ -151,7 +156,7 @@ void List::test()
 	{
 		MemoryLeakLog
 		done = true;
-		test7();
+		//test7();
 		test6();
 		test5();
 		test4();

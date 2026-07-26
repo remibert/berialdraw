@@ -2,7 +2,7 @@
 namespace berialdraw
 {
 	/** Class representing text as a drawable shape with specific text styling. */
-	class Text : public Shape, public TextStyle
+	class Text : public Shape, public TextStyle, public PaddingStyle
 	{
 	public:
 		/** Friend class to allow Glyphs to access private/protected members. */
@@ -21,18 +21,18 @@ namespace berialdraw
 
 		/** Draw the text label on the specified desktop with a given shift.
 		@param shift Reference to the Point object representing the shift to apply when drawing */
-		virtual void paint(const Point & shift);
+		virtual void paint(const Point & shift) override;
 
 		/** Get the polygon outline of the text.
 		@return Reference to the Polygon object representing the text outline (not typically used for text) */
-		virtual const Polygon & polygon() const
+		virtual const Polygon & polygon() const override
 		{
 			return *m_polygon; // Never called in case of text
 		}
 
 		/** Get the size of the text content.
 		@return Size object representing the content size of the text */
-		virtual Size content_size();
+		virtual Size content_size() override;
 
 #ifdef _DEBUG
 		static void test();

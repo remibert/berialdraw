@@ -177,41 +177,6 @@ void TextStyle::text(wchar_t value)
 	m_text = value;
 }
 
-/** Set the padding */
-void TextStyle::padding(const Margin & m)
-{
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_padding = m;
-}
-
-/** Set the padding in pixels */
-void TextStyle::padding(Dim top, Dim left, Dim bottom, Dim right)
-{
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_padding.set(top,left,bottom,right);
-}
-
-/** Set the padding with a precision of 64th of a pixel */
-void TextStyle::padding_q6(Dim top, Dim left, Dim bottom, Dim right)
-{
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_padding.set_q6(top,left,bottom,right);
-}
-
-/** Set the padding */
-void TextStyle::padding(Dim horizontal, Dim vertical)
-{
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_padding.set(vertical,horizontal,vertical,horizontal);
-}
-
-/** Set the padding */
-void TextStyle::padding(Dim value)
-{
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_padding.set(value,value,value,value);
-}
-
 /** Set the text align */
 void TextStyle::text_align(Align v)
 {

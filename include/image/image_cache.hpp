@@ -17,17 +17,14 @@ namespace berialdraw
 		/** Get the decoded pixel data */
 		const uint32_t * pixel_data() const { return m_pixels; }
 
-		/** Get the image width in pixels */
-		uint32_t width() const { return m_width; }
-
-		/** Get the image height in pixels */
-		uint32_t height() const { return m_height; }
+		/** Get the image size */
+		const Size & size() const { return m_size; }
 
 		/** Check if this entry contains valid data */
 		bool is_valid() const { return m_pixels != nullptr; }
 
 		/** Get the memory size of this entry in bytes */
-		uint32_t memory_size() const { return m_width * m_height * 4; }
+		uint32_t memory_size() const { return m_size.width() * m_size.height() * 4; }
 
 		/** Get the access counter (for LRU eviction) */
 		uint32_t access_count() const { return m_access_count; }
@@ -37,8 +34,7 @@ namespace berialdraw
 		friend class ImageCache;
 		String    m_filename;
 		uint32_t* m_pixels = nullptr;
-		uint32_t  m_width = 0;
-		uint32_t  m_height = 0;
+		Size      m_size;
 		uint32_t  m_access_count = 0;
 	/// @endcond
 	};

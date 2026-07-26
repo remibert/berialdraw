@@ -32,6 +32,29 @@ void Canvas::copy(const Canvas * canvas)
 	}
 }
 
+/** Serialize the content of widget into json */
+void Canvas::serialize(JsonIterator& it)
+{
+	it["type"] = m_classname;
+	CommonStyle::serialize(it);
+	WidgetStyle::serialize(it);
+	BorderStyle::serialize(it);
+}
+
+/** Unserialize the content of widget from json */
+void Canvas::unserialize(JsonIterator& it)
+{
+	CommonStyle::unserialize(it);
+	WidgetStyle::unserialize(it);
+	BorderStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
+
+StyleCascadeMode Canvas::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+
 /** Return the size of content without marges */
 Size Canvas::content_size()
 {
@@ -65,14 +88,16 @@ Size Canvas::content_size()
 		{
 			m_content_size = m_size;
 		}
+		m_content_size.increase(padding());
+		m_content_size.increase_q6(m_thickness << 1, m_thickness << 1);
 	}
 	return m_content_size;
 }
 
 void Canvas::place(const Area & area, bool in_layout)
 {
-	place_in_area_with_thickness(area, in_layout, m_thickness);
-	Widget::place(m_foreclip, in_layout);
+	compute_widget_placement(area, in_layout, m_thickness);
+	Widget::place(m_contentclip, true);
 }
 
 void Canvas::paint(const Region & parent_region)
@@ -95,20 +120,22 @@ void Canvas::paint(const Region & parent_region)
 		}
 
 		// Draw background color
-		if(m_color)
+		if(m_color || m_border_color)
 		{
-			Rect rect(0);
-			rect.size(m_foreclip.size());
-			rect.color(stated_color(m_color));
-			rect.paint(m_foreclip.position());
+			Rect::paint_rounded_rect2(m_foreclip, m_radius, m_thickness, 0, m_borders,
+				stated_color(m_color), stated_color(m_border_color), 0);
 		}
+
+		// Clip content
+		region.intersect(m_contentclip);
+		UIManager::renderer()->region(region);
 
 		// Redraw all shapes
 		for(uint32_t i = 0; i < m_shapes.size(); i++)
 		{
 			if (m_shapes[i])
 			{
-				m_shapes[i]->paints(m_foreclip.position());
+				m_shapes[i]->paints(m_contentclip.position());
 			}
 		}
 
@@ -194,29 +221,3 @@ Widget * Canvas::hovered(const Region & parent_region, const Point & position)
 	}
 	return 0;
 }
-
-/** Serialize the content of widget into json */
-void Canvas::serialize(JsonIterator & it)
-{
-	it["type"] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
-	BorderStyle::serialize(it);
-}
-
-/** Unserialize the content of widget from json */
-void Canvas::unserialize(JsonIterator & it)
-{
-	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
-	BorderStyle::unserialize(it);
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
-}
-
-StyleCascadeMode Canvas::style_cascade_mode() const
-{
-	return StyleCascadeMode::NONE;
-}
-
-
-

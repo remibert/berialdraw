@@ -117,9 +117,8 @@ const ImageCacheEntry * ImageCache::get(const char * filename)
 			{
 				if (decoder->decode(filename))
 				{
-					uint32_t w = decoder->width();
-					uint32_t h = decoder->height();
-					uint32_t img_size = w * h * 4;
+					Size decoded_size = decoder->size();
+					uint32_t img_size = decoded_size.width() * decoded_size.height() * 4;
 
 					// Evict until we fit within the entry limit
 					while (m_entries.size() >= m_max_entries && m_entries.size() > 0)
@@ -128,7 +127,7 @@ const ImageCacheEntry * ImageCache::get(const char * filename)
 					}
 
 					// Copy pixel data
-					uint32_t pixel_count = w * h;
+					uint32_t pixel_count = decoded_size.width() * decoded_size.height();
 					uint32_t * pixels = new uint32_t[pixel_count];
 					const uint32_t * src = decoder->pixel_data();
 					for (uint32_t i = 0; i < pixel_count; i++)
@@ -141,8 +140,7 @@ const ImageCacheEntry * ImageCache::get(const char * filename)
 					m_access_counter++;
 					entry->m_filename = filename;
 					entry->m_pixels = pixels;
-					entry->m_width = w;
-					entry->m_height = h;
+					entry->m_size = decoded_size;
 					entry->m_access_count = m_access_counter;
 					m_memory_usage += img_size;
 					m_entries.push_back(entry);

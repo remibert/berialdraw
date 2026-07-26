@@ -13,6 +13,7 @@ Edit::Edit(Widget * parent):
 	UIManager::styles()->apply(this, (BorderStyle*)this);
 	UIManager::styles()->apply(this, (TextStyle*)this);
 	UIManager::styles()->apply(this, (EditStyle*)this);
+	UIManager::styles()->apply(this, (PaddingStyle*)this);
 	bind(this, &Edit::on_key);
 	bind(this, &Edit::on_select);
 	bind(this, &Edit::on_click);
@@ -24,13 +25,14 @@ Edit::~Edit()
 }
 
 /** Copy all styles of the edit */
-void Edit::copy(const Edit & edit)
+void Edit::copy(const Edit & obj)
 {
-	*((CommonStyle*)this) = *(CommonStyle*)(&edit);
-	*((WidgetStyle*)this) = *(WidgetStyle*)(&edit);
-	*((BorderStyle*)this) = *(BorderStyle*)(&edit);
-	*((TextStyle*)this)   = *(TextStyle*)(&edit);
-	*((EditStyle*)this)   = *(EditStyle*)(&edit);
+	*((CommonStyle*)this) = *(CommonStyle*)(&obj);
+	*((WidgetStyle*)this) = *(WidgetStyle*)(&obj);
+	*((BorderStyle*)this) = *(BorderStyle*)(&obj);
+	*((TextStyle*)this)   = *(TextStyle*)(&obj);
+	*((EditStyle*)this)   = *(EditStyle*)(&obj);
+	*((PaddingStyle*)this) = *(PaddingStyle*)(&obj);
 }
 
 /** Copy all styles of the edit */
@@ -41,11 +43,58 @@ void Edit::copy(const Edit * edit)
 		copy(*edit);
 	}
 }
+/** Serialize the content of widget into json */
+void Edit::serialize(JsonIterator& it)
+{
+	it["type"] = m_classname;
+	CommonStyle::serialize(it);
+	WidgetStyle::serialize(it);
+	TextStyle::serialize(it);
+	BorderStyle::serialize(it);
+	EditStyle::serialize(it);
+	PaddingStyle::serialize(it);
+
+	if (m_mask)
+	{
+		it["mask"] = *m_mask;
+	}
+}
+
+/** Unserialize the content of widget from json */
+void Edit::unserialize(JsonIterator& it)
+{
+	CommonStyle::unserialize(it);
+	WidgetStyle::unserialize(it);
+	TextStyle::unserialize(it);
+	BorderStyle::unserialize(it);
+	EditStyle::unserialize(it);
+	PaddingStyle::unserialize(it);
+
+	String mask;
+	mask = (String)it["text"];
+	if (mask.size())
+	{
+		if (m_mask)
+		{
+			delete m_mask;
+		}
+		m_mask = new String(mask);
+	}
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
+
+StyleCascadeMode Edit::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
 
 Size Edit::content_size()
 {
 	Size result;
-	select_font();
+	if (m_text_modified || m_font_modified)
+	{
+		select_font();
+	}
 
 	if (m_edited == 1)
 	{
@@ -64,47 +113,44 @@ Size Edit::content_size()
 	}
 
 	result = m_text_size;
-	result.height_q6(result.height_q6()+ padding().bottom_q6() + padding().top_q6() + m_focus_gap +m_focus_gap);
-	result.width_q6(result.width_q6()  + padding().left_q6()   + padding().right_q6() + m_focus_gap + m_focus_gap);
+
+	// Add padding and thickness in size
+	result.increase(padding());
+	result.increase_q6(m_thickness << 1, m_thickness << 1);
 
 	return result;
 }
 
 void Edit::place(const Area & area, bool in_layout)
 {
-	// Place rectangle
-	place_in_area_not_extend(area, in_layout);
-
-	// Place text
-	m_text_backclip = m_foreclip;
-	m_text_backclip.decrease(padding());
+	compute_widget_placement(area, in_layout, m_thickness);
 
 	// If text area greater than the max columns authorised
-	if (m_text_backclip.width_q6() > m_text_size.width_q6())
+	if (m_contentclip.width_q6() > m_text_size.width_q6())
 	{
+		Dim delta = m_contentclip.width_q6() - m_text_size.width_q6();
+
 		// Reduce size to the max columns
-		m_text_backclip.width_q6(m_text_size.width_q6());
+		m_contentclip.size().decrease_q6(delta, 0);
+		m_backclip.size().decrease_q6(delta, 0);
+		m_foreclip.size().decrease_q6(delta, 0);
 	}
 	
 	// If text area greater than the max lines authorised
-	if (m_text_backclip.height_q6() > m_text_size.height_q6())
+	if (m_contentclip.height_q6() > m_text_size.height_q6())
 	{
+		Dim delta = m_contentclip.height_q6() - m_text_size.height_q6();
+
 		// Reduce size to the max lines
-		m_text_backclip.height_q6(m_text_size.height_q6());
+		m_contentclip.size().decrease_q6(0, delta);
+		m_backclip.size().decrease_q6(0, delta);
+		m_foreclip.size().decrease_q6(0, delta);
 	}
 
 	Margin marg;
 
 	// Place the text and compute the size of text
-	place_in_layout(m_text_backclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, text_align());
-
-	// Adapt the fore clipping to the size of edit field
-	m_foreclip = m_text_foreclip;
-	m_foreclip.increase(padding());
-
-	// Adapt the back clipping to the size of edit field
-	m_backclip = m_foreclip;
-	m_backclip.increase(margin());
+	place_in_layout(m_contentclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, m_text_align);
 }
 
 void Edit::paint(const Region & parent_region)
@@ -169,7 +215,7 @@ void Edit::paint(const Region & parent_region)
 		Widget::paint(region);
 
 		// Get clipping text area
-		Area text_clip(m_text_backclip);
+		Area text_clip(m_contentclip);
 
 		// Add cursor width and height
 		Margin cursor_margin(1,1,1,1);
@@ -186,13 +232,12 @@ void Edit::paint(const Region & parent_region)
 		Point text_shift(m_text_foreclip.position());
 		text_shift.move(m_cursor_shift);
 
-		m_text_box.paint(m_cursor_shift, *m_font.get(), display, m_text_foreclip.position(), m_text_backclip, txt_col,
+		m_text_box.paint(m_cursor_shift, *m_font.get(), display, m_text_foreclip.position(), m_contentclip, txt_col,
 			focused() ? stated_color(m_cursor_color) : Color::TRANSPARENT, 
 			focused() ? stated_color(m_select_color) : Color::TRANSPARENT,
 			(TypingMode)m_typing_mode == TypingMode::INSERTION);
 	}
 }
-
 
 /** Get the widget hovered */
 Widget * Edit::hovered(const Region & parent_region, const Point & position)
@@ -273,48 +318,3 @@ void Edit::on_click(Widget * widget, const ClickEvent & evt)
 		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	}
 }
-
-/** Serialize the content of widget into json */
-void Edit::serialize(JsonIterator & it)
-{
-	it["type"] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
-	TextStyle::serialize(it);
-	BorderStyle::serialize(it);
-	EditStyle::serialize(it);
-
-	if (m_mask)
-	{
-		it["mask"]      = *m_mask;
-	}
-}
-
-/** Unserialize the content of widget from json */
-void Edit::unserialize(JsonIterator & it)
-{
-	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
-	TextStyle::unserialize(it);
-	BorderStyle::unserialize(it);
-	EditStyle::unserialize(it);
-
-	String mask;
-	mask   = (String)it["text"];
-	if (mask.size())
-	{
-		if (m_mask)
-		{
-			delete m_mask;
-		}
-		m_mask = new String(mask);
-	}
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
-}
-
-StyleCascadeMode Edit::style_cascade_mode() const
-{
-	return StyleCascadeMode::NONE;
-}
-
-

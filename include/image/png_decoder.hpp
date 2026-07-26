@@ -22,13 +22,9 @@ namespace berialdraw
 		@return Pointer to the pixel data */
 		virtual const uint32_t* pixel_data() const override;
 
-		/** Get the image width
-		@return Width in pixels */
-		virtual uint32_t width() const override;
-
-		/** Get the image height
-		@return Height in pixels */
-		virtual uint32_t height() const override;
+		/** Get the image dimensions
+		@return Size object with width and height */
+		virtual const Size& size() const override;
 
 		/** Check if the image has alpha channel
 		@return true (PNG supports alpha) */
@@ -40,8 +36,7 @@ namespace berialdraw
 	protected:
 	/// @cond DOXYGEN_IGNORE
 		uint32_t* m_pixels = nullptr;
-		uint32_t  m_width = 0;
-		uint32_t  m_height = 0;
+		Size      m_size;
 		bool      m_has_alpha = false;
 	/// @endcond
 	};

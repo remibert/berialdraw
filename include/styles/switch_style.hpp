@@ -75,6 +75,15 @@ namespace berialdraw
 		/** Set the thumb padding in pixels */
 		void thumb_padding(Dim pad);
 
+		/** Get the text padding in pixels */
+		inline Dim text_padding() const
+		{
+			return m_text_padding >> 6;
+		}
+
+		/** Set the text padding in pixels */
+		void text_padding(Dim pad);
+
 		/** Get the property name for this style */
 		const char* property_name() const override { return "switch"; }
 
@@ -85,6 +94,7 @@ namespace berialdraw
 		uint32_t m_off_track_color = 0xFFDFDFDF;
 		uint32_t m_thumb_color   = 0xFFFFFFFF;
 		Dim      m_thumb_padding = 1;
+		Dim m_text_padding = 2 << 6;
 /// @endcond
 	}; 
 }

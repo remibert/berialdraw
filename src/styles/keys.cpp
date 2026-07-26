@@ -35,6 +35,7 @@ void Key::serialize(JsonIterator & it)
 	WidgetStyle::serialize(it);
 	TextStyle::serialize(it);
 	BorderStyle::serialize(it);
+	PaddingStyle::serialize(it);
 }
 
 /** Unserialize the content of widget from json */
@@ -47,6 +48,7 @@ void Key::unserialize(JsonIterator & it)
 	WidgetStyle::unserialize(it);
 	TextStyle::unserialize(it);
 	BorderStyle::unserialize(it);
+	PaddingStyle::unserialize(it);
 }
 
 

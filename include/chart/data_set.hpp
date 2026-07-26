@@ -3,7 +3,7 @@ namespace berialdraw
 {
 	/** Class to store data for charts.
 	Inherits from BorderStyle and TextStyle. */
-	class DataSet : public BorderStyle, public TextStyle
+	class DataSet : public BorderStyle, public TextStyle, public PaddingStyle
 	{
 	public:
 		/** Default constructor for DataSet. */

@@ -178,8 +178,11 @@ void SvgOut::add_image_file(const char * filename, int32_t x, int32_t y, uint32_
 						if (fit_mode == FIT && src_width > 0 && src_height > 0)
 						{
 							// Compute fitted size preserving aspect ratio
-							ImageProcessor::compute_fit_size(src_width, src_height,
-								display_width, display_height, FIT, img_w, img_h);
+							Size img_fit;
+							ImageProcessor::compute_fit_size(Size(src_width, src_height),
+								Size(display_width, display_height), FIT, img_fit);
+							img_w = img_fit.width();
+							img_h = img_fit.height();
 
 							// Center the fitted image in the display area
 							img_x = x + (int32_t)(display_width - img_w) / 2;

@@ -55,8 +55,6 @@ void Canvas::test2()
 	int angle = 0;
 	int id = 0;
 
-	//(*UIManager::settings())["canvas"]["test2"]  = "k";
-
 	for (int angle = 0; angle <= 360; angle += 30)
 	{
 		text->angle(angle);
@@ -384,6 +382,41 @@ void Canvas::test10()
 	}
 }
 
+void Canvas::test11()
+{
+	Window window;
+		window.color(Color::WHITE_SMOKE);
+
+	Canvas* canvas = new Canvas(&window);
+		
+		canvas->color(Color::BLUE,64);
+
+		Circle* circle = new Circle(canvas);
+			circle->position(100, 100);
+			circle->radius(50);
+			circle->color(PURPLE, 64);
+			circle->thickness(90);
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/canvas11_1.svg");
+
+	canvas->border_color(Color::BLACK);
+	canvas->padding(17);
+	canvas->margin(23);
+	canvas->radius(30);
+	canvas->thickness(2);
+	UIManager::desktop()->dispatch("$(ui.tests)/out/canvas11_2.svg");
+
+	delete circle;
+	Rect* roundrect = new Rect(canvas);
+		roundrect->position(10, 10);
+		roundrect->radius(50);
+		roundrect->size(160, 160);
+		roundrect->thickness(10);
+		roundrect->color(0x3FFF0000);
+	UIManager::desktop()->dispatch("$(ui.tests)/out/canvas11_3.svg");
+
+}
+
 void Canvas::test()
 {
 	static bool done = false;
@@ -391,6 +424,7 @@ void Canvas::test()
 	{
 		MemoryLeakLog
 		done = true;
+		test11();
 		test10();
 		test8();
 		test6();

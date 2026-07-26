@@ -55,7 +55,7 @@ namespace berialdraw
 
 
 	/** Class defines the behavior of key */
-	class Key : public CommonStyle, public WidgetStyle, public TextStyle, public BorderStyle
+	class Key : public CommonStyle, public WidgetStyle, public TextStyle, public BorderStyle, public PaddingStyle
 	{
 	public:
 		/** Constructor */

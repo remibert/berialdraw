@@ -26,11 +26,13 @@ uint8_t ImageProcessor::clamp_byte(int32_t val)
 // Resize image with bicubic interpolation (Q6 fixed-point, no float)
 uint32_t* ImageProcessor::resize_bicubic(
 	const uint32_t* src_pixels,
-	uint32_t src_width,
-	uint32_t src_height,
-	uint32_t dst_width,
-	uint32_t dst_height)
+	const Size& src_size,
+	const Size& dst_size)
 {
+	uint32_t src_width  = src_size.width();
+	uint32_t src_height = src_size.height();
+	uint32_t dst_width  = dst_size.width();
+	uint32_t dst_height = dst_size.height();
 	uint32_t* result = nullptr;
 
 	if (src_pixels && src_width > 0 && src_height > 0 && dst_width > 0 && dst_height > 0)
@@ -146,16 +148,17 @@ uint32_t* ImageProcessor::resize_bicubic(
 }
 
 void ImageProcessor::compute_fit_size(
-	uint32_t src_width,
-	uint32_t src_height,
-	uint32_t area_width,
-	uint32_t area_height,
+	const Size& src_size,
+	const Size& area_size,
 	ImageFitMode fit_mode,
-	uint32_t & dst_width,
-	uint32_t & dst_height)
+	Size & dst_size)
 {
-	dst_width = area_width;
-	dst_height = area_height;
+	uint32_t src_width   = src_size.width();
+	uint32_t src_height  = src_size.height();
+	uint32_t area_width  = area_size.width();
+	uint32_t area_height = area_size.height();
+	uint32_t dst_width   = area_width;
+	uint32_t dst_height  = area_height;
 
 	if (src_width == 0 || src_height == 0 || area_width == 0 || area_height == 0)
 	{
@@ -190,6 +193,9 @@ void ImageProcessor::compute_fit_size(
 	// Ensure minimum 1 pixel
 	if (dst_width == 0) dst_width = 1;
 	if (dst_height == 0) dst_height = 1;
+
+	dst_size.width(dst_width);
+	dst_size.height(dst_height);
 }
 
 // Combine alpha channels: pixel_alpha * widget_alpha
@@ -200,12 +206,14 @@ uint8_t ImageProcessor::combine_alpha(uint8_t pixel_alpha, uint8_t widget_alpha)
 
 // Compute bounding box size after rotation (Q6 angles, Q16.16 trig)
 void ImageProcessor::compute_rotated_size(
-	uint32_t src_width,
-	uint32_t src_height,
+	const Size& src_size,
 	Coord angle_q6,
-	uint32_t & dst_width,
-	uint32_t & dst_height)
+	Size & dst_size)
 {
+	uint32_t src_width  = src_size.width();
+	uint32_t src_height = src_size.height();
+	uint32_t dst_width  = 0;
+	uint32_t dst_height = 0;
 	bool needs_complex_rotation = true;
 
 	// Handle zero dimensions
@@ -271,17 +279,22 @@ void ImageProcessor::compute_rotated_size(
 		dst_width  = (uint32_t)(new_w > 0 ? new_w : 1);
 		dst_height = (uint32_t)(new_h > 0 ? new_h : 1);
 	}
+
+	dst_size.width(dst_width);
+	dst_size.height(dst_height);
 }
 
 // Rotate image with bilinear interpolation (Q6 angles, Q16.16 mapping, no float)
 uint32_t* ImageProcessor::rotate_bilinear(
 	const uint32_t* src_pixels,
-	uint32_t src_width,
-	uint32_t src_height,
+	const Size& src_size,
 	Coord angle_q6,
-	uint32_t & dst_width,
-	uint32_t & dst_height)
+	Size & dst_size)
 {
+	uint32_t src_width  = src_size.width();
+	uint32_t src_height = src_size.height();
+	uint32_t dst_width  = 0;
+	uint32_t dst_height = 0;
 	uint32_t* result = nullptr;
 	bool should_perform_rotation = false;
 
@@ -317,7 +330,10 @@ uint32_t* ImageProcessor::rotate_bilinear(
 	if (should_perform_rotation)
 	{
 		// Compute rotated bounding box
-		compute_rotated_size(src_width, src_height, angle_q6, dst_width, dst_height);
+		Size rot_size;
+		compute_rotated_size(src_size, angle_q6, rot_size);
+		dst_width  = rot_size.width();
+		dst_height = rot_size.height();
 
 		result = new uint32_t[dst_width * dst_height];
 
@@ -452,5 +468,7 @@ uint32_t* ImageProcessor::rotate_bilinear(
 		}
 	}
 
+	dst_size.width(dst_width);
+	dst_size.height(dst_height);
 	return result;
 }

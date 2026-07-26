@@ -14,7 +14,7 @@ namespace berialdraw
 
 	/** The Widget class serves as the foundational building block for all user interface components. 
 	It provides common properties and methods such as dimensions, and event handling */
-	class Widget : public CommonStyle, public WidgetStyle
+	class Widget : public CommonStyle, public WidgetStyle, public PaddingStyle
 	{
 	friend class Cells;
 	friend class Invalidator;
@@ -30,6 +30,9 @@ namespace berialdraw
 
 		/** Place the widget in the area */
 		virtual void place(const Area & area, bool in_layout);
+
+		/** Place the widget in the area */
+		virtual void place_children(const Area& area, bool in_layout);
 
 		/** Scroll the widget and its children by the specified move offset */
 		virtual void scroll(const Point & move);
@@ -190,6 +193,7 @@ namespace berialdraw
 
 		Area m_foreclip;
 		Area m_backclip;
+		Area m_contentclip;
 		Widget * m_parent = 0;
 		Widget * m_children = 0;
 		Widget * m_last_children = 0;
@@ -198,10 +202,40 @@ namespace berialdraw
 
 		
 		void place_in_area(const Area & area, bool in_layout);
-		void place_in_area_not_extend(const Area & area, bool & in_layout);
 		void place_in_area_extend(const Area& area, bool & in_layout);		
-		void place_in_area_with_thickness(const Area & area, bool in_layout, uint16_t thickness);
-		void place_text_with_element(const Size & text_size, const Size & element_size, Area & text_backclip, Area & text_foreclip, Area & element_foreclip, Align text_align_with_bottom, const Margin& padding);
+		void place_item(const Area & area, bool & in_layout, uint16_t thickness);
+
+		void place_text_with_element(
+			const Size& text_size, const Size& element_size, Dim text_padding, 
+			Area& text_foreclip, Area& element_foreclip, Align text_align_with_bottom,
+			Extend extend);
+
+		// New placement pipeline methods
+
+		/** Check if the widget has any axis of position explicitly defined */
+		bool has_defined_position() const;
+
+		/** Determine if widget should use layout mode.
+		Layout mode is used when parent_in_layout is true, or when the widget
+		has no explicit position and has an extend policy set */
+		bool resolve_in_layout(bool parent_in_layout) const;
+
+		/** Constrain a base size by clamping to m_min_size and m_max_size */
+		Size constrain_content_size(const Size & base) const;
+
+		/** Compute m_foreclip in layout mode using margin, extend, align */
+		void compute_layout_clip(const Area & area);
+
+		/** Compute m_foreclip in absolute mode using position offset and constrained size */
+		void compute_absolute_clip(const Area & area);
+
+		/** Full placement pipeline: sets backclip, resolves mode, computes foreclip,
+		applies thickness, computes contentclip.
+		@param area Parent area
+		@param in_layout Hint from parent (updated by this method)
+		@param thickness Border thickness to subtract (0 = no border)
+		@param expand true indicates that the placement must be occuped the total area */
+		void compute_widget_placement(const Area & area, bool & in_layout, uint16_t thickness = 0, bool expand=false);
 /// @endcond 
 	};
 }

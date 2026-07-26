@@ -390,10 +390,11 @@ void Renderer::draw_image(const Point & position, const Size & size, const Point
 		if (final_w > 0 && final_h > 0)
 		{
 			// Compute fitted image dimensions in logical pixels
-			uint32_t fit_lpx_w = 0, fit_lpx_h = 0;
-			ImageProcessor::compute_fit_size(item->source_width(), item->source_height(),
-				size_px_w, size_px_h, fit_mode, fit_lpx_w, fit_lpx_h);
-
+				Size fit_lpx_size;
+				ImageProcessor::compute_fit_size(item->source_size(),
+					Size(size_px_w, size_px_h), fit_mode, fit_lpx_size);
+				uint32_t fit_lpx_w = fit_lpx_size.width();
+				uint32_t fit_lpx_h = fit_lpx_size.height();
 			// Centering offset in Q6 (image within widget area)
 			Coord off_x = (Coord)(size.width_q6()  - (fit_lpx_w << 6)) / 2;
 			Coord off_y = (Coord)(size.height_q6() - (fit_lpx_h << 6)) / 2;
@@ -403,8 +404,10 @@ void Renderer::draw_image(const Point & position, const Size & size, const Point
 				position, margin, center, angle, sx, sy);
 
 			// Get pre-rotated pixels from cache
-			pixels = item->get_pixels(angle, final_w, final_h, fit_mode, rot_w, rot_h);
-
+				Size rot_size;
+				pixels = item->get_pixels(angle, Size(final_w, final_h), fit_mode, rot_size);
+				rot_w = rot_size.width();
+				rot_h = rot_size.height();
 			// Finalize drawing conditions
 			if (pixels && rot_w > 0 && rot_h > 0 && 
 				m_region->is_inside_scale(sx, sy, rot_w, rot_h, m_scale, alpha) != Overlap::OUT)
@@ -433,8 +436,8 @@ void Renderer::draw_image(const Point & position, const Size & size, const Point
 			(uint32_t)(size.height_q6() >> 6),
 			alpha,
 			fit_mode,
-			item->source_width(),
-			item->source_height(),
+			item->source_size().width(),
+			item->source_size().height(),
 			angle,
 			svg_cx,
 			svg_cy);

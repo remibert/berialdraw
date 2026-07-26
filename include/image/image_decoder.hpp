@@ -21,13 +21,9 @@ namespace berialdraw
 		@return Pointer to the pixel data, or nullptr if not decoded */
 		virtual const uint32_t* pixel_data() const = 0;
 
-		/** Get the image width in pixels
-		@return Width or 0 if not decoded */
-		virtual uint32_t width() const = 0;
-
-		/** Get the image height in pixels
-		@return Height or 0 if not decoded */
-		virtual uint32_t height() const = 0;
+		/** Get the image dimensions
+		@return Size object with width and height */
+		virtual const Size& size() const = 0;
 
 		/** Check if the image format supports an alpha channel
 		@return true if the decoded image has alpha */

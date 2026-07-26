@@ -44,8 +44,6 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
-		Dim compute_zoom(Dim value, Dim zoom);
-
 		/** Remove operator = */
 		Icon& operator=(const Icon& other) = delete;
 
@@ -62,8 +60,7 @@ namespace berialdraw
 		virtual Widget * hovered(const Region & parent_region, const Point & position) override;
 
 		Area m_text_foreclip;
-		Area m_icon_foreclip;
-		Area m_text_backclip;
+		Area m_frame_foreclip;
 		TextBox m_text_box;
 		Sketch * m_sketch;
 /// @endcond

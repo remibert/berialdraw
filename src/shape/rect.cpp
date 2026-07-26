@@ -110,6 +110,65 @@ void Rect::paint_rounded_rect(const Area & area, Dim radius,
 	}
 }
 
+
+
+void Rect::paint_rounded_rect2(const Area& area, Dim radius,
+	Dim thickness, Dim gap, uint8_t borders, uint32_t backcolor, uint32_t bordercolor,
+	Dim focus_thickness)
+{
+	// If back color defined
+	if (backcolor || (bordercolor && thickness > 0) || (focus_thickness > 0))
+	{
+		Size  siz = area.size();
+		Point pos = area.position();
+		Rect rect(0);
+		rect.radius_q6(radius);
+
+		// Reduce the thickness to avoid to exceed the size of rectangle
+		thickness = min(area.size().width_q6(), min(area.size().height_q6(), thickness));
+
+		if (focus_thickness)
+		{
+			rect.thickness_q6(focus_thickness);
+			pos.move_q6(0-(focus_thickness >> 1) - gap, 0-(focus_thickness >> 1) - gap);
+
+			// Reduce the size of the thickness
+			siz.increase_q6(focus_thickness+gap+gap, focus_thickness+gap+gap);
+
+			// Increases the radius
+			rect.radius_q6(radius + (thickness >> 1) + (focus_thickness >> 1) + gap);
+		}
+		else
+		{
+			// Move the rectangle of the middle of border
+			rect.thickness_q6(thickness);
+			pos.move_q6(thickness >> 1, thickness >> 1);
+
+			// Reduce the size of the thickness
+			siz.decrease_q6(thickness, thickness);
+		}
+
+		// Set the size of rectangle
+		rect.size(siz);
+
+		// If back color defined
+		if (backcolor)
+		{
+			rect.color(backcolor);
+			rect.borders(borders | Borders::INNER_AREA);
+			rect.paint(pos, true);
+		}
+		
+		// If border defined
+		if (bordercolor && (thickness || focus_thickness))
+		{
+			rect.color(bordercolor);
+			rect.borders(borders);
+			rect.paint(pos, true);
+		}
+	}
+}
+
 // Build a clip mask from the inner (backcolor) area of a rounded rectangle
 void Rect::build_clip_mask_rounded_rect(const Area & area, Dim radius, Dim thickness, Dim gap, uint8_t borders, ClipMask & mask)
 {
@@ -223,6 +282,105 @@ void Rect::paint_focused_rounded_rect(const Area & area,
 		Rect::paint_rounded_rect(area, border_style.radius_q6(), border_style.thickness_q6(), 0, borders, color, border_color);
 	}
 }
+
+
+void Rect::paint_focused_rounded_rect2(const Area& area,
+	const CommonStyle& common_style,
+	const BorderStyle& border_style,
+	uint32_t color,
+	uint32_t border_color,
+	uint32_t focus_color,
+	uint32_t focus_border_color,
+	bool focused)
+{
+	if (color || border_color || focus_color || focus_border_color)
+	{
+		Borders borders = (Borders)common_style.borders();
+
+		// If focus present
+		if (focused && border_style.focus_thickness())
+		{
+			Area focus_area(area);
+			Dim reduce = (border_style.focus_gap() << 6) + (border_style.focus_thickness() << 6);
+
+			// According to the kind of borders
+			switch ((uint8_t)borders & ALL_BORDERS)
+			{
+			case BOTTOM_BORDER | LEFT_BORDER | RIGHT_BORDER:
+				focus_area.size().decrease_q6(0, reduce);
+				focus_area.position().move_q6(0, reduce);
+				break;
+
+			case TOP_BORDER | LEFT_BORDER | RIGHT_BORDER:
+				focus_area.size().decrease_q6(0, reduce);
+				break;
+
+			case LEFT_BORDER | BOTTOM_BORDER | TOP_BORDER:
+				focus_area.size().decrease_q6(reduce, 0);
+				break;
+
+			case RIGHT_BORDER | BOTTOM_BORDER | TOP_BORDER:
+				focus_area.size().decrease_q6(reduce, 0);
+				focus_area.position().move_q6(reduce, 0);
+				break;
+
+			case BOTTOM_BORDER | LEFT_BORDER:
+				focus_area.position().move_q6(0, reduce);
+				focus_area.size().decrease_q6(reduce, reduce);
+				break;
+
+			case TOP_BORDER | LEFT_BORDER:
+				focus_area.size().decrease_q6(reduce, reduce);
+				break;
+
+			case RIGHT_BORDER | TOP_BORDER:
+				focus_area.position().move_q6(reduce, 0);
+				focus_area.size().decrease_q6(reduce, reduce);
+				break;
+
+			case RIGHT_BORDER | BOTTOM_BORDER:
+				focus_area.position().move_q6(reduce, reduce);
+				focus_area.size().decrease_q6(reduce, reduce);
+				break;
+
+			case BOTTOM_BORDER:
+				focus_area.size().decrease_q6(reduce << 1, reduce);
+				focus_area.position().move_q6(reduce, reduce);
+				break;
+
+			case TOP_BORDER:
+				focus_area.size().decrease_q6(reduce << 1, reduce);
+				focus_area.position().move_q6(reduce, 0);
+				break;
+
+			case RIGHT_BORDER:
+				focus_area.size().decrease_q6(reduce, reduce << 1);
+				focus_area.position().move_q6(reduce, reduce);
+				break;
+
+			case LEFT_BORDER:
+				focus_area.size().decrease_q6(reduce, reduce << 1);
+				focus_area.position().move_q6(0, reduce);
+				break;
+			}
+
+			// Draw focus
+			Rect::paint_rounded_rect2(
+				focus_area,                         // area
+				border_style.radius_q6(),           // radius
+				border_style.thickness_q6(),        // thickness
+				border_style.focus_gap() << 6,      // gap
+				borders,                            // borders
+				focus_color,                        // backcolor
+				focus_border_color,                 // bordercolor
+				border_style.focus_thickness() << 6 // focus_thickness
+			);
+		}
+		// Draw background with border
+		Rect::paint_rounded_rect2(area, border_style.radius_q6(), border_style.thickness_q6(), 0, borders, color, border_color, 0);
+	}
+}
+
 
 
 // Render outline
@@ -822,6 +980,15 @@ void Rect::create_part()
 	{
 		rounded_border_rectangle(w, h, R, r, t);
 	}
+}
+
+/** Get the marged size of the shape
+@return Size of the shape with margin */
+Size Rect::marged_size()
+{
+	Size result = content_size();
+	result.increase_q6(m_thickness, m_thickness);
+	return result;
 }
 
 

@@ -4,22 +4,6 @@ void bind_icon_style(pybind11::module_& m) {
     pybind11::class_<berialdraw::IconStyle, berialdraw::Style> cls(m, "IconStyle");
     cls.def(pybind11::init<>(), "Constructor");
 
-    // zoom property avec précision automatique
-    cls.def_property("zoom",
-        [](berialdraw::IconStyle& self) -> berialdraw::Dim {
-            return self.zoom();
-        },
-        [](berialdraw::IconStyle& self, pybind11::object value) {
-            if (pybind11::isinstance<pybind11::int_>(value)) {
-                self.zoom(value.cast<berialdraw::Dim>());
-            } else if (pybind11::isinstance<pybind11::float_>(value)) {
-                self.zoom_q6(static_cast<berialdraw::Dim>(value.cast<double>() * 64));
-            } else {
-                throw std::invalid_argument("zoom must be int or float");
-            }
-        },
-        "Zoom ratio (int for normal, float for high precision)");
-
     // icon_padding - custom inline since signature doesn't match bind_margin_property pattern
     cls.def_property("icon_padding",
         [](berialdraw::IconStyle& self) -> pybind11::tuple {

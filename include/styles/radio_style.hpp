@@ -67,14 +67,26 @@ namespace berialdraw
 		/** Set the radio indicator sketch (VectorScript) */
 		void radio_sketch(const String & sketch);
 
+		/** Get the text padding in pixels */
+		inline Dim text_padding() const
+		{
+			return m_text_padding >> 6;
+		}
+
+		/** Set the text padding in pixels */
+		void text_padding(Dim pad);
+
 		/** Get the property name for this style */
 		const char* property_name() const override { return "radio"; }
 
 	protected:
 /// @cond DOXYGEN_IGNORE
-		Size m_radio_size;	Dim m_radio_padding = 2<<6;		uint32_t m_radio_color = 0xFF000000;
+		Size m_radio_size;
+		Dim m_radio_padding = 2<<6;
+		uint32_t m_radio_color = 0xFF000000;
 		String m_radio_sketch;
 		String m_group;
+		Dim m_text_padding = 2 << 6;
 /// @endcond
 	}; 
 }

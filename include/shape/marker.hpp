@@ -16,10 +16,14 @@ namespace berialdraw
 		void paint(const Point & shift, const char * filled, const char * un_filled);
 
 		/** Refresh the marker */
-		virtual void paint(const Point & shift){}
+		virtual void paint(const Point & shift) override{}
+
+		/** Get the marged size of the shape
+		@return Size of the shape with margin */
+		virtual Size marged_size() override;
 
 		/** Get the bezier polygon */
-		virtual const Polygon & polygon() const
+		virtual const Polygon & polygon() const override
 		{
 			return m_polygon;
 		}

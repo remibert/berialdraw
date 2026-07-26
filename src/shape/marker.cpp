@@ -42,5 +42,14 @@ void Marker::paint(const Point & shift, const char * filled, const char * un_fil
 	UIManager::renderer()->draw(*this, shift);
 }
 
+/** Get the marged size of the shape
+@return Size of the shape with margin */
+Size Marker::marged_size()
+{
+	Size result;
+	result.increase_q6(m_radius, m_radius);
+	result.increase_q6(m_thickness, m_thickness);
+	return result;
+}
 
 

@@ -201,6 +201,21 @@ void Widget::place(const Area & area, bool in_layout)
 	}
 }
 
+/** Place the widget in the area */
+void Widget::place_children(const Area& area, bool in_layout)
+{
+	Area backclip   (m_backclip);
+	Area foreclip   (m_foreclip);
+	Area contentclip(m_contentclip);
+
+	Widget::place(m_foreclip, in_layout);
+
+	m_backclip    = backclip;
+	m_foreclip    = foreclip;
+	m_contentclip = contentclip;
+}
+
+
 void Widget::scroll(const Point & move)
 {
 	Widget* child = m_children;
@@ -309,10 +324,11 @@ void Widget::place_in_area(const Area & area, bool in_layout)
 	}
 	else
 	{
-		place_absolutly(area.position(), content_size(), 
-			m_foreclip, m_size, m_min_size, m_max_size);
-		//m_foreclip.print(m_classname, true);
+		place_absolutly(area.position(), content_size(), m_foreclip, m_size, m_min_size, m_max_size);
 	}
+
+	m_contentclip = m_foreclip;
+	m_contentclip.decrease(padding());
 }
 
 // Place widget in area not extend widget and align it in the area
@@ -325,64 +341,225 @@ void Widget::place_in_area_extend(const Area& area, bool & in_layout)
 	place_in_area(area, in_layout);
 }
 
-// Place widget in area not extend widget and align it in the area
-void Widget::place_in_area_not_extend(const Area & area, bool & in_layout)
+void Widget::place_item(const Area & area, bool & in_layout, uint16_t thickness)
 {
+	m_backclip = area;
+
 	if (!is_absolute())
 	{
 		in_layout = true;
 	}
 	
-	place_in_area(area, in_layout);
-	
-	// If absolute place, handle extend-aware centering
-	if (in_layout == false)
+	if(in_layout)
 	{
-		Area backclip = m_foreclip;
-		Margin marg;
-		Size size(content_size());
-		
-		if (m_extend == Extend::EXTEND_HEIGHT)
+		place_in_layout(area, content_size(), margin(), extend(), m_foreclip, align());
+	}
+	else
+	{
+		place_absolutly(area.position(), content_size(), m_foreclip, m_size, m_min_size, m_max_size);
+	}
+
+	m_foreclip.decrease_thickness(thickness);
+	m_contentclip = m_foreclip;
+	m_contentclip.decrease(padding());
+}
+
+
+// Check if the widget has any axis of position explicitly defined
+bool Widget::has_defined_position() const
+{
+	bool result = false;
+	if (m_position.is_x_defined() || m_position.is_y_defined())
+	{
+		result = true;
+	}
+	return result;
+}
+
+// Determine if widget should use layout mode
+bool Widget::resolve_in_layout(bool parent_in_layout) const
+{
+	bool result = parent_in_layout;
+
+	// If parent does not impose layout, check widget properties
+	if (!result)
+	{
+		// Widget enters layout mode if it has no explicit position and has an extend policy
+		if (!has_defined_position() && m_extend != Extend::EXTEND_NONE)
 		{
-			size.height_q6(m_foreclip.height_q6());
+			result = true;
+		}
+	}
+	return result;
+}
+
+// Constrain a base size by clamping to m_min_size and m_max_size
+Size Widget::constrain_content_size(const Size & base) const
+{
+	Size result = base;
+
+	// Clamp to minimum size
+	if (result.width_q6() < m_min_size.width_q6())
+	{
+		result.width_q6(m_min_size.width_q6());
+	}
+	if (result.height_q6() < m_min_size.height_q6())
+	{
+		result.height_q6(m_min_size.height_q6());
+	}
+
+	// Clamp to maximum size
+	if (result.width_q6() > m_max_size.width_q6())
+	{
+		result.width_q6(m_max_size.width_q6());
+	}
+	if (result.height_q6() > m_max_size.height_q6())
+	{
+		result.height_q6(m_max_size.height_q6());
+	}
+
+	return result;
+}
+
+// Compute m_foreclip in layout mode using margin, extend, align
+void Widget::compute_layout_clip(const Area & area)
+{
+	// content_size() already returns max(children_size, explicit_size)
+	Size constrained = constrain_content_size(content_size());
+	place_in_layout(area, constrained, margin(), extend(), m_foreclip, align());
+}
+
+// Compute m_foreclip in absolute mode using position offset and constrained size
+void Widget::compute_absolute_clip(const Area & area)
+{
+	// In absolute mode, explicit size overrides content size
+	Size base = content_size();
+	Dim w = adapt_size(
+		base.width_q6(),
+		m_size.is_width_undefined() ? base.width_q6() : m_size.width_q6(),
+		m_min_size.width_q6(),
+		m_max_size.width_q6()
+	);
+	Dim h = adapt_size(
+		base.height_q6(),
+		m_size.is_height_undefined() ? base.height_q6() : m_size.height_q6(),
+		m_min_size.height_q6(),
+		m_max_size.height_q6()
+	);
+
+	// Position: area origin + explicit position offset (if defined)
+	Coord x = area.x_q6();
+	Coord y = area.y_q6();
+
+	if (m_position.is_x_defined())
+	{
+		x += m_position.x_q6();
+	}
+	if (m_position.is_y_defined())
+	{
+		y += m_position.y_q6();
+	}
+
+	m_foreclip.x_q6(x);
+	m_foreclip.y_q6(y);
+	m_foreclip.width_q6(w);
+	m_foreclip.height_q6(h);
+}
+
+// Full placement pipeline
+void Widget::compute_widget_placement(const Area & area, bool & in_layout, 
+	uint16_t thickness, bool expand)
+{
+	if (expand == false)
+	{
+		// backclip to parent area
+		m_backclip = area;
+
+		// Resolve placement mode
+		in_layout = resolve_in_layout(in_layout);
+
+		// Compute foreclip based on mode
+		if (in_layout)
+		{
+			compute_layout_clip(area);
 		}
 		else
 		{
-			size.width_q6(m_foreclip.width_q6());
+			compute_absolute_clip(area);
 		}
-		place_in_layout(backclip, size, marg, EXTEND_NONE, m_foreclip, m_align);
+
+		// Compute content clip
+		m_contentclip = m_foreclip;
+
+		// If border detected
+		if (thickness > 0)
+		{
+			// Remove border
+			m_contentclip.decrease_thickness(thickness);
+		}
+
+		// Remove padding
+		m_contentclip.decrease(padding());
+	}
+	else
+	{
+		// Layout mode: fill the available area minus margin
+		m_backclip = area;
+		m_foreclip = m_backclip;
+		m_foreclip.decrease(margin());
+		m_contentclip = m_foreclip;
+		m_contentclip.decrease(padding());
 	}
 }
 
-// Place widget in area with thickness reduced from all sides
-void Widget::place_in_area_with_thickness(const Area & area, bool in_layout, uint16_t thickness)
-{
-	place_in_area_extend(area, in_layout);
-	m_backclip = m_foreclip;
-	m_foreclip.decrease_thickness(thickness);
-}
 
 // Place text beside an element (checkbox, radio, switch)
 void Widget::place_text_with_element(
-	const Size & text_size,
-	const Size & element_size,
-	Area & text_backclip,
-	Area & text_foreclip,
-	Area & element_foreclip,
+	const Size& text_size,
+	const Size& element_size,
+	Dim text_padding,
+
+	Area& text_foreclip,
+	Area& element_foreclip,
+
 	Align text_align_with_bottom,
-	const Margin & padding)
+	Extend extend)
 {
-	Margin marg;
-	text_backclip = m_foreclip;
-	marg.left_q6(element_size.width_q6() + padding.left_q6());
-	place_in_layout(text_backclip, text_size, marg, EXTEND_NONE, text_foreclip, text_align_with_bottom);
-	
-	element_foreclip = text_foreclip;
-	element_foreclip.size(element_size);
-	Coord move_y = (element_size.height_q6() > text_size.height_q6() ? 0-((element_size.height_q6() - text_size.height_q6())>>1) : ((text_size.height_q6()-element_size.height_q6())>>1));
-	element_foreclip.position().move_q6(0-(element_size.width_q6() + padding.left_q6()), move_y);
-	element_foreclip.position().nearest_pixel();
+	element_foreclip = m_contentclip;
+
+	// If text defined
+	if (text_size.width() > 0)
+	{
+		Margin marg;
+
+		// Place the text
+		Area text_area = m_contentclip;
+		text_area.position().move_q6(element_size.width_q6() + text_padding, 0);
+		text_area.size().decrease_q6(element_size.width_q6() + text_padding, 0);
+		place_in_layout(text_area, text_size, marg, EXTEND_NONE, text_foreclip, text_align_with_bottom);
+
+		// Place the element
+		element_foreclip = text_foreclip;
+
+		element_foreclip.size(element_size);
+		Coord move_y =
+			(element_size.height_q6() > text_size.height_q6() ?
+				0 - ((element_size.height_q6() - text_size.height_q6()) >> 1) :
+				((text_size.height_q6() - element_size.height_q6()) >> 1));
+		element_foreclip.position().move_q6(0 - (element_size.width_q6() + text_padding), move_y);
+		element_foreclip.position().nearest_pixel();
+	}
+	else
+	{
+		// Reduce the element forclip to minimal value
+		element_foreclip.size().set_q6(element_size.width_q6(), element_size.height_q6());
+	}
+	if (m_extend & Extend::EXTEND_WIDTH)
+	{
+		element_foreclip.size(m_contentclip.size());
+	}
 }
+
 
 /** Indicates whether the widget is positioned absolutely */
 bool Widget::is_absolute()

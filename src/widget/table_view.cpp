@@ -18,9 +18,33 @@ TableView::~TableView()
 {
 }
 
+/** Serialize the content of widget into json */
+void TableView::serialize(JsonIterator& it)
+{
+	it["type"] = m_classname;
+	CommonStyle::serialize(it);
+	WidgetStyle::serialize(it);
+	TableViewStyle::serialize(it);
+}
+
+/** Unserialize the content of widget from json */
+void TableView::unserialize(JsonIterator& it)
+{
+	CommonStyle::unserialize(it);
+	WidgetStyle::unserialize(it);
+	TableViewStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
+
+StyleCascadeMode TableView::style_cascade_mode() const
+{
+	return StyleCascadeMode::CASCADING;
+}
+
 /** Return the size of content without marges */
 Size TableView::content_size()
 {
+#if 0
 	// Set grid line thickness for cell placement
 	if (m_grid)
 	{
@@ -28,6 +52,20 @@ Size TableView::content_size()
 		m_grid->m_cells.vertical_line_thickness(vertical_thickness_q6());
 	}	
 	return ScrollableContent::content_size();
+#else
+	// Set grid line thickness for cell placement
+	if (m_grid)
+	{
+		m_grid->m_cells.horizontal_line_thickness(horizontal_thickness_q6());
+		m_grid->m_cells.vertical_line_thickness(vertical_thickness_q6());
+	}
+	Size result = ScrollableContent::content_size();
+
+	// Add padding and thickness in size
+	result.increase(padding());
+	result.increase_q6(m_thickness << 1, m_thickness << 1);
+	return result;
+#endif
 }
 
 
@@ -326,29 +364,6 @@ Widget * TableView::hovered(const Region & parent_region, const Point & position
 	return result;
 }
 
-/** Serialize the content of widget into json */
-void TableView::serialize(JsonIterator & it)
-{
-	it["type"] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
-	TableViewStyle::serialize(it);
-}
-
-/** Unserialize the content of widget from json */
-void TableView::unserialize(JsonIterator & it)
-{
-	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
-	TableViewStyle::unserialize(it);
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
-}
-
-StyleCascadeMode TableView::style_cascade_mode() const
-{
-	return StyleCascadeMode::CASCADING;
-}
-
 void TableView::load(TextStream& stream)
 {
 	clear();
@@ -418,6 +433,3 @@ void TableView::populate_json_from_data(Json& json)
 		}
 	}
 }
-
-
-

@@ -120,14 +120,14 @@ bool JpegDecoder::decode(const char* filename)
 				cinfo.out_color_space = JCS_RGB;
 				jpeg_start_decompress(&cinfo);
 
-				m_width = cinfo.output_width;
-				m_height = cinfo.output_height;
+				uint32_t w = cinfo.output_width;
+				uint32_t h = cinfo.output_height;
 
 				// Allocate output buffer
-				m_pixels = new uint32_t[m_width * m_height];
+				m_pixels = new uint32_t[w * h];
 
 				// Allocate one scanline buffer (RGB)
-				uint8_t* row_buffer = new uint8_t[m_width * 3];
+				uint8_t* row_buffer = new uint8_t[w * 3];
 
 				// Decode scanlines
 				uint32_t row = 0;
@@ -137,12 +137,12 @@ bool JpegDecoder::decode(const char* filename)
 					jpeg_read_scanlines(&cinfo, &row_ptr, 1);
 
 					// Convert RGB scanline to RGBA pixels
-					for (uint32_t x = 0; x < m_width; x++)
+					for (uint32_t x = 0; x < w; x++)
 					{
 						uint8_t r = row_buffer[x * 3 + 0];
 						uint8_t g = row_buffer[x * 3 + 1];
 						uint8_t b = row_buffer[x * 3 + 2];
-						m_pixels[row * m_width + x] = (0xFFu << 24) | ((uint32_t)r << 16) | ((uint32_t)g << 8) | (uint32_t)b;
+						m_pixels[row * w + x] = (0xFFu << 24) | ((uint32_t)r << 16) | ((uint32_t)g << 8) | (uint32_t)b;
 					}
 					row++;
 				}
@@ -150,6 +150,7 @@ bool JpegDecoder::decode(const char* filename)
 				delete[] row_buffer;
 
 				jpeg_finish_decompress(&cinfo);
+				m_size = Size(w, h);
 				result = true;
 			}
 			jpeg_destroy_decompress(&cinfo);
@@ -171,16 +172,10 @@ const uint32_t* JpegDecoder::pixel_data() const
 	return m_pixels;
 }
 
-// Get image width
-uint32_t JpegDecoder::width() const
+// Get image dimensions
+const Size& JpegDecoder::size() const
 {
-	return m_width;
-}
-
-// Get image height
-uint32_t JpegDecoder::height() const
-{
-	return m_height;
+	return m_size;
 }
 
 // Check for alpha channel (JPEG never has alpha)
@@ -197,6 +192,6 @@ void JpegDecoder::clear()
 		delete[] m_pixels;
 		m_pixels = nullptr;
 	}
-	m_width = 0;
-	m_height = 0;
+	m_size.width(0);
+	m_size.height(0);
 }

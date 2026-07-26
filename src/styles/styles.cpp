@@ -368,6 +368,7 @@ template bool Styles::apply<LineStyle>(Widget* widget, LineStyle* properties);
 template bool Styles::apply<RoundStyle>(Widget* widget, RoundStyle* properties);
 template bool Styles::apply<PictureStyle>(Widget* widget, PictureStyle* properties);
 template bool Styles::apply<ListItemStyle>(Widget* widget, ListItemStyle* properties);
+template bool Styles::apply<PaddingStyle>(Widget* widget, PaddingStyle* properties);
 
 /** Specialization for Key to resolve ambiguous 'create()' from multiple inheritance */
 template<>

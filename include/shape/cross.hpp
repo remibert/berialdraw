@@ -9,7 +9,7 @@ namespace berialdraw
 		Cross(Canvas * canvas);
 
 		/** Render outline */
-		virtual void paint(const Point & shift);
+		virtual void paint(const Point & shift) override;
 
 #ifdef _DEBUG
 		static void test();

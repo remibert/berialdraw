@@ -46,17 +46,24 @@ namespace berialdraw
 		/** Moves the text to make the area containing the cursor visible. */
 		Coord vertical_shift(Area & cursor_clip, Point & cursor_shift, const Area & text_area);
 
-		/** Paint the text lines */
-		void paint(const Point & cursor_shift, Font & font, const String & text, const Point & position, 
-			const Point & center, const Margin & margin,  Coord angle, uint32_t text_color, 
-			uint32_t cursor_color, uint32_t select_color, bool insertion);
-
 		void paint(const Point & cursor_shift, Font & font, 
 			const String & text, const Point & position, const Area & area, uint32_t text_color, 
 			uint32_t cursor_color, uint32_t select_color, bool insertion);
 
-	protected:
+		void paint(Font& font, const String& text, const Point& position, const Area& area, uint32_t text_color);
 
+		/** Paint the text lines */
+		void paint(Font& font,
+			const String& text, const Point& position, const Point& center,
+			const Margin& margin, Coord angle, uint32_t text_color);
+
+		/** Paint the text lines */
+		void paint(const Point& cursor_shift, Font& font,
+			const String& text, const Point& position, const Point& center,
+			const Margin& margin, Coord angle, uint32_t text_color,
+			uint32_t cursor_color, uint32_t select_color, bool insertion);
+
+	protected:
 		RichText m_rich_text;
 		Vector<LineInfo> m_lines;
 		Size  m_lines_size;

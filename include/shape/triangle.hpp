@@ -16,6 +16,6 @@ namespace berialdraw
 	#endif
 		/** Renders the outline of the triangle.
 		@param shift Point object representing the shift. */
-		virtual void paint(const Point & shift);
+		virtual void paint(const Point & shift) override;
 	};
 }

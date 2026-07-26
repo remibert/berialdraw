@@ -62,7 +62,6 @@ namespace berialdraw
 		virtual Widget * hovered(const Region & parent_region, const Point & position) override;
 
 		Area m_text_foreclip;
-		Area m_text_backclip;
 		Area m_check_foreclip;
 		TextBox m_text_box;
 		Size m_text_size;

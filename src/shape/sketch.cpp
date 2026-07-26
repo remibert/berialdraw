@@ -85,7 +85,7 @@ Sketch::Sketch(const Sketch & other):
 }
 
 // Render polygon
-void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t stated_color)
+void Sketch::paint(const Area & foreclip, uint32_t stated_color)
 {
 	if (m_loaded == false)
 	{
@@ -124,7 +124,6 @@ void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t state
 			Dim zoom_width = 0;
 			Dim zoom_height = 0;
 			Size size(m_size);
-			size.decrease_q6(padding.left_q6() + padding.right_q6(), padding.top_q6() + padding.bottom_q6());
 
 			if (m_size.is_width_undefined() == false && size.width_q6() > 0 && m_resolution.width_q6() != 0)
 			{
@@ -168,7 +167,6 @@ void Sketch::paint(const Area & foreclip, const Margin & padding, uint32_t state
 		else
 		{
 			position = m_position;
-			position.move_q6(padding.right_q6(), padding.top_q6());
 		}
 
 
@@ -224,8 +222,7 @@ void Sketch::paint(const Point & shift)
 {
 	Area foreclip;
 	foreclip.position(shift);
-	const Margin padding;
-	Sketch::paint(foreclip, padding, color());
+	Sketch::paint(foreclip, color());
 }
 
 /** Destructor */

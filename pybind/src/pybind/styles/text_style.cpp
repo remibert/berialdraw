@@ -13,14 +13,6 @@ void bind_text_style(pybind11::module_& m) {
         &berialdraw::TextStyle::font_size,
         static_cast<void (berialdraw::TextStyle::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::TextStyle::font_size),
         "Font size: int (same w/h) or (width, height)");
-    
-    // padding property avec plusieurs formats CSS - use bind_margin_property
-    bind_margin_property(cls, "padding",
-        &berialdraw::TextStyle::padding,
-        static_cast<void (berialdraw::TextStyle::*)(berialdraw::Dim)>(&berialdraw::TextStyle::padding),
-        static_cast<void (berialdraw::TextStyle::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::TextStyle::padding),
-        static_cast<void (berialdraw::TextStyle::*)(berialdraw::Dim, berialdraw::Dim, berialdraw::Dim, berialdraw::Dim)>(&berialdraw::TextStyle::padding),
-        "Padding: int (all), (v,h), or (top,right,bottom,left)");
 
     cls.def_property("text",
         [](berialdraw::TextStyle& self) -> std::string { return std::string(self.text().c_str()); },

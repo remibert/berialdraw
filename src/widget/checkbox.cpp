@@ -10,6 +10,7 @@ Checkbox::Checkbox(Widget * parent):
 	UIManager::styles()->apply(this, (TextStyle*)this);
 	UIManager::styles()->apply(this, (BorderStyle*)this);
 	UIManager::styles()->apply(this, (CheckboxStyle*)this);
+	UIManager::styles()->apply(this, (PaddingStyle*)this);
 	bind(this, &Checkbox::on_key);
 	bind(this, &Checkbox::on_click);
 }
@@ -19,13 +20,14 @@ Checkbox::~Checkbox()
 }
 
 /** Copy all styles of the checkbox */
-void Checkbox::copy(const Checkbox & checkbox)
+void Checkbox::copy(const Checkbox & obj)
 {
-	*((CommonStyle*)this) = *(CommonStyle*)(&checkbox);
-	*((WidgetStyle*)this) = *(WidgetStyle*)(&checkbox);
-	*((TextStyle*)this) = *(TextStyle*)(&checkbox);
-	*((BorderStyle*)this) = *(BorderStyle*)(&checkbox);
-	*((CheckboxStyle*)this) = *(CheckboxStyle*)(&checkbox);
+	*((CommonStyle*)this)  = *(CommonStyle*)(&obj);
+	*((WidgetStyle*)this)  = *(WidgetStyle*)(&obj);
+	*((TextStyle*)this)    = *(TextStyle*)(&obj);
+	*((BorderStyle*)this)  = *(BorderStyle*)(&obj);
+	*((CheckboxStyle*)this) = *(CheckboxStyle*)(&obj);
+	*((PaddingStyle*)this) = *(PaddingStyle*)(&obj);
 }
 
 /** Copy all styles of the checkbox */
@@ -35,6 +37,35 @@ void Checkbox::copy(const Checkbox * checkbox)
 	{
 		copy(*checkbox);
 	}
+}
+
+/** Serialize the content of widget into json */
+void Checkbox::serialize(JsonIterator& it)
+{
+	it["type"] = m_classname;
+	CommonStyle::serialize(it);
+	WidgetStyle::serialize(it);
+	TextStyle::serialize(it);
+	BorderStyle::serialize(it);
+	CheckboxStyle::serialize(it);
+	PaddingStyle::serialize(it);
+}
+
+/** Unserialize the content of widget from json */
+void Checkbox::unserialize(JsonIterator& it)
+{
+	CommonStyle::unserialize(it);
+	WidgetStyle::unserialize(it);
+	TextStyle::unserialize(it);
+	BorderStyle::unserialize(it);
+	CheckboxStyle::unserialize(it);
+	PaddingStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
+
+StyleCascadeMode Checkbox::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
 }
 
 /** Return the size of content without margins */
@@ -54,32 +85,41 @@ Size Checkbox::content_size()
 		m_text_size = m_text_box.content_size();
 	}
 	
-	// Add text height in the icon content size
+	// If the text defined
 	if (m_text.size() > 0)
 	{
-		result.increase_q6(padding().left_q6() + m_text_size.width_q6() + padding().right_q6(), 0);
+		// Enlarge the width with the text size
+		result.increase_q6(m_text_size.width_q6() + m_text_padding, 0);
+
+		// Enlarge the height if the text taller than check
 		if (m_text_size.height_q6() > m_checkbox_size.height_q6())
 		{
 			result.height_q6(m_text_size.height_q6());
 		}
 	}
+
+	// Add padding and thickness in size
+	result.increase(padding());
+	result.increase_q6(m_thickness << 1, m_thickness << 1);
+
 	return result;
 }
 
 /** Place all widget in area */
-void Checkbox::place(const Area & area, bool in_layout)
+void Checkbox::place(const Area& area, bool in_layout)
 {
-	// Place background rectangle
-	place_in_area_not_extend(area, in_layout);
+	// Place the widget
+	compute_widget_placement(area, in_layout, m_thickness);
 
-	// Place the check box
-	m_check_foreclip = m_foreclip;
-
-	// If text not empty
-	if (m_text.size() > 0)
-	{
-		place_text_with_element(m_text_size, m_checkbox_size, m_text_backclip, m_text_foreclip, m_check_foreclip, (m_text_align | Align::ALIGN_BOTTOM), padding());
-	}
+	// Place the text and checkbox
+	place_text_with_element(
+		m_text_size,
+		m_checkbox_size,
+		m_text_padding,
+		m_text_foreclip, // out
+		m_check_foreclip, // out
+		(m_text_align | Align::ALIGN_BOTTOM),
+		Extend::EXTEND_NONE);
 }
 
 void Checkbox::paint(const Region & parent_region)
@@ -94,12 +134,8 @@ void Checkbox::paint(const Region & parent_region)
 
 		UIManager::renderer()->region(region);
 
-		// Create an area for just the checkbox (not including text)
-		Area area_box(m_check_foreclip);
-		area_box.size().set_q6(m_checkbox_size.width_q6(), m_checkbox_size.height_q6());
-
 		// Draw checkbox box
-		Rect::paint_focused_rounded_rect(area_box, 
+		Rect::paint_focused_rounded_rect2(m_check_foreclip, 
 			*(CommonStyle*)this,
 			*(BorderStyle*)this,
 			stated_color(m_color),
@@ -111,7 +147,7 @@ void Checkbox::paint(const Region & parent_region)
 		// Draw check mark if checked
 		if (m_checked)
 		{
-			Area area_check(area_box);
+			Area area_check(m_check_foreclip);
 			area_check.size().decrease_q6(m_check_padding << 1, m_check_padding << 1);
 			area_check.position().move_q6(m_check_padding, m_check_padding);
 
@@ -144,11 +180,10 @@ void Checkbox::paint(const Region & parent_region)
 		// Paint text to the right
 		if(m_text.size() > 0)
 		{
-			region.intersect(m_text_backclip);
 			select_font();
+			region.intersect(m_text_foreclip);
 			UIManager::renderer()->region(region);
-			Point shift;
-			m_text_box.paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_backclip, stated_color(m_text_color), 0, 0, true);
+			m_text_box.paint(*m_font.get(), m_text, m_text_foreclip.position(), m_contentclip, stated_color(m_text_color));
 		}
 	}
 }
@@ -165,33 +200,6 @@ Widget * Checkbox::hovered(const Region & parent_region, const Point & position)
 		return this;
 	}
 	return 0;
-}
-
-/** Serialize the content of widget into json */
-void Checkbox::serialize(JsonIterator & it)
-{
-	it["type"] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
-	TextStyle::serialize(it);
-	BorderStyle::serialize(it);
-	CheckboxStyle::serialize(it);
-}
-
-/** Unserialize the content of widget from json */
-void Checkbox::unserialize(JsonIterator & it)
-{
-	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
-	TextStyle::unserialize(it);
-	BorderStyle::unserialize(it);
-	CheckboxStyle::unserialize(it);
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
-}
-
-StyleCascadeMode Checkbox::style_cascade_mode() const
-{
-	return StyleCascadeMode::NONE;
 }
 
 /** Call back on key */
@@ -236,8 +244,3 @@ void Checkbox::on_click(Widget * widget, const ClickEvent & evt)
 	UIManager::notifier()->check(m_checked, this);
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 }
-
-
-
-
-

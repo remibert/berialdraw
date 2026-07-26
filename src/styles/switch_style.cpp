@@ -10,10 +10,11 @@ SwitchStyle::SwitchStyle()
 /** Serialize the content of widget into json */
 void SwitchStyle::serialize(JsonIterator & it)
 {
-	it[StyleNames::SWITCH_THUMB_PADDING]      = m_thumb_padding;
-	it[StyleNames::SWITCH_ON_TRACK_COLOR]     = m_on_track_color;
-	it[StyleNames::SWITCH_OFF_TRACK_COLOR]    = m_off_track_color;
-	it[StyleNames::SWITCH_THUMB_COLOR]        = m_thumb_color;
+	it[StyleNames::SWITCH_THUMB_PADDING]  = m_thumb_padding;
+	it[StyleNames::SWITCH_ON_TRACK_COLOR] = m_on_track_color;
+	it[StyleNames::SWITCH_OFF_TRACK_COLOR]= m_off_track_color;
+	it[StyleNames::SWITCH_THUMB_COLOR]    = m_thumb_color;
+	it[StyleNames::SWITCH_TEXT_PADDING]   = m_text_padding;
 	m_switch_size.serialize (StyleNames::SWITCH_SIZE,it);
 }
 
@@ -24,6 +25,7 @@ void SwitchStyle::unserialize(JsonIterator & it)
 	m_on_track_color       = (int)(it[StyleNames::SWITCH_ON_TRACK_COLOR]        | (int)m_on_track_color);
 	m_off_track_color      = (int)(it[StyleNames::SWITCH_OFF_TRACK_COLOR]       | (int)m_off_track_color);
 	m_thumb_color          = (int)(it[StyleNames::SWITCH_THUMB_COLOR]           | (int)m_thumb_color);
+	berialdraw::unserialize(StyleNames::SWITCH_TEXT_PADDING, it, m_text_padding);
 	berialdraw::unserialize(StyleNames::SWITCH_THUMB_PADDING, it, m_thumb_padding);
 }
 
@@ -39,11 +41,12 @@ void SwitchStyle::set(const SwitchStyle & other)
 {
 	if (this != &other)
 	{
-		m_thumb_color        = other.m_thumb_color;
-		m_thumb_padding      = other.m_thumb_padding;
-		m_on_track_color     = other.m_on_track_color;
-		m_off_track_color    = other.m_off_track_color;
-		m_switch_size        = other.m_switch_size;
+		m_thumb_color     = other.m_thumb_color;
+		m_thumb_padding   = other.m_thumb_padding;
+		m_on_track_color  = other.m_on_track_color;
+		m_off_track_color = other.m_off_track_color;
+		m_switch_size     = other.m_switch_size;
+		m_text_padding    = other.m_text_padding;
 		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	}
 }
@@ -119,6 +122,14 @@ void SwitchStyle::switch_size_q6(Dim w, Dim h)
 /** Set the thumb padding in pixels */
 void SwitchStyle::thumb_padding(Dim pad)
 {
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_thumb_padding = pad<<6;
+}
+
+/** Set the text padding in pixels */
+void SwitchStyle::text_padding(Dim pad)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_text_padding = pad << 6;
 }
 

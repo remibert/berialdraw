@@ -29,10 +29,16 @@ void Icon::test1()
 				Icon * icon = new Icon(main);
 					size_t s = sizeof(*icon);
 					icon->filename(directory.full_path());
-					icon->zoom(4);
+					
+					icon->icon_frame_size(90, 86);
 					icon->radius(16);
 					icon->icon_padding(10);
 					icon->margin(5);
+					icon->thickness(2);
+					icon->focus_color(Color::GRAY);
+					icon->focus_gap(3);
+					icon->focus_thickness(5);
+					icon->text_padding(8);
 					icon->color(Hsl::to_rgb(angle, 50, 90));
 					icon->icon_color(Hsl::to_rgb(angle, 100, 25));
 					icon->text(directory.filename());
@@ -96,7 +102,8 @@ void Icon::test2()
 			Icon * icon = new Icon(main);
 				size_t s = sizeof(*icon);
 				icon->filename(directory.full_path());
-				icon->zoom(5);
+				//icon->zoom(5);
+				icon->icon_frame_size(80, 80);
 				icon->radius(0);
 				icon->icon_padding(0);
 				icon->margin(2);
@@ -130,7 +137,7 @@ void Icon::test3()
 		{
 			Icon * icon = new Icon(main);
 				icon->filename(directory.full_path());
-				icon->zoom(5);
+				icon->icon_frame_size(80, 80);
 				icon->radius(100);
 				icon->icon_padding(10);
 				icon->margin(2);
@@ -142,29 +149,38 @@ void Icon::test3()
 		}
 	}
 
-	//UIManager::desktop()->mainloop();
 	UIManager::desktop()->dispatch("$(ui.tests)/out/icon3_0.svg");
 }
 
 void Icon::test4()
 {
 	Window window;
-		Icon * icon = new Icon(&window);
-			icon->filename("$(ui.icons)/maison.icn");
-			icon->position(10,10);
-			icon->text("Icon");
+		Pane* pane = new Pane(&window);
+			pane->size(72, 110);
+			pane->color(Color::ORANGE,64);
+			pane->position(10, 10);
 
-		Button * button = new Button(&window);
-			button->position(200,200);
+		Icon* icon = new Icon(&window);
+			icon->filename("$(ui.icons)/maison.icn");
+			icon->position(10, 10);
+			icon->text("Icon");
+			icon->focus_gap(3);
+			icon->focus_thickness(2);
+			icon->icon_frame_size(64, 64);
+
+		Button* button = new Button(&window);
+			button->position(200, 200);
 			button->text("Button");
 
 	UIManager::desktop()->dispatch("$(ui.tests)/out/icon4_0.svg");
-		icon->zoom(4);
 		button->font_size(30,60);
+		icon->font_size(30, 60);
+		icon->align(Align::CENTER);
 
 	UIManager::desktop()->dispatch("$(ui.tests)/out/icon4_1.svg");
 		button->size(150,200);
 		icon->size(150,200);
+		pane->size(150, 200);
 
 	UIManager::desktop()->dispatch("$(ui.tests)/out/icon4_2.svg");
 }
@@ -172,18 +188,18 @@ void Icon::test4()
 void Icon::test5()
 {
 	Window window;
-		window.color(Color::WHITE);
+		window.color(Color::WHITE_ICE);
 
 	Icon * icon1 = new Icon(&window);
 		icon1->position(100, 20);
-		icon1->size(100, 50);
+		icon1->icon_frame_size(100, 50);
 		icon1->text("Absolute position with text");
 		icon1->text_color(Color::RED);
 		icon1->font_size(16);
 		icon1->color(Color::LIGHT_BLUE);
 		icon1->border_color(Color::BLUE);
 		icon1->thickness(4);
-		icon1->filename("$(ui.icons)/maison.icn");
+		icon1->filename("$(ui.icons)/computer.icn");
 
 	Icon * icon2 = new Icon(&window);
 		icon2->color(Color::LIGHT_GREEN);
@@ -192,31 +208,51 @@ void Icon::test5()
 		icon2->filename("$(ui.icons)/maison.icn");
 
 	Icon * icon3 = new Icon(&window);
-		icon3->position(20, 130);
-		icon3->size(350, 50);
+		icon3->position(0, 130);
+		icon3->icon_frame_size(350, 90);
 		icon3->text("Another absolute icon");
 		icon3->text_color(Color::GREEN);
 		icon3->font_size(14);
 		icon3->color(Color::LIGHT_RED);
 		icon3->border_color(Color::RED);
 		icon3->thickness(3);
-		icon3->filename("$(ui.icons)/maison.icn");
+		icon3->filename("$(ui.icons)/keyboard.icn");
 
 	Icon * icon4 = new Icon(&window);
-		icon4->position(200, 190);
-		icon4->zoom(4);
+		icon4->position(100, 250);
+		icon4->icon_frame_size(100, 100);
 		icon4->color(Color::LIGHT_ORANGE);
 		icon4->border_color(Color::ORANGE);
 		icon4->thickness(0);
-		icon4->filename("$(ui.icons)/maison.icn");
+		icon4->filename("$(ui.icons)/image.icn");
+
+	Pane* pane = new Pane(&window);
+		pane->position(200, 190);
+		pane->size(156, 156);
+		pane->color(Color::ORANGE, 64);
 
 	Icon * icon5 = new Icon(&window);
-		icon5->position(20, 190);
-		icon5->min_size(100,100);
-		icon5->color(Color::LIGHT_BROWN);
-		icon5->border_color(Color::BROWN);
-		icon5->thickness(0);
-		icon5->filename("$(ui.icons)/maison.icn");
+		icon5->position(200,190);
+		icon5->min_size(156,156);
+		icon5->color(Color::SKYBLUE);
+		icon5->border_color(Color::SAMCO_BLUE);
+		icon5->icon_color(Color::DARK_BLUE);
+		icon5->thickness(3);
+		icon5->focus_color(Color::GRAY_GOOSE);
+		icon5->focus_gap(4);
+		icon5->focus_thickness(5);
+		icon5->text("icon5");
+		icon5->icon_frame_size(100, 100);
+		icon5->text_padding(10);
+		icon5->filename("$(ui.icons)/computer.icn");
+
+	Icon* icon6 = new Icon(&window);
+		icon6->color(Color::LIGHT_BLUE);
+		icon6->border_color(Color::DARK_CYAN);
+		icon6->thickness(2);
+		icon6->position(0, 300);
+		icon6->text("Hello");
+		icon6->filename("$(ui.icons)/maison.icn");
 
 	//UIManager::desktop()->mainloop();
 	UIManager::desktop()->dispatch("$(ui.tests)/out/icon5.svg");

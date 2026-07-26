@@ -9,6 +9,7 @@ Keyboard::Keyboard(Widget * parent):
 	UIManager::styles()->apply(this, (WidgetStyle*)this);
 	UIManager::styles()->apply(this, (BorderStyle*)this);
 	UIManager::styles()->apply(this, (TextStyle*)this);
+	UIManager::styles()->apply(this, (PaddingStyle*)this);
 
 	m_mappings = UIManager::styles()->mappings(m_classname);
 	m_keys     = UIManager::styles()->keys(m_classname);
@@ -24,12 +25,13 @@ Keyboard::~Keyboard()
 }
 
 /** Copy all styles of the keyboard */
-void Keyboard::copy(const Keyboard & keyboard)
+void Keyboard::copy(const Keyboard & obj)
 {
-	*((CommonStyle*)this) = *(CommonStyle*)(&keyboard);
-	*((WidgetStyle*)this) = *(WidgetStyle*)(&keyboard);
-	*((BorderStyle*)this) = *(BorderStyle*)(&keyboard);
-	*((TextStyle*)this)   = *(TextStyle*)(&keyboard);
+	*((CommonStyle*)this) = *(CommonStyle*)(&obj);
+	*((WidgetStyle*)this) = *(WidgetStyle*)(&obj);
+	*((BorderStyle*)this) = *(BorderStyle*)(&obj);
+	*((TextStyle*)this)   = *(TextStyle*)(&obj);
+	*((PaddingStyle*)this) = *(PaddingStyle*)(&obj);
 }
 
 /** Copy all styles of the keyboard */
@@ -41,9 +43,36 @@ void Keyboard::copy(const Keyboard * keyboard)
 	}
 }
 
+/** Serialize the content of widget into json */
+void Keyboard::serialize(JsonIterator& it)
+{
+	it["type"] = m_classname;
+	CommonStyle::serialize(it);
+	WidgetStyle::serialize(it);
+	TextStyle::serialize(it);
+	BorderStyle::serialize(it);
+	PaddingStyle::serialize(it);
+}
+
+/** Unserialize the content of widget from json */
+void Keyboard::unserialize(JsonIterator& it)
+{
+	CommonStyle::unserialize(it);
+	WidgetStyle::unserialize(it);
+	TextStyle::unserialize(it);
+	BorderStyle::unserialize(it);
+	PaddingStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
+
+StyleCascadeMode Keyboard::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+
 void Keyboard::place(const Area & area, bool in_layout)
 {
-	place_in_area(area, in_layout);
+	compute_widget_placement(area, in_layout, 0);
 	Widget::place(area, in_layout);
 }
 
@@ -109,6 +138,7 @@ void Keyboard::create(const String & name)
 					button->WidgetStyle::set(*this);
 					button->BorderStyle::set(*this);
 					button->TextStyle::set(*this);
+					button->PaddingStyle::set(*this);
 
 					if (key_style)
 					{
@@ -116,6 +146,7 @@ void Keyboard::create(const String & name)
 						button->WidgetStyle::set(*key_style);
 						button->BorderStyle::set(*key_style);
 						button->TextStyle::set(*key_style);
+						button->PaddingStyle::set(*key_style);
 					}
 					else
 					{
@@ -130,31 +161,6 @@ void Keyboard::create(const String & name)
 			}
 		}
 	}
-}
-
-/** Serialize the content of widget into json */
-void Keyboard::serialize(JsonIterator & it)
-{
-	it["type"] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
-	TextStyle::serialize(it);
-	BorderStyle::serialize(it);
-}
-
-/** Unserialize the content of widget from json */
-void Keyboard::unserialize(JsonIterator & it)
-{
-	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
-	TextStyle::unserialize(it);
-	BorderStyle::unserialize(it);
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
-}
-
-StyleCascadeMode Keyboard::style_cascade_mode() const
-{
-	return StyleCascadeMode::NONE;
 }
 
 /** Get the widget hovered */
@@ -201,6 +207,3 @@ void Keyboard::on_touch_key(Widget * widget, const TouchEvent & evt)
 		}
 	}
 }
-
-
-

@@ -12,6 +12,6 @@ namespace berialdraw
 		static void test();
 #endif
 		/** Render outline */
-		virtual void paint(const Point & shift);
+		virtual void paint(const Point & shift) override;
 	};
 }

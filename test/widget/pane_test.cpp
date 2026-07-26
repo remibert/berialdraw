@@ -181,7 +181,7 @@ void Pane::test4()
 				pane->thickness(thickness);
 				pane->cell(row,column);
 				pane->extend(EXTEND_ALL);
-				pane->margin(2+((thickness+1)/2));
+				pane->margin(2);
 				pane->border_color(Color::PURPLE_MIMOSA, 128);
 				pane->color(Color::VIOLET, 128);
 				pane->id(thickness);
@@ -212,12 +212,13 @@ void Pane::test5()
 		pane->color(Color::PASTEL_RED);
 		pane->position(13,17);
 		pane->extend(Extend::EXTEND_NONE);
+
 	Label * label = new Label(pane);
 		label->text("helloworld");
 		label->text_color(Color::PASTEL_YELLOW);
 		label->margin(20);
 
-
+		UIManager::desktop()->dispatch();
 	pane = new Pane(&window);
 		pane->radius(10);
 		pane->border_color(Color::PURPLE_MIMOSA, 128);

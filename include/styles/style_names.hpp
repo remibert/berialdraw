@@ -30,10 +30,11 @@ namespace berialdraw
 		static constexpr const char* BORDER_FOCUS_THICKNESS = "focus-thickness";
 
 		// Checkbox style
-		static constexpr const char* CHECKBOX_PADDING = "check-padding";
+		static constexpr const char* CHECKBOX_PADDING = "check-padding_";
 		static constexpr const char* CHECKBOX_COLOR = "check-color";
 		static constexpr const char* CHECKBOX_SKETCH = "check-sketch";
 		static constexpr const char* CHECKBOX_SIZE = "checkbox-size";
+		static constexpr const char* CHECKBOX_TEXT_PADDING = "text-padding_";
 
 		// Common style
 		static constexpr const char* COMMON_COLOR = "color";
@@ -59,9 +60,9 @@ namespace berialdraw
 		// Icon style
 		static constexpr const char* ICON_FILENAME = "filename";
 		static constexpr const char* ICON_COLOR = "icon-color";
-		static constexpr const char* ICON_ZOOM = "zoom_";
-		static constexpr const char* ICON_SIZE = "icon-size";
-		static constexpr const char* ICON_PADDING = "icon-padding";
+		static constexpr const char* ICON_FRAME_SIZE = "icon-frame-size";
+		static constexpr const char* ICON_PADDING = "icon-padding_";
+		static constexpr const char* ICON_TEXT_PADDING = "text-padding_";
 
 		// Line style
 		static constexpr const char* LINE_POINT1 = "point1";
@@ -85,11 +86,12 @@ namespace berialdraw
 		static constexpr const char* PROGRESSBAR_FILL_SIZE = "fill-size_";
 
 		// Radio style
-		static constexpr const char* RADIO_PADDING = "radio-padding";
+		static constexpr const char* RADIO_PADDING = "radio-padding_";
 		static constexpr const char* RADIO_COLOR = "radio-color";
 		static constexpr const char* RADIO_SKETCH = "radio-sketch";
 		static constexpr const char* RADIO_GROUP = "group";
 		static constexpr const char* RADIO_SIZE = "radio-size";
+		static constexpr const char* RADIO_TEXT_PADDING = "text-padding_";
 
 		// Scroll view style
 		static constexpr const char* SCROLLVIEW_SIZE = "scroll-size";
@@ -108,6 +110,7 @@ namespace berialdraw
 		static constexpr const char* SWITCH_OFF_TRACK_COLOR = "off-track-color";
 		static constexpr const char* SWITCH_THUMB_COLOR = "thumb-color";
 		static constexpr const char* SWITCH_SIZE = "switch-size";
+		static constexpr const char* SWITCH_TEXT_PADDING = "text-padding_";
 
 		// Table view style
 		static constexpr const char* TABLEVIEW_ALTERNATING_ROW_COLOR_1 = "alternating-row-color-1";

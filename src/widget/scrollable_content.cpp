@@ -211,21 +211,18 @@ Point ScrollableContent::compute_scroll_view(const Area & area, Point & scroll_p
 void ScrollableContent::place(const Area & area, bool in_layout)
 {
 	// Place the viewport
-	place_in_area_with_thickness(area, in_layout, m_thickness);
+	compute_widget_placement(area, in_layout, m_thickness);
 	
 	// Save the viewport
 	Area backclip = m_backclip;
 	Area foreclip = m_foreclip;
-	Area scrollclip = m_foreclip;
 
 	// Remove padding
-	scrollclip.decrease(padding());
-
 	Size scroll_size(m_scroll_size);
 	Point scroll_position(m_scroll_position);
 
 	// Compute the scroll position and size
-	Point scroll_out = compute_scroll_view(scrollclip, scroll_position, scroll_size);
+	Point scroll_out = compute_scroll_view(m_contentclip, scroll_position, scroll_size);
 
 	if (scroll_out.x() | scroll_out.y())
 	{
@@ -236,7 +233,7 @@ void ScrollableContent::place(const Area & area, bool in_layout)
 	}
 
 	// Move to the screen position
-	scroll_position.move(scrollclip.position());
+	scroll_position.move(m_contentclip.position());
 
 	// Set the scroll area to calculate the position of all widgets in the scrolled content
 	Area scroll_area(scroll_position, scroll_size);
@@ -273,7 +270,7 @@ void ScrollableContent::paint(const Region & parent_region)
 
 			// Increase with the half of border thickness
 			border_area.decrease_thickness(m_thickness >> 1);
-
+			//m_color = Color::WHITE_BLUE;
 			// Paint background and border
 			Rect::paint_focused_rounded_rect(border_area, *(CommonStyle*)this, *(BorderStyle*)this,
 				stated_color(m_color), stated_color(m_border_color), Color::TRANSPARENT,
@@ -282,10 +279,8 @@ void ScrollableContent::paint(const Region & parent_region)
 
 		// Paint scroll content
 		{
-			Area viewport_clip(m_foreclip);
-			viewport_clip.decrease(padding());
 			Region scroll_region(back_region);
-			scroll_region.intersect(viewport_clip);
+			scroll_region.intersect(m_contentclip);
 
 			// Build rounded-corner clip mask so child widgets don't bleed into the corners
 			ClipMask clip_mask;
@@ -388,10 +383,8 @@ void ScrollableContent::scroll_focus(Widget * widget)
 {
 	if (widget)
 	{
-		Area viewport(m_foreclip);
-		viewport.decrease(padding());
-		Coord x = calc_shift_focus(widget->backclip().x(), widget->backclip().width(),  viewport.x(), viewport.width());
-		Coord y = calc_shift_focus(widget->backclip().y(), widget->backclip().height(), viewport.y(), viewport.height());
+		Coord x = calc_shift_focus(widget->backclip().x(), widget->backclip().width(),  m_contentclip.position().x(), m_contentclip.size().width());
+		Coord y = calc_shift_focus(widget->backclip().y(), widget->backclip().height(), m_contentclip.position().y(), m_contentclip.size().height());
 		if (x | y)
 		{
 			UIManager::notifier()->scroll(x, y, this);
@@ -487,21 +480,16 @@ void ScrollableContent::paint_scrollbar()
 	// Check if scrollbar should be visible
 	if (m_scrollbar_visible)
 	{
-		// Get sizes
-		Area viewport_area = m_foreclip;
-		viewport_area.decrease(padding());
-
 		// Draw vertical scrollbar
-		if ((m_scroll_direction != SCROLL_HORIZONTAL) && (scroll_size().height_q6() > viewport_area.size().height_q6()))
+		if ((m_scroll_direction != SCROLL_HORIZONTAL) && (scroll_size().height_q6() > m_contentclip.size().height_q6()))
 		{
-			paint_scrollbar_thumb_internal(true, scroll_size(), viewport_area);
+			paint_scrollbar_thumb_internal(true, scroll_size(), m_contentclip);
 		}
 
 		// Draw horizontal scrollbar
-		if ((m_scroll_direction != SCROLL_VERTICAL  ) && (scroll_size().width_q6()  > viewport_area.size().width_q6()))
+		if ((m_scroll_direction != SCROLL_VERTICAL  ) && (scroll_size().width_q6()  > m_contentclip.size().width_q6()))
 		{
-			paint_scrollbar_thumb_internal(false, scroll_size(), viewport_area);
+			paint_scrollbar_thumb_internal(false, scroll_size(), m_contentclip);
 		}
 	}
 }
-

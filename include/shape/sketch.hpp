@@ -63,20 +63,20 @@ namespace berialdraw
 
 		/** Paint the sketch on the desktop
 		@param shift Point object representing the shift in position */
-		virtual void paint(const Point & shift);
+		virtual void paint(const Point & shift) override;
 
 		/** Get the polygon representing the sketch
 		@return Reference to the polygon of the sketch */
-		virtual const Polygon & polygon() const
+		virtual const Polygon & polygon() const override
 		{
 			return m_polygon;
 		}
 
 		/** Serialize the content of widget into json */
-		void serialize(JsonIterator & it);
+		void serialize(JsonIterator & it) override;
 
 		/** Unserialize the content of widget from json */
-		void unserialize(JsonIterator & it);
+		void unserialize(JsonIterator & it) override;
 
 		/** Add bezier path */
 		void add_path(uint32_t color, const String & path);
@@ -126,7 +126,7 @@ namespace berialdraw
 		bool load();
 
 		// Render polygon
-		void paint(const Area & foreclip, const Margin & padding, uint32_t stated_color);
+		void paint(const Area & foreclip, uint32_t stated_color);
 
 	#ifdef _DEBUG
 		static void test();

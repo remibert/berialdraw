@@ -43,11 +43,11 @@ namespace berialdraw
 
 		/** Render the polyline outline
 		@param shift Point object representing the shift to apply */
-		virtual void paint(const Point & shift);
+		virtual void paint(const Point & shift) override;
 
 		/** Get the polygon object associated with the polyline
 		@return Reference to the associated Polygon object */
-		virtual const Polygon & polygon() const
+		virtual const Polygon & polygon() const override
 		{
 			return m_polygon;
 		}

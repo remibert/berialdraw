@@ -3,7 +3,7 @@ namespace berialdraw
 {
 	/** Class representing a line chart.
 	Inherits from Shape, BorderStyle, and TextStyle. */
-	class LineChart: public Shape, public BorderStyle, public TextStyle
+	class LineChart : public Shape, public BorderStyle, public TextStyle, public PaddingStyle
 	{
 	public:
 		/** Constructor for LineChart.

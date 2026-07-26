@@ -255,6 +255,7 @@ void Button::test5()
 		button->border_color(Color::RED_BLOOD);
 	}
 	UIManager::desktop()->dispatch("$(ui.tests)/out/button5_5.svg");
+	UIManager::desktop()->dispatch();
 }
 
 void Button::test6()
@@ -719,7 +720,7 @@ static Button * new_menu_item(Widget * parent, uint32_t hue, const char * menu, 
 				icn->margin(3);
 				//icn->padding(10);
 				icn->radius(100);
-				icn->zoom_q6((64+64));
+				//icn->zoom_q6((64+64));
 				Size icon_size = icn->content_size();
 				button->padding(0,icon_size.width()+5,0,0);
 		}
@@ -1299,6 +1300,39 @@ void Button::test17()
 
 void Button::test18()
 {
+	Button * button;
+	Window window;
+		window.position(0,0);
+		window.size(200,200);
+		window.color(Color::WHITE);
+
+		button = new Button(&window);
+			button->position(0,0);
+
+		button->color(Color::GREEN);
+		button->border_color(Color::BOTTLE_GREEN);
+		button->text_color(Color::YELLOW);
+		button->thickness(5);
+		button->radius(10);
+		button->align(Align::CENTER);
+
+		button->text("Casted");
+		button->color(Color::RED);
+		button->border_color(Color::RED_BLOOD);
+
+	for (int i = 0; i < 50; i++)
+	{
+		button->thickness(i);
+		button->padding(i);
+		button->focus_gap(i);
+		button->focus_thickness(i);
+		UIManager::desktop()->dispatch();
+		UIManager::desktop()->dispatch();
+	
+	}
+	UIManager::desktop()->mainloop();
+	UIManager::desktop()->dispatch();
+
 }
 
 void Button::test()
@@ -1309,7 +1343,7 @@ void Button::test()
 		MemoryLeakLog
 		done = true;
 
-		test18();
+		// test18();
 		test17();
 		test16();
 		test15();

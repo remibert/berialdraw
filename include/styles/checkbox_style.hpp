@@ -53,7 +53,6 @@ namespace berialdraw
 		/** Set the checkbox padding in pixels */
 		void check_padding(Dim pad);
 
-
 		// Check mark properties
 
 		/** Get the check mark color */
@@ -78,6 +77,16 @@ namespace berialdraw
 		/** Set the check mark sketch (VectorScript) */
 		void check_sketch(const String & sketch);
 
+		/** Get the text padding in pixels */
+		inline Dim text_padding() const
+		{
+			return m_text_padding >> 6;
+		}
+
+		/** Set the text padding in pixels */
+		void text_padding(Dim pad);
+
+
 		/** Get the property name for this style */
 		const char* property_name() const override { return "checkbox"; }
 
@@ -87,6 +96,7 @@ namespace berialdraw
 		Dim m_check_padding = 2<<6;
 		uint32_t m_check_color = 0xFF000000;
 		String m_check_sketch;
+		Dim m_text_padding = 2 << 6;
 /// @endcond
 	}; 
 }

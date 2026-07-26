@@ -36,6 +36,31 @@ void Slider::copy(const Slider * slider)
 	}
 }
 
+/** Serialize the content of widget into json */
+void Slider::serialize(JsonIterator& it)
+{
+	it["type"] = m_classname;
+	CommonStyle::serialize(it);
+	WidgetStyle::serialize(it);
+	BorderStyle::serialize(it);
+	SliderStyle::serialize(it);
+}
+
+/** Unserialize the content of widget from json */
+void Slider::unserialize(JsonIterator& it)
+{
+	CommonStyle::unserialize(it);
+	WidgetStyle::unserialize(it);
+	BorderStyle::unserialize(it);
+	SliderStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
+
+StyleCascadeMode Slider::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+
 /** Return the size of content without marges */
 Size Slider::content_size()
 {
@@ -69,26 +94,8 @@ Size Slider::content_size()
 
 void Slider::place(const Area & area, bool in_layout)
 {
-/*	// If margin not support the focus thickness enlarge it
-	if (m_margin.left() < (Dim)(m_focus_thickness>>1))
-	{
-		m_margin.left(m_focus_thickness>>1);
-	}
-	if (m_margin.right() < (Dim)(m_focus_thickness>>1))
-	{
-		m_margin.right(m_focus_thickness>>1);
-	}
-	if (m_margin.top() < (Dim)(m_focus_thickness>>1))
-	{
-		m_margin.top(m_focus_thickness>>1);
-	}
-	if (m_margin.bottom() < (Dim)(m_focus_thickness>>1))
-	{
-		m_margin.bottom(m_focus_thickness>>1);
-	}*/
-
 	// Place background rectangle
-	place_in_area_not_extend(area, in_layout);
+	compute_widget_placement(area, in_layout, m_thickness);
 }
 
 Dim Slider::get_location(Dim length)
@@ -213,7 +220,7 @@ void Slider::draw_track()
 	// Draw fill
 	handle_area.nearest_pixel();
 
-	Rect::paint_focused_rounded_rect(handle_area, 
+	Rect::paint_focused_rounded_rect2(handle_area, 
 		*(CommonStyle*)this,
 		*(BorderStyle*)this,
 		stated_color(m_handle_color), 
@@ -249,31 +256,6 @@ Widget * Slider::hovered(const Region & parent_region, const Point & position)
 		return this;
 	}
 	return 0;
-}
-
-/** Serialize the content of widget into json */
-void Slider::serialize(JsonIterator & it)
-{
-	it["type"] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
-	BorderStyle::serialize(it);
-	SliderStyle::serialize(it);
-}
-
-/** Unserialize the content of widget from json */
-void Slider::unserialize(JsonIterator & it)
-{
-	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
-	BorderStyle::unserialize(it);
-	SliderStyle::unserialize(it);
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
-}
-
-StyleCascadeMode Slider::style_cascade_mode() const
-{
-	return StyleCascadeMode::NONE;
 }
 
 /** Call back on key */
@@ -352,6 +334,3 @@ void Slider::on_select(Widget * widget, const SelectEvent & evt)
 {
 	touch_handle(evt.position());
 }
-
-
-

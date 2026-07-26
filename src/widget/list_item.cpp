@@ -10,19 +10,21 @@ ListItem::ListItem(Widget* parent) :
 	UIManager::styles()->apply(this, (BorderStyle*)this);
 	UIManager::styles()->apply(this, (TextStyle*)this);
 	UIManager::styles()->apply(this, (ListItemStyle*)this);
+	UIManager::styles()->apply(this, (PaddingStyle*)this);
 }
 
 ListItem::~ListItem()
 {
 }
 
-void ListItem::copy(const ListItem& list_item)
+void ListItem::copy(const ListItem& obj)
 {
-	*((CommonStyle*)this)   = *(CommonStyle*)(&list_item);
-	*((WidgetStyle*)this)   = *(WidgetStyle*)(&list_item);
-	*((BorderStyle*)this)   = *(BorderStyle*)(&list_item);
-	*((TextStyle*)this)     = *(TextStyle*)(&list_item);
-	*((ListItemStyle*)this) = *(ListItemStyle*)(&list_item);
+	*((CommonStyle*)this)   = *(CommonStyle*)(&obj);
+	*((WidgetStyle*)this)   = *(WidgetStyle*)(&obj);
+	*((BorderStyle*)this)   = *(BorderStyle*)(&obj);
+	*((TextStyle*)this)     = *(TextStyle*)(&obj);
+	*((ListItemStyle*)this) = *(ListItemStyle*)(&obj);
+	*((PaddingStyle*)this) = *(PaddingStyle*)(&obj);
 }
 
 void ListItem::copy(const ListItem* list_item)
@@ -31,6 +33,35 @@ void ListItem::copy(const ListItem* list_item)
 	{
 		copy(*list_item);
 	}
+}
+
+/** Serialize the content of widget into json */
+void ListItem::serialize(JsonIterator& it)
+{
+	it["type"] = m_classname;
+	CommonStyle::serialize(it);
+	WidgetStyle::serialize(it);
+	ListItemStyle::serialize(it);
+	TextStyle::serialize(it);
+	BorderStyle::serialize(it);
+	PaddingStyle::serialize(it);
+}
+
+/** Unserialize the content of widget from json */
+void ListItem::unserialize(JsonIterator& it)
+{
+	CommonStyle::unserialize(it);
+	WidgetStyle::unserialize(it);
+	ListItemStyle::unserialize(it);
+	TextStyle::unserialize(it);
+	BorderStyle::unserialize(it);
+	PaddingStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
+
+StyleCascadeMode ListItem::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
 }
 
 Size ListItem::select(String & text, std::unique_ptr<TextBox> & text_box, std::unique_ptr<Sketch> & sketch)
@@ -61,7 +92,6 @@ Size ListItem::select(String & text, std::unique_ptr<TextBox> & text_box, std::u
 	}
 	return result;
 }
-
 
 Size ListItem::content_size()
 {
@@ -104,23 +134,16 @@ Size ListItem::content_size()
 	return result;
 }
 
-
 void ListItem::place(const Area& area, bool in_layout)
 {
 	Margin marg;
 
 	place_in_area_extend(area, in_layout);
 
-	// Place the item area
-	Area item_area(m_foreclip);
-
-	// Remove padding
-	item_area.decrease(padding());
-
 	// Paint text
 	if (m_text.size() > 0)
 	{
-		m_text_foreclip = item_area;
+		m_text_foreclip = m_contentclip;
 		m_text_foreclip.position().move_q6(m_leading_size.width_q6(), 0);
 		m_text_foreclip.size().decrease_q6(m_leading_size.width_q6() + m_trailing_size.width_q6(), 0);
 		place_in_layout(m_text_foreclip, m_text_foreclip.size(), marg, EXTEND_NONE, m_text_foreclip, m_text_align);
@@ -129,7 +152,7 @@ void ListItem::place(const Area& area, bool in_layout)
 	// Paint leading
 	if (m_leading.size() > 0)
 	{
-		m_leading_foreclip = item_area;
+		m_leading_foreclip = m_contentclip;
 		m_leading_foreclip.size().width_q6(m_leading_size.width_q6());
 		place_in_layout(m_leading_foreclip, m_leading_size, marg, EXTEND_NONE, m_leading_foreclip, Align::ALIGN_DEFAULT);
 	}
@@ -137,7 +160,7 @@ void ListItem::place(const Area& area, bool in_layout)
 	// Paint trailing
 	if (m_trailing.size() > 0)
 	{
-		m_trailing_foreclip = item_area;
+		m_trailing_foreclip = m_contentclip;
 		m_trailing_foreclip.position().move_q6(m_text_foreclip.width_q6() + m_leading_foreclip.width_q6(), 0);
 		m_trailing_foreclip.size().width_q6(m_trailing_size.width_q6());
 		place_in_layout(m_trailing_foreclip, m_trailing_size, marg, EXTEND_NONE, m_trailing_foreclip, Align::ALIGN_DEFAULT);
@@ -173,7 +196,7 @@ void ListItem::paint(const Region& parent_region)
 			if (m_text_sketch)
 			{
 				Margin margin;
-				m_text_sketch->paint(m_text_foreclip, Margin(), stated_color(m_text_color));
+				m_text_sketch->paint(m_text_foreclip, stated_color(m_text_color));
 			}
 			if (m_text_box)
 			{
@@ -190,7 +213,7 @@ void ListItem::paint(const Region& parent_region)
 			if (m_leading_sketch)
 			{
 				Margin margin;
-				m_leading_sketch->paint(m_leading_foreclip, Margin(), stated_color(m_text_color));
+				m_leading_sketch->paint(m_leading_foreclip, stated_color(m_text_color));
 			}
 			if (m_leading_box)
 			{
@@ -207,7 +230,7 @@ void ListItem::paint(const Region& parent_region)
 			if (m_trailing_sketch)
 			{
 				Margin margin;
-				m_trailing_sketch->paint(m_trailing_foreclip, Margin(), stated_color(m_text_color));
+				m_trailing_sketch->paint(m_trailing_foreclip, stated_color(m_text_color));
 			}
 			if (m_trailing_box)
 			{
@@ -230,33 +253,3 @@ Widget* ListItem::hovered(const Region& parent_region, const Point& position)
 	}
 	return 0;
 }
-
-/** Serialize the content of widget into json */
-void ListItem::serialize(JsonIterator& it)
-{
-	it["type"] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
-	ListItemStyle::serialize(it);
-	TextStyle::serialize(it);
-	BorderStyle::serialize(it);
-}
-
-/** Unserialize the content of widget from json */
-void ListItem::unserialize(JsonIterator& it)
-{
-	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
-	ListItemStyle::unserialize(it);
-	TextStyle::unserialize(it);
-	BorderStyle::unserialize(it);
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
-}
-
-StyleCascadeMode ListItem::style_cascade_mode() const
-{
-	return StyleCascadeMode::NONE;
-}
-
-
-

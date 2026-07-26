@@ -10,6 +10,7 @@ Switch::Switch(Widget * parent):
 	UIManager::styles()->apply(this, (TextStyle*)this);
 	UIManager::styles()->apply(this, (BorderStyle*)this);
 	UIManager::styles()->apply(this, (SwitchStyle*)this);
+	UIManager::styles()->apply(this, (PaddingStyle*)this);
 	bind(this, &Switch::on_key);
 	bind(this, &Switch::on_click);
 }
@@ -19,13 +20,14 @@ Switch::~Switch()
 }
 
 /** Copy all styles of the switchar */
-void Switch::copy(const Switch & switch_)
+void Switch::copy(const Switch & obj)
 {
-	*((CommonStyle*)this) = *(CommonStyle*)(&switch_);
-	*((WidgetStyle*)this) = *(WidgetStyle*)(&switch_);
-	*((TextStyle*)this) = *(TextStyle*)(&switch_);
-	*((BorderStyle*)this) = *(BorderStyle*)(&switch_);
-	*((SwitchStyle*)this) = *(SwitchStyle*)(&switch_);
+	*((CommonStyle*)this)  = *(CommonStyle*)(&obj);
+	*((WidgetStyle*)this)  = *(WidgetStyle*)(&obj);
+	*((TextStyle*)this)    = *(TextStyle*)(&obj);
+	*((BorderStyle*)this)  = *(BorderStyle*)(&obj);
+	*((SwitchStyle*)this)  = *(SwitchStyle*)(&obj);
+	*((PaddingStyle*)this) = *(PaddingStyle*)(&obj);
 }
 
 /** Copy all styles of the switchar */
@@ -35,6 +37,35 @@ void Switch::copy(const Switch * switch_)
 	{
 		copy(*switch_);
 	}
+}
+
+/** Serialize the content of widget into json */
+void Switch::serialize(JsonIterator& it)
+{
+	it["type"] = m_classname;
+	CommonStyle::serialize(it);
+	WidgetStyle::serialize(it);
+	TextStyle::serialize(it);
+	BorderStyle::serialize(it);
+	SwitchStyle::serialize(it);
+	PaddingStyle::serialize(it);
+}
+
+/** Unserialize the content of widget from json */
+void Switch::unserialize(JsonIterator& it)
+{
+	CommonStyle::unserialize(it);
+	WidgetStyle::unserialize(it);
+	TextStyle::unserialize(it);
+	BorderStyle::unserialize(it);
+	SwitchStyle::unserialize(it);
+	PaddingStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
+
+StyleCascadeMode Switch::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
 }
 
 /** Return the size of content without margins */
@@ -54,32 +85,41 @@ Size Switch::content_size()
 		m_text_size = m_text_box.content_size();
 	}
 	
-	// Add text size to the right if not empty
+	// If the text defined
 	if (m_text.size() > 0)
 	{
-		result.increase_q6(padding().left_q6() + (10<<6) + m_text_size.width_q6() + padding().right_q6(), 0);
+		// Enlarge the width with the text size
+		result.increase_q6(m_text_size.width_q6() + m_text_padding, 0);
+
+		// Enlarge the height if the text taller than check
 		if (m_text_size.height_q6() > m_switch_size.height_q6())
 		{
 			result.height_q6(m_text_size.height_q6());
 		}
 	}
+
+	// Add padding and thickness in size
+	result.increase(padding());
+	result.increase_q6(m_thickness << 1, m_thickness << 1);
+
 	return result;
 }
 
 /** Place all widget in area */
 void Switch::place(const Area & area, bool in_layout)
 {
-	// Place background rectangle
-	place_in_area_not_extend(area, in_layout);
+	// Place the widget
+	compute_widget_placement(area, in_layout, m_thickness);
 
-	// Place the switch
-	m_switch_foreclip = m_foreclip;
-
-	// If text not empty
-	if (m_text.size() > 0)
-	{
-		place_text_with_element(m_text_size, m_switch_size, m_text_backclip, m_text_foreclip, m_switch_foreclip, (m_text_align | Align::ALIGN_BOTTOM), padding());
-	}
+	// Place the text and checkbox
+	place_text_with_element(
+		m_text_size,
+		m_switch_size,
+		m_text_padding,
+		m_text_foreclip, // out
+		m_switch_foreclip, // out
+		(m_text_align | Align::ALIGN_BOTTOM),
+		(Extend)m_extend);
 }
 
 /** Paint on screen memory the content of this widget */
@@ -112,7 +152,7 @@ void Switch::paint_switch(Region & region)
 	{
 		if (m_extend & Extend::EXTEND_WIDTH)
 		{
-			area_thumb.position().move(m_foreclip.width() - m_switch_size.height(), 0);
+			area_thumb.position().move(m_switch_foreclip.width() - m_switch_size.height(), 0);
 		}
 		else
 		{
@@ -121,7 +161,6 @@ void Switch::paint_switch(Region & region)
 	}
 	area_thumb.size().width(area_thumb.size().height());
 	Rect::paint_rounded_rect(area_thumb, substract(m_radius, m_thumb_padding), 0, 0, ALL_BORDERS, stated_color(m_thumb_color), 0);
-
 }
 
 
@@ -136,13 +175,12 @@ void Switch::paint(const Region & parent_region)
 		paint_switch(region);
 		
 		// Paint text to the right
-		if(m_text.size() > 0)
+		if (m_text.size() > 0)
 		{
-			region.intersect(m_text_backclip);
 			select_font();
+			region.intersect(m_text_foreclip);
 			UIManager::renderer()->region(region);
-			Point shift;
-			m_text_box.paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_backclip, stated_color(m_text_color), 0, 0, true);
+			m_text_box.paint(*m_font.get(), m_text, m_text_foreclip.position(), m_contentclip, stated_color(m_text_color));
 		}
 	}
 }
@@ -159,33 +197,6 @@ Widget * Switch::hovered(const Region & parent_region, const Point & position)
 		return this;
 	}
 	return 0;
-}
-
-/** Serialize the content of widget into json */
-void Switch::serialize(JsonIterator & it)
-{
-	it["type"] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
-	TextStyle::serialize(it);
-	BorderStyle::serialize(it);
-	SwitchStyle::serialize(it);
-}
-
-/** Unserialize the content of widget from json */
-void Switch::unserialize(JsonIterator & it)
-{
-	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
-	TextStyle::unserialize(it);
-	BorderStyle::unserialize(it);
-	SwitchStyle::unserialize(it);
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
-}
-
-StyleCascadeMode Switch::style_cascade_mode() const
-{
-	return StyleCascadeMode::NONE;
 }
 
 /** Call back on key */
@@ -230,7 +241,3 @@ void Switch::on_click(Widget * widget, const ClickEvent & evt)
 	UIManager::notifier()->check(m_checked, this);
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 }
-
-
-
-

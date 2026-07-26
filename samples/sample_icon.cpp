@@ -15,14 +15,14 @@ public:
 
 		// Creates a default icon
 		m_icon = new Icon(m_row);                                  // Adds a new icon to the content row
-			m_icon->zoom(4);                                       // Sets the zoom level of the icon to 4x
+			//m_icon->zoom(4);                                       // Sets the zoom level of the icon to 4x
 			m_icon->filename("$(ui.icons)/computer.icn");      // Sets the filename for the icon image
 			m_icon->text("Default");                               // Sets the icon's text to "Default"
 			m_icon->bind(this, &SampleIcon::on_icon_clicked);      // Binds the click event to the `on_icon_clicked` handler
 
 		// Creates an icon without focus capability
 		m_icon = new Icon(m_row);                                  // Adds another icon to the content row
-			m_icon->zoom(4);                                       // Sets the zoom level of the icon to 4x
+			//m_icon->zoom(4);                                       // Sets the zoom level of the icon to 4x
 			m_icon->filename("$(ui.icons)/computer.icn");      // Sets the filename for the icon image
 			m_icon->text("Without\nfocus");                        // Sets the icon's text to "Without\nfocus"
 			m_icon->bind(this, &SampleIcon::on_icon_clicked);      // Binds the click event to the `on_icon_clicked` handler
@@ -30,7 +30,7 @@ public:
 
 		// Creates a rounded icon
 		m_icon = new Icon(m_row);                                  // Adds a rounded icon to the content row
-			m_icon->zoom(4);                                       // Sets the zoom level of the icon to 4x
+			//m_icon->zoom(4);                                       // Sets the zoom level of the icon to 4x
 			m_icon->filename("$(ui.icons)/computer.icn");      // Sets the filename for the icon image
 			m_icon->text("Rounded");                               // Sets the icon's text to "Rounded"
 			m_icon->radius(1000);                                  // Sets a large radius for a fully rounded shape
@@ -38,7 +38,7 @@ public:
 
 		// Creates a square icon
 		m_icon = new Icon(m_row);                                  // Adds a square icon to the content row
-			m_icon->zoom(4);                                       // Sets the zoom level of the icon to 4x
+			//m_icon->zoom(4);                                       // Sets the zoom level of the icon to 4x
 			m_icon->filename("$(ui.icons)/computer.icn");      // Sets the filename for the icon image
 			m_icon->text("Square");                                // Sets the icon's text to "Square"
 			m_icon->radius(0);                                     // Sets the radius to 0 for sharp edges
@@ -46,7 +46,7 @@ public:
 
 		// Creates an icon with full-color appearance
 		m_icon = new Icon(m_row);                                  // Adds another icon to the content row
-			m_icon->zoom(4);                                       // Sets the zoom level of the icon to 4x
+			//m_icon->zoom(4);                                       // Sets the zoom level of the icon to 4x
 			m_icon->filename("$(ui.icons)/computer.icn");      // Sets the filename for the icon image
 			m_icon->text("Full color");                            // Sets the icon's text to "Full color"
 			m_icon->bind(this, &SampleIcon::on_icon_clicked);      // Binds the click event to the `on_icon_clicked` handler

@@ -13,13 +13,81 @@ Picture::Picture(Widget * parent):
 
 Picture::~Picture()
 {
-	if (m_image)
+	delete m_image;
+	delete m_sketch;
+}
+
+/** Serialize the content of widget into json */
+void Picture::serialize(JsonIterator& it)
+{
+	it["type"] = m_classname;
+	CommonStyle::serialize(it);
+	WidgetStyle::serialize(it);
+	BorderStyle::serialize(it);
+	PictureStyle::serialize(it);
+}
+
+/** Unserialize the content of widget from json */
+void Picture::unserialize(JsonIterator& it)
+{
+	CommonStyle::unserialize(it);
+	WidgetStyle::unserialize(it);
+	BorderStyle::unserialize(it);
+	PictureStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
+
+StyleCascadeMode Picture::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+
+/** Load the raster image from the current filename */
+void Picture::load_image()
+{
+	delete m_image;
+	m_image = nullptr;
+
+	// Instantiate appropriate decoder based on file extension
+	if (FileTools::match_pattern("*.png",  m_filename, true) ||
+		FileTools::match_pattern("*.jpg",  m_filename, true) || 
+		FileTools::match_pattern("*.jpeg", m_filename, true))
 	{
-		delete m_image;
-	}
-	if (m_sketch)
-	{
+		if (m_image == nullptr)
+		{
+			m_image = new Image(this);
+		}
+
+		if (m_image)
+		{
+			m_image->filename(m_filename);
+			m_image->fit_mode(m_fit_mode);
+			m_image->alpha(m_alpha);
+			m_image->load();
+		}
+
 		delete m_sketch;
+		m_sketch = nullptr;
+	}
+}
+
+/** Load the sketch from the current filename */
+void Picture::load_sketch()
+{
+	// Instantiate appropriate decoder based on file extension
+	if (FileTools::match_pattern("*.icn",  m_filename, true))
+	{
+		if (m_sketch == nullptr)
+		{
+			m_sketch = new Sketch(this);
+		}
+		if (m_sketch)
+		{
+			m_sketch->filename(m_filename);
+			m_sketch->load();
+		}
+		delete m_image;
+		m_image = nullptr;
 	}
 }
 
@@ -32,62 +100,22 @@ void Picture::load_picture()
 
 		if (m_filename.size() > 0)
 		{
-			bool new_is_vector = FileTools::match_pattern("*.icn",m_filename,true);
-
-			// Type changed: destroy old shape and create new one
-			if (new_is_vector != m_is_vector || (m_image == nullptr && m_sketch == nullptr))
-			{
-				if (m_image)
-				{
-					delete m_image;
-					m_image = nullptr;
-				}
-				if (m_sketch)
-				{
-					delete m_sketch;
-					m_sketch = nullptr;
-				}
-
-				m_is_vector = new_is_vector;
-
-				if (m_is_vector)
-				{
-					m_sketch = new Sketch(this);
-					m_sketch->filename(m_filename);
-					m_sketch->load();
-				}
-				else
-				{
-					m_image = new Image(this);
-					m_image->filename(m_filename);
-					m_image->fit_mode(m_fit_mode);
-					m_image->alpha(m_alpha);
-					m_image->load();
-				}
-			}
-			else
-			{
-				// Same type: just update filename and reload
-				if (m_sketch)
-				{
-					m_sketch->filename(m_filename);
-					m_sketch->load();
-				}
-				if (m_image)
-				{
-					m_image->filename(m_filename);
-					m_image->fit_mode(m_fit_mode);
-					m_image->alpha(m_alpha);
-					m_image->load();
-				}
-			}
+			load_image();
+			load_sketch();
+		}
+		else
+		{
+			delete m_image;
+			m_image = nullptr;
+			delete m_sketch;
+			m_sketch = nullptr;
 		}
 		m_image_modified = false;
 	}
 }
 
 /** Compute the fit size based on image dimensions, constraints and context */
-Size Picture::compute_fit_size(uint32_t img_w, uint32_t img_h, const Area & area)
+Size Picture::compute_fit_size(Size & picture_size, const Area & area)
 {
 	Size new_size;
 
@@ -96,13 +124,11 @@ Size Picture::compute_fit_size(uint32_t img_w, uint32_t img_h, const Area & area
 
 	if (has_width && has_height)
 	{
-		new_size.width_q6(m_size.width_q6());
-		new_size.height_q6(m_size.height_q6());
+		new_size = m_size;
 	}
 	else if (m_fit_mode == STRETCH)
 	{
-		new_size.width_q6(m_foreclip.size().width_q6());
-		new_size.height_q6(m_foreclip.size().height_q6());
+		new_size = m_foreclip.size();
 	}
 	else
 	{
@@ -123,7 +149,7 @@ Size Picture::compute_fit_size(uint32_t img_w, uint32_t img_h, const Area & area
 				uint32_t ref_w_px = (uint32_t)(ref_w >> 6);
 				if (ref_w_px > 0)
 				{
-					uint32_t dst_h_px = (uint32_t)(((uint64_t)img_h * (uint64_t)ref_w_px) / (uint64_t)img_w);
+					uint32_t dst_h_px = (uint32_t)(((uint64_t)picture_size.height() * (uint64_t)ref_w_px) / (uint64_t)picture_size.width());
 					new_size.width_q6(ref_w);
 					new_size.height_q6(dst_h_px << 6);
 				}
@@ -138,7 +164,7 @@ Size Picture::compute_fit_size(uint32_t img_w, uint32_t img_h, const Area & area
 				uint32_t ref_h_px = (uint32_t)(ref_h >> 6);
 				if (ref_h_px > 0)
 				{
-					uint32_t dst_w_px = (uint32_t)(((uint64_t)img_w * (uint64_t)ref_h_px) / (uint64_t)img_h);
+					uint32_t dst_w_px = (uint32_t)(((uint64_t)picture_size.width() * (uint64_t)ref_h_px) / (uint64_t)picture_size.height());
 					new_size.width_q6(dst_w_px << 6);
 					new_size.height_q6(ref_h);
 				}
@@ -151,7 +177,7 @@ Size Picture::compute_fit_size(uint32_t img_w, uint32_t img_h, const Area & area
 				}
 				else
 				{
-					new_size.width_q6(img_w << 6);
+					new_size.width_q6(picture_size.width() << 6);
 				}
 				if (has_height)
 				{
@@ -159,7 +185,7 @@ Size Picture::compute_fit_size(uint32_t img_w, uint32_t img_h, const Area & area
 				}
 				else
 				{
-					new_size.height_q6(img_h << 6);
+					new_size.height_q6(picture_size.height() << 6);
 				}
 			}
 		}
@@ -180,10 +206,10 @@ Size Picture::compute_fit_size(uint32_t img_w, uint32_t img_h, const Area & area
 
 			if (area_w_px > 0 && area_h_px > 0)
 			{
-				uint32_t dst_w = 0, dst_h = 0;
-				ImageProcessor::compute_fit_size(img_w, img_h, area_w_px, area_h_px, FIT, dst_w, dst_h);
-				new_size.width_q6(dst_w << 6);
-				new_size.height_q6(dst_h << 6);
+				Size dst_size;
+				ImageProcessor::compute_fit_size(Size(picture_size.width(), picture_size.height()), Size(area_w_px, area_h_px), FIT, dst_size);
+				new_size.width_q6(dst_size.width_q6());
+				new_size.height_q6(dst_size.height_q6());
 			}
 		}
 	}
@@ -232,37 +258,53 @@ Size Picture::content_size()
 	{
 		result = m_fit_content_size;
 	}
-
+	else
+	{
+		if (m_size.is_defined())
+		{
+			result = m_size;
+		}
+		else
+		{
+			if (m_sketch)
+			{
+				result = m_sketch->size();
+			}
+			else if (m_image)
+			{
+				result = m_image->image_size();
+			}
+			result.increase(m_padding);
+			result.increase_q6(m_thickness << 1, m_thickness << 1);
+		}
+	}
 	return result;
 }
 
 void Picture::place(const Area & area, bool in_layout)
 {
-	place_in_area_with_thickness(area, in_layout, m_thickness);
 	bool is_loaded = false;
-	uint32_t img_w = 0;
-	uint32_t img_h = 0;
+	Size picture_size;
+
+	compute_widget_placement(area, in_layout, m_thickness);
 
 	if (m_image && m_image->is_loaded())
 	{
 		is_loaded = true;
-		img_w = m_image->image_width();
-		img_h = m_image->image_height();
+		picture_size = m_image->image_size();
 	}
 	else if (m_sketch && m_sketch->resolution().width_q6() > 0)
 	{
 		is_loaded = true;
-		img_w = (uint32_t)(m_sketch->resolution().width_q6() >> 6);
-		img_h = (uint32_t)(m_sketch->resolution().height_q6() >> 6);
+		picture_size = m_sketch->resolution();
 	}
 
 	if (is_loaded && !m_picture_placed)
 	{
-		if (img_w > 0 && img_h > 0)
+		if (picture_size.is_defined())
 		{
-			Size new_size = compute_fit_size(img_w, img_h, area);
+			Size new_size = compute_fit_size(picture_size, area);
 			apply_max_size_constraints(new_size);
-
 			m_fit_content_size = new_size;
 			m_picture_placed = true;
 
@@ -271,9 +313,7 @@ void Picture::place(const Area & area, bool in_layout)
 	}
 
 	// Place all children (save/restore m_backclip so border area is preserved)
-	Area backclip(m_backclip);
-	Widget::place(m_foreclip, in_layout);
-	m_backclip = backclip;
+	Widget::place_children(m_contentclip, in_layout);
 }
 
 void Picture::paint(const Region & parent_region)
@@ -286,7 +326,8 @@ void Picture::paint(const Region & parent_region)
 	{
 		UIManager::renderer()->region(region);
 
-		Rect::paint_focused_rounded_rect(m_foreclip,
+		// Draw rectangle with border
+		Rect::paint_focused_rounded_rect2(m_foreclip,
 			*(CommonStyle*)this,
 			*(BorderStyle*)this,
 			stated_color(m_color),
@@ -295,17 +336,19 @@ void Picture::paint(const Region & parent_region)
 			stated_color(m_focus_color),
 			m_focused);
 
-		load_picture();
+		// Clip content
+		region.intersect(m_contentclip);
+		UIManager::renderer()->region(region);
 
 		if (m_image && m_image->is_loaded())
 		{
-			m_image->paint(m_foreclip, Margin(), m_alpha);
+			m_image->paint(m_contentclip, Margin(), m_alpha);
 		}
 		else if (m_sketch && m_sketch->resolution().width_q6() > 0)
 		{
 			uint32_t color = parent_focus_color(stated_color(m_icon_color));
-			m_sketch->size(m_foreclip.size());
-			m_sketch->paint(m_foreclip, Margin(), color);
+			m_sketch->size(m_contentclip.size());
+			m_sketch->paint(m_contentclip, color);
 		}
 
 		// Paint children
@@ -325,32 +368,5 @@ Widget * Picture::hovered(const Region & parent_region, const Point & position)
 	{
 		result = this;
 	}
-
 	return result;
 }
-
-/** Serialize the content of widget into json */
-void Picture::serialize(JsonIterator & it)
-{
-	it["type"] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
-	BorderStyle::serialize(it);
-	PictureStyle::serialize(it);
-}
-
-/** Unserialize the content of widget from json */
-void Picture::unserialize(JsonIterator & it)
-{
-	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
-	BorderStyle::unserialize(it);
-	PictureStyle::unserialize(it);
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
-}
-
-StyleCascadeMode Picture::style_cascade_mode() const
-{
-	return StyleCascadeMode::NONE;
-}
-

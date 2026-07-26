@@ -11,6 +11,7 @@ Icon::Icon(Widget * parent):
 	UIManager::styles()->apply(this, (BorderStyle*)this);
 	UIManager::styles()->apply(this, (IconStyle*)this);
 	UIManager::styles()->apply(this, (TextStyle*)this);
+	UIManager::styles()->apply(this, (PaddingStyle*)this);
 }
 
 Icon::~Icon()
@@ -19,13 +20,14 @@ Icon::~Icon()
 }
 
 /** Copy all styles of the icon */
-void Icon::copy(const Icon & icon)
+void Icon::copy(const Icon & obj)
 {
-	*((CommonStyle*)this) = *(CommonStyle*)(&icon);
-	*((WidgetStyle*)this) = *(WidgetStyle*)(&icon);
-	*((BorderStyle*)this) = *(BorderStyle*)(&icon);
-	*((TextStyle*)this)   = *(TextStyle*)(&icon);
-	*((IconStyle*)this)   = *(IconStyle*)(&icon);
+	*((CommonStyle*)this) = *(CommonStyle*)(&obj);
+	*((WidgetStyle*)this) = *(WidgetStyle*)(&obj);
+	*((BorderStyle*)this) = *(BorderStyle*)(&obj);
+	*((TextStyle*)this)   = *(TextStyle*)(&obj);
+	*((IconStyle*)this)   = *(IconStyle*)(&obj);
+	*((PaddingStyle*)this) = *(PaddingStyle*)(&obj);
 }
 
 /** Copy all styles of the icon */
@@ -37,70 +39,94 @@ void Icon::copy(const Icon * icon)
 	}
 }
 
-Dim Icon::compute_zoom(Dim value, Dim zoom)
+/** Serialize the content of widget into json */
+void Icon::serialize(JsonIterator& it)
 {
-	return (Dim)((((uint64_t)value * (uint64_t)zoom)) >> 6);
+	it["type"] = m_classname;
+	CommonStyle::serialize(it);
+	WidgetStyle::serialize(it);
+	BorderStyle::serialize(it);
+	IconStyle::serialize(it);
+	TextStyle::serialize(it);
+	PaddingStyle::serialize(it);
 }
 
+/** Unserialize the content of widget from json */
+void Icon::unserialize(JsonIterator& it)
+{
+	CommonStyle::unserialize(it);
+	WidgetStyle::unserialize(it);
+	BorderStyle::unserialize(it);
+	IconStyle::unserialize(it);
+	TextStyle::unserialize(it);
+	PaddingStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
 
-/** Return the icon size */
+StyleCascadeMode Icon::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+
+/** Return the icon size (area available for the sketch inside the frame) */
 Size Icon::icon_size()
 {
 	if (m_icon_modified)
 	{
 		m_sketch->filename(m_filename);
-		m_icon_modified = false;
-		m_sketch->zoom_q6(m_zoom);
 		if (m_sketch->load())
 		{
-			m_icon_size.set_q6(compute_zoom(m_sketch->resolution().width_q6(), zoom_q6()), compute_zoom(m_sketch->resolution().height_q6(), zoom_q6()));
-			m_icon_size.height_q6(m_icon_size.height_q6() + icon_padding().bottom_q6() + icon_padding().top_q6());
-			m_icon_size.width_q6(m_icon_size.width_q6()  + icon_padding().left_q6()   + icon_padding().right_q6());
-
-			if (m_children)
-			{
-				// Compute the children with marged size
-				Size children_size = Widget::children_size();
-				if (children_size.width_q6() > m_icon_size.width_q6())
-				{
-					m_icon_size.width_q6(children_size.width_q6());
-				}
-				if (children_size.height_q6() > m_icon_size.height_q6())
-				{
-					m_icon_size.height_q6(children_size.height_q6());
-				}
-			}
+			// Icon size = frame size minus thickness (border) minus icon_padding
+			m_icon_size = m_icon_frame_size;
+			m_icon_size.decrease_q6(m_thickness << 1, m_thickness << 1);
+			m_icon_size.decrease_q6(
+				m_icon_padding.left_q6() + m_icon_padding.right_q6(),
+				m_icon_padding.top_q6()  + m_icon_padding.bottom_q6());
 		}
 		else
 		{
-			m_icon_size.set(0,0);
+			m_icon_size.set(0, 0);
 		}
+		m_icon_modified = false;
 	}
 	return m_icon_size;
 }
 
-/** Return the size of content without marges */
+/** Return the size of content without margins */
 Size Icon::content_size()
 {
-	Size result = icon_size();
+	// Compute icon size first (may update m_icon_size)
+	icon_size();
 
-	if(m_text_modified || m_font_modified)
+	// Parse text if needed
+	if (m_text.size() > 0)
 	{
-		Area area;
-		select_font();
-		if (m_font.get())
+		if (m_text_modified || m_font_modified)
 		{
-			m_text_box.parse(area, *m_font, m_text, UINT32_MAX, UINT32_MAX, UINT32_MAX, m_text_align);
+			Area area;
+			select_font();
+			if (m_font.get())
+			{
+				m_text_box.parse(area, *m_font, m_text, UINT32_MAX, UINT32_MAX, UINT32_MAX, m_text_align);
+			}
+			m_text_modified = m_font_modified = 0;
+			m_text_size = m_text_box.content_size();
 		}
-		m_text_modified = m_font_modified = 0;
-		m_text_size = m_text_box.content_size();
 	}
-	
-	// Add text height in the icon content size
-	if (m_text_size.width_q6() > 0 && m_text_size.height_q6() > 0)
+
+	// Base content = icon_frame_size
+	Size result = m_icon_frame_size;
+
+	// If text exists, add text height + text_padding below
+	if (m_text.size() > 0)
 	{
-		result.increase_q6(0, padding().top_q6() + m_text_size.height_q6() + padding().bottom_q6());
+		result.increase_q6(0, m_text_size.height_q6() + m_text_padding);
 	}
+
+	// Add widget padding and thickness
+	result.increase(padding());
+	result.increase_q6(m_thickness << 1, m_thickness << 1);
+
 	return result;
 }
 
@@ -108,64 +134,84 @@ void Icon::place(const Area & area, bool in_layout)
 {
 	Margin marg;
 
-	place_in_area_extend(area, in_layout);
+	// Compute standard widget placement (fills m_backclip, m_foreclip, m_contentclip)
+	compute_widget_placement(area, in_layout, m_thickness);
 
-	// Place button text
-	m_text_backclip = m_foreclip;
-	marg.bottom_q6(padding().bottom_q6());
-	place_in_layout(m_text_backclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, (m_text_align | Align::ALIGN_BOTTOM));
-	
-	// Place the icon
-	m_icon_foreclip = m_foreclip;
-
-	// Add text height in the icon content size
-	if (m_text_size.width_q6() > 0 && m_text_size.height_q6() > 0)
+	// Total content size (frame + text)
+	Size total_content_size(m_icon_frame_size);
+	if (m_text.size() > 0)
 	{
-		m_icon_foreclip.size().decrease_q6(0,padding().top_q6() + m_text_size.height_q6() + padding().bottom_q6());
+		total_content_size.increase_q6(0, m_text_size.height_q6() + m_text_padding);
 	}
 
-	// Place all children
-	Area backclip(m_backclip);
-	Widget::place(m_foreclip,in_layout);
+	// Place the whole content block (frame + text) inside contentclip according to align()
+	Area content_area;
+	place_in_layout(m_contentclip, total_content_size, marg, Extend::EXTEND_NONE, content_area, align());
 
-	// Restore backclip
-	m_backclip = backclip;
+	// Frame is at the top of content_area, with icon_frame_size
+	m_frame_foreclip.position(content_area.position());
+	m_frame_foreclip.size(m_icon_frame_size);
+
+	// Text is below the frame with text_padding gap
+	if (m_text.size() > 0)
+	{
+		Coord text_y = content_area.y_q6() + (Coord)m_icon_frame_size.height_q6() + (Coord)m_text_padding;
+		m_text_foreclip.position().set_q6(content_area.x_q6(), text_y);
+		m_text_foreclip.size(m_text_size);
+
+		// Center text horizontally relative to frame if text is narrower
+		if (m_text_size.width_q6() < m_icon_frame_size.width_q6())
+		{
+			Coord text_x = content_area.x_q6() + (Coord)((m_icon_frame_size.width_q6() - m_text_size.width_q6()) >> 1);
+			m_text_foreclip.x_q6(text_x);
+		}
+	}
 }
 
 void Icon::paint(const Region & parent_region)
 {
 	Region region(parent_region);
 
-	// Draw rectangle
+	// Clip to widget bounds
 	region.intersect(m_backclip);
 
-	// If button visible
+	// Check visibility
 	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Overlap::OUT)
 	{
 		UIManager::renderer()->region(region);
-		Point shift;
 
-		Rect::paint_focused_rounded_rect(m_icon_foreclip, 
+		// Draw rounded rectangle frame around icon
+		Rect::paint_focused_rounded_rect2(m_frame_foreclip,
 			*(CommonStyle*)this,
 			*(BorderStyle*)this,
-			stated_color(m_color), 
+			stated_color(m_color),
 			stated_color(m_border_color),
-			Color::TRANSPARENT, 
+			Color::TRANSPARENT,
 			stated_color(m_focus_color),
 			m_focused);
 
-		// Paint children
-		Widget::paint(region);
+		region.intersect(m_contentclip);
 
-		// Paint icon
-		m_sketch->size(m_icon_foreclip.size());
-		m_sketch->paint(m_icon_foreclip, icon_padding(), stated_color(m_icon_color));
+		// Draw icon centered inside frame (minus thickness and icon_padding)
+		if (m_icon_size.width_q6() > 0 && m_icon_size.height_q6() > 0)
+		{
+			Area icon_area;
+			Margin marg;
+			place_in_layout(m_frame_foreclip, m_icon_size, marg, Extend::EXTEND_NONE, icon_area, Align::CENTER);
 
-		// Paint text
-		region.intersect(m_text_backclip);
-		select_font();
-		UIManager::renderer()->region(region);
-		m_text_box.paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_backclip, stated_color(m_text_color), 0, 0, true);
+			m_sketch->size(m_icon_size);
+			m_sketch->paint(icon_area, stated_color(m_icon_color));
+		}
+
+		// Draw text below the frame
+		if (m_text.size() > 0)
+		{
+			Region text_region(region);
+			text_region.intersect(m_text_foreclip);
+			select_font();
+			UIManager::renderer()->region(text_region);
+			m_text_box.paint(*m_font.get(), m_text, m_text_foreclip.position(), m_text_foreclip, stated_color(m_text_color));
+		}
 	}
 }
 
@@ -182,35 +228,3 @@ Widget * Icon::hovered(const Region & parent_region, const Point & position)
 	}
 	return 0;
 }
-
-/** Serialize the content of widget into json */
-void Icon::serialize(JsonIterator & it)
-{
-	it["type"] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
-	BorderStyle::serialize(it);
-	IconStyle::serialize(it);
-	TextStyle::serialize(it);
-}
-
-/** Unserialize the content of widget from json */
-void Icon::unserialize(JsonIterator & it)
-{
-	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
-	BorderStyle::unserialize(it);
-	IconStyle::unserialize(it);
-	TextStyle::unserialize(it);
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
-}
-
-StyleCascadeMode Icon::style_cascade_mode() const
-{
-	return StyleCascadeMode::NONE;
-}
-
-
-
-
-

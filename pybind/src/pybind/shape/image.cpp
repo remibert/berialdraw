@@ -26,10 +26,8 @@ void bind_image(py::module& m) {
             py::overload_cast<uint8_t>(&berialdraw::Image::alpha),
             "Alpha transparency (0=transparent, 255=opaque)")
             
-        .def("image_width", &berialdraw::Image::image_width,
-             "Get the image width in pixels")
-        .def("image_height", &berialdraw::Image::image_height,
-             "Get the image height in pixels")
+        .def("image_size", &berialdraw::Image::image_size,
+             "Get the image size (returns Size object with width and height)")
         .def("is_loaded", &berialdraw::Image::is_loaded,
              "Check if the image is loaded")
         .def("load", &berialdraw::Image::load,

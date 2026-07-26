@@ -51,8 +51,14 @@ namespace berialdraw
 		/** Load the image or sketch from the current filename */
 		void load_picture();
 
+		/** Load the raster image from the current filename */
+		void load_image();
+
+		/** Load the sketch from the current filename */
+		void load_sketch();
+
 		/** Compute the fit size based on image dimensions, constraints and context */
-		Size compute_fit_size(uint32_t img_w, uint32_t img_h, const Area & area);
+		Size compute_fit_size(Size & picture_size, const Area & area);
 
 		/** Apply max_size constraints to the computed size */
 		void apply_max_size_constraints(Size & size);

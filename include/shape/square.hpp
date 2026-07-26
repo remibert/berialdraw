@@ -17,6 +17,6 @@ namespace berialdraw
 
 		/** Renders the outline of the square.
 		@param shift Point object representing the shift. */
-		virtual void paint(const Point & shift);
+		virtual void paint(const Point & shift) override;
 	};
 }

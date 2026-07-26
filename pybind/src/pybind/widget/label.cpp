@@ -2,7 +2,7 @@
 #include "pybind/event_system.hpp"
 
 void bind_label(pybind11::module_& m) {
-    pybind11::class_<berialdraw::Label, berialdraw::Widget, berialdraw::TextStyle>(m, "Label")
+    pybind11::class_<berialdraw::Label, berialdraw::Widget, berialdraw::PaddingStyle, berialdraw::TextStyle>(m, "Label")
         .def(pybind11::init<berialdraw::Widget*>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>())
         
         // Event system integration (useful for clickable labels)

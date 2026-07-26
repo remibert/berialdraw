@@ -100,11 +100,11 @@ namespace berialdraw
 
 		/** Render the polygon outline
 		@param shift Point object representing the shift to apply */
-		virtual void paint(const Point & shift);
+		virtual void paint(const Point & shift) override;
 
 		/** Get the polygon object
 		@return Reference to the current Polygon object */
-		virtual const Polygon & polygon() const
+		virtual const Polygon & polygon() const override
 		{
 			return *this;
 		}

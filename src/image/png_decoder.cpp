@@ -53,8 +53,8 @@ bool PngDecoder::decode(const char* filename)
 							png_set_sig_bytes(png_ptr, 8);
 							png_read_info(png_ptr, info_ptr);
 
-							m_width = png_get_image_width(png_ptr, info_ptr);
-							m_height = png_get_image_height(png_ptr, info_ptr);
+							uint32_t w = png_get_image_width(png_ptr, info_ptr);
+							uint32_t h = png_get_image_height(png_ptr, info_ptr);
 							png_byte color_type = png_get_color_type(png_ptr, info_ptr);
 							png_byte bit_depth = png_get_bit_depth(png_ptr, info_ptr);
 
@@ -107,13 +107,13 @@ bool PngDecoder::decode(const char* filename)
 							png_read_update_info(png_ptr, info_ptr);
 
 							// Allocate and setup row pointers
-							m_pixels = new uint32_t[m_width * m_height];
+							m_pixels = new uint32_t[w * h];
 
 							// Allocate row pointers
-							png_bytep* row_pointers = new png_bytep[m_height];
-							for (uint32_t y = 0; y < m_height; y++)
+							png_bytep* row_pointers = new png_bytep[h];
+							for (uint32_t y = 0; y < h; y++)
 							{
-								row_pointers[y] = (png_bytep)&m_pixels[y * m_width];
+								row_pointers[y] = (png_bytep)&m_pixels[y * w];
 							}
 
 							// Decode image
@@ -121,6 +121,7 @@ bool PngDecoder::decode(const char* filename)
 							png_read_end(png_ptr, nullptr);
 
 							delete[] row_pointers;
+							m_size = Size(w, h);
 							result = true;
 						}
 					}
@@ -145,16 +146,10 @@ const uint32_t* PngDecoder::pixel_data() const
 	return m_pixels;
 }
 
-// Get image width
-uint32_t PngDecoder::width() const
+// Get image dimensions
+const Size& PngDecoder::size() const
 {
-	return m_width;
-}
-
-// Get image height
-uint32_t PngDecoder::height() const
-{
-	return m_height;
+	return m_size;
 }
 
 // Check for alpha channel
@@ -171,7 +166,7 @@ void PngDecoder::clear()
 		delete[] m_pixels;
 		m_pixels = nullptr;
 	}
-	m_width = 0;
-	m_height = 0;
+	m_size.width(0);
+	m_size.height(0);
 	m_has_alpha = false;
 }

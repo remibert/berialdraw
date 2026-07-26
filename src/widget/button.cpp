@@ -9,18 +9,20 @@ Button::Button(Widget * parent):
 	UIManager::styles()->apply(this, (WidgetStyle*)this);
 	UIManager::styles()->apply(this, (BorderStyle*)this);
 	UIManager::styles()->apply(this, (TextStyle*)this);
+	UIManager::styles()->apply(this, (PaddingStyle*)this);
 }
 
 Button::~Button()
 {
 }
 
-void Button::copy(const Button & button)
+void Button::copy(const Button & obj)
 {
-	*((CommonStyle*)this) = *(CommonStyle*)(&button);
-	*((WidgetStyle*)this) = *(WidgetStyle*)(&button);
-	*((BorderStyle*)this) = *(BorderStyle*)(&button);
-	*((TextStyle  *)this) = *(TextStyle  *)(&button);
+	*((CommonStyle*)this)  = *(CommonStyle *)(&obj);
+	*((WidgetStyle*)this)  = *(WidgetStyle *)(&obj);
+	*((BorderStyle*)this)  = *(BorderStyle *)(&obj);
+	*((TextStyle  *)this)  = *(TextStyle   *)(&obj);
+	*((PaddingStyle*)this) = *(PaddingStyle*)(&obj);
 }
 
 void Button::copy(const Button * button)
@@ -29,6 +31,33 @@ void Button::copy(const Button * button)
 	{
 		copy(*button);
 	}
+}
+
+/** Serialize the content of widget into json */
+void Button::serialize(JsonIterator& it)
+{
+	it["type"] = m_classname;
+	CommonStyle::serialize(it);
+	WidgetStyle::serialize(it);
+	TextStyle::serialize(it);
+	BorderStyle::serialize(it);
+	PaddingStyle::serialize(it);
+}
+
+/** Unserialize the content of widget from json */
+void Button::unserialize(JsonIterator& it)
+{
+	CommonStyle::unserialize(it);
+	WidgetStyle::unserialize(it);
+	TextStyle::unserialize(it);
+	BorderStyle::unserialize(it);
+	PaddingStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
+
+StyleCascadeMode Button::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
 }
 
 Size Button::content_size()
@@ -47,8 +76,6 @@ Size Button::content_size()
 	}
 
 	result = m_text_size;
-	result.height_q6(result.height_q6()+ padding().bottom_q6() + padding().top_q6());
-	result.width_q6(result.width_q6()  + padding().left_q6() + padding().right_q6());
 
 	if (m_children)
 	{
@@ -63,6 +90,10 @@ Size Button::content_size()
 			result.height_q6(children_size.height_q6());
 		}
 	}
+
+	// Add padding and thickness in size
+	result.increase(padding());
+	result.increase_q6(m_thickness << 1, m_thickness << 1);
 	return result;
 }
 
@@ -70,19 +101,13 @@ void Button::place(const Area & area, bool in_layout)
 {
 	Margin marg;
 
-	place_in_area_extend(area, in_layout);
+	compute_widget_placement(area, in_layout, m_thickness);
 
 	// Place button text
-	m_text_backclip = m_foreclip;
-	m_text_backclip.decrease(padding());
-	place_in_layout(m_text_backclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, m_text_align);
+	place_in_layout(m_contentclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, m_text_align);
 
 	// Place all children
-	Area backclip(m_backclip);
-	Widget::place(m_foreclip,in_layout);
-
-	// Restore backclip
-	m_backclip = backclip;
+	Widget::place_children(m_contentclip, in_layout);
 }
 
 void Button::paint(const Region & parent_region)
@@ -92,13 +117,12 @@ void Button::paint(const Region & parent_region)
 	// Draw rectangle
 	region.intersect(m_backclip);
 
-	// If button visible
+	// If widget visible
 	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Overlap::OUT)
 	{
 		UIManager::renderer()->region(region);
-		Point shift;
 
-		Rect::paint_focused_rounded_rect(m_foreclip, 
+		Rect::paint_focused_rounded_rect2(m_foreclip,
 			*(CommonStyle*)this,
 			*(BorderStyle*)this,
 			stated_color(m_color), 
@@ -111,10 +135,12 @@ void Button::paint(const Region & parent_region)
 		Widget::paint(region);
 
 		// Paint text
-		region.intersect(m_text_backclip);
+		region.intersect(m_contentclip);
 		select_font();
+
 		UIManager::renderer()->region(region);
-		m_text_box.paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_backclip, stated_color(m_text_color), 0, 0, true);
+
+		m_text_box.paint(*m_font.get(), m_text, m_text_foreclip.position(), m_contentclip, stated_color(m_text_color));
 	}
 }
 
@@ -131,30 +157,3 @@ Widget * Button::hovered(const Region & parent_region, const Point & position)
 	}
 	return 0;
 }
-
-/** Serialize the content of widget into json */
-void Button::serialize(JsonIterator & it)
-{
-	it["type"] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
-	TextStyle::serialize(it);
-	BorderStyle::serialize(it);
-}
-
-/** Unserialize the content of widget from json */
-void Button::unserialize(JsonIterator & it)
-{
-	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
-	TextStyle::unserialize(it);
-	BorderStyle::unserialize(it);
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
-}
-
-StyleCascadeMode Button::style_cascade_mode() const
-{
-	return StyleCascadeMode::NONE;
-}
-
-

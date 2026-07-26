@@ -40,6 +40,18 @@ public:
 	@param bordercolor Border color of the rectangle. */
 	static void paint_rounded_rect(const Area & area, Dim radius, Dim thickness, Dim gap, uint8_t borders, uint32_t backcolor, uint32_t bordercolor, Dim focus_thickness=0);
 
+	/** Builds a polygon representation of a rectangle with customizable parameters.
+	@param area Defines the rectangle's position and size.
+	@param radius Radius for rounded corners.
+	@param thickness Thickness of the border.
+	@param gap Gap between the border and the fill.
+	@param borders Number of borders of the polygon (approximating a rounded rectangle).
+	@param backcolor Background color of the rectangle.
+	@param bordercolor Border color of the rectangle. */
+	static void paint_rounded_rect2(const Area& area, Dim radius,
+		Dim thickness, Dim gap, uint8_t borders, uint32_t backcolor, 
+		uint32_t bordercolor, Dim focus_thickness);
+
 	/** Build a clip mask from the inner area of a rounded rectangle,
 	with the same geometry as the backcolor path of paint_rounded_rect.
 	@param area      Bounding area of the rounded rect
@@ -60,16 +72,29 @@ public:
 		uint32_t focus_border_color,
 		bool focused);
 
+	static void paint_focused_rounded_rect2(const Area& area,
+		const CommonStyle& common_style,
+		const BorderStyle& border_style,
+		uint32_t color,
+		uint32_t border_color,
+		uint32_t focus_color,
+		uint32_t focus_border_color,
+		bool focused);
+
 	/** Renders the outline of the rectangle on the canvas.
 	@param shift Offset to apply while rendering. */
-	virtual void paint(const Point & shift);
+	virtual void paint(const Point & shift) override;
 
 	/** Returns the polygon representation of the rectangle.
 	@return A reference to the polygon object. */
-	virtual const Polygon & polygon() const
+	virtual const Polygon & polygon() const override
 	{
 		return m_polygon;
 	}
+
+	/** Get the marged size of the shape
+	@return Size of the shape with margin */
+	virtual Size marged_size() override;
 
 protected:
 /// @cond DOXYGEN_IGNORE

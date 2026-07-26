@@ -12,6 +12,12 @@ namespace berialdraw
 		/** Destructor */
 		~IconStyle();
 
+		/** Copy operator */
+		IconStyle& operator=(const IconStyle& other);
+
+		/** Set properties with another */
+		void set(const IconStyle& other);
+
 		/** Create new paths */
 		static Style * create();
 
@@ -21,23 +27,18 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		void unserialize(JsonIterator & it) override;
 
-		// Zoom properties
 
-		/** Set the zoom ratio for the polygon
-		@param z zoom value */
-		void zoom(Dim z);
+		/** Get the icon frame size */
+		const Size & icon_frame_size() const { return m_icon_frame_size; }
+		
+		/** Set the icon frame size */
+		void icon_frame_size(const Size & s);
 
-		/** Get the zoom ratio for the polygon
-		@return zoom zoom value */
-		Dim zoom() const { return m_zoom >> 6; }
+		/** Set the icon frame size with width and height in pixels */
+		void icon_frame_size(Dim w, Dim h=0);
 
-		/** Set the zoom ratio for the polygon
-		@param z zoom value shifted by 6 bits */
-		void zoom_q6(Dim z);
-
-		/** Get the zoom ratio for the polygon
-		@return zoom zoom value shifted by 6 bits */
-		Dim zoom_q6() const { return m_zoom; }
+		/** Set the icon frame size with a precision of 64th of a pixel */
+		void icon_frame_size_q6(Dim w, Dim h=0);
 
 		// Filename properties
 
@@ -72,17 +73,27 @@ namespace berialdraw
 		/** Set the back icon color with alpha */
 		void icon_color(uint32_t col, uint8_t alpha);
 
+		/** Get the text padding in pixels */
+		inline Dim text_padding() const
+		{
+			return m_text_padding >> 6;
+		}
+
+		/** Set the text padding in pixels */
+		void text_padding(Dim pad);
+
 		/** Get the property name for this style */
 		const char* property_name() const override { return "icon"; }
 
 	protected:
 /// @cond DOXYGEN_IGNORE
 		Margin m_icon_padding;
-		Size m_icon_size;
 		uint32_t m_icon_color = Color::TRANSPARENT;
-		Dim m_zoom = 1<<6;
 		String m_filename;
 		bool m_icon_modified = true;
+		Dim m_text_padding = 2 << 6;
+		Size m_icon_size;
+		Size m_icon_frame_size;
 /// @endcond
 	};
 }

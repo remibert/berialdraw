@@ -80,5 +80,11 @@ void Line::paint(const Point & shift)
 	UIManager::renderer()->draw(*this, shift);
 }
 
-
-
+/** Get the marged size of the shape
+@return Size of the shape with margin */
+Size Line::marged_size()
+{
+	Size result = content_size();
+	result.increase_q6(m_thickness >> 1, m_thickness >> 1);
+	return result;
+}

@@ -12,50 +12,48 @@ namespace berialdraw
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
 
-		List::test();
-		Slider::test();
-		Window::test();
 #if defined(_DEBUG) && defined(ALL_TESTS)
-		
-		// Other
-		Styles::test();
-
-		// Widgets
-		List::test();
-		Picture::test();
-		Icon::test();
-		ProgressBar::test();
-		Slider::test();
-		Edit::test();
-		Switch::test();
-		ScrollView::test();
 		TableView::test();
+
+		// Widget
 		Button::test();
-		Keyboard::test();
 		Canvas::test();
 		Checkbox::test();
-		Pane::test();
-		Radio::test();
+		Column::test();
+		Edit::test();
+		Grid::test();
+		Icon::test();
 		Label::test();
+		Keyboard::test();
+		List::test();
+		Pane::test();
+		Picture::test();
+		ProgressBar::test();
+		Radio::test();
+		Row::test();
+		ScrollView::test();
+		Slider::test();
+		Switch::test();
+		TableView::test();
 		Window::test();
 
-		// Shapes
-		Sketch::test();
-		Image::test();
-		Rect::test();
-		Pie::test();
-		Grid::test();
-		Text::test();
-		LineChart::test();
-		Compass::test();
-		Line::test();
-		Marker::test();
-		PolyLines::test();
-		Polygon::test();	
-		Region::test();
-		Outline::test();
-		Font::test();
+		// Shape
 		Colors::test();
+		Compass::test();
+		Font::test();
+		Image::test();
+		Line::test();
+		LineChart::test();
+		Marker::test();
+		Outline::test();
+		Pie::test();
+		Polygon::test();
+		PolyLines::test();
+		Rect::test();
+		Region::test();
+		Sketch::test();
+		Styles::test();
+		Text::test();
 
 		tools_test2();
 #endif

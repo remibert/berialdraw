@@ -32,6 +32,32 @@ void ProgressBar::copy(const ProgressBar * progress_bar)
 		copy(*progress_bar);
 	}
 }
+
+/** Serialize the content of widget into json */
+void ProgressBar::serialize(JsonIterator& it)
+{
+	it["type"] = m_classname;
+	CommonStyle::serialize(it);
+	WidgetStyle::serialize(it);
+	BorderStyle::serialize(it);
+	ProgressBarStyle::serialize(it);
+}
+
+/** Unserialize the content of widget from json */
+void ProgressBar::unserialize(JsonIterator& it)
+{
+	CommonStyle::unserialize(it);
+	WidgetStyle::unserialize(it);
+	BorderStyle::unserialize(it);
+	ProgressBarStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
+
+StyleCascadeMode ProgressBar::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+
 /** Return the size of content without marges */
 Size ProgressBar::content_size()
 {
@@ -65,7 +91,7 @@ Size ProgressBar::content_size()
 
 void ProgressBar::place(const Area & area, bool in_layout)
 {
-	place_in_area_not_extend(area, in_layout);
+	compute_widget_placement(area, in_layout, m_thickness);
 }
 
 Dim ProgressBar::get_bar_length(Dim length)
@@ -262,32 +288,6 @@ Widget * ProgressBar::hovered(const Region & parent_region, const Point & positi
 		return this;
 	}
 	return 0;
-}
-
-/** Serialize the content of widget into json */
-void ProgressBar::serialize(JsonIterator & it)
-{
-	it["type"] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
-	BorderStyle::serialize(it);
-	ProgressBarStyle::serialize(it);
-
-}
-
-/** Unserialize the content of widget from json */
-void ProgressBar::unserialize(JsonIterator & it)
-{
-	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
-	BorderStyle::unserialize(it);
-	ProgressBarStyle::unserialize(it);
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
-}
-
-StyleCascadeMode ProgressBar::style_cascade_mode() const
-{
-	return StyleCascadeMode::NONE;
 }
 
 

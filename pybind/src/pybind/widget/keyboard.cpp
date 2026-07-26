@@ -2,7 +2,7 @@
 #include "pybind/event_system.hpp"
 
 void bind_keyboard(pybind11::module_& m) {
-    pybind11::class_<berialdraw::Keyboard, berialdraw::Widget, berialdraw::TextStyle, berialdraw::BorderStyle>(m, "Keyboard")
+    pybind11::class_<berialdraw::Keyboard, berialdraw::Widget, berialdraw::TextStyle, berialdraw::PaddingStyle, berialdraw::BorderStyle>(m, "Keyboard")
         .def(pybind11::init<berialdraw::Widget*>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>())
         
         // Event system integration

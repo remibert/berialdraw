@@ -15,14 +15,11 @@ IconStyle::~IconStyle()
 /** Serialize the content of widget into json */
 void IconStyle::serialize(JsonIterator & it)
 {
-	it[StyleNames::ICON_FILENAME] = m_filename;
+	it[StyleNames::ICON_FILENAME]     = m_filename;
 	it[StyleNames::ICON_COLOR]        = m_icon_color;
-	int zoom  = m_zoom  != Size::MAX_SIZE && m_zoom  != Size::MAX_SIZE ? m_zoom  : m_zoom;
-	it[StyleNames::ICON_ZOOM]  = zoom;
-	berialdraw::unserialize(StyleNames::ICON_ZOOM, it, m_zoom);
-
-	m_icon_size.serialize(StyleNames::ICON_SIZE, it);
-	m_icon_padding.serialize (StyleNames::ICON_PADDING,it);
+	it[StyleNames::ICON_TEXT_PADDING] = m_text_padding >> 6;
+	m_icon_frame_size.serialize (StyleNames::ICON_FRAME_SIZE,it);
+	m_icon_padding.serialize    (StyleNames::ICON_PADDING,it);
 }
 
 /** Unserialize the content of widget from json */
@@ -36,26 +33,51 @@ void IconStyle::unserialize(JsonIterator & it)
 		m_filename = new_filename;
 		m_icon_modified = true;
 	}
-	m_icon_size.unserialize(StyleNames::ICON_SIZE, it);
-	Dim zoom  = it[StyleNames::ICON_ZOOM]   | Size::MAX_SIZE;
-	m_zoom    = (zoom == Size::MAX_SIZE) ? m_zoom  : zoom;
+	berialdraw::unserialize(StyleNames::ICON_TEXT_PADDING, it, m_text_padding);
+	m_icon_frame_size.unserialize(StyleNames::ICON_FRAME_SIZE,it);
 }
 
-/** Set the zoom ratio for the icon
-@param z zoom value */
-void IconStyle::zoom(Dim z)
+/** Copy operator */
+IconStyle& IconStyle::operator=(const IconStyle& other)
 {
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_zoom = z <<6;
+	set(other);
+	return *this;
 }
 
-/** Set the zoom ratio for the icon
-@param z zoom value shifted by 6 bits */
-void IconStyle::zoom_q6(Dim z)
+/** Set properties with another */
+void IconStyle::set(const IconStyle& other)
 {
-	m_icon_modified = true;
+	if (this != &other)
+	{
+		m_icon_padding    = other.m_icon_padding;
+		m_icon_color      = other.m_icon_color;
+		m_icon_frame_size = other.m_icon_frame_size;
+		m_filename        = other.m_filename;
+		m_icon_modified   = other.m_icon_modified;
+		m_text_padding    = other.m_text_padding;
+		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	}
+}
+
+/** Set the size */
+void IconStyle::icon_frame_size(const Size & size_)
+{
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_zoom = z;
+	m_icon_frame_size = size_;
+}
+
+/** Set the size with width and height in pixels */
+void IconStyle::icon_frame_size(Dim w, Dim h)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_icon_frame_size.set(w,h);
+}
+
+/** Set the size with a precision of 64th of a pixel */
+void IconStyle::icon_frame_size_q6(Dim w, Dim h)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_icon_frame_size.set_q6(w,h);
 }
 
 /** Set filename value with string */
@@ -99,6 +121,13 @@ void IconStyle::icon_color(uint32_t col, uint8_t alpha)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_icon_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
+}
+
+/** Set the text padding in pixels */
+void IconStyle::text_padding(Dim pad)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_text_padding = pad << 6;
 }
 
 /** Create new paths */

@@ -77,24 +77,13 @@ void Image::alpha(uint8_t a)
 	m_alpha = a;
 }
 
-/** Get the image width in pixels */
-uint32_t Image::image_width() const
+/** Get the image size */
+Size Image::image_size() const
 {
-	uint32_t result = 0;
+	Size result;
 	if (m_cache_entry)
 	{
-		result = m_cache_entry->width();
-	}
-	return result;
-}
-
-/** Get the image height in pixels */
-uint32_t Image::image_height() const
-{
-	uint32_t result = 0;
-	if (m_cache_entry)
-	{
-		result = m_cache_entry->height();
+		result = m_cache_entry->size();
 	}
 	return result;
 }
@@ -187,10 +176,7 @@ void Image::paint(const Point & shift)
 		load();
 		if (m_cache_entry)
 		{
-			Size s;
-			s.width_q6(m_cache_entry->width() << 6);
-			s.height_q6(m_cache_entry->height() << 6);
-			foreclip.size(s);
+			foreclip.size(m_cache_entry->size());
 		}
 	}
 
@@ -213,7 +199,7 @@ Size Image::content_size()
 		}
 		else
 		{
-			result.width_q6(m_cache_entry->width() << 6);
+			result.width_q6(m_cache_entry->size().width_q6());
 		}
 
 		if (!m_size.is_height_undefined())
@@ -222,7 +208,7 @@ Size Image::content_size()
 		}
 		else
 		{
-			result.height_q6(m_cache_entry->height() << 6);
+			result.height_q6(m_cache_entry->size().height_q6());
 		}
 	}
 

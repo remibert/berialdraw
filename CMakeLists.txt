@@ -102,6 +102,7 @@ set(SRCS_LIB
 	src/styles/border_style.cpp
 	src/styles/keys.cpp
 	src/styles/mappings.cpp
+	src/styles/padding_style.cpp
 	src/styles/pie_style.cpp
 	src/styles/round_style.cpp
 	src/styles/line_style.cpp

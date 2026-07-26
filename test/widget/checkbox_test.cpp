@@ -338,7 +338,6 @@ void Checkbox::test5()
 		checkbox3->border_color(Color::RED);
 		checkbox3->thickness(2);
 
-	//while(1) UIManager::desktop()->dispatch();
 	UIManager::desktop()->dispatch("$(ui.tests)/out/checkbox5.svg");
 }
 

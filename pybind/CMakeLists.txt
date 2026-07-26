@@ -66,6 +66,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/shape/square.cpp
 	src/pybind/shape/text.cpp
 	src/pybind/shape/triangle.cpp
+	src/pybind/styles/padding_style.cpp
 	src/pybind/styles/border_style.cpp
 	src/pybind/styles/color.cpp
 	src/pybind/styles/common_style.cpp

@@ -86,6 +86,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "styles/switch_style.hpp"
 #include "styles/radio_style.hpp"
 #include "styles/checkbox_style.hpp"
+#include "styles/padding_style.hpp"
 #include "styles/mappings.hpp"
 #include "styles/keys.hpp"
 #include "styles/icon_style.hpp"

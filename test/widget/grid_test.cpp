@@ -449,6 +449,8 @@ void Grid::test5()
 		window.size(480,480);
 
 	Grid * grid = new Grid(&window);
+	grid->padding(3);
+	grid->margin(1);
 	Button * button0 = new Button(grid);
 		button0->cell(0,0);
 		button0->id(0);

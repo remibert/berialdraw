@@ -14,43 +14,14 @@ ImageDecoder* ImageDecoder::create(const char* filename)
 
 	if (filename)
 	{
-		String name(filename);
-		int32_t dot_pos = -1;
-
-		// Extract file extension
-		for (int32_t i = (int32_t)name.size() - 1; i >= 0; i--)
+		// Instantiate appropriate decoder based on file extension
+		if (FileTools::match_pattern("*.png", filename, true))
 		{
-			if (name[i] == '.')
-			{
-				dot_pos = i;
-				break;
-			}
+			result = new PngDecoder();
 		}
-
-		if (dot_pos >= 0)
+		else if (FileTools::match_pattern("*.jpg", filename, true) || FileTools::match_pattern("*.jpeg", filename, true))
 		{
-			// Build lowercase extension
-			String ext;
-			for (int32_t i = dot_pos + 1; i < (int32_t)name.size(); i++)
-			{
-				char c = name[i];
-				// Convert to lowercase
-				if (c >= 'A' && c <= 'Z')
-				{
-					c = c + ('a' - 'A');
-				}
-				ext += c;
-			}
-
-			// Instantiate appropriate decoder
-			if (ext == "png")
-			{
-				result = new PngDecoder();
-			}
-			else if (ext == "jpg" || ext == "jpeg")
-			{
-				result = new JpegDecoder();
-			}
+			result = new JpegDecoder();
 		}
 	}
 

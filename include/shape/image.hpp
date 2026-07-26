@@ -24,11 +24,11 @@ namespace berialdraw
 
 		/** Paint the image on the desktop
 		@param shift Point object representing the shift in position */
-		virtual void paint(const Point & shift);
+		virtual void paint(const Point & shift) override;
 
 		/** Get the polygon representing the image (empty polygon, no vector data)
 		@return Reference to the polygon */
-		virtual const Polygon & polygon() const
+		virtual const Polygon & polygon() const override
 		{
 			return m_polygon;
 		}
@@ -60,12 +60,8 @@ namespace berialdraw
 		/** Set the alpha value (0=transparent, 255=opaque) */
 		void alpha(uint8_t a);
 
-
-		/** Get the image width in pixels (0 if not loaded) */
-		uint32_t image_width() const;
-
-		/** Get the image height in pixels (0 if not loaded) */
-		uint32_t image_height() const;
+		/** Get the image size */
+		Size image_size() const;
 
 		/** Check if the image is loaded */
 		bool is_loaded() const;
@@ -74,7 +70,7 @@ namespace berialdraw
 		bool load();
 
 		/** Get the content size of the image */
-		Size content_size();
+		Size content_size() override;
 
 	#ifdef _DEBUG
 		static void test();

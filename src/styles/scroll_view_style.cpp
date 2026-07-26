@@ -65,38 +65,38 @@ void ScrollViewStyle::scroll_direction(ScrollDirection dir)
 	m_scroll_direction = dir;
 }
 
-/** Set the padding */
-void ScrollViewStyle::padding(const Margin& m)
-{
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_padding = m;
-}
-
-/** Set the padding in pixels */
-void ScrollViewStyle::padding(Dim top, Dim left, Dim bottom, Dim right)
-{
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_padding.set(top, left, bottom, right);
-}
-
-/** Set the padding with a precision of 64th of a pixel */
-void ScrollViewStyle::padding_q6(Dim top, Dim left, Dim bottom, Dim right)
-{
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_padding.set_q6(top, left, bottom, right);
-}
-
-/** Set the padding */
-void ScrollViewStyle::padding(Dim horizontal, Dim vertical)
-{
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_padding.set(vertical, horizontal, vertical, horizontal);
-}
-
-/** Set the padding */
-void ScrollViewStyle::padding(Dim value)
-{
-	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	m_padding.set(value, value, value, value);
-}
-
+///** Set the padding */
+//void ScrollViewStyle::padding(const Margin& m)
+//{
+//	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+//	m_padding = m;
+//}
+//
+///** Set the padding in pixels */
+//void ScrollViewStyle::padding(Dim top, Dim left, Dim bottom, Dim right)
+//{
+//	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+//	m_padding.set(top, left, bottom, right);
+//}
+//
+///** Set the padding with a precision of 64th of a pixel */
+//void ScrollViewStyle::padding_q6(Dim top, Dim left, Dim bottom, Dim right)
+//{
+//	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+//	m_padding.set_q6(top, left, bottom, right);
+//}
+//
+///** Set the padding */
+//void ScrollViewStyle::padding(Dim horizontal, Dim vertical)
+//{
+//	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+//	m_padding.set(vertical, horizontal, vertical, horizontal);
+//}
+//
+///** Set the padding */
+//void ScrollViewStyle::padding(Dim value)
+//{
+//	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+//	m_padding.set(value, value, value, value);
+//}
+//

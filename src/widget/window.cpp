@@ -47,6 +47,28 @@ void Window::copy(const Window * window)
 	}
 }
 
+/** Serialize the content of widget into json */
+void Window::serialize(JsonIterator& it)
+{
+	it["type"] = m_classname;
+	CommonStyle::serialize(it);
+	WidgetStyle::serialize(it);
+	Widget::serialize(it);
+}
+
+/** Unserialize the content of widget from json */
+void Window::unserialize(JsonIterator& it)
+{
+	CommonStyle::unserialize(it);
+	WidgetStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
+
+StyleCascadeMode Window::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+
 bool Window::is_allocated()
 {
 	return m_allocated;
@@ -244,28 +266,6 @@ void Window::front()
 	UIManager::desktop()->front(this);
 }
 
-/** Serialize the content of widget into json */
-void Window::serialize(JsonIterator & it)
-{
-	it["type"] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
-	Widget::serialize(it);
-}
-
-/** Unserialize the content of widget from json */
-void Window::unserialize(JsonIterator & it)
-{
-	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
-}
-
-StyleCascadeMode Window::style_cascade_mode() const
-{
-	return StyleCascadeMode::NONE;
-}
-
 /** Force flow replacement */
 void Window::force_flow_replacement()
 {
@@ -305,6 +305,3 @@ void Window::on_select_widget(Widget * widget, const SelectEvent & evt)
 {
 	focus_to(m_with_focus, widget);
 }
-
-
-

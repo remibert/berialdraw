@@ -32,17 +32,16 @@ Icon * IconMenuDialog::create_icon(const String & text, const String & icon_file
 
 		// Icon settings
 		icon->filename(icon_filename);                        // Sets the filename for the icon image
-		icon->zoom(3);                                        // Sets the zoom level for the icon
-		icon->icon_padding(10);                               // Adds padding around the icon
 		icon->icon_color(Color::WHITE);                       // Sets the color of icon
-		icon->color(m_color);                                 // Sets the computed color of background icon
+		icon->color(m_backcolor);                                 // Sets the computed color of background icon
 		icon->thickness(0);                                   // Sets the thickness of borders
 		icon->radius(200);                                    // Sets the radius of rounded borders
 		icon->icon_padding(20);                               // Adds paddings between icon and borders
-		m_color ++;
-		if (m_color > Color::LAST_PALETTE_COLOR)
+		icon->icon_frame_size(80, 80);
+		m_backcolor ++;
+		if (m_backcolor > Color::LAST_PALETTE_COLOR)
 		{
-			m_color = Color::FIRST_PALETTE_COLOR;
+			m_backcolor = Color::FIRST_PALETTE_COLOR;
 		}
 
 		// Other settings

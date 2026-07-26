@@ -10,6 +10,7 @@ Radio::Radio(Widget * parent):
 	UIManager::styles()->apply(this, (TextStyle*)this);
 	UIManager::styles()->apply(this, (BorderStyle*)this);
 	UIManager::styles()->apply(this, (RadioStyle*)this);
+	UIManager::styles()->apply(this, (PaddingStyle*)this);
 	bind(this, &Radio::on_key);
 	bind(this, &Radio::on_click);
 }
@@ -19,13 +20,14 @@ Radio::~Radio()
 }
 
 /** Copy all styles of the radio button */
-void Radio::copy(const Radio & radio)
+void Radio::copy(const Radio & obj)
 {
-	*((CommonStyle*)this) = *(CommonStyle*)(&radio);
-	*((WidgetStyle*)this) = *(WidgetStyle*)(&radio);
-	*((TextStyle*)this) = *(TextStyle*)(&radio);
-	*((BorderStyle*)this) = *(BorderStyle*)(&radio);
-	*((RadioStyle*)this) = *(RadioStyle*)(&radio);
+	*((CommonStyle*)this)  = *(CommonStyle*)(&obj);
+	*((WidgetStyle*)this)  = *(WidgetStyle*)(&obj);
+	*((TextStyle*)this)    = *(TextStyle*)(&obj);
+	*((BorderStyle*)this)  = *(BorderStyle*)(&obj);
+	*((RadioStyle*)this)   = *(RadioStyle*)(&obj);
+	*((PaddingStyle*)this) = *(PaddingStyle*)(&obj);
 }
 
 /** Copy all styles of the radio button */
@@ -35,6 +37,35 @@ void Radio::copy(const Radio * radio)
 	{
 		copy(*radio);
 	}
+}
+
+/** Serialize the content of widget into json */
+void Radio::serialize(JsonIterator& it)
+{
+	it["type"] = m_classname;
+	CommonStyle::serialize(it);
+	WidgetStyle::serialize(it);
+	TextStyle::serialize(it);
+	BorderStyle::serialize(it);
+	RadioStyle::serialize(it);
+	PaddingStyle::serialize(it);
+}
+
+/** Unserialize the content of widget from json */
+void Radio::unserialize(JsonIterator& it)
+{
+	CommonStyle::unserialize(it);
+	WidgetStyle::unserialize(it);
+	TextStyle::unserialize(it);
+	BorderStyle::unserialize(it);
+	RadioStyle::unserialize(it);
+	PaddingStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
+
+StyleCascadeMode Radio::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
 }
 
 /** Return the size of content without margins */
@@ -54,32 +85,41 @@ Size Radio::content_size()
 		m_text_size = m_text_box.content_size();
 	}
 	
-	// Add text height in the icon content size
+	// If the text defined
 	if (m_text.size() > 0)
 	{
-		result.increase_q6(padding().left_q6() + m_text_size.width_q6() + padding().right_q6(), 0);
+		// Enlarge the width with the text size
+		result.increase_q6(m_text_size.width_q6() + m_text_padding, 0);
+
+		// Enlarge the height if the text taller than check
 		if (m_text_size.height_q6() > m_radio_size.height_q6())
 		{
 			result.height_q6(m_text_size.height_q6());
 		}
 	}
+
+	// Add padding and thickness in size
+	result.increase(padding());
+	result.increase_q6(m_thickness << 1, m_thickness << 1);
+
 	return result;
 }
 
 /** Place all widget in area */
 void Radio::place(const Area & area, bool in_layout)
 {
-	// Place background rectangle
-	place_in_area_not_extend(area, in_layout);
+	// Place the widget
+	compute_widget_placement(area, in_layout, m_thickness);
 
-	// Place the icon
-	m_radio_foreclip = m_foreclip;
-
-	// If text not empty
-	if (m_text.size() > 0)
-	{
-		place_text_with_element(m_text_size, m_radio_size, m_text_backclip, m_text_foreclip, m_radio_foreclip, (m_text_align | Align::ALIGN_BOTTOM), padding());
-	}
+	// Place the text and checkbox
+	place_text_with_element(
+		m_text_size,
+		m_radio_size,
+		m_text_padding,
+		m_text_foreclip, // out
+		m_radio_foreclip, // out
+		(m_text_align | Align::ALIGN_BOTTOM),
+		Extend::EXTEND_NONE);
 }
 
 void Radio::paint(const Region & parent_region)
@@ -94,12 +134,8 @@ void Radio::paint(const Region & parent_region)
 
 		UIManager::renderer()->region(region);
 
-		// Create an area for just the radio (not including text)
-		Area area_box(m_radio_foreclip);
-		area_box.size().set_q6(m_radio_size.width_q6(), m_radio_size.height_q6());
-
-		// Draw radio box
-		Rect::paint_focused_rounded_rect(area_box, 
+		// Draw checkbox box
+		Rect::paint_focused_rounded_rect2(m_radio_foreclip, 
 			*(CommonStyle*)this,
 			*(BorderStyle*)this,
 			stated_color(m_color),
@@ -107,15 +143,16 @@ void Radio::paint(const Region & parent_region)
 			Color::TRANSPARENT,
 			stated_color(m_focus_color),
 			m_focused);
+		m_radio_foreclip.print("rad1");
 
-		// Draw radio indicator if selected
+		// Draw check mark if checked
 		if (m_checked)
 		{
-			Area area_radio(area_box);
+			Area area_radio(m_radio_foreclip);
 			area_radio.size().decrease_q6(m_radio_padding << 1, m_radio_padding << 1);
 			area_radio.position().move_q6(m_radio_padding, m_radio_padding);
 
-			// Parse and draw the radio indicator sketch using VectorScript
+			// Parse and draw the radio sketch using VectorScript
 			if (m_radio_sketch.size() > 0)
 			{
 				Polygon polygon(0);
@@ -125,7 +162,7 @@ void Radio::paint(const Region & parent_region)
 				{
 					Coord resolution = script.get('R');
 
-					// Render the radio indicator polygon in the specified color
+					// Render the radio mark polygon in the specified color
 					polygon.color(stated_color(m_radio_color));
 
 					Coord min_size = min(area_radio.size().width_q6(), area_radio.size().height_q6());
@@ -136,7 +173,7 @@ void Radio::paint(const Region & parent_region)
 			}
 			else
 			{
-				// Default radio indicator (simple circle/filled area)
+				// Default radio mark (simple square)
 				Rect::paint_rounded_rect(area_radio, m_radius, 0, 0, ALL_BORDERS, stated_color(m_radio_color), 0);
 			}
 		}
@@ -144,11 +181,10 @@ void Radio::paint(const Region & parent_region)
 		// Paint text to the right
 		if(m_text.size() > 0)
 		{
-			region.intersect(m_text_backclip);
 			select_font();
+			region.intersect(m_text_foreclip);
 			UIManager::renderer()->region(region);
-			Point shift;
-			m_text_box.paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_backclip, stated_color(m_text_color), 0, 0, true);
+			m_text_box.paint(*m_font.get(), m_text, m_text_foreclip.position(), m_contentclip, stated_color(m_text_color));
 		}
 	}
 }
@@ -167,65 +203,38 @@ Widget * Radio::hovered(const Region & parent_region, const Point & position)
 	return 0;
 }
 
-/** Serialize the content of widget into json */
-void Radio::serialize(JsonIterator & it)
-{
-	it["type"] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
-	TextStyle::serialize(it);
-	BorderStyle::serialize(it);
-	RadioStyle::serialize(it);
-}
-
-/** Unserialize the content of widget from json */
-void Radio::unserialize(JsonIterator & it)
-{
-	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
-	TextStyle::unserialize(it);
-	BorderStyle::unserialize(it);
-	RadioStyle::unserialize(it);
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
-}
-
-StyleCascadeMode Radio::style_cascade_mode() const
-{
-	return StyleCascadeMode::NONE;
-}
-
 /** Helper to deselect radios in the same group recursively */
 void Radio::deselect_radio(Widget * widget, const String & my_group)
 {
-	if (!widget)
-		return;
-
-	// Check if this is a Radio widget
-	Radio * radio = dynamic_cast<Radio*>(widget);
-	if (radio && radio != this)
+	if (widget)
 	{
-		// Check if this radio is in the same group
-		const String & other_group = radio->group();
-		
-		// If both groups are empty, they belong to the same (default) group
-		// If this radio has a group, only deselect if other radio has the same group
-		if ((my_group.size() == 0 && other_group.size() == 0) ||
-		    (my_group.size() > 0 && other_group == my_group))
+		// Check if this is a Radio widget
+		Radio* radio = dynamic_cast<Radio*>(widget);
+		if (radio && radio != this)
 		{
-			if (radio->m_checked)
+			// Check if this radio is in the same group
+			const String& other_group = radio->group();
+
+			// If both groups are empty, they belong to the same (default) group
+			// If this radio has a group, only deselect if other radio has the same group
+			if ((my_group.size() == 0 && other_group.size() == 0) ||
+				(my_group.size() > 0 && other_group == my_group))
 			{
-				radio->m_checked = false;
-				UIManager::invalidator()->dirty(radio, Invalidator::REDRAW);
+				if (radio->m_checked)
+				{
+					radio->m_checked = false;
+					UIManager::invalidator()->dirty(radio, Invalidator::REDRAW);
+				}
 			}
 		}
-	}
-	
-	// Recursively deselect in children
-	Widget * child = widget->children();
-	while (child)
-	{
-		deselect_radio(child, my_group);
-		child = child->next();
+
+		// Recursively deselect in children
+		Widget* child = widget->children();
+		while (child)
+		{
+			deselect_radio(child, my_group);
+			child = child->next();
+		}
 	}
 }
 
@@ -235,16 +244,15 @@ void Radio::deselect_all()
 	// Get the root widget (window)
 	Widget * window = root();
 	
-	if (!window)
-		return;
-	
-	// Get the group name of this radio
-	const String & my_group = group();
-	
-	// Recursively deselect all radios in the same group
-	deselect_radio(window, my_group);
-}
+	if (window)
+	{
+		// Get the group name of this radio
+		const String& my_group = group();
 
+		// Recursively deselect all radios in the same group
+		deselect_radio(window, my_group);
+	}
+}
 
 /** Call back on key */
 void Radio::on_key(Widget * widget, const KeyEvent & evt)
@@ -276,8 +284,3 @@ void Radio::on_click(Widget * widget, const ClickEvent & evt)
 	// Deselect all radios in the same group in the window
 	deselect_all();
 }
-
-
-
-
-

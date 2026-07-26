@@ -12,6 +12,28 @@ Row::~Row()
 {
 }
 
+/** Serialize the content of widget into json */
+void Row::serialize(JsonIterator& it)
+{
+	it["type"] = m_classname;
+	CommonStyle::serialize(it);
+	WidgetStyle::serialize(it);
+	Widget::serialize(it);
+}
+
+/** Unserialize the content of widget from json */
+void Row::unserialize(JsonIterator& it)
+{
+	CommonStyle::unserialize(it);
+	WidgetStyle::unserialize(it);
+	UIManager::invalidator()->dirty(this, Invalidator::ALL);
+}
+
+StyleCascadeMode Row::style_cascade_mode() const
+{
+	return StyleCascadeMode::NONE;
+}
+
 /** Rework all widget to follow this layout flow constraint */
 void Row::flow_place(const Area & area)
 {
@@ -55,22 +77,7 @@ void Row::place(const Area & area, bool in_layout)
 {
 	if (UIManager::invalidator()->is_dirty(this))
 	{
-		// Only use absolute placement when explicitly positioned or sized
-		bool is_placed = m_size.is_width_defined() || m_size.is_height_defined() || 
-		                 m_position.is_x_defined() || m_position.is_y_defined();
-
-		if (is_placed)
-		{
-			// Absolute mode: compute bounds from position/size
-			place_in_area(area, false);
-		}
-		else
-		{
-			// Layout mode: fill the available area minus margin
-			m_backclip = area;
-			m_foreclip = area;
-			m_foreclip.decrease(margin());
-		}
+		compute_widget_placement(area, in_layout, 0, true);
 
 		if (m_flow)
 		{
@@ -112,28 +119,6 @@ Widget * Row::hovered(const Region & parent_region, const Point & position)
 		child = child->next();
 	}
 	return result;
-}
-
-/** Serialize the content of widget into json */
-void Row::serialize(JsonIterator & it)
-{
-	it["type"] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
-	Widget::serialize(it);
-}
-
-/** Unserialize the content of widget from json */
-void Row::unserialize(JsonIterator & it)
-{
-	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
-}
-
-StyleCascadeMode Row::style_cascade_mode() const
-{
-	return StyleCascadeMode::NONE;
 }
 
 /** Get the flow */

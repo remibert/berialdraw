@@ -5,11 +5,9 @@ namespace berialdraw
 	struct RotatedEntry
 	{
 		uint32_t* pixels = nullptr;
-		uint32_t  width = 0;
-		uint32_t  height = 0;
+		Size      size;
 		Coord     angle = 0;
-		uint32_t  src_width = 0;   // Requested source size (before rotation)
-		uint32_t  src_height = 0;
+		Size      src_size;   // Requested source size (before rotation)
 
 		~RotatedEntry()
 		{
@@ -39,19 +37,15 @@ namespace berialdraw
 		/** Get rotated pixels for the given parameters.
 		If not cached, resizes and rotates the source image.
 		@param angle Rotation angle in Q6 (64 = 1 degree)
-		@param target_width Desired width before rotation
-		@param target_height Desired height before rotation
+		@param target_size Desired size before rotation
 		@param fit_mode How to fit the image to target size
-		@param out_width Output: actual width after rotation
-		@param out_height Output: actual height after rotation
+		@param out_size Output: actual size after rotation
 		@return Pointer to rotated pixel data, or nullptr if failed */
 		const uint32_t* get_pixels(
 			Coord angle,
-			uint32_t target_width,
-			uint32_t target_height,
+			const Size& target_size,
 			ImageFitMode fit_mode,
-			uint32_t& out_width,
-			uint32_t& out_height);
+			Size& out_size);
 
 		/** Clear all cached rotated versions */
 		void clear();
@@ -65,52 +59,50 @@ namespace berialdraw
 		/** Check if this item has a valid source */
 		bool is_valid() const { return m_source != nullptr && m_source->is_valid(); }
 
-		/** Get source image width */
-		uint32_t source_width() const { return m_source ? m_source->width() : 0; }
+		///** Get source image width */
+		//uint32_t source_width() const { return m_source ? m_source->width() : 0; }
 
-		/** Get source image height */
-		uint32_t source_height() const { return m_source ? m_source->height() : 0; }
+		///** Get source image height */
+		//uint32_t source_height() const { return m_source ? m_source->height() : 0; }
+
+		/** Get source image size */
+		Size source_size() const { return m_source ? m_source->size() : Size(); }
 
 	protected:
 	/// @cond DOXYGEN_IGNORE
 		/** Find a cached entry matching the parameters
 		@return Index of the entry, or size if not found */
-		uint32_t find(Coord angle, uint32_t src_w, uint32_t src_h) const;
+		uint32_t find(Coord angle, const Size& src_size) const;
 
 		/** Step 1: Resize pixels to fit dimensions
-		@param fit_width Target width after fit mode
-		@param fit_height Target height after fit mode
+		@param fit_size Target size after fit mode
 		@param out_allocated Set to true if memory was allocated (needs deletion)
 		@return Pointer to resized pixels, or nullptr if failed */
-		uint32_t* resize_to_fit_size(uint32_t fit_width, uint32_t fit_height, bool& out_allocated) const;
+		uint32_t* resize_to_fit_size(const Size& fit_size, bool& out_allocated) const;
 
 		/** Step 2: Apply rotation transform if needed
 		@param resized_pixels Input: pixels to rotate
 		@param resized_allocated Whether resized_pixels were newly allocated
-		@param fit_width Width of resized pixels
-		@param fit_height Height of resized pixels
+		@param fit_size Size of resized pixels
 		@param angle Rotation angle in Q6
-		@param out_final_width Output: width after rotation
-		@param out_final_height Output: height after rotation
+		@param out_final_size Output: size after rotation
 		@return Final pixels (rotated or copied), or nullptr if failed */
 		uint32_t* apply_rotation_transform(
 			uint32_t* resized_pixels, bool resized_allocated,
-			uint32_t fit_width, uint32_t fit_height,
+			const Size& fit_size,
 			Coord angle,
-			uint32_t& out_final_width, uint32_t& out_final_height);
+			Size& out_final_size);
 
 		/** Step 3: Cache final entry and return pixels
 		@param final_pixels Pixels to cache
-		@param final_width Width of final pixels
-		@param final_height Height of final pixels
+		@param final_size Size of final pixels
 		@param angle Rotation angle in Q6
-		@param fit_width Fit width (before rotation)
-		@param fit_height Fit height (before rotation)
+		@param fit_size Fit size (before rotation)
 		@return Pointer to cached pixels (same as final_pixels) */
 		const uint32_t* cache_final_entry(
 			uint32_t* final_pixels,
-			uint32_t final_width, uint32_t final_height,
-			Coord angle, uint32_t fit_width, uint32_t fit_height);
+			const Size& final_size,
+			Coord angle, const Size& fit_size);
 
 		/** Compute hash key for cache lookup */
 		static uint64_t make_key(Coord angle, uint32_t w, uint32_t h);

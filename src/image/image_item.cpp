@@ -24,14 +24,14 @@ void ImageItem::clear()
 }
 
 // Find a cached entry
-uint32_t ImageItem::find(Coord angle, uint32_t src_w, uint32_t src_h) const
+uint32_t ImageItem::find(Coord angle, const Size& src_size) const
 {
 	uint32_t idx = m_entries.size();
 
 	for (uint32_t i = 0; i < m_entries.size(); i++)
 	{
 		RotatedEntry* e = m_entries[i];
-		if (e->angle == angle && e->src_width == src_w && e->src_height == src_h)
+		if (e->angle == angle && e->src_size == src_size)
 		{
 			idx = i;
 			break;
@@ -42,21 +42,21 @@ uint32_t ImageItem::find(Coord angle, uint32_t src_w, uint32_t src_h) const
 }
 
 // Resize pixels to fit dimensions (step 1)
-uint32_t* ImageItem::resize_to_fit_size(uint32_t fit_width, uint32_t fit_height, bool& out_allocated) const
+uint32_t* ImageItem::resize_to_fit_size(const Size& fit_size, bool& out_allocated) const
 {
 	uint32_t* resized_pixels = nullptr;
 	out_allocated = false;
+	Size src_size = m_source->size();
 
 	// Check if resize needed
-	if (fit_width == m_source->width() && fit_height == m_source->height())
+	if (fit_size == src_size)
 	{
 		resized_pixels = const_cast<uint32_t*>(m_source->pixel_data());
 	}
 	else
 	{
 		// Apply bicubic interpolation
-		resized_pixels = ImageProcessor::resize_bicubic(m_source->pixel_data(),
-			m_source->width(), m_source->height(), fit_width, fit_height);
+		resized_pixels = ImageProcessor::resize_bicubic(m_source->pixel_data(), src_size, fit_size);
 		out_allocated = true;
 	}
 
@@ -65,26 +65,24 @@ uint32_t* ImageItem::resize_to_fit_size(uint32_t fit_width, uint32_t fit_height,
 
 // Apply rotation transform if needed (step 2)
 uint32_t* ImageItem::apply_rotation_transform(uint32_t* resized_pixels, bool resized_allocated,
-	uint32_t fit_width, uint32_t fit_height, Coord angle,
-	uint32_t& out_final_width, uint32_t& out_final_height)
+	const Size& fit_size, Coord angle,
+	Size& out_final_size)
 {
 	uint32_t* final_pixels = nullptr;
-	out_final_width = fit_width;
-	out_final_height = fit_height;
+	out_final_size = fit_size;
 
 	// Apply rotation if angle != 0
 	if (angle != 0)
 	{
-		uint32_t rot_w = 0, rot_h = 0;
-		final_pixels = ImageProcessor::rotate_bilinear(resized_pixels, fit_width, fit_height, angle, rot_w, rot_h);
+		Size rot_size;
+		final_pixels = ImageProcessor::rotate_bilinear(resized_pixels, fit_size, angle, rot_size);
 		if (resized_allocated)
 		{
 			delete[] resized_pixels;
 		}
 		if (final_pixels)
 		{
-			out_final_width = rot_w;
-			out_final_height = rot_h;
+			out_final_size = rot_size;
 		}
 	}
 	else
@@ -96,7 +94,7 @@ uint32_t* ImageItem::apply_rotation_transform(uint32_t* resized_pixels, bool res
 		}
 		else
 		{
-			uint32_t count = fit_width * fit_height;
+			uint32_t count = fit_size.width() * fit_size.height();
 			final_pixels = new uint32_t[count];
 			for (uint32_t i = 0; i < count; i++)
 			{
@@ -110,7 +108,7 @@ uint32_t* ImageItem::apply_rotation_transform(uint32_t* resized_pixels, bool res
 
 // Cache final entry and return pixels (step 3)
 const uint32_t* ImageItem::cache_final_entry(uint32_t* final_pixels,
-	uint32_t final_width, uint32_t final_height, Coord angle, uint32_t fit_width, uint32_t fit_height)
+	const Size& final_size, Coord angle, const Size& fit_size)
 {
 	// Evict oldest if cache full
 	if (m_entries.size() >= MAX_ENTRIES)
@@ -121,53 +119,48 @@ const uint32_t* ImageItem::cache_final_entry(uint32_t* final_pixels,
 
 	RotatedEntry* entry = new RotatedEntry();
 	entry->pixels = final_pixels;
-	entry->width = final_width;
-	entry->height = final_height;
+	entry->size = final_size;
 	entry->angle = angle;
-	entry->src_width = fit_width;
-	entry->src_height = fit_height;
+	entry->src_size = fit_size;
 	m_entries.push_back(entry);
 
 	return final_pixels;
 }
 
 // Get rotated pixels
-const uint32_t* ImageItem::get_pixels(Coord angle, uint32_t target_width, uint32_t target_height,
-	ImageFitMode fit_mode, uint32_t& out_width, uint32_t& out_height)
+const uint32_t* ImageItem::get_pixels(Coord angle, const Size& target_size,
+	ImageFitMode fit_mode, Size& out_size)
 {
-	out_width = 0;
-	out_height = 0;
+	out_size = Size();
 	const uint32_t* result = nullptr;
 
 	// Validate inputs
-	if (!m_source || !m_source->is_valid() || target_width == 0 || target_height == 0)
+	if (!m_source || !m_source->is_valid() || target_size.width() == 0 || target_size.height() == 0)
 	{
 		return result;
 	}
 
 	// Compute target dimensions with fit mode
-	uint32_t fit_width = 0, fit_height = 0;
-	ImageProcessor::compute_fit_size(m_source->width(), m_source->height(),
-		target_width, target_height, fit_mode, fit_width, fit_height);
+	Size fit_size;
+	ImageProcessor::compute_fit_size(m_source->size(), target_size, fit_mode, fit_size);
 
-	if (fit_width == 0 || fit_height == 0)
+	if (fit_size.width() == 0 || fit_size.height() == 0)
 	{
 		return result;
 	}
 
 	// Check if cached
-	uint32_t idx = find(angle, fit_width, fit_height);
+	uint32_t idx = find(angle, fit_size);
 	if (idx < m_entries.size())
 	{
 		RotatedEntry* e = m_entries[idx];
-		out_width = e->width;
-		out_height = e->height;
+		out_size = e->size;
 		return e->pixels;
 	}
 
 	// Step 1: Resize to fit dimensions
 	bool resized_allocated = false;
-	uint32_t* resized_pixels = resize_to_fit_size(fit_width, fit_height, resized_allocated);
+	uint32_t* resized_pixels = resize_to_fit_size(fit_size, resized_allocated);
 
 	if (!resized_pixels)
 	{
@@ -175,9 +168,9 @@ const uint32_t* ImageItem::get_pixels(Coord angle, uint32_t target_width, uint32
 	}
 
 	// Step 2: Apply rotation if needed
-	uint32_t final_width = 0, final_height = 0;
+	Size final_size;
 	uint32_t* final_pixels = apply_rotation_transform(resized_pixels, resized_allocated,
-		fit_width, fit_height, angle, final_width, final_height);
+		fit_size, angle, final_size);
 
 	if (!final_pixels)
 	{
@@ -185,7 +178,6 @@ const uint32_t* ImageItem::get_pixels(Coord angle, uint32_t target_width, uint32
 	}
 
 	// Step 3: Cache and return
-	out_width = final_width;
-	out_height = final_height;
-	return cache_final_entry(final_pixels, final_width, final_height, angle, fit_width, fit_height);
+	out_size = final_size;
+	return cache_final_entry(final_pixels, final_size, angle, fit_size);
 }

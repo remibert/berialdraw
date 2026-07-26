@@ -490,6 +490,26 @@ Size TextBox::content_size()
 	return m_lines_size;
 }
 
+/** Paint the text lines */
+void TextBox::paint(Font& font,
+	const String& text, const Point& position, const Point& center,
+	const Margin& margin, Coord angle, uint32_t text_color)
+{
+	Point cursor_shift;
+	paint(cursor_shift, font,
+		text, position, center, margin, angle, text_color,
+		0, 0, true);
+}
+
+
+
+void TextBox::paint(Font& font, const String& text, const Point& position, const Area& area, uint32_t text_color)
+{
+	Point shift;
+	paint(shift, font, text, position, area, text_color, 0, 0, true);
+}
+
+
 void TextBox::paint(const Point & cursor_shift, Font & font, 
 	const String & text, const Point & position, const Area & area, uint32_t text_color, 
 	uint32_t cursor_color, uint32_t select_color, bool insertion)

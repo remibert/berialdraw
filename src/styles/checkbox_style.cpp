@@ -11,16 +11,18 @@ CheckboxStyle::CheckboxStyle()
 void CheckboxStyle::serialize(JsonIterator & it)
 {
 	m_checkbox_size.serialize(StyleNames::CHECKBOX_SIZE, it);
-	it[StyleNames::CHECKBOX_PADDING]         = m_check_padding >> 6;
-	it[StyleNames::CHECKBOX_COLOR]           = m_check_color;
-	it[StyleNames::CHECKBOX_SKETCH]          = m_check_sketch.c_str();
+	it[StyleNames::CHECKBOX_PADDING]      = m_check_padding >> 6;
+	it[StyleNames::CHECKBOX_TEXT_PADDING] = m_text_padding >> 6;
+	it[StyleNames::CHECKBOX_COLOR]        = m_check_color;
+	it[StyleNames::CHECKBOX_SKETCH]       = m_check_sketch.c_str();
 }
 
 /** Unserialize the content of widget from json */
 void CheckboxStyle::unserialize(JsonIterator & it)
 {
 	m_checkbox_size.unserialize(StyleNames::CHECKBOX_SIZE, it);
-	m_check_padding = (int)(it[StyleNames::CHECKBOX_PADDING] | (int)(m_check_padding >> 6)) << 6;
+	berialdraw::unserialize(StyleNames::CHECKBOX_PADDING, it, m_check_padding);
+	berialdraw::unserialize(StyleNames::CHECKBOX_TEXT_PADDING, it, m_text_padding);
 	m_check_color = (int)(it[StyleNames::CHECKBOX_COLOR] | (int)m_check_color);
 	m_check_sketch = it[StyleNames::CHECKBOX_SKETCH] | m_check_sketch.c_str();
 }
@@ -37,10 +39,11 @@ void CheckboxStyle::set(const CheckboxStyle & other)
 {
 	if (this != &other)
 	{
-		m_checkbox_size        = other.m_checkbox_size;
-		m_check_padding         = other.m_check_padding;
-		m_check_color           = other.m_check_color;
-		m_check_sketch          = other.m_check_sketch;
+		m_checkbox_size = other.m_checkbox_size;
+		m_check_padding = other.m_check_padding;
+		m_check_color   = other.m_check_color;
+		m_check_sketch  = other.m_check_sketch;
+		m_text_padding  = other.m_text_padding;
 		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	}
 }
@@ -74,6 +77,7 @@ void CheckboxStyle::checkbox_size_q6(Dim w, Dim h)
 /** Set the checkbox padding in pixels */
 void CheckboxStyle::check_padding(Dim pad)
 {
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_check_padding = pad << 6;
 }
 
@@ -98,3 +102,9 @@ void CheckboxStyle::check_sketch(const String & sketch)
 	m_check_sketch = sketch;
 }
 
+/** Set the text padding in pixels */
+void CheckboxStyle::text_padding(Dim pad)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	m_text_padding = pad << 6;
+}

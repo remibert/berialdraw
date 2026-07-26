@@ -15,16 +15,20 @@ namespace berialdraw
 
 		/** Paint the Pie on the desktop
 		@param shift Point object representing the shift in position */
-		virtual void paint(const Point & shift);
+		virtual void paint(const Point & shift) override;
 
 		/** Get the polygon representing the Pie
 		@return Reference to the polygon of the Pie */
-		virtual const Polygon & polygon() const
+		virtual const Polygon & polygon() const override
 		{
 			return m_polygon;
 		}
 
-	#ifdef _DEBUG
+		/** Get the marged size of the shape
+		@return Size of the shape with margin */
+		virtual Size marged_size() override;
+
+#ifdef _DEBUG
 		static void test();
 		static void test1();
 		static void test2();

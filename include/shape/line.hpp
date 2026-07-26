@@ -12,16 +12,20 @@ namespace berialdraw
 		Line(const Line & other);
 
 		/** Refresh the line */
-		virtual void paint(const Point & shift);
+		virtual void paint(const Point & shift) override;
 
 		/** Get the bezier polygon */
-		virtual const Polygon & polygon() const
+		virtual const Polygon & polygon() const override
 		{
 			return m_polygon;
 		}
 
 		/** Get all points of the line tickness */
 		static void get_thickness(Coord x1, Coord y1, Coord x2, Coord y2, Dim thickness, Coord & dx, Coord & dy);
+
+		/** Get the marged size of the shape
+		@return Size of the shape with margin */
+		virtual Size marged_size() override;
 
 #ifdef _DEBUG
 		static void test();

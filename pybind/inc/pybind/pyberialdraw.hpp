@@ -281,6 +281,7 @@ void bind_grid_style(pybind11::module_& m);
 void bind_cell_style(pybind11::module_& m);
 void bind_cells_style(pybind11::module_& m);
 void bind_picture_style(pybind11::module_& m);
+void bind_padding_style(pybind11::module_& m);
 
 // Framebuf bindings
 void bind_framebuf(py::module& m);
