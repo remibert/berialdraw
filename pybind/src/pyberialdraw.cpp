@@ -35,6 +35,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_colors(m);
     bind_common_style(m);
     bind_widget_style(m);
+    bind_padding_style(m);
     bind_text_style(m);
     bind_border_style(m);
     bind_line_style(m);

@@ -138,7 +138,6 @@ void Switch::paint_switch(Region & region)
 		*(BorderStyle*)this,
 		stated_color(track_color), 
 		stated_color(m_border_color),
-		Color::TRANSPARENT,
 		stated_color(m_focus_color),
 		m_focused);
 

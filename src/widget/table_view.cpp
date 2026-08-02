@@ -130,7 +130,6 @@ void TableView::paint_row_backgrounds()
 					row_color,
 					Color::TRANSPARENT,
 					Color::TRANSPARENT,
-					Color::TRANSPARENT,
 					m_focused);
 			}
 		}

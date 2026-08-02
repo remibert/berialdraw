@@ -156,6 +156,10 @@ namespace berialdraw
 		/** Return the parent focus color with alpha */
 		uint32_t parent_focus_color(uint32_t color, uint8_t alpha);
 
+		/** Paint the widget background */
+		void paint_background(Area& rectclip, const CommonStyle& common_style,
+			const BorderStyle& border_style);
+
 	protected:
 /// @cond DOXYGEN_IGNORE
 

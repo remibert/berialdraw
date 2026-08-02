@@ -135,15 +135,7 @@ void Radio::paint(const Region & parent_region)
 		UIManager::renderer()->region(region);
 
 		// Draw checkbox box
-		Rect::paint_focused_rounded_rect2(m_radio_foreclip, 
-			*(CommonStyle*)this,
-			*(BorderStyle*)this,
-			stated_color(m_color),
-			stated_color(m_border_color),
-			Color::TRANSPARENT,
-			stated_color(m_focus_color),
-			m_focused);
-		m_radio_foreclip.print("rad1");
+		paint_background(m_radio_foreclip, *(CommonStyle*)this, *(BorderStyle*)this);
 
 		// Draw check mark if checked
 		if (m_checked)

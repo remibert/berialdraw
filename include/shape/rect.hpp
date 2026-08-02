@@ -16,14 +16,15 @@ public:
 	/** Unit test method to validate functionality. Each test corresponds to
 	a different aspect or feature of the Rect class. */
 	static void test();   ///< All tests case 
-	static void test1();  ///< Test case 1
-	static void test2();  ///< Test case 2
-	static void test3();  ///< Test case 3
-	static void test4();  ///< Test case 4
-	static void test5();  ///< Test case 5
-	static void test6();  ///< Test case 6
-	static void test7();  ///< Test case 7
-	static void test8();  ///< Test case 7
+	static void test1();
+	static void test2();
+	static void test3();
+	static void test4();
+	static void test5();
+	static void test6();
+	static void test7();
+	static void test8();
+	static void test9();
 #endif
 
 	/** Copy constructor for the Rect class.
@@ -38,19 +39,9 @@ public:
 	@param borders Number of borders of the polygon (approximating a rounded rectangle).
 	@param backcolor Background color of the rectangle.
 	@param bordercolor Border color of the rectangle. */
-	static void paint_rounded_rect(const Area & area, Dim radius, Dim thickness, Dim gap, uint8_t borders, uint32_t backcolor, uint32_t bordercolor, Dim focus_thickness=0);
-
-	/** Builds a polygon representation of a rectangle with customizable parameters.
-	@param area Defines the rectangle's position and size.
-	@param radius Radius for rounded corners.
-	@param thickness Thickness of the border.
-	@param gap Gap between the border and the fill.
-	@param borders Number of borders of the polygon (approximating a rounded rectangle).
-	@param backcolor Background color of the rectangle.
-	@param bordercolor Border color of the rectangle. */
-	static void paint_rounded_rect2(const Area& area, Dim radius,
+	static void paint_rounded_rect(const Area& area, Dim radius,
 		Dim thickness, Dim gap, uint8_t borders, uint32_t backcolor, 
-		uint32_t bordercolor, Dim focus_thickness);
+		uint32_t bordercolor, Dim focus_thickness=0);
 
 	/** Build a clip mask from the inner area of a rounded rectangle,
 	with the same geometry as the backcolor path of paint_rounded_rect.
@@ -63,21 +54,11 @@ public:
 	static void build_clip_mask_rounded_rect(const Area & area, Dim radius, Dim thickness, Dim gap, uint8_t borders, ClipMask & mask);
 
 
-	static void paint_focused_rounded_rect(const Area & area, 
-		const CommonStyle & common_style,
-		const BorderStyle & border_style,
-		uint32_t color,
-		uint32_t border_color,
-		uint32_t focus_color,
-		uint32_t focus_border_color,
-		bool focused);
-
-	static void paint_focused_rounded_rect2(const Area& area,
+	static void paint_focused_rounded_rect(const Area& area,
 		const CommonStyle& common_style,
 		const BorderStyle& border_style,
 		uint32_t color,
 		uint32_t border_color,
-		uint32_t focus_color,
 		uint32_t focus_border_color,
 		bool focused);
 
@@ -112,6 +93,14 @@ protected:
 
 	// Render outline
 	void paint(const Point & shift, bool in_widget);
+
+	// Outer-based versions: base at outer edge instead of stroke center
+	void create_part_outer();
+	void no_border_rectangle_outer(Coord W, Coord H, Coord R);
+	void rounded_border_rectangle_outer(Coord W, Coord H, Coord R, Coord r, Coord thickness);
+	void right_angle_border_rectangle_outer(Coord W, Coord H, Coord R, Coord r, Coord thickness);
+	void paint_outer(const Point & shift);
+	void paint_outer(const Point & shift, bool in_widget);
 
 	/// Polygon representation of the rectangle's outline.
 	Polygon m_polygon;

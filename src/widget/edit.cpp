@@ -203,14 +203,7 @@ void Edit::paint(const Region & parent_region)
 			m_text_box.parse(m_text_foreclip, *m_font, display, m_cursor_position, m_selection_start, m_selection_end, m_text_align);
 		}
 		
-		Rect::paint_focused_rounded_rect(m_foreclip, 
-			*(CommonStyle*)this,
-			*(BorderStyle*)this,
-			stated_color(m_color), 
-			stated_color(m_border_color),
-			Color::TRANSPARENT, 
-			stated_color(m_focus_color),
-			m_focused);
+		paint_background(m_foreclip, *(CommonStyle*)this, *(BorderStyle*)this);
 
 		Widget::paint(region);
 

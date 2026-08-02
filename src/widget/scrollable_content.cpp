@@ -270,11 +270,9 @@ void ScrollableContent::paint(const Region & parent_region)
 
 			// Increase with the half of border thickness
 			border_area.decrease_thickness(m_thickness >> 1);
-			//m_color = Color::WHITE_BLUE;
+
 			// Paint background and border
-			Rect::paint_focused_rounded_rect(border_area, *(CommonStyle*)this, *(BorderStyle*)this,
-				stated_color(m_color), stated_color(m_border_color), Color::TRANSPARENT,
-				stated_color(m_focus_color), m_focused);
+			paint_background(border_area, *(CommonStyle*)this, *(BorderStyle*)this);
 		}
 
 		// Paint scroll content

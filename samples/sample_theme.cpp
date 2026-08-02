@@ -20,21 +20,25 @@ public:
 					label->text("Theme color : ");                // Sets the text of the label
 					label->text_align(Align::ALIGN_LEFT);         // Aligns the text to the left
 					label->size_policy(SizePolicy::SHRINK_WIDTH); // Sets the size policy to shrink width
+					label->padding(0);
 
 				label = new Label(head);                          // Creates another label within the row
 					label->text("");                              // Sets the text of the label to an empty string
 					label->id(PALETTE_NAME_ID);                     // Sets the ID of the label
 					label->text_align(Align::ALIGN_LEFT);         // Aligns the text to the left
+					label->padding(0);
 
 				Switch * dark_light = new Switch(head);           // Creates a new switch within the row
 					dark_light->size_policy(SizePolicy::SHRINK_WIDTH); // Sets the size policy to shrink width
 					dark_light->focusable(false);                 // Sets the switch to be non-focusable
 					dark_light->checked(true);                    // Sets the switch to be checked
 					dark_light->bind(this, &SampleTheme::on_dark_light_event); // Binds the switch to an event handler
+					dark_light->padding(0);
 
 				label = new Label(head);                           // Creates another label within the row
 					label->text("Dark/Light");                     // Sets the text of the label
 					label->size_policy(SizePolicy::SHRINK_WIDTH);  // Sets the size policy to shrink width
+					label->padding(0);
 
 		// Theme color picker
 		{
@@ -54,7 +58,7 @@ public:
 		}
 
 		label = new Label(column);
-			label->text("\nRendering Widgets");
+			label->text("Rendering Widgets");
 		
 		// Show top widgets
 		{
@@ -62,7 +66,8 @@ public:
 				Column * col = new Column(row);                                  // Creates a new column within the row
 					Button * button = new Button(col);                           // Creates a new button within the column
 						button->text("Button");                                  // Sets the text of the button
-						button->id(1122);
+						button->padding(0);
+
 					Edit * edit = new Edit(col);                                 // Creates a new edit box within the column
 						edit->text("Hello World");                               // Sets the text of the edit box
 						edit->select_all();                                      // Selects all text in the edit box

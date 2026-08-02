@@ -122,14 +122,7 @@ void Button::paint(const Region & parent_region)
 	{
 		UIManager::renderer()->region(region);
 
-		Rect::paint_focused_rounded_rect2(m_foreclip,
-			*(CommonStyle*)this,
-			*(BorderStyle*)this,
-			stated_color(m_color), 
-			stated_color(m_border_color),
-			Color::TRANSPARENT, 
-			stated_color(m_focus_color),
-			m_focused);
+		paint_background(m_foreclip, *(CommonStyle*)this, *(BorderStyle*)this);
 
 		// Paint children
 		Widget::paint(region);

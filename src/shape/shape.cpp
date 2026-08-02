@@ -98,7 +98,9 @@ Size Shape::content_size()
 
 Size Shape::marged_size()
 {
-	return content_size();
+	Size result = content_size();
+	result.increase_q6(m_margin.left_q6() + m_margin.right_q6(), m_margin.bottom_q6() + m_margin.top_q6());
+	return result;
 }
 
 void Shape::paints(const Point & shift)

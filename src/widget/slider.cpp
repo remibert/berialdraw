@@ -220,12 +220,11 @@ void Slider::draw_track()
 	// Draw fill
 	handle_area.nearest_pixel();
 
-	Rect::paint_focused_rounded_rect2(handle_area, 
+	Rect::paint_focused_rounded_rect(handle_area, 
 		*(CommonStyle*)this,
 		*(BorderStyle*)this,
 		stated_color(m_handle_color), 
 		handle_border_color,
-		Color::TRANSPARENT, 
 		stated_color(m_focus_color),
 		m_focused);
 }

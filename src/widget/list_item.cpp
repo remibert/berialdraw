@@ -181,9 +181,7 @@ void ListItem::paint(const Region& parent_region)
 		Point shift;
 
 		// Paint background and border
-		Rect::paint_focused_rounded_rect(m_foreclip, *(CommonStyle*)this, *(BorderStyle*)this,
-			stated_color(m_color, 127), stated_color(m_border_color), Color::TRANSPARENT,
-			stated_color(m_focus_color, 127), m_focused);
+		paint_background(m_foreclip, *(CommonStyle*)this, *(BorderStyle*)this);
 
 		select_font();
 

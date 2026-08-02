@@ -181,14 +181,7 @@ void Icon::paint(const Region & parent_region)
 		UIManager::renderer()->region(region);
 
 		// Draw rounded rectangle frame around icon
-		Rect::paint_focused_rounded_rect2(m_frame_foreclip,
-			*(CommonStyle*)this,
-			*(BorderStyle*)this,
-			stated_color(m_color),
-			stated_color(m_border_color),
-			Color::TRANSPARENT,
-			stated_color(m_focus_color),
-			m_focused);
+		paint_background(m_frame_foreclip, *(CommonStyle*)this, *(BorderStyle*)this);
 
 		region.intersect(m_contentclip);
 

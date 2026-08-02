@@ -853,6 +853,19 @@ uint32_t Widget::stated_color(uint32_t color)
 	return result;
 }
 
+/** Paint the widget background */
+void Widget::paint_background(Area & rectclip, const CommonStyle& common_style, const BorderStyle& border_style)
+{
+	Rect::paint_focused_rounded_rect(rectclip,
+		common_style,
+		border_style,
+		stated_color(m_color),
+		stated_color(border_style.border_color()),
+		stated_color(border_style.focus_color()),
+		m_focused);
+}
+
+
 /** Return the stated color with alpha */
 uint32_t Widget::stated_color(uint32_t color, uint8_t alpha)
 {

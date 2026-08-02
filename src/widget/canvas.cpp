@@ -122,7 +122,7 @@ void Canvas::paint(const Region & parent_region)
 		// Draw background color
 		if(m_color || m_border_color)
 		{
-			Rect::paint_rounded_rect2(m_foreclip, m_radius, m_thickness, 0, m_borders,
+			Rect::paint_rounded_rect(m_foreclip, m_radius, m_thickness, 0, m_borders,
 				stated_color(m_color), stated_color(m_border_color), 0);
 		}
 
