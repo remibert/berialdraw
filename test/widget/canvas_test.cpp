@@ -382,39 +382,97 @@ void Canvas::test10()
 	}
 }
 
+static void add_shape(Point & position, Dim radius, Dim thickness, Canvas * canvas)
+{
+	position.move(radius, radius);
+
+	Circle* border;
+	Dim alpha = 48;
+
+	Circle* circle = new Circle(canvas);
+		circle->position(position);
+		circle->radius(radius);
+		circle->color(RED, alpha);
+		circle->thickness(thickness);
+
+	position.move(radius << 1, 0);
+
+	border = new Circle(canvas);
+		border->position(position);
+		border->thickness(1);
+		border->radius(radius);
+		border->color(Color::BLACK, 16);
+
+	Square* square = new Square(canvas);
+		square->position(position);
+		square->radius(radius);
+		square->color(GREEN, alpha);
+		square->thickness(thickness);
+
+	position.move(radius << 1, 0);
+
+	border = new Circle(canvas);
+		border->position(position);
+		border->thickness(1);
+		border->radius(radius);
+		border->color(Color::BLACK, 16);
+
+	Triangle* triangle = new Triangle(canvas);
+		triangle->position(position);
+		triangle->radius(radius);
+		triangle->color(PURPLE, alpha);
+		triangle->thickness(thickness);
+
+	position.move(radius << 1, 0);
+
+	border = new Circle(canvas);
+		border->position(position);
+		border->thickness(1);
+		border->radius(radius);
+		border->color(Color::BLACK, 16);
+
+	Star* star = new Star(canvas);
+		star->position(position);
+		star->radius(radius);
+		star->color(ORANGE, alpha);
+		star->thickness(thickness);
+
+	position.move(radius << 1, 0);
+
+	border = new Circle(canvas);
+		border->position(position);
+		border->thickness(1);
+		border->radius(radius);
+		border->color(Color::BLACK, 16);
+
+	Cross* cross = new Cross(canvas);
+		cross->position(position);
+		cross->radius(radius);
+		cross->color(BLUE, alpha);
+		cross->thickness(thickness);
+
+	position.set(0, position.y() + radius);
+}
+
 void Canvas::test11()
 {
 	Window window;
 		window.color(Color::WHITE_SMOKE);
 
 	Canvas* canvas = new Canvas(&window);
-		
-		canvas->color(Color::BLUE,64);
 
-		Circle* circle = new Circle(canvas);
-			circle->position(100, 100);
-			circle->radius(50);
-			circle->color(PURPLE, 64);
-			circle->thickness(90);
+	Point position;
+	Dim radius = 48;
 
+	for (Dim start_thickness = 0; start_thickness <= 15; start_thickness += 5)
+	{
+		position.set(0, 0);
+		for (Dim thickness = start_thickness; thickness < start_thickness + 5; thickness++)
+		{
+			add_shape(position, radius, thickness, canvas);
+		}
+	}
 	UIManager::desktop()->dispatch("$(ui.tests)/out/canvas11_1.svg");
-
-	canvas->border_color(Color::BLACK);
-	canvas->padding(17);
-	canvas->margin(23);
-	canvas->radius(30);
-	canvas->thickness(2);
-	UIManager::desktop()->dispatch("$(ui.tests)/out/canvas11_2.svg");
-
-	delete circle;
-	Rect* roundrect = new Rect(canvas);
-		roundrect->position(10, 10);
-		roundrect->radius(50);
-		roundrect->size(160, 160);
-		roundrect->thickness(10);
-		roundrect->color(0x3FFF0000);
-	UIManager::desktop()->dispatch("$(ui.tests)/out/canvas11_3.svg");
-
 }
 
 void Canvas::test()

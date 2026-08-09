@@ -21,10 +21,8 @@ const char filled_circle[] =
 
 const char un_filled_circle[] = 
 "a=r;"
-"R=t>1;"
-"R=R+a;"
-"r=t>1;"
-"r=a-r;"
+"R=a;"
+"r=a-t;"
 "D=R*4521>13;"
 "d=r*4521>13;"
 

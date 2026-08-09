@@ -142,7 +142,7 @@ void ProgressBar::draw_track()
 	uint32_t fill_border_color;
 	Area     fill_area(m_foreclip);
 
-	Dim half_thickness = ((m_thickness>>7)<<6);
+	Dim half_thickness = ((m_thickness>>6)<<6);
 
 	// If the track is thicker than fill
 	if (track_size >= fill_size)

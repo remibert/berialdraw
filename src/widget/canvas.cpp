@@ -70,15 +70,18 @@ Size Canvas::content_size()
 			{
 				if (m_shapes[i])
 				{
-					Size marged_size = m_shapes[i]->marged_size();
-					Point position = m_shapes[i]->position();
-					if (marged_size.width_q6() + position.x_q6() > size.width_q6())
+					// Use bounding_area() which accounts for rotation and center offset
+					Area bounds = m_shapes[i]->bounding_area();
+					Dim extent_x = (Dim)(bounds.x_q6() + bounds.width_q6());
+					Dim extent_y = (Dim)(bounds.y_q6() + bounds.height_q6());
+					
+					if (extent_x > size.width_q6())
 					{
-						size.width_q6(marged_size.width_q6() + position.x_q6());
+						size.width_q6(extent_x);
 					}
-					if (marged_size.height_q6() + position.y_q6() > size.height_q6())
+					if (extent_y > size.height_q6())
 					{
-						size.height_q6(marged_size.height_q6() + position.y_q6());
+						size.height_q6(extent_y);
 					}
 				}
 			}

@@ -1015,6 +1015,9 @@
     <ClCompile Include="..\..\src\styles\padding_style.cpp">
       <Filter>berialdraw\shape</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\shape\star.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\config.h">
@@ -1888,6 +1891,9 @@
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\styles\padding_style.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\star.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
   </ItemGroup>

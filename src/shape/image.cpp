@@ -211,7 +211,6 @@ Size Image::content_size()
 			result.height_q6(m_cache_entry->size().height_q6());
 		}
 	}
-
 	return result;
 }
 

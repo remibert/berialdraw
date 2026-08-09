@@ -13,14 +13,13 @@ const char filled_square[] =
 
 const char un_filled_square[] = 
 "D=r*5793>13;"
-"D=t>1+D;"
 ".x+D,y+D;"
 ".x+D,y-D;"
 ".x-D,y-D;"
 ".x-D,y+D;"
 "~;"
 "d=r*5793>13;"
-"d=-t>1+d;"
+"d=d-t;"
 ".x+d,y+d;"
 ".x-d,y+d;"
 ".x-d,y-d;"

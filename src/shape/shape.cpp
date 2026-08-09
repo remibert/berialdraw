@@ -103,6 +103,98 @@ Size Shape::marged_size()
 	return result;
 }
 
+Area Shape::bounding_area()
+{
+	// Get dimensions using marged_size which accounts for margin and border
+	Size marged = marged_size();
+	Coord w = marged.width_q6();
+	Coord h = marged.height_q6();
+	Coord dx = m_margin.left_q6();
+	Coord dy = m_margin.top_q6();
+
+	// Create 4 corner points
+	FT_Vector points[4];
+
+	if (dynamic_cast<Marker*>(this))
+	{
+		// For centered shapes (like Circle/Marker), corners extend ±(w/2, h/2) from center
+		Coord half_w = w >> 1;
+		Coord half_h = h >> 1;
+		points[0].x = dx - half_w;         points[0].y = dy - half_h;
+		points[1].x = dx + half_w;         points[1].y = dy - half_h;
+		points[2].x = dx + half_w;         points[2].y = dy + half_h;
+		points[3].x = dx - half_w;         points[3].y = dy + half_h;
+	}
+	else
+	{
+		// For non-centered shapes, corners are positioned normally
+		points[1].x = dx + w;         points[1].y = dy - h;
+		points[0].x = dx - w;         points[0].y = dy - h;
+		points[2].x = dx + w;         points[2].y = dy + h;
+		points[3].x = dx - w;         points[3].y = dy + h;
+	}
+
+	// Step 1: Translate to rotation center origin
+	Coord cx = m_center.x_q6() + dx;
+	Coord cy = m_center.y_q6() + dy;
+	if (cx != 0 || cy != 0)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			points[i].x -= cx;
+			points[i].y -= cy;
+		}
+	}
+
+	// Step 2: Apply rotation if needed (FreeType angle units: <<10)
+	if (m_angle != 0)
+	{
+		FT_Matrix rotation = vector_matrix(m_angle << 10);
+		for (int i = 0; i < 4; i++)
+		{
+			FT_Vector_Transform(&points[i], &rotation);
+		}
+	}
+
+	// Step 3: Translate to final position
+	Coord px = m_position.x_q6();
+	Coord py = m_position.y_q6();
+
+	if (px != 0 || py != 0)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			points[i].x += px + cx;
+			points[i].y += py + cy;
+		}
+	}
+	
+	// Extract bounding box from transformed points, clamp negatives to 0
+	Coord min_x = points[0].x;
+	Coord min_y = points[0].y;
+	Coord max_x = points[0].x;
+	Coord max_y = points[0].y;
+
+	for (int i = 1; i < 4; i++)
+	{
+		if (points[i].x < min_x) min_x = points[i].x;
+		if (points[i].y < min_y) min_y = points[i].y;
+		if (points[i].x > max_x) max_x = points[i].x;
+		if (points[i].y > max_y) max_y = points[i].y;
+	}
+
+	// Clamp negative values to 0 and convert to Size
+	if (min_x < 0) min_x = 0;
+	if (min_y < 0) min_y = 0;
+
+	Area result;
+	result.x_q6(min_x);
+	result.y_q6(min_y);
+	result.width_q6((Dim)(max_x - min_x));
+	result.height_q6((Dim)(max_y - min_y));
+	return result;
+}
+
 void Shape::paints(const Point & shift)
 {
 	if(m_repetition == Shape::REPEAT_NONE || m_start == m_end)

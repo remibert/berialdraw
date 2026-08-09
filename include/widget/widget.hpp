@@ -207,7 +207,6 @@ namespace berialdraw
 		
 		void place_in_area(const Area & area, bool in_layout);
 		void place_in_area_extend(const Area& area, bool & in_layout);		
-		void place_item(const Area & area, bool & in_layout, uint16_t thickness);
 
 		void place_text_with_element(
 			const Size& text_size, const Size& element_size, Dim text_padding, 

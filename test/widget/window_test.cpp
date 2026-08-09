@@ -458,7 +458,6 @@ void Window::test6()
 void window_test7(Widget * widget, int &id)
 {
 	widget->position(13,17);
-	//widget->position(50,80);
 	widget->margin(23,37,41,13);
 	widget->size(211,191);
 	widget->color(Color::MAUVE);
@@ -477,7 +476,7 @@ void window_test7(Widget * widget, int &id)
 	if (dynamic_cast<BorderStyle*>(widget))
 	{
 		(dynamic_cast<BorderStyle*>(widget))->border_color(Color::AZTECH_PURPLE);
-		(dynamic_cast<BorderStyle*>(widget))->thickness(7);
+		(dynamic_cast<BorderStyle*>(widget))->thickness(3);
 	}
 
 	if (dynamic_cast<IconStyle*>(widget))
@@ -493,7 +492,7 @@ void window_test7(Widget * widget, int &id)
 	name.print("$(ui.tests)/out/window7_%d.svg",id++);
 	UIManager::desktop()->dispatch(name);
 
-	widget->align(Align::ALIGN_BOTTOM_LEFT);
+	widget->align(Align::ALIGN_BOTTOM_RIGHT);
 	name.print("$(ui.tests)/out/window7_%d.svg",id++);
 	UIManager::desktop()->dispatch(name);
 
@@ -635,6 +634,8 @@ void Window::test()
 	{
 		MemoryLeakLog
 		done = true;
+test7();
+
 		test9();
 		test8();
 		test7();

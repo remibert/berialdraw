@@ -33,7 +33,7 @@ void Marker::paint(const Point & shift, const char * filled, const char * un_fil
 		{
 			vectors_script.select(filled);
 		}
-		vectors_script.set('t', m_thickness);
+		vectors_script.set('t', m_thickness > (m_radius>>1) ? (m_radius>>1) : m_thickness);
 		vectors_script.set('r', m_radius);
 		vectors_script.set('x', m_center.x_q6());
 		vectors_script.set('y', m_center.y_q6());
@@ -47,6 +47,7 @@ void Marker::paint(const Point & shift, const char * filled, const char * un_fil
 Size Marker::marged_size()
 {
 	Size result;
+	result.increase_q6(m_radius, m_radius);
 	result.increase_q6(m_radius, m_radius);
 	result.increase_q6(m_thickness, m_thickness);
 	return result;

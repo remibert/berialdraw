@@ -48,6 +48,11 @@ namespace berialdraw
 		@return Size of the shape with margin */
 		virtual Size marged_size();
 
+		/** Get the bounding area of the shape accounting for position, rotation angle, and center offset.
+		Negative coordinates are clamped to 0. Useful for computing canvas content size.
+		@return Area occupied by the shape after transformation */
+		virtual Area bounding_area();
+
 		/** Repetition type */
 		enum Repetition
 		{

@@ -581,107 +581,53 @@ void Rect::test8()
 
 void Rect::test9()
 {
-	int row = 0;
-	int column = 0;
 	Window window;
+
 	Canvas* canvas = new Canvas(&window);
 		canvas->color(Color::LIGHT_GRAY);
 		canvas->extend(Extend::EXTEND_ALL);
-	Rect* rect = 0;
-	Text* text = 0;
 
-	Dim step = 30;
-	Dim radius = 5;
-	Dim x = 1;
-	Dim y = 1;
-#if 0
-	for (Dim thickness = 0; thickness < 32; thickness++)
+	Point pos(240, 240);
+	Point center(-100, 0);
+
+	for (Dim thickness = 0; thickness <= 4; thickness ++)
 	{
-		rect = new Rect(canvas);
-			rect->position(x, y);
-			rect->size(step, step);
-			rect->thickness(thickness);
-			rect->radius(radius);
-			rect->color(Color::BLUE, 32);
-			rect->borders(ALL_BORDERS | RIGHT_ANGLE_WITHOUT_BORDER);
-
-		rect = new Rect(*rect);
-			rect->color(Color::GREEN, 32);
-			rect->borders(ALL_BORDERS | INNER_AREA | RIGHT_ANGLE_WITHOUT_BORDER);
-
-		text = new Text(canvas);
-			text->position(rect->position());
-			text->text("%d", thickness);
-
-		x += step + 1;
-		if (x + step > UIManager::device()->size().width())
+		for (Dim angle = 0; angle < 360; angle += 45)
 		{
-			x = 1;
-			y += step + 1;
-		}
-	}
-#endif
-	Dim angle = 0;
-	Point pos(200, 200);
-	Point center(0, 0);
-	Dim thickness = 0;
-
-	for (thickness = 0; thickness < 40; thickness ++)
-	{
-		for (angle = 0; angle < 360; angle += 90)
-			//for (angle = 180; angle < 181; angle += 90)
-		{
-			//Text* label = new Text(canvas);
-			//label->font_size(20);
-			//label->text("Hello %d", 180);
-			//label->center(radius);
-			//label->position(pos);
-			//label->color(Color::BLUE);
-			//label->margin(3, 3, 3, 3);
-			//label->angle(angle);
-			//label->center(center);
+			Text* label = new Text(canvas);
+				label->font_size(20);
+				label->text("%d", angle);
+				label->position(pos);
+				label->color(Color::BLUE);
+				label->margin(3, 3, 3, 3);
+				label->angle(angle);
+				label->center(-100,-50);
 
 			Rect* background = new Rect(canvas);
-			background->center(radius);
-			background->position(pos);
-			background->radius(30);
-			background->size(100, 100);
-			background->color(Color::BLUE, 32);
-			background->thickness(0);
-			background->angle(angle);
-			background->center(center);
+				background->position(pos);
+				background->radius(30);
+				background->size(100, 100);
+				background->color(Color::BLUE, 32);
+				background->thickness(0);
+				background->angle(angle);
+				background->center(center);
 
 			Rect* border = new Rect(canvas);
-			border->center(radius);
-
-			border->position(pos);
-			border->radius(30-(thickness>>1));
-			border->size(100, 100);
-			border->angle(angle);
-			border->thickness(thickness);
-			border->color(Color::RED, 32);
-			border->center(center);
+				border->position(pos);
+				border->radius(30-(thickness>>1));
+				border->size(100, 100);
+				border->angle(angle);
+				border->thickness(thickness);
+				border->color(Color::RED, 32);
+				border->center(center);
 		}
-		Cross* cross = new Cross(canvas);
-		cross->position(200, 200);
-
-		cross = new Cross(canvas);
-		cross->position(100, 100);
-
-		cross = new Cross(canvas);
-		cross->position(100, 200);
-
-		cross = new Cross(canvas);
-		cross->position(200, 100);
-		UIManager::desktop()->dispatch();
+		{
+			String name;
+			name.print("$(ui.tests)/out/rect9_%d.svg",thickness);
+			UIManager::desktop()->dispatch(name);
+		}
 		canvas->clear();
 	}
-
-
-
-	String name;
-	name.print("$(ui.tests)/out/rect9_1.svg");
-	UIManager::desktop()->dispatch(name);
 }
 
 void Rect::test()
@@ -691,7 +637,6 @@ void Rect::test()
 	{
 		MemoryLeakLog
 		done = true;
-test2();
 		test9();
 		test8();
 		test7();

@@ -336,6 +336,9 @@
     <ClCompile Include="..\..\pybind\src\pybind\styles\picture_style.cpp">
       <Filter>pybind\styles</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\styles\padding_style.cpp">
+      <Filter>pybind\styles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\pybind\inc\pybind\pyberialdraw.hpp" />

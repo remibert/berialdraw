@@ -1,6 +1,8 @@
 #include "berialdraw_imp.hpp"
 using namespace berialdraw;
 
+static String empty_string;
+
 WidgetStyle::WidgetStyle()
 {
 	m_extend      = 0;
@@ -268,7 +270,6 @@ void WidgetStyle::inherited_focus_color(bool v)
 /** Get the style string (empty string if not set) */
 const String & WidgetStyle::style() const
 {
-	static String empty_string;
 	return m_style ? *m_style : empty_string;
 }
 

@@ -341,30 +341,6 @@ void Widget::place_in_area_extend(const Area& area, bool & in_layout)
 	place_in_area(area, in_layout);
 }
 
-void Widget::place_item(const Area & area, bool & in_layout, uint16_t thickness)
-{
-	m_backclip = area;
-
-	if (!is_absolute())
-	{
-		in_layout = true;
-	}
-	
-	if(in_layout)
-	{
-		place_in_layout(area, content_size(), margin(), extend(), m_foreclip, align());
-	}
-	else
-	{
-		place_absolutly(area.position(), content_size(), m_foreclip, m_size, m_min_size, m_max_size);
-	}
-
-	m_foreclip.decrease_thickness(thickness);
-	m_contentclip = m_foreclip;
-	m_contentclip.decrease(padding());
-}
-
-
 // Check if the widget has any axis of position explicitly defined
 bool Widget::has_defined_position() const
 {
@@ -432,7 +408,6 @@ void Widget::compute_layout_clip(const Area & area)
 // Compute m_foreclip in absolute mode using position offset and constrained size
 void Widget::compute_absolute_clip(const Area & area)
 {
-	// In absolute mode, explicit size overrides content size
 	Size base = content_size();
 	Dim w = adapt_size(
 		base.width_q6(),
@@ -460,10 +435,13 @@ void Widget::compute_absolute_clip(const Area & area)
 		y += m_position.y_q6();
 	}
 
-	m_foreclip.x_q6(x);
-	m_foreclip.y_q6(y);
-	m_foreclip.width_q6(w);
-	m_foreclip.height_q6(h);
+	Area absolute_area;
+	absolute_area.x_q6(x);
+	absolute_area.y_q6(y);
+	absolute_area.width_q6(w);
+	absolute_area.height_q6(h);
+	Margin margin;
+	place_in_layout(absolute_area, base, margin,(Extend) m_extend, m_foreclip, m_align);
 }
 
 // Full placement pipeline
@@ -554,7 +532,7 @@ void Widget::place_text_with_element(
 		// Reduce the element forclip to minimal value
 		element_foreclip.size().set_q6(element_size.width_q6(), element_size.height_q6());
 	}
-	if (m_extend & Extend::EXTEND_WIDTH)
+	if (extend & Extend::EXTEND_WIDTH)
 	{
 		element_foreclip.size(m_contentclip.size());
 	}

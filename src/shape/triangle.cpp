@@ -11,17 +11,20 @@ const char filled_triangle[] =
 "~;";
 
 const char un_filled_triangle[] = 
-"D=r*7094>13;"
-"d=r>1;"
-"u=t>1;"
-"U=t*7094>13;"
-".x+D+U,y+d+u;"
-".x-D-U,y+d+u;"
-".x,y-r-t;"
+"R=r;"
+"D=R*7094>13;"
+"d=R>1;"
+".x+D,y+d;"
+".x-D,y+d;"
+".x,y-R;"
 "~;"
-".x+D-U,y+d-u;"
-".x,y-r+t;"
-".x-D+U,y+d-u;"
+"b=t+t;"
+"a=R-b;"
+"D=a*7094>13;"
+"d=a>1;"
+".x+D,y+d;"
+".x,y-a;"
+".x-D,y+d;"
 "~;";
 
 Triangle::Triangle(Canvas * canvas) :
