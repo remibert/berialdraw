@@ -216,7 +216,7 @@ void Pie::test4()
 		Pie * pie = new Pie(canvas);
 			pie->color(Color::NEON_BLUE);
 			pie->position(canvas->size().middle());
-			pie->radius(210);
+			pie->radius(215);
 			pie->thickness(5);
 			pie->rope(false);
 			pie->start_angle(-84);

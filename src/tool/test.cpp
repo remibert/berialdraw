@@ -13,7 +13,7 @@ namespace berialdraw
 		UIManager::colors()->appearance("test_light");
 
 #if defined(_DEBUG) && defined(ALL_TESTS)
-		Rect::test();
+		Pie::test();
 
 		// Widget
 		Button::test();

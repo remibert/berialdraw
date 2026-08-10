@@ -107,7 +107,7 @@ void SampleSpeedometer::draw_graduations()
 	Pie * pie = new Pie(m_canvas);                                // Create the outer graduation circle
 		pie->color(Color::NEON_BLUE);                             // Set the pie color
 		pie->position(m_dial_center);                             // Position the pie at the dial center
-		pie->radius(m_counter_radius - 10);                       // Set the pie radius
+		pie->radius(m_counter_radius-8);                            // Set the pie radius
 		pie->thickness(5);                                        // Define the pie thickness
 		pie->rope(false);                                         // Disable connecting ropes
 		pie->start_angle(m_angle_start);                          // Set the starting angle of the pie

@@ -100,15 +100,15 @@ public:
 			text->font_size(20);             // Sets the font size for the label text
 
 		Rect * rect = new Rect(m_canvas);    // Creates a rectangle shape
-			rect->size(33, 46);              // Sets size of the rectangle
+			rect->size(33, 44);              // Sets size of the rectangle
 			rect->position(18, 300);         // Sets position for the rectangle
 			rect->radius(10);                // Sets corner radius for rounded edges
 			rect->thickness(0);              // Sets the border thickness to 0 (no border)
 
 		rect = new Rect(*rect);              // Creates a rectangle shape
-			rect->thickness(2);              // Sets the border thickness
+			rect->thickness(3);              // Sets the border thickness
 			rect->size(33, 44);              // Adjusts the size of the rectangle
-			rect->position(62, 301);         // Sets new position for the rectangle
+			rect->position(62, 300);         // Sets new position for the rectangle
 
 		text = new Text(m_canvas);           // Creates a text label on the canvas
 			text->text("Rect");              // Sets label text
@@ -117,15 +117,15 @@ public:
 
 		Pie * pie = new Pie(m_canvas);       // Creates a pie shape
 			pie->position(36, 384);          // Sets position for the pie shape
-			pie->radius(19);                 // Sets radius of the pie shape
+			pie->radius(20);                 // Sets radius of the pie shape
 			pie->thickness(0);               // Sets thickness of the border to 0
 			pie->rope(true);                 // Enables rope effect for pie segments
 			pie->start_angle(0);             // Sets start angle for the pie segment
 			pie->end_angle(300);             // Sets end angle for the pie segment
 
 		pie = new Pie(*pie);                 // Creates a pie shape
-			pie->thickness(2);               // Sets thickness of the border
-			pie->radius(18);                 // Adjusts radius of the pie segment
+			pie->thickness(3);               // Sets thickness of the border
+			pie->radius(20);                 // Adjusts radius of the pie segment
 			pie->position(80, 384);          // Sets new position for the pie shape
 
 		text = new Text(m_canvas);           // Creates a text label on the canvas
@@ -135,13 +135,13 @@ public:
 
 		Circle * circle = new Circle(m_canvas); // Creates a circle marker
 			circle->position(266, 80);       // Sets position for the circle
-			circle->radius(17);              // Sets radius of the circle
+			circle->radius(20);              // Sets radius of the circle
 			circle->thickness(0);            // Sets thickness of the border to 0
 
 		circle = new Circle(*circle);        // Creates a circle marker
 			circle->position(309, 80);       // Sets new position for the circle
-			circle->thickness(2);            // Sets thickness of the border
-			circle->radius(16);              // Adjusts radius of the circle
+			circle->thickness(3);            // Sets thickness of the border
+			circle->radius(20);              // Adjusts radius of the circle
 
 		text = new Text(m_canvas);           // Creates a text label on the canvas
 			text->text("Circle");            // Sets label text
@@ -154,9 +154,9 @@ public:
 			triangle->thickness(0);          // Sets thickness of the border to 0
 
 		triangle = new Triangle(*triangle);  // Creates a triangle marker
-			triangle->thickness(2);          // Sets thickness of the border
-			triangle->position(309, 144);    // Sets new position for the triangle
-			triangle->radius(19);            // Adjusts radius of the triangle
+			triangle->thickness(3);          // Sets thickness of the border
+			triangle->position(309, 145);    // Sets new position for the triangle
+			triangle->radius(20);            // Adjusts radius of the triangle
 
 		text = new Text(m_canvas);           // Creates a text label on the canvas
 			text->text("Triangle");          // Sets label text
@@ -169,9 +169,9 @@ public:
 			square->thickness(0);            // Sets thickness of the border to 0
 
 		square = new Square(*square);        // Creates a square marker
-			square->thickness(2);            // Sets thickness of the border
+			square->thickness(3);            // Sets thickness of the border
 			square->position(309, 200);      // Sets new position for the square
-			square->radius(19);              // Adjusts radius of the square
+			square->radius(20);              // Adjusts radius of the square
 
 		text = new Text(m_canvas);           // Creates a text label on the canvas
 			text->text("Square");            // Sets label text
@@ -182,7 +182,7 @@ public:
 		Cross * cross = new Cross(m_canvas); 
 			cross->position(266, 260);       // Sets position for the cross
 			cross->radius(20);               // Sets size of the cross arms
-			cross->thickness(2);             // Sets thickness of the cross arms
+			cross->thickness(3);             // Sets thickness of the cross arms
 
 		text = new Text(m_canvas);           // Creates a text label on the canvas
 			text->text("Cross");             // Sets label text

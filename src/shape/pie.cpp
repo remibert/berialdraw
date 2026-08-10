@@ -97,7 +97,7 @@ void Pie::build_filled(Dim radius)
 
 void Pie::build_empty()
 {
-	Dim radius = m_radius + (m_thickness>>1);
+	Dim radius = m_radius;
 	Coord sweep_angle;
 	Coord end_angle;
 	Coord angle;
@@ -166,7 +166,7 @@ void Pie::paint(const Point & shift)
 		else
 		{
 			build_empty();
-			build_filled(m_radius -(m_thickness>>1));
+			build_filled(m_radius - m_thickness);
 
 			if(m_rope)
 			{
@@ -175,7 +175,7 @@ void Pie::paint(const Point & shift)
 				Point c2;
 				Point p2;
 
-				get_slice(m_center, m_radius + (m_thickness >>1), - m_start_angle - sweep_angle, sweep_angle, p1, c1, c2, p2);
+				get_slice(m_center, m_radius, - m_start_angle - sweep_angle, sweep_angle, p1, c1, c2, p2);
 
 				PolyLines lines(0);
 				lines.thickness_q6(m_thickness);

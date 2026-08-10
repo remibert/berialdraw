@@ -119,9 +119,6 @@
       <Filter>pybind\shape</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\shape\cross.cpp">
-    <ClCompile Include="..\..\pybind\src\pybind\shape\star.cpp">
-      <Filter>pybind\shape</Filter>
-    </ClCompile>
       <Filter>pybind\shape</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\shape\line.cpp">
@@ -314,7 +311,6 @@
     <ClCompile Include="..\..\pybind\src\pybind\vector\extend.cpp">
       <Filter>pybind\vector</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pybind\src\pybind\tool\bd_system.cpp" />
     <ClCompile Include="..\..\pybind\src\pybind\styles\radio_style.cpp">
       <Filter>pybind\styles</Filter>
     </ClCompile>
@@ -341,6 +337,12 @@
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\styles\padding_style.cpp">
       <Filter>pybind\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\tool\bd_system.cpp">
+      <Filter>pybind\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\shape\star.cpp">
+      <Filter>pybind\shape</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

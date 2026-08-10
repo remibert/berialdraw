@@ -1057,7 +1057,7 @@
 		"$(ui.tests)/out/canvas3.svg" : 
 		{
 			"scale_2" : 3307522861,
-			"scale_1" : 3207821426
+			"scale_1" : 312237889
 		},
 		"$(ui.tests)/out/canvas4.svg" : 
 		{
@@ -1637,12 +1637,12 @@
 		"$(ui.tests)/out/window2_1.svg" : 
 		{
 			"scale_2" : 2136180601,
-			"scale_1" : 3794095215
+			"scale_1" : 1272712127
 		},
 		"$(ui.tests)/out/window2_2.svg" : 
 		{
 			"scale_2" : 2148414588,
-			"scale_1" : 948327687
+			"scale_1" : 29865242
 		},
 		"$(ui.tests)/out/window1_0.svg" : 
 		{
@@ -3392,132 +3392,132 @@
 		"$(ui.tests)/out/pie4_1.svg" : 
 		{
 			"scale_2" : 3527258807,
-			"scale_1" : 3190001931
+			"scale_1" : 584863065
 		},
 		"$(ui.tests)/out/pie4_2.svg" : 
 		{
 			"scale_2" : 766289304,
-			"scale_1" : 1569019702
+			"scale_1" : 1007975375
 		},
 		"$(ui.tests)/out/pie4_3.svg" : 
 		{
 			"scale_2" : 3090155796,
-			"scale_1" : 2123203756
+			"scale_1" : 2400710335
 		},
 		"$(ui.tests)/out/pie4_4.svg" : 
 		{
 			"scale_2" : 126000374,
-			"scale_1" : 4070990539
+			"scale_1" : 2179777483
 		},
 		"$(ui.tests)/out/pie4_5.svg" : 
 		{
 			"scale_2" : 3526129122,
-			"scale_1" : 3319509409
+			"scale_1" : 4024160467
 		},
 		"$(ui.tests)/out/pie4_6.svg" : 
 		{
 			"scale_2" : 4176250962,
-			"scale_1" : 2677139679
+			"scale_1" : 1039869652
 		},
 		"$(ui.tests)/out/pie4_7.svg" : 
 		{
 			"scale_2" : 911760284,
-			"scale_1" : 2820156321
+			"scale_1" : 2039676153
 		},
 		"$(ui.tests)/out/pie3.svg" : 
 		{
 			"scale_2" : 1453223287,
-			"scale_1" : 788644613
+			"scale_1" : 4038023556
 		},
 		"$(ui.tests)/out/pie2_1.svg" : 
 		{
 			"scale_2" : 4190015123,
-			"scale_1" : 255260666
+			"scale_1" : 3408162977
 		},
 		"$(ui.tests)/out/pie2_2.svg" : 
 		{
 			"scale_2" : 1226635987,
-			"scale_1" : 1824591047
+			"scale_1" : 2832436124
 		},
 		"$(ui.tests)/out/pie2_3.svg" : 
 		{
 			"scale_2" : 3718766463,
-			"scale_1" : 1220410945
+			"scale_1" : 2360310042
 		},
 		"$(ui.tests)/out/pie2_4.svg" : 
 		{
 			"scale_2" : 2578794810,
-			"scale_1" : 4072473013
+			"scale_1" : 917473006
 		},
 		"$(ui.tests)/out/pie2_5.svg" : 
 		{
 			"scale_2" : 324677295,
-			"scale_1" : 1672856481
+			"scale_1" : 2812757242
 		},
 		"$(ui.tests)/out/pie2_6.svg" : 
 		{
 			"scale_2" : 1942576676,
-			"scale_1" : 1913586502
+			"scale_1" : 3055387677
 		},
 		"$(ui.tests)/out/pie2_7.svg" : 
 		{
 			"scale_2" : 676267557,
-			"scale_1" : 879194025
+			"scale_1" : 4034259186
 		},
 		"$(ui.tests)/out/pie2_8.svg" : 
 		{
 			"scale_2" : 1877374438,
-			"scale_1" : 3698700005
+			"scale_1" : 409414078
 		},
 		"$(ui.tests)/out/pie2_9.svg" : 
 		{
 			"scale_2" : 2571233523,
-			"scale_1" : 769241119
+			"scale_1" : 3922409284
 		},
 		"$(ui.tests)/out/pie2_10.svg" : 
 		{
 			"scale_2" : 2627827036,
-			"scale_1" : 1649332686
+			"scale_1" : 2791069333
 		},
 		"$(ui.tests)/out/pie2_11.svg" : 
 		{
 			"scale_2" : 3502066049,
-			"scale_1" : 1042220185
+			"scale_1" : 4195189698
 		},
 		"$(ui.tests)/out/pie1_0.svg" : 
 		{
 			"scale_2" : 1853220559,
-			"scale_1" : 3807805548
+			"scale_1" : 4225381302
 		},
 		"$(ui.tests)/out/pie1_1.svg" : 
 		{
 			"scale_2" : 852619336,
-			"scale_1" : 2268083361
+			"scale_1" : 3148628572
 		},
 		"$(ui.tests)/out/pie1_2.svg" : 
 		{
 			"scale_2" : 1242169471,
-			"scale_1" : 1991270226
+			"scale_1" : 790486143
 		},
 		"$(ui.tests)/out/pie1_3.svg" : 
 		{
 			"scale_2" : 2940520863,
-			"scale_1" : 483268313
+			"scale_1" : 2542295264
 		},
 		"$(ui.tests)/out/pie1_4.svg" : 
 		{
 			"scale_2" : 3273487813,
-			"scale_1" : 1042123875
+			"scale_1" : 3532951438
 		},
 		"$(ui.tests)/out/pie1_5.svg" : 
 		{
 			"scale_2" : 2955482981,
-			"scale_1" : 582249170
+			"scale_1" : 1083841683
 		},
 		"$(ui.tests)/out/pie1_6.svg" : 
 		{
 			"scale_2" : 3426635971,
-			"scale_1" : 3117441175
+			"scale_1" : 2151237633
 		},
 		"$(ui.tests)/out/grid5_1.svg" : 
 		{
@@ -4072,7 +4072,7 @@
 		"$(ui.tests)/out/sample_canvas_1.svg" : 
 		{
 			"scale_2" : 3716239225,
-			"scale_1" : 2059454194
+			"scale_1" : 670436313
 		},
 		"$(ui.tests)/out/sample_column_1.svg" : 
 		{
@@ -4187,12 +4187,12 @@
 		"$(ui.tests)/out/sample_speed_1.svg" : 
 		{
 			"scale_2" : 4008591166,
-			"scale_1" : 1370371381
+			"scale_1" : 4202490670
 		},
 		"$(ui.tests)/out/sample_speed_2.svg" : 
 		{
 			"scale_2" : 1389463096,
-			"scale_1" : 2900234550
+			"scale_1" : 118279981
 		},
 		"$(ui.tests)/out/sample_theme_1.svg" : 
 		{
