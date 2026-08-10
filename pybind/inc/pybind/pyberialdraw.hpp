@@ -242,6 +242,7 @@ void bind_file(py::module& m);
 void bind_directory(py::module& m);
 void bind_json(py::module& m);
 void bind_settings(py::module& m);
+void bind_clipboard(py::module& m);
 
 // Vector bindings
 void bind_point(py::module& m);

@@ -16,6 +16,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_directory(m);
     bind_json(m);
     bind_settings(m);
+    bind_clipboard(m);
     
     // Bind vector classes next (fundamental classes)
     bind_point(m);

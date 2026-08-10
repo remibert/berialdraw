@@ -97,6 +97,7 @@ src/pybind/shape/star.cpp
 	src/pybind/tool/string.cpp
 	src/pybind/tool/json.cpp
 	src/pybind/tool/settings.cpp
+	src/pybind/tool/clipboard.cpp
 	src/pybind/tool/bd_system.cpp
 	src/pybind/widget/scrollable_content.cpp
 	src/pybind/widget/widget.cpp
