@@ -177,8 +177,9 @@ void Switch::paint(const Region & parent_region)
 		if (m_text.size() > 0)
 		{
 			select_font();
-			region.intersect(m_text_foreclip);
-			UIManager::renderer()->region(region);
+			Region text_region(parent_region);
+			text_region.intersect(m_text_foreclip);
+			UIManager::renderer()->region(text_region);
 			m_text_box.paint(*m_font.get(), m_text, m_text_foreclip.position(), m_contentclip, stated_color(m_text_color));
 		}
 	}

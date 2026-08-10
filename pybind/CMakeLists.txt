@@ -53,6 +53,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/shape/circle.cpp
 	src/pybind/shape/compass.cpp
 	src/pybind/shape/cross.cpp
+src/pybind/shape/star.cpp
 	src/pybind/shape/line.cpp
 	src/pybind/shape/marker.cpp
 	src/pybind/shape/pie.cpp

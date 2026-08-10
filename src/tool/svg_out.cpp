@@ -326,9 +326,21 @@ void SvgOut::add_text_line(const Point & position, const Size & size, const Poin
 		FT_Matrix      matrix = vector_matrix((angle << 10));
 		String transform;
 
+		// Move the text to respect the baseline in svg
+		Coord baseline_x = 0;
+		Coord baseline_y = 0 - (font.pixel_size().height_q6() - font.baseline_q6());
+		if (angle != 0)
+		{
+			vec.x = 0;
+			vec.y = baseline_y;
+			FT_Vector_Transform(&vec, &matrix);
+			baseline_x = vec.x;
+			baseline_y = vec.y;
+		}
+
 		// Compute the position of text
-		xx = position.x_q6();
-		yy = position.y_q6();
+		xx = position.x_q6() + baseline_x;
+		yy = position.y_q6() + baseline_y;
 
 		// Rotation of the text line according to the center of rotation
 		if (center.x_q6() != 0 || center.y_q6() != 0)

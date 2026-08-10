@@ -119,6 +119,9 @@
       <Filter>pybind\shape</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\shape\cross.cpp">
+    <ClCompile Include="..\..\pybind\src\pybind\shape\star.cpp">
+      <Filter>pybind\shape</Filter>
+    </ClCompile>
       <Filter>pybind\shape</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\shape\line.cpp">

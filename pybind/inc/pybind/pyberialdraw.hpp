@@ -301,6 +301,7 @@ void bind_circle(py::module& m);
 void bind_triangle(py::module& m);
 void bind_square(py::module& m);
 void bind_cross(py::module& m);
+void bind_star(py::module& m);
 void bind_text(py::module& m);
 void bind_pie(py::module& m);
 void bind_compass(py::module& m);

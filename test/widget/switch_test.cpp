@@ -308,7 +308,7 @@ void Switch::test5()
 	Window window;
 		window.position(0,0);
 		window.size(400,200);
-		window.color(Color::WHITE);
+		window.color(Color::SNOW);
 
 	// Switch with absolute position and text
 	Switch * switch1 = new Switch(&window);
@@ -340,7 +340,6 @@ void Switch::test5()
 		switch3->border_color(Color::BLACK);
 		switch3->thickness(2);
 
-	//while(1) UIManager::desktop()->dispatch();
 	UIManager::desktop()->dispatch("$(ui.tests)/out/switch5.svg");
 }
 

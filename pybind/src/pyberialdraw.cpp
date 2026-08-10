@@ -74,6 +74,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_triangle(m);
     bind_square(m);
     bind_cross(m);
+    bind_star(m);
     bind_text(m);
     bind_pie(m);
     bind_compass(m);

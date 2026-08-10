@@ -159,6 +159,7 @@ set(SRCS_LIB
 	src/shape/text_box.cpp
 	src/shape/rich_text.cpp
 	src/shape/marker.cpp
+	src/shape/star.cpp
 
 	src/vector/area.cpp
 	src/vector/region.cpp
