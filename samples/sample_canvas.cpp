@@ -45,6 +45,7 @@ public:
 			text->text("Marker");            // Sets new text for duplicated label
 			text->position(308, 10);         // Positions duplicated label on canvas
 
+
 		text = new Text(m_canvas);           // Creates a new text label on the canvas
 			text->text("Hello");             // Sets label text
 			text->position(20, 55);          // Positions label
@@ -55,6 +56,7 @@ public:
 			text->text("Text");              // Sets label text
 			text->position(120, 70);         // Positions label
 			text->font_size(20);             // Sets font size for label
+
 
 		Polygon * polygon = new Polygon(m_canvas); // Creates a polygon shape
 			polygon->position(20, 105);      // Sets position of the polygon
@@ -88,6 +90,7 @@ public:
 			text->position(120, 190);        // Positions the label on the canvas
 			text->font_size(20);             // Sets the font size for the label text
 
+
 		Line * line_ = new Line(m_canvas);   // Creates a line shape
 			line_->position(20, 235);        // Sets position for the line
 			line_->point1(4, 4);             // Sets the starting point of the line
@@ -98,6 +101,7 @@ public:
 			text->text("Line");              // Sets label text
 			text->position(120, 250);        // Positions the label on the canvas
 			text->font_size(20);             // Sets the font size for the label text
+
 
 		Rect * rect = new Rect(m_canvas);    // Creates a rectangle shape
 			rect->size(33, 44);              // Sets size of the rectangle
@@ -114,6 +118,7 @@ public:
 			text->text("Rect");              // Sets label text
 			text->position(120, 310);        // Positions the label on the canvas
 			text->font_size(20);             // Sets the font size for the label text
+
 
 		Pie * pie = new Pie(m_canvas);       // Creates a pie shape
 			pie->position(36, 384);          // Sets position for the pie shape
@@ -133,66 +138,86 @@ public:
 			text->position(120, 370);        // Positions the label on the canvas
 			text->font_size(20);             // Sets the font size for the label text
 
+
 		Circle * circle = new Circle(m_canvas); // Creates a circle marker
-			circle->position(266, 80);       // Sets position for the circle
+			circle->position(266, 70);       // Sets position for the circle
 			circle->radius(20);              // Sets radius of the circle
 			circle->thickness(0);            // Sets thickness of the border to 0
 
 		circle = new Circle(*circle);        // Creates a circle marker
-			circle->position(309, 80);       // Sets new position for the circle
+			circle->position(309, 70);       // Sets new position for the circle
 			circle->thickness(3);            // Sets thickness of the border
 			circle->radius(20);              // Adjusts radius of the circle
 
 		text = new Text(m_canvas);           // Creates a text label on the canvas
 			text->text("Circle");            // Sets label text
-			text->position(350, 70);         // Positions the label on the canvas
+			text->position(350, 60);         // Positions the label on the canvas
 			text->font_size(20);             // Sets the font size for the label text
 
+
 		Triangle * triangle = new Triangle(m_canvas); // Creates a triangle marker
-			triangle->position(266, 145);    // Sets position for the triangle
+			triangle->position(266, 125);    // Sets position for the triangle
 			triangle->radius(20);            // Sets size of the triangle's bounding radius
 			triangle->thickness(0);          // Sets thickness of the border to 0
 
 		triangle = new Triangle(*triangle);  // Creates a triangle marker
 			triangle->thickness(3);          // Sets thickness of the border
-			triangle->position(309, 145);    // Sets new position for the triangle
+			triangle->position(309, 125);    // Sets new position for the triangle
 			triangle->radius(20);            // Adjusts radius of the triangle
 
 		text = new Text(m_canvas);           // Creates a text label on the canvas
 			text->text("Triangle");          // Sets label text
-			text->position(350, 130);        // Positions the label on the canvas
+			text->position(350, 110);        // Positions the label on the canvas
 			text->font_size(20);             // Sets the font size for the label text
 
+
 		Square * square = new Square(m_canvas); // Creates a square marker
-			square->position(266, 200);      // Sets position for the square
+			square->position(266, 170);      // Sets position for the square
 			square->radius(20);              // Sets side length of the square
 			square->thickness(0);            // Sets thickness of the border to 0
 
 		square = new Square(*square);        // Creates a square marker
 			square->thickness(3);            // Sets thickness of the border
-			square->position(309, 200);      // Sets new position for the square
+			square->position(309, 170);      // Sets new position for the square
 			square->radius(20);              // Adjusts radius of the square
 
 		text = new Text(m_canvas);           // Creates a text label on the canvas
 			text->text("Square");            // Sets label text
-			text->position(350, 190);        // Positions the label on the canvas
+			text->position(350, 160);        // Positions the label on the canvas
 			text->font_size(20);             // Sets the font size for the label text
 
-		// Creates a cross marker
-		Cross * cross = new Cross(m_canvas); 
-			cross->position(266, 260);       // Sets position for the cross
+
+		Cross * cross = new Cross(m_canvas); // Creates a cross marker
+			cross->position(266, 220);       // Sets position for the cross
 			cross->radius(20);               // Sets size of the cross arms
 			cross->thickness(3);             // Sets thickness of the cross arms
 
 		text = new Text(m_canvas);           // Creates a text label on the canvas
 			text->text("Cross");             // Sets label text
-			text->position(350, 250);        // Positions the label on the canvas
+			text->position(350, 210);        // Positions the label on the canvas
 			text->font_size(20);             // Sets the font size for the label text
+
+
+		Star * star = new Star(m_canvas); // Creates a star marker
+			star->position(266, 270);      // Sets position for the star
+			star->radius(20);              // Sets side length of the star
+			star->thickness(0);            // Sets thickness of the border to 0
+
+		star = new Star(*star);        // Creates a star marker
+			star->thickness(3);            // Sets thickness of the border
+			star->position(309, 270);      // Sets new position for the star
+			star->radius(20);              // Adjusts radius of the star
+
+		text = new Text(m_canvas);           // Creates a text label on the canvas
+			text->text("Star");            // Sets label text
+			text->position(350, 260);        // Positions the label on the canvas
+			text->font_size(20);             // Sets the font size for the label text
+
 
 		text = new Text(m_canvas);           // Creates a text label on the canvas
 			text->text("Pie, Circle, Triangle\n"
-						"Square, Cross have their\n"
-						"origin point in the\n"
+						"Square, Cross, Star have\n"
+						"their origin point in the\n"
 						"center, all others are\n"
 						"in the upper left corner.");
 			text->font_size(16);             // Sets the font size for the label text

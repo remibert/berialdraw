@@ -4072,7 +4072,7 @@
 		"$(ui.tests)/out/sample_canvas_1.svg" : 
 		{
 			"scale_2" : 3716239225,
-			"scale_1" : 670436313
+			"scale_1" : 1753161507
 		},
 		"$(ui.tests)/out/sample_column_1.svg" : 
 		{
@@ -4172,12 +4172,12 @@
 		"$(ui.tests)/out/sample_switch_1.svg" : 
 		{
 			"scale_2" : 4150314962,
-			"scale_1" : 2903294068
+			"scale_1" : 276061996
 		},
 		"$(ui.tests)/out/sample_switch_2.svg" : 
 		{
 			"scale_2" : 3999260287,
-			"scale_1" : 4242282355
+			"scale_1" : 1429094386
 		},
 		"$(ui.tests)/out/sample_window_1.svg" : 
 		{
