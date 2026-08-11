@@ -1,6 +1,6 @@
 [submodule "freetype"]
 	path = external/freetype
-	url = https://github.com/remibert/freetype.git
+	url = https://github.com/freetype/freetype.git
 [submodule "pybind11"]
 	path = external/pybind11
 	url = https://github.com/pybind/pybind11.git

@@ -48,18 +48,16 @@
 	#include <sys/stat.h>
 #endif
 
-// Freetype includes
-#include <freetype/freetype.h>
-#include <freetype/ftglyph.h>
-#include <freetype/ftbitmap.h>
-#include <freetype/ftcache.h>
-#include <freetype/ftsizes.h>
-#include <freetype/internal/ftcalc.h>
+// Freetype includes - MUST include ft2build.h FIRST
 #include <ft2build.h>
 #include FT_FREETYPE_H
-#include <ftglyph.h>
-#include <ftoutln.h>
-#include <fttrigon.h>
+#include FT_GLYPH_H
+#include FT_BITMAP_H
+#include FT_CACHE_H
+#include FT_SIZES_H
+#include FT_OUTLINE_H
+#include FT_TRIGONOMETRY_H
+#include FT_INTERNAL_CALC_H
 
 #include "berialdraw.hpp"
 

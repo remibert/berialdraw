@@ -1385,8 +1385,6 @@
     <ClInclude Include="..\..\external\freetype\include\ft2build.h" />
     <ClInclude Include="..\..\external\freetype\include\freetype\config\ftconfig.h" />
     <ClInclude Include="..\..\external\freetype\include\freetype\config\ftheader.h" />
-    <ClInclude Include="..\..\external\freetype\include\freetype\config\ftmodule.h" />
-    <ClInclude Include="..\..\external\freetype\include\freetype\config\ftoption.h" />
     <ClInclude Include="..\..\external\freetype\include\freetype\config\ftstdlib.h" />
     <ClInclude Include="..\..\external\freetype\include\freetype\config\integer-types.h" />
     <ClInclude Include="..\..\external\freetype\include\freetype\config\mac-support.h" />
@@ -1540,6 +1538,8 @@
     <ClInclude Include="..\..\include\event\select_event.hpp" />
     <ClInclude Include="..\..\include\event\slide_event.hpp" />
     <ClInclude Include="..\..\include\event\touch_event.hpp" />
+    <ClInclude Include="..\..\include\external\freetype\freetype\config\ftmodule.h" />
+    <ClInclude Include="..\..\include\external\freetype\freetype\config\ftoption.h" />
     <ClInclude Include="..\..\include\external\libjpeg-turbo\jconfig.h" />
     <ClInclude Include="..\..\include\external\libjpeg-turbo\jconfigint.h" />
     <ClInclude Include="..\..\include\external\libjpeg-turbo\jversion.h" />
@@ -1858,7 +1858,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;HAVE_ZLIB;ZLIB_COMPAT;WIN32;PACKAGE;FT2_BUILD_LIBRARY=1;FT_ERR_PREFIX=FT_Err_;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\include;..\..\external\freetype\include;..\..\external\freetype\include\freetype;..\..\external\zlib;..\..\external\minizip;..\..\external\minizip\compat;..\..\include\external\libpng;..\..\include\external\libjpeg-turbo;..\..\external\libpng;..\..\external\libjpeg-turbo;..\..</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\external\freetype;..\..\external\freetype\include;..\..\external\freetype\include\freetype;..\..\external\zlib;..\..\external\minizip;..\..\external\minizip\compat;..\..\include\external\libpng;..\..\include\external\libjpeg-turbo;..\..\external\libpng;..\..\external\libjpeg-turbo;..\..</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
@@ -1884,7 +1884,7 @@
       </PrecompiledHeader>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;HAVE_ZLIB;ZLIB_COMPAT;WIN32;PACKAGE;FT2_BUILD_LIBRARY=1;FT_ERR_PREFIX=FT_Err_;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\include;..\..\external\freetype\include;..\..\external\freetype\include\freetype;..\..\external\zlib;..\..\external\minizip;..\..\external\minizip\compat;..\..\include\external\libpng;..\..\include\external\libjpeg-turbo;..\..\external\libpng;..\..\external\libjpeg-turbo;..\..</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\external\freetype;..\..\external\freetype\include;..\..\external\freetype\include\freetype;..\..\external\zlib;..\..\external\minizip;..\..\external\minizip\compat;..\..\include\external\libpng;..\..\include\external\libjpeg-turbo;..\..\external\libpng;..\..\external\libjpeg-turbo;..\..</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>true</ConformanceMode>

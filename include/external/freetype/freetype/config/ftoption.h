@@ -1,0 +1,51 @@
+#ifndef FTOPTION_H_
+#define FTOPTION_H_
+
+#include <ft2build.h>
+
+FT_BEGIN_HEADER
+#define FT_INTERNAL_CALC_H "freetype/internal/ftcalc.h"
+#define FT_CONFIG_OPTION_ENVIRONMENT_PROPERTIES
+#undef FT_CONFIG_OPTION_FORCE_INT64
+#define FT_RENDER_POOL_SIZE  16384L
+#define FT_MAX_MODULES  32
+#define TT_CONFIG_OPTION_SFNT_NAMES
+#define TT_CONFIG_CMAP_FORMAT_4
+#ifndef TT_CONFIG_OPTION_MAX_RUNNABLE_OPCODES
+#define TT_CONFIG_OPTION_MAX_RUNNABLE_OPCODES  1000000L
+#endif
+#define T1_MAX_DICT_DEPTH  5
+#define T1_MAX_SUBRS_CALLS  16
+#define T1_MAX_CHARSTRINGS_OPERANDS  256
+  /*
+   * Check CFF darkening parameters.  The checks are the same as in function
+   * `cff_property_set` in file `cffdrivr.c`.
+   */
+#if CFF_CONFIG_OPTION_DARKENING_PARAMETER_X1 < 0   || \
+    CFF_CONFIG_OPTION_DARKENING_PARAMETER_X2 < 0   || \
+    CFF_CONFIG_OPTION_DARKENING_PARAMETER_X3 < 0   || \
+    CFF_CONFIG_OPTION_DARKENING_PARAMETER_X4 < 0   || \
+                                                      \
+    CFF_CONFIG_OPTION_DARKENING_PARAMETER_Y1 < 0   || \
+    CFF_CONFIG_OPTION_DARKENING_PARAMETER_Y2 < 0   || \
+    CFF_CONFIG_OPTION_DARKENING_PARAMETER_Y3 < 0   || \
+    CFF_CONFIG_OPTION_DARKENING_PARAMETER_Y4 < 0   || \
+                                                      \
+    CFF_CONFIG_OPTION_DARKENING_PARAMETER_X1 >        \
+      CFF_CONFIG_OPTION_DARKENING_PARAMETER_X2     || \
+    CFF_CONFIG_OPTION_DARKENING_PARAMETER_X2 >        \
+      CFF_CONFIG_OPTION_DARKENING_PARAMETER_X3     || \
+    CFF_CONFIG_OPTION_DARKENING_PARAMETER_X3 >        \
+      CFF_CONFIG_OPTION_DARKENING_PARAMETER_X4     || \
+                                                      \
+    CFF_CONFIG_OPTION_DARKENING_PARAMETER_Y1 > 500 || \
+    CFF_CONFIG_OPTION_DARKENING_PARAMETER_Y2 > 500 || \
+    CFF_CONFIG_OPTION_DARKENING_PARAMETER_Y3 > 500 || \
+    CFF_CONFIG_OPTION_DARKENING_PARAMETER_Y4 > 500
+#error "Invalid CFF darkening parameters!"
+#endif
+
+
+FT_END_HEADER
+
+#endif /* FTOPTION_H_ */

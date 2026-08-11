@@ -118,6 +118,15 @@
     <Filter Include="berialdraw\device\xcb">
       <UniqueIdentifier>{7a1e70be-10fc-4eb0-ab2f-92182131b177}</UniqueIdentifier>
     </Filter>
+    <Filter Include="berialdraw\external\png">
+      <UniqueIdentifier>{02e2ae4d-f093-48a2-be64-e325232ab97f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\external\jpeg">
+      <UniqueIdentifier>{071c81d0-bb2d-469a-b8b6-759ae17784f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="berialdraw\external\freetype">
+      <UniqueIdentifier>{d32f2851-4ea8-4636-85ab-aff7b8e13c05}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\shape\text_box.cpp">
@@ -1695,12 +1704,6 @@
     <ClInclude Include="..\..\external\freetype\include\freetype\config\ftheader.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\external\freetype\include\freetype\config\ftmodule.h">
-      <Filter>external\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\external\freetype\include\freetype\config\ftoption.h">
-      <Filter>external\freetype\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\external\freetype\include\freetype\config\ftstdlib.h">
       <Filter>external\freetype\include</Filter>
     </ClInclude>
@@ -1851,18 +1854,6 @@
     <ClInclude Include="..\..\include\image\image_cache.hpp">
       <Filter>berialdraw\image</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\external\libjpeg-turbo\jconfig.h">
-      <Filter>berialdraw\external</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\external\libjpeg-turbo\jconfigint.h">
-      <Filter>berialdraw\external</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\external\libjpeg-turbo\jversion.h">
-      <Filter>berialdraw\external</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\external\libpng\pnglibconf.h">
-      <Filter>berialdraw\external</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\shape\image.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
@@ -1895,6 +1886,24 @@
     </ClInclude>
     <ClInclude Include="..\..\include\shape\star.hpp">
       <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\external\libjpeg-turbo\jconfig.h">
+      <Filter>berialdraw\external\jpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\external\libjpeg-turbo\jconfigint.h">
+      <Filter>berialdraw\external\jpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\external\libjpeg-turbo\jversion.h">
+      <Filter>berialdraw\external\jpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\external\libpng\pnglibconf.h">
+      <Filter>berialdraw\external\png</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\external\freetype\freetype\config\ftmodule.h">
+      <Filter>berialdraw\external\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\external\freetype\freetype\config\ftoption.h">
+      <Filter>berialdraw\external\freetype</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

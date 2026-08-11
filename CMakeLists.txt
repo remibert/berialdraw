@@ -345,6 +345,7 @@ set(SRCS_LIB
 )
 
 set(INCLUDES_LIB 
+	"${CMAKE_CURRENT_SOURCE_DIR}/include/external/freetype;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/external/freetype/include;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/external/freetype/include/freetype;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/external/zlib;"
@@ -362,7 +363,7 @@ set(INCLUDES_LIB
 # Static library
 add_library                (${BD_LIB} STATIC  ${SRCS_DEVICE} ${SRCS_LIB} )
 target_include_directories (${BD_LIB} PRIVATE ${INCLUDES_LIB})
-target_compile_definitions (${BD_LIB} PRIVATE ${COMPILE_DEF} 
+target_compile_definitions (${BD_LIB} PRIVATE ${COMPILE_DEF}
 	-DPACKAGE=1
 	-DHAVE_PTHREAD_SETSPECIFIC=1
 	-DFT2_BUILD_LIBRARY=1
