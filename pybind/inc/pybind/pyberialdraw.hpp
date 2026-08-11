@@ -15,6 +15,17 @@
 
 namespace py = pybind11;
 
+// ============================================================================
+// GIL Management Macro
+// ============================================================================
+// Release the GIL during C++ calls to allow other Python threads to run
+// Usage: .def("method", &Class::method, PYBIND11_RELEASE_GIL)
+#define PYBIND11_RELEASE_GIL py::call_guard<py::gil_scoped_release>()
+
+// ============================================================================
+// Helper Templates
+// ============================================================================
+
 // Generic helper templates to factorize repeated property bindings
 // These avoid lambda capture issues by using member pointers directly and a simple setter lambda
 

@@ -9,12 +9,12 @@ void bind_table_view(pybind11::module_& m) {
         BIND_EVENT_PROPERTY(berialdraw::TableView, berialdraw::KeyEvent, on_key_down)
         BIND_EVENT_PROPERTY(berialdraw::TableView, berialdraw::TouchEvent, on_touch)
         // Methods
-        .def("set_widget", &berialdraw::TableView::set_widget)
-        .def("get_widget", &berialdraw::TableView::get_widget, pybind11::return_value_policy::reference_internal)
-        .def("remove_widget", &berialdraw::TableView::remove_widget)
-        .def("clear", &berialdraw::TableView::clear)
-        .def("row_count", &berialdraw::TableView::row_count)
-        .def("column_count", &berialdraw::TableView::column_count)
+        .def("set_widget", &berialdraw::TableView::set_widget, PYBIND11_RELEASE_GIL)
+        .def("get_widget", &berialdraw::TableView::get_widget, pybind11::return_value_policy::reference_internal, PYBIND11_RELEASE_GIL)
+        .def("remove_widget", &berialdraw::TableView::remove_widget, PYBIND11_RELEASE_GIL)
+        .def("clear", &berialdraw::TableView::clear, PYBIND11_RELEASE_GIL)
+        .def("row_count", &berialdraw::TableView::row_count, PYBIND11_RELEASE_GIL)
+        .def("column_count", &berialdraw::TableView::column_count, PYBIND11_RELEASE_GIL)
         .def("load", [](berialdraw::TableView& self, pybind11::list py_data) {
             // Convert Python list of lists to table cells
             for (uint16_t row = 0; row < (uint16_t)py_data.size(); row++) {

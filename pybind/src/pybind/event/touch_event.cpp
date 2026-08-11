@@ -12,6 +12,6 @@ void bind_touch_event(pybind11::module_& m) {
              pybind11::arg("position"), pybind11::arg("state"))
         .def("position", &berialdraw::TouchEvent::position, 
              pybind11::return_value_policy::reference_internal)
-        .def("state", &berialdraw::TouchEvent::state)
+        .def("state", &berialdraw::TouchEvent::state, PYBIND11_RELEASE_GIL)
         .def_static("type_id", &berialdraw::TouchEvent::type_id);
 }

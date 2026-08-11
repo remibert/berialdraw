@@ -17,10 +17,10 @@ void bind_scroll_view(pybind11::module_& m) {
         static_cast<void (berialdraw::ScrollView::*)(berialdraw::Coord, berialdraw::Coord)>(&berialdraw::ScrollView::scroll_position),
         "Scroll position as (x, y) tuple");
 
-    cls.def("content_size", &berialdraw::ScrollView::content_size)
-       .def("marged_size", &berialdraw::ScrollView::marged_size)
-       .def("scroll_focus", &berialdraw::ScrollView::scroll_focus)
-       .def("scroll_area", &berialdraw::ScrollView::scroll_area)
+    cls.def("content_size", &berialdraw::ScrollView::content_size, PYBIND11_RELEASE_GIL)
+       .def("marged_size", &berialdraw::ScrollView::marged_size, PYBIND11_RELEASE_GIL)
+       .def("scroll_focus", &berialdraw::ScrollView::scroll_focus, PYBIND11_RELEASE_GIL)
+       .def("scroll_area", &berialdraw::ScrollView::scroll_area, PYBIND11_RELEASE_GIL)
        // Event system integration
        BIND_EVENT_PROPERTY(berialdraw::ScrollView, berialdraw::ClickEvent, on_click)
        BIND_EVENT_PROPERTY(berialdraw::ScrollView, berialdraw::ScrollEvent, on_scroll)

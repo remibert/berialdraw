@@ -37,9 +37,9 @@ void bind_entry(pybind11::module_& m) {
         })
         .def("select_text", &berialdraw::Entry::select_text,
             pybind11::arg("from"), pybind11::arg("to"))
-        .def("select_all", &berialdraw::Entry::select_all)
-        .def("select_none", &berialdraw::Entry::select_none)
-        .def("append_key", &berialdraw::Entry::append_key)
+        .def("select_all", &berialdraw::Entry::select_all, PYBIND11_RELEASE_GIL)
+        .def("select_none", &berialdraw::Entry::select_none, PYBIND11_RELEASE_GIL)
+        .def("append_key", &berialdraw::Entry::append_key, PYBIND11_RELEASE_GIL)
         
         // Direct method for now (Entry has different signature than generic event system)
         .def("on_key_down", &berialdraw::Entry::on_key_down,

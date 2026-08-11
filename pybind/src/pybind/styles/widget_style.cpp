@@ -9,7 +9,7 @@ void bind_widget_style(pybind11::module_& m) {
     cls.def_property("column", 
         static_cast<uint16_t (berialdraw::WidgetStyle::*)() const>(&berialdraw::WidgetStyle::column),
         static_cast<void (berialdraw::WidgetStyle::*)(uint16_t)>(&berialdraw::WidgetStyle::column), "Column position");
-    cls.def("cell", &berialdraw::WidgetStyle::cell);
+    cls.def("cell", &berialdraw::WidgetStyle::cell, PYBIND11_RELEASE_GIL);
     cls.def_property("size_policy", 
         static_cast<berialdraw::SizePolicy (berialdraw::WidgetStyle::*)() const>(&berialdraw::WidgetStyle::size_policy),
         static_cast<void (berialdraw::WidgetStyle::*)(berialdraw::SizePolicy)>(&berialdraw::WidgetStyle::size_policy), "Size policy");

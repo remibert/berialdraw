@@ -10,7 +10,7 @@ void bind_select_event(pybind11::module_& m) {
     pybind11::class_<berialdraw::SelectEvent, berialdraw::Event>(m, "SelectEvent")
         .def(pybind11::init<berialdraw::SelectEvent::Status, const berialdraw::Point&, berialdraw::Widget*>(), 
              pybind11::arg("status"), pybind11::arg("position"), pybind11::arg("widget") = nullptr)
-        .def("status", &berialdraw::SelectEvent::status)
+        .def("status", &berialdraw::SelectEvent::status, PYBIND11_RELEASE_GIL)
         .def("position", &berialdraw::SelectEvent::position, 
              pybind11::return_value_policy::reference_internal)
         .def_static("type_id", &berialdraw::SelectEvent::type_id);
