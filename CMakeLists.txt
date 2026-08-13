@@ -20,7 +20,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(WIN32)
 	message(STATUS "Architecture Windows")
-	set(SRCS_DEVICE src/device/device_win32.cpp src/device/clipboard_win32.cpp)
+	set(SRCS_DEVICE src/device/system_time.cpp src/device/timer_manager_base.cpp src/device/device_win32.cpp src/device/clipboard_win32.cpp src/device/timer_manager_win32.cpp)
 	set(DEVICE_LIBRARIES "")
 	add_definitions(-DUNICODE -D_UNICODE)
 elseif(APPLE)
@@ -36,7 +36,7 @@ elseif(APPLE)
 	endif()
 
 	# Use native Cocoa device implementation on macOS
-	set(SRCS_DEVICE src/device/device_cocoa.mm src/device/clipboard_cocoa.mm)
+	set(SRCS_DEVICE src/device/system_time.cpp src/device/timer_manager_base.cpp src/device/device_cocoa.mm src/device/clipboard_cocoa.mm src/device/timer_manager_cocoa.cpp)
 	set(DEVICE_LIBRARIES "-framework Cocoa -framework CoreGraphics")
 
 	# Set proper compilation flags for .mm files
@@ -55,14 +55,14 @@ else()
 		message(STATUS "Using SDL3 backend")
 		set(SDL3_STATIC ON)
 		find_package(SDL3 REQUIRED)
-		set(SRCS_DEVICE src/device/device_sdl.cpp src/device/clipboard_sdl.cpp)
+		set(SRCS_DEVICE src/device/system_time.cpp src/device/timer_manager_base.cpp src/device/device_sdl.cpp src/device/clipboard_sdl.cpp src/device/timer_manager_sdl.cpp)
 		set(DEVICE_LIBRARIES ${SDL3_LIBRARIES})
 		add_definitions(-DUSE_SDL_DEVICE=1)
 	else()
 		message(STATUS "Using XCB (X11) backend")
 		find_package(PkgConfig REQUIRED)
 		pkg_check_modules(XCB REQUIRED xcb xcb-image xcb-keysyms xcb-icccm)
-		set(SRCS_DEVICE src/device/device_xcb.cpp src/device/clipboard_xcb.cpp)
+		set(SRCS_DEVICE src/device/system_time.cpp src/device/timer_manager_base.cpp src/device/device_xcb.cpp src/device/clipboard_xcb.cpp src/device/timer_manager_xcb.cpp src/device/timer_manager_wayland.cpp)
 		set(DEVICE_LIBRARIES ${XCB_LIBRARIES})
 		include_directories(${XCB_INCLUDE_DIRS})
 		add_definitions(-DUSE_XCB_DEVICE=1)
@@ -97,6 +97,7 @@ set(SRCS_LIB
 	src/widget/table_view.cpp
 	src/widget/list.cpp
 	src/widget/list_item.cpp
+	src/widget/timer.cpp
 
 	src/styles/invalidator.cpp
 	src/styles/border_style.cpp
@@ -126,6 +127,7 @@ set(SRCS_LIB
 	src/styles/grid_style.cpp
 	src/styles/cell_style.cpp
 	src/styles/cells_style.cpp
+	src/styles/timer_style.cpp
 	src/styles/style_item.cpp
 	src/styles/colors.cpp
 
@@ -217,6 +219,7 @@ set(SRCS_LIB
 	src/tool/zip_directory.cpp
 	src/tool/zip_archive.cpp
 	src/tool/file_tools.cpp
+	src/tool/timer_manager.cpp
 
 	src/event/event.cpp
 	src/event/key_event.cpp
@@ -227,6 +230,7 @@ set(SRCS_LIB
 	src/event/scroll_event.cpp
 	src/event/slide_event.cpp
 	src/event/focus_event.cpp
+	src/event/timer_event.cpp
 	src/event/notifier.cpp
 
 	src/chart/line_chart.cpp

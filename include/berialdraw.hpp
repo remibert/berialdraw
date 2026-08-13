@@ -100,6 +100,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "styles/grid_style.hpp"
 #include "styles/cell_style.hpp"
 #include "styles/cells_style.hpp"
+#include "styles/timer_style.hpp"
 #include "styles/styles.hpp"
 #include "styles/style_names.hpp"
 #include "styles/style_item.hpp"
@@ -115,6 +116,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "event/select_event.hpp"
 #include "event/slide_event.hpp"
 #include "event/focus_event.hpp"
+#include "event/timer_event.hpp"
 #include "event/caller.hpp"
 #include "event/notifier.hpp"
 
@@ -150,6 +152,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "tool/exporter.hpp"
 #include "tool/svg_out.hpp"
 #include "tool/file.hpp"
+#include "tool/timer_manager.hpp"
 
 // Device
 #include "device/device.hpp"
@@ -182,6 +185,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "widget/table_view.hpp"
 #include "widget/list_item.hpp"
 #include "widget/list.hpp"
+#include "widget/timer.hpp"
 
 #if defined(WIN32)
 	#define Polygon Polygon_

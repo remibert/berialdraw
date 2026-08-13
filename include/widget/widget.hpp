@@ -120,6 +120,7 @@ namespace berialdraw
 				UIManager::notifier()->bind(new FunctionCaller<EVENT>(function, this));
 			}
 		}
+
 		/** Return the widget hovered */
 		virtual Widget * hovered(const Region & parent_region, const Point & position);
 

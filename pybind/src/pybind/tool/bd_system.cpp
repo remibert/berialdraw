@@ -2,7 +2,7 @@
 
 namespace py = pybind11;
 
-// Callback using py::print
+// Callback using py::print with fallback to C printf if GIL unavailable
 static void pybind_printf_callback(const char* format, va_list args)
 {
 	// Create a copy to calculate the size
@@ -18,8 +18,14 @@ static void pybind_printf_callback(const char* format, va_list args)
 		std::string buffer(size + 1, '\0');
 		vsnprintf(&buffer[0], size + 1, format, args);
 		
-		// Use py::print without extra newline (already in format)
-		py::print(buffer, py::arg("end") = "");
+		// Try py::print first, fallback to printf if Python is not available (e.g., during shutdown)
+		try {
+			py::print(buffer, py::arg("end") = "");
+		}
+		catch (...) {
+			// Fallback to C printf if py::print fails (Python shutdown, GIL not available, etc.)
+			printf("%s", buffer.c_str());
+		}
 		fflush(stdout);
 	}
 }

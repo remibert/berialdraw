@@ -106,6 +106,7 @@ Style (abstract: serialize/unserialize/property_name)
 │   │   │   ├── Circle
 │   │   │   ├── Cross
 │   │   │   ├── Square
+│   │   │   ├── Star
 │   │   │   └── Triangle
 │   │   ├── Rect : Shape, RoundStyle
 │   │   ├── Polygon : Shape

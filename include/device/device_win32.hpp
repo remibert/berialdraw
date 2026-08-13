@@ -67,7 +67,9 @@ namespace berialdraw
 
 		/** Quit the application */
 		void quit();
-
+	/** Get the window handle
+	@return The native window handle (HWND) */
+	void * hwnd() const { return m_hwnd; }
 		/** Show the console */
 		static void show_console();
 	private:

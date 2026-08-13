@@ -20,13 +20,14 @@ namespace berialdraw
 		/** Destructor */
 		virtual ~Clipboard();
 
-		/** Set clipboard provider for system clipboard operations
-	@param provider Unique pointer to ClipboardProvider implementation (device)
-	@note Takes ownership of the pointer */
-	void set_provider(std::unique_ptr<ClipboardProvider> provider);
 		/** Get clipboard provider
 		@return Pointer to ClipboardProvider or nullptr */
 		ClipboardProvider * provider() const;
+
+		/** Set clipboard provider for system clipboard operations
+		@param provider Unique pointer to ClipboardProvider implementation (device)
+		@note Takes ownership of the pointer */
+		void set_provider(std::unique_ptr<ClipboardProvider> provider);
 
 		/** Copy text to internal clipboard
 		@param text Text to copy */
@@ -69,8 +70,8 @@ namespace berialdraw
 	protected:
 /// @cond DOXYGEN_IGNORE
 		ClipboardType m_type;
-	std::unique_ptr<String> m_data;
-	std::unique_ptr<ClipboardProvider> m_provider;
+		std::unique_ptr<String> m_data;
+		std::unique_ptr<ClipboardProvider> m_provider;
 /// @endcond
 	};
 

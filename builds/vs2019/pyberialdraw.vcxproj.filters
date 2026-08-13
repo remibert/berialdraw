@@ -3,6 +3,7 @@
   <ItemGroup>
     <None Include="..\..\pybind\README.md" />
     <None Include="..\..\pybind\test.py" />
+    <None Include="..\..\pybind\clock.py" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="pybind">
@@ -346,6 +347,15 @@
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\shape\star.cpp">
       <Filter>pybind\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\widget\timer.cpp">
+      <Filter>pybind\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\event\timer_event.cpp">
+      <Filter>pybind\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\styles\timer_style.cpp">
+      <Filter>pybind\styles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -283,6 +283,12 @@ bool DeviceXcb::dispatch(bool blocking)
 		event = xcb_poll_for_event(conn);
 	}
 
+	// Check timers for expired events
+	if (UIManager::is_initialized() && UIManager::timer_manager())
+	{
+		UIManager::timer_manager()->check_timers();
+	}
+
 	if (event)
 	{
 		uint8_t response_type = event->response_type & ~0x80;

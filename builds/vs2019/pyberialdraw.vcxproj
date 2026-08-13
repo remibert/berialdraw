@@ -19,10 +19,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\pybind\clock.py" />
     <None Include="..\..\pybind\README.md" />
     <None Include="..\..\pybind\test.py" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\pybind\src\pybind\event\timer_event.cpp" />
     <ClCompile Include="..\..\pybind\src\pybind\shape\star.cpp" />
     <ClCompile Include="..\..\pybind\src\pybind\styles\padding_style.cpp" />
     <ClCompile Include="..\..\pybind\src\pybind\styles\radio_style.cpp">
@@ -31,6 +33,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\styles\timer_style.cpp" />
     <ClCompile Include="..\..\pybind\src\pybind\tool\json.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
@@ -613,6 +616,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\widget\timer.cpp" />
     <ClCompile Include="..\..\pybind\src\pybind\widget\uimanager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>

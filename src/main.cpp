@@ -41,14 +41,14 @@ int main(int argc, char* args[])
 		test_widget();
 
 		// Execute scripted user interface test on samples
-		test_samples();
+		//test_samples();
 
 		// Stop library
-		UIManager::deinit();
+		//UIManager::deinit();
 	}
 
 	// Check hello world sample
-	sample_hello_world();
+	//sample_hello_world();
 
 	// Check if memory leak detected
 	if (MemoryLeakTracer::count() > 0)

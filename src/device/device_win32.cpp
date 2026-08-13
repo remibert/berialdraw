@@ -1,6 +1,7 @@
 ﻿#include "berialdraw_imp.hpp"
 #include "device/device_win32.hpp"
 #include "device/clipboard_win32.hpp"
+#include "device/timer_manager_win32.hpp"
 #include "shellscalingapi.h"
 #include <windowsx.h>
 
@@ -463,6 +464,18 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM w_param, LPARAM 
 
 				// Release mouse capture
 				ReleaseCapture();
+			}
+			break;
+
+		case WM_TIMER:
+			// Handle timer events - cast to Win32 implementation to access on_timer_message()
+			if (UIManager::is_initialized() && UIManager::timer_manager())
+			{
+				TimerManagerWin32* win32_timer = dynamic_cast<TimerManagerWin32*>(UIManager::timer_manager());
+				if (win32_timer)
+				{
+					win32_timer->on_timer_message((uint32_t)w_param);
+				}
 			}
 			break;
 

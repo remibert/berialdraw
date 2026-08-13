@@ -1027,6 +1027,39 @@
     <ClCompile Include="..\..\src\shape\star.cpp">
       <Filter>berialdraw\shape</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\event\timer_event.cpp">
+      <Filter>berialdraw\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\timer_manager_cocoa.cpp">
+      <Filter>berialdraw\device\cocoa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\timer_manager_sdl.cpp">
+      <Filter>berialdraw\device\sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\timer_manager_wayland.cpp">
+      <Filter>berialdraw\device\wayland</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\timer_manager_win32.cpp">
+      <Filter>berialdraw\device\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\timer_manager_xcb.cpp">
+      <Filter>berialdraw\device\xcb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\timer.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\timer_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\timer_manager.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\system_time.cpp">
+      <Filter>berialdraw\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\timer_manager_base.cpp">
+      <Filter>berialdraw\device</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\config.h">
@@ -1904,6 +1937,30 @@
     </ClInclude>
     <ClInclude Include="..\..\include\external\freetype\freetype\config\ftoption.h">
       <Filter>berialdraw\external\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\device\timer_manager_win32.hpp">
+      <Filter>berialdraw\device\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\device\timer_manager_cocoa.hpp">
+      <Filter>berialdraw\device\cocoa</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\device\timer_manager_sdl.hpp">
+      <Filter>berialdraw\device\sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\device\timer_manager_wayland.hpp">
+      <Filter>berialdraw\device\wayland</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\device\timer_manager_xcb.hpp">
+      <Filter>berialdraw\device\xcb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\widget\timer.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\styles\timer_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\event\timer_event.hpp">
+      <Filter>berialdraw\event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -18,7 +18,9 @@ std::unique_ptr<ArcCache>    UIManager::m_arc_cache;
 std::unique_ptr<Settings>    UIManager::m_settings;
 std::unique_ptr<Clipboard>   UIManager::m_clipboard;
 std::unique_ptr<ImageCache>  UIManager::m_image_cache;
+std::unique_ptr<TimerManager> UIManager::m_timer_manager;
 bool          UIManager::m_initialized= false;
+bool          UIManager::m_is_shutting_down = false;
 
 inline Dim adapt_scale(uint32_t scale)
 {
@@ -70,6 +72,7 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 		m_renderer     = std::make_unique<Renderer>(adapt_size(width,scale), adapt_size(height,scale), scale);
 		m_arc_cache    = std::make_unique<ArcCache>();
 		m_image_cache  = std::make_unique<ImageCache>();
+		m_timer_manager.reset(TimerManager::create(device));
 		m_initialized = true;
 	}
 	else
@@ -80,6 +83,7 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 
 void UIManager::deinit()
 {
+	m_is_shutting_down = true;
 	m_desktop.reset();
 	delete m_device;
 	m_renderer.reset();
@@ -94,9 +98,11 @@ void UIManager::deinit()
 	m_arc_cache.reset();
 	m_clipboard.reset();
 	m_image_cache.reset();
+	m_timer_manager.reset();
 	m_settings.reset();
 
 	m_initialized = false;
+	m_is_shutting_down = false;
 	m_device      = 0;
 	m_exporter    = 0;
 }
@@ -225,4 +231,17 @@ Clipboard * UIManager::clipboard()
 {
 	if (m_clipboard == 0) bd_printf("UIManager::clipboard no existing");
 	return m_clipboard.get();
+}
+
+/** Return the timer manager */
+TimerManager * UIManager::timer_manager()
+{
+	if (m_timer_manager == 0) bd_printf("UIManager::timer_manager no existing");
+	return m_timer_manager.get();
+}
+
+/** Indicates if the uimanager is shutting down or not */
+bool UIManager::is_shutting_down()
+{
+	return m_is_shutting_down;
 }

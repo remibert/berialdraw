@@ -36,6 +36,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/event/focus_event.cpp
 	src/pybind/event/slide_event.cpp
 	src/pybind/event/key_event.cpp
+	src/pybind/event/timer_event.cpp
 	src/pybind/event/event_managers.cpp
 	src/pybind/font/font.cpp
 	src/pybind/font/fonts.cpp
@@ -74,6 +75,7 @@ src/pybind/shape/star.cpp
 	src/pybind/styles/edit_style.cpp
 	src/pybind/styles/icon_style.cpp
 	src/pybind/styles/picture_style.cpp
+	src/pybind/styles/timer_style.cpp
 	src/pybind/styles/line_style.cpp
 	src/pybind/styles/pie_style.cpp
 	src/pybind/styles/progress_bar_style.cpp
@@ -123,6 +125,7 @@ src/pybind/shape/star.cpp
 	src/pybind/widget/radio.cpp
 	src/pybind/widget/checkbox.cpp
 	src/pybind/widget/uimanager.cpp
+	src/pybind/widget/timer.cpp
 	src/pybind/widget/window.cpp
 )
 

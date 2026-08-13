@@ -934,6 +934,12 @@ bool berialdraw::DeviceCocoaImpl::dispatch(bool blocking)
 		{
 			[NSApp updateWindows];
 
+			// Check timers for expired events
+			if (UIManager::is_initialized() && UIManager::timer_manager())
+			{
+				UIManager::timer_manager()->check_timers();
+			}
+
 			// Sync clipboard from system (bidirectional clipboard support)
 			if (UIManager::clipboard())
 			{

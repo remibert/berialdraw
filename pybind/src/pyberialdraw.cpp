@@ -1,5 +1,8 @@
 #include "pybind/pyberialdraw.hpp"
 
+namespace py = pybind11;
+using namespace berialdraw;
+
 PYBIND11_MODULE(pyberialdraw, m) {
     m.doc() = "Berialdraw Python bindings";
     
@@ -57,6 +60,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_cell_style(m);
     bind_cells_style(m);
     bind_picture_style(m);
+    bind_timer_style(m);
     
     // Bind framebuf classes
     bind_framebuf(m);
@@ -94,6 +98,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_scroll_event(m);
     bind_focus_event(m);
     bind_touch_event(m);
+    bind_timer_event(m);
     bind_event_managers(m);
     bind_notifier(m);
     
@@ -122,5 +127,23 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_picture(m);
     bind_keyboard(m);
     bind_desktop(m);
+    bind_timer(m);
     bind_uimanager(m);
+    
+    // Register atexit handler to automatically call UIManager.deinit() on exit
+    try 
+    {
+        py::module_ atexit = py::module_::import("atexit");
+        atexit.attr("register")(py::cpp_function([]() 
+        {
+            if (UIManager::is_initialized()) 
+            {
+                UIManager::deinit();
+            }
+        }));
+    }
+    catch (...)
+    {
+        // If atexit registration fails, ignore - it's not critical
+    }
 }

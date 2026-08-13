@@ -293,6 +293,7 @@ void bind_grid_style(pybind11::module_& m);
 void bind_cell_style(pybind11::module_& m);
 void bind_cells_style(pybind11::module_& m);
 void bind_picture_style(pybind11::module_& m);
+void bind_timer_style(pybind11::module_& m);
 void bind_padding_style(pybind11::module_& m);
 
 // Framebuf bindings
@@ -332,6 +333,7 @@ void bind_slide_event(pybind11::module_& m);
 void bind_scroll_event(pybind11::module_& m);
 void bind_focus_event(pybind11::module_& m);
 void bind_touch_event(pybind11::module_& m);
+void bind_timer_event(pybind11::module_& m);
 void bind_event_managers(pybind11::module_& m);
 void bind_notifier(pybind11::module_& m);
 
@@ -360,5 +362,6 @@ void bind_icon(pybind11::module_& m);
 void bind_picture(pybind11::module_& m);
 void bind_keyboard(pybind11::module_& m);
 void bind_desktop(pybind11::module_& m);
+void bind_timer(pybind11::module_& m);
 void bind_uimanager(pybind11::module_& m);
 void redirect_print();

@@ -1,20 +1,22 @@
 ﻿import time
-import atexit
 import sys
 import os
-def cleanup_on_exit():
-	print("end")
-	#time.sleep(1)
 
-atexit.register(cleanup_on_exit)
-
-sys.path.insert(0, r"Z:\tmp\pyberialdraw\x64\Debug")
-from pyberialdraw import *
+sys.path.insert(0, r"Z:\tmp\pyberialdraw\x64\Release")
+try:
+	from pyberialdraw import *
+except ImportError as err:
+	import time
+	print(f"Import error: {err}")
+	time.sleep(1)
 
 device = DeviceScreen("Sample python")
+
 device.position = (100,100)
-#UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "./resources;../resources")
-UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "zip://resources.zip/resources")
+
+UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "./resources;../resources")
+#UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "zip://resources.zip/resources")
+
 UIManager.style = "pearl"
 UIManager.appearance = "light"
 UIManager.palette = PALETTE_LIME
@@ -38,7 +40,6 @@ class Dialog:
 		self.layout = Column(self.scroll)
 		self.label = Label(self.layout)
 		self.label.text = "hello"
-		#UIManager.clipboard = "toto-"
 
 		self.first_name = Edit(self.layout)
 		self.first_name.text = ""
@@ -156,56 +157,8 @@ class Dialog2:
 		]
 		UIManager.notifier().play_script(script)
 
-class Dialog3:
-	def __init__(self):
-		self.window = Window()
-		self.layout = Column(self.window)
-		
-		# Titre
-		self.title = Label(self.layout)
-		self.title.text = "Table View Example"
-		
-		# Créer une table view
-		self.table = TableView(self.layout)
-		self.table.extend = Extend.EXTEND_ALL
-		
-		# Définir les colonnes
-		self.table.columns = ["Nom", "Prénom", "Âge", "Ville"]
-		
-		# Ajouter les données du tableau
-		data = [
-			["Dupont", "Jean", "28", "Paris"],
-			["Martin", "Marie", "35", "Lyon"],
-			["Bernard", "Pierre", "42", "Marseille"],
-			["Thomas", "Sophie", "31", "Toulouse"],
-			["Robert", "Luc", "55", "Nice"],
-			["Richard", "Anne", "27", "Nantes"],
-			["Petit", "Claude", "48", "Strasbourg"],
-			["Durand", "Isabelle", "33", "Montpellier"],
-		]
-		
-		for row in data:
-			self.table.add_row(row)
-		
-		# Événements
-		self.table.on_click = self.on_table_row_clicked
-		self.table.on_key_down = self.on_key_pressed
-		
-		# Bouton pour afficher les détails de la sélection
-		self.info_label = Label(self.layout)
-		self.info_label.text = "Cliquez sur une ligne"
-
-	def on_table_row_clicked(self, widget, event):
-		print(f"Row clicked at position {event.position}")
-		self.info_label.text = f"Sélection: {event.position}"
-
-	def on_key_pressed(self, widget, event):
-		print(f"Key on table: {key_to_str(event.key)}")
-
-
 dlg = Dialog()
 # Décommenter l'une des lignes suivantes pour tester Dialog2 ou Dialog3:
 # dlg = Dialog2()
 # dlg = Dialog3()
-print("hello")
 UIManager.desktop().mainloop()

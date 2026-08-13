@@ -4,6 +4,7 @@ namespace berialdraw
 	class Window;
 	class Renderer;
 	class Settings;
+	class TimerManager;
 
 	/** The UIManager class coordinates the display and behavior of widgets. 
 	It handles events, manages widget lifecycles, and ensures consistent rendering across the application. */
@@ -72,13 +73,20 @@ namespace berialdraw
 		/** Return the clipboard manager */
 		static Clipboard * clipboard();
 
+		/** Return the timer manager */
+		static TimerManager * timer_manager();
+
 		/** Indicates if the UIManager is initialized or not */
 		static bool is_initialized();
+
+		/** Indicates if the UIManager is shutting down (deinit in progress) */
+		static bool is_shutting_down();
 	protected:
 /// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		UIManager& operator=(const UIManager& other) = delete;
 		static bool          m_initialized;
+		static bool          m_is_shutting_down;
 		static Device      * m_device;
 		static std::unique_ptr<Renderer>    m_renderer;
 		static std::unique_ptr<Framebuf>    m_framebuf;
@@ -93,7 +101,6 @@ namespace berialdraw
 		static std::unique_ptr<ArcCache>    m_arc_cache;
 		static std::unique_ptr<Settings>    m_settings;
 		static std::unique_ptr<Clipboard>   m_clipboard;
-		static std::unique_ptr<ImageCache>  m_image_cache;
-/// @endcond
+		static std::unique_ptr<ImageCache>  m_image_cache;	static std::unique_ptr<TimerManager> m_timer_manager;/// @endcond
 	};
 }

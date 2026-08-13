@@ -17,6 +17,14 @@ template<> void bridge_callback<berialdraw::KeyEvent>(berialdraw::Widget* widget
 	}
 }
 
+// Explicit instantiation for TimerEvent (no focus check needed for timers)
+template<> void bridge_callback<berialdraw::TimerEvent>(berialdraw::Widget* widget, const berialdraw::TimerEvent& event) {
+	auto manager = EventSystemManager::instance().get_manager<berialdraw::TimerEvent>(widget);
+	if (manager && !manager->empty()) {
+		manager->trigger(widget, event);
+	}
+}
+
 
 // Automatic cleanup function called by Python at shutdown
 void automatic_cleanup() {

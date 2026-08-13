@@ -79,6 +79,8 @@
 
 #include "tool/tools.hpp"
 #include "tool/chronometer.hpp"
+#include "device/system_time.hpp"
+#include "tool/timer_manager.hpp"
 #include "tool/item.hpp"
 #include "tool/item_collection.hpp"
 #include "tool/item_variant.hpp"

@@ -121,6 +121,10 @@ void bridge_callback(berialdraw::Widget* widget, const EventType& event) {
 template<>
 void bridge_callback<berialdraw::KeyEvent>(berialdraw::Widget* widget, const berialdraw::KeyEvent& event);
 
+// Declaration of specialization for TimerEvent (defined in event_managers.cpp)
+template<>
+void bridge_callback<berialdraw::TimerEvent>(berialdraw::Widget* widget, const berialdraw::TimerEvent& event);
+
 // Macros to simplify creation of event properties
 #define BIND_EVENT_PROPERTY(WidgetClass, EventType, property_name) \
     .def_property(#property_name, \
