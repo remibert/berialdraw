@@ -209,9 +209,8 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 	#include "device/device_cocoa.hpp"
 	#define DeviceScreen DeviceCocoa
 #else
-	//#include <SDL3/SDL.h> 
-	#include "device/device_sdl.hpp"
-	#define DeviceScreen DeviceSdl
+	#include "device/device_xcb.hpp"
+	#define DeviceScreen DeviceXcb
 #endif
 
 
@@ -315,8 +314,7 @@ Features anti-aliased vector graphics and raster image rendering via FreeType's 
 	<li>@ref berialdraw::Device - Abstract device interface</li>
 	<li>@ref berialdraw::DeviceWin32 - Windows native backend (Win32 API)</li>
 	<li>@ref berialdraw::DeviceCocoa - macOS native backend (Cocoa/CoreGraphics)</li>
-	<li>@ref berialdraw::DeviceSdl - SDL3 backend (Linux, cross-platform)</li>
-	<li>@ref berialdraw::DeviceXcb - X11/XCB backend (Linux default)</li>
+	<li>@ref berialdraw::DeviceXcb - X11/XCB backend (Linux)</li>
 </ul>
 
 @section image Image Processing

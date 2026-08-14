@@ -46,47 +46,47 @@ Example drawing
 
 Color theme available
 
-[<img src="test/snapshot/ref/sample_theme_4.svg"     width="200" height="200" style="margin-right: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_1.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_2.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_3.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_4.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_5.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_6.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_7.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_8.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_9.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_10.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_11.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_12.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_13.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_14.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_15.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_16.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_17.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_18.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_19.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_20.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_21.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_22.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_23.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_24.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_25.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_26.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_27.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_28.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_29.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_30.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_31.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_32.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_33.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_34.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_35.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_36.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_37.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_38.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_39.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
-<img src="test/snapshot/ref/sample_theme_40.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">](samples/sample_theme.cpp)
+[<img src="test/snapshot/ref/sample_palette_4.svg"     width="200" height="200" style="margin-right: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_1.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_2.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_3.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_4.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_5.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_6.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_7.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_8.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_9.svg"     width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_10.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_11.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_12.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_13.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_14.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_15.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_16.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_17.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_18.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_19.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_20.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_21.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_22.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_23.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_24.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_25.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_26.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_27.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_28.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_29.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_30.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_31.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_32.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_33.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_34.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_35.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_36.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_37.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_38.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_39.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">
+<img src="test/snapshot/ref/sample_palette_40.svg"    width="100" height="100" style="margin-right: 10px;box-shadow: 10px;box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);">](samples/sample_theme.cpp)
 
 Example code for managing placement layouts :
 

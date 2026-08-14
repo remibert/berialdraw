@@ -1,25 +1,14 @@
 #include "berialdraw_imp.hpp"
 #include "device/device_win32.hpp"
 #include "device/timer_manager_win32.hpp"
+#include "device/timer_manager_base.hpp"
 
-#if defined(USE_SDL)
-#include "device/device_sdl.hpp"
-#include "device/timer_manager_sdl.hpp"
-#endif
-
-#if defined(LINUX) && !defined(USE_SDL)
+#if defined(LINUX)
 #include "device/device_xcb.hpp"
-#include "device/timer_manager_xcb.hpp"
 #endif
 
 #if defined(__APPLE__)
 #include "device/device_cocoa.hpp"
-#include "device/timer_manager_cocoa.hpp"
-#endif
-
-#if defined(LINUX) || defined(__unix__)
-#include "device/device_wayland.hpp"
-#include "device/timer_manager_wayland.hpp"
 #endif
 
 using namespace berialdraw;
@@ -52,48 +41,26 @@ TimerManager * TimerManager::create(Device * device)
 		}
 #endif
 
-#ifdef USE_SDL
-		DeviceSdl * sdl_device = dynamic_cast<DeviceSdl *>(device);
-		if (sdl_device)
-		{
-			result = new TimerManagerSdl();
-			return result;
-		}
-#endif
-
 #ifdef __APPLE__
 		DeviceCocoa * cocoa_device = dynamic_cast<DeviceCocoa *>(device);
 		if (cocoa_device)
 		{
-			result = new TimerManagerCocoa();
+			result = new TimerManagerBase();
 			return result;
 		}
 #endif
 
-#if defined(LINUX) && !defined(USE_SDL)
+#ifdef LINUX
 		DeviceXcb * xcb_device = dynamic_cast<DeviceXcb *>(device);
 		if (xcb_device)
 		{
-			result = new TimerManagerXcb();
+			result = new TimerManagerBase();
 			return result;
 		}
 #endif
 
-#if defined(LINUX) || defined(__unix__)
-		DeviceWayland * wayland_device = dynamic_cast<DeviceWayland *>(device);
-		if (wayland_device)
-		{
-			result = new TimerManagerWayland();
-			return result;
-		}
-#endif
-
-		// Fallback: if no platform-specific device found, try polling
-#if defined(LINUX) && !defined(USE_SDL)
-		result = new TimerManagerXcb();
-#elif defined(LINUX) || defined(__unix__)
-		result = new TimerManagerWayland();
-#endif
+		// Fallback: if no platform-specific device found, use base implementation
+		result = new TimerManagerBase();
 	}
 
 	return result;

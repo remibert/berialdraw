@@ -12,6 +12,16 @@ namespace berialdraw
 		/** Destructor */
 		virtual ~TimerManagerBase() {}
 
+		/** Schedule a timer
+		@param delay_ms Timer interval in milliseconds
+		@param recurring If true, timer repeats
+		@param widget Timer widget that owns this timer
+		@return Unique timer identifier */
+		virtual uint32_t schedule(uint32_t delay_ms, bool recurring = false, Widget* widget = nullptr) override;
+
+		/** Check for expired timers and generate events */
+		virtual void check_timers() override;
+
 		/** Cancel a scheduled timer
 		@param timer_id The identifier returned by schedule()
 		@return True if timer was found and cancelled, false otherwise */

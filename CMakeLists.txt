@@ -36,7 +36,7 @@ elseif(APPLE)
 	endif()
 
 	# Use native Cocoa device implementation on macOS
-	set(SRCS_DEVICE src/device/system_time.cpp src/device/timer_manager_base.cpp src/device/device_cocoa.mm src/device/clipboard_cocoa.mm src/device/timer_manager_cocoa.cpp)
+	set(SRCS_DEVICE src/device/system_time.cpp src/device/timer_manager_base.cpp src/device/device_cocoa.mm src/device/clipboard_cocoa.mm)
 	set(DEVICE_LIBRARIES "-framework Cocoa -framework CoreGraphics")
 
 	# Set proper compilation flags for .mm files
@@ -47,26 +47,13 @@ elseif(APPLE)
 	add_definitions(-DUSE_COCOA_DEVICE=1)
 else()
 	message(STATUS "Architecture Linux")
-	
-	# Option to use SDL instead of XCB (OFF by default)
-	option(USE_SDL "Use SDL3 instead of XCB for Linux backend" OFF)
-	
-	if(USE_SDL)
-		message(STATUS "Using SDL3 backend")
-		set(SDL3_STATIC ON)
-		find_package(SDL3 REQUIRED)
-		set(SRCS_DEVICE src/device/system_time.cpp src/device/timer_manager_base.cpp src/device/device_sdl.cpp src/device/clipboard_sdl.cpp src/device/timer_manager_sdl.cpp)
-		set(DEVICE_LIBRARIES ${SDL3_LIBRARIES})
-		add_definitions(-DUSE_SDL_DEVICE=1)
-	else()
-		message(STATUS "Using XCB (X11) backend")
-		find_package(PkgConfig REQUIRED)
-		pkg_check_modules(XCB REQUIRED xcb xcb-image xcb-keysyms xcb-icccm)
-		set(SRCS_DEVICE src/device/system_time.cpp src/device/timer_manager_base.cpp src/device/device_xcb.cpp src/device/clipboard_xcb.cpp src/device/timer_manager_xcb.cpp src/device/timer_manager_wayland.cpp)
-		set(DEVICE_LIBRARIES ${XCB_LIBRARIES})
-		include_directories(${XCB_INCLUDE_DIRS})
-		add_definitions(-DUSE_XCB_DEVICE=1)
-	endif()
+	message(STATUS "Using XCB (X11) backend")
+	find_package(PkgConfig REQUIRED)
+	pkg_check_modules(XCB REQUIRED xcb xcb-image xcb-keysyms xcb-icccm)
+	set(SRCS_DEVICE src/device/system_time.cpp src/device/timer_manager_base.cpp src/device/device_xcb.cpp src/device/clipboard_xcb.cpp)
+	set(DEVICE_LIBRARIES ${XCB_LIBRARIES})
+	include_directories(${XCB_INCLUDE_DIRS})
+	add_definitions(-DUSE_XCB_DEVICE=1)
 endif()
 
 set(SRCS_LIB

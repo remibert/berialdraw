@@ -76,12 +76,6 @@
     <Filter Include="berialdraw\device\win32">
       <UniqueIdentifier>{c813f648-73bc-4532-a9f4-d8dabdbcb72f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="berialdraw\device\wayland">
-      <UniqueIdentifier>{6e9211de-38c6-43b4-83ae-9f0734e46ab5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="berialdraw\device\sdl">
-      <UniqueIdentifier>{9865a08b-78a4-483c-ab9c-be643207698b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="berialdraw\device\cocoa">
       <UniqueIdentifier>{7dde02de-ca2b-437f-86b7-d87c5035f9b8}</UniqueIdentifier>
     </Filter>
@@ -934,18 +928,6 @@
     <ClCompile Include="..\..\src\tool\zip_directory.cpp">
       <Filter>berialdraw\tool\directory</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\device\clipboard_sdl.cpp">
-      <Filter>berialdraw\device\sdl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\device\clipboard_wayland.cpp">
-      <Filter>berialdraw\device\wayland</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\device\device_sdl.cpp">
-      <Filter>berialdraw\device\sdl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\device\device_wayland.cpp">
-      <Filter>berialdraw\device\wayland</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\device\clipboard_win32.cpp">
       <Filter>berialdraw\device\win32</Filter>
     </ClCompile>
@@ -1030,20 +1012,8 @@
     <ClCompile Include="..\..\src\event\timer_event.cpp">
       <Filter>berialdraw\event</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\device\timer_manager_cocoa.cpp">
-      <Filter>berialdraw\device\cocoa</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\device\timer_manager_sdl.cpp">
-      <Filter>berialdraw\device\sdl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\device\timer_manager_wayland.cpp">
-      <Filter>berialdraw\device\wayland</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\device\timer_manager_win32.cpp">
       <Filter>berialdraw\device\win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\device\timer_manager_xcb.cpp">
-      <Filter>berialdraw\device\xcb</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\widget\timer.cpp">
       <Filter>berialdraw\widget</Filter>
@@ -1818,18 +1788,6 @@
     <ClInclude Include="..\..\include\device\device_cocoa.hpp">
       <Filter>berialdraw\device\cocoa</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\device\clipboard_sdl.hpp">
-      <Filter>berialdraw\device\sdl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\device\clipboard_wayland.hpp">
-      <Filter>berialdraw\device\wayland</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\device\device_sdl.hpp">
-      <Filter>berialdraw\device\sdl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\device\device_wayland.hpp">
-      <Filter>berialdraw\device\wayland</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\device\clipboard_win32.hpp">
       <Filter>berialdraw\device\win32</Filter>
     </ClInclude>
@@ -1940,18 +1898,6 @@
     </ClInclude>
     <ClInclude Include="..\..\include\device\timer_manager_win32.hpp">
       <Filter>berialdraw\device\win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\device\timer_manager_cocoa.hpp">
-      <Filter>berialdraw\device\cocoa</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\device\timer_manager_sdl.hpp">
-      <Filter>berialdraw\device\sdl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\device\timer_manager_wayland.hpp">
-      <Filter>berialdraw\device\wayland</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\device\timer_manager_xcb.hpp">
-      <Filter>berialdraw\device\xcb</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\widget\timer.hpp">
       <Filter>berialdraw\widget</Filter>

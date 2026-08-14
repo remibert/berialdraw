@@ -15,48 +15,48 @@ namespace berialdraw
 #if defined(_DEBUG) && defined(ALL_TESTS)
 		Timer::test();
 
-		//// Widget
-		//Button::test();
-		//Canvas::test();
-		//Checkbox::test();
-		//Column::test();
-		//Edit::test();
-		//Grid::test();
-		//Icon::test();
-		//Label::test();
-		//Keyboard::test();
-		//List::test();
-		//Pane::test();
-		//Picture::test();
-		//ProgressBar::test();
-		//Radio::test();
-		//Row::test();
-		//ScrollView::test();
-		//Slider::test();
-		//Switch::test();
-		//Timer::test();
-		//TableView::test();
-		//Window::test();
+		// Widget
+		Button::test();
+		Canvas::test();
+		Checkbox::test();
+		Column::test();
+		Edit::test();
+		Grid::test();
+		Icon::test();
+		Label::test();
+		Keyboard::test();
+		List::test();
+		Pane::test();
+		Picture::test();
+		ProgressBar::test();
+		Radio::test();
+		Row::test();
+		ScrollView::test();
+		Slider::test();
+		Switch::test();
+		Timer::test();
+		TableView::test();
+		Window::test();
 
-		//// Shape
-		//Colors::test();
-		//Compass::test();
-		//Font::test();
-		//Image::test();
-		//Line::test();
-		//LineChart::test();
-		//Marker::test();
-		//Outline::test();
-		//Pie::test();
-		//Polygon::test();
-		//PolyLines::test();
-		//Rect::test();
-		//Region::test();
-		//Sketch::test();
-		//Styles::test();
-		//Text::test();
+		// Shape
+		Colors::test();
+		Compass::test();
+		Font::test();
+		Image::test();
+		Line::test();
+		LineChart::test();
+		Marker::test();
+		Outline::test();
+		Pie::test();
+		Polygon::test();
+		PolyLines::test();
+		Rect::test();
+		Region::test();
+		Sketch::test();
+		Styles::test();
+		Text::test();
 
-		//tools_test2();
+		tools_test2();
 #endif
 	}
 	void test_samples()
