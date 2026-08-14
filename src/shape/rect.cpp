@@ -89,8 +89,19 @@ void Rect::build_clip_mask_rounded_rect(const Area & area, Dim radius, Dim thick
 	Point pos = area.position();
 
 	Rect rect(0);
-	rect.radius_q6(radius);
-	rect.thickness_q6(thickness);
+
+	if (thickness > 0)
+	{
+		if (thickness >> 1 < radius)
+		{
+			radius -= thickness >> 1;
+			rect.radius_q6(radius);
+		}
+		else
+		{
+			rect.radius_q6(0);
+		}
+	}
 
 	// If the thickness is odd, shift by half a pixel
 	if ((thickness >> 6) % 2)

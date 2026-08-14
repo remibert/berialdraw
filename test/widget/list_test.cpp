@@ -65,38 +65,30 @@ void List::test7()
 {
 	MemoryLeakLog
 
-		//UIManager::styles()->style("pearl");
-		//UIManager::colors()->appearance("light");
-	UIManager::styles()->style("pearl");
-	UIManager::colors()->appearance("light");
+	//	//UIManager::styles()->style("pearl");
+	//	//UIManager::colors()->appearance("light");
+	//UIManager::styles()->style("pearl");
+	//UIManager::colors()->appearance("light");
 
 
 	Window window;
+	window.color(Color::LIGHT_GRAY);
 	Pane* pane = new Pane(&window);
-		pane->size(202, 302);
-		pane->position(9, 9);
+		pane->size(200, 300);
+		pane->position(173,113);
 		pane->color(Color::ROSE);
 		pane->radius(0);
 		pane->thickness(0);
 		pane->margin(60);
-		//pane->border_color(Color::GRAY);
 
 	List* list = new List(&window);
 
-	//list->color(Color::PLATINUM);
-	list->thickness(10);
+	list->thickness(0);
 	list->border_color(Color::GRAY);
-	list->radius(40);
-	list->padding(3);
-	//list->margin(10);
+	list->radius(0);
 	list->size(200, 300);
-	list->position(10, 10);
+	list->position(173, 113);
 	ListItem* item;
-
-		//item = list->new_item();
-		//item->leading("< ");
-		//item->trailing(" >");
-		//item->text("abcdefg");
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -124,29 +116,33 @@ void List::test7()
 			item->text("worldjkhmlojlllllllllllllllllllllllllllllll");
 	}
 
-	//for (int i = 0; i < 40; i++)
-	//{
-	//	list->position(i,i);
-	//	pane->position(i-1, i-1);
-	//	UIManager::desktop()->dispatch();
-	//}
+	struct Test7 {
+		Dim radius;
+		Dim thickness;
+		Dim padding;
+	};
 
-	/*for (int i = 0; i < 20; i++)
+	Test7 test7[] = {
+		{0,0,0},
+		{1,1,1},
+		{3,3,3},
+		{3,5,7},
+		{11,33,23},
+		{47,33,0}
+	};
+
+	int id = 0;
+	for (int i = 0; i < sizeof(test7) / sizeof(Test7); i++)
 	{
-		list->padding(i);
-		UIManager::desktop()->dispatch();
-	}*/
-
-	// for (int i = 0; i < 30; i++)
-	// {
-	// 	bd_printf("\n--%d--\n", i);
-	// 	list->thickness(i);
-	// 	//list->padding(i);
-	// 	UIManager::desktop()->dispatch();
-	// }
-	
-	UIManager::desktop()->dispatch("$(ui.tests)/out/list7_1.svg");
-	UIManager::desktop()->mainloop();
+		list->padding(test7[i].padding);
+		list->thickness(test7[i].thickness);
+		list->radius(test7[i].radius);
+		{
+			String name;
+			name.print("$(ui.tests)/out/list7_%d.svg", ++id);
+			UIManager::desktop()->dispatch(name);
+		}
+	}
 }
 
 void List::test()
@@ -156,7 +152,7 @@ void List::test()
 	{
 		MemoryLeakLog
 		done = true;
-		//test7();
+		test7();
 		test6();
 		test5();
 		test4();

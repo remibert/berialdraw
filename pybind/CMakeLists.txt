@@ -119,6 +119,7 @@ src/pybind/shape/star.cpp
 	src/pybind/widget/row.cpp
 	src/pybind/widget/scroll_view.cpp
 	src/pybind/widget/list.cpp
+	src/pybind/widget/list_item.cpp
 	src/pybind/widget/table_view.cpp
 	src/pybind/widget/slider.cpp
 	src/pybind/widget/switch.cpp

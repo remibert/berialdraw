@@ -137,7 +137,6 @@ Size ListItem::content_size()
 void ListItem::place(const Area& area, bool in_layout)
 {
 	Margin marg;
-
 	place_in_area_extend(area, in_layout);
 
 	// Paint text

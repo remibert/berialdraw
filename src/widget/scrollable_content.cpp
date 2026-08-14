@@ -262,19 +262,19 @@ void ScrollableContent::paint(const Region & parent_region)
 			exporter->open_group(m_backclip.position(), m_backclip.size());
 		}
 
+
+		back_region.intersect(m_foreclip);
+
 		// Paint background and border
 		{
+
 			UIManager::renderer()->region(back_region);
 
-			Area border_area(m_backclip);
-
-			// Increase with the half of border thickness
-			border_area.decrease_thickness(m_thickness >> 1);
-
 			// Paint background and border
-			paint_background(border_area, *(CommonStyle*)this, *(BorderStyle*)this);
+			paint_background(m_foreclip, *(CommonStyle*)this, *(BorderStyle*)this);
 		}
 
+		back_region.intersect(m_contentclip);
 		// Paint scroll content
 		{
 			Region scroll_region(back_region);
@@ -284,8 +284,7 @@ void ScrollableContent::paint(const Region & parent_region)
 			ClipMask clip_mask;
 			if (m_radius > 0)
 			{
-				Area border_area(m_backclip);
-				border_area.decrease_thickness(m_thickness >> 1);
+				Area border_area(m_contentclip);
 				Rect::build_clip_mask_rounded_rect(border_area, m_radius, m_thickness, 0, m_borders, clip_mask);
 				if (!clip_mask.is_empty())
 				{
@@ -418,6 +417,32 @@ void ScrollableContent::paint_scrollbar_thumb_internal(bool is_vertical, const S
 
 	// Calculate thumb size proportional to visible content
 	Dim scrollbar_size = viewport_size - (m_scrollbar_margin << 1);
+
+	Dim reduce_length = 0;
+
+	// If the corners are rounded, the length of the scrollbar must be reduced.
+	if (m_radius > 0)
+	{
+		if (m_radius > (m_thickness >> 1))
+		{
+			reduce_length = m_radius - (m_thickness >> 1);
+		}
+		else
+		{
+			reduce_length = 0;
+		}
+	}
+
+	// If If the scrollbar length must be reduced
+	if (reduce_length  > 0)
+	{
+		if (scrollbar_size > (reduce_length << 1))
+		{
+			scrollbar_size -= (reduce_length << 1);
+		}
+	}
+
+	// Compute the thumb size
 	Dim thumb_size = (viewport_size * scrollbar_size) / content_dim;
 
 	// Minimum thumb size
@@ -454,14 +479,14 @@ void ScrollableContent::paint_scrollbar_thumb_internal(bool is_vertical, const S
 		// Right side of viewport
 		scrollbar_area = Area(
 			viewport_area.position().x_q6() + viewport_area.size().width_q6() - m_scrollbar_width - m_scrollbar_margin,
-			viewport_area.position().y_q6() + m_scrollbar_margin + thumb_position, 
+			viewport_area.position().y_q6() + reduce_length + m_scrollbar_margin + thumb_position, 
 			m_scrollbar_width, thumb_size, false);
 	}
 	else
 	{
 		// Bottom of viewport, adjust for vertical scrollbar if present
 		scrollbar_area = Area(
-			viewport_area.position().x_q6() + m_scrollbar_margin + thumb_position,
+			viewport_area.position().x_q6() + reduce_length + m_scrollbar_margin + thumb_position,
 			viewport_area.position().y_q6() + viewport_area.size().height_q6() - m_scrollbar_width - m_scrollbar_margin,
 			thumb_size - m_scrollbar_width + m_scrollbar_margin, m_scrollbar_width, false);
 	}
@@ -479,13 +504,15 @@ void ScrollableContent::paint_scrollbar()
 	if (m_scrollbar_visible)
 	{
 		// Draw vertical scrollbar
-		if ((m_scroll_direction != SCROLL_HORIZONTAL) && (scroll_size().height_q6() > m_contentclip.size().height_q6()))
+		if (((m_scroll_direction & SCROLL_VERTICAL) == SCROLL_VERTICAL) 
+			&& (scroll_size().height_q6() > m_contentclip.size().height_q6()))
 		{
 			paint_scrollbar_thumb_internal(true, scroll_size(), m_contentclip);
 		}
 
 		// Draw horizontal scrollbar
-		if ((m_scroll_direction != SCROLL_VERTICAL  ) && (scroll_size().width_q6()  > m_contentclip.size().width_q6()))
+		if (((m_scroll_direction & SCROLL_HORIZONTAL) == SCROLL_HORIZONTAL) && 
+			(scroll_size().width_q6()  > m_contentclip.size().width_q6()))
 		{
 			paint_scrollbar_thumb_internal(false, scroll_size(), m_contentclip);
 		}

@@ -358,6 +358,7 @@ void bind_scrollable_content(pybind11::module_& m);
 void bind_scroll_view(pybind11::module_& m);
 void bind_table_view(pybind11::module_& m);
 void bind_list(pybind11::module_& m);
+void bind_list_item(pybind11::module_& m);
 void bind_icon(pybind11::module_& m);
 void bind_picture(pybind11::module_& m);
 void bind_keyboard(pybind11::module_& m);

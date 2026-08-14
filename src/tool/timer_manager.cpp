@@ -1,15 +1,19 @@
 #include "berialdraw_imp.hpp"
-#include "device/device_win32.hpp"
-#include "device/timer_manager_win32.hpp"
-#include "device/timer_manager_base.hpp"
+
+#if defined(WIN32)
+	#include "device/device_win32.hpp"
+	#include "device/timer_manager_win32.hpp"
+#endif
 
 #if defined(LINUX)
-#include "device/device_xcb.hpp"
+	#include "device/device_xcb.hpp"
 #endif
 
 #if defined(__APPLE__)
-#include "device/device_cocoa.hpp"
+	#include "device/device_cocoa.hpp"
 #endif
+
+#include "device/timer_manager_base.hpp"
 
 using namespace berialdraw;
 

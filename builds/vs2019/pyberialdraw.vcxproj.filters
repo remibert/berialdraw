@@ -62,7 +62,7 @@
     <ClCompile Include="..\..\pybind\src\pybind\widget\grid.cpp">
       <Filter>pybind\widget</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pybind\src\pybind\widget\icon.cpp">
+    <ClCompile Include="..\..\pybind\src\pybind\widget\picture.cpp">
       <Filter>pybind\widget</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\widget\keyboard.cpp">
@@ -356,6 +356,10 @@
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\styles\timer_style.cpp">
       <Filter>pybind\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\widget\icon.cpp" />
+    <ClCompile Include="..\..\pybind\src\pybind\widget\list_item.cpp">
+      <Filter>pybind\widget</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
