@@ -54,7 +54,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/shape/circle.cpp
 	src/pybind/shape/compass.cpp
 	src/pybind/shape/cross.cpp
-src/pybind/shape/star.cpp
+	src/pybind/shape/star.cpp
 	src/pybind/shape/line.cpp
 	src/pybind/shape/marker.cpp
 	src/pybind/shape/pie.cpp
@@ -82,7 +82,6 @@ src/pybind/shape/star.cpp
 	src/pybind/styles/round_style.cpp
 	src/pybind/styles/scroll_view_style.cpp
 	src/pybind/styles/scrollbar_style.cpp
-	src/pybind/styles/list_style.cpp
 	src/pybind/styles/table_view_style.cpp
 	src/pybind/styles/grid_style.cpp
 	src/pybind/styles/cell_style.cpp

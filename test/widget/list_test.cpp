@@ -65,12 +65,6 @@ void List::test7()
 {
 	MemoryLeakLog
 
-	//	//UIManager::styles()->style("pearl");
-	//	//UIManager::colors()->appearance("light");
-	//UIManager::styles()->style("pearl");
-	//UIManager::colors()->appearance("light");
-
-
 	Window window;
 	window.color(Color::LIGHT_GRAY);
 	Pane* pane = new Pane(&window);
