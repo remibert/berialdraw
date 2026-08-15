@@ -3,7 +3,7 @@
 namespace berialdraw
 {
 	/** The List class provides a scrollable list container for displaying items with optional icons and arrows. It supports selection, enabled/disabled state, and menu-style arrows. */
-	class List : public ScrollableContent, public ListStyle
+	class List : public ScrollableContent
 	{
 	public:
 		/** Create widget */

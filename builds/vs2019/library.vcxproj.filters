@@ -824,9 +824,6 @@
     <ClCompile Include="..\..\src\styles\scrollbar_style.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\styles\list_style.cpp">
-      <Filter>berialdraw\styles</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\tool\settings.cpp">
       <Filter>berialdraw\tool</Filter>
     </ClCompile>
@@ -1743,9 +1740,6 @@
     <ClInclude Include="..\..\include\styles\scrollbar_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\styles\list_style.hpp">
-      <Filter>berialdraw\styles</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\tool\settings.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
@@ -1895,9 +1889,6 @@
     </ClInclude>
     <ClInclude Include="..\..\include\external\freetype\freetype\config\ftoption.h">
       <Filter>berialdraw\external\freetype</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\device\timer_manager_win32.hpp">
-      <Filter>berialdraw\device\win32</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\widget\timer.hpp">
       <Filter>berialdraw\widget</Filter>

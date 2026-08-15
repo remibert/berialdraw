@@ -514,6 +514,10 @@ void Button::test8()
 			button->cell(0,0);
 			button->bind(&t, &TestButton::on_event);
 			button->bind(&t, &TestButton::on_click);
+			button->radius(8);
+			button->margin(2);
+			button->focus_thickness(2);
+			button->font_size(15, 20);
 
 		Canvas * canvas = new Canvas(grid);
 			// canvas->size(40,40);
@@ -545,11 +549,16 @@ void Button::test8()
 			//label->font_size(10);
 			label->bind(&t, &TestButton::on_event);
 			label->id(1);
+			label->font_size(15, 20);
 
 		Button * quit = new Button(grid);
 			quit->text("quit");
 			quit->cell(2,0);
 			quit->bind(&t, &TestButton::on_quit);
+			quit->radius(8);
+			quit->margin(2);
+			quit->focus_thickness(2);
+			quit->font_size(15, 20);
 
 	const struct Key
 	{
@@ -1320,19 +1329,20 @@ void Button::test18()
 		button->color(Color::RED);
 		button->border_color(Color::RED_BLOOD);
 
-	for (int i = 0; i < 50; i++)
+	int id = 0;
+	String name;
+	int size[] = {
+		0, 1, 2, 3, 5, 7, 11
+	};
+	for (int i = 0; i < sizeof(size)/sizeof(int); i++)
 	{
-		button->thickness(i);
-		button->padding(i);
-		button->focus_gap(i);
-		button->focus_thickness(i);
-		UIManager::desktop()->dispatch();
-		UIManager::desktop()->dispatch();
-	
+		button->thickness(size[i]);
+		button->padding(size[i]);
+		button->focus_gap(size[i]);
+		button->focus_thickness(size[i]);
+		name.print("$(ui.tests)/out/button18_%d.svg", ++id);
+		UIManager::desktop()->dispatch(name);
 	}
-	UIManager::desktop()->mainloop();
-	UIManager::desktop()->dispatch();
-
 }
 
 void Button::test()
@@ -1342,12 +1352,11 @@ void Button::test()
 	{
 		MemoryLeakLog
 		done = true;
-
-		// test18();
+		test18();
 		test17();
 		test16();
 		test15();
-		//test14();
+		// test14(); // onglet
 		test13();
 		test12();
 		test11();

@@ -8,8 +8,9 @@ List::List(Widget * parent):
 	m_column(nullptr)
 {
 	// Apply styles
-	UIManager::styles()->apply(this, (CommonStyle*)this);
-	UIManager::styles()->apply(this, (ListStyle*)this);
+	UIManager::styles()->apply(this, (WidgetStyle*)this);
+	UIManager::styles()->apply(this, (ScrollViewStyle*)this);
+	UIManager::styles()->apply(this, (ScrollbarStyle*)this);
 	UIManager::styles()->apply(this, (BorderStyle*)this);
 
 	// Set default scroll direction to vertical only
@@ -37,7 +38,6 @@ ListItem* List::new_item()
 void List::copy(const List& list)
 {
 	ScrollableContent::copy(*(ScrollableContent*)(&list));
-	*((ListStyle      *)this) = *(ListStyle      *)(&list);
 }
 
 /** Copy all styles of the list */
@@ -53,14 +53,12 @@ void List::copy(const List* list)
 void List::serialize(JsonIterator & it)
 {
 	it["type"] = m_classname;
-	ListStyle::serialize(it);
 	ScrollableContent::serialize(it);
 }
 
 /** Unserialize the content of widget from json */
 void List::unserialize(JsonIterator & it)
 {
-	ListStyle::unserialize(it);
 	ScrollableContent::unserialize(it);
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }

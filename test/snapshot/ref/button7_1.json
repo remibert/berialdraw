@@ -251,9 +251,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -331,9 +331,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -411,9 +411,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -491,9 +491,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -571,9 +571,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -651,9 +651,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -731,9 +731,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -811,9 +811,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -891,9 +891,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -971,9 +971,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							}
 						]
 					},
@@ -1112,9 +1112,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -1192,9 +1192,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -1272,9 +1272,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -1352,9 +1352,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -1432,9 +1432,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -1512,9 +1512,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -1592,9 +1592,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -1672,9 +1672,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -1752,9 +1752,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -1832,9 +1832,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							}
 						]
 					},
@@ -1973,9 +1973,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -2053,9 +2053,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -2133,9 +2133,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -2213,9 +2213,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -2293,9 +2293,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -2373,9 +2373,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -2453,9 +2453,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -2533,9 +2533,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -2613,9 +2613,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							}
 						]
 					},
@@ -2754,9 +2754,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -2834,9 +2834,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							},
 							{
 								"type" : "button",
@@ -2914,9 +2914,9 @@
 								"radius" : 7,
 								"thickness" : 0.50,
 								"border-color" : 4286233576,
-								"focus-color" : 4286545791,
+								"focus-color" : 29,
 								"focus-gap" : 0,
-								"focus-thickness" : 2
+								"focus-thickness" : 3
 							}
 						]
 					}

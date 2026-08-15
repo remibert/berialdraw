@@ -143,6 +143,7 @@ void List::test7()
 			UIManager::desktop()->dispatch(name);
 		}
 	}
+	//UIManager::desktop()->mainloop();
 }
 
 void List::test()

@@ -360,7 +360,6 @@ template bool Styles::apply<IconStyle>(Widget* widget, IconStyle* properties);
 template bool Styles::apply<ScrollViewStyle>(Widget* widget, ScrollViewStyle* properties);
 template bool Styles::apply<ScrollbarStyle>(Widget* widget, ScrollbarStyle* properties);
 template bool Styles::apply<TableViewStyle>(Widget* widget, TableViewStyle* properties);
-template bool Styles::apply<ListStyle>(Widget* widget, ListStyle* properties);
 template bool Styles::apply<Mappings>(Widget* widget, Mappings* properties);
 template bool Styles::apply<Keys>(Widget* widget, Keys* properties);
 template bool Styles::apply<PieStyle>(Widget* widget, PieStyle* properties);

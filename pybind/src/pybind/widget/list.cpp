@@ -2,7 +2,7 @@
 #include "pybind/event_system.hpp"
 
 void bind_list(pybind11::module_& m) {
-	pybind11::class_<berialdraw::List, berialdraw::ScrollableContent, berialdraw::ListStyle>(m, "List")
+	pybind11::class_<berialdraw::List, berialdraw::ScrollableContent>(m, "List")
 		.def(pybind11::init<berialdraw::Widget*>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>())
 		
 		// Create new list item

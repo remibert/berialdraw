@@ -774,12 +774,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="..\..\src\styles\list_style.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
-    </ClCompile>
     <ClCompile Include="..\..\src\styles\slider_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -1610,7 +1604,6 @@
     <ClInclude Include="..\..\include\styles\round_style.hpp" />
     <ClInclude Include="..\..\include\styles\scroll_view_style.hpp" />
     <ClInclude Include="..\..\include\styles\scrollbar_style.hpp" />
-    <ClInclude Include="..\..\include\styles\list_style.hpp" />
     <ClInclude Include="..\..\include\styles\slider_style.hpp" />
     <ClInclude Include="..\..\include\styles\style.hpp" />
     <ClInclude Include="..\..\include\styles\styles.hpp" />
