@@ -9,7 +9,7 @@ namespace berialdraw
 	@example sample_item.cpp*/
 	public:
 		/** Create widget */
-		ListItem(Widget * parent);
+		ListItem(Widget * parent, Dim index=UNDEFINED_INDEX);
 
 		/** Destroy widget */
 		virtual ~ListItem();

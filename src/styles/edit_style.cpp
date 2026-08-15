@@ -85,14 +85,14 @@ Style * EditStyle::create()
 }
 
 /** Set the max visible lines in the edit */
-void EditStyle::max_lines(uint16_t v)
+void EditStyle::max_lines(Dim v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_max_lines = v;
 }
 
 /** Set the max visible column in the edit */
-void EditStyle::max_columns(uint16_t v)
+void EditStyle::max_columns(Dim v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_max_columns = v;

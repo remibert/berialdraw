@@ -18,8 +18,8 @@ void CellStyle::serialize(JsonIterator & it)
 /** Unserialize the content of widget from json */
 void CellStyle::unserialize(JsonIterator & it)
 {
-	m_row_selector = (uint16_t)(it[StyleNames::CELLSTYLE_ROW_SELECTOR] | (int)m_row_selector);
-	m_column_selector = (uint16_t)(it[StyleNames::CELLSTYLE_COLUMN_SELECTOR] | (int)m_column_selector);
+	m_row_selector = (Dim)(it[StyleNames::CELLSTYLE_ROW_SELECTOR] | (int)m_row_selector);
+	m_column_selector = (Dim)(it[StyleNames::CELLSTYLE_COLUMN_SELECTOR] | (int)m_column_selector);
 }
 
 /** Set properties with another */
@@ -46,14 +46,14 @@ Style * CellStyle::create()
 }
 
 /** Set the row selector */
-void CellStyle::row_selector(uint16_t row)
+void CellStyle::row_selector(Dim row)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_row_selector = row;
 }
 
 /** Set the column selector */
-void CellStyle::column_selector(uint16_t col)
+void CellStyle::column_selector(Dim col)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_column_selector = col;

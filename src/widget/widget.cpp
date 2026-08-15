@@ -2,7 +2,7 @@
 
 using namespace berialdraw;
 
-Widget::Widget(const char * classname, Widget * parent, size_t size_of_widget):
+Widget::Widget(const char * classname, Widget * parent, size_t size_of_widget, Dim index):
 	m_classname(classname),
 	m_parent(parent)
 {
@@ -25,17 +25,50 @@ Widget::Widget(const char * classname, Widget * parent, size_t size_of_widget):
 		m_parent = parent;
 
 		// If parent has not yet a children
-		if(parent->m_children == 0)
+		if (parent->m_children == 0)
 		{
 			// Add current widget in the children list
 			parent->m_children = this;
 			parent->m_last_children = this;
 		}
-		else
+		else if (index == UNDEFINED_INDEX)
 		{
 			// Add to the last children directly using the cached pointer
 			parent->m_last_children->m_next = this;
 			parent->m_last_children = this;
+		}
+		else
+		{
+			// Insert at specific index
+			if (index == 0)
+			{
+				// Insert before the first child
+				this->m_next = parent->m_children;
+				parent->m_children = this;
+			}
+			else
+			{
+				// Find the position to insert
+				Widget* current = parent->m_children;
+				size_t current_index = 0;
+				
+				// Traverse the list to find the position
+				while (current->m_next && current_index+1 < index)
+				{
+					current = current->m_next;
+					current_index++;
+				}
+				
+				// Insert after current
+				this->m_next = current->m_next;
+				current->m_next = this;
+				
+				// Update m_last_children if we inserted at the end
+				if (this->m_next == 0)
+				{
+					parent->m_last_children = this;
+				}
+			}
 		}
 	}
 	UIManager::invalidator()->add(this, size_of_widget);
@@ -878,7 +911,7 @@ uint32_t Widget::parent_focus_color(uint32_t color, uint8_t alpha)
 	return (parent_focus_color(color) & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
 
-Widget * Widget::search(uint16_t id)
+Widget * Widget::search(Dim id)
 {
 	Widget * result = 0;
 

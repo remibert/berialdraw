@@ -256,7 +256,7 @@ void TableView::paint_vertical_lines()
 	}
 }
 
-void TableView::set_widget(uint16_t row, uint16_t column, Widget* widget)
+void TableView::set_widget(Dim row, Dim column, Widget* widget)
 {
 	if (widget && m_grid)
 	{
@@ -274,7 +274,7 @@ void TableView::set_widget(uint16_t row, uint16_t column, Widget* widget)
 	}
 }
 
-Widget* TableView::get_widget(uint16_t row, uint16_t column)
+Widget* TableView::get_widget(Dim row, Dim column)
 {
 	Widget* result = nullptr;
 
@@ -298,7 +298,7 @@ Widget* TableView::get_widget(uint16_t row, uint16_t column)
 	return result;
 }
 
-void TableView::remove_widget(uint16_t row, uint16_t column)
+void TableView::remove_widget(Dim row, Dim column)
 {
 	Widget* widget = get_widget(row, column);
 	if (widget)

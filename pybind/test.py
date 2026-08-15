@@ -126,8 +126,57 @@ class Dialog:
 		self.jpg_picture.fit_mode = ImageFitMode.FIT
 		self.jpg_picture.margin = (10, 10)
 
+		# List Example
+		self.list_label = Label(self.layout)
+		self.list_label.text = "List Widget Example"
+
+		self.my_list = List(self.layout)
+		#~ self.my_list.extend = Extend.EXTEND_WIDTH
+		#~ self.my_list.min_size = (400, 150)
+
+		#~ # Add single items
+		#~ self.my_list.append("Item 1")
+		#~ self.my_list.append("Item 2")
+
+		#~ # Add multiple items with a list
+		#~ self.my_list.append(["Item 3", "Item 4", "Item 5"])
+
+		#~ # Add items with custom configuration
+		#~ self.my_list.append(lambda item: (
+			#~ item.set_text("Item 6 (custom)"),
+			#~ item.set_color(0xFF6B6B)
+		#~ ))
+
+		#~ # Add items at specific positions
+		#~ self.my_list.insert(0, "First Item")
+		#~ self.my_list.insert(-1, "Before Last")
+
+		#~ # Access items using array syntax
+		#~ first_item = self.my_list[0]
+		#~ last_item = self.my_list[-1]
+		#~ second_to_last = self.my_list[-2]
+
+		#~ # Access using at()
+		#~ item_at_2 = self.my_list.at(2)
+
+		#~ # Get list info
+		#~ total_items = self.my_list.count()
+		#~ is_empty = self.my_list.is_empty()
+
+		#~ print(f"List has {total_items} items")
+		#~ print(f"Is empty: {is_empty}")
+
+		#~ # Connect event handler
+		#~ self.my_list.on_click = self.on_list_item_clicked
+
 	def on_click_button(self, widget, event):
 		print(f"Click! Button '{widget.text}' at position {event.position}")
+		# Add single items
+		self.my_list.append("Item 1")
+		self.my_list.append("Item 2")
+
+	def on_list_item_clicked(self, widget, event):
+		print(f"List item clicked at position {event.position}")
 		
 
 	def on_key_pressed(self, widget, event):

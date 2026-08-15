@@ -22,42 +22,130 @@ void List::test3()
 void List::test4()
 {
 	MemoryLeakLog
+	Window window;
+	window.color(Color::LIGHT_GRAY);
+	List* list = new List(&window);
+
+	assert(list->is_empty() == true);
+	assert(list->count() == 0);
+	assert(list->at(0) == nullptr);
+
+	list->remove(0);
+
+
+	list->append("0");
+	assert(list->is_empty() == false);
+	assert(list->count() == 1);
+
+	list->append("1");
+	assert(list->is_empty() == false);
+	assert(list->count() == 2);
+
+	list->append("2");
+	assert(list->is_empty() == false);
+	assert(list->count() == 3);
+
+	list->remove(0);
+	assert(list->is_empty() == false);
+	assert(list->count() == 2);
+
+	list->remove(-1);
+	assert(list->is_empty() == false);
+	assert(list->count() == 1);
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/list4_1.svg");
+
 }
 
 /** Test 5: List with arrows */
 void List::test5()
 {
 	MemoryLeakLog
+		Window window;
+	window.color(Color::LIGHT_GRAY);
+	List* list = new List(&window);
+
+	list->append("0");
+	list->append("1");
+	list->append("2");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/list5_1.svg");
+
+	list->at(0)->text("A");
+	list->at(1)->text("B");
+	list->at(-1)->text("C");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/list5_2.svg");
+
+	list->at(-10)->text("0");
+	list->at(10)->text("2");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/list5_3.svg");
+
+	(*list)[0]->text("a");
+	(*list)[1]->text("b");
+	(*list)[-1]->text("c");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/list5_4.svg");
 }
 
 /** Test 6: List with scrollbar (many items) */
 void List::test6()
 {
 	MemoryLeakLog
-	//Window window;
-	//window.color(Color::WHITE_BLUE);
-	//
-	//List* list = new List(&window);
-	//list->size(200, 200);
-	//list->position(50, 50);
-	//list->scrollbar_visible(true);
-	//
-	//for (int i = 0; i < 20; i++)
-	//{
-	//	String text;
-	//	text.print("Item %d", i + 1);
-	//	list->add(text);
-	//}
-	//
-	//// Scroll down
-	//String script(
-	//"["
-	//	"{'type':'touch','x':150,'y':150,'state':'down'},"
-	//	"{'type':'touch','x':150,'y':100,'state':'move'},"
-	//	"{'type':'touch','x':150,'y':50,'state':'up'},"
-	//	"{'type':'key','key':9208,'state':'press'}"
-	//"]");
-	//UIManager::notifier()->play_script(script, "$(ui.tests)/out/list6.svg");
+
+	Window window;
+	window.color(Color::LIGHT_GRAY);
+	List* list = new List(&window);
+	list->append("0");
+	list->append("1");
+	list->append("2");
+	list->insert(0, "A");
+	list->insert(2, "B");
+	list->insert(4, "C");
+	list->insert(6, "D");
+	list->insert(11, "-");
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/list6_1.svg");
+
+	list->clear();
+	list->prepend("2");
+	list->prepend("1");
+	list->prepend("0");
+	list->insert(-1, "A");
+	list->insert(-3, "B");
+	list->insert(-5, "C");
+	list->insert(-7, "D");
+	list->insert(-9, "-");
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/list6_2.svg");
+
+	list->clear();
+
+	list->append([](ListItem* item) {
+		item->text("Color BLUE");
+		item->color(Color::BLUE);
+		item->text_color(Color::YELLOW);
+		item->font_size(30, 25);
+		item->trailing("$(ui.icons)/settings.icn");
+		item->leading("$(ui.icons)/computer.icn");
+		});
+
+	list->prepend([](ListItem* item) {
+		item->text("Color RED");
+		item->color(Color::RED);
+		item->text_color(Color::CYAN);
+		item->font_size(30, 25);
+		item->trailing("$(ui.icons)/settings.icn");
+		item->leading("$(ui.icons)/computer.icn");
+		});
+
+	list->insert(1, [](ListItem* item) {
+		item->text("Color GREEN");
+		item->color(Color::GREEN);
+		item->text_color(Color::MAUVE);
+		item->font_size(30, 25);
+		item->trailing("$(ui.icons)/settings.icn");
+		item->leading("$(ui.icons)/computer.icn");
+		});
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/list6_3.svg");
 }
 
 /** Test 7: List with touch selection */
@@ -137,7 +225,6 @@ void List::test7()
 			UIManager::desktop()->dispatch(name);
 		}
 	}
-	//UIManager::desktop()->mainloop();
 }
 
 void List::test()
@@ -147,6 +234,7 @@ void List::test()
 	{
 		MemoryLeakLog
 		done = true;
+
 		test7();
 		test6();
 		test5();

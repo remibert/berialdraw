@@ -86,7 +86,7 @@ void Keyboard::create(const String & name)
 
 	if (m_mappings)
 	{
-		uint16_t grid_id = 40001;
+		Dim grid_id = 40001;
 		m_mappingSelected = m_mappings->select(name);
 
 		if (m_mappingSelected)

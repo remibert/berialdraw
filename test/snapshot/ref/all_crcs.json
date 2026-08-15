@@ -5286,5 +5286,33 @@
 		"$(ui.tests)/out/list7_6.svg" : 
 		{
 			"scale_1" : 2489198301
+		},
+		"$(ui.tests)/out/button18_1.svg" : 
+		{
+			"scale_1" : 2119034415
+		},
+		"$(ui.tests)/out/button18_2.svg" : 
+		{
+			"scale_1" : 483652010
+		},
+		"$(ui.tests)/out/button18_3.svg" : 
+		{
+			"scale_1" : 3236148647
+		},
+		"$(ui.tests)/out/button18_4.svg" : 
+		{
+			"scale_1" : 3375538699
+		},
+		"$(ui.tests)/out/button18_5.svg" : 
+		{
+			"scale_1" : 1488878823
+		},
+		"$(ui.tests)/out/button18_6.svg" : 
+		{
+			"scale_1" : 3820102655
+		},
+		"$(ui.tests)/out/button18_7.svg" : 
+		{
+			"scale_1" : 2386931601
 		}
 	}

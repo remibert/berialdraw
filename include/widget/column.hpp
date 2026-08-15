@@ -11,6 +11,7 @@ namespace berialdraw
 		/** Create widget */
 		Column(Widget * parent);
 
+
 		/** Destroy widget */
 		virtual ~Column();
 

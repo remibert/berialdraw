@@ -13,13 +13,13 @@ namespace berialdraw
 		virtual ~TableView();
 
 		/** Set a widget in a specific cell */
-		void set_widget(uint16_t row, uint16_t column, Widget* widget);
+		void set_widget(Dim row, Dim column, Widget* widget);
 
 		/** Get the widget at a specific cell */
-		Widget* get_widget(uint16_t row, uint16_t column);
+		Widget* get_widget(Dim row, Dim column);
 
 		/** Remove the widget at a specific cell */
-		void remove_widget(uint16_t row, uint16_t column);
+		void remove_widget(Dim row, Dim column);
 
 		/** Clear all widgets from the table */
 		virtual void clear() override;

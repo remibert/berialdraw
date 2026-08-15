@@ -25,23 +25,23 @@ namespace berialdraw
 
 
 		/** Get the row selector */
-		inline uint16_t row_selector() const
+		inline Dim row_selector() const
 		{
 			return m_row_selector;
 		}
 
 		/** Set the row selector */
-		void row_selector(uint16_t row);
+		void row_selector(Dim row);
 
 
 		/** Get the column selector */
-		inline uint16_t column_selector() const
+		inline Dim column_selector() const
 		{
 			return m_column_selector;
 		}
 
 		/** Set the column selector */
-		void column_selector(uint16_t col);
+		void column_selector(Dim col);
 
 
 		/** Get the property name for this style */
@@ -49,8 +49,8 @@ namespace berialdraw
 
 	protected:
 /// @cond DOXYGEN_IGNORE
-		uint16_t m_row_selector = 0;
-		uint16_t m_column_selector = 0;
+		Dim m_row_selector = 0;
+		Dim m_column_selector = 0;
 /// @endcond
 	};
 }

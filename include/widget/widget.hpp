@@ -20,7 +20,7 @@ namespace berialdraw
 	friend class Invalidator;
 	public:
 		/** Create widget */
-		Widget(const char * classname, Widget * parent, size_t size_of_widget);
+		Widget(const char * classname, Widget * parent, size_t size_of_widget, Dim index = UNDEFINED_INDEX);
 
 		/** Destroy widget */
 		virtual ~Widget();
@@ -95,7 +95,7 @@ namespace berialdraw
 		}
 
 		/** Search widget with this identifier */
-		Widget * search(uint16_t id);
+		Widget * search(Dim id);
 
 		/** Return the area occuped by this window */
 		virtual Area area();

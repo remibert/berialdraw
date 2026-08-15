@@ -26,16 +26,16 @@ namespace berialdraw
 
 
 		/** Get the max visible lines in the edit */
-		uint16_t max_lines() const { return m_max_lines; }
+		Dim max_lines() const { return m_max_lines; }
 
 		/** Get the max visible columns in the edit */
-		uint16_t max_columns() const { return m_max_columns; }
+		Dim max_columns() const { return m_max_columns; }
 
 		/** Set the max visible lines in the edit */
-		void max_lines(uint16_t v);
+		void max_lines(Dim v);
 
 		/** Set the max visible columns in the edit */
-		void max_columns(uint16_t v);
+		void max_columns(Dim v);
 
 
 		/** Get the selection color */
@@ -92,8 +92,8 @@ namespace berialdraw
 		const char* property_name() const override { return "edit"; }
 	protected:
 /// @cond DOXYGEN_IGNORE
-		uint16_t m_max_lines = 1;
-		uint16_t m_max_columns = 60;
+		Dim m_max_lines = 1;
+		Dim m_max_columns = 60;
 		uint32_t m_select_color   = 0x3F000000;
 		uint32_t m_cursor_color   = 0xFF000000;
 		uint32_t m_place_holder_color   = 0xFFC0C4CC;

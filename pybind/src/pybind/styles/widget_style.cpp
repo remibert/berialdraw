@@ -4,11 +4,11 @@ void bind_widget_style(pybind11::module_& m) {
     cls.def(pybind11::init<>());
     
     cls.def_property("row", 
-        static_cast<uint16_t (berialdraw::WidgetStyle::*)() const>(&berialdraw::WidgetStyle::row),
-        static_cast<void (berialdraw::WidgetStyle::*)(uint16_t)>(&berialdraw::WidgetStyle::row), "Row position");
+        static_cast<berialdraw::Dim (berialdraw::WidgetStyle::*)() const>(&berialdraw::WidgetStyle::row),
+        static_cast<void (berialdraw::WidgetStyle::*)(berialdraw::Dim)>(&berialdraw::WidgetStyle::row), "Row position");
     cls.def_property("column", 
-        static_cast<uint16_t (berialdraw::WidgetStyle::*)() const>(&berialdraw::WidgetStyle::column),
-        static_cast<void (berialdraw::WidgetStyle::*)(uint16_t)>(&berialdraw::WidgetStyle::column), "Column position");
+        static_cast<berialdraw::Dim (berialdraw::WidgetStyle::*)() const>(&berialdraw::WidgetStyle::column),
+        static_cast<void (berialdraw::WidgetStyle::*)(berialdraw::Dim)>(&berialdraw::WidgetStyle::column), "Column position");
     cls.def("cell", &berialdraw::WidgetStyle::cell, PYBIND11_RELEASE_GIL);
     cls.def_property("size_policy", 
         static_cast<berialdraw::SizePolicy (berialdraw::WidgetStyle::*)() const>(&berialdraw::WidgetStyle::size_policy),
@@ -25,8 +25,8 @@ void bind_widget_style(pybind11::module_& m) {
         "Maximum size: int, (w,h), or Size");
 
     cls.def_property("id", 
-        static_cast<uint16_t (berialdraw::WidgetStyle::*)() const>(&berialdraw::WidgetStyle::id),
-        static_cast<void (berialdraw::WidgetStyle::*)(uint16_t)>(&berialdraw::WidgetStyle::id), "Widget ID");
+        static_cast<berialdraw::Dim (berialdraw::WidgetStyle::*)() const>(&berialdraw::WidgetStyle::id),
+        static_cast<void (berialdraw::WidgetStyle::*)(berialdraw::Dim)>(&berialdraw::WidgetStyle::id), "Widget ID");
     cls.def_property("extend", 
         static_cast<berialdraw::Extend (berialdraw::WidgetStyle::*)() const>(&berialdraw::WidgetStyle::extend),
         static_cast<void (berialdraw::WidgetStyle::*)(berialdraw::Extend)>(&berialdraw::WidgetStyle::extend), "Extend mode");

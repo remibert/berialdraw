@@ -8,6 +8,7 @@
 #include <mutex>
 #include <stdexcept>
 #include <memory>
+#include <functional>
 
 // Tools
 #include "tool/memory_leak_tracer.hpp"

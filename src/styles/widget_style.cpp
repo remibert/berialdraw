@@ -123,21 +123,21 @@ Style * WidgetStyle::create()
 }
 
 /** Set the row in the grid */
-void WidgetStyle::row(uint16_t r)
+void WidgetStyle::row(Dim r)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_row = r;
 }
 
 /** Set the column in the grid */
-void WidgetStyle::column(uint16_t c)
+void WidgetStyle::column(Dim c)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_column = c;
 }
 
 /** Set the cell in the grid */
-void WidgetStyle::cell(uint16_t r, uint16_t c)
+void WidgetStyle::cell(Dim r, Dim c)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_row = r;
@@ -194,10 +194,10 @@ void WidgetStyle::max_size_q6(Dim w, Dim h)
 }
 
 /** Set the id */
-void WidgetStyle::id(uint16_t v)
+void WidgetStyle::id(Dim v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
-	m_id = (uint16_t)v;
+	m_id = (Dim)v;
 }
 
 /** Set the extend */

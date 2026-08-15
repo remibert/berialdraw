@@ -37,8 +37,8 @@ StyleCascadeMode Row::style_cascade_mode() const
 /** Rework all widget to follow this layout flow constraint */
 void Row::flow_place(const Area & area)
 {
-	uint16_t column = 0;
-	uint16_t row = 0;
+	Dim column = 0;
+	Dim row = 0;
 	Dim linear_size = 0;
 	Widget* child = m_children;
 
@@ -62,7 +62,7 @@ void Row::flow_place(const Area & area)
 /** Rework all widget to follow this layout constraint */
 void Row::linear_place()
 {
-	uint16_t row = 0;
+	Dim row = 0;
 	Widget* child = m_children;
 
 	// Scan all widget children

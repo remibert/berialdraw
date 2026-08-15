@@ -13,9 +13,9 @@ void TableView::test1()
 	table->horizontal_thickness(1);
 	table->vertical_thickness(1);
 	
-	for (uint16_t row = 0; row < 30; row++)
+	for (Dim row = 0; row < 30; row++)
 	{
-		for (uint16_t column = 0; column < 20; column++)
+		for (Dim column = 0; column < 20; column++)
 		{
 			Label* label = new Label(table);
 			label->text("(%c:%d)", 0x41 + row, column + 1);
@@ -81,9 +81,9 @@ void TableView::test3()
 	table->horizontal_thickness(2);
 	table->vertical_thickness(2);
 	
-	for (uint16_t row = 0; row < 5; row++)
+	for (Dim row = 0; row < 5; row++)
 	{
-		for (uint16_t col = 0; col < 5; col++)
+		for (Dim col = 0; col < 5; col++)
 		{
 			Label* label = new Label(table);
 			label->text("%d", row * 5 + col + 1);
@@ -108,9 +108,9 @@ void TableView::test4()
 	table->alternating_row_color1(Color::ALICE_BLUE);
 	table->alternating_row_color2(Color::LIGHT_AQUAMARINE);
 	
-	for (uint16_t row = 0; row < 8; row++)
+	for (Dim row = 0; row < 8; row++)
 	{
-		for (uint16_t col = 0; col < 4; col++)
+		for (Dim col = 0; col < 4; col++)
 		{
 			Label* label = new Label(table);
 			label->text("Cell %d", row * 4 + col + 1);
@@ -137,9 +137,9 @@ void TableView::test5()
 	table->alternating_row_color1(Color::WHITE);
 	table->alternating_row_color2(Color::DARK_GRAY);
 	
-	for (uint16_t row = 0; row < 6; row++)
+	for (Dim row = 0; row < 6; row++)
 	{
-		for (uint16_t col = 0; col < 6; col++)
+		for (Dim col = 0; col < 6; col++)
 		{
 			Label* label = new Label(table);
 			label->text("R%dC%d", row, col);
@@ -167,13 +167,13 @@ void TableView::test6()
 	table->alternating_row_color2(Color::WHITE_SMOKE);
 	
 	int id = 0;
-	for (uint16_t size = 1; size <= 10; size++)
+	for (Dim size = 1; size <= 10; size++)
 	{
 		table->clear();
 		
-		for (uint16_t row = 0; row < size; row++)
+		for (Dim row = 0; row < size; row++)
 		{
-			for (uint16_t col = 0; col < size; col++)
+			for (Dim col = 0; col < size; col++)
 			{
 				Label* label = new Label(table);
 				label->text("%d", row * size + col + 1);
@@ -200,9 +200,9 @@ void TableView::test7()
 	table->horizontal_thickness(1);
 	table->vertical_thickness(1);
 	
-	for (uint16_t row = 0; row < 20; row++)
+	for (Dim row = 0; row < 20; row++)
 	{
-		for (uint16_t col = 0; col < 15; col++)
+		for (Dim col = 0; col < 15; col++)
 		{
 			Label* label = new Label(table);
 			label->text("R%dC%d", row, col);
@@ -242,9 +242,9 @@ void TableView::test8()
 	table->alternating_row_color1(Color::LIGHT_AQUAMARINE);
 	table->alternating_row_color2(Color::ALICE_BLUE);
 	
-	for (uint16_t row = 0; row < 10; row++)
+	for (Dim row = 0; row < 10; row++)
 	{
-		for (uint16_t col = 0; col < 8; col++)
+		for (Dim col = 0; col < 8; col++)
 		{
 			Label* label = new Label(table);
 			label->text("%d", (row + 1) * (col + 1));
@@ -269,9 +269,9 @@ void TableView::test9()
 	table->horizontal_thickness(1);
 	table->vertical_thickness(1);
 	
-	for (uint16_t row = 0; row < 50; row++)
+	for (Dim row = 0; row < 50; row++)
 	{
-		for (uint16_t col = 0; col < 25; col++)
+		for (Dim col = 0; col < 25; col++)
 		{
 			Label* label = new Label(table);
 			label->text("Val");

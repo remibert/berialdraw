@@ -2,8 +2,8 @@
 
 using namespace berialdraw;
 
-ListItem::ListItem(Widget* parent) :
-	Widget("list_item", parent, sizeof(ListItem))
+ListItem::ListItem(Widget* parent, Dim index) :
+	Widget("list_item", parent, sizeof(ListItem), index)
 {
 	UIManager::styles()->apply(this, (CommonStyle*)this);
 	UIManager::styles()->apply(this, (WidgetStyle*)this);

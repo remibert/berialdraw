@@ -29,25 +29,25 @@ namespace berialdraw
 
 
 		/** Get the row in the grid */
-		inline uint16_t row() const
+		inline Dim row() const
 		{
 			return m_row;
 		}
 
 		/** Get the column in the grid */
-		inline uint16_t column() const
+		inline Dim column() const
 		{
 			return m_column;
 		}
 
 		/** Set the row in the grid */
-		void row(uint16_t r);
+		void row(Dim r);
 
 		/** Set the column in the grid */
-		void column(uint16_t c);
+		void column(Dim c);
 
 		/** Set the cell in the grid */
-		void cell(uint16_t r, uint16_t c);
+		void cell(Dim r, Dim c);
 
 
 		/** Get the cell size policy */
@@ -93,10 +93,10 @@ namespace berialdraw
 
 
 		/** Get the id */
-		uint16_t id() const { return (uint16_t)m_id; }
+		Dim id() const { return (Dim)m_id; }
 
 		/** Set the id */
-		void id(uint16_t v);
+		void id(Dim v);
 
 
 		/** Get the extend */
@@ -179,17 +179,20 @@ namespace berialdraw
 #endif
 
 
-#define UNDEFINED_CELL 0x7FFF
-#define EVEN_CELL      0x7FFE // Paire
-#define ODD_CELL       0x7FFD // Impaire
+#define UNDEFINED_CELL  0x7FFFFFFF
+#define EVEN_CELL       0x7FFFFFFE // Paire
+#define ODD_CELL        0x7FFFFFFD // Impaire
+#define UNDEFINED_ID    0xFFFFFFFF
+#define UNDEFINED_INDEX 0x7FFFFFFF
 	protected:
 /// @cond DOXYGEN_IGNORE
 		Size m_min_size = {0,0};
 		Size m_max_size = {Size::MAX_SIZE,Size::MAX_SIZE};
 
-		uint16_t m_row    = UNDEFINED_CELL;
-		uint16_t m_column = UNDEFINED_CELL;
-		uint16_t m_id = 0xFFFF;
+		Dim m_row    = UNDEFINED_CELL;
+		Dim m_column = UNDEFINED_CELL;
+		Dim m_id     = UNDEFINED_ID;
+
 		unsigned int m_pressed   :1;
 		unsigned int m_pressable :1;
 		unsigned int m_checked   :1;

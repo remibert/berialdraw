@@ -42,8 +42,8 @@
 		"id" : 0,
 		"cell" : 
 		{
-			"row" : 32767,
-			"column" : 32767
+			"row" : 2147483647,
+			"column" : 2147483647
 		},
 		"extend" : "none",
 		"size-policy" : "normal",
@@ -72,8 +72,8 @@
 				"id" : 0,
 				"cell" : 
 				{
-					"row" : 32767,
-					"column" : 32767
+					"row" : 2147483647,
+					"column" : 2147483647
 				},
 				"extend" : "none",
 				"size-policy" : "normal",
