@@ -60,6 +60,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_cells_style(m);
     bind_picture_style(m);
     bind_timer_style(m);
+    bind_list_item_style(m);
     
     // Bind framebuf classes
     bind_framebuf(m);

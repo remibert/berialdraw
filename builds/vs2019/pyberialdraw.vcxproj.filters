@@ -358,6 +358,9 @@
     <ClCompile Include="..\..\pybind\src\pybind\widget\list_item.cpp">
       <Filter>pybind\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\styles\list_item_style.cpp">
+      <Filter>pybind\styles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\pybind\inc\pybind\pyberialdraw.hpp" />

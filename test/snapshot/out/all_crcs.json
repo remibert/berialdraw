@@ -5314,37 +5314,5 @@
 		"$(ui.tests)/out/button18_7.svg" : 
 		{
 			"scale_1" : 2386931601
-		},
-		"$(ui.tests)/out/list4_1.svg" : 
-		{
-			"scale_1" : 524176628
-		},
-		"$(ui.tests)/out/list6_1.svg" : 
-		{
-			"scale_1" : 368787811
-		},
-		"$(ui.tests)/out/list6_2.svg" : 
-		{
-			"scale_1" : 546899064
-		},
-		"$(ui.tests)/out/list6_3.svg" : 
-		{
-			"scale_1" : 1685385376
-		},
-		"$(ui.tests)/out/list5_1.svg" : 
-		{
-			"scale_1" : 1024735848
-		},
-		"$(ui.tests)/out/list5_2.svg" : 
-		{
-			"scale_1" : 1601939879
-		},
-		"$(ui.tests)/out/list5_3.svg" : 
-		{
-			"scale_1" : 1249715365
-		},
-		"$(ui.tests)/out/list5_4.svg" : 
-		{
-			"scale_1" : 3242285107
 		}
 	}

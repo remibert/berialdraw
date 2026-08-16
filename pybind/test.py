@@ -15,7 +15,7 @@ device = DeviceScreen("Sample python")
 device.position = (100,100)
 
 UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "./resources;../resources")
-#UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "zip://resources.zip/resources")
+#~ UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "zip://resources.zip/resources")
 
 UIManager.style = "pearl"
 UIManager.appearance = "light"
@@ -35,9 +35,40 @@ def key_to_str(key):
 
 class Dialog:
 	def __init__(self):
+		#~ UIManager.notifier().log()
 		self.window = Window()
 		self.scroll = ScrollView(self.window)
 		self.layout = Column(self.scroll)
+		
+		#~ self.init_form()
+		#~ self.init_radio()
+		#~ self.init_table()
+		#~ self.init_image()
+		self.init_list()
+
+
+	def init_list(self):
+		self.list_label = Label(self.layout)
+		
+		self.list_label.text = "List Widget Example"
+		
+		self.list = List(self.layout)
+		self.list.size = (400, 150)
+		self.list.margin = 10
+		
+		self.add = Button(self.layout)
+		self.add.text = "add"
+		self.add.margin = (20,10)
+		self.add.on_click = self.on_add_button
+		#~ self.add.on_key_down = self.on_add_button
+
+	def on_add_button(self, widget, event):
+		item = self.list.append("Item 1")
+		item.text = "image"
+		item.trailing = "$(ui.icons)/computer.icn"
+		item.text_color = Color.RED
+
+	def init_form(self):
 		self.label = Label(self.layout)
 		self.label.text = "hello"
 
@@ -73,6 +104,7 @@ class Dialog:
 		self.button.on_click = self.on_click_button
 		self.button.on_key_down = self.on_key_pressed
 
+	def init_radio(self):
 		self.radio1 = Radio(self.layout)
 		self.radio1.text = "Radio1"
 		self.radio1.group = "group1"
@@ -92,6 +124,7 @@ class Dialog:
 		self.switch.on_click = lambda widget, event: print(f"Switch clicked")
 		self.switch.on_key_down = self.on_key_pressed
 
+	def init_table(self):
 		# Table View Example
 		self.table_label = Label(self.layout)
 		self.table_label.text = "Table View Example"
@@ -112,6 +145,7 @@ class Dialog:
 		self.table.load(table_data)
 		self.table.on_click = self.on_table_row_clicked
 
+	def init_image(self):
 		# Picture View Example
 		self.picture_label = Label(self.layout)
 		self.picture_label.text = "Picture Example"
@@ -125,59 +159,24 @@ class Dialog:
 		self.jpg_picture.filename = "$(ui.images)/filleperle.jpg"
 		self.jpg_picture.fit_mode = ImageFitMode.FIT
 		self.jpg_picture.margin = (10, 10)
-
-		# List Example
-		self.list_label = Label(self.layout)
-		self.list_label.text = "List Widget Example"
-
-		self.my_list = List(self.layout)
-		#~ self.my_list.extend = Extend.EXTEND_WIDTH
-		#~ self.my_list.min_size = (400, 150)
-
-		#~ # Add single items
-		#~ self.my_list.append("Item 1")
-		#~ self.my_list.append("Item 2")
-
-		#~ # Add multiple items with a list
-		#~ self.my_list.append(["Item 3", "Item 4", "Item 5"])
-
-		#~ # Add items with custom configuration
-		#~ self.my_list.append(lambda item: (
-			#~ item.set_text("Item 6 (custom)"),
-			#~ item.set_color(0xFF6B6B)
-		#~ ))
-
-		#~ # Add items at specific positions
-		#~ self.my_list.insert(0, "First Item")
-		#~ self.my_list.insert(-1, "Before Last")
-
-		#~ # Access items using array syntax
-		#~ first_item = self.my_list[0]
-		#~ last_item = self.my_list[-1]
-		#~ second_to_last = self.my_list[-2]
-
-		#~ # Access using at()
-		#~ item_at_2 = self.my_list.at(2)
-
-		#~ # Get list info
-		#~ total_items = self.my_list.count()
-		#~ is_empty = self.my_list.is_empty()
-
-		#~ print(f"List has {total_items} items")
-		#~ print(f"Is empty: {is_empty}")
-
-		#~ # Connect event handler
-		#~ self.my_list.on_click = self.on_list_item_clicked
+		
+	def play_script(self):
+		script = [
+			{'type':'key','key':8592,'state':'down'},
+			{'type':'key','key':8592,'state':'up'  },
+			{'type':'key','key':8594,'state':'down'},
+			{'type':'key','key':8594,'state':'up'  },
+			{'type':'key','key':8594,'state':'down'},
+			{'type':'key','key':8594,'state':'up'  }
+		]
+		UIManager.notifier().play_script(script)
+		
 
 	def on_click_button(self, widget, event):
 		print(f"Click! Button '{widget.text}' at position {event.position}")
-		# Add single items
-		self.my_list.append("Item 1")
-		self.my_list.append("Item 2")
 
 	def on_list_item_clicked(self, widget, event):
 		print(f"List item clicked at position {event.position}")
-		
 
 	def on_key_pressed(self, widget, event):
 		classname_hex = ''.join(f'U+{ord(c):04X}' if ord(c) > 127 else c for c in widget.classname)
@@ -189,25 +188,5 @@ class Dialog:
 		print(f"Table row clicked at position {event.position}")
 
 
-class Dialog2:
-	def __init__(self):
-		self.window = Window()
-		self.window.color = Color.RED
-		self.first_name = Edit(self.window)
-		self.first_name.text = "afa"
-		#UIManager.notifier().log()
-		script = [
-			{'type':'key','key':8592,'state':'down'},
-			{'type':'key','key':8592,'state':'up'  },
-			{'type':'key','key':8594,'state':'down'},
-			{'type':'key','key':8594,'state':'up'  },
-			{'type':'key','key':8594,'state':'down'},
-			{'type':'key','key':8594,'state':'up'  }
-		]
-		UIManager.notifier().play_script(script)
-
 dlg = Dialog()
-# Décommenter l'une des lignes suivantes pour tester Dialog2 ou Dialog3:
-# dlg = Dialog2()
-# dlg = Dialog3()
 UIManager.desktop().mainloop()

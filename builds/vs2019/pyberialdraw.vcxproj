@@ -26,6 +26,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\pybind\src\pybind\event\timer_event.cpp" />
     <ClCompile Include="..\..\pybind\src\pybind\shape\star.cpp" />
+    <ClCompile Include="..\..\pybind\src\pybind\styles\list_item_style.cpp" />
     <ClCompile Include="..\..\pybind\src\pybind\styles\padding_style.cpp" />
     <ClCompile Include="..\..\pybind\src\pybind\styles\radio_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>

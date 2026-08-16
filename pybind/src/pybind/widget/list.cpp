@@ -22,8 +22,13 @@ void bind_list(pybind11::module_& m) {
 		}
 		else if (pybind11::isinstance<pybind11::function>(arg))
 		{
-			// Callable: apply and return result
-			auto config = pybind11::cast<std::function<void(berialdraw::ListItem*)>>(arg);
+			// Callable: wrap Python function and ignore return value
+			// This allows Python functions to return tuples, None, or any other value
+			auto py_func = pybind11::cast<pybind11::object>(arg);
+			auto config = [py_func](berialdraw::ListItem* item) {
+				pybind11::gil_scoped_acquire acquire;
+				py_func(item);  // Call Python function, ignore return value
+			};
 			return on_callable(config);
 		}
 		throw pybind11::type_error("Argument must be a string, list of strings, or callable");
