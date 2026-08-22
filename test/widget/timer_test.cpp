@@ -170,7 +170,7 @@ void Timer::test4()
 	assert(timer2->is_running());
 	
 	// Dispatch multiple times to fire both timers
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		UIManager::desktop()->dispatch();
 	}

@@ -7,12 +7,12 @@ using namespace berialdraw;
 ScrollableContent::ScrollableContent(const char * classname, Widget * parent, size_t size_of_widget):
 	Widget(classname, parent, size_of_widget)
 {
-	UIManager::styles()->apply(this, (WidgetStyle*)this);
+	UIManager::styles()->apply(this, (CommonStyle    *)this);
+	UIManager::styles()->apply(this, (WidgetStyle    *)this);
 	UIManager::styles()->apply(this, (ScrollViewStyle*)this);
-	UIManager::styles()->apply(this, (ScrollbarStyle*)this);
-	UIManager::styles()->apply(this, (BorderStyle*)this);
-	m_color = Color::TRANSPARENT;
-	//m_size.clean();
+	UIManager::styles()->apply(this, (ScrollbarStyle *)this);
+	UIManager::styles()->apply(this, (BorderStyle    *)this);
+	//m_color = Color::TRANSPARENT;
 	bind(this, &ScrollableContent::on_scroll);
 }
 
@@ -23,6 +23,7 @@ ScrollableContent::~ScrollableContent()
 /** Copy all styles of the scrollable content */
 void ScrollableContent::copy(const ScrollableContent& scroll_content)
 {
+	*((CommonStyle    *)this) = *(CommonStyle    *)(&scroll_content);
 	*((WidgetStyle    *)this) = *(WidgetStyle    *)(&scroll_content);
 	*((ScrollViewStyle*)this) = *(ScrollViewStyle*)(&scroll_content);
 	*((ScrollbarStyle *)this) = *(ScrollbarStyle *)(&scroll_content);
@@ -41,6 +42,7 @@ void ScrollableContent::copy(const ScrollableContent* scroll_content)
 /** Serialize the content of widget into json */
 void ScrollableContent::serialize(JsonIterator& it)
 {
+	CommonStyle::serialize(it);
 	WidgetStyle::serialize(it);
 	ScrollViewStyle::serialize(it);
 	ScrollbarStyle::serialize(it);
@@ -50,6 +52,7 @@ void ScrollableContent::serialize(JsonIterator& it)
 /** Unserialize the content of widget from json */
 void ScrollableContent::unserialize(JsonIterator& it)
 {
+	CommonStyle::unserialize(it);
 	WidgetStyle::unserialize(it);
 	ScrollViewStyle::unserialize(it);
 	ScrollbarStyle::unserialize(it);
@@ -64,10 +67,22 @@ void ScrollableContent::on_scroll(Widget * widget, const ScrollEvent & evt)
 	UIManager::invalidator()->dirty(this,Invalidator::GEOMETRY);
 }
 
-/** Compute the scroll area */
+/** Compute the scroll area — only direct children with explicit positions */
 void ScrollableContent::space_occupied(Point & min_position, Point & max_position)
 {
-	Widget::space_occupied(min_position,max_position);
+	// Only consider direct children with explicit absolute positions.
+	// Do not recurse: sub-widget positions are relative to their own parent, not this scroll area.
+	Widget* child = m_children;
+	while (child)
+	{
+		Point pos = child->position();
+		if (!pos.is_x_undefined() || !pos.is_y_undefined())
+		{
+			Size marged = child->content_size();
+			one_space_occupied(min_position, max_position, pos, marged);
+		}
+		child = child->next();
+	}
 }
 
 Coord ScrollableContent::calc_shift_focus(Coord widget_position, Dim widget_size, Coord viewport_position, Dim viewport_size)
@@ -151,44 +166,85 @@ Coord ScrollableContent::compute_scroll(Coord & scroll_position, Coord & m_scrol
 	return result;
 }
 
+// Compute content dimensions per axis, respecting explicit scroll_size settings
+void ScrollableContent::compute_content_dimensions(const Area & viewport, Size & scroll_size, Area & fixed_area)
+{
+	bool auto_width  = m_scroll_size.is_width_undefined();
+	bool auto_height = m_scroll_size.is_height_undefined();
+
+	// Only compute layout and absolute positions if at least one axis is auto
+	if (auto_width || auto_height)
+	{
+		// Layout children size (containers like Grid/Column report their total size)
+		Size children_size = Widget::children_content_size();
+
+		// Bounding box of absolutely positioned direct children only
+		scroll_area(fixed_area);
+
+		// Width axis
+		if (auto_width)
+		{
+			Dim width = children_size.width_q6();
+
+			// Expand to fit absolutely positioned widgets
+			if (fixed_area.width_q6() > width)
+			{
+				width = fixed_area.width_q6();
+			}
+
+			// Vertical-only scroll: constrain width to viewport
+			if (m_scroll_direction == SCROLL_VERTICAL)
+			{
+				width = viewport.size().width_q6();
+			}
+			m_content_size.width_q6(width);
+		}
+		else
+		{
+			m_content_size.width_q6(m_scroll_size.width_q6());
+		}
+
+		// Height axis
+		if (auto_height)
+		{
+			Dim height = children_size.height_q6();
+
+			// Expand to fit absolutely positioned widgets
+			if (fixed_area.height_q6() > height)
+			{
+				height = fixed_area.height_q6();
+			}
+
+			// Horizontal-only scroll: constrain height to viewport
+			if (m_scroll_direction == SCROLL_HORIZONTAL)
+			{
+				height = viewport.size().height_q6();
+			}
+			m_content_size.height_q6(height);
+		}
+		else
+		{
+			m_content_size.height_q6(m_scroll_size.height_q6());
+		}
+	}
+	else
+	{
+		// Both axes explicitly defined by user
+		m_content_size = m_scroll_size;
+	}
+
+	scroll_size = m_content_size;
+}
+
 Point ScrollableContent::compute_scroll_view(const Area & area, Point & scroll_position, Size & scroll_size)
 {
 	Point result;
 	Area fixed_area;
 
-	// If scroll size not specified
-	if (m_scroll_size.is_width_undefined() || m_scroll_size.is_height_undefined())
-	{
-		m_content_size = Widget::children_content_size();
+	// Compute content size per axis independently
+	compute_content_dimensions(area, scroll_size, fixed_area);
 
-		// Compute the absolute positionned widget area
-		scroll_area(fixed_area);
-
-		if (m_content_size.width_q6() < fixed_area.width_q6())
-		{
-			m_content_size.width_q6(fixed_area.width_q6());
-		}
-
-		if (m_content_size.height_q6() < fixed_area.height_q6())
-		{
-			m_content_size.height_q6(fixed_area.height_q6());
-		}
-
-		// If the scrolled content can extend only to the width (vertical scroll)
-		if (m_scroll_direction == SCROLL_VERTICAL)
-		{
-			// Reduce the scrolled content width to the viewport width
-			m_content_size.width(area.width());
-		}
-		// If the scrolled content can extend only to the height (horizontal scroll)
-		else if (m_scroll_direction == SCROLL_HORIZONTAL)
-		{
-			// Reduce the scrolled content height to the viewport height
-			m_content_size.height(area.height());
-		}
-		scroll_size = m_content_size;
-	}
-
+	// Clamp scroll position within valid range
 	Coord scroll_position_x   = scroll_position.x();
 	Coord scroll_position_y   = scroll_position.y();
 	Coord m_scroll_position_x = m_scroll_position.x();
@@ -199,6 +255,7 @@ Point ScrollableContent::compute_scroll_view(const Area & area, Point & scroll_p
 	result_y = compute_scroll(scroll_position_y, m_scroll_position_y, scroll_size.height(), area.height(), (m_align>>2));
 	result.set(result_x, result_y);
 
+	// Adjust origin for absolutely positioned content offset
 	scroll_position_x -= fixed_area.position().x();
 	scroll_position_y -= fixed_area.position().y();
 

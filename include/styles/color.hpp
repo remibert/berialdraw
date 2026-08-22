@@ -100,6 +100,7 @@ namespace berialdraw
 
 		LIST_BORDER_COLOR          = 0x0000004F, ///< List border color
 		LIST_SEPARATOR_COLOR       = 0x00000050, ///< List item separator color
+		LIST_BACK_COLOR            = 0x00000051, ///< List background color
 
 		PALETTE_BACK_COLOR                = 0x000000E0,
 		PALETTE_BACK_COLOR_LIGHT_1        = 0x000000E1,

@@ -5265,27 +5265,27 @@
 		},
 		"$(ui.tests)/out/list7_1.svg" : 
 		{
-			"scale_1" : 2350986020
+			"scale_1" : 2013241109
 		},
 		"$(ui.tests)/out/list7_2.svg" : 
 		{
-			"scale_1" : 1954115990
+			"scale_1" : 1464202654
 		},
 		"$(ui.tests)/out/list7_3.svg" : 
 		{
-			"scale_1" : 2479415838
+			"scale_1" : 3898480700
 		},
 		"$(ui.tests)/out/list7_4.svg" : 
 		{
-			"scale_1" : 2820518017
+			"scale_1" : 1756426683
 		},
 		"$(ui.tests)/out/list7_5.svg" : 
 		{
-			"scale_1" : 2369035747
+			"scale_1" : 4089866870
 		},
 		"$(ui.tests)/out/list7_6.svg" : 
 		{
-			"scale_1" : 2489198301
+			"scale_1" : 615278526
 		},
 		"$(ui.tests)/out/button18_1.svg" : 
 		{
@@ -5314,5 +5314,37 @@
 		"$(ui.tests)/out/button18_7.svg" : 
 		{
 			"scale_1" : 2386931601
+		},
+		"$(ui.tests)/out/list6_1.svg" : 
+		{
+			"scale_1" : 2100531720
+		},
+		"$(ui.tests)/out/list6_2.svg" : 
+		{
+			"scale_1" : 1213323027
+		},
+		"$(ui.tests)/out/list6_3.svg" : 
+		{
+			"scale_1" : 1572899204
+		},
+		"$(ui.tests)/out/list5_1.svg" : 
+		{
+			"scale_1" : 1593344803
+		},
+		"$(ui.tests)/out/list5_2.svg" : 
+		{
+			"scale_1" : 1016533228
+		},
+		"$(ui.tests)/out/list5_3.svg" : 
+		{
+			"scale_1" : 697409006
+		},
+		"$(ui.tests)/out/list5_4.svg" : 
+		{
+			"scale_1" : 2729304440
+		},
+		"$(ui.tests)/out/list4_1.svg" : 
+		{
+			"scale_1" : 423794950
 		}
 	}

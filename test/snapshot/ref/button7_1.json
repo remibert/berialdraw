@@ -59,32 +59,6 @@
 		[
 			{
 				"type" : "grid",
-				"min-size" : 
-				{
-					"width" : 0,
-					"height" : 0
-				},
-				"max-size" : 
-				{
-					"width" : 0x7FFFFFFF,
-					"height" : 0x7FFFFFFF
-				},
-				"id" : 0,
-				"cell" : 
-				{
-					"row" : 2147483647,
-					"column" : 2147483647
-				},
-				"extend" : "none",
-				"size-policy" : "normal",
-				"pressed" : 0,
-				"checked" : 0,
-				"focusable" : 0,
-				"selectable" : 0,
-				"inherited-focus-color" : 0,
-				"pressable" : 0,
-				"flow" : 0,
-				"enabled" : 1,
 				"position" : 
 				{
 					"x" : 0,
@@ -114,36 +88,36 @@
 					"y" : 0
 				},
 				"borders" : "all",
+				"min-size" : 
+				{
+					"width" : 0,
+					"height" : 0
+				},
+				"max-size" : 
+				{
+					"width" : 0x7FFFFFFF,
+					"height" : 0x7FFFFFFF
+				},
+				"id" : 0,
+				"cell" : 
+				{
+					"row" : 2147483647,
+					"column" : 2147483647
+				},
+				"extend" : "none",
+				"size-policy" : "normal",
+				"pressed" : 0,
+				"checked" : 0,
+				"focusable" : 0,
+				"selectable" : 0,
+				"inherited-focus-color" : 0,
+				"pressable" : 0,
+				"flow" : 0,
+				"enabled" : 1,
 				"children" : 
 				[
 					{
 						"type" : "grid",
-						"min-size" : 
-						{
-							"width" : 0,
-							"height" : 0
-						},
-						"max-size" : 
-						{
-							"width" : 0x7FFFFFFF,
-							"height" : 0x7FFFFFFF
-						},
-						"id" : 0,
-						"cell" : 
-						{
-							"row" : 0,
-							"column" : 0
-						},
-						"extend" : "none",
-						"size-policy" : "normal",
-						"pressed" : 0,
-						"checked" : 0,
-						"focusable" : 0,
-						"selectable" : 0,
-						"inherited-focus-color" : 0,
-						"pressable" : 0,
-						"flow" : 0,
-						"enabled" : 1,
 						"position" : 
 						{
 							"x" : 0,
@@ -173,6 +147,32 @@
 							"y" : 0
 						},
 						"borders" : "all",
+						"min-size" : 
+						{
+							"width" : 0,
+							"height" : 0
+						},
+						"max-size" : 
+						{
+							"width" : 0x7FFFFFFF,
+							"height" : 0x7FFFFFFF
+						},
+						"id" : 0,
+						"cell" : 
+						{
+							"row" : 0,
+							"column" : 0
+						},
+						"extend" : "none",
+						"size-policy" : "normal",
+						"pressed" : 0,
+						"checked" : 0,
+						"focusable" : 0,
+						"selectable" : 0,
+						"inherited-focus-color" : 0,
+						"pressable" : 0,
+						"flow" : 0,
+						"enabled" : 1,
 						"children" : 
 						[
 							{
@@ -979,32 +979,6 @@
 					},
 					{
 						"type" : "grid",
-						"min-size" : 
-						{
-							"width" : 0,
-							"height" : 0
-						},
-						"max-size" : 
-						{
-							"width" : 0x7FFFFFFF,
-							"height" : 0x7FFFFFFF
-						},
-						"id" : 0,
-						"cell" : 
-						{
-							"row" : 1,
-							"column" : 0
-						},
-						"extend" : "none",
-						"size-policy" : "normal",
-						"pressed" : 0,
-						"checked" : 0,
-						"focusable" : 0,
-						"selectable" : 0,
-						"inherited-focus-color" : 0,
-						"pressable" : 0,
-						"flow" : 0,
-						"enabled" : 1,
 						"position" : 
 						{
 							"x" : 0,
@@ -1034,6 +1008,32 @@
 							"y" : 0
 						},
 						"borders" : "all",
+						"min-size" : 
+						{
+							"width" : 0,
+							"height" : 0
+						},
+						"max-size" : 
+						{
+							"width" : 0x7FFFFFFF,
+							"height" : 0x7FFFFFFF
+						},
+						"id" : 0,
+						"cell" : 
+						{
+							"row" : 1,
+							"column" : 0
+						},
+						"extend" : "none",
+						"size-policy" : "normal",
+						"pressed" : 0,
+						"checked" : 0,
+						"focusable" : 0,
+						"selectable" : 0,
+						"inherited-focus-color" : 0,
+						"pressable" : 0,
+						"flow" : 0,
+						"enabled" : 1,
 						"children" : 
 						[
 							{
@@ -1840,32 +1840,6 @@
 					},
 					{
 						"type" : "grid",
-						"min-size" : 
-						{
-							"width" : 0,
-							"height" : 0
-						},
-						"max-size" : 
-						{
-							"width" : 0x7FFFFFFF,
-							"height" : 0x7FFFFFFF
-						},
-						"id" : 0,
-						"cell" : 
-						{
-							"row" : 2,
-							"column" : 0
-						},
-						"extend" : "none",
-						"size-policy" : "normal",
-						"pressed" : 0,
-						"checked" : 0,
-						"focusable" : 0,
-						"selectable" : 0,
-						"inherited-focus-color" : 0,
-						"pressable" : 0,
-						"flow" : 0,
-						"enabled" : 1,
 						"position" : 
 						{
 							"x" : 0,
@@ -1895,6 +1869,32 @@
 							"y" : 0
 						},
 						"borders" : "all",
+						"min-size" : 
+						{
+							"width" : 0,
+							"height" : 0
+						},
+						"max-size" : 
+						{
+							"width" : 0x7FFFFFFF,
+							"height" : 0x7FFFFFFF
+						},
+						"id" : 0,
+						"cell" : 
+						{
+							"row" : 2,
+							"column" : 0
+						},
+						"extend" : "none",
+						"size-policy" : "normal",
+						"pressed" : 0,
+						"checked" : 0,
+						"focusable" : 0,
+						"selectable" : 0,
+						"inherited-focus-color" : 0,
+						"pressable" : 0,
+						"flow" : 0,
+						"enabled" : 1,
 						"children" : 
 						[
 							{
@@ -2621,32 +2621,6 @@
 					},
 					{
 						"type" : "grid",
-						"min-size" : 
-						{
-							"width" : 0,
-							"height" : 0
-						},
-						"max-size" : 
-						{
-							"width" : 0x7FFFFFFF,
-							"height" : 0x7FFFFFFF
-						},
-						"id" : 0,
-						"cell" : 
-						{
-							"row" : 3,
-							"column" : 0
-						},
-						"extend" : "none",
-						"size-policy" : "normal",
-						"pressed" : 0,
-						"checked" : 0,
-						"focusable" : 0,
-						"selectable" : 0,
-						"inherited-focus-color" : 0,
-						"pressable" : 0,
-						"flow" : 0,
-						"enabled" : 1,
 						"position" : 
 						{
 							"x" : 0,
@@ -2676,6 +2650,32 @@
 							"y" : 0
 						},
 						"borders" : "all",
+						"min-size" : 
+						{
+							"width" : 0,
+							"height" : 0
+						},
+						"max-size" : 
+						{
+							"width" : 0x7FFFFFFF,
+							"height" : 0x7FFFFFFF
+						},
+						"id" : 0,
+						"cell" : 
+						{
+							"row" : 3,
+							"column" : 0
+						},
+						"extend" : "none",
+						"size-policy" : "normal",
+						"pressed" : 0,
+						"checked" : 0,
+						"focusable" : 0,
+						"selectable" : 0,
+						"inherited-focus-color" : 0,
+						"pressable" : 0,
+						"flow" : 0,
+						"enabled" : 1,
 						"children" : 
 						[
 							{

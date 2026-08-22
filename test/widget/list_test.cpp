@@ -12,10 +12,46 @@ void List::test2()
 	MemoryLeakLog
 }
 
+void on_click(Widget* widget, const ClickEvent& evt)
+{
+	List* list = dynamic_cast<List *>(widget->parent()->search(123));
+	if (list)
+	{
+		list->append("A");
+	}
+}
+
+
 /** Test 3: List with enabled/disabled items */
 void List::test3()
 {
 	MemoryLeakLog
+	Window window;
+	window.color(Color::LIGHT_GRAY);
+
+	ScrollView* scroll = new ScrollView(&window);
+	Column* column = new Column(scroll);
+	List* list = new List(column);
+		
+		list->size(3000, 50);
+		list->margin(10);
+		list->id(123);
+		scroll->align(Align::ALIGN_TOP);
+
+		//list->append("A");
+		//list->append("A");
+		//list->append("A");
+		//list->append("A");
+		//list->append("A");
+		//list->append("A");
+		//list->append("A");
+		//list->append("A");
+
+		Button* button = new Button(column);
+		button->text("+");
+		button->bind(on_click);
+
+	UIManager::desktop()->mainloop();
 }
 
 /** Test 4: List with icons */
@@ -61,7 +97,7 @@ void List::test4()
 void List::test5()
 {
 	MemoryLeakLog
-		Window window;
+	Window window;
 	window.color(Color::LIGHT_GRAY);
 	List* list = new List(&window);
 
@@ -235,11 +271,12 @@ void List::test()
 		MemoryLeakLog
 		done = true;
 
+//test3();
 		test7();
 		test6();
 		test5();
 		test4();
-		test3();
+//		test3();
 		test2();
 		test1();
 	}

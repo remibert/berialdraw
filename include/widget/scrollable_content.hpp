@@ -82,6 +82,7 @@ namespace berialdraw
 
 		/** Helper methods for scroll computation */
 		Point compute_scroll_view(const Area & area, Point & scroll_position, Size & scroll_size);
+		void compute_content_dimensions(const Area & viewport, Size & scroll_size, Area & fixed_area);
 		Coord compute_scroll(Coord & scroll_position, Coord & m_scroll_position, Dim scroll_size, Dim area, Align align);
 		Coord calc_shift_focus(Coord widget_position, Dim widget_size, Coord viewport_position, Dim viewport_size);
 

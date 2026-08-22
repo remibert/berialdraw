@@ -14,6 +14,7 @@ namespace berialdraw
 
 #if defined(_DEBUG) && defined(ALL_TESTS)
 		List::test();
+		ScrollView::test();
 
 		// Widget
 		Button::test();

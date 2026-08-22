@@ -8,10 +8,11 @@ List::List(Widget * parent):
 	m_column(nullptr)
 {
 	// Apply styles
-	UIManager::styles()->apply(this, (WidgetStyle*)this);
-	UIManager::styles()->apply(this, (ScrollViewStyle*)this);
-	UIManager::styles()->apply(this, (ScrollbarStyle*)this);
-	UIManager::styles()->apply(this, (BorderStyle*)this);
+	//UIManager::styles()->apply(this, (CommonStyle*)this);
+	//UIManager::styles()->apply(this, (WidgetStyle*)this);
+	//UIManager::styles()->apply(this, (ScrollViewStyle*)this);
+	//UIManager::styles()->apply(this, (ScrollbarStyle*)this);
+	//UIManager::styles()->apply(this, (BorderStyle*)this);
 
 	// Set default scroll direction to vertical only
 	m_scroll_direction = SCROLL_VERTICAL;

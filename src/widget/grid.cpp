@@ -16,16 +16,16 @@ Grid::~Grid()
 void Grid::serialize(JsonIterator& it)
 {
 	it["type"] = m_classname;
-	WidgetStyle::serialize(it);
 	CommonStyle::serialize(it);
+	WidgetStyle::serialize(it);
 	Widget::serialize(it);
 }
 
 /** Unserialize the content of widget from json */
 void Grid::unserialize(JsonIterator& it)
 {
-	WidgetStyle::unserialize(it);
 	CommonStyle::unserialize(it);
+	WidgetStyle::unserialize(it);
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 

@@ -76,6 +76,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/styles/icon_style.cpp
 	src/pybind/styles/picture_style.cpp
 	src/pybind/styles/timer_style.cpp
+	src/pybind/styles/list_item_style.cpp
 	src/pybind/styles/line_style.cpp
 	src/pybind/styles/pie_style.cpp
 	src/pybind/styles/progress_bar_style.cpp
