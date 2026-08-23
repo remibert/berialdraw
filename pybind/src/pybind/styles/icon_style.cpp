@@ -5,7 +5,7 @@ void bind_icon_style(pybind11::module_& m) {
     cls.def(pybind11::init<>(), "Constructor");
 
     // icon_padding - custom inline since signature doesn't match bind_margin_property pattern
-    cls.def_property("icon_padding",
+    cls.def_property(berialdraw::StyleNames::ICON_PADDING,
         [](berialdraw::IconStyle& self) -> pybind11::tuple {
             const auto& m = self.icon_padding();
             return pybind11::make_tuple(m.top(), m.right(), m.bottom(), m.left());
@@ -45,7 +45,7 @@ void bind_icon_style(pybind11::module_& m) {
         "Icon padding: int/float (all) or (top,right,bottom,left) with automatic precision");
 
     // filename property
-    cls.def_property("filename",
+    cls.def_property(berialdraw::StyleNames::ICON_FILENAME,
         [](berialdraw::IconStyle& self) -> std::string {
             return std::string(self.filename().c_str());
         },
@@ -55,7 +55,7 @@ void bind_icon_style(pybind11::module_& m) {
         "Icon filename");
 
     // icon_color property
-    bind_color_property(cls, "icon_color",
+    bind_color_property(cls, berialdraw::StyleNames::ICON_COLOR,
         &berialdraw::IconStyle::icon_color,
         static_cast<void (berialdraw::IconStyle::*)(uint32_t)>(&berialdraw::IconStyle::icon_color),
         "Icon color");

@@ -4,7 +4,7 @@ void bind_round_style(py::module& m) {
         .def(py::init<>(), "Constructor")
         
         // Propriétés avec précision automatique int/float
-        .def_property("thickness",
+        .def_property(berialdraw::StyleNames::BORDER_THICKNESS,
             [](berialdraw::RoundStyle& self) -> berialdraw::Dim { return self.thickness(); },
             [](berialdraw::RoundStyle& self, py::object value) {
                 if (py::isinstance<py::int_>(value)) {
@@ -15,7 +15,7 @@ void bind_round_style(py::module& m) {
                     throw std::invalid_argument("thickness must be int or float");
                 }
             }, "Line thickness (int for normal, float for high precision)")
-        .def_property("radius",
+        .def_property(berialdraw::StyleNames::BORDER_RADIUS,
             [](berialdraw::RoundStyle& self) -> berialdraw::Dim { return self.radius(); },
             [](berialdraw::RoundStyle& self, py::object value) {
                 if (py::isinstance<py::int_>(value)) {

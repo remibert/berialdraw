@@ -6,24 +6,24 @@ void bind_radio_style(py::module& m) {
     // Radio box properties
     
     // radio_size property - use bind_size_property
-    bind_size_property(cls, "radio_size",
+    bind_size_property(cls, berialdraw::StyleNames::RADIO_SIZE,
         &berialdraw::RadioStyle::radio_size,
         static_cast<void (berialdraw::RadioStyle::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::RadioStyle::radio_size),
         "Radio box size: int/float (same w/h) or (width, height) with automatic precision");
 
-    cls.def_property("radio_padding",
+    cls.def_property(berialdraw::StyleNames::RADIO_PADDING,
         [](berialdraw::RadioStyle& self) -> berialdraw::Dim { return self.radio_padding(); },
         [](berialdraw::RadioStyle& self, berialdraw::Dim value) { self.radio_padding(value); }, 
         "Radio padding in pixels");
 
     // Radio indicator properties
     
-    bind_color_property(cls, "radio_color",
+    bind_color_property(cls, berialdraw::StyleNames::RADIO_COLOR,
         &berialdraw::RadioStyle::radio_color,
         static_cast<void (berialdraw::RadioStyle::*)(uint32_t)>(&berialdraw::RadioStyle::radio_color),
         "Radio indicator color");
     
-    cls.def_property("radio_sketch",
+    cls.def_property(berialdraw::StyleNames::RADIO_SKETCH,
         [](berialdraw::RadioStyle& self) -> std::string { 
             return self.radio_sketch().c_str(); 
         },
@@ -32,7 +32,7 @@ void bind_radio_style(py::module& m) {
         }, 
         "Radio indicator sketch (VectorScript)");
     
-    cls.def_property("group",
+    cls.def_property(berialdraw::StyleNames::RADIO_GROUP,
         [](berialdraw::RadioStyle& self) -> std::string { 
             return self.group().c_str(); 
         },

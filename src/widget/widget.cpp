@@ -8,6 +8,7 @@ Widget::Widget(const char * classname, Widget * parent, size_t size_of_widget, D
 {
 	m_pressed   = 0;
 	m_focused   = 0;
+	m_selected  = 0;
 	m_focusable = 0;
 	m_refocus   = 1;
 	m_extend    = 0;
@@ -1111,11 +1112,11 @@ void Widget::change_focus(Widget * & widget, Widget * & new_widget_focus, Vector
 		}
 		else
 		{
-			List * list = dynamic_cast<List*>(widget->scrollable_content());
-			if (list)
-			{
-				list->scroll_focus(widget);
-			}
+			//List * list = dynamic_cast<List*>(widget->scrollable_content());
+			//if (list)
+			//{
+			//	list->scroll_focus(widget);
+			//}
 		}
 	}
 }

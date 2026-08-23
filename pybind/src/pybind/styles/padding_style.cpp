@@ -4,7 +4,7 @@ void bind_padding_style(pybind11::module_& m) {
     cls.def(pybind11::init<>());
         
     // padding property avec plusieurs formats CSS - use bind_margin_property
-    bind_margin_property(cls, "padding",
+    bind_margin_property(cls, berialdraw::StyleNames::TEXT_PADDING,
         &berialdraw::PaddingStyle::padding,
         static_cast<void (berialdraw::PaddingStyle::*)(berialdraw::Dim)>(&berialdraw::PaddingStyle::padding),
         static_cast<void (berialdraw::PaddingStyle::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::PaddingStyle::padding),

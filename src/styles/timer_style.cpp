@@ -54,15 +54,15 @@ void TimerStyle::active(bool value)
 // Serialize timer style to json
 void TimerStyle::serialize(JsonIterator & it)
 {
-	it["interval"] = (int)m_interval;
-	it["recurring"] = m_recurring;
-	it["active"] = m_active;
+	it[StyleNames::TIMER_INTERVAL] = (int)m_interval;
+	it[StyleNames::TIMER_RECURRING] = m_recurring;
+	it[StyleNames::TIMER_ACTIVE] = m_active;
 }
 
 // Unserialize timer style from json
 void TimerStyle::unserialize(JsonIterator & it)
 {
-	m_interval = (int)(it["interval"] | (int)m_interval);
-	m_recurring = (bool)(it["recurring"] | m_recurring);
-	m_active = (bool)(it["active"] | m_active);
+	m_interval = (int)(it[StyleNames::TIMER_INTERVAL] | (int)m_interval);
+	m_recurring = (bool)(it[StyleNames::TIMER_RECURRING] | m_recurring);
+	m_active = (bool)(it[StyleNames::TIMER_ACTIVE] | m_active);
 }

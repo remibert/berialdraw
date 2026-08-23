@@ -150,6 +150,7 @@ namespace berialdraw
 		// List style
 		static constexpr const char* SEPARATOR_COLOR     = "separator-color";
 		static constexpr const char* SEPARATOR_THICKNESS = "separator-thickness";
+		static constexpr const char* LISTSTYLE_SELECTION_MODE = "selection-mode";
 
 		// Widget style
 		static constexpr const char* WIDGET_CELL = "cell";
@@ -159,6 +160,8 @@ namespace berialdraw
 		static constexpr const char* WIDGET_CHECKED = "checked";
 		static constexpr const char* WIDGET_FOCUSABLE = "focusable";
 		static constexpr const char* WIDGET_SELECTABLE = "selectable";
+		static constexpr const char* WIDGET_FOCUSED = "focused";
+		static constexpr const char* WIDGET_SELECTED = "selected";
 		static constexpr const char* WIDGET_PRESSABLE = "pressable";
 		static constexpr const char* WIDGET_FLOW = "flow";
 		static constexpr const char* WIDGET_MIN_SIZE = "min-size";
@@ -172,6 +175,17 @@ namespace berialdraw
 		static constexpr const char* LIST_ITEM_LEADING = "leading";
 		static constexpr const char* LIST_ITEM_TRAILING = "trailing";
 
+
+		// Timer style
+		static constexpr const char* TIMER_INTERVAL = "interval";
+		static constexpr const char* TIMER_RECURRING = "recurring";
+		static constexpr const char* TIMER_ACTIVE = "active";
+
+		// Extend (used in CommonStyle and WidgetStyle)
+		static constexpr const char* EXTEND = "extend";
+
+		// Size Policy (used in WidgetStyle)
+		static constexpr const char* SIZE_POLICY = "size-policy";
 
 		// Picture style
 		static constexpr const char* PICTURE_FILENAME = "filename";

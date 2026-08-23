@@ -148,6 +148,13 @@ namespace berialdraw
 		void focused(bool v);
 
 
+		/** Get the selected */
+		bool selected() const { return m_selected; }
+
+		/** Set the selected */
+		void selected(bool v);
+
+
 		/** Get the enabled state */
 		bool enabled() const { return m_enabled; }
 
@@ -201,6 +208,7 @@ namespace berialdraw
 		unsigned int m_focusable :1;
 
 		unsigned int m_selectable:1;
+		unsigned int m_selected  :1;
 
 		unsigned int m_enabled   :1;
 

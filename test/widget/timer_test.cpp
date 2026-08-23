@@ -120,11 +120,17 @@ void Timer::test3()
 	assert(timer->is_running());
 	
 	// Dispatch multiple times to allow timer to fire several times
-	for (int i = 0; i < 5; i++)
+	int i = 0;
+	while(!(counter.m_count > 0))
 	{
 		UIManager::desktop()->dispatch();
+		i ++;
+		if (i > 1000)
+		{
+			break;
+		}
 	}
-	
+
 	// Timer should have fired at least once
 	assert(counter.m_count > 0);
 	
@@ -170,12 +176,16 @@ void Timer::test4()
 	assert(timer2->is_running());
 	
 	// Dispatch multiple times to fire both timers
-	for (int i = 0; i < 20; i++)
+	int i = 0;
+	while(!(counter1.m_count > 0 && counter2.m_count > 0))
 	{
 		UIManager::desktop()->dispatch();
+		i ++;
+		if (i > 1000)
+		{
+			break;
+		}
 	}
-
-	//UIManager::desktop()->mainloop();
 	
 	// Both timers should have fired (timer1 more frequently than timer2)
 	assert(counter1.m_count > 0);

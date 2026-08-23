@@ -5,10 +5,10 @@ namespace berialdraw
 	/** Unserialize the content of extend from json */
 	void unserialize(JsonIterator & it, Extend & extend)
 	{
-		if (it["extend"] == "none")   extend = EXTEND_NONE  ;
-		if (it["extend"] == "width")  extend = EXTEND_WIDTH ;
-		if (it["extend"] == "height") extend = EXTEND_HEIGHT;
-		if (it["extend"] == "all")    extend = EXTEND_ALL   ;
+		if (it[StyleNames::EXTEND] == "none")   extend = EXTEND_NONE  ;
+		if (it[StyleNames::EXTEND] == "width")  extend = EXTEND_WIDTH ;
+		if (it[StyleNames::EXTEND] == "height") extend = EXTEND_HEIGHT;
+		if (it[StyleNames::EXTEND] == "all")    extend = EXTEND_ALL   ;
 	}
 
 	/** Serialize the content of extend into json */
@@ -16,10 +16,10 @@ namespace berialdraw
 	{
 		switch(extend)
 		{
-		case EXTEND_NONE  : it["extend"] = "none" ; break;
-		case EXTEND_WIDTH : it["extend"] = "width" ; break;
-		case EXTEND_HEIGHT: it["extend"] = "height"; break;
-		case EXTEND_ALL   : it["extend"] = "all"; break;
+		case EXTEND_NONE  : it[StyleNames::EXTEND] = "none" ; break;
+		case EXTEND_WIDTH : it[StyleNames::EXTEND] = "width" ; break;
+		case EXTEND_HEIGHT: it[StyleNames::EXTEND] = "height"; break;
+		case EXTEND_ALL   : it[StyleNames::EXTEND] = "all"; break;
 		}
 	}
 }

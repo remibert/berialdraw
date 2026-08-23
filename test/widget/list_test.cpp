@@ -27,13 +27,13 @@ void List::test3()
 {
 	MemoryLeakLog
 	Window window;
-	window.color(Color::LIGHT_GRAY);
+	//window.color(Color::LIGHT_GRAY);
 
 	ScrollView* scroll = new ScrollView(&window);
 	Column* column = new Column(scroll);
 	List* list = new List(column);
 		
-		list->size(3000, 50);
+		list->size(3000, 200);
 		list->margin(10);
 		list->id(123);
 		scroll->align(Align::ALIGN_TOP);

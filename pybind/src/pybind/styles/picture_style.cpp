@@ -5,7 +5,7 @@ void bind_picture_style(pybind11::module_& m) {
     cls.def(pybind11::init<>(), "Constructor");
 
     // filename property
-    cls.def_property("filename",
+    cls.def_property(berialdraw::StyleNames::PICTURE_FILENAME,
         [](berialdraw::PictureStyle& self) -> std::string {
             return std::string(self.filename().c_str());
         },
@@ -15,7 +15,7 @@ void bind_picture_style(pybind11::module_& m) {
         "Image filename (PNG or JPEG)");
 
     // alpha property
-    cls.def_property("alpha",
+    cls.def_property(berialdraw::StyleNames::PICTURE_ALPHA,
         [](berialdraw::PictureStyle& self) -> int {
             return (int)self.alpha();
         },
@@ -27,7 +27,7 @@ void bind_picture_style(pybind11::module_& m) {
         "Alpha transparency (0=transparent, 255=opaque)");
 
     // fit_mode property
-    cls.def_property("fit_mode",
+    cls.def_property(berialdraw::StyleNames::PICTURE_FIT_MODE,
         [](berialdraw::PictureStyle& self) -> int {
             return (int)self.fit_mode();
         },

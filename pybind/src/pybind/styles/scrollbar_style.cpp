@@ -3,35 +3,35 @@
 void bind_scrollbar_style(py::module& m) {
     py::class_<berialdraw::ScrollbarStyle, berialdraw::Style>(m, "ScrollbarStyle")
         .def(py::init<>(), "Constructor")
-        .def_property("scrollbar_visible",
+        .def_property(berialdraw::StyleNames::SCROLLBAR_VISIBLE,
             [](berialdraw::ScrollbarStyle& self) -> bool { 
                 return self.scrollbar_visible(); 
             },
             [](berialdraw::ScrollbarStyle& self, bool v) { 
                 self.scrollbar_visible(v); 
             }, "Whether scrollbar is visible")
-        .def_property("scrollbar_thumb_color",
+        .def_property(berialdraw::StyleNames::SCROLLBAR_THUMB_COLOR,
             [](berialdraw::ScrollbarStyle& self) -> uint32_t { 
                 return self.scrollbar_thumb_color(); 
             },
             [](berialdraw::ScrollbarStyle& self, uint32_t c) { 
                 self.scrollbar_thumb_color(c); 
             }, "Scrollbar thumb color")
-        .def_property("scrollbar_width",
+        .def_property(berialdraw::StyleNames::SCROLLBAR_WIDTH,
             [](berialdraw::ScrollbarStyle& self) -> berialdraw::Dim { 
                 return self.scrollbar_width(); 
             },
             [](berialdraw::ScrollbarStyle& self, berialdraw::Dim w) { 
                 self.scrollbar_width(w); 
             }, "Scrollbar width in pixels")
-        .def_property("scrollbar_radius",
+        .def_property(berialdraw::StyleNames::SCROLLBAR_RADIUS,
             [](berialdraw::ScrollbarStyle& self) -> berialdraw::Dim { 
                 return self.scrollbar_radius(); 
             },
             [](berialdraw::ScrollbarStyle& self, berialdraw::Dim r) { 
                 self.scrollbar_radius(r); 
             }, "Scrollbar corner radius in pixels")
-        .def_property("scrollbar_margin",
+        .def_property(berialdraw::StyleNames::SCROLLBAR_MARGIN,
             [](berialdraw::ScrollbarStyle& self) -> berialdraw::Dim { 
                 return self.scrollbar_margin(); 
             },

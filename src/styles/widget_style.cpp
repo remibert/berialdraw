@@ -15,6 +15,7 @@ WidgetStyle::WidgetStyle()
 	m_pressable   = 0;
 	m_flow_place  = 0;
 	m_selectable  = 0;
+	m_selected    = 0;
 	m_inherited_focus_color   = 0;
 	m_enabled     = 1;  // Enabled by default
 	m_flow        = 0;
@@ -35,6 +36,7 @@ void WidgetStyle::serialize(JsonIterator & it)
 	it[StyleNames::WIDGET_CHECKED]       = (int)m_checked;
 	it[StyleNames::WIDGET_FOCUSABLE]     = (int)m_focusable;
 	it[StyleNames::WIDGET_SELECTABLE]    = (int)m_selectable;
+	it[StyleNames::WIDGET_SELECTED]      = (int)m_selected;
 	it[StyleNames::WIDGET_INHERITED_FOCUS_COLOR]     = (int)m_inherited_focus_color;
 	it[StyleNames::WIDGET_PRESSABLE]     = (int)m_pressable;
 	it[StyleNames::WIDGET_FLOW]    = (int)m_flow;
@@ -64,6 +66,7 @@ void WidgetStyle::unserialize(JsonIterator & it)
 	m_checked   = (int)it[StyleNames::WIDGET_CHECKED]  | m_checked;
 	m_focusable = (int)it[StyleNames::WIDGET_FOCUSABLE] | m_focusable;
 	m_selectable = (int)it[StyleNames::WIDGET_SELECTABLE] | m_selectable;
+	m_selected = (int)it[StyleNames::WIDGET_SELECTED] | m_selected;
 	m_inherited_focus_color  = (int)it[StyleNames::WIDGET_INHERITED_FOCUS_COLOR] | m_inherited_focus_color;
 	m_pressable  = (int)it[StyleNames::WIDGET_PRESSABLE] | m_pressable;
 	m_flow       = (int)it[StyleNames::WIDGET_FLOW] | m_flow;
@@ -99,6 +102,7 @@ void WidgetStyle::set(const WidgetStyle & other)
 		m_focusable       = other.m_focusable;
 		m_checked         = other.m_checked;
 		m_selectable      = other.m_selectable;
+		m_selected        = other.m_selected;
 		m_inherited_focus_color       = other.m_inherited_focus_color;
 		m_pressable       = other.m_pressable;
 		m_enabled         = other.m_enabled;
@@ -250,6 +254,13 @@ void WidgetStyle::focused(bool v)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 	m_focused = v;
+}
+
+/** Set the selected */
+void WidgetStyle::selected(bool v)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	m_selected = v;
 }
 
 /** Set the enabled state */

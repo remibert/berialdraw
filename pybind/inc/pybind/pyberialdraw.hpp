@@ -293,6 +293,8 @@ void bind_cell_style(pybind11::module_& m);
 void bind_cells_style(pybind11::module_& m);
 void bind_picture_style(pybind11::module_& m);
 void bind_timer_style(pybind11::module_& m);
+void bind_list_style(pybind11::module_& m);
+void bind_list_selection_mode(py::module_& m);
 void bind_padding_style(pybind11::module_& m);
 void bind_list_item_style(pybind11::module_& m);
 

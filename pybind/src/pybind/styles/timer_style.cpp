@@ -5,7 +5,7 @@ void bind_timer_style(pybind11::module_& m) {
     cls.def(pybind11::init<>(), "Constructor");
 
     // interval property (in milliseconds)
-    cls.def_property("interval",
+    cls.def_property(berialdraw::StyleNames::TIMER_INTERVAL,
         [](berialdraw::TimerStyle& self) -> int {
             return (int)self.interval();
         },
@@ -16,7 +16,7 @@ void bind_timer_style(pybind11::module_& m) {
         "Timer interval in milliseconds");
 
     // recurring property
-    cls.def_property("recurring",
+    cls.def_property(berialdraw::StyleNames::TIMER_RECURRING,
         [](berialdraw::TimerStyle& self) -> bool {
             return self.recurring();
         },
@@ -26,7 +26,7 @@ void bind_timer_style(pybind11::module_& m) {
         "Whether timer repeats (True) or fires once (False)");
 
     // active property
-    cls.def_property("active",
+    cls.def_property(berialdraw::StyleNames::TIMER_ACTIVE,
         [](berialdraw::TimerStyle& self) -> bool {
             return self.active();
         },

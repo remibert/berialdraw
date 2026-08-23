@@ -320,7 +320,7 @@ void ScrollableContent::paint(const Region & parent_region)
 		}
 
 
-		back_region.intersect(m_foreclip);
+		//back_region.intersect(m_foreclip);
 
 		// Paint background and border
 		{

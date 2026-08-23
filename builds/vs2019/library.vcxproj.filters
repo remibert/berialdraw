@@ -994,6 +994,12 @@
     <ClCompile Include="..\..\src\styles\list_item_style.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\styles\list_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\list_selection_mode.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\widget\list_item.cpp">
       <Filter>berialdraw\widget</Filter>
     </ClCompile>
@@ -1855,6 +1861,12 @@
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\styles\list_item_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\styles\list_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\styles\list_selection_mode.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\berialdraw_imp.hpp">

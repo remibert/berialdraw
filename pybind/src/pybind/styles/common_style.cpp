@@ -5,7 +5,7 @@ void bind_common_style(pybind11::module_& m) {
     cls.def(pybind11::init<>());
 
     // Use generic margin binder with pointer-to-member setters
-    bind_margin_property(cls, "margin",
+    bind_margin_property(cls, berialdraw::StyleNames::COMMON_MARGIN,
         &berialdraw::CommonStyle::margin,
         static_cast<void (berialdraw::CommonStyle::*)(berialdraw::Dim)>(&berialdraw::CommonStyle::margin),
         static_cast<void (berialdraw::CommonStyle::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::CommonStyle::margin),
@@ -13,37 +13,37 @@ void bind_common_style(pybind11::module_& m) {
         "Margin: int (all), (v,h), or (top,right,bottom,left)");
 
     // point properties: center and position
-    bind_point_property(cls, "center",
+    bind_point_property(cls, berialdraw::StyleNames::COMMON_CENTER,
         &berialdraw::CommonStyle::center,
         static_cast<void (berialdraw::CommonStyle::*)(berialdraw::Coord, berialdraw::Coord)>(&berialdraw::CommonStyle::center),
         "Center as (x, y) tuple");
 
-    bind_point_property(cls, "position",
+    bind_point_property(cls, berialdraw::StyleNames::COMMON_POSITION,
         &berialdraw::CommonStyle::position,
         static_cast<void (berialdraw::CommonStyle::*)(berialdraw::Coord, berialdraw::Coord)>(&berialdraw::CommonStyle::position),
         "Position as (x, y) tuple");
 
     // size property using generic pair binder
-    bind_size_property(cls, "size",
+    bind_size_property(cls, berialdraw::StyleNames::COMMON_SIZE,
         &berialdraw::CommonStyle::size,
         static_cast<void (berialdraw::CommonStyle::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::CommonStyle::size),
         "Size: int (square) or (width, height)");
 
     // The remaining simple properties
-    bind_color_property(cls, "color",
+    bind_color_property(cls, berialdraw::StyleNames::COMMON_COLOR,
         &berialdraw::CommonStyle::color,
         static_cast<void (berialdraw::CommonStyle::*)(uint32_t)>(&berialdraw::CommonStyle::color),
         "Color (accepts both uint32_t and Color enum)");
-    cls.def_property("angle",
+    cls.def_property(berialdraw::StyleNames::COMMON_ANGLE,
         [](berialdraw::CommonStyle& self) -> berialdraw::Coord { return self.angle(); },
         [](berialdraw::CommonStyle& self, berialdraw::Coord value) { self.angle(value); }, "Rotation angle");
-    cls.def_property("align",
+    cls.def_property(berialdraw::StyleNames::COMMON_ALIGN,
         [](berialdraw::CommonStyle& self) -> berialdraw::Align { return self.align(); },
         [](berialdraw::CommonStyle& self, berialdraw::Align value) { self.align(value); }, "Alignment");
-    cls.def_property("borders",
+    cls.def_property(berialdraw::StyleNames::WIDGET_BORDERS,
         [](berialdraw::CommonStyle& self) -> uint16_t { return self.borders(); },
         [](berialdraw::CommonStyle& self, uint16_t value) { self.borders(value); }, "Borders");
-    cls.def_property("hidden",
+    cls.def_property(berialdraw::StyleNames::COMMON_HIDDEN,
         [](berialdraw::CommonStyle& self) -> bool { return self.hidden(); },
         [](berialdraw::CommonStyle& self, bool value) { self.hidden(value); }, "Hidden state");
 }
