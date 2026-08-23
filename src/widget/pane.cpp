@@ -96,3 +96,18 @@ void Pane::paint(const Region & parent_region)
 		Widget::paint(region);
 	}
 }
+
+/** Get the widget hovered */
+Widget * Pane::hovered(const Region & parent_region, const Point & position)
+{
+	Widget * result = 0;
+	Widget* child = m_children;
+
+	// Scan all widget children
+	while (child && result == 0)
+	{
+		result = child->hovered(parent_region, position);
+		child = child->next();
+	}
+	return result;
+}

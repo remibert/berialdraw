@@ -51,6 +51,9 @@ namespace berialdraw
 
 		/** Place all widget in area */
 		virtual void place(const Area & area, bool in_layout) override;
+
+		/** Get the widget hovered */
+		virtual Widget * hovered(const Region & parent_region, const Point & position) override;
 /// @endcond
 	};
 }
