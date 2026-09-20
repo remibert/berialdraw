@@ -5,7 +5,7 @@ using namespace berialdraw;
 /** Constructor */
 ListStyle::ListStyle()
 {
-	m_selection_mode = LIST_NO_SELECTION;
+	m_selection_mode = (int)ListSelectionMode::LIST_NO_SELECTION;
 }
 
 
@@ -20,7 +20,7 @@ void ListStyle::unserialize(JsonIterator & it)
 {
 	ListSelectionMode mode = (ListSelectionMode)m_selection_mode;
 	berialdraw::unserialize(it, mode);
-	m_selection_mode = mode;
+	m_selection_mode = (int)mode;
 }
 
 /** Set properties with another */
@@ -49,5 +49,5 @@ Style * ListStyle::create()
 void ListStyle::selection_mode(ListSelectionMode mode)
 {
 	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
-	m_selection_mode = mode;
+	m_selection_mode = (int)mode;
 }

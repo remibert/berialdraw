@@ -109,5 +109,17 @@ Widget * Pane::hovered(const Region & parent_region, const Point & position)
 		result = child->hovered(parent_region, position);
 		child = child->next();
 	}
+
+	if (result == nullptr)
+	{
+		Region region(parent_region);
+		region.intersect(m_foreclip);
+
+		// If the widget hovered
+		if (region.is_inside(position) != Overlap::OUT)
+		{
+			result = this;
+		}
+	}
 	return result;
 }

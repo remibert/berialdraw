@@ -482,6 +482,12 @@ public:
 		label->text("%s %d,%d:%d touch",widget->classname(), evt.position().x(),evt.position().y(),evt.state());
 	}
 
+	void on_pane(Widget* widget, const TouchEvent& evt)
+	{
+		Label* label = dynamic_cast<Label*>(widget->root()->search(1));
+		label->text("%s %d,%d:%d touch", widget->classname(), evt.position().x(), evt.position().y(), evt.state());
+	}
+
 	void on_click(Widget * widget, const ClickEvent & evt)
 	{
 		Label * label = dynamic_cast<Label*>(widget->root()->search(1));
@@ -537,10 +543,10 @@ void Button::test8()
 				cross->radius(10);
 			}
 
-		berialdraw::Pane * rect = new berialdraw::Pane(grid);
-			rect->cell(1,0);
-			rect->color(Color::GREEN);
-			rect->bind(&t, &TestButton::on_event);
+		berialdraw::Pane * pane = new berialdraw::Pane(grid);
+			pane->cell(1,0);
+			pane->color(Color::GREEN);
+			pane->bind(&t, &TestButton::on_pane);
 
 		Label * label = new Label(grid);
 			label->cell(1,1);
@@ -601,7 +607,6 @@ void Button::test8()
 		{0,0,TouchEvent::TOUCH_DOWN},
 	};
 
-
 	int i = 0;	
 	const char * label_control[] = 
 	{
@@ -650,7 +655,6 @@ void Button::test8()
 				UIManager::notifier()->touch(events[i].x, events[i].y, events[i].state);			i++;
 				//bd_printf("%d,\"%s\",\n",i, label->text().c_str());
 				assert(label->text() == label_control[i]);
-
 			}
 		}
 		UIManager::desktop()->dispatch();
@@ -1352,6 +1356,7 @@ void Button::test()
 	{
 		MemoryLeakLog
 		done = true;
+
 		test18();
 		test17();
 		test16();

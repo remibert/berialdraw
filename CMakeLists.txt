@@ -144,6 +144,7 @@ set(SRCS_LIB
 	src/shape/compass.cpp
 	src/shape/renderer.cpp
 	src/shape/rect.cpp
+	src/shape/rect_renderer.cpp
 	src/shape/poly_lines.cpp
 	src/shape/poly_points.cpp
 	src/shape/text_box.cpp

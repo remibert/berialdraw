@@ -33,23 +33,25 @@ void List::test3()
 	Column* column = new Column(scroll);
 	List* list = new List(column);
 		
-		list->size(3000, 200);
+		list->size(3000, 250);
 		list->margin(10);
 		list->id(123);
 		scroll->align(Align::ALIGN_TOP);
+		list->selection_mode(ListSelectionMode::LIST_MULTI_SELECTION);
 
-		//list->append("A");
-		//list->append("A");
-		//list->append("A");
-		//list->append("A");
-		//list->append("A");
-		//list->append("A");
-		//list->append("A");
-		//list->append("A");
+		list->append("One");
+		list->append("Two");
+		list->append("Three");
+		list->append("Four");
+		list->append("Five");
+		list->append("Six");
+		list->append("Seven");
 
 		Button* button = new Button(column);
 		button->text("+");
 		button->bind(on_click);
+
+		Edit* edit = new Edit(column);
 
 	UIManager::desktop()->mainloop();
 }

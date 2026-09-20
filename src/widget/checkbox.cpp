@@ -5,12 +5,12 @@ using namespace berialdraw;
 Checkbox::Checkbox(Widget * parent):
 	Widget("checkbox", parent, sizeof(Checkbox))
 {
-	UIManager::styles()->apply(this, (CommonStyle*)this);
-	UIManager::styles()->apply(this, (WidgetStyle*)this);
-	UIManager::styles()->apply(this, (TextStyle*)this);
-	UIManager::styles()->apply(this, (BorderStyle*)this);
+	UIManager::styles()->apply(this, (CommonStyle  *)this);
+	UIManager::styles()->apply(this, (WidgetStyle  *)this);
+	UIManager::styles()->apply(this, (TextStyle    *)this);
+	UIManager::styles()->apply(this, (BorderStyle  *)this);
 	UIManager::styles()->apply(this, (CheckboxStyle*)this);
-	UIManager::styles()->apply(this, (PaddingStyle*)this);
+	UIManager::styles()->apply(this, (PaddingStyle *)this);
 	bind(this, &Checkbox::on_key);
 	bind(this, &Checkbox::on_click);
 }
@@ -166,7 +166,7 @@ void Checkbox::paint(const Region & parent_region)
 			else
 			{
 				// Default check mark (simple square)
-				Rect::paint_rounded_rect(area_check, m_radius, 0, 0, ALL_BORDERS, stated_color(m_check_color), 0);
+				RectRenderer::paint_round_rect(area_check, m_radius,stated_color(m_check_color));
 			}
 		}
 		

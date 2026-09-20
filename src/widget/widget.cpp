@@ -857,29 +857,39 @@ uint32_t Widget::pressed_color(uint32_t color, bool pressed)
 }
 
 /** Return the state color */
-uint32_t Widget::stated_color(uint32_t color)
+uint32_t Widget::stated_color(uint32_t color, int state)
 {
 	uint32_t result = color;
-	result = UIManager::colors()->color(color, m_focused == 1);
-	result = pressed_color(result, m_pressed);
+	if (state == -1)
+	{
+		state = m_focused;
+	}
+	result = UIManager::colors()->color(color, state == 1);
+	if (m_pressed)
+	{
+		result = pressed_color(result, m_pressed);
+	}
 	return result;
 }
 
 /** Paint the widget background */
 void Widget::paint_background(Area & rectclip, const CommonStyle& common_style, const BorderStyle& border_style)
 {
-	Rect::paint_focused_rounded_rect(rectclip,
-		common_style,
-		border_style,
-		stated_color(m_color),
-		stated_color(border_style.border_color()),
-		stated_color(border_style.focus_color()),
+	RectRenderer::paint_focused_round_rect(rectclip,
+		(Borders)common_style.borders(),
+		stated_color(m_color, m_focused),
+		stated_color(border_style.border_color(), m_focused),
+		border_style.radius_q6(),
+		border_style.thickness_q6(),
+		border_style.focus_thickness(),
+		border_style.focus_gap() << 6,
+		stated_color(border_style.focus_color(), m_focused),
 		m_focused);
 }
 
 
 /** Return the stated color with alpha */
-uint32_t Widget::stated_color(uint32_t color, uint8_t alpha)
+uint32_t Widget::stated_color_alpha(uint32_t color, uint8_t alpha)
 {
 	return (stated_color(color) & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }
@@ -900,7 +910,7 @@ uint32_t Widget::parent_focus_color(uint32_t color)
 			if (style)
 			{
 				result = parent->stated_color(style->text_color());
-			}				
+			}
 		}
 	}
 	return result;
@@ -962,6 +972,23 @@ void Widget::focus_to(Widget * & current_focus, Widget * new_focus)
 {
 	if (new_focus)
 	{
+		// If list item or other with parent focusable clicked
+		if (new_focus->m_parent_focusable)
+		{
+			// Search the parent focusable
+			Widget * parent = new_focus->m_parent;
+			while (parent && parent->m_focusable == 0)
+			{
+				parent = parent->m_parent;
+			}
+
+			// If parent found
+			if (parent)
+			{
+				// Choose the parent to set the focus
+				new_focus = parent;
+			}
+		}
 		if (new_focus->m_focusable)
 		{
 			if (current_focus)

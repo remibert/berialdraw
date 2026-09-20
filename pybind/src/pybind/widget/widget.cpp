@@ -14,5 +14,5 @@ void bind_widget(pybind11::module_& m) {
         
         // Color methods that return uint32_t
         .def("pressed_color", &berialdraw::Widget::pressed_color, pybind11::arg("color"), pybind11::arg("pressed"), PYBIND11_RELEASE_GIL)
-        .def("stated_color", static_cast<uint32_t (berialdraw::Widget::*)(uint32_t)>(&berialdraw::Widget::stated_color), pybind11::arg("color"), PYBIND11_RELEASE_GIL);
+        .def("stated_color", static_cast<uint32_t (berialdraw::Widget::*)(uint32_t, int)>(&berialdraw::Widget::stated_color), pybind11::arg("color"), pybind11::arg("state") = -1, PYBIND11_RELEASE_GIL);
 }

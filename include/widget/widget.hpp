@@ -146,20 +146,19 @@ namespace berialdraw
 		uint32_t pressed_color(uint32_t color, bool pressed);
 
 		/** Return the stated color */
-		uint32_t stated_color(uint32_t color);
+		uint32_t stated_color(uint32_t color, int state = -1);
 
 		/** Return the parent focus color */
 		uint32_t parent_focus_color(uint32_t color);
 
 		/** Return the stated color with alpha */
-		uint32_t stated_color(uint32_t color, uint8_t alpha);
+		uint32_t stated_color_alpha(uint32_t color, uint8_t alpha);
 
 		/** Return the parent focus color with alpha */
 		uint32_t parent_focus_color(uint32_t color, uint8_t alpha);
 
 		/** Paint the widget background */
-		void paint_background(Area& rectclip, const CommonStyle& common_style,
-			const BorderStyle& border_style);
+		void paint_background(Area& rectclip, const CommonStyle& common_style, const BorderStyle& border_style);
 
 	protected:
 /// @cond DOXYGEN_IGNORE

@@ -1,7 +1,7 @@
 #pragma once
 namespace berialdraw
 {
-	enum ListSelectionMode
+	enum class ListSelectionMode
 	{
 		LIST_NO_SELECTION      = 0,
 		LIST_SINGLE_SELECTION  = 1,

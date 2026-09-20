@@ -14,6 +14,9 @@ void ListItemStyle::serialize(JsonIterator& it)
 {
 	it[StyleNames::LIST_ITEM_LEADING]  = m_leading;
 	it[StyleNames::LIST_ITEM_TRAILING] = m_trailing;
+	it[StyleNames::LIST_ITEM_SELECTED_COLOR] = m_selected_color;
+	it[StyleNames::LIST_ITEM_SELECTED_TEXT_COLOR] = m_selected_text_color;
+
 }
 
 /** Unserialize the content of widget from json */
@@ -23,6 +26,9 @@ void ListItemStyle::unserialize(JsonIterator& it)
 	m_leading_modified = 1;
 	m_trailing = it[StyleNames::LIST_ITEM_TRAILING] | m_trailing;
 	m_trailing_modified = 1;
+
+	m_selected_color = it[StyleNames::LIST_ITEM_SELECTED_COLOR] | m_selected_color;
+	m_selected_text_color = it[StyleNames::LIST_ITEM_SELECTED_TEXT_COLOR] | m_selected_text_color;
 }
 
 /** Copy operator */
@@ -41,6 +47,8 @@ void ListItemStyle::set(const ListItemStyle& other)
 		m_leading_modified = 1;
 		m_trailing = other.m_trailing;
 		m_trailing_modified = 1;
+		m_selected_color = other.m_selected_color;
+		m_selected_text_color = other.m_selected_text_color;
 	}
 }
 
@@ -111,4 +119,46 @@ void ListItemStyle::trailing(wchar_t value)
 {
 	m_trailing_modified = 1;
 	m_trailing = value;
+}
+
+
+/** Get the back selected color */
+uint32_t ListItemStyle::selected_color() const
+{
+	return m_selected_color;
+}
+
+/** Set the back selected color */
+void ListItemStyle::selected_color(uint32_t col)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	m_selected_color = col;
+}
+
+/** Set the back selected color with alpha */
+void ListItemStyle::selected_color(uint32_t col, uint8_t alpha)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	m_selected_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
+}
+
+
+/** Get the text selected color */
+uint32_t ListItemStyle::selected_text_color() const
+{
+	return m_selected_text_color;
+}
+
+/** Set the text selected color */
+void ListItemStyle::selected_text_color(uint32_t col)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	m_selected_text_color = col;
+}
+
+/** Set the text selected color with alpha */
+void ListItemStyle::selected_text_color(uint32_t col, uint8_t alpha)
+{
+	UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
+	m_selected_text_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
 }

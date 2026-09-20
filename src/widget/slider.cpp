@@ -215,16 +215,19 @@ void Slider::draw_track()
 
 	// Draw track
 	track_area.nearest_pixel();
-	Rect::paint_rounded_rect(track_area, track_radius, track_thickness, 0, m_borders, stated_color(m_track_color), track_border_color);
+	RectRenderer::paint_border_round_rect(track_area, track_radius, track_thickness, 0, m_borders, stated_color(m_track_color), track_border_color);
 
 	// Draw fill
 	handle_area.nearest_pixel();
-
-	Rect::paint_focused_rounded_rect(handle_area, 
-		*(CommonStyle*)this,
-		*(BorderStyle*)this,
+	RectRenderer::paint_focused_round_rect(handle_area,
+		(Borders)borders(),
 		stated_color(m_handle_color), 
 		handle_border_color,
+		radius_q6(),
+		thickness_q6(),
+
+		focus_thickness(),
+		focus_gap() << 6,
 		stated_color(m_focus_color),
 		m_focused);
 }

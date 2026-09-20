@@ -133,11 +133,15 @@ void Switch::paint_switch(Region & region)
 	// Create an area for just the switch (not including text)
 	Area area_track(m_switch_foreclip);
 
-	Rect::paint_focused_rounded_rect(area_track, 
-		*(CommonStyle*)this,
-		*(BorderStyle*)this,
+	RectRenderer::paint_focused_round_rect(area_track,
+		(Borders)borders(),
 		stated_color(track_color), 
 		stated_color(m_border_color),
+		radius_q6(),
+		thickness_q6(),
+
+		focus_thickness(),
+		focus_gap() << 6,
 		stated_color(m_focus_color),
 		m_focused);
 
@@ -159,7 +163,7 @@ void Switch::paint_switch(Region & region)
 		}
 	}
 	area_thumb.size().width(area_thumb.size().height());
-	Rect::paint_rounded_rect(area_thumb, substract(m_radius, m_thumb_padding), 0, 0, ALL_BORDERS, stated_color(m_thumb_color), 0);
+	RectRenderer::paint_round_rect(area_thumb, substract(m_radius, m_thumb_padding),stated_color(m_thumb_color));
 }
 
 

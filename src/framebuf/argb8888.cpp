@@ -67,7 +67,7 @@ uint32_t Argb8888::pixel(int32_t x, int32_t y)
 	return result;
 }
 
-void     Argb8888::fill_rect(int32_t x, int32_t y, uint32_t width, uint32_t height, uint32_t col)
+void     Argb8888::paint_rect(int32_t x, int32_t y, uint32_t width, uint32_t height, uint32_t col)
 {
 	uint8_t alpha = (uint8_t)((col & 0xFF000000) >> 24);
 	uint8_t inv_alpha = 256 - alpha;
@@ -231,7 +231,7 @@ uint32_t        Argb8888::height()
 
 void Argb8888::clear(uint32_t color)
 {
-	fill_rect(0,0,width(), height(), color);
+	paint_rect(0,0,width(), height(), color);
 }
 
 bool Argb8888::dirty(int32_t val)

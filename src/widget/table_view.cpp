@@ -124,13 +124,7 @@ void TableView::paint_row_backgrounds()
 				border_style.focus_color(Color::TRANSPARENT);
 				
 				// Draw background with focus support
-				Rect::paint_focused_rounded_rect(row_area,
-					*(CommonStyle*)this,
-					border_style,
-					row_color,
-					Color::TRANSPARENT,
-					Color::TRANSPARENT,
-					m_focused);
+				RectRenderer::paint_rect(row_area,row_color);
 			}
 		}
 	}
@@ -163,7 +157,7 @@ void TableView::paint_top_border_line()
 		line_area.clip(m_foreclip);
 		if (line_area.is_not_empty())
 		{
-			Rect::paint_rounded_rect(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
+			RectRenderer::paint_rect(line_area, line_color);
 		}
 	}
 }
@@ -183,7 +177,7 @@ void TableView::paint_left_border_line()
 		line_area.clip(m_foreclip);
 		if (line_area.is_not_empty())
 		{
-			Rect::paint_rounded_rect(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
+			RectRenderer::paint_rect(line_area, line_color);
 		}
 	}
 }
@@ -217,7 +211,7 @@ void TableView::paint_horizontal_lines()
 		
 		if (line_area.is_not_empty())
 		{
-			Rect::paint_rounded_rect(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
+			RectRenderer::paint_rect(line_area, line_color);
 		}
 	}
 }
@@ -251,7 +245,7 @@ void TableView::paint_vertical_lines()
 		
 		if (line_area.is_not_empty())
 		{
-			Rect::paint_rounded_rect(line_area, 0, 0, 0, ALL_BORDERS, line_color, Color::TRANSPARENT);
+			RectRenderer::paint_rect(line_area, line_color);
 		}
 	}
 }

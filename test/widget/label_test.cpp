@@ -99,25 +99,25 @@ void Label::test3()
 
 	// Test rich text with different colors
 	Label * label1 = new Label(&window);
-		label1->text("Hello $<'text-color':4294901760>Red$$ World");
+		label1->text("Hello $<'text_color':4294901760>Red$$ World");
 		label1->position(10,10);
 		label1->font_size(20);
 
 	// Test rich text with bold font
 	Label * label2 = new Label(&window);
-		label2->text("Normal $<'font-familly':'Cerial-bold'>Bold$$ Normal");
+		label2->text("Normal $<'font_familly':'Cerial-bold'>Bold$$ Normal");
 		label2->position(10,50);
 		label2->font_size(20);
 
 	// Test rich text with different font size
 	Label * label3 = new Label(&window);
-		label3->text("Small $<'font-size':{'width':32,'height':32}>BIG$$ Small");
+		label3->text("Small $<'font_size':{'width':32,'height':32}>BIG$$ Small");
 		label3->position(10,90);
 		label3->font_size(16);
 
 	// Test rich text with combined attributes: bold + color + size
 	Label * label4 = new Label(&window);
-		label4->text("Mix $<'font-familly':'Cerial-bold','font-size':{'width':28,'height':28},'text-color':4278233600>GreenBold$$ end");
+		label4->text("Mix $<'font_familly':'Cerial-bold','font_size':{'width':28,'height':28},'text_color':4278233600>GreenBold$$ end");
 		label4->position(10,140);
 		label4->font_size(16);
 
@@ -133,13 +133,13 @@ void Label::test4()
 
 	// Test multiline with rich text
 	Label * label1 = new Label(&window);
-		label1->text("Line1 $<'text-color':4278190335>Blue$$\nLine2 $<'font-familly':'Cerial-bold','text-color':4294901760>RedBold$$\nLine3 Normal");
+		label1->text("Line1 $<'text_color':4278190335>Blue$$\nLine2 $<'font_familly':'Cerial-bold','text_color':4294901760>RedBold$$\nLine3 Normal");
 		label1->position(10,10);
 		label1->font_size(20);
 
 	// Test multiple spans on same line
 	Label * label2 = new Label(&window);
-		label2->text("$<'text-color':4294901760>R$$$<'text-color':4278233600>G$$$<'text-color':4278190335>B$$ RGB");
+		label2->text("$<'text_color':4294901760>R$$$<'text_color':4278233600>G$$$<'text_color':4278190335>B$$ RGB");
 		label2->position(10,100);
 		label2->font_size(24);
 
@@ -151,7 +151,7 @@ void Label::test4()
 
 	// Test different sizes on same line
 	Label * label4 = new Label(&window);
-		label4->text("A$<'font-size':{'width':30,'height':30}>B$$$<'font-size':{'width':40,'height':40}>C$$$<'font-size':{'width':20,'height':20}>D$$");
+		label4->text("A$<'font_size':{'width':30,'height':30}>B$$$<'font_size':{'width':40,'height':40}>C$$$<'font_size':{'width':20,'height':20}>D$$");
 		label4->position(10,190);
 		label4->font_size(14);
 	 UIManager::desktop()->dispatch("$(ui.tests)/out/label4_1.svg");
@@ -164,16 +164,16 @@ void Label::test5()
 		label4->position(10,140);
 		label4->font_size(16);
 		label4->text(
-			"$<'font-familly':'Cerial','font-size':{'width':50,'height':80},'text-color':0xFF00FF00>"
+			"$<'font_familly':'Cerial','font_size':{'width':50,'height':80},'text_color':0xFF00FF00>"
 			"GreenpÂ"
-			"$<'font-familly':'Cerial','font-size':{'width':20,'height':20},'text-color':0xFFFF0000>"
+			"$<'font_familly':'Cerial','font_size':{'width':20,'height':20},'text_color':0xFFFF0000>"
 			"Redp_$$endÂ");
 	UIManager::desktop()->dispatch("$(ui.tests)/out/label5_1.svg");
-	label4->text("Mix$<'font-familly':'Cerial','font-size':{'width':32,'height':32},'text-color':0xFF00FF00>Gr$$end");
+	label4->text("Mix$<'font_familly':'Cerial','font_size':{'width':32,'height':32},'text_color':0xFF00FF00>Gr$$end");
 	UIManager::desktop()->dispatch("$(ui.tests)/out/label5_2.svg");
-	label4->text("Mix$<'font-familly':'Cerial','font-size':{'width':32,'height':32},'text-color':0xFF00FF00>Gre$$end");
+	label4->text("Mix$<'font_familly':'Cerial','font_size':{'width':32,'height':32},'text_color':0xFF00FF00>Gre$$end");
 	UIManager::desktop()->dispatch("$(ui.tests)/out/label5_3.svg");
-	label4->text("Mix$<'font-familly':'Cerial','font-size':{'width':32,'height':32},'text-color':0xFF00FF00>Gren$$end");
+	label4->text("Mix$<'font_familly':'Cerial','font_size':{'width':32,'height':32},'text_color':0xFF00FF00>Gren$$end");
 	UIManager::desktop()->dispatch("$(ui.tests)/out/label5_4.svg");
 }
 

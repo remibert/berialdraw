@@ -20,11 +20,11 @@ void Styles::test1()
 	// Now create a JSON style with custom properties
 	String style_properties = 
 		"{"
-			"'text-color':0xFFD5D6EA,"
-			"'font-size':30,"
-			"'text':'-$<\"font-size\":80,\"text-color\":0xFFFF0000>S$$tyle',"
+			"'text_color':0xFFD5D6EA,"
+			"'font_size':30,"
+			"'text':'-$<\"font_size\":80,\"text_color\":0xFFFF0000>S$$tyle',"
 			"'radius':100,"
-			"'border-color':0xFFCD5C5C,"
+			"'border_color':0xFFCD5C5C,"
 			"'thickness':8,"
 			"'color':0xFF7D0552"
 		"}";

@@ -62,11 +62,11 @@ void Canvas::test2()
 
 		text->text(
 			"hello\n"
-			"$<'font-familly':'Cerial','font-size':{'width':30,'height':60},'text-color':0x7F00FF00>"
+			"$<'font_familly':'Cerial','font_size':{'width':30,'height':60},'text_color':0x7F00FF00>"
 			"world\n"
-			"$<'font-familly':'Cerial','font-size':{'width':40,'height':50},'text-color':0x7FFF00FF>"
+			"$<'font_familly':'Cerial','font_size':{'width':40,'height':50},'text_color':0x7FFF00FF>"
 			"I am\n"
-			"$<'font-familly':'Cerial','font-size':{'width':20,'height':20},'text-color':0x7F0000FF>"
+			"$<'font_familly':'Cerial','font_size':{'width':20,'height':20},'text_color':0x7F0000FF>"
 			"Happy\n"
 			"$$"
 			"%d\n"

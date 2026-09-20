@@ -50,6 +50,26 @@ namespace berialdraw
 		void trailing(wchar_t value);
 
 
+		/** Get the back selected color */
+		uint32_t selected_color() const;
+
+		/** Set the back selected color */
+		void selected_color(uint32_t col);
+
+		/** Set the back selected color with alpha */
+		void selected_color(uint32_t col, uint8_t alpha);
+
+
+		/** Get the text selected color */
+		uint32_t selected_text_color() const;
+
+		/** Set the text selected color */
+		void selected_text_color(uint32_t col);
+
+		/** Set the text selected color with alpha */
+		void selected_text_color(uint32_t col, uint8_t alpha);
+
+
 		/** Get the property name for this style */
 		const char* property_name() const override { return "list-item"; }
 
@@ -59,6 +79,8 @@ namespace berialdraw
 		String  m_trailing;
 		Size m_leading_size;
 		Size m_trailing_size;
+		uint32_t m_selected_color = Color::GRAY;
+		uint32_t m_selected_text_color = Color::WHITE;
 		unsigned int m_leading_modified:1;
 		unsigned int m_trailing_modified : 1;
 /// @endcond 

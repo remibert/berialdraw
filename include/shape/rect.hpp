@@ -2,11 +2,15 @@
 namespace berialdraw
 {
 	class ClipMask;
+	class RectRenderer;
+
 /** This class represents a rectangle shape that can be drawn on a canvas.
 It extends the Shape class and provides methods for rendering and 
 defining the rectangle's outline. */
 class Rect : public Shape, public RoundStyle
 {
+	friend class RectRenderer;
+
 public:
 	/** Constructs a Rect object linked to a specific canvas.
 	@param canvas Pointer to the canvas where the rectangle will be drawn. */
@@ -31,37 +35,6 @@ public:
 	@param other The Rect object to copy from. */
 	Rect(const Rect & other);
 
-	/** Builds a polygon representation of a rectangle with customizable parameters.
-	@param area Defines the rectangle's position and size.
-	@param radius Radius for rounded corners.
-	@param thickness Thickness of the border.
-	@param gap Gap between the border and the fill.
-	@param borders Number of borders of the polygon (approximating a rounded rectangle).
-	@param backcolor Background color of the rectangle.
-	@param bordercolor Border color of the rectangle. */
-	static void paint_rounded_rect(const Area& area, Dim radius,
-		Dim thickness, Dim gap, uint8_t borders, uint32_t backcolor, 
-		uint32_t bordercolor, Dim focus_thickness=0);
-
-	/** Build a clip mask from the inner area of a rounded rectangle,
-	with the same geometry as the backcolor path of paint_rounded_rect.
-	@param area      Bounding area of the rounded rect
-	@param radius    Corner radius in Q6
-	@param thickness Border thickness in Q6
-	@param gap       Gap between border and fill in Q6
-	@param borders   Which borders are active
-	@param mask      Output clip mask (cleared and filled by this call) */
-	static void build_clip_mask_rounded_rect(const Area & area, Dim radius, Dim thickness, Dim gap, uint8_t borders, ClipMask & mask);
-
-
-	static void paint_focused_rounded_rect(const Area& area,
-		const CommonStyle& common_style,
-		const BorderStyle& border_style,
-		uint32_t color,
-		uint32_t border_color,
-		uint32_t focus_border_color,
-		bool focused);
-
 	/** Renders the outline of the rectangle on the canvas.
 	@param shift Offset to apply while rendering. */
 	virtual void paint(const Point & shift) override;
@@ -77,30 +50,10 @@ public:
 	@return Size of the shape with margin */
 	virtual Size marged_size() override;
 
-protected:
+private:
 /// @cond DOXYGEN_IGNORE
-	/** Creates a part of the rectangle's polygon representation. */
-	void create_part();
-
-	inline void add_corner    (Coord x, Coord y, Coord radius, Dim thickness, uint32_t flags);
-
-	void no_border_rectangle(Coord w, Coord h, Coord R, Coord t);
-
-	void rounded_border_rectangle(Coord w, Coord h, Coord R, Coord r, Coord t);
-	void right_angle_border_rectangle(Coord w, Coord h, Coord R, Coord r, Coord t);
-	void adapt_radius(Coord & radius);
-	void adapt_thickness(Coord & thickness);
-
 	// Render outline
 	void paint(const Point & shift, bool in_widget);
-
-	// Outer-based versions: base at outer edge instead of stroke center
-	void create_part_outer();
-	void no_border_rectangle_outer(Coord W, Coord H, Coord R);
-	void rounded_border_rectangle_outer(Coord W, Coord H, Coord R, Coord r, Coord thickness);
-	void right_angle_border_rectangle_outer(Coord W, Coord H, Coord R, Coord r, Coord thickness);
-	void paint_outer(const Point & shift);
-	void paint_outer(const Point & shift, bool in_widget);
 
 	/// Polygon representation of the rectangle's outline.
 	Polygon m_polygon;

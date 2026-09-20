@@ -1033,6 +1033,9 @@
     <ClCompile Include="..\..\src\device\timer_manager_base.cpp">
       <Filter>berialdraw\device</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\shape\rect_renderer.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\config.h">
@@ -1910,6 +1913,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\event\timer_event.hpp">
       <Filter>berialdraw\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\rect_renderer.hpp">
+      <Filter>berialdraw\shape</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

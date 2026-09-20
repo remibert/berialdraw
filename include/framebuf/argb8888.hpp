@@ -31,7 +31,7 @@ namespace berialdraw
 		@param width The width of the rectangle
 		@param height The height of the rectangle
 		@param color The color to fill */
-		virtual void fill_rect(int32_t x, int32_t y, uint32_t width, uint32_t height, uint32_t color);
+		virtual void paint_rect(int32_t x, int32_t y, uint32_t width, uint32_t height, uint32_t color);
 
 		/** Get the buffer
 		@return Pointer to the buffer */

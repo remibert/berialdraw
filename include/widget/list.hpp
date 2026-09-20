@@ -28,7 +28,7 @@ namespace berialdraw
 	  remove(-1)       → remove last
 	  insert(0, text)  → insert at beginning
 	  insert(-1, text) → insert before last */
-	class List : public ScrollableContent
+	class List : public ScrollableContent, public ListStyle
 	{
 	public:
 		/** Create widget */
@@ -75,6 +75,17 @@ namespace berialdraw
 		@return Pointer to ListItem, or nullptr if index is out of bounds */
 		ListItem* operator[](int index) const;
 
+		/** Unselect all item in list */
+		void unselect_all();
+
+		/** Select one item in list 
+		@param index Item position (supports negative indexing) */
+		void select(int index);
+
+		/** Unselect one item in list
+		@param index Item position (supports negative indexing) */
+		void unselect(int index);
+
 		/** Get number of items in the list */
 		size_t count() const;
 
@@ -118,6 +129,10 @@ namespace berialdraw
 
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Select one item in list
+		@param index Item position (supports negative indexing) */
+		void select(int index, bool state);
+
 		/** Remove operator = */
 		List& operator=(const List& other) = delete;
 

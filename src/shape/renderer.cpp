@@ -99,7 +99,7 @@ void Renderer::draw_line(Coord x, Coord y, uint32_t length, uint32_t coverage, u
 		if (draw == Overlap::IN)
 		{
 			// Draw the entire line in one go
-			framebuf->fill_rect(x, y, length, 1, pixel_color);
+			framebuf->paint_rect(x, y, length, 1, pixel_color);
 		}
 		else if (draw == Overlap::PART)
 		{
@@ -122,7 +122,7 @@ void Renderer::draw_line(Coord x, Coord y, uint32_t length, uint32_t coverage, u
 				if (draw == Overlap::IN)
 				{
 					// Draw the visible segment
-					framebuf->fill_rect(x + pos, y, len, 1, pixel_color);
+					framebuf->paint_rect(x + pos, y, len, 1, pixel_color);
 				}
 				else if (draw == Overlap::PART)
 				{

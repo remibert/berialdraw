@@ -5,12 +5,14 @@ using namespace berialdraw;
 ListItem::ListItem(Widget* parent, Dim index) :
 	Widget("list_item", parent, sizeof(ListItem), index)
 {
-	UIManager::styles()->apply(this, (CommonStyle*)this);
-	UIManager::styles()->apply(this, (WidgetStyle*)this);
-	UIManager::styles()->apply(this, (BorderStyle*)this);
-	UIManager::styles()->apply(this, (TextStyle*)this);
+	UIManager::styles()->apply(this, (CommonStyle  *)this);
+	UIManager::styles()->apply(this, (WidgetStyle  *)this);
+	UIManager::styles()->apply(this, (BorderStyle  *)this);
+	UIManager::styles()->apply(this, (TextStyle    *)this);
 	UIManager::styles()->apply(this, (ListItemStyle*)this);
-	UIManager::styles()->apply(this, (PaddingStyle*)this);
+	UIManager::styles()->apply(this, (PaddingStyle *)this);
+	bind(this, &ListItem::on_key);
+	bind(this, &ListItem::on_click);
 }
 
 ListItem::~ListItem()
@@ -19,12 +21,12 @@ ListItem::~ListItem()
 
 void ListItem::copy(const ListItem& obj)
 {
-	*((CommonStyle*)this)   = *(CommonStyle*)(&obj);
-	*((WidgetStyle*)this)   = *(WidgetStyle*)(&obj);
-	*((BorderStyle*)this)   = *(BorderStyle*)(&obj);
-	*((TextStyle*)this)     = *(TextStyle*)(&obj);
+	*((CommonStyle  *)this) = *(CommonStyle  *)(&obj);
+	*((WidgetStyle  *)this) = *(WidgetStyle  *)(&obj);
+	*((BorderStyle  *)this) = *(BorderStyle  *)(&obj);
+	*((TextStyle    *)this) = *(TextStyle    *)(&obj);
 	*((ListItemStyle*)this) = *(ListItemStyle*)(&obj);
-	*((PaddingStyle*)this) = *(PaddingStyle*)(&obj);
+	*((PaddingStyle *)this) = *(PaddingStyle *)(&obj);
 }
 
 void ListItem::copy(const ListItem* list_item)
@@ -177,63 +179,41 @@ void ListItem::paint(const Region& parent_region)
 	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Overlap::OUT)
 	{
 		UIManager::renderer()->region(region);
-		Point shift;
 
 		// Paint background and border
-		paint_background(m_foreclip, *(CommonStyle*)this, *(BorderStyle*)this);
+		uint32_t color;
+		uint32_t text_color;
+		bool focused = false;
+
+		List * list = search_list();
+		if (list)
+		{
+			focused = list->focused();
+		}
+
+		if (m_selected)
+		{
+			text_color = stated_color(m_selected_text_color, focused);
+			color = stated_color(m_selected_color, focused);
+		}
+		else
+		{
+			text_color = stated_color(m_text_color, focused);
+			color = stated_color(m_color, focused);
+		}
+
+		RectRenderer::paint_rect(m_foreclip, color);
 
 		select_font();
 
 		// Paint text
-		if (m_text.size() > 0)
-		{
-			Region text_region(region);
-			text_region.intersect(m_text_foreclip);
-			UIManager::renderer()->region(text_region);
-			if (m_text_sketch)
-			{
-				Margin margin;
-				m_text_sketch->paint(m_text_foreclip, stated_color(m_text_color));
-			}
-			if (m_text_box)
-			{
-				m_text_box->paint(shift, *m_font.get(), m_text, m_text_foreclip.position(), m_text_foreclip, stated_color(m_text_color), 0, 0, true);
-			}
-		}
+		paint_item_part(region, m_text, m_text_sketch, m_text_box, m_text_foreclip, text_color);
 
 		// Paint leading
-		if (m_leading.size() > 0)
-		{
-			Region leading_region(region);
-			leading_region.intersect(m_leading_foreclip);
-			UIManager::renderer()->region(leading_region);
-			if (m_leading_sketch)
-			{
-				Margin margin;
-				m_leading_sketch->paint(m_leading_foreclip, stated_color(m_text_color));
-			}
-			if (m_leading_box)
-			{
-				m_leading_box->paint(shift, *m_font.get(), m_leading, m_leading_foreclip.position(), m_leading_foreclip, stated_color(m_text_color), 0, 0, true);
-			}
-		}
+		paint_item_part(region, m_leading, m_leading_sketch, m_leading_box, m_leading_foreclip, text_color);
 
 		// Paint trailing
-		if (m_trailing.size() > 0)
-		{
-			Region trailing_region(region);
-			trailing_region.intersect(m_trailing_foreclip);
-			UIManager::renderer()->region(trailing_region);
-			if (m_trailing_sketch)
-			{
-				Margin margin;
-				m_trailing_sketch->paint(m_trailing_foreclip, stated_color(m_text_color));
-			}
-			if (m_trailing_box)
-			{
-				m_trailing_box->paint(shift, *m_font.get(), m_trailing, m_trailing_foreclip.position(), m_trailing_foreclip, stated_color(m_text_color), 0, 0, true);
-			}
-		}
+		paint_item_part(region, m_trailing, m_trailing_sketch, m_trailing_box, m_trailing_foreclip, text_color);
 	}
 }
 
@@ -249,4 +229,68 @@ Widget* ListItem::hovered(const Region& parent_region, const Point& position)
 		return this;
 	}
 	return 0;
+}
+
+/** Call back on key */
+void ListItem::on_key(Widget * widget, const KeyEvent & evt)
+{
+}
+
+/** Call back on click */
+void ListItem::on_click(Widget * widget, const ClickEvent & evt)
+{
+	List * list = search_list();
+	if (list)
+	{
+		list->focused(true);
+		if (list->selection_mode() == ListSelectionMode::LIST_MULTI_SELECTION)
+		{
+			m_selected = !m_selected;
+		}
+		else if (list->selection_mode() == ListSelectionMode::LIST_SINGLE_SELECTION)
+		{
+			list->unselect_all();
+			m_selected = true;
+		}
+	}
+}
+
+// Paint a single item part (text, leading, or trailing)
+void ListItem::paint_item_part(const Region& region, const String& content,
+                              std::unique_ptr<Sketch>& sketch, std::unique_ptr<TextBox>& text_box,
+                              const Area& foreclip, uint32_t text_color)
+{
+	if (content.size() > 0)
+	{
+		Point shift;
+		Region item_region(region);
+		item_region.intersect(foreclip);
+		UIManager::renderer()->region(item_region);
+		if (sketch)
+		{
+			sketch->paint(foreclip, text_color);
+		}
+		if (text_box)
+		{
+			text_box->paint(shift, *m_font.get(), content, foreclip.position(), foreclip, text_color, 0, 0, true);
+		}
+	}
+}
+
+/** Search parent list container */
+List * ListItem::search_list()
+{
+	List * result = nullptr;
+	Widget * current = parent();
+
+	while(current)
+	{
+		result = dynamic_cast<List*>(current);
+		if (result)
+		{
+			break;
+		}
+		current = current->parent();
+	}
+	return result;
 }

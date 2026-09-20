@@ -132,6 +132,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "shape/line.hpp"
 #include "shape/poly_lines.hpp"
 #include "shape/rect.hpp"
+#include "shape/rect_renderer.hpp"
 #include "shape/pie.hpp"
 #include "shape/vectors_script.hpp"
 #include "shape/compass.hpp"

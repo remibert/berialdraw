@@ -24,17 +24,17 @@ namespace berialdraw
 		// Border style
 		static constexpr const char* BORDER_RADIUS = "radius_";
 		static constexpr const char* BORDER_THICKNESS = "thickness_";
-		static constexpr const char* BORDER_COLOR = "border-color";
-		static constexpr const char* BORDER_FOCUS_COLOR = "focus-color";
-		static constexpr const char* BORDER_FOCUS_GAP = "focus-gap_";
-		static constexpr const char* BORDER_FOCUS_THICKNESS = "focus-thickness";
+		static constexpr const char* BORDER_COLOR = "border_color";
+		static constexpr const char* BORDER_FOCUS_COLOR = "focus_color";
+		static constexpr const char* BORDER_FOCUS_GAP = "focus_gap_";
+		static constexpr const char* BORDER_FOCUS_THICKNESS = "focus_thickness";
 
 		// Checkbox style
-		static constexpr const char* CHECKBOX_PADDING = "check-padding_";
-		static constexpr const char* CHECKBOX_COLOR = "check-color";
-		static constexpr const char* CHECKBOX_SKETCH = "check-sketch";
-		static constexpr const char* CHECKBOX_SIZE = "checkbox-size";
-		static constexpr const char* CHECKBOX_TEXT_PADDING = "text-padding_";
+		static constexpr const char* CHECKBOX_PADDING = "check_padding_";
+		static constexpr const char* CHECKBOX_COLOR = "check_color";
+		static constexpr const char* CHECKBOX_SKETCH = "check_sketch";
+		static constexpr const char* CHECKBOX_SIZE = "checkbox_size";
+		static constexpr const char* CHECKBOX_TEXT_PADDING = "text_padding_";
 
 		// Common style
 		static constexpr const char* COMMON_COLOR = "color";
@@ -49,82 +49,82 @@ namespace berialdraw
 		static constexpr const char* COMMON_ALIGN = "align";
 
 		// Edit style
-		static constexpr const char* EDIT_MAX_LINES = "max-lines";
-		static constexpr const char* EDIT_MAX_COLUMNS = "max-columns";
-		static constexpr const char* EDIT_SELECT_COLOR = "select-color";
-		static constexpr const char* EDIT_CURSOR_COLOR = "cursor-color";
-		static constexpr const char* EDIT_PLACEHOLDER_COLOR = "place-holder-color";
+		static constexpr const char* EDIT_MAX_LINES = "max_lines";
+		static constexpr const char* EDIT_MAX_COLUMNS = "max_columns";
+		static constexpr const char* EDIT_SELECT_COLOR = "select_color";
+		static constexpr const char* EDIT_CURSOR_COLOR = "cursor_color";
+		static constexpr const char* EDIT_PLACEHOLDER_COLOR = "place_holder_color";
 		static constexpr const char* EDIT_PASSWORD = "password";
-		static constexpr const char* EDIT_PLACEHOLDER = "place-holder";
+		static constexpr const char* EDIT_PLACEHOLDER = "place_holder";
 
 		// Icon style
 		static constexpr const char* ICON_FILENAME = "filename";
-		static constexpr const char* ICON_COLOR = "icon-color";
-		static constexpr const char* ICON_FRAME_SIZE = "icon-frame-size";
-		static constexpr const char* ICON_PADDING = "icon-padding_";
-		static constexpr const char* ICON_TEXT_PADDING = "text-padding_";
+		static constexpr const char* ICON_COLOR = "icon_color";
+		static constexpr const char* ICON_FRAME_SIZE = "icon_frame_size";
+		static constexpr const char* ICON_PADDING = "icon_padding_";
+		static constexpr const char* ICON_TEXT_PADDING = "text_padding_";
 
 		// Line style
 		static constexpr const char* LINE_POINT1 = "point1";
 		static constexpr const char* LINE_POINT2 = "point2";
 
 		// Pie style
-		static constexpr const char* PIE_SWEEP_ANGLE = "sweep-angle_";
-		static constexpr const char* PIE_START_ANGLE = "start-angle_";
+		static constexpr const char* PIE_SWEEP_ANGLE = "sweep_angle_";
+		static constexpr const char* PIE_START_ANGLE = "start_angle_";
 		static constexpr const char* PIE_ROPE = "rope";
 
 		// Range style (used by both Progress Bar and Slider)
 		static constexpr const char* RANGE_VALUE = "value";
-		static constexpr const char* RANGE_MIN_VALUE = "min-value";
-		static constexpr const char* RANGE_MAX_VALUE = "max-value";
-		static constexpr const char* RANGE_STEP_VALUE = "step-value";
+		static constexpr const char* RANGE_MIN_VALUE = "min_value";
+		static constexpr const char* RANGE_MAX_VALUE = "max_value";
+		static constexpr const char* RANGE_STEP_VALUE = "step_value";
 
 		// Progress bar style
-		static constexpr const char* PROGRESSBAR_TRACK_COLOR = "track-color";
-		static constexpr const char* PROGRESSBAR_FILL_COLOR = "fill-color";
-		static constexpr const char* PROGRESSBAR_TRACK_SIZE = "track-size_";
-		static constexpr const char* PROGRESSBAR_FILL_SIZE = "fill-size_";
+		static constexpr const char* PROGRESSBAR_TRACK_COLOR = "track_color";
+		static constexpr const char* PROGRESSBAR_FILL_COLOR = "fill_color";
+		static constexpr const char* PROGRESSBAR_TRACK_SIZE = "track_size_";
+		static constexpr const char* PROGRESSBAR_FILL_SIZE = "fill_size_";
 
 		// Radio style
-		static constexpr const char* RADIO_PADDING = "radio-padding_";
-		static constexpr const char* RADIO_COLOR = "radio-color";
-		static constexpr const char* RADIO_SKETCH = "radio-sketch";
+		static constexpr const char* RADIO_PADDING = "radio_padding_";
+		static constexpr const char* RADIO_COLOR = "radio_color";
+		static constexpr const char* RADIO_SKETCH = "radio_sketch";
 		static constexpr const char* RADIO_GROUP = "group";
-		static constexpr const char* RADIO_SIZE = "radio-size";
-		static constexpr const char* RADIO_TEXT_PADDING = "text-padding_";
+		static constexpr const char* RADIO_SIZE = "radio_size";
+		static constexpr const char* RADIO_TEXT_PADDING = "text_padding_";
 
 		// Scroll view style
-		static constexpr const char* SCROLLVIEW_SIZE = "scroll-size";
-		static constexpr const char* SCROLLVIEW_POSITION = "scroll-position";
-		static constexpr const char* SCROLLVIEW_DIRECTION = "scroll-direction";
+		static constexpr const char* SCROLLVIEW_SIZE = "scroll_size";
+		static constexpr const char* SCROLLVIEW_POSITION = "scroll_position";
+		static constexpr const char* SCROLLVIEW_DIRECTION = "scroll_direction";
 
 		// Slider style
-		static constexpr const char* SLIDER_TRACK_COLOR = "track-color";
-		static constexpr const char* SLIDER_HANDLE_COLOR = "handle-color";
-		static constexpr const char* SLIDER_TRACK_SIZE = "track-size_";
-		static constexpr const char* SLIDER_HANDLE_SIZE = "handle-size_";
+		static constexpr const char* SLIDER_TRACK_COLOR = "track_color";
+		static constexpr const char* SLIDER_HANDLE_COLOR = "handle_color";
+		static constexpr const char* SLIDER_TRACK_SIZE = "track_size_";
+		static constexpr const char* SLIDER_HANDLE_SIZE = "handle_size_";
 
 		// Switch style
-		static constexpr const char* SWITCH_THUMB_PADDING = "thumb-padding_";
-		static constexpr const char* SWITCH_ON_TRACK_COLOR = "on-track-color";
-		static constexpr const char* SWITCH_OFF_TRACK_COLOR = "off-track-color";
-		static constexpr const char* SWITCH_THUMB_COLOR = "thumb-color";
-		static constexpr const char* SWITCH_SIZE = "switch-size";
-		static constexpr const char* SWITCH_TEXT_PADDING = "text-padding_";
+		static constexpr const char* SWITCH_THUMB_PADDING = "thumb_padding_";
+		static constexpr const char* SWITCH_ON_TRACK_COLOR = "on_track_color";
+		static constexpr const char* SWITCH_OFF_TRACK_COLOR = "off_track_color";
+		static constexpr const char* SWITCH_THUMB_COLOR = "thumb_color";
+		static constexpr const char* SWITCH_SIZE = "switch_size";
+		static constexpr const char* SWITCH_TEXT_PADDING = "text_padding_";
 
 		// Table view style
-		static constexpr const char* TABLEVIEW_ALTERNATING_ROW_COLOR_1 = "alternating-row-color-1";
-		static constexpr const char* TABLEVIEW_ALTERNATING_ROW_COLOR_2 = "alternating-row-color-2";
+		static constexpr const char* TABLEVIEW_ALTERNATING_ROW_COLOR_1 = "alternating_row_color_1";
+		static constexpr const char* TABLEVIEW_ALTERNATING_ROW_COLOR_2 = "alternating_row_color_2";
 
 		// Grid style
-		static constexpr const char* GRIDSTYLE_GRID_COLOR = "grid-color";
-		static constexpr const char* GRIDSTYLE_GRID_VISIBLE = "grid-visible";
-		static constexpr const char* GRIDSTYLE_HORIZONTAL_THICKNESS = "horizontal-thickness_";
-		static constexpr const char* GRIDSTYLE_VERTICAL_THICKNESS = "vertical-thickness_";
+		static constexpr const char* GRIDSTYLE_GRID_COLOR = "grid_color";
+		static constexpr const char* GRIDSTYLE_GRID_VISIBLE = "grid_visible";
+		static constexpr const char* GRIDSTYLE_HORIZONTAL_THICKNESS = "horizontal_thickness_";
+		static constexpr const char* GRIDSTYLE_VERTICAL_THICKNESS = "vertical_thickness_";
 
 		// Cell style
-		static constexpr const char* CELLSTYLE_ROW_SELECTOR = "row-selector";
-		static constexpr const char* CELLSTYLE_COLUMN_SELECTOR = "column-selector";
+		static constexpr const char* CELLSTYLE_ROW_SELECTOR = "row_selector";
+		static constexpr const char* CELLSTYLE_COLUMN_SELECTOR = "column_selector";
 
 		// Cells style
 		static constexpr const char* CELLSTYLES_CELLS = "cells";
@@ -134,23 +134,23 @@ namespace berialdraw
 
 		// Text style
 		static constexpr const char* TEXT_CONTENT = "text";
-		static constexpr const char* TEXT_FONT_FAMILY = "font-familly";
-		static constexpr const char* TEXT_COLOR = "text-color";
-		static constexpr const char* TEXT_FONT_SIZE = "font-size";
-		static constexpr const char* TEXT_ALIGN = "text-align";
+		static constexpr const char* TEXT_FONT_FAMILY = "font_familly";
+		static constexpr const char* TEXT_COLOR = "text_color";
+		static constexpr const char* TEXT_FONT_SIZE = "font_size";
+		static constexpr const char* TEXT_ALIGN = "text_align";
 		static constexpr const char* TEXT_PADDING = "padding";
 
 		// Scrollbar style
-		static constexpr const char* SCROLLBAR_VISIBLE     = "scrollbar-visible";
-		static constexpr const char* SCROLLBAR_THUMB_COLOR = "scrollbar-thumb-color";
-		static constexpr const char* SCROLLBAR_WIDTH       = "scrollbar-width";
-		static constexpr const char* SCROLLBAR_RADIUS      = "scrollbar-radius";
-		static constexpr const char* SCROLLBAR_MARGIN      = "scrollbar-margin";
+		static constexpr const char* SCROLLBAR_VISIBLE     = "scrollbar_visible";
+		static constexpr const char* SCROLLBAR_THUMB_COLOR = "scrollbar_thumb_color";
+		static constexpr const char* SCROLLBAR_WIDTH       = "scrollbar_width";
+		static constexpr const char* SCROLLBAR_RADIUS      = "scrollbar_radius";
+		static constexpr const char* SCROLLBAR_MARGIN      = "scrollbar_margin";
 
 		// List style
-		static constexpr const char* SEPARATOR_COLOR     = "separator-color";
-		static constexpr const char* SEPARATOR_THICKNESS = "separator-thickness";
-		static constexpr const char* LISTSTYLE_SELECTION_MODE = "selection-mode";
+		static constexpr const char* SEPARATOR_COLOR     = "separator_color";
+		static constexpr const char* SEPARATOR_THICKNESS = "separator_thickness";
+		static constexpr const char* LISTSTYLE_SELECTION_MODE = "selection_mode";
 
 		// Widget style
 		static constexpr const char* WIDGET_CELL = "cell";
@@ -159,21 +159,24 @@ namespace berialdraw
 		static constexpr const char* WIDGET_PRESSED = "pressed";
 		static constexpr const char* WIDGET_CHECKED = "checked";
 		static constexpr const char* WIDGET_FOCUSABLE = "focusable";
+		static constexpr const char* WIDGET_PARENT_FOCUSABLE = "parent_focusable";
 		static constexpr const char* WIDGET_SELECTABLE = "selectable";
 		static constexpr const char* WIDGET_FOCUSED = "focused";
 		static constexpr const char* WIDGET_SELECTED = "selected";
 		static constexpr const char* WIDGET_PRESSABLE = "pressable";
 		static constexpr const char* WIDGET_FLOW = "flow";
-		static constexpr const char* WIDGET_MIN_SIZE = "min-size";
-		static constexpr const char* WIDGET_MAX_SIZE = "max-size";
+		static constexpr const char* WIDGET_MIN_SIZE = "min_size";
+		static constexpr const char* WIDGET_MAX_SIZE = "max_size";
 		static constexpr const char* WIDGET_STYLE = "style";
 		static constexpr const char* WIDGET_BORDERS = "borders";
-		static constexpr const char* WIDGET_INHERITED_FOCUS_COLOR = "inherited-focus-color";
+		static constexpr const char* WIDGET_INHERITED_FOCUS_COLOR = "inherited_focus_color";
 		static constexpr const char* WIDGET_ENABLED = "enabled";
 		
 		// List item style
 		static constexpr const char* LIST_ITEM_LEADING = "leading";
 		static constexpr const char* LIST_ITEM_TRAILING = "trailing";
+		static constexpr const char* LIST_ITEM_SELECTED_COLOR = "selected_color";
+		static constexpr const char* LIST_ITEM_SELECTED_TEXT_COLOR = "selected_text_color";
 
 
 		// Timer style
@@ -185,11 +188,11 @@ namespace berialdraw
 		static constexpr const char* EXTEND = "extend";
 
 		// Size Policy (used in WidgetStyle)
-		static constexpr const char* SIZE_POLICY = "size-policy";
+		static constexpr const char* SIZE_POLICY = "size_policy";
 
 		// Picture style
 		static constexpr const char* PICTURE_FILENAME = "filename";
 		static constexpr const char* PICTURE_ALPHA = "alpha";
-		static constexpr const char* PICTURE_FIT_MODE = "fit-mode";
+		static constexpr const char* PICTURE_FIT_MODE = "fit_mode";
 	};
 }

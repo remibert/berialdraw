@@ -319,9 +319,6 @@ void ScrollableContent::paint(const Region & parent_region)
 			exporter->open_group(m_backclip.position(), m_backclip.size());
 		}
 
-
-		//back_region.intersect(m_foreclip);
-
 		// Paint background and border
 		{
 
@@ -342,7 +339,7 @@ void ScrollableContent::paint(const Region & parent_region)
 			if (m_radius > 0)
 			{
 				Area border_area(m_contentclip);
-				Rect::build_clip_mask_rounded_rect(border_area, m_radius, m_thickness, 0, m_borders, clip_mask);
+				RectRenderer::build_clip_mask_rounded_rect(border_area, m_radius, m_thickness, 0, m_borders, clip_mask);
 				if (!clip_mask.is_empty())
 				{
 					scroll_region.set_clip_mask(&clip_mask);
@@ -551,7 +548,7 @@ void ScrollableContent::paint_scrollbar_thumb_internal(bool is_vertical, const S
 	scrollbar_area.nearest_pixel();
 
 	// Draw scrollbar thumb with rounded corners
-	Rect::paint_rounded_rect(scrollbar_area, m_scrollbar_radius, 0, 0, ALL_BORDERS, scrollbar_thumb_color(), Color::TRANSPARENT);
+	RectRenderer::paint_round_rect(scrollbar_area, m_scrollbar_radius,scrollbar_thumb_color());
 }
 
 /** Paint the scrollbar indicator */

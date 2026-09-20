@@ -200,12 +200,14 @@ namespace berialdraw
 		Dim m_column = UNDEFINED_CELL;
 		Dim m_id     = UNDEFINED_ID;
 
+		unsigned int m_pressable : 1;
 		unsigned int m_pressed   :1;
-		unsigned int m_pressable :1;
+
 		unsigned int m_checked   :1;
 
+		unsigned int m_parent_focusable :1;
+		unsigned int m_focusable : 1;
 		unsigned int m_focused   :1;
-		unsigned int m_focusable :1;
 
 		unsigned int m_selectable:1;
 		unsigned int m_selected  :1;
@@ -217,9 +219,11 @@ namespace berialdraw
 
 		unsigned int m_size_policy:3;
 		unsigned int m_extend     :2;
+
 		unsigned int m_flow_place :1;
 		unsigned int m_flow_in_children:1;
 		unsigned int m_flow       :1;
+
 		unsigned int m_inherited_focus_color  :1;
 		std::unique_ptr<String> m_style;
 /// @endcond 

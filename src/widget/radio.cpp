@@ -166,7 +166,7 @@ void Radio::paint(const Region & parent_region)
 			else
 			{
 				// Default radio mark (simple square)
-				Rect::paint_rounded_rect(area_radio, m_radius, 0, 0, ALL_BORDERS, stated_color(m_radio_color), 0);
+				RectRenderer::paint_round_rect(area_radio, m_radius,stated_color(m_radio_color));
 			}
 		}
 		

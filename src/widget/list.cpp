@@ -7,12 +7,7 @@ List::List(Widget * parent):
 	ScrollableContent("list", parent, sizeof(List)),
 	m_column(nullptr)
 {
-	// Apply styles
-	//UIManager::styles()->apply(this, (CommonStyle*)this);
-	//UIManager::styles()->apply(this, (WidgetStyle*)this);
-	//UIManager::styles()->apply(this, (ScrollViewStyle*)this);
-	//UIManager::styles()->apply(this, (ScrollbarStyle*)this);
-	//UIManager::styles()->apply(this, (BorderStyle*)this);
+	UIManager::styles()->apply(this, (ListStyle*)this);
 
 	// Set default scroll direction to vertical only
 	m_scroll_direction = SCROLL_VERTICAL;
@@ -40,18 +35,18 @@ int List::normalize_index(int index) const
 	int result = index;
 	if (index != UNDEFINED_INDEX && index != 0)
 	{
-		size_t sz = count();
-		if (sz > 0)
+		size_t size = count();
+		if (size > 0)
 		{
 			if (index < 0)
 			{
-				int positive = (int)sz + index + 1;
+				int positive = (int)size + index + 1;
 
 				if (positive < 0)
 				{
 					result = 0;
 				}
-				else if (positive < (int)sz)
+				else if (positive < (int)size)
 				{
   					result = positive;
 				}
@@ -60,7 +55,7 @@ int List::normalize_index(int index) const
 					result = UNDEFINED_INDEX;
 				}
 			}
-			else if (index > (int)sz)
+			else if (index > (int)size)
 			{
 				result = UNDEFINED_INDEX;
 			}
@@ -159,6 +154,65 @@ ListItem* List::at(int index) const
 	return result;
 }
 
+/** Unselect all item in list */
+void List::unselect_all()
+{
+	Widget* current = m_column->children();
+	while (current) 
+	{
+		current->selected(false);
+		current = current->next();
+	}
+}
+
+/** Select one item in list
+@param index Item position (supports negative indexing) */
+void List::select(int index, bool state)
+{
+	if ((ListSelectionMode)m_selection_mode == ListSelectionMode::LIST_SINGLE_SELECTION ||
+		(ListSelectionMode)m_selection_mode == ListSelectionMode::LIST_NO_SELECTION)
+	{
+		unselect_all();
+	}
+
+	if ((ListSelectionMode)m_selection_mode != ListSelectionMode::LIST_NO_SELECTION)
+	{
+		int searched_index = normalize_index(index);
+		int current_index = 0;
+
+		Widget* current = m_column->children();
+		Widget* previous = current;
+
+		while (current)
+		{
+			if (searched_index == current_index)
+			{
+				current->selected(state);
+				break;
+			}
+			current = current->next();
+			current_index++;
+		}
+	}
+}
+
+/** Select all item in list
+@param index Item position (supports negative indexing) */
+void List::select(int index)
+{
+	select(index, true);
+}
+
+/** Unselect one item in list
+@param index Item position (supports negative indexing) */
+void List::unselect(int index)
+{
+	select(index, false);
+}
+
+
+
+
 // Array access operator (delegates to at())
 ListItem* List::operator[](int index) const
 {
@@ -202,6 +256,7 @@ void List::clear()
 void List::copy(const List& list)
 {
 	ScrollableContent::copy(*(ScrollableContent*)(&list));
+	*((ListStyle*)this) = *(ListStyle*)(&list);
 }
 
 /** Copy all styles of the list */
@@ -218,12 +273,14 @@ void List::serialize(JsonIterator & it)
 {
 	it["type"] = m_classname;
 	ScrollableContent::serialize(it);
+	ListStyle::serialize(it);
 }
 
 /** Unserialize the content of widget from json */
 void List::unserialize(JsonIterator & it)
 {
 	ScrollableContent::unserialize(it);
+	ListStyle::unserialize(it);
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 

@@ -10,6 +10,7 @@ WidgetStyle::WidgetStyle()
 	m_id          = 0;
 	m_pressed     = 0;
 	m_focusable   = 0;
+	m_parent_focusable = 0;
 	m_focused     = 0;
 	m_checked     = 0;
 	m_pressable   = 0;
@@ -32,11 +33,12 @@ void WidgetStyle::serialize(JsonIterator & it)
 	it[StyleNames::WIDGET_CELL][StyleNames::WIDGET_COLUMN]      = (int)m_column   ;
 	berialdraw::serialize(it, (Extend)m_extend);
 	berialdraw::serialize(it, (SizePolicy)m_size_policy);
-	it[StyleNames::WIDGET_PRESSED]       = (int)m_pressed;
-	it[StyleNames::WIDGET_CHECKED]       = (int)m_checked;
-	it[StyleNames::WIDGET_FOCUSABLE]     = (int)m_focusable;
-	it[StyleNames::WIDGET_SELECTABLE]    = (int)m_selectable;
-	it[StyleNames::WIDGET_SELECTED]      = (int)m_selected;
+	it[StyleNames::WIDGET_PRESSED]         = (int)m_pressed;
+	it[StyleNames::WIDGET_CHECKED]         = (int)m_checked;
+	it[StyleNames::WIDGET_FOCUSABLE]       = (int)m_focusable;
+	it[StyleNames::WIDGET_PARENT_FOCUSABLE]= (int)m_parent_focusable;
+	it[StyleNames::WIDGET_SELECTABLE]      = (int)m_selectable;
+	it[StyleNames::WIDGET_SELECTED]        = (int)m_selected;
 	it[StyleNames::WIDGET_INHERITED_FOCUS_COLOR]     = (int)m_inherited_focus_color;
 	it[StyleNames::WIDGET_PRESSABLE]     = (int)m_pressable;
 	it[StyleNames::WIDGET_FLOW]    = (int)m_flow;
@@ -65,6 +67,7 @@ void WidgetStyle::unserialize(JsonIterator & it)
 	m_pressed   = (int)it[StyleNames::WIDGET_PRESSED]  | m_pressed;
 	m_checked   = (int)it[StyleNames::WIDGET_CHECKED]  | m_checked;
 	m_focusable = (int)it[StyleNames::WIDGET_FOCUSABLE] | m_focusable;
+	m_parent_focusable = (int)it[StyleNames::WIDGET_PARENT_FOCUSABLE] | m_parent_focusable;
 	m_selectable = (int)it[StyleNames::WIDGET_SELECTABLE] | m_selectable;
 	m_selected = (int)it[StyleNames::WIDGET_SELECTED] | m_selected;
 	m_inherited_focus_color  = (int)it[StyleNames::WIDGET_INHERITED_FOCUS_COLOR] | m_inherited_focus_color;
@@ -100,6 +103,7 @@ void WidgetStyle::set(const WidgetStyle & other)
 		m_extend          = other.m_extend;
 		m_size_policy     = other.m_size_policy;
 		m_focusable       = other.m_focusable;
+		m_parent_focusable = other.m_parent_focusable;
 		m_checked         = other.m_checked;
 		m_selectable      = other.m_selectable;
 		m_selected        = other.m_selected;

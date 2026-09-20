@@ -2,6 +2,7 @@
 
 namespace berialdraw
 {
+	class List;
 	/** The list item class */
 	class ListItem : public Widget, public TextStyle, public BorderStyle, public ListItemStyle
 	{
@@ -72,6 +73,19 @@ namespace berialdraw
 
 		Size select(String & text, std::unique_ptr<TextBox> & text_box, std::unique_ptr<Sketch> & sketch);
 
+		/** Call back on key */
+		void on_key(Widget * widget, const KeyEvent & evt);
+
+		/** Call back on click */
+		void on_click(Widget * widget, const ClickEvent & evt);
+
+		/** Search parent list container */
+		List * search_list();
+
+		/** Paint a single item part (text, leading, or trailing) */
+		void paint_item_part(const Region& region, const String& content,
+		                   std::unique_ptr<Sketch>& sketch, std::unique_ptr<TextBox>& text_box,
+		                   const Area& foreclip, uint32_t text_color);
 
 		Area m_text_foreclip;
 		std::unique_ptr<Sketch>  m_text_sketch;
