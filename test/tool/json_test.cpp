@@ -1079,7 +1079,10 @@ void Json::test21()
 
 void Json::test22()
 {
-
+	Json json1("{\"text-color\":123}");
+	assert(json1["text_color"] == 123);
+	Json json2("{\"text_color\":456}");
+	assert(json2["text-color"] == 456);
 }
 
 void Json::test24()

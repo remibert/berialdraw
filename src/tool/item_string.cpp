@@ -327,17 +327,22 @@ bool ItemString::compare(const char * other, char last_char_ignored, bool & accu
 
 	if(string && other)
 	{
-		while (*string != 0 && *string == *other)
+		while (*string != 0 && 
+			 ((*string == *other) || 
+			  (*string == '-' && *other == '_') || // Ignore the difference between '-' and '_' in the key
+			  (*string == '_' && *other == '-')))
 		{
 			string++;
 			other++;
 		}
 
+		// If the key is equal
 		if (*string == 0 && *other == 0)
 		{
 			accurate = false;
 			result = true;
 		}
+		// If the last charactere in key must be ignored
 		else if (*string == 0 && *other == last_char_ignored)
 		{
 			other ++;
@@ -347,6 +352,7 @@ bool ItemString::compare(const char * other, char last_char_ignored, bool & accu
 				result = true;
 			}
 		}
+		// If the last charactere in key must be ignored
 		else if (*other == 0 && *string == last_char_ignored)
 		{
 			string ++;

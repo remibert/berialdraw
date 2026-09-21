@@ -65,15 +65,14 @@ namespace berialdraw
 		/** Call back on scroll */
 		void on_scroll(Widget * widget, const ScrollEvent & evt);
 
+		/** Place all widget in area */
+		virtual void place(const Area& area, bool in_layout) override;
+
 		/** Compute the scroll area */
 		virtual void space_occupied(Point & min_position, Point & max_position) override;
 
 		/** Paint on screen memory the content of this widget */
 		virtual void paint(const Region & parent_region) override;
-
-		/** Place all widget in area */
-		virtual void place(const Area & area, bool in_layout) override;
-
 		/** Paint the scrollbar indicator */
 		void paint_scrollbar();
 

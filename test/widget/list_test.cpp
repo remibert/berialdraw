@@ -12,12 +12,13 @@ void List::test2()
 	MemoryLeakLog
 }
 
-void on_click(Widget* widget, const ClickEvent& evt)
+static void on_click(Widget* widget, const ClickEvent& evt)
 {
-	List* list = dynamic_cast<List *>(widget->parent()->search(123));
-	if (list)
+	List * list = dynamic_cast<List*>(widget->parent()->search(123));
+	Edit * edit = dynamic_cast<Edit*>(widget->parent()->search(456));
+	if (list && edit)
 	{
-		list->append("A");
+		list->append(edit->text());
 	}
 }
 
@@ -27,18 +28,21 @@ void List::test3()
 {
 	MemoryLeakLog
 	Window window;
-	//window.color(Color::LIGHT_GRAY);
 
-	ScrollView* scroll = new ScrollView(&window);
-	Column* column = new Column(scroll);
+	//ScrollView* scroll = new ScrollView(&window);
+	//Column* column = new Column(scroll);
+	Column* column = new Column(&window);
 	List* list = new List(column);
 		
-		list->size(3000, 250);
-		list->margin(10);
+		//list->size(3000, 250);
 		list->id(123);
-		scroll->align(Align::ALIGN_TOP);
+		//scroll->align(Align::ALIGN_TOP);
+		//list->extend(Extend::EXTEND_ALL);
+		list->size_policy(SizePolicy::ENLARGE_ALL);
 		list->selection_mode(ListSelectionMode::LIST_MULTI_SELECTION);
 
+list->thickness(4);
+list->padding(3);
 		list->append("One");
 		list->append("Two");
 		list->append("Three");
@@ -48,10 +52,11 @@ void List::test3()
 		list->append("Seven");
 
 		Button* button = new Button(column);
-		button->text("+");
-		button->bind(on_click);
+			button->text("Add");
+			button->bind(on_click);
 
 		Edit* edit = new Edit(column);
+			edit->id(456);
 
 	UIManager::desktop()->mainloop();
 }

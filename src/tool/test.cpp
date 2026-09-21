@@ -11,11 +11,10 @@ namespace berialdraw
 		MemoryLeakLog
 		UIManager::styles()->style("test");
 		UIManager::colors()->appearance("test_light");
+		//UIManager::colors()->appearance("test_dark");
 
 #if defined(_DEBUG) && defined(ALL_TESTS)
-		//Timer::test();
-		Button::test();
-		ScrollView::test();
+		List::test();
 
 		// Widget
 		Button::test();

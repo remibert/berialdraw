@@ -174,9 +174,10 @@ void ItemObject::set(const char * key, Item * value)
 {
 	if (key && value)
 	{
+		bool accurate = false;
 		for (int index = 0; index < (int)m_keys.size(); index++)
 		{
-			if (*m_keys[index] == key)
+			if (m_keys[index]->compare(key, '_', accurate))
 			{
 				delete m_values[index];
 				m_values[index] = value;
@@ -221,9 +222,10 @@ bool ItemObject::remove(int32_t index)
 bool ItemObject::remove(const char * key)
 {
 	bool result = false;
+	bool accurate = false;
 	for (int32_t index = 0; index < (int)m_keys.size(); index++)
 	{
-		if (*m_keys[index] == key)
+		if (m_keys[index]->compare(key, '_', accurate))
 		{
 			result = remove(index);
 			break;
@@ -274,9 +276,10 @@ Item * ItemObject::operator[](const char * key)
 const Item * ItemObject::operator[](const char * key) const
 {
 	Item * result = 0;
+	bool accurate;
 	for (int index = 0; index < (int)m_keys.size(); index++)
 	{
-		if (*m_keys[index] == key)
+		if (m_keys[index]->compare(key, '_', accurate))
 		{
 			result = m_values[index];
 			break;

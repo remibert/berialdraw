@@ -123,12 +123,15 @@ void Canvas::paint(const Region & parent_region)
 		}
 
 		// Draw background color
-		if(m_color || m_border_color)
-		{
-			RectRenderer::paint_border_round_rect(m_foreclip, m_radius, m_thickness, 0, m_borders,
-				stated_color(m_color), stated_color(m_border_color), 0);
-		}
+		// if(m_color || m_border_color)
+		// {
+		// 	RectRenderer::paint_border_round_rect(m_foreclip, m_radius, m_thickness, 0, m_borders,
+		// 		stated_color(m_color), stated_color(m_border_color), 0);
+		// }
 
+		// Paint background and border
+		paint_background(m_foreclip, *(CommonStyle*)this, *(BorderStyle*)this);
+		
 		// Clip content
 		region.intersect(m_contentclip);
 		UIManager::renderer()->region(region);

@@ -2,8 +2,6 @@
 
 using namespace berialdraw;
 
-/** ScrollableContent Implementation */
-
 ScrollableContent::ScrollableContent(const char * classname, Widget * parent, size_t size_of_widget):
 	Widget(classname, parent, size_of_widget)
 {
@@ -12,7 +10,6 @@ ScrollableContent::ScrollableContent(const char * classname, Widget * parent, si
 	UIManager::styles()->apply(this, (ScrollViewStyle*)this);
 	UIManager::styles()->apply(this, (ScrollbarStyle *)this);
 	UIManager::styles()->apply(this, (BorderStyle    *)this);
-	//m_color = Color::TRANSPARENT;
 	bind(this, &ScrollableContent::on_scroll);
 }
 
@@ -329,6 +326,7 @@ void ScrollableContent::paint(const Region & parent_region)
 		}
 
 		back_region.intersect(m_contentclip);
+	
 		// Paint scroll content
 		{
 			Region scroll_region(back_region);
@@ -425,6 +423,17 @@ Size ScrollableContent::content_size()
 	if (!m_size.is_height_undefined())
 	{
 		result.height_q6(m_size.height_q6());
+	}
+
+	if ((scroll_direction() & ScrollDirection::SCROLL_VERTICAL) == ScrollDirection::SCROLL_VERTICAL)
+	{
+		result.increase_q6(0, thickness_q6() + thickness_q6());
+		result.increase_q6(0, padding().top_q6() + padding().bottom_q6());
+	}
+	if ((scroll_direction() & ScrollDirection::SCROLL_HORIZONTAL) == ScrollDirection::SCROLL_HORIZONTAL)
+	{
+		result.increase_q6(thickness_q6() + thickness_q6(), 0);
+		result.increase_q6(padding().left_q6() + padding().right_q6(), 0);
 	}
 	return result;
 }

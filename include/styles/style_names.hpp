@@ -143,13 +143,11 @@ namespace berialdraw
 		// Scrollbar style
 		static constexpr const char* SCROLLBAR_VISIBLE     = "scrollbar_visible";
 		static constexpr const char* SCROLLBAR_THUMB_COLOR = "scrollbar_thumb_color";
-		static constexpr const char* SCROLLBAR_WIDTH       = "scrollbar_width";
-		static constexpr const char* SCROLLBAR_RADIUS      = "scrollbar_radius";
-		static constexpr const char* SCROLLBAR_MARGIN      = "scrollbar_margin";
+		static constexpr const char* SCROLLBAR_WIDTH       = "scrollbar_width_";
+		static constexpr const char* SCROLLBAR_RADIUS      = "scrollbar_radius_";
+		static constexpr const char* SCROLLBAR_MARGIN      = "scrollbar_margin_";
 
 		// List style
-		static constexpr const char* SEPARATOR_COLOR     = "separator_color";
-		static constexpr const char* SEPARATOR_THICKNESS = "separator_thickness";
 		static constexpr const char* LISTSTYLE_SELECTION_MODE = "selection_mode";
 
 		// Widget style
