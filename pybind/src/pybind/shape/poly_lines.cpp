@@ -1,6 +1,6 @@
 #include "pybind/pyberialdraw.hpp"
 void bind_poly_lines(py::module& m) {
-    py::class_<berialdraw::PolyLines, berialdraw::Shape, berialdraw::RoundStyle>(m, "PolyLines")
+    py::class_<berialdraw::PolyLines, berialdraw::Shape, berialdraw::RoundStyle, std::unique_ptr<berialdraw::PolyLines, py::nodelete>>(m, "PolyLines")
         .def(py::init<berialdraw::Canvas*>(),
              py::arg("canvas"),
              "Constructor")

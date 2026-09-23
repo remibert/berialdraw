@@ -2,7 +2,7 @@
 #include "pybind/event_system.hpp"
 
 void bind_table_view(pybind11::module_& m) {
-    pybind11::class_<berialdraw::TableView, berialdraw::Widget>(m, "TableView")
+    pybind11::class_<berialdraw::TableView, berialdraw::Widget, berialdraw::ScrollViewStyle, berialdraw::ScrollbarStyle, berialdraw::BorderStyle, std::unique_ptr<berialdraw::TableView, pybind11::nodelete>>(m, "TableView")
         .def(pybind11::init<berialdraw::Widget*>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>())
         // Event system integration
         BIND_EVENT_PROPERTY(berialdraw::TableView, berialdraw::ClickEvent, on_click)

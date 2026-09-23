@@ -30,35 +30,45 @@ ListItem* List::new_item(int index)
 	return new ListItem(m_column, normalize_index(index));
 }
 
-int List::normalize_index(int index) const
+int List::normalize_index(int index, bool for_insert) const
 {
 	int result = index;
-	if (index != UNDEFINED_INDEX && index != 0)
+	if (index != UNDEFINED_INDEX)
 	{
-		size_t size = count();
-		if (size > 0)
+		// For non-insert operations, skip normalization if index is 0
+		if (!for_insert && index == 0)
 		{
-			if (index < 0)
-			{
-				int positive = (int)size + index + 1;
+			return result;
+		}
 
-				if (positive < 0)
-				{
-					result = 0;
-				}
-				else if (positive < (int)size)
-				{
-  					result = positive;
-				}
-				else
-				{
-					result = UNDEFINED_INDEX;
-				}
+		size_t size = count();
+		if (index < 0)
+		{
+			// Negative index: convert to positive
+			int positive = (int)size + index;
+			
+			// For insert operations, add 1 to shift semantics (-1 means AFTER last, not BEFORE)
+			if (for_insert)
+			{
+				positive++;
 			}
-			else if (index > (int)size)
+
+			if (positive < 0)
+			{
+				result = 0;
+			}
+			else if (positive <= (int)size)
+			{
+				result = positive;
+			}
+			else
 			{
 				result = UNDEFINED_INDEX;
 			}
+		}
+		else if (index > (int)size)
+		{
+			result = UNDEFINED_INDEX;
 		}
 	}
 	return result;
@@ -105,7 +115,7 @@ ListItem* List::prepend(std::function<void(ListItem*)> config)
 // Insert item at specific index with text only
 ListItem* List::insert(int index, const String & text)
 {
-	ListItem* item = new_item(index);
+	ListItem* item = new_item(normalize_index(index, true));
 	item->text(text);
 	return item;
 }
@@ -113,7 +123,7 @@ ListItem* List::insert(int index, const String & text)
 // Insert item at specific index with custom configuration via callback
 ListItem* List::insert(int index, std::function<void(ListItem*)> config)
 {
-	ListItem* item = new_item(index);
+	ListItem* item = new_item(normalize_index(index, true));
 	if (config)
 	{
 		config(item);
@@ -210,9 +220,6 @@ void List::unselect(int index)
 	select(index, false);
 }
 
-
-
-
 // Array access operator (delegates to at())
 ListItem* List::operator[](int index) const
 {
@@ -250,6 +257,35 @@ void List::clear()
 	// Clear all children of m_column
 	m_column->clear();
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+}
+
+// Get all selected items from the list
+Vector<ListItem*> List::selected_items() const
+{
+	Vector<ListItem*> result;
+	Widget* current = m_column->children();
+	while (current)
+	{
+		if (current->selected())
+		{
+			result.push_back(dynamic_cast<ListItem*>(current));
+		}
+		current = current->next();
+	}
+	return result;
+}
+
+// Get all items from the list
+Vector<ListItem*> List::items() const
+{
+	Vector<ListItem*> result;
+	Widget* current = m_column->children();
+	while (current)
+	{
+		result.push_back(dynamic_cast<ListItem*>(current));
+		current = current->next();
+	}
+	return result;
 }
 
 /** Copy all styles of the list */

@@ -92,6 +92,12 @@ namespace berialdraw
 		/** Check if list is empty */
 		bool is_empty() const { return count() == 0; }
 
+		/** Get all selected items from the list */
+		Vector<ListItem*> selected_items() const;
+
+		/** Get all items from the list */
+		Vector<ListItem*> items() const;
+
 		/** Remove item at index (Python-style indexing).
 		@param index Position to remove (supports negative indexing) */
 		void remove(int index);
@@ -137,12 +143,20 @@ namespace berialdraw
 		List& operator=(const List& other) = delete;
 
 		/**
-		 * Normalize index to positive range [0, size()-1]
+		 * Normalize index to positive range [0, size()-1] (or [0, size()] for insert).
 		 * Converts Python-style negative indices to positive indices.
-		 * Example with 5 items: -1 → 4, -2 → 3, -5 → 0
-		 * Out-of-bounds indices are clamped to valid range.
+		 * 
+		 * Access semantics (for_insert=false):
+		 *   Example with 5 items: -1 → 4 (last), -2 → 3, -5 → 0
+		 * 
+		 * Insert semantics (for_insert=true):
+		 *   Example with 5 items: -1 → 5 (AFTER last), -2 → 4 (before last), -5 → 0
+		 * 
+		 * @param index The index to normalize (supports negative indexing)
+		 * @param for_insert If true, uses insert semantics; if false, uses access semantics (default)
+		 * @return Normalized positive index, or UNDEFINED_INDEX if out of bounds
 		 */
-		int normalize_index(int index) const;
+		int normalize_index(int index, bool for_insert = false) const;
 
 		/** Internal column container holding all items */
 		Column * m_column;

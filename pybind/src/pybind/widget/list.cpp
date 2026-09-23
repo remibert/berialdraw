@@ -34,7 +34,7 @@ void bind_list(pybind11::module_& m) {
 		throw pybind11::type_error("Argument must be a string, list of strings, or callable");
 	};
 
-	pybind11::class_<berialdraw::List, berialdraw::ScrollableContent>(m, "List")
+	pybind11::class_<berialdraw::List, berialdraw::ScrollableContent, std::unique_ptr<berialdraw::List, pybind11::nodelete>>(m, "List")
 		.def(pybind11::init<berialdraw::Widget*>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>())
 		
 		// Create new list item
@@ -94,6 +94,26 @@ void bind_list(pybind11::module_& m) {
 		// Copy methods
 		.def("copy", static_cast<void (berialdraw::List::*)(const berialdraw::List&)>(&berialdraw::List::copy), pybind11::arg("list"), PYBIND11_RELEASE_GIL)
 		.def("copy", static_cast<void (berialdraw::List::*)(const berialdraw::List*)>(&berialdraw::List::copy), pybind11::arg("list"), PYBIND11_RELEASE_GIL)
+		
+		// Get items
+		.def("selected_items", [](berialdraw::List& self) -> pybind11::list {
+			pybind11::list result;
+			auto items = self.selected_items();
+			for (int32_t i = 0; i < (int32_t)items.size(); i++)
+			{
+				result.append(items[i]);
+			}
+			return result;
+		}, PYBIND11_RELEASE_GIL, "Get all selected items from the list")
+		.def("items", [](berialdraw::List& self) -> pybind11::list {
+			pybind11::list result;
+			auto items = self.items();
+			for (int32_t i = 0; i < (int32_t)items.size(); i++)
+			{
+				result.append(items[i]);
+			}
+			return result;
+		}, PYBIND11_RELEASE_GIL, "Get all items from the list")
 		
 		// Event system integration
 		BIND_EVENT_PROPERTY(berialdraw::List, berialdraw::ClickEvent, on_click)

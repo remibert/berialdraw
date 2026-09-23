@@ -1,6 +1,6 @@
 #include "pybind/pyberialdraw.hpp"
 void bind_image(py::module& m) {
-    py::class_<berialdraw::Image, berialdraw::Shape>(m, "Image")
+    py::class_<berialdraw::Image, berialdraw::Shape, std::unique_ptr<berialdraw::Image, py::nodelete>>(m, "Image")
         .def(py::init<berialdraw::Canvas*>(),
              py::arg("canvas"),
              "Constructor for image on canvas")

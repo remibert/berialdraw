@@ -11,6 +11,8 @@ void bind_widget(pybind11::module_& m) {
         .def("clear", &berialdraw::Widget::clear, PYBIND11_RELEASE_GIL)
         .def("clean_all", &berialdraw::Widget::clean_all, PYBIND11_RELEASE_GIL)
         .def("search", &berialdraw::Widget::search, pybind11::return_value_policy::reference_internal, PYBIND11_RELEASE_GIL)
+        // Explicitly destroys this widget, mirroring C++ "delete widget;" (unlinks from its parent)
+        .def("destroy", [](berialdraw::Widget& self) { delete &self; }, PYBIND11_RELEASE_GIL)
         
         // Color methods that return uint32_t
         .def("pressed_color", &berialdraw::Widget::pressed_color, pybind11::arg("color"), pybind11::arg("pressed"), PYBIND11_RELEASE_GIL)

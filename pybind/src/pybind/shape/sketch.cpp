@@ -21,7 +21,7 @@ void bind_sketch(py::module& m) {
                 }
             }, "Color value (int for RGB, tuple(color, alpha) for RGBA)");
 
-    py::class_<berialdraw::Sketch, berialdraw::Shape>(m, "Sketch")
+    py::class_<berialdraw::Sketch, berialdraw::Shape, std::unique_ptr<berialdraw::Sketch, py::nodelete>>(m, "Sketch")
         .def(py::init<berialdraw::Canvas*>(),
              py::arg("canvas"),
              "Constructor for sketch")

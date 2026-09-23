@@ -5346,5 +5346,29 @@
 		"$(ui.tests)/out/list4_1.svg" : 
 		{
 			"scale_1" : 1931808033
+		},
+		"$(ui.tests)/out/list2_1.svg" : 
+		{
+			"scale_1" : 3587316395
+		},
+		"$(ui.tests)/out/list2_2.svg" : 
+		{
+			"scale_1" : 1801906198
+		},
+		"$(ui.tests)/out/list2_3.svg" : 
+		{
+			"scale_1" : 3715999596
+		},
+		"$(ui.tests)/out/list2_4.svg" : 
+		{
+			"scale_1" : 3281428561
+		},
+		"$(ui.tests)/out/list2_5.svg" : 
+		{
+			"scale_1" : 3715999596
+		},
+		"$(ui.tests)/out/list1_1.svg" : 
+		{
+			"scale_1" : 4060716094
 		}
 	}

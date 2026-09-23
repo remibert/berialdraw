@@ -42,7 +42,14 @@ void bind_point_property(pybind11::class_<C, Extra...>& cls, const char* name,
             return py::make_tuple(p.x(), p.y());
         },
         [setter](C& self, py::object value) {
-            if (py::isinstance<py::tuple>(value) || py::isinstance<py::list>(value)) {
+            if (py::isinstance<berialdraw::Point>(value)) {
+                const auto& p = value.cast<const berialdraw::Point&>();
+                (self.*setter)(p.x(), p.y());
+            } else if (py::isinstance<berialdraw::Size>(value)) {
+                // Size -> Point implicit conversion (width/height as x/y), like C++'s Point(const Size&)
+                berialdraw::Point p(value.cast<const berialdraw::Size&>());
+                (self.*setter)(p.x(), p.y());
+            } else if (py::isinstance<py::tuple>(value) || py::isinstance<py::list>(value)) {
                 auto seq = value.cast<py::sequence>();
                 if (py::len(seq) == 2) {
                     (self.*setter)(seq[0].cast<berialdraw::Coord>(), seq[1].cast<berialdraw::Coord>());
@@ -50,7 +57,7 @@ void bind_point_property(pybind11::class_<C, Extra...>& cls, const char* name,
                     throw std::invalid_argument("Point property must be tuple/list of 2 values (x, y)");
                 }
             } else {
-                throw std::invalid_argument("Point property must be tuple/list of 2 values");
+                throw std::invalid_argument("Point property must be a Point, a Size, or tuple/list of 2 values");
             }
         }, doc);
 }

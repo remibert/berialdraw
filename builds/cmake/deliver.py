@@ -24,6 +24,7 @@ copy_jobs = [
 	(CMAKE_CURRENT_BINARY_DIR + '/samples',        'delivery/app', '*', lambda path, name: os.access(os.path.join(path, name), os.X_OK) and os.path.isfile(os.path.join(path, name))),
 	(CMAKE_CURRENT_BINARY_DIR + '/pybind',         'delivery/python', 'pyberialdraw*.so', lambda path, name: 'CMakeFiles' not in path.split(os.sep)),
 	(CMAKE_CURRENT_SOURCE_DIR + '/pybind/test.py', 'delivery/python/test.py', None, None),
+	(CMAKE_CURRENT_SOURCE_DIR + '/pybind/samples', 'delivery/python/samples', '**/*', None),
 ]
 
 def copy_with_filter(src, dst, wildcard=None, filter_func=None):

@@ -2,7 +2,7 @@
 #include "pybind/event_system.hpp"
 
 void bind_canvas(pybind11::module_& m) {
-    pybind11::class_<berialdraw::Canvas, berialdraw::Widget>(m, "Canvas")
+    pybind11::class_<berialdraw::Canvas, berialdraw::Widget, std::unique_ptr<berialdraw::Canvas, pybind11::nodelete>>(m, "Canvas")
         .def(pybind11::init<berialdraw::Widget*>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>())
         .def("add", &berialdraw::Canvas::add, PYBIND11_RELEASE_GIL)
         .def("remove", &berialdraw::Canvas::remove, PYBIND11_RELEASE_GIL)

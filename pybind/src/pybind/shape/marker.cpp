@@ -1,6 +1,6 @@
 #include "pybind/pyberialdraw.hpp"
 void bind_marker(py::module& m) {
-    py::class_<berialdraw::Marker, berialdraw::RoundStyle>(m, "Marker")
+    py::class_<berialdraw::Marker, berialdraw::Shape, berialdraw::RoundStyle, std::unique_ptr<berialdraw::Marker, py::nodelete>>(m, "Marker")
         .def(py::init<berialdraw::Canvas*>(),
              py::arg("canvas"),
              "Create a marker")

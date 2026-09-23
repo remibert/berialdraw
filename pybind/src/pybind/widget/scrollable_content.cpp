@@ -7,8 +7,12 @@
 void bind_scrollable_content(pybind11::module_& m) {
     // Declare the class without holder type - just let pybind11 know it exists
     // The key is to use nodelete to prevent pybind11 from trying to delete instances
+    // Include all parent styles so that derived classes (ScrollView, TableView) can access them
     pybind11::class_<berialdraw::ScrollableContent, 
                      berialdraw::Widget,
+                     berialdraw::ScrollViewStyle,
+                     berialdraw::ScrollbarStyle,
+                     berialdraw::BorderStyle,
                      std::unique_ptr<berialdraw::ScrollableContent, pybind11::nodelete>>(m, "ScrollableContent");
     // No constructors, no methods - this class is purely for inheritance hierarchy
 }

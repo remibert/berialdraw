@@ -1,6 +1,6 @@
 #include "pybind/pyberialdraw.hpp"
 void bind_rect(py::module& m) {
-    py::class_<berialdraw::Rect, berialdraw::RoundStyle>(m, "Rect")
+    py::class_<berialdraw::Rect, berialdraw::Shape, berialdraw::RoundStyle, std::unique_ptr<berialdraw::Rect, py::nodelete>>(m, "Rect")
         .def(py::init<berialdraw::Canvas*>(),
              py::arg("canvas"),
              "Constructor")

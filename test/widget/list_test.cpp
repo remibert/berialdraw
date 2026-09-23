@@ -4,12 +4,108 @@ using namespace berialdraw;
 /** Test 1: Basic list creation with items */
 void List::test1()
 {
+	MemoryLeakLog
+	Window window;
+	List* list = new List(&window);
+
+	// Test empty list
+	assert(list->items().size() == 0);
+	assert(list->selected_items().size() == 0);
+
+	// Add items
+	list->append("Item A");
+	list->append("Item B");
+	list->append("Item C");
+
+	// Test items() returns all items
+	assert(list->items().size() == 3);
+	assert(list->selected_items().size() == 0);
+
+	// Verify items content
+	auto all_items = list->items();
+	assert(all_items[0]->text() == "Item A");
+	assert(all_items[1]->text() == "Item B");
+	assert(all_items[2]->text() == "Item C");
+
+	// Test negative indexing on items
+	assert(all_items[-1]->text() == "Item C");
+	assert(all_items[-2]->text() == "Item B");
+	assert(all_items[-3]->text() == "Item A");
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/list1_1.svg");
 }
 
 /** Test 2: List with selection */
 void List::test2()
 {
 	MemoryLeakLog
+	Window window;
+	window.color(Color::LIGHT_GRAY);
+	List* list = new List(&window);
+	list->selection_mode(ListSelectionMode::LIST_MULTI_SELECTION);
+
+	// Add items
+	list->append("Option 1");
+	list->append("Option 2");
+	list->append("Option 3");
+	list->append("Option 4");
+	list->append("Option 5");
+
+	// Test initial state: no selection
+	assert(list->selected_items().size() == 0);
+	assert(list->items().size() == 5);
+
+	// Select first item
+	list->select(0);
+	assert(list->selected_items().size() == 1);
+	assert(list->selected_items()[0]->text() == "Option 1");
+
+	// Select third item (multi-selection enabled)
+	list->select(2);
+	assert(list->selected_items().size() == 2);
+
+	// Select with negative index
+	list->select(-1);
+	assert(list->selected_items().size() == 3);
+	auto selected = list->selected_items();
+	assert(selected[-1]->text() == "Option 5");
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/list2_1.svg");
+
+	// Unselect middle item
+	list->unselect(0);
+	UIManager::desktop()->dispatch();
+	assert(list->selected_items().size() == 2);
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/list2_2.svg");
+
+	// Unselect all
+	list->unselect_all();
+	assert(list->selected_items().size() == 0);
+	assert(list->items().size() == 5);
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/list2_3.svg");
+
+	// Test single selection mode: selecting new item should unselect previous
+	list->selection_mode(ListSelectionMode::LIST_SINGLE_SELECTION);
+	list->select(0);
+	assert(list->selected_items().size() == 1);
+	list->select(2);
+	assert(list->selected_items().size() == 1);
+	assert(list->selected_items()[0]->text() == "Option 3");
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/list2_4.svg");
+
+	// Test no selection mode
+	list->selection_mode(ListSelectionMode::LIST_NO_SELECTION);
+	list->unselect_all();
+	list->select(0);
+	list->select(1);
+
+	// Nothing should be selected in NO_SELECTION mode
+	assert(list->selected_items().size() == 0);
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/list2_5.svg");
 }
 
 static void on_click(Widget* widget, const ClickEvent& evt)
@@ -21,7 +117,6 @@ static void on_click(Widget* widget, const ClickEvent& evt)
 		list->append(edit->text());
 	}
 }
-
 
 /** Test 3: List with enabled/disabled items */
 void List::test3()
@@ -41,8 +136,8 @@ void List::test3()
 		list->size_policy(SizePolicy::ENLARGE_ALL);
 		list->selection_mode(ListSelectionMode::LIST_MULTI_SELECTION);
 
-list->thickness(4);
-list->padding(3);
+//list->thickness(4);
+//list->padding(3);
 		list->append("One");
 		list->append("Two");
 		list->append("Three");
@@ -57,6 +152,7 @@ list->padding(3);
 
 		Edit* edit = new Edit(column);
 			edit->id(456);
+			edit->text("Height");
 
 	UIManager::desktop()->mainloop();
 }
@@ -148,14 +244,14 @@ void List::test6()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/list6_1.svg");
 
 	list->clear();
-	list->prepend("2");
-	list->prepend("1");
-	list->prepend("0");
-	list->insert(-1, "A");
-	list->insert(-3, "B");
-	list->insert(-5, "C");
-	list->insert(-7, "D");
-	list->insert(-9, "-");
+	list->prepend("2"); UIManager::desktop()->dispatch();
+	list->prepend("1"); UIManager::desktop()->dispatch();
+	list->prepend("0"); UIManager::desktop()->dispatch();
+	list->insert(-1, "A"); UIManager::desktop()->dispatch();
+	list->insert(-3, "B"); UIManager::desktop()->dispatch();
+	list->insert(-5, "C"); UIManager::desktop()->dispatch();
+	list->insert(-7, "D"); UIManager::desktop()->dispatch();
+	list->insert(-9, "-"); UIManager::desktop()->dispatch();
 
 	UIManager::desktop()->dispatch("$(ui.tests)/out/list6_2.svg");
 
@@ -278,6 +374,7 @@ void List::test()
 		MemoryLeakLog
 		done = true;
 
+test6();
 //test3();
 		test7();
 		test6();

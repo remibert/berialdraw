@@ -1,6 +1,6 @@
 #include "pybind/pyberialdraw.hpp"
 void bind_text(py::module& m) {
-    py::class_<berialdraw::Text, berialdraw::TextStyle>(m, "Text")
+    py::class_<berialdraw::Text, berialdraw::Shape, berialdraw::TextStyle, std::unique_ptr<berialdraw::Text, py::nodelete>>(m, "Text")
         .def(py::init<berialdraw::Canvas*>(),
              py::arg("canvas"),
              "Constructor")

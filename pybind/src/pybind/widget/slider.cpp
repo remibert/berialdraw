@@ -2,7 +2,7 @@
 #include "pybind/event_system.hpp"
 
 void bind_slider(pybind11::module_& m) {
-    pybind11::class_<berialdraw::Slider, berialdraw::Widget, berialdraw::BorderStyle, berialdraw::SliderStyle>(m, "Slider")
+    pybind11::class_<berialdraw::Slider, berialdraw::Widget, berialdraw::BorderStyle, berialdraw::SliderStyle, std::unique_ptr<berialdraw::Slider, pybind11::nodelete>>(m, "Slider")
         .def(pybind11::init<berialdraw::Widget*>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>())
         
         // Event system integration

@@ -1,6 +1,6 @@
 #include "pybind/pyberialdraw.hpp"
 void bind_polygon(py::module& m) {
-    py::class_<berialdraw::Polygon>(m, "Polygon")
+    py::class_<berialdraw::Polygon, berialdraw::Shape, std::unique_ptr<berialdraw::Polygon, py::nodelete>>(m, "Polygon")
         .def(py::init<berialdraw::Canvas*>(),
              py::arg("canvas"),
              "Constructor")

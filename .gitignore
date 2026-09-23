@@ -9,6 +9,7 @@ requirements.txt
 todo.txt
 .vs/*
 log.txt
+*.log
 
 # Doxygen generated documentation
 doc/html/

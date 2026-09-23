@@ -129,7 +129,14 @@ bool Desktop::is_loop()
 
 bool Desktop::dispatch(const char * snapshot)
 {
-	bool result;
+	bool result = false;
+
+	// Guard: ensure UIManager is initialized
+	if (!UIManager::is_initialized())
+	{
+		bd_printf("Desktop::dispatch - UIManager not initialized");
+		return result;
+	}
 
 	// Check is test script started
 	if (UIManager::notifier()->is_script_started())

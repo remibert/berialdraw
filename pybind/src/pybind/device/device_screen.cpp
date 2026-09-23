@@ -3,7 +3,9 @@
 // Template function to bind device screen implementations
 template<typename DeviceImpl>
 void bind_device_screen_impl(py::module& m) {
-    py::class_<DeviceImpl, berialdraw::Device> cls(m, "DeviceScreen");
+    // UIManager::deinit() already deletes the device it was init'd with,
+    // so Python must never delete it too (would double-free at shutdown).
+    py::class_<DeviceImpl, berialdraw::Device, std::unique_ptr<DeviceImpl, py::nodelete>> cls(m, "DeviceScreen");
     cls.def(py::init<const char*, berialdraw::Dim, berialdraw::Dim, berialdraw::Coord, berialdraw::Coord>(),
              py::arg("title"), py::arg("width") = 0, py::arg("height") = 0, py::arg("x") = 0, py::arg("y") = 0,
              "Constructor with position");

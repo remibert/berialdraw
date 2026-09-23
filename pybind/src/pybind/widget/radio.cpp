@@ -2,7 +2,7 @@
 #include "pybind/event_system.hpp"
 
 void bind_radio(pybind11::module_& m) {
-    pybind11::class_<berialdraw::Radio, berialdraw::Widget, berialdraw::TextStyle, berialdraw::PaddingStyle, berialdraw::BorderStyle, berialdraw::RadioStyle>(m, "Radio")
+    pybind11::class_<berialdraw::Radio, berialdraw::Widget, berialdraw::TextStyle, berialdraw::PaddingStyle, berialdraw::BorderStyle, berialdraw::RadioStyle, std::unique_ptr<berialdraw::Radio, pybind11::nodelete>>(m, "Radio")
         .def(pybind11::init<berialdraw::Widget*>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>())
         
         // Event system integration

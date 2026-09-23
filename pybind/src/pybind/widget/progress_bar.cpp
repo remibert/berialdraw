@@ -2,7 +2,7 @@
 #include "pybind/event_system.hpp"
 
 void bind_progress_bar(pybind11::module_& m) {
-    pybind11::class_<berialdraw::ProgressBar, berialdraw::Widget, berialdraw::BorderStyle, berialdraw::ProgressBarStyle>(m, "ProgressBar")
+    pybind11::class_<berialdraw::ProgressBar, berialdraw::Widget, berialdraw::BorderStyle, berialdraw::ProgressBarStyle, std::unique_ptr<berialdraw::ProgressBar, pybind11::nodelete>>(m, "ProgressBar")
         .def(pybind11::init<berialdraw::Widget*>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>())
         
         // Event system integration (useful for interactive progress bars)

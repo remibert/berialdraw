@@ -2,7 +2,7 @@
 #include "pybind/event_system.hpp"
 
 void bind_timer(pybind11::module_& m) {
-    pybind11::class_<berialdraw::Timer, berialdraw::Widget, berialdraw::TimerStyle>(m, "Timer")
+    pybind11::class_<berialdraw::Timer, berialdraw::Widget, berialdraw::TimerStyle, std::unique_ptr<berialdraw::Timer, pybind11::nodelete>>(m, "Timer")
         .def(pybind11::init<berialdraw::Widget*>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>())
         
         // Timer control methods
