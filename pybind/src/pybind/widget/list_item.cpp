@@ -3,7 +3,7 @@
 
 void bind_list_item(pybind11::module_& m) {
 	pybind11::class_<berialdraw::ListItem, berialdraw::Widget, berialdraw::TextStyle, berialdraw::BorderStyle, berialdraw::ListItemStyle, std::unique_ptr<berialdraw::ListItem, pybind11::nodelete>>(m, "ListItem")
-		.def(pybind11::init<berialdraw::Widget*>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>())
+		.def(pybind11::init<berialdraw::Widget*, berialdraw::Dim>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>())
 		
 		// ListItemStyle properties (leading, trailing)
 		.def_property("leading",

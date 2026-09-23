@@ -87,6 +87,14 @@ void bind_list(pybind11::module_& m) {
 		.def("clear", &berialdraw::List::clear, PYBIND11_RELEASE_GIL,
 			"Remove all items from the list")
 		
+		// Selection operations
+		.def("select", static_cast<void (berialdraw::List::*)(int)>(&berialdraw::List::select), pybind11::arg("index"), PYBIND11_RELEASE_GIL,
+			"Select one item in list (Python-style negative indexing)")
+		.def("unselect", &berialdraw::List::unselect, pybind11::arg("index"), PYBIND11_RELEASE_GIL,
+			"Unselect one item in list (Python-style negative indexing)")
+		.def("unselect_all", &berialdraw::List::unselect_all, PYBIND11_RELEASE_GIL,
+			"Unselect all items in list")
+		
 		// Serialization
 		.def("serialize", &berialdraw::List::serialize, pybind11::arg("it"), PYBIND11_RELEASE_GIL)
 		.def("unserialize", &berialdraw::List::unserialize, pybind11::arg("it"), PYBIND11_RELEASE_GIL)

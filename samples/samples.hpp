@@ -63,14 +63,14 @@ void sample_speedometer(berialdraw::Widget * widget, const berialdraw::ClickEven
 // Sample function to show all colors palettes
 void sample_palette(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
 
-// Sample function to show forms
-void sample_forms(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
-
 // Sample function to show TableView widget
 void sample_tableview(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
 
 // Sample function to show Picture widget
 void sample_picture(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
+
+// Sample function to show List widget
+void sample_list(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
 
 // Simple example of a window displaying a clickable button with the text "hello world",
 // the example contains the initialization of the library, as well as the deinitialization

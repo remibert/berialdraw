@@ -6,4 +6,4 @@ and pybind/samples/sample_*.py for each individual widget sample.
 from samples.main import main
 
 if __name__ == "__main__":
-    main()
+	main()

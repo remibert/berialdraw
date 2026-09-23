@@ -21,9 +21,9 @@ set(SRCS_SAMPLE
 	sample_keyboard.cpp
 	sample_scrollview.cpp
 	sample_theme.cpp
-	sample_forms.cpp
 	sample_tableview.cpp
 	sample_picture.cpp
+	sample_list.cpp
 	sample_window.cpp
 	sample_hello_world.cpp
 )

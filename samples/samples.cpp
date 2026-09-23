@@ -33,6 +33,7 @@ void sample_icon_menu()
 	dialog.bind("Theme"      , "$(ui.icons)/filter_vintage.icn"    ,sample_palette       );
 	dialog.bind("TableView"  , "$(ui.icons)/grid_on.icn"           ,sample_tableview   );
 	dialog.bind("Picture"    , "$(ui.icons)/image.icn"             ,sample_picture     );
+	dialog.bind("List"       , "$(ui.icons)/sort.icn"              ,sample_list        );
 	while (dialog.exec() != "<quit>");
 }
 
@@ -67,5 +68,6 @@ void sample_menu()
 	dialog.bind("Theme"      ,sample_palette     );
 	dialog.bind("TableView"  ,sample_tableview   );
 	dialog.bind("Picture"    ,sample_picture     );
+	dialog.bind("List"       ,sample_list        );
 	while (dialog.exec() != "<quit>");
 }
