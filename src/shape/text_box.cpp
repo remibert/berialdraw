@@ -87,78 +87,102 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		// If new line detected
 		if (character == '\n')
 		{
-			// Set the size of line (use max line height for this line)
-			info.size.set_q6(line_width, max_line_height);
-			info.baseline_ref = max_baseline;
-
-			if (cursor_pos != UINT32_MAX)
-			{
-				// If the cursor is at the end of line
-				if (i == cursor_pos)
-				{
-					// Set cursor position, adapt cursor size to font at cursor position
-					Size cursor_space = m_rich_text.font_at(i).char_size(' ');
-					m_cursor_pos.set_q6(line_width, m_lines_size.height_q6());
-					m_cursor_size = cursor_space;
-					m_cursor_line = m_lines.size();
-				}
-			}
-
-			// Save the end of current line
-			info.line_end = i;
-
-			// If the line width is greater than previously width found
-			if (m_lines_size.width_q6() < line_width)
-			{
-				// Keep this width
-				m_lines_size.width_q6(line_width);
-			}
-
-			// Save the y position of line
-			info.position.y_q6(m_lines_size.height_q6());
-
-			// Add the height of line in the line size (use max height for this line)
-			m_lines_size.height_q6(m_lines_size.height_q6() + max_line_height);
-
-			// Add this line sizes to the lines list
-			m_lines.push_back(info);
-
-			line_width = 0;
-			max_line_height = line_height;
-			max_baseline = font.baseline_q6();  ///< Reset baseline reference to default
-
-			// Clear line informations
-			info.selection_end   = UINT32_MAX;
-			info.selection_start = UINT32_MAX;
-			info.line_start      = UINT32_MAX;
-			info.line_end        = UINT32_MAX;
-			info.size.set(0,0);
+			finalize_line_at_newline(i, cursor_pos, font, line_height, info, line_width, max_line_height, max_baseline);
 		}
 		else
 		{
-			// Get the size of character using its specific font
-			Size char_size = m_rich_text.char_size_at(i);
-
-			// Save the end of current line
-			info.line_end = i;
-
-			if (cursor_pos != UINT32_MAX)
-			{
-				// If the cursor in on the current character
-				if (i == cursor_pos)
-				{
-					// Save cursor position, adapt cursor size to font at cursor position
-					m_cursor_pos.set_q6(line_width, m_lines_size.height_q6());
-					m_cursor_size = char_size;
-					m_cursor_line = m_lines.size();
-				}
-			}
-
-			// Increase the line width with character width
-			line_width  += char_size.width_q6();
+			// Process a normal (non-newline) character
+			process_character(i, cursor_pos, info, line_width);
 		}
 	}
 
+	finalize_trailing_line(i, cursor_pos, sel_start, sel_end, space_size, info, line_width, max_line_height, max_baseline);
+
+	apply_alignment(text_area, text_align, cursor_pos);
+}
+
+/** Process a normal (non-newline) character: track cursor position and advance the line width */
+void TextBox::process_character(uint32_t i, uint32_t cursor_pos, LineInfo & info, Dim & line_width)
+{
+	// Get the size of character using its specific font
+	Size char_size = m_rich_text.char_size_at(i);
+
+	// Save the end of current line
+	info.line_end = i;
+
+	if (cursor_pos != UINT32_MAX)
+	{
+		// If the cursor in on the current character
+		if (i == cursor_pos)
+		{
+			// Save cursor position, adapt cursor size to font at cursor position
+			m_cursor_pos.set_q6(line_width, m_lines_size.height_q6());
+			m_cursor_size = char_size;
+			m_cursor_line = m_lines.size();
+		}
+	}
+
+	// Increase the line width with character width
+	line_width += char_size.width_q6();
+}
+
+/** Finalize the current line when a newline character is found, and reset the running state for the next line */
+void TextBox::finalize_line_at_newline(uint32_t i, uint32_t cursor_pos, Font & font, Dim line_height,
+	LineInfo & info, Dim & line_width, Dim & max_line_height, Coord & max_baseline)
+{
+	// Set the size of line (use max line height for this line)
+	info.size.set_q6(line_width, max_line_height);
+	info.baseline_ref = max_baseline;
+
+	if (cursor_pos != UINT32_MAX)
+	{
+		// If the cursor is at the end of line
+		if (i == cursor_pos)
+		{
+			// Set cursor position, adapt cursor size to font at cursor position
+			Size cursor_space = m_rich_text.font_at(i).char_size(' ');
+			m_cursor_pos.set_q6(line_width, m_lines_size.height_q6());
+			m_cursor_size = cursor_space;
+			m_cursor_line = m_lines.size();
+		}
+	}
+
+	// Save the end of current line
+	info.line_end = i;
+
+	// If the line width is greater than previously width found
+	if (m_lines_size.width_q6() < line_width)
+	{
+		// Keep this width
+		m_lines_size.width_q6(line_width);
+	}
+
+	// Save the y position of line
+	info.position.y_q6(m_lines_size.height_q6());
+
+	// Add the height of line in the line size (use max height for this line)
+	m_lines_size.height_q6(m_lines_size.height_q6() + max_line_height);
+
+	// Add this line sizes to the lines list
+	m_lines.push_back(info);
+
+	line_width = 0;
+	max_line_height = line_height;
+	max_baseline = font.baseline_q6();  ///< Reset baseline reference to default
+
+	// Clear line informations
+	info.selection_end   = UINT32_MAX;
+	info.selection_start = UINT32_MAX;
+	info.line_start      = UINT32_MAX;
+	info.line_end        = UINT32_MAX;
+	info.size.set(0,0);
+}
+
+/** Finalize the trailing line(s) after the main character loop: a line ending exactly on a trailing
+carriage return, and/or the last line when it has no terminating newline */
+void TextBox::finalize_trailing_line(uint32_t i, uint32_t cursor_pos, uint32_t sel_start, uint32_t sel_end,
+	const Size & space_size, LineInfo info, Dim line_width, Dim max_line_height, Coord max_baseline)
+{
 	// Handles the special case when the cursor is on the last line and the preceding character is a carriage return
 	if (i == cursor_pos && info.line_start == UINT32_MAX && info.line_end == UINT32_MAX)
 	{
@@ -230,7 +254,11 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		// Add the height of line in the line size
 		m_lines_size.height_q6(m_lines_size.height_q6() + max_line_height);
 	}
-	
+}
+
+/** Move each line's x position and the cursor/selection according to the horizontal text alignment */
+void TextBox::apply_alignment(const Area & text_area, Align text_align, uint32_t cursor_pos)
+{
 	Coord movex = 0;
 
 	// If edit field is defined
@@ -535,149 +563,173 @@ void TextBox::paint(const Point & cursor_shift, Font & font, const String & text
 			const Point & position, const Point & center, const Margin & margin,
 			Coord angle, uint32_t text_color, uint32_t cursor_color, uint32_t select_color, bool insertion)
 {
-	Point shift;
 	Point line_center(center);
-	const String & clean = m_rich_text.clean_text();
 	Dim accumulated_height = 0;
 
 	// Parse all character to search new lines
 	for (uint32_t i = 0; i < m_lines.size(); i++)
 	{
+		const LineInfo & line = m_lines[i];
+
 		// Display selection
-		if (m_lines[i].selection_start != m_lines[i].selection_end && select_color != 0)
+		paint_selection(line, position, cursor_shift, accumulated_height, line_center, angle, select_color);
+
+		// Display text line segment by segment (each segment has the same font and color)
+		paint_line_segments(line, position, cursor_shift, accumulated_height, line_center, margin, angle, text_color);
+
+		// If the current line has a cursor
+		paint_cursor(i, line, position, cursor_shift, accumulated_height, line_center, angle, cursor_color, insertion);
+
+		// Move rotation center to the next line (use actual line height)
+		accumulated_height += line.size.height_q6();
+		line_center.y_q6(line_center.y_q6() - line.size.height_q6());
+	}
+}
+
+/** Paint the selection background rectangle for a single line, if it has a selection */
+void TextBox::paint_selection(const LineInfo & line, const Point & position, const Point & cursor_shift,
+	Dim accumulated_height, const Point & line_center, Coord angle, uint32_t select_color)
+{
+	if (line.selection_start != line.selection_end && select_color != 0)
+	{
+		Point shift;
+
+		// Compute selection position according to the line and center
+		Point select_pos;
+			select_pos = position;
+			select_pos.move(cursor_shift);
+			select_pos.move_q6(0, line.position.y_q6());
+			select_pos.move_q6(0,0-accumulated_height);
+
+		// Compute the center
+		Point select_center(line_center);
+			select_center.move_q6(0-line.selection_start,0);
+
+		// Draw rectangle
+		Rect rect(0);
+			rect.size_q6((line.selection_end-line.selection_start), line.size.height_q6());
+			rect.position(select_pos);
+			rect.center(select_center);
+			rect.thickness_q6(0);
+			rect.radius_q6(0);
+			rect.angle((angle>>6) + (90<<6));
+			rect.color(select_color);
+			rect.paint(shift);
+	}
+}
+
+/** Paint a single line's text, segment by segment (each segment shares the same font and color) */
+void TextBox::paint_line_segments(const LineInfo & line, const Point & position, const Point & cursor_shift,
+	Dim accumulated_height, const Point & line_center, const Margin & margin, Coord angle, uint32_t text_color)
+{
+	const String & clean = m_rich_text.clean_text();
+	uint32_t seg_start = line.line_start;
+	uint32_t seg_end_limit = line.line_end;
+
+	// Compute base position for this line
+	Point line_base(position);
+		line_base.move(cursor_shift);
+		line_base.move(line.position);
+		line_base.move_q6(0,0-accumulated_height);
+
+	Point seg_offset;
+	Coord seg_x = 0;
+	Point seg_line_center(line_center);
+
+	while (seg_start <= seg_end_limit)
+	{
+		// Determine the font and color for this segment
+		Font & seg_font = m_rich_text.font_at(seg_start);
+		uint32_t seg_color = m_rich_text.color_at(seg_start);
+		if (seg_color == 0)
 		{
-			// Compute selection position according to the line and center
-			Point select_pos;
-				select_pos = position;
-				select_pos.move(cursor_shift);
-				select_pos.move_q6(0, m_lines[i].position.y_q6());
-				select_pos.move_q6(0,0-accumulated_height);
+			seg_color = text_color;
+		}
+
+		// Find the end of this segment (same font and color)
+		uint32_t seg_end = seg_start;
+		while (seg_end < seg_end_limit)
+		{
+			uint32_t next = seg_end + 1;
+			if (&m_rich_text.font_at(next) != &seg_font || m_rich_text.color_at(next) != m_rich_text.color_at(seg_start))
+			{
+				break;
+			}
+			seg_end = next;
+		}
+
+		// Extract segment text
+		String seg_text;
+		clean.slice(seg_start, seg_end+1, seg_text);
+
+		// Compute segment position
+		Point seg_pos(line_base);
+		seg_pos.move_q6(seg_x, 0);  // Move to the correct X position
+
+		// Adjust for baseline alignment: align this segment's baseline to the line's max baseline
+		// The offset is applied via center (not position) so it rotates correctly with the text angle
+		Coord seg_baseline = seg_font.baseline_q6();
+		Coord baseline_offset = line.baseline_ref - seg_baseline;
+
+		Point seg_center(seg_line_center);
+		seg_center.y_q6(seg_center.y_q6() - baseline_offset);
+
+		// Draw segment with its specific font and color
+		seg_font.draw(seg_text, seg_pos, seg_center, margin, angle, seg_color);
+
+		// Advance x position for next segment
+		for (uint32_t j = seg_start; j <= seg_end; j++)
+		{
+			seg_x += m_rich_text.char_size_at(j).width_q6();
+		}
+
+		seg_start = seg_end + 1;
+	}
+}
+
+/** Paint the text cursor rectangle if it is located on this line */
+void TextBox::paint_cursor(uint32_t i, const LineInfo & line, const Point & position, const Point & cursor_shift,
+	Dim accumulated_height, const Point & line_center, Coord angle, uint32_t cursor_color, bool insertion)
+{
+	if (i == m_cursor_line && cursor_color != 0)
+	{
+		// If cursor is visible
+		if (m_cursor_size.width_q6() > 0 && m_cursor_size.height_q6() > 0)
+		{
+			Point shift;
+
+			// Compute cursor position according to the line and center
+			Point cursor_pos;
+				cursor_pos = position;
+				cursor_pos.move(cursor_shift);
+				cursor_pos.move_q6(0, line.position.y_q6());
+				cursor_pos.move_q6(0,0-accumulated_height);
 
 			// Compute the center
-			Point select_center(line_center);
-				select_center.move_q6(0-m_lines[i].selection_start,0);
+			Point cursor_center(line_center);
+			cursor_center.move_q6(0-m_cursor_pos.x_q6(),0);
 
-			// Draw rectangle
+			// Draw cursor
 			Rect rect(0);
-				rect.size_q6((m_lines[i].selection_end-m_lines[i].selection_start), m_lines[i].size.height_q6());
-				rect.position(select_pos);
-				rect.center(select_center);
+				if (insertion)
+				{
+					rect.size_q6(2<<6, m_cursor_size.height_q6());
+					cursor_center.move(1,0);
+				}
+				else
+				{
+					cursor_center.move_q6(0, 0-(m_cursor_size.height_q6()-(3<<6)));
+					rect.size_q6(m_cursor_size.width_q6(), 3<<6);
+				}
+
+				rect.position(cursor_pos);
+				rect.center(cursor_center);
 				rect.thickness_q6(0);
 				rect.radius_q6(0);
 				rect.angle((angle>>6) + (90<<6));
-				rect.color(select_color);
+				rect.color(cursor_color);
 				rect.paint(shift);
 		}
-
-		// Display text line segment by segment (each segment has the same font and color)
-		{
-			uint32_t seg_start = m_lines[i].line_start;
-			uint32_t seg_end_limit = m_lines[i].line_end;
-
-			// Compute base position for this line
-			Point line_base(position);
-				line_base.move(cursor_shift);
-				line_base.move(m_lines[i].position);
-				line_base.move_q6(0,0-accumulated_height);
-
-			Point seg_offset;
-			Coord seg_x = 0;
-			Point seg_line_center(line_center);
-
-			while (seg_start <= seg_end_limit)
-			{
-				// Determine the font and color for this segment
-				Font & seg_font = m_rich_text.font_at(seg_start);
-				uint32_t seg_color = m_rich_text.color_at(seg_start);
-				if (seg_color == 0)
-				{
-					seg_color = text_color;
-				}
-
-				// Find the end of this segment (same font and color)
-				uint32_t seg_end = seg_start;
-				while (seg_end < seg_end_limit)
-				{
-					uint32_t next = seg_end + 1;
-					if (&m_rich_text.font_at(next) != &seg_font || m_rich_text.color_at(next) != m_rich_text.color_at(seg_start))
-					{
-						break;
-					}
-					seg_end = next;
-				}
-
-				// Extract segment text
-				String seg_text;
-				clean.slice(seg_start, seg_end+1, seg_text);
-
-				// Compute segment position
-				Point seg_pos(line_base);
-				seg_pos.move_q6(seg_x, 0);  // Move to the correct X position
-
-				// Adjust for baseline alignment: align this segment's baseline to the line's max baseline
-				// The offset is applied via center (not position) so it rotates correctly with the text angle
-				Coord seg_baseline = seg_font.baseline_q6();
-				Coord baseline_offset = m_lines[i].baseline_ref - seg_baseline;
-
-				Point seg_center(seg_line_center);
-				seg_center.y_q6(seg_center.y_q6() - baseline_offset);
-
-				// Draw segment with its specific font and color
-				seg_font.draw(seg_text, seg_pos, seg_center, margin, angle, seg_color);
-
-				// Advance x position for next segment
-				for (uint32_t j = seg_start; j <= seg_end; j++)
-				{
-					seg_x += m_rich_text.char_size_at(j).width_q6();
-				}
-
-				seg_start = seg_end + 1;
-			}
-		}
-
-		// If the current line has a cursor
-		if (i == m_cursor_line && cursor_color != 0)
-		{
-			// If cursor is visible
-			if (m_cursor_size.width_q6() > 0 && m_cursor_size.height_q6() > 0)
-			{
-				// Compute cursor position according to the line and center
-				Point cursor_pos;
-					cursor_pos = position;
-					cursor_pos.move(cursor_shift);
-					cursor_pos.move_q6(0, m_lines[i].position.y_q6());
-					cursor_pos.move_q6(0,0-accumulated_height);
-
-				// Compute the center
-				Point cursor_center(line_center);
-				cursor_center.move_q6(0-m_cursor_pos.x_q6(),0);
-
-				// Draw cursor
-				Rect rect(0);
-					if (insertion)
-					{
-						rect.size_q6(2<<6, m_cursor_size.height_q6());
-						cursor_center.move(1,0);
-					}
-					else
-					{
-						cursor_center.move_q6(0, 0-(m_cursor_size.height_q6()-(3<<6)));
-						rect.size_q6(m_cursor_size.width_q6(), 3<<6);
-					}
-
-					rect.position(cursor_pos);
-					rect.center(cursor_center);
-					rect.thickness_q6(0);
-					rect.radius_q6(0);
-					rect.angle((angle>>6) + (90<<6));
-					rect.color(cursor_color);
-					rect.paint(shift);
-			}
-		}
-
-		// Move rotation center to the next line (use actual line height)
-		accumulated_height += m_lines[i].size.height_q6();
-		line_center.y_q6(line_center.y_q6() - m_lines[i].size.height_q6());
 	}
 }
 

@@ -12,14 +12,13 @@ int main(int argc, char* args[])
 {
 	// Initializes the UI manager with a new DeviceScreen named "Samples BerialDraw", 
 	// setting the screen width 480, height 480, pixel format, and zoom size
-	UIManager::init(new DeviceScreen("Samples BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888, ZOOM, "../resources;./resources");
-	//UIManager::init(new DeviceScreen("Samples BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888, ZOOM, "zip://resources.zip/resources");
+	UIManager::init(new DeviceScreen("Samples BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888, ZOOM, "../resources;./resources;zip://resources.zip/resources");
 
 	// Starts the user event logger, useful if you want to script user interface tests
 	//UIManager::notifier()->log();
 
 	// Execute menu with all samples
-	sample_icon_menu();
+	//sample_icon_menu();
 	sample_menu();
 
 	// Terminates use of the library, destroys all objects and frees the allocated memory

@@ -333,7 +333,10 @@ bool Sketch::load()
 	if (m_paths.size() == 0)
 	{
 		File file;
-		if (file.open(m_filename,"rb") != -1)
+		String filename = m_filename;
+		filename.strip();
+		
+		if (file.open(filename,"rb") != -1)
 		{
 			Json json;
 			try
@@ -345,7 +348,7 @@ bool Sketch::load()
 			}
 			catch(...)
 			{
-				bd_printf("Unable to decode the sketch file '%s'\n", m_filename.c_str());
+				bd_printf("Unable to decode the sketch file '%s'\n", filename.c_str());
 			}
 		}
 	}

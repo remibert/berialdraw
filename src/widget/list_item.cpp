@@ -69,16 +69,24 @@ StyleCascadeMode ListItem::style_cascade_mode() const
 Size ListItem::select(String & text, std::unique_ptr<TextBox> & text_box, std::unique_ptr<Sketch> & sketch)
 {
 	Size result;
-	if (FileTools::match_pattern("*.icn",text,true))
+
+	String filename = text;
+	filename.strip();
+
+	if (FileTools::match_pattern("*.icn",filename,true))
 	{
 		if (!sketch)
 		{
 			sketch = std::make_unique<Sketch>(this);
 		}
-		sketch->filename(text);
+		sketch->filename(filename);
 		sketch->load();
 		sketch->size(font_size());
 		result = font_size();
+		if (filename.size() < text.size())
+		{
+
+		}
 	}
 	else
 	{

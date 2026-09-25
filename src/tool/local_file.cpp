@@ -23,7 +23,6 @@ int LocalFile::open(const char *path, const char *mode)
 	}
 	else
 	{
-		//bd_printf("Cannot open file '%s'\n",p.c_str());
 		bd_printf("Cannot open file '%s'\n",path);
 	}
 	

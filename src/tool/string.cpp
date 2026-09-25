@@ -970,6 +970,113 @@ String String::convert_filename_encoding(const char* src)
 	return result;
 }
 
+// Remove characters from both ends of string
+String& String::strip(wchar_t character)
+{
+	lstrip(character);
+	rstrip(character);
+	return *this;
+}
+
+// Remove characters from the left end of string
+String& String::lstrip(wchar_t character)
+{
+	uint32_t pos = 0;
+	bool is_whitespace_mode = (character == 0);
+	
+	if (is_whitespace_mode)
+	{
+		// Remove whitespace characters
+		while (pos < m_size && isspace((unsigned char)m_string[pos]))
+		{
+			pos++;
+		}
+	}
+	else
+	{
+		// Remove specific character
+		char buffer[7] = {0,0,0,0,0,0,0};
+		uint32_t char_len = Utf8::write(character, buffer, sizeof(buffer));
+		
+		while (pos < m_size)
+		{
+			bool match = true;
+			if (pos + char_len <= m_size)
+			{
+				for (uint32_t i = 0; i < char_len; i++)
+				{
+					if (m_string[pos + i] != buffer[i])
+					{
+						match = false;
+						break;
+					}
+				}
+			}
+			else
+			{
+				match = false;
+			}
+			
+			if (!match)
+			{
+				break;
+			}
+			pos += char_len;
+		}
+	}
+	
+	if (pos > 0)
+	{
+		memmove(m_string, &m_string[pos], m_size - pos + 1);
+		m_size -= pos;
+	}
+	
+	return *this;
+}
+
+// Remove characters from the right end of string
+String& String::rstrip(wchar_t character)
+{
+	bool is_whitespace_mode = (character == 0);
+	
+	if (is_whitespace_mode)
+	{
+		// Remove whitespace characters
+		while (m_size > 0 && isspace((unsigned char)m_string[m_size - 1]))
+		{
+			m_size--;
+		}
+	}
+	else
+	{
+		// Remove specific character
+		char buffer[7] = {0,0,0,0,0,0,0};
+		uint32_t char_len = Utf8::write(character, buffer, sizeof(buffer));
+		
+		while (m_size >= char_len)
+		{
+			bool match = true;
+			for (uint32_t i = 0; i < char_len; i++)
+			{
+				if (m_string[m_size - char_len + i] != buffer[i])
+				{
+					match = false;
+					break;
+				}
+			}
+			
+			if (!match)
+			{
+				break;
+			}
+			m_size -= char_len;
+		}
+	}
+	
+	m_string[m_size] = '\0';
+	return *this;
+}
+
 /** Encode binary data to base64 and append to the current string */
 void String::base64_encode(const uint8_t * data, uint32_t length)
 {

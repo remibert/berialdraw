@@ -121,11 +121,11 @@
     <Filter Include="berialdraw\external\freetype">
       <UniqueIdentifier>{d32f2851-4ea8-4636-85ab-aff7b8e13c05}</UniqueIdentifier>
     </Filter>
+    <Filter Include="berialdraw\shape\text">
+      <UniqueIdentifier>{81ffec1a-5067-4cb6-8afc-8fc560aa4f58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\shape\text_box.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\shape\circle.cpp">
       <Filter>berialdraw\shape</Filter>
     </ClCompile>
@@ -169,9 +169,6 @@
       <Filter>berialdraw\shape</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\shape\square.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\shape\text.cpp">
       <Filter>berialdraw\shape</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\shape\triangle.cpp">
@@ -973,9 +970,6 @@
     <ClCompile Include="..\..\src\styles\style_item.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\shape\rich_text.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\image\image_cache.cpp">
       <Filter>berialdraw\image</Filter>
     </ClCompile>
@@ -1036,6 +1030,15 @@
     <ClCompile Include="..\..\src\shape\rect_renderer.cpp">
       <Filter>berialdraw\shape</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\shape\rich_text.cpp">
+      <Filter>berialdraw\shape\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\text_box.cpp">
+      <Filter>berialdraw\shape\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\text.cpp">
+      <Filter>berialdraw\shape\text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\config.h">
@@ -1081,12 +1084,6 @@
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\shape\square.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\shape\text.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\shape\text_box.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\shape\triangle.hpp">
@@ -1842,9 +1839,6 @@
     <ClInclude Include="..\..\include\styles\grid_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\shape\rich_text.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\image\image_cache.hpp">
       <Filter>berialdraw\image</Filter>
     </ClInclude>
@@ -1916,6 +1910,15 @@
     </ClInclude>
     <ClInclude Include="..\..\include\shape\rect_renderer.hpp">
       <Filter>berialdraw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\rich_text.hpp">
+      <Filter>berialdraw\shape\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\text_box.hpp">
+      <Filter>berialdraw\shape\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\text.hpp">
+      <Filter>berialdraw\shape\text</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

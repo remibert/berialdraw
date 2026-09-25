@@ -260,6 +260,21 @@ namespace berialdraw
 		@return UTF-8 encoded string */
 		static String convert_filename_encoding(const char * src);
 
+		/** Remove characters from both ends of string (Python-like strip)
+		@param character Character to remove (default: whitespace)
+		@return Reference to this String */
+		String& strip(wchar_t character = 0);
+
+		/** Remove characters from the left end of string (Python-like lstrip)
+		@param char Character to remove (default: whitespace)
+		@return Reference to this String */
+		String& lstrip(wchar_t character = 0);
+
+		/** Remove characters from the right end of string (Python-like rstrip)
+		@param char Character to remove (default: whitespace)
+		@return Reference to this String */
+		String& rstrip(wchar_t character = 0);
+
 #ifdef _DEBUG
 		/** Unitary test */
 		static void test();
@@ -275,6 +290,7 @@ namespace berialdraw
 		static void test10();
 		static void test11();
 		static void test12();
+		static void test13();
 #endif
 		/** Empty string */
 		static const String empty;

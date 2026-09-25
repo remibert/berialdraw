@@ -63,6 +63,34 @@ namespace berialdraw
 			const Margin& margin, Coord angle, uint32_t text_color,
 			uint32_t cursor_color, uint32_t select_color, bool insertion);
 
+	private:
+		/** Process a normal (non-newline) character: track cursor position and advance the line width */
+		void process_character(uint32_t i, uint32_t cursor_pos, LineInfo & info, Dim & line_width);
+
+		/** Finalize the current line when a newline character is found, and reset the running state for the next line */
+		void finalize_line_at_newline(uint32_t i, uint32_t cursor_pos, Font & font, Dim line_height,
+			LineInfo & info, Dim & line_width, Dim & max_line_height, Coord & max_baseline);
+
+		/** Finalize the trailing line(s) after the main character loop: a line ending exactly on a trailing
+		carriage return, and/or the last line when it has no terminating newline */
+		void finalize_trailing_line(uint32_t i, uint32_t cursor_pos, uint32_t sel_start, uint32_t sel_end,
+			const Size & space_size, LineInfo info, Dim line_width, Dim max_line_height, Coord max_baseline);
+
+		/** Move each line's x position and the cursor/selection according to the horizontal text alignment */
+		void apply_alignment(const Area & text_area, Align text_align, uint32_t cursor_pos);
+
+		/** Paint the selection background rectangle for a single line, if it has a selection */
+		void paint_selection(const LineInfo & line, const Point & position, const Point & cursor_shift,
+			Dim accumulated_height, const Point & line_center, Coord angle, uint32_t select_color);
+
+		/** Paint a single line's text, segment by segment (each segment shares the same font and color) */
+		void paint_line_segments(const LineInfo & line, const Point & position, const Point & cursor_shift,
+			Dim accumulated_height, const Point & line_center, const Margin & margin, Coord angle, uint32_t text_color);
+
+		/** Paint the text cursor rectangle if it is located on this line */
+		void paint_cursor(uint32_t i, const LineInfo & line, const Point & position, const Point & cursor_shift,
+			Dim accumulated_height, const Point & line_center, Coord angle, uint32_t cursor_color, bool insertion);
+
 	protected:
 		RichText m_rich_text;
 		Vector<LineInfo> m_lines;

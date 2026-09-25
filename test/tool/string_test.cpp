@@ -801,9 +801,198 @@ void String::test12()
 	assert(var == "{\"users\":[{\"name\":\"Alice\"},{\"name\":\"Bob\"}]}");
 }
 
+void String::test13()
+{
+	// Test strip with whitespace on both sides
+	String str("  hello world  ");
+	str.strip();
+	assert(str == "hello world");
+
+	// Test strip with tabs and newlines
+	str = "\t\nhello world\n\t";
+	str.strip();
+	assert(str == "hello world");
+
+	// Test strip with no whitespace
+	str = "hello world";
+	str.strip();
+	assert(str == "hello world");
+
+	// Test strip with only whitespace
+	str = "   ";
+	str.strip();
+	assert(str == "");
+
+	// Test strip on empty string
+	str = "";
+	str.strip();
+	assert(str == "");
+
+	// Test strip with mixed whitespace
+	str = "  \t  hello  \n  ";
+	str.strip();
+	assert(str == "hello");
+
+	// Test strip with UTF-8 characters
+	str = "  café  ";
+	str.strip();
+	assert(str == "café");
+
+	// Test lstrip (left strip)
+	str = "  hello world";
+	str.lstrip();
+	assert(str == "hello world");
+
+	// Test lstrip with tabs
+	str = "\t\thello";
+	str.lstrip();
+	assert(str == "hello");
+
+	// Test lstrip with no leading whitespace
+	str = "hello world";
+	str.lstrip();
+	assert(str == "hello world");
+
+	// Test lstrip preserves trailing whitespace
+	str = "hello world  ";
+	str.lstrip();
+	assert(str == "hello world  ");
+
+	// Test lstrip on empty string
+	str = "";
+	str.lstrip();
+	assert(str == "");
+
+	// Test lstrip with only whitespace
+	str = "   ";
+	str.lstrip();
+	assert(str == "");
+
+	// Test rstrip (right strip)
+	str = "hello world  ";
+	str.rstrip();
+	assert(str == "hello world");
+
+	// Test rstrip with tabs and newlines
+	str = "hello\n\t";
+	str.rstrip();
+	assert(str == "hello");
+
+	// Test rstrip with no trailing whitespace
+	str = "hello world";
+	str.rstrip();
+	assert(str == "hello world");
+
+	// Test rstrip preserves leading whitespace
+	str = "  hello world";
+	str.rstrip();
+	assert(str == "  hello world");
+
+	// Test rstrip on empty string
+	str = "";
+	str.rstrip();
+	assert(str == "");
+
+	// Test rstrip with only whitespace
+	str = "   ";
+	str.rstrip();
+	assert(str == "");
+
+	// Test chaining strip operations
+	str = "  hello  ";
+	str.lstrip().rstrip();
+	assert(str == "hello");
+
+	// Test strip with UTF-8 and whitespace
+	str = "  prénom  ";
+	str.strip();
+	assert(str == "prénom");
+
+	// Test multiple spaces between words are preserved
+	str = "  hello    world  ";
+	str.strip();
+	assert(str == "hello    world");
+
+	// Test newlines and various whitespace characters
+	str = " \t\n  text  \r\n  ";
+	str.strip();
+	assert(str == "text");
+
+	// Test consecutive strip calls
+	str = "  hello  ";
+	str.strip().strip().strip();
+	assert(str == "hello");
+
+	// Test strip with custom character
+	str = "xxxhelloxxxx";
+	str.strip('x');
+	assert(str == "hello");
+
+	// Test lstrip with custom character
+	str = "xxxhello world";
+	str.lstrip('x');
+	assert(str == "hello world");
+
+	// Test rstrip with custom character
+	str = "hello worldxxx";
+	str.rstrip('x');
+	assert(str == "hello world");
+
+	// Test strip with custom character and no matches
+	str = "hello world";
+	str.strip('x');
+	assert(str == "hello world");
+
+	// Test strip with custom character single match
+	str = "xhellox";
+	str.strip('x');
+	assert(str == "hello");
+
+	// Test strip with UTF-8 character
+	str = "éhelloé";
+	str.strip(0x00E9);  // 'é' in UTF-8
+	assert(str == "hello");
+
+	// Test strip with number character
+	str = "123hello123";
+	str.strip('3');
+	assert(str == "123hello12");
+
+	// Test lstrip with custom but no leading matches
+	str = "hello xxxworld";
+	str.lstrip('x');
+	assert(str == "hello xxxworld");
+
+	// Test rstrip with custom but no trailing matches
+	str = "xxxhello world";
+	str.rstrip('x');
+	assert(str == "xxxhello world");
+
+	// Test strip empty string with custom character
+	str = "";
+	str.strip('x');
+	assert(str == "");
+
+	// Test strip only custom character
+	str = "xxxx";
+	str.strip('x');
+	assert(str == "");
+
+	// Test strip mixed custom and other characters
+	str = "xxhello yxx";
+	str.strip('x');
+	assert(str == "hello y");
+
+	// Test chaining with custom character
+	str = "xxxhelloyyy";
+	str.strip('x').strip('y');
+	assert(str == "hello");
+}
+
 void String::test()
 {
 	MemoryLeakLog
+	test13();
 	test12();
 	test11();
 	test10();

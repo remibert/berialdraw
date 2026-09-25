@@ -13,7 +13,7 @@ def main():
 	# IMPORTANT: Keep device reference to prevent garbage collection
 	device = DeviceScreen("Samples BerialDraw")
 	UIManager.init(device, SCREEN_WIDTH, SCREEN_HEIGHT,
-				   Framebuf.ARGB8888, ZOOM, "../resources;./resources")
+				   Framebuf.ARGB8888, ZOOM, "../resources;./resources;zip://resources.zip/resources")
 
 	# Starts the user event logger, useful if you want to script user interface tests
 	# UIManager.notifier().log()

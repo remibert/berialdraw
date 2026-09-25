@@ -68,6 +68,12 @@ namespace berialdraw
 			}
 		}
 
+		/** Get pointer to underlying data (for pointer arithmetic) */
+		inline T* data() { return m_vector.data(); }
+
+		/** Get const pointer to underlying data (for pointer arithmetic) */
+		inline const T* data() const { return m_vector.data(); }
+
 		/** Erases the elements of the vector */
 		inline void clear()
 		{
