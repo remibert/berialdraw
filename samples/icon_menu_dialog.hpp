@@ -8,9 +8,6 @@ namespace berialdraw
 		/** Create dialog */
 		IconMenuDialog();
 
-		/** Add choice in menu */
-		Icon * add_choice(const String & text, const String & icon_filename);
-
 		/** Create icon in menu */
 		Icon * create_icon(const String & text, const String & icon_filename);
 

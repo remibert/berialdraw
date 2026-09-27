@@ -49,13 +49,3 @@ Icon * IconMenuDialog::create_icon(const String & text, const String & icon_file
 		icon->margin(5);                                      // Sets a margin of 5 around the icon
 	return icon;
 }
-
-
-/** Add choice in menu */
-Icon * IconMenuDialog::add_choice(const String & text, const String & icon_filename)
-{
-	// Creates a new icon for the menu choice
-	Icon * icon = create_icon(text, icon_filename);
-	icon->bind(this, &IconMenuDialog::on_menu_click); // Binds the click event to the `on_menu_click` handler
-	return icon;                                              // Returns the newly created icon
-}

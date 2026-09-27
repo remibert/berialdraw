@@ -106,6 +106,7 @@ namespace berialdraw
 		LIST_ITEM_TEXT_COLOR          = 0x00000053, ///< List item unselected text color
 		LIST_ITEM_SELECTED_COLOR      = 0x00000054, ///< List item selected back color
 		LIST_ITEM_SELECTED_TEXT_COLOR = 0x00000055, ///< List item selected text color
+		LIST_ITEM_BORDER_COLOR        = 0x00000056, ///< List item border color
 
 		PALETTE_BACK_COLOR            = 0x000000E0, // Base color theme
 		PALETTE_BACK_COLOR_LIGHT_1    = 0x000000E1, //   |

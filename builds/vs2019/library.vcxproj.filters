@@ -124,54 +124,18 @@
     <Filter Include="berialdraw\shape\text">
       <UniqueIdentifier>{81ffec1a-5067-4cb6-8afc-8fc560aa4f58}</UniqueIdentifier>
     </Filter>
+    <Filter Include="berialdraw\shape\shape">
+      <UniqueIdentifier>{6640e9ba-45cf-4935-843f-e3b25c4f3641}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\shape\circle.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\shape\compass.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\shape\cross.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\shape\ft_system.c">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\shape\line.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\shape\marker.cpp">
       <Filter>berialdraw\shape</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\shape\outline.cpp">
       <Filter>berialdraw\shape</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\shape\pie.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\shape\polygon.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\shape\poly_lines.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\shape\poly_points.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\shape\rect.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\shape\renderer.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\shape\shape.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\shape\square.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\shape\triangle.cpp">
       <Filter>berialdraw\shape</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\shape\vectors_script.cpp">
@@ -1003,9 +967,6 @@
     <ClCompile Include="..\..\src\styles\padding_style.cpp">
       <Filter>berialdraw\shape</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\shape\star.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\event\timer_event.cpp">
       <Filter>berialdraw\event</Filter>
     </ClCompile>
@@ -1027,9 +988,6 @@
     <ClCompile Include="..\..\src\device\timer_manager_base.cpp">
       <Filter>berialdraw\device</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\shape\rect_renderer.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\shape\rich_text.cpp">
       <Filter>berialdraw\shape\text</Filter>
     </ClCompile>
@@ -1039,54 +997,60 @@
     <ClCompile Include="..\..\src\shape\text.cpp">
       <Filter>berialdraw\shape\text</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\shape\cross.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\circle.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\line.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\marker.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\pie.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\poly_lines.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\poly_points.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\rect.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\polygon.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\rect_renderer.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\shape.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\square.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\star.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\triangle.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\compass.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\config.h">
       <Filter>berialdraw\lib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\shape\circle.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\shape\compass.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\shape\cross.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\shape\line.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\shape\marker.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\shape\outline.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\shape\pie.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\shape\polygon.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\shape\poly_lines.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\shape\poly_points.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\shape\rect.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\shape\renderer.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\shape\shape.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\shape\square.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\shape\triangle.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\shape\vectors_script.hpp">
@@ -1878,9 +1842,6 @@
     <ClInclude Include="..\..\include\styles\padding_style.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\shape\star.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\external\libjpeg-turbo\jconfig.h">
       <Filter>berialdraw\external\jpeg</Filter>
     </ClInclude>
@@ -1908,9 +1869,6 @@
     <ClInclude Include="..\..\include\event\timer_event.hpp">
       <Filter>berialdraw\event</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\shape\rect_renderer.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\shape\rich_text.hpp">
       <Filter>berialdraw\shape\text</Filter>
     </ClInclude>
@@ -1919,6 +1877,51 @@
     </ClInclude>
     <ClInclude Include="..\..\include\shape\text.hpp">
       <Filter>berialdraw\shape\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\cross.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\circle.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\line.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\marker.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\pie.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\poly_lines.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\poly_points.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\rect.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\polygon.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\rect_renderer.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\shape.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\square.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\star.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\triangle.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\compass.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

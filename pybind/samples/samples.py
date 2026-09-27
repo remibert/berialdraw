@@ -25,6 +25,37 @@ from samples.sample_picture import sample_picture
 from samples.sample_list import sample_list
 
 
+# Menu items configuration (shared between icon and plain menus)
+menu_bindings = [
+	("Button",      "$(ui.icons)/view_agenda.icn",        sample_button),
+	("Canvas",      "$(ui.icons)/draw_abstract.icn",      sample_canvas),
+	("Column",      "$(ui.icons)/table_rows_narrow.icn",  sample_column),
+	("Edit",        "$(ui.icons)/text_fields_alt.icn",    sample_edit),
+	("Grid",        "$(ui.icons)/grid_on.icn",            sample_grid),
+	("Icon",        "$(ui.icons)/image.icn",              sample_icon),
+	("Keyboard",    "$(ui.icons)/keyboard.icn",           sample_keyboard),
+	("Label",       "$(ui.icons)/format_size.icn",        sample_label),
+	("Pane",        "$(ui.icons)/featured_video.icn",     sample_pane),
+	("ProgressBar", "$(ui.icons)/sliders.icn",            sample_progress_bar),
+	("Row",         "$(ui.icons)/calendar_view_week.icn", sample_row),
+	("ScrollView",  "$(ui.icons)/scrollable_header.icn",  sample_scroll_view),
+	("Slider",      "$(ui.icons)/tune.icn",               sample_slider),
+	("Switch",      "$(ui.icons)/toggle_on.icn",          sample_switch),
+	("Window",      "$(ui.icons)/select_window.icn",      sample_window),
+	("Speedometer", "$(ui.icons)/speed.icn",              sample_speedometer),
+	("Theme",       "$(ui.icons)/filter_vintage.icn",     sample_palette),
+	("TableView",   "$(ui.icons)/grid_on.icn",            sample_tableview),
+	("Picture",     "$(ui.icons)/image.icn",              sample_picture),
+	("List",        "$(ui.icons)/sort.icn",               sample_list),
+]
+
+
+def populate_menu(dialog):
+	"""Populate dialog with all menu bindings"""
+	for text, icon, callback in menu_bindings:
+		dialog.bind(text, icon, callback)
+
+
 def sample_icon_menu():
 	"""Sample of icon menu"""
 	# UIManager.notifier().log()                   # Log all user events if it uncommented
@@ -37,26 +68,7 @@ def sample_icon_menu():
 	dialog.title("Samples")
 	dialog.add_back_button("Back")
 
-	dialog.bind("Button",      "$(ui.icons)/view_agenda.icn",        sample_button)
-	dialog.bind("Canvas",      "$(ui.icons)/draw_abstract.icn",      sample_canvas)
-	dialog.bind("Column",      "$(ui.icons)/table_rows_narrow.icn",  sample_column)
-	dialog.bind("Edit",        "$(ui.icons)/text_fields_alt.icn",    sample_edit)
-	dialog.bind("Grid",        "$(ui.icons)/grid_on.icn",            sample_grid)
-	dialog.bind("Icon",        "$(ui.icons)/image.icn",              sample_icon)
-	dialog.bind("Keyboard",    "$(ui.icons)/keyboard.icn",           sample_keyboard)
-	dialog.bind("Label",       "$(ui.icons)/format_size.icn",        sample_label)
-	dialog.bind("Pane",        "$(ui.icons)/featured_video.icn",     sample_pane)
-	dialog.bind("ProgressBar", "$(ui.icons)/sliders.icn",            sample_progress_bar)
-	dialog.bind("Row",         "$(ui.icons)/calendar_view_week.icn", sample_row)
-	dialog.bind("ScrollView",  "$(ui.icons)/scrollable_header.icn",  sample_scroll_view)
-	dialog.bind("Slider",      "$(ui.icons)/tune.icn",               sample_slider)
-	dialog.bind("Switch",      "$(ui.icons)/toggle_on.icn",          sample_switch)
-	dialog.bind("Window",      "$(ui.icons)/select_window.icn",      sample_window)
-	dialog.bind("Speedometer", "$(ui.icons)/speed.icn",              sample_speedometer)
-	dialog.bind("Theme",       "$(ui.icons)/filter_vintage.icn",     sample_palette)
-	dialog.bind("TableView",   "$(ui.icons)/grid_on.icn",            sample_tableview)
-	dialog.bind("Picture",     "$(ui.icons)/image.icn",              sample_picture)
-	dialog.bind("List",        "$(ui.icons)/sort.icn",               sample_list)
+	populate_menu(dialog)
 
 	while dialog.exec() != "<quit>":
 		pass
@@ -72,26 +84,7 @@ def sample_menu():
 
 	dialog.title("Samples")
 	dialog.add_back_button("Back")
-	dialog.bind("Button",      sample_button)
-	dialog.bind("Canvas",      sample_canvas)
-	dialog.bind("Column",      sample_column)
-	dialog.bind("Edit",        sample_edit)
-	dialog.bind("Grid",        sample_grid)
-	dialog.bind("Icon",        sample_icon)
-	dialog.bind("Keyboard",    sample_keyboard)
-	dialog.bind("Label",       sample_label)
-	dialog.bind("Pane",        sample_pane)
-	dialog.bind("ProgressBar", sample_progress_bar)
-	dialog.bind("Row",         sample_row)
-	dialog.bind("ScrollView",  sample_scroll_view)
-	dialog.bind("Slider",      sample_slider)
-	dialog.bind("Switch",      sample_switch)
-	dialog.bind("Window",      sample_window)
-	dialog.bind("Speedometer", sample_speedometer)
-	dialog.bind("Theme",       sample_palette)
-	dialog.bind("TableView",   sample_tableview)
-	dialog.bind("Picture",     sample_picture)
-	dialog.bind("List",        sample_list)
+	populate_menu(dialog)
 
 	while dialog.exec() != "<quit>":
 		pass

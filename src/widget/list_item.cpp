@@ -191,6 +191,7 @@ void ListItem::paint(const Region& parent_region)
 		// Paint background and border
 		uint32_t color;
 		uint32_t text_color;
+		uint32_t border_color;
 		bool focused = false;
 
 		List * list = search_list();
@@ -203,14 +204,30 @@ void ListItem::paint(const Region& parent_region)
 		{
 			text_color = stated_color(m_selected_text_color, focused);
 			color = stated_color(m_selected_color, focused);
+			border_color = stated_color(m_border_color, focused);
 		}
 		else
 		{
 			text_color = stated_color(m_text_color, focused);
 			color = stated_color(m_color, focused);
+			border_color = stated_color(m_border_color, focused);
 		}
 
-		RectRenderer::paint_rect(m_foreclip, color);
+		//RectRenderer::paint_rect(m_foreclip, color);
+		//paint_background(m_foreclip, *(CommonStyle*)this, *(BorderStyle*)this);
+
+		RectRenderer::paint_focused_round_rect(m_foreclip,
+			m_borders,
+			color,
+			border_color,
+			0,
+			thickness_q6(),
+			0,
+			0,
+			0,
+			m_selected);
+
+
 
 		select_font();
 

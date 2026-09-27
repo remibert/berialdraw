@@ -175,6 +175,7 @@ namespace berialdraw
 		static constexpr const char* LIST_ITEM_TRAILING = "trailing";
 		static constexpr const char* LIST_ITEM_SELECTED_COLOR = "selected_color";
 		static constexpr const char* LIST_ITEM_SELECTED_TEXT_COLOR = "selected_text_color";
+		static constexpr const char* LIST_ITEM_BORDER_COLOR = "border_color";
 
 
 		// Timer style
