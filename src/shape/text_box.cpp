@@ -46,24 +46,21 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 	// Parse all character to search new lines
 	for (i=0; i < count; i++)
 	{
-		if (i == 5000)
-		{
-			i = i;
-		}
 		character = clean.get(i);
 
+		// Resolve the span once per character (font, color, line height, baseline in a single lookup)
+		const TextSpan & span = m_rich_text.span_at(i);
+
 		// Update max line height with the font at this character position
-		Dim char_line_height = m_rich_text.line_height_at(i);
-		if (char_line_height > max_line_height)
+		if (span.line_height > max_line_height)
 		{
-			max_line_height = char_line_height;
+			max_line_height = span.line_height;
 		}
 		
 		// Update max baseline with the font at this character position
-		Coord char_baseline = m_rich_text.baseline_at(i);
-		if (char_baseline > max_baseline)
+		if (span.baseline > max_baseline)
 		{
-			max_baseline = char_baseline;
+			max_baseline = span.baseline;
 		}
 
 		// Save the start position in string of line
@@ -96,8 +93,9 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		}
 		else
 		{
-			// Process a normal (non-newline) character
-			process_character(i, cursor_pos, info, line_width);
+			// Process a normal (non-newline) character, reusing the already resolved span's font
+			Size char_size = span.font->char_size(character);
+			process_character(i, cursor_pos, info, line_width, char_size);
 		}
 	}
 
@@ -108,11 +106,8 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 }
 
 /** Process a normal (non-newline) character: track cursor position and advance the line width */
-void TextBox::process_character(uint32_t i, uint32_t cursor_pos, LineInfo & info, Dim & line_width)
+void TextBox::process_character(uint32_t i, uint32_t cursor_pos, LineInfo & info, Dim & line_width, const Size & char_size)
 {
-	// Get the size of character using its specific font
-	Size char_size = m_rich_text.char_size_at(i);
-	
 	// Save the end of current line
 	info.line_end = i;
 	
@@ -646,6 +641,7 @@ void TextBox::paint_line_segments(const LineInfo & line, const Point & position,
 	while (seg_start <= seg_end_limit)
 	{
 		// Determine the font and color for this segment
+		const TextSpan & span = m_rich_text.span_at(seg_start);
 		Font & seg_font = m_rich_text.font_at(seg_start);
 		uint32_t seg_color = m_rich_text.color_at(seg_start);
 		if (seg_color == 0)
@@ -653,16 +649,18 @@ void TextBox::paint_line_segments(const LineInfo & line, const Point & position,
 			seg_color = text_color;
 		}
 
-		// Find the end of this segment (same font and color)
-		uint32_t seg_end = seg_start;
-		while (seg_end < seg_end_limit)
+		// A span never mixes font/color, so its own bound gives the segment end directly,
+		// without having to compare font/color character by character
+		uint32_t seg_end = seg_end_limit;
+		if (span.end != UINT32_MAX && span.end - 1 < seg_end)
 		{
-			uint32_t next = seg_end + 1;
-			if (&m_rich_text.font_at(next) != &seg_font || m_rich_text.color_at(next) != m_rich_text.color_at(seg_start))
-			{
-				break;
-			}
-			seg_end = next;
+			seg_end = span.end - 1;
+		}
+		// Guard against a line_end past the span coverage (trailing line quirk): always
+		// consume at least one character so seg_start keeps advancing
+		if (seg_end < seg_start)
+		{
+			seg_end = seg_start;
 		}
 
 		// Extract segment text
@@ -684,10 +682,13 @@ void TextBox::paint_line_segments(const LineInfo & line, const Point & position,
 		// Draw segment with its specific font and color
 		seg_font.draw(seg_text, seg_pos, seg_center, margin, angle, seg_color);
 
-		// Advance x position for next segment
-		for (uint32_t j = seg_start; j <= seg_end; j++)
+		// Advance x position for next segment: iterate over the already extracted seg_text
+		// instead of indexing back into "clean" at seg_start, which would jump backward past
+		// the position slice() just left its offset cache at and force a full O(n) rescan
+		uint32_t seg_char_count = seg_text.count();
+		for (uint32_t k = 0; k < seg_char_count; k++)
 		{
-			seg_x += m_rich_text.char_size_at(j).width_q6();
+			seg_x += seg_font.char_size(seg_text.get(k)).width_q6();
 		}
 
 		seg_start = seg_end + 1;

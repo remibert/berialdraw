@@ -18,6 +18,7 @@ void RichText::parse(const String & raw_text, Font & default_font, uint32_t defa
 	m_default_font = &default_font;
 	m_default_color = default_color;
 	m_font_ptrs_count = 0;
+	m_span_cache_index = 0;
 
 	// Safety check: ensure default_font is valid
 	if (m_default_font != 0)
@@ -152,6 +153,20 @@ Font & RichText::font_at(uint32_t clean_index) const
 	return *result;
 }
 
+/** Get the full span (font, color, line height, baseline) at a given clean text index in a single lookup */
+const TextSpan & RichText::span_at(uint32_t clean_index) const
+{
+	static const TextSpan fallback;
+	const TextSpan * result = &fallback;
+	uint32_t idx = span_index_at(clean_index);
+	if (idx != UINT32_MAX)
+	{
+		// Vector::operator[] returns by value on a const vector, use data() to get a real reference
+		result = &m_spans.data()[idx];
+	}
+	return *result;
+}
+
 
 /** Get the color to use at a given clean text index */
 uint32_t RichText::color_at(uint32_t clean_index) const
@@ -183,8 +198,8 @@ Size RichText::char_size_at(uint32_t clean_index) const
 /** Get the line height for the font at a given clean text index */
 Dim RichText::line_height_at(uint32_t clean_index) const
 {
-	Font & font = font_at(clean_index);
-	return font.real_size().height_q6();
+	// Use the span's cached line height directly, avoids resolving the font just to read its size
+	return span_at(clean_index).line_height;
 }
 
 /** Get the baseline for the font at a given clean text index */
@@ -254,7 +269,16 @@ uint32_t RichText::clean_to_raw(uint32_t clean_index) const
 uint32_t RichText::span_index_at(uint32_t clean_index) const
 {
 	uint32_t result = UINT32_MAX;
-	for (uint32_t i = 0; i < m_spans.size(); i++)
+
+	// Resume from the last resolved span instead of rescanning from the start, as long as
+	// we are moving forward: parse() and paint() both walk the text with increasing indices
+	uint32_t start = 0;
+	if (m_span_cache_index < m_spans.size() && clean_index >= m_spans[m_span_cache_index].start)
+	{
+		start = m_span_cache_index;
+	}
+
+	for (uint32_t i = start; i < m_spans.size(); i++)
 	{
 		if (clean_index >= m_spans[i].start && clean_index < m_spans[i].end)
 		{
@@ -268,6 +292,11 @@ uint32_t RichText::span_index_at(uint32_t clean_index) const
 	if (result == UINT32_MAX && m_spans.size() > 0)
 	{
 		result = m_spans.size() - 1;
+	}
+
+	if (result != UINT32_MAX)
+	{
+		m_span_cache_index = result;
 	}
 	
 	return result;

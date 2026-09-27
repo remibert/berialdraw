@@ -1143,6 +1143,7 @@ void Json::test()
 	static bool done = false;
 	if (done == false)
 	{
+		MemoryLeakLog
 		done = true;
 	#ifdef _WIN32
 		DeviceWin32::show_console();

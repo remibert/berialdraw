@@ -634,8 +634,6 @@ void Window::test()
 	{
 		MemoryLeakLog
 		done = true;
-test7();
-
 		test9();
 		test8();
 		test7();

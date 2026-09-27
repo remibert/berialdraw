@@ -177,6 +177,27 @@ void Label::test5()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/label5_4.svg");
 }
 
+void Label::test6()
+{
+	Window window;
+	Label* label = new Label(&window);
+	label->position(10, 140);
+	label->font_size(16);
+	label->text(
+		"$<'font_familly':'Cerial','font_size':{'width':50,'height':80},'text_color':0xFF00FF00>"
+		"@"
+		"$<'filename':'$(ui.icons)/filter_vintage.icn'>#");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/label6_1.svg");
+}
+
+void Label::test7()
+{
+	Window window;
+	Label* label = new Label(&window);
+	label->text("Hello\nWorld");
+	UIManager::desktop()->dispatch();
+}
+
 void Label::test()
 {
 	static bool done = false;
@@ -184,6 +205,8 @@ void Label::test()
 	{
 		MemoryLeakLog
 		done = true;
+		test7();
+		test6();
 		test5();
 		test4();
 		test3();

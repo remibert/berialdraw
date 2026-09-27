@@ -41,6 +41,11 @@ namespace berialdraw
 		@return Reference to the font for that character */
 		Font & font_at(uint32_t clean_index) const;
 
+		/** Get the full span (font, color, line height, baseline) at a given clean text index in a single lookup.
+		@param clean_index  Character index in the clean text
+		@return Reference to the span covering that character */
+		const TextSpan & span_at(uint32_t clean_index) const;
+
 		/** Get the color to use at a given clean text index.
 		@param clean_index  Character index in the clean text
 		@return ARGB color value (0 means use default) */
@@ -96,6 +101,7 @@ namespace berialdraw
 		uint32_t         m_default_color = 0;       ///< Default color
 		FontPtr          m_font_ptrs[16];           ///< Keeps fonts alive (max 16 different fonts)
 		uint32_t         m_font_ptrs_count = 0;     ///< Number of stored font pointers
+		mutable uint32_t m_span_cache_index = 0;    ///< Last resolved span index, to speed up sequential access
 	};
 /// @endcond
 #endif

@@ -179,9 +179,10 @@ void String::append(const char * string)
 {
 	if(Utf8::is_correct(string))
 	{
-		alloc(m_size + (uint32_t)strlen(string));
-		strcat(m_string, string);
-		m_size = (uint32_t)strlen(m_string);
+		uint32_t len = (uint32_t)strlen(string);
+		alloc(m_size + len);
+		memcpy(&m_string[m_size], string, len + 1);
+		m_size += len;
 		invalidate_caches();
 	}
 }

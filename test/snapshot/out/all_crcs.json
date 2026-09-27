@@ -5370,5 +5370,9 @@
 		"$(ui.tests)/out/list1_1.svg" : 
 		{
 			"scale_1" : 4060716094
+		},
+		"$(ui.tests)/out/label6_1.svg" : 
+		{
+			"scale_1" : 4012484685
 		}
 	}

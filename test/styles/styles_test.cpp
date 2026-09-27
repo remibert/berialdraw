@@ -53,6 +53,7 @@ void Styles::test()
 	static bool done = false;
 	if (done == false)
 	{
+		MemoryLeakLog
 		done = true;
 		test3();
 		test2();

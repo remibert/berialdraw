@@ -374,8 +374,6 @@ void List::test()
 		MemoryLeakLog
 		done = true;
 
-test6();
-//test3();
 		test7();
 		test6();
 		test5();

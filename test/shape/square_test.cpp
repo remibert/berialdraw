@@ -6,6 +6,7 @@ void Square::test()
 	static bool done = false;
 	if (done == false)
 	{
+		MemoryLeakLog
 		done = true;
 		Window window;
 			window.position(0,0);

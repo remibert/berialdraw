@@ -66,7 +66,7 @@ namespace berialdraw
 
 	private:
 		/** Process a normal (non-newline) character: track cursor position and advance the line width */
-		void process_character(uint32_t i, uint32_t cursor_pos, LineInfo & info, Dim & line_width);
+		void process_character(uint32_t i, uint32_t cursor_pos, LineInfo & info, Dim & line_width, const Size & char_size);
 
 		/** Finalize the current line when a newline character is found, and reset the running state for the next line */
 		void finalize_line_at_newline(uint32_t i, uint32_t cursor_pos, Font & font, Dim line_height,

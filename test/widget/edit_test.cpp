@@ -1350,13 +1350,19 @@ void Edit::test8()
 	UIManager::notifier()->play_script(script, "$(ui.tests)/out/edit9_%d.svg");
 }
 
+void Edit::test9()
+{
+
+}
 
 void Edit::test()
 {
 	static bool done = false;
 	if (done == false)
 	{
+		MemoryLeakLog
 		done = true;
+		test9();
 		test8();
 		test7();
 		test6();
