@@ -29,8 +29,9 @@ namespace berialdraw
 		/** Parse a raw text string with inline formatting tags.
 		@param raw_text  The text containing formatting tags
 		@param default_font  The default font used when no span overrides it
-		@param default_color  The default text color */
-		void parse(const String & raw_text, Font & default_font, uint32_t default_color);
+		@param default_color  The default text color
+		@param text_changed  If false, skip parsing (content hasn't changed). Default true. */
+		void parse(const String & raw_text, Font & default_font, uint32_t default_color, bool text_changed = true);
 
 		/** Get the clean text (without formatting tags) */
 		const String & clean_text() const;

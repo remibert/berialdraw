@@ -8,20 +8,29 @@ const String String::empty("");
 /** Compute the reserved size */
 void String::alloc(uint32_t change_size)
 {
-	uint32_t size = change_size+1;
-	uint32_t capacity = 0;
+	uint32_t size = change_size + 1;
+	uint32_t capacity = m_capacity;
 
-	// Compute the capacity length
-	if (size > 16)
+	// If size exceed the current capacity
+	if (size > m_capacity)
 	{
-		for(uint32_t i = 4; i < 32 && capacity < size; i++)
+		capacity = m_capacity > 0 ? m_capacity * 2 : 16;
+		
+		if (capacity < size)
 		{
-			capacity = (uint32_t)(1) << i;
+			capacity = size;
 		}
 	}
-	else
+	// Else if size smaller than current capacity
+	else if (size < m_capacity / 2 && m_capacity > 16)
 	{
-		capacity = 16;
+		// Compute the capacity length
+		capacity = std::max((uint32_t)16, m_capacity / 2);
+		
+		if (capacity < size)
+		{
+			capacity = size;
+		}
 	}
 
 	// If the capacity size must be changed
@@ -32,14 +41,18 @@ void String::alloc(uint32_t change_size)
 		// Copy existing string
 		if (m_string)
 		{
-			memcpy(string, m_string, m_size);
+			uint32_t bytes_to_copy = std::min(m_size, capacity - 1);
+			
+			memcpy(string, m_string, bytes_to_copy);
 			delete[] m_string;
+			
+			m_size = bytes_to_copy;
 		}
+		
 		m_string = string;
 		m_capacity = capacity;
-
 		// Add string terminator
-		m_string[m_capacity-1]   = '\0';
+		m_string[m_capacity - 1] = '\0';
 	}
 }
 
@@ -143,6 +156,7 @@ String& String::operator=(String&& other) noexcept
 		m_capacity = other.m_capacity;
 		m_size = other.m_size;
 		m_offset = other.m_offset;
+		invalidate_caches();
 		
 		other.m_string = nullptr;
 		other.m_capacity = 0;
@@ -168,6 +182,7 @@ void String::append(const char * string)
 		alloc(m_size + (uint32_t)strlen(string));
 		strcat(m_string, string);
 		m_size = (uint32_t)strlen(m_string);
+		invalidate_caches();
 	}
 }
 
@@ -186,6 +201,7 @@ char * String::tmp_alloc(uint32_t length)
 void String::tmp_dealloc(char * tmp, uint32_t length)
 {
 	m_size = length+m_size;
+	invalidate_caches();
 }
 
 void String::vprint(const char *format, va_list args)
@@ -214,7 +230,17 @@ uint32_t String::write_char(wchar_t character)
 {
 	int result = -1;
 	char buffer[10];
-	uint32_t length = Utf8::write(character, buffer, sizeof(buffer));
+
+	uint32_t length = 1;
+	if (character > 0x7F)
+	{
+		length = Utf8::write(character, buffer, sizeof(buffer));
+	}
+	else
+	{
+		buffer[0] = (char)character;
+		buffer[1] = 0;
+	}
 	if (length > 0)
 	{
 		append(buffer);
@@ -290,6 +316,7 @@ void String::remove(int32_t start, int32_t end)
 			}
 			memmove(&m_string[first], &m_string[last], length-last+1);
 			m_size = m_size - (last-first);
+			invalidate_caches();
 		}
 	}
 }
@@ -408,10 +435,34 @@ wchar_t String::offset(int32_t index, uint32_t & pos) const
 
 	if(index >= 0)
 	{
-		character = 'a';
-		for(int32_t i = 0; character != 0 && character != Utf8::not_a_char ; i++)
+		int32_t start_index = 0;
+
+		// Resume from the last resolved position instead of rescanning from the start,
+		// as long as we are moving forward (the string content is invalidated on any change)
+		if (m_offset_cache_index != UINT32_MAX && (int32_t)m_offset_cache_index <= index)
 		{
-			character = Utf8::read(&m_string[pos],char_width);
+			start_index = (int32_t)m_offset_cache_index;
+			pos = m_offset_cache_pos;
+		}
+		else
+		{
+			pos = 0;
+		}
+
+		character = 'a';
+		for(int32_t i = start_index; character != 0 && character != Utf8::not_a_char ; i++)
+		{
+			unsigned char raw = (unsigned char)m_string[pos];
+			if (raw < 0x80)
+			{
+				// Plain ASCII byte: skip the Utf8::read() call, it's always a single byte
+				character = raw;
+				char_width = 1;
+			}
+			else
+			{
+				character = Utf8::read(&m_string[pos],char_width);
+			}
 			if(index == i)
 			{
 				success = true;
@@ -421,6 +472,12 @@ wchar_t String::offset(int32_t index, uint32_t & pos) const
 			{
 				pos += char_width;
 			}
+		}
+
+		if (success)
+		{
+			m_offset_cache_index = (uint32_t)index;
+			m_offset_cache_pos = pos;
 		}
 	}
 
@@ -434,6 +491,14 @@ wchar_t String::offset(int32_t index, uint32_t & pos) const
 	}
 	return result;
 }
+
+/** Invalidate the caches used by offset() and count() (call whenever the string content changes) */
+void String::invalidate_caches()
+{
+	m_offset_cache_index = UINT32_MAX;
+	m_count_cache = UINT32_MAX;
+}
+
 
 // Insert character at position
 void String::insert(wchar_t character, int32_t index)
@@ -457,6 +522,7 @@ void String::insert(const char * string, int32_t index)
 			memmove(&m_string[pos+len], &m_string[pos], m_size-pos+1);
 			m_size += len;
 			memcpy(&m_string[pos], string, len);
+			invalidate_caches();
 		}
 	}
 }
@@ -480,6 +546,7 @@ void String::replace(wchar_t character, int32_t index)
 		memmove(&m_string[pos+new_len], &m_string[pos+old_len], m_size-pos-old_len+1);
 		m_size = m_size -old_len +new_len;
 		Utf8::write(character,&(m_string[pos]),new_len);
+		invalidate_caches();
 	}
 }
 
@@ -523,6 +590,7 @@ void String::remove(int32_t index)
 		uint32_t len = Utf8::length(character);
 		memmove(&m_string[pos], &m_string[pos+len], m_size-pos-len+1);
 		m_size -= len;
+		invalidate_caches();
 	}
 }
 
@@ -617,7 +685,11 @@ String & String::operator+=(wchar_t other)
 // Get the quantity of wide character into the string
 uint32_t String::count() const
 {
-	return Utf8::count(m_string);
+	if (m_count_cache == UINT32_MAX)
+	{
+		m_count_cache = Utf8::count(m_string);
+	}
+	return m_count_cache;
 }
 
 uint32_t String::size() const
@@ -632,6 +704,7 @@ void String::clear()
 	{
 		m_string[0] = 0;
 	}
+	invalidate_caches();
 }
 
 // Append wide char into the current string
@@ -1029,6 +1102,7 @@ String& String::lstrip(wchar_t character)
 	{
 		memmove(m_string, &m_string[pos], m_size - pos + 1);
 		m_size -= pos;
+		invalidate_caches();
 	}
 	
 	return *this;
@@ -1074,6 +1148,7 @@ String& String::rstrip(wchar_t character)
 	}
 	
 	m_string[m_size] = '\0';
+	invalidate_caches();
 	return *this;
 }
 

@@ -92,6 +92,7 @@ namespace berialdraw
 		Align m_text_align;
 		unsigned int m_font_modified:1;
 		unsigned int m_text_modified:1;
+		unsigned int m_edit_modified:1;
 /// @endcond 
 	};
 }

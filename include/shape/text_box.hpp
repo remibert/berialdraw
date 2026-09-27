@@ -31,8 +31,9 @@ namespace berialdraw
 		@return Size object representing the content size of the TextBox */
 		virtual Size content_size();
 
-		/** Parse the text to search each line, selection position and cursor position */
-		void parse(const Area & text_area, Font & font, String & text, uint32_t cursor_pos, uint32_t sel_start, uint32_t sel_end, Align text_align);
+		/** Parse the text to search each line, selection position and cursor position.
+		@param text_changed  If false, skip reparsing (text content hasn't changed). Default true. */
+		void parse(const Area & text_area, Font & font, String & text, uint32_t cursor_pos, uint32_t sel_start, uint32_t sel_end, Align text_align, bool text_changed = true);
 
 		/** Get the cursor position according to the click location */
 		uint32_t cursor_position(const Point & click_location, const Area & text_area, const Point & text_shift,  Font & font, const String & text, Align text_align);

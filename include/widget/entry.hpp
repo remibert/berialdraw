@@ -73,7 +73,7 @@ namespace berialdraw
 		void append_key(wchar_t character);
 
 		/** Trait the event on key down */
-		void on_key_down(wchar_t key, KeyEvent::Modifier modifier);
+		bool on_key_down(wchar_t key, KeyEvent::Modifier modifier);
 
 		/** Set input mask
 		@param mask :

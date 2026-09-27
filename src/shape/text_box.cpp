@@ -13,10 +13,11 @@ TextBox::~TextBox()
 }
 
 void TextBox::parse(const Area & text_area, Font & font, String & text, 
-	uint32_t cursor_pos, uint32_t sel_start, uint32_t sel_end, Align text_align)
+	uint32_t cursor_pos, uint32_t sel_start, uint32_t sel_end, Align text_align, bool text_changed)
 {
-	// Parse rich text formatting tags
-	m_rich_text.parse(text, font, 0);
+	// Parse rich text formatting tags (skip if text hasn't changed)
+	m_rich_text.parse(text, font, 0, text_changed);
+
 	const String & clean = m_rich_text.clean_text();
 	uint32_t count = clean.count();
 
@@ -45,6 +46,10 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 	// Parse all character to search new lines
 	for (i=0; i < count; i++)
 	{
+		if (i == 5000)
+		{
+			i = i;
+		}
 		character = clean.get(i);
 
 		// Update max line height with the font at this character position
@@ -96,6 +101,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		}
 	}
 
+	i = i;
 	finalize_trailing_line(i, cursor_pos, sel_start, sel_end, space_size, info, line_width, max_line_height, max_baseline);
 
 	apply_alignment(text_area, text_align, cursor_pos);
@@ -106,12 +112,13 @@ void TextBox::process_character(uint32_t i, uint32_t cursor_pos, LineInfo & info
 {
 	// Get the size of character using its specific font
 	Size char_size = m_rich_text.char_size_at(i);
-
+	
 	// Save the end of current line
 	info.line_end = i;
-
+	
 	if (cursor_pos != UINT32_MAX)
 	{
+	
 		// If the cursor in on the current character
 		if (i == cursor_pos)
 		{
@@ -121,7 +128,7 @@ void TextBox::process_character(uint32_t i, uint32_t cursor_pos, LineInfo & info
 			m_cursor_line = m_lines.size();
 		}
 	}
-
+	
 	// Increase the line width with character width
 	line_width += char_size.width_q6();
 }

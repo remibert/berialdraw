@@ -18,6 +18,7 @@ Edit::Edit(Widget * parent):
 	bind(this, &Edit::on_select);
 	bind(this, &Edit::on_click);
 	m_edited = 1;
+	m_edit_modified = 1;
 }
 
 Edit::~Edit()
@@ -109,7 +110,6 @@ Size Edit::content_size()
 
 		// Adapt the size of text according to its size specified
 		m_text_size.set_q6(char_size.width_q6() * m_max_columns, char_size.height_q6() * m_max_lines);
-		m_text_modified = 0;
 	}
 
 	result = m_text_size;
@@ -200,7 +200,11 @@ void Edit::paint(const Region & parent_region)
 
 		if (m_font.get())
 		{
-			m_text_box.parse(m_text_foreclip, *m_font, display, m_cursor_position, m_selection_start, m_selection_end, m_text_align);
+			m_text_box.parse(m_text_foreclip, *m_font, display, m_cursor_position, m_selection_start, m_selection_end, m_text_align, m_edit_modified);
+
+			// Reset text modified flag after layout is computed
+			m_edit_modified = 0;
+			m_text_modified = 0;
 		}
 		
 		paint_background(m_foreclip, *(CommonStyle*)this, *(BorderStyle*)this);
@@ -255,8 +259,7 @@ void Edit::on_key(Widget * widget, const KeyEvent & evt)
 		{
 			if (!(evt.key() == (wchar_t)ReservedKey::KEY_ENTER && m_max_lines <= 1))
 			{
-				on_key_down(evt.key(), evt.modifier());
-				m_text_modified = 1;
+				m_edit_modified = on_key_down(evt.key(), evt.modifier()) ? 1 : 0;
 				UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 			}
 		}

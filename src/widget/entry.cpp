@@ -754,20 +754,24 @@ void Entry::entry_align(Align align)
 	m_entry_align = align;
 }
 
-void Entry::on_key_down(wchar_t key, KeyEvent::Modifier modifier)
+bool Entry::on_key_down(wchar_t key, KeyEvent::Modifier modifier)
 {
 	bool accept = true;
+	bool result = false;
 	if (m_input)
 	{
 		switch(key)
 		{
 		case (wchar_t)ReservedKey::KEY_TABULATION  :
+			result = true;
 			break;
 
 		case (wchar_t)ReservedKey::KEY_SHIFT      :
+			result = true;
 			break;
 
 		case (wchar_t)ReservedKey::KEY_ENTER      :
+			result = true;
 			append_key((wchar_t)ReservedKey::KEY_ENTER);
 			break;
 
@@ -799,6 +803,7 @@ void Entry::on_key_down(wchar_t key, KeyEvent::Modifier modifier)
 			break;
 
 		case (wchar_t)ReservedKey::KEY_DELETE    :
+			result = true;
 			// If a validator existing
 			if (m_mask)
 			{
@@ -825,6 +830,7 @@ void Entry::on_key_down(wchar_t key, KeyEvent::Modifier modifier)
 			break;
 
 		case (wchar_t)ReservedKey::KEY_BACKSPACE  :
+			result = true;
 			// If a validator existing
 			if (m_mask)
 			{
@@ -851,6 +857,7 @@ void Entry::on_key_down(wchar_t key, KeyEvent::Modifier modifier)
 			break;
 
 		case (wchar_t)ReservedKey::KEY_CTRL_X:
+			result = true;
 			// Cut: Ctrl+X
 			{
 				// Get selected text
@@ -891,6 +898,7 @@ void Entry::on_key_down(wchar_t key, KeyEvent::Modifier modifier)
 			break;
 
 		case (wchar_t)ReservedKey::KEY_CTRL_V:
+			result = true;
 			// Paste: Ctrl+V
 			{
 				// Get text from clipboard
@@ -911,6 +919,7 @@ void Entry::on_key_down(wchar_t key, KeyEvent::Modifier modifier)
 			break;
 
 		default:
+			result = true;
 			// If a validator existing
 			if (m_mask)
 			{
@@ -967,6 +976,7 @@ void Entry::on_key_down(wchar_t key, KeyEvent::Modifier modifier)
 			break;
 		}
 	}
+	return result;
 }
 
 

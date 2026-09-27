@@ -326,6 +326,9 @@ namespace berialdraw
 		@return Wide character at specified index */
 		wchar_t offset(int32_t index, uint32_t & pos) const;
 
+		/** Invalidate the caches used by offset() and count() (call whenever the string content changes) */
+		void invalidate_caches();
+
 		/** Allocate string with size
 		@param change_size Size to allocate */
 		void alloc(uint32_t change_size);
@@ -334,6 +337,13 @@ namespace berialdraw
 		uint32_t m_capacity = 0; /**< Capacity in bytes reserved for string */
 		uint32_t m_size = 0;     /**< Size in bytes of the string buffer */
 		uint32_t m_offset = 0;   /**< Read or write offset in bytes into the string buffer */
+
+		/** Character index resolved by the last offset() call, UINT32_MAX if the cache is invalid */
+		mutable uint32_t m_offset_cache_index = UINT32_MAX;
+		/** Byte position in m_string corresponding to m_offset_cache_index */
+		mutable uint32_t m_offset_cache_pos = 0;
+		/** Cached wide character count, UINT32_MAX if the cache is invalid */
+		mutable uint32_t m_count_cache = UINT32_MAX;
 /// @endcond
 	};
 }

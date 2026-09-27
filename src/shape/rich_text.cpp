@@ -3,8 +3,14 @@
 using namespace berialdraw;
 
 /** Parse a raw text string with inline formatting tags */
-void RichText::parse(const String & raw_text, Font & default_font, uint32_t default_color)
+void RichText::parse(const String & raw_text, Font & default_font, uint32_t default_color, bool text_changed)
 {
+	// Skip parsing if text hasn't changed
+	if (!text_changed)
+	{
+		return;
+	}
+	
 	m_clean_text = "";
 	m_spans.clear();
 	m_raw_to_clean.clear();
@@ -28,7 +34,6 @@ void RichText::parse(const String & raw_text, Font & default_font, uint32_t defa
 		while (i < raw_count)
 		{
 			wchar_t ch = raw_text.get(i);
-
 			// Check for $ character (tag delimiter)
 			if (ch == L'$' && i + 1 < raw_count)
 			{

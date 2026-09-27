@@ -28,8 +28,15 @@ Glyph* Glyphs::search(wchar_t character, Coord angle)
 	Glyph* result = 0;
 
 	angle %= 23040;
-	
-	for (uint32_t i=0; i < m_glyphs.size(); i++)
+
+	// Carriage return or tab is transformed into space
+	if (character < 0x20)
+	{
+		character = 0x20;
+	}
+
+	uint32_t size = m_glyphs.size();
+	for (uint32_t i=0; i < size; i++)
 	{
 		Glyph * glyph = m_glyphs[i];
 		if (glyph)
@@ -47,13 +54,14 @@ Glyph* Glyphs::search(wchar_t character, Coord angle)
 Glyph* Glyphs::load(wchar_t character, Coord angle)
 {
 	// Search glyph
-	Glyph* result = search(character, angle%23040);
+	Glyph* result = search(character, angle);
 	if (result == 0)
 	{
 		// If the glyph loaded is too high
 		if (m_glyphs.size() > 128)
 		{
 			delete m_glyphs[0];
+			m_glyphs[0] = nullptr;  
 
 			// Remove the older glyph
 			m_glyphs.remove(0);
