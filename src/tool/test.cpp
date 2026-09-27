@@ -15,6 +15,8 @@ namespace berialdraw
 
 #if defined(_DEBUG) && defined(ALL_TESTS)
 		List::test();
+		Edit::test();
+		Label::test();
 
 		// Widget
 		Button::test();

@@ -8,40 +8,39 @@ namespace berialdraw
 		/** Create dialog */
 		MenuDialog();
 
-		/** Add choice in menu */
-		Button * add_choice(const String & text);
-
-		/** Create button in menu */
-		Button * create_button(const String & text);
+		/** Create item in menu */
+		ListItem * create_menu(const String & text, const String & icon_filename = "");
 
 		/** Bind event on a method */
-		template<class CLASS, class EVENT> Button* bind(const String & text, CLASS * object, void (CLASS::*method)(Widget * , const EVENT & ))
+		template<class CLASS, class EVENT> ListItem* bind(const String& text, const String& icon_filename,
+			CLASS* object, void (CLASS::* method)(Widget*, const EVENT&))
 		{
-			Button * result = 0;
+			ListItem* result = 0;
 			if (object && method)
 			{
-				result = create_button(text);
-				UIManager::notifier()->bind(new MethodCaller<CLASS,EVENT>(object, method, result));            // Binds the click event to the `on_menu_click` handler
+				result = create_menu(text, icon_filename);
+				UIManager::notifier()->bind(new MethodCaller<CLASS, EVENT>(object, method, result));            // Binds the click event to the `on_menu_click` handler
 			}
 			return result;
 		}
 
 		/** Bind event on a function */
-		template<class EVENT> Button* bind(const String & text, void (*function)(Widget *, const EVENT &))
+		template<class EVENT> ListItem* bind(const String& text, const String& icon_filename, void (*function)(Widget*, const EVENT&))
 		{
-			Button * result = 0;
+			ListItem* result = 0;
 			if (function)
 			{
-				result = create_button(text);
+				result = create_menu(text, icon_filename);
 				UIManager::notifier()->bind(new FunctionCaller<EVENT>(function, result));            // Binds the click event to the `on_menu_click` handler
 			}
 			return result;
 		}
 
+
 	protected:
 		/** Callback on click on menu item */
 		void on_menu_click(Widget * widget, const ClickEvent & evt);
 
-		Column * m_column = 0;
+		List* m_list = 0;
 	};
 }
