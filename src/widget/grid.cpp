@@ -15,7 +15,7 @@ Grid::~Grid()
 /** Serialize the content of widget into json */
 void Grid::serialize(JsonIterator& it)
 {
-	it["type"] = m_classname;
+	it[StyleNames::WIDGET_TYPE] = m_classname;
 	CommonStyle::serialize(it);
 	WidgetStyle::serialize(it);
 	Widget::serialize(it);

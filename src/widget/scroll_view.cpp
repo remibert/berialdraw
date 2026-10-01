@@ -31,7 +31,7 @@ void ScrollView::copy(const ScrollView* scroll_view)
 /** Serialize the content of widget into json */
 void ScrollView::serialize(JsonIterator & it)
 {
-	it["type"] = m_classname;
+	it[StyleNames::WIDGET_TYPE] = m_classname;
 	ScrollableContent::serialize(it);
 }
 

@@ -28,7 +28,7 @@ void CommonStyle::serialize(JsonIterator & it)
 	it[StyleNames::COMMON_SATURATION]   = m_saturation;
 	it[StyleNames::COMMON_HIDDEN] = m_hidden;
 
-	it[StyleNames::COMMON_ANGLE]       = m_angle;
+	it[q6(StyleNames::COMMON_ANGLE)]   = m_angle;
 	m_center.serialize(StyleNames::COMMON_CENTER,it);
 	berialdraw::serialize(it, m_borders);
 }
@@ -40,7 +40,7 @@ void CommonStyle::unserialize(JsonIterator & it)
 	m_size.unserialize(StyleNames::COMMON_SIZE,it);
 	m_margin.unserialize(StyleNames::COMMON_MARGIN,it);
 
-	m_angle       = (int)(it[StyleNames::COMMON_ANGLE]       | (int)m_angle);
+	m_angle       = (int)(it[q6(StyleNames::COMMON_ANGLE)]   | (int)m_angle);
 	m_color       = (int)(it[StyleNames::COMMON_COLOR]        | (int)m_color);
 
 	m_light       = (int)(it[StyleNames::COMMON_LIGHT]        | (int)m_light);

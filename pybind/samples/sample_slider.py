@@ -23,10 +23,10 @@ class SampleSlider(Dialog):
 
 		slider = Slider(horizontal)                           # Creates another horizontal slider
 		slider.id = self._next_id()
-		slider.track_size_ = 20                               # Sets the thickness of the slider track
-		slider.handle_size_ = 16                              # Sets the size of the slider handle
+		slider.track_size = 20                                # Sets the thickness of the slider track
+		slider.handle_size = 16                               # Sets the size of the slider handle
 		slider.track_color = Color.SUCCESS_COLOR              # Sets the track color to a success color
-		slider.radius_ = 0                                    # Sets the slider corners to sharp edges
+		slider.radius = 0                                     # Sets the slider corners to sharp edges
 		slider.on_slide = self._on_slide_event                # Binds the slider to an event handler
 		slider.margin = 10                                    # Adds margin around the slider
 
@@ -44,12 +44,12 @@ class SampleSlider(Dialog):
 
 		slider = Slider(vertical)                             # Creates another vertical slider
 		slider.extend = Extend.EXTEND_HEIGHT                  # Allows the slider to extend vertically
-		slider.track_size_ = 30                               # Sets the thickness of the slider track
-		slider.handle_size_ = 26                              # Sets the size of the slider handle
+		slider.track_size = 30                                # Sets the thickness of the slider track
+		slider.handle_size = 26                               # Sets the size of the slider handle
 		slider.track_color = Color.SUCCESS_COLOR              # Sets the track color to a success color
 		slider.id = self._next_id()
 		slider.margin = 10                                    # Adds margin around the slider
-		slider.radius_ = 100                                  # Sets the slider corners to rounded edges
+		slider.radius = 100                                   # Sets the slider corners to rounded edges
 		slider.on_slide = self._on_slide_event                # Binds the slider to an event handler
 
 		self.label = Label(main_layout)                       # Creates a label for displaying the slider value

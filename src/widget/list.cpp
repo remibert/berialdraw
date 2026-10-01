@@ -307,7 +307,7 @@ void List::copy(const List* list)
 /** Serialize the content of widget into json */
 void List::serialize(JsonIterator & it)
 {
-	it["type"] = m_classname;
+	it[StyleNames::WIDGET_TYPE] = m_classname;
 	ScrollableContent::serialize(it);
 	ListStyle::serialize(it);
 }

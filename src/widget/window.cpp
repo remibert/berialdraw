@@ -50,7 +50,7 @@ void Window::copy(const Window * window)
 /** Serialize the content of widget into json */
 void Window::serialize(JsonIterator& it)
 {
-	it["type"] = m_classname;
+	it[StyleNames::WIDGET_TYPE] = m_classname;
 	CommonStyle::serialize(it);
 	WidgetStyle::serialize(it);
 	Widget::serialize(it);

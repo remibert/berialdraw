@@ -7,10 +7,12 @@ void bind_line_style(py::module& m) {
     bind_point_property(cls, berialdraw::StyleNames::LINE_POINT1,
         &berialdraw::LineStyle::point1,
         static_cast<void (berialdraw::LineStyle::*)(berialdraw::Coord, berialdraw::Coord)>(&berialdraw::LineStyle::point1),
+        &berialdraw::LineStyle::point1_q6,
         "Point1 as (x, y) tuple with automatic precision");
 
     bind_point_property(cls, berialdraw::StyleNames::LINE_POINT2,
         &berialdraw::LineStyle::point2,
         static_cast<void (berialdraw::LineStyle::*)(berialdraw::Coord, berialdraw::Coord)>(&berialdraw::LineStyle::point2),
+        &berialdraw::LineStyle::point2_q6,
         "Point2 as (x, y) tuple with automatic precision");
 }

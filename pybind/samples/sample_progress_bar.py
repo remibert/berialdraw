@@ -27,16 +27,16 @@ class SampleProgressBar(Dialog):
 
 		progress_bar = ProgressBar(horizontal)                # Creates another horizontal progress bar
 		progress_bar.id = self._next_id()
-		progress_bar.track_size_ = 3                          # Sets the track thickness to 3
-		progress_bar.fill_size_ = 20                          # Sets the fill thickness to 20
+		progress_bar.track_size = 3                           # Sets the track thickness to 3
+		progress_bar.fill_size = 20                           # Sets the fill thickness to 20
 		progress_bar.fill_color = Color.SUCCESS_COLOR         # Sets the fill color to a success color
 		progress_bar.value = 33
 
 		progress_bar = ProgressBar(horizontal)                # Creates another horizontal progress bar
 		progress_bar.id = self._next_id()
 		progress_bar.align = Align.ALIGN_RIGHT                # Aligns the progress bar to the right
-		progress_bar.track_size_ = 3                          # Sets the track thickness to 3
-		progress_bar.fill_size_ = 20                          # Sets the fill thickness to 20
+		progress_bar.track_size = 3                           # Sets the track thickness to 3
+		progress_bar.fill_size = 20                           # Sets the fill thickness to 20
 		progress_bar.fill_color = Color.ERROR_COLOR           # Sets the fill color to an error color
 		progress_bar.value = 33
 
@@ -60,8 +60,8 @@ class SampleProgressBar(Dialog):
 
 		progress_bar = ProgressBar(vertical)                  # Creates another vertical progress bar
 		progress_bar.extend = Extend.EXTEND_HEIGHT            # Allows the progress bar to extend vertically
-		progress_bar.track_size_ = 3                          # Sets the track thickness to 3
-		progress_bar.fill_size_ = 20                          # Sets the fill thickness to 20
+		progress_bar.track_size = 3                           # Sets the track thickness to 3
+		progress_bar.fill_size = 20                           # Sets the fill thickness to 20
 		progress_bar.fill_color = Color.SUCCESS_COLOR         # Sets the fill color to a success color
 		progress_bar.align = Align.ALIGN_BOTTOM               # Aligns the progress bar to the bottom
 		progress_bar.id = self._next_id()
@@ -70,8 +70,8 @@ class SampleProgressBar(Dialog):
 		progress_bar = ProgressBar(vertical)                  # Creates another vertical progress bar
 		progress_bar.extend = Extend.EXTEND_HEIGHT            # Allows the progress bar to extend vertically
 		progress_bar.align = Align.ALIGN_TOP                  # Aligns the progress bar to the top
-		progress_bar.track_size_ = 3                          # Sets the track thickness to 3
-		progress_bar.fill_size_ = 20                          # Sets the fill thickness to 20
+		progress_bar.track_size = 3                           # Sets the track thickness to 3
+		progress_bar.fill_size = 20                           # Sets the fill thickness to 20
 		progress_bar.id = self._next_id()
 		progress_bar.fill_color = Color.ERROR_COLOR           # Sets the fill color to an error color
 		progress_bar.value = 33

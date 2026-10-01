@@ -51,19 +51,19 @@ void Point::diff(const Point & position)
 
 void Point::serialize(const char * name, JsonIterator & it) const
 {
-	it[name]["x_"] = m_x;
-	it[name]["y_"] = m_y;
+	it[name][q6(StyleNames::POINT_X)] = m_x;
+	it[name][q6(StyleNames::POINT_Y)] = m_y;
 }
 
 void Point::unserialize(const char * name, JsonIterator & it)
 {
 	JsonIterator field = it[name];
 	Dim x = m_x;
-	m_x_undefined = berialdraw::unserialize("x_",field,x);
+	m_x_undefined = berialdraw::unserialize(q6(StyleNames::POINT_X),field,x);
 	m_x = x;
 
 	Dim y = m_y;
-	m_y_undefined = berialdraw::unserialize("y_",field,y);
+	m_y_undefined = berialdraw::unserialize(q6(StyleNames::POINT_Y),field,y);
 	m_y = y;
 }
 

@@ -15,27 +15,30 @@ ItemString::~ItemString()
 {
 }
 
-void ItemString::serialize(TextStream & out, int32_t indent)
+// Write a json string, optionally dropping the precision suffix of a key
+static void write_json_string(String & value, TextStream & out, bool strip_q6_suffix)
 {
-	uint32_t length = m_value.count();
-	uint32_t offset = 0;
+	uint32_t length = value.count();
+	const size_t suffix_len = sizeof(Q6_SUFFIX) - 1;
+	const char * raw = value.c_str();
+	size_t raw_len = raw ? strlen(raw) : 0;
+
+	// Suffix characters are not written
+	if (strip_q6_suffix && raw_len >= suffix_len && strcmp(raw + raw_len - suffix_len, Q6_SUFFIX) == 0)
+	{
+		length -= (uint32_t)suffix_len;
+	}
+
 	out.write_string("\"");
 
-	m_value.offset(0);
-	wchar_t character = m_value.read_char();
-	
+	value.offset(0);
+	wchar_t character = value.read_char();
+
 	for (uint32_t i = 0; i < length; i++)
 	{
 		if ((unsigned char) character >= ' ' && character != '\"' && character != '\\')
 		{
-			if (i == length-1 && character == '_')
-			{
-				// Ignore
-			}
-			else
-			{
-				out.write_char(character);
-			}
+			out.write_char(character);
 		}
 		else
 		{
@@ -50,18 +53,30 @@ void ItemString::serialize(TextStream & out, int32_t indent)
 			case '\t' : out.write_string("\\t" ); break;
 			default:
 				{
-					unsigned char value = (unsigned char)character;
+					unsigned char code = (unsigned char)character;
 					static const char tohex[] = "0123456789ABCDEF";
 
 					out.write_string("\\x");
-					out.write_char(tohex[(value >> 4)]);
-					out.write_char(tohex[(value & 0x0F)]);
+					out.write_char(tohex[(code >> 4)]);
+					out.write_char(tohex[(code & 0x0F)]);
 				}
 			}
 		}
-		character = m_value.read_char();
+		character = value.read_char();
 	}
 	out.write_string("\"");
+}
+
+// Serialize to json
+void ItemString::serialize(TextStream & out, int32_t indent)
+{
+	write_json_string(m_value, out, false);
+}
+
+// Serialize as a json key, without the precision suffix
+void ItemString::serialize_key(TextStream & out)
+{
+	write_json_string(m_value, out, true);
 }
 
 /** Unserialize from json */
@@ -319,46 +334,42 @@ bool ItemString::is_null() const
 	return false;
 }
 
-// Compare if equal string buffer
-bool ItemString::compare(const char * other, char last_char_ignored, bool & accurate) const
+// Compare keys, ignoring a trailing suffix and the difference between '-' and '_'
+bool ItemString::compare(const char * other, const char * ignored_suffix, bool & accurate) const
 {
 	bool result = false;
 	const char * string = m_value.c_str();
 
 	if(string && other)
 	{
-		while (*string != 0 && 
-			 ((*string == *other) || 
-			  (*string == '-' && *other == '_') || // Ignore the difference between '-' and '_' in the key
-			  (*string == '_' && *other == '-')))
+		const size_t suffix_len = strlen(ignored_suffix);
+		size_t string_len = strlen(string);
+		size_t other_len = strlen(other);
+		bool string_suffix = string_len >= suffix_len && strcmp(string + string_len - suffix_len, ignored_suffix) == 0;
+		bool other_suffix = other_len >= suffix_len && strcmp(other + other_len - suffix_len, ignored_suffix) == 0;
+
+		if (string_suffix)
 		{
-			string++;
-			other++;
+			string_len -= suffix_len;
+		}
+		if (other_suffix)
+		{
+			other_len -= suffix_len;
 		}
 
-		// If the key is equal
-		if (*string == 0 && *other == 0)
+		if (string_len == other_len)
 		{
-			accurate = false;
-			result = true;
-		}
-		// If the last charactere in key must be ignored
-		else if (*string == 0 && *other == last_char_ignored)
-		{
-			other ++;
-			if (*other == 0)
+			size_t i = 0;
+			while (i < string_len &&
+				((string[i] == other[i]) ||
+				 (string[i] == '-' && other[i] == '_') ||
+				 (string[i] == '_' && other[i] == '-')))
 			{
-				accurate = true;
-				result = true;
+				i++;
 			}
-		}
-		// If the last charactere in key must be ignored
-		else if (*other == 0 && *string == last_char_ignored)
-		{
-			string ++;
-			if (*string == 0)
+			if (i == string_len)
 			{
-				accurate = false;
+				accurate = other_suffix && !string_suffix;
 				result = true;
 			}
 		}

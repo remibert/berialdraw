@@ -11,8 +11,8 @@ CheckboxStyle::CheckboxStyle()
 void CheckboxStyle::serialize(JsonIterator & it)
 {
 	m_checkbox_size.serialize(StyleNames::CHECKBOX_SIZE, it);
-	it[StyleNames::CHECKBOX_PADDING]      = m_check_padding >> 6;
-	it[StyleNames::CHECKBOX_TEXT_PADDING] = m_text_padding >> 6;
+	it[q6(StyleNames::CHECKBOX_PADDING)]      = m_check_padding >> 6;
+	it[q6(StyleNames::CHECKBOX_TEXT_PADDING)] = m_text_padding >> 6;
 	it[StyleNames::CHECKBOX_COLOR]        = m_check_color;
 	it[StyleNames::CHECKBOX_SKETCH]       = m_check_sketch.c_str();
 }
@@ -21,8 +21,8 @@ void CheckboxStyle::serialize(JsonIterator & it)
 void CheckboxStyle::unserialize(JsonIterator & it)
 {
 	m_checkbox_size.unserialize(StyleNames::CHECKBOX_SIZE, it);
-	berialdraw::unserialize(StyleNames::CHECKBOX_PADDING, it, m_check_padding);
-	berialdraw::unserialize(StyleNames::CHECKBOX_TEXT_PADDING, it, m_text_padding);
+	berialdraw::unserialize(q6(StyleNames::CHECKBOX_PADDING), it, m_check_padding);
+	berialdraw::unserialize(q6(StyleNames::CHECKBOX_TEXT_PADDING), it, m_text_padding);
 	m_check_color = (int)(it[StyleNames::CHECKBOX_COLOR] | (int)m_check_color);
 	m_check_sketch = it[StyleNames::CHECKBOX_SKETCH] | m_check_sketch.c_str();
 }

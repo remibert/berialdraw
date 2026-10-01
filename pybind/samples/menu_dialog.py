@@ -12,7 +12,7 @@ class MenuDialog(Dialog):
 		self.list.size_policy = SizePolicy.ENLARGE_ALL
 		self.list.focusable = True
 		self.list.margin = 0
-		self.list.thickness_ = 0
+		self.list.thickness = 0
 
 	def _on_menu_click(self, widget, event):
 		if isinstance(widget, ListItem):

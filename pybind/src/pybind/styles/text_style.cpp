@@ -12,7 +12,8 @@ void bind_text_style(pybind11::module_& m) {
     bind_size_property(cls, berialdraw::StyleNames::TEXT_FONT_SIZE,
         &berialdraw::TextStyle::font_size,
         static_cast<void (berialdraw::TextStyle::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::TextStyle::font_size),
-        "Font size: int (same w/h) or (width, height)");
+        &berialdraw::TextStyle::font_size_q6,
+        "Font size: int/float (same w/h) or (width, height); float for high precision");
 
     cls.def_property(berialdraw::StyleNames::TEXT_CONTENT,
         [](berialdraw::TextStyle& self) -> std::string { return std::string(self.text().c_str()); },
@@ -20,6 +21,7 @@ void bind_text_style(pybind11::module_& m) {
     bind_color_property(cls, berialdraw::StyleNames::TEXT_COLOR,
         &berialdraw::TextStyle::text_color,
         static_cast<void (berialdraw::TextStyle::*)(uint32_t)>(&berialdraw::TextStyle::text_color),
+        static_cast<void (berialdraw::TextStyle::*)(uint32_t, uint8_t)>(&berialdraw::TextStyle::text_color),
         "Text color");
     cls.def_property(berialdraw::StyleNames::TEXT_ALIGN,
         [](berialdraw::TextStyle& self) -> berialdraw::Align { return self.text_align(); },

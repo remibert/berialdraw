@@ -17,9 +17,9 @@ void bind_size(py::module& m) {
         .def("set", &berialdraw::Size::set,
              py::arg("w"), py::arg("h"),
              "Set size with width and height in pixels")
-        .def("set_", &berialdraw::Size::set_q6,
+        .def("set", [](berialdraw::Size& self, double w, double h) { self.set_q6(to_q6(w), to_q6(h)); },
              py::arg("w"), py::arg("h"),
-             "Set size with a precision of 64th of a pixel")
+             "Set size with float values (high precision)")
         .def("middle", &berialdraw::Size::middle,
              "Get the middle of size")
         .def("decrease", py::overload_cast<const berialdraw::Margin&>(&berialdraw::Size::decrease),
@@ -40,12 +40,12 @@ void bind_size(py::module& m) {
         .def("increase", py::overload_cast<berialdraw::Dim, berialdraw::Dim>(&berialdraw::Size::increase),
              py::arg("w"), py::arg("h"),
              "Increase size with width and height in pixels")
-        .def("decrease_", &berialdraw::Size::decrease_q6,
+        .def("decrease", [](berialdraw::Size& self, double w, double h) { self.decrease_q6(to_q6(w), to_q6(h)); },
              py::arg("w"), py::arg("h"),
-             "Decrease size with a precision of 64th of a pixel")
-        .def("increase_", &berialdraw::Size::increase_q6,
+             "Decrease size with float values (high precision)")
+        .def("increase", [](berialdraw::Size& self, double w, double h) { self.increase_q6(to_q6(w), to_q6(h)); },
              py::arg("w"), py::arg("h"),
-             "Increase size with a precision of 64th of a pixel")
+             "Increase size with float values (high precision)")
         .def("nearest_pixel", &berialdraw::Size::nearest_pixel,
              "Resizes itself on the nearest pixel")
         .def("is_width_undefined", &berialdraw::Size::is_width_undefined,

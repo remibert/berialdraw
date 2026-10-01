@@ -40,7 +40,7 @@ void ItemObject::serialize(TextStream & out, int32_t indent)
 			}
 
 			// Serialize key
-			key->serialize(out, index);
+			key->serialize_key(out);
 
 			// If indentation
 			if (indent >= 0)
@@ -177,7 +177,7 @@ void ItemObject::set(const char * key, Item * value)
 		bool accurate = false;
 		for (int index = 0; index < (int)m_keys.size(); index++)
 		{
-			if (m_keys[index]->compare(key, '_', accurate))
+			if (m_keys[index]->compare(key, Q6_SUFFIX, accurate))
 			{
 				delete m_values[index];
 				m_values[index] = value;
@@ -225,7 +225,7 @@ bool ItemObject::remove(const char * key)
 	bool accurate = false;
 	for (int32_t index = 0; index < (int)m_keys.size(); index++)
 	{
-		if (m_keys[index]->compare(key, '_', accurate))
+		if (m_keys[index]->compare(key, Q6_SUFFIX, accurate))
 		{
 			result = remove(index);
 			break;
@@ -263,7 +263,7 @@ Item * ItemObject::operator[](const char * key)
 	bool accurate;
 	for (int index = 0; index < (int)m_keys.size(); index++)
 	{
-		if (m_keys[index]->compare(key, '_', accurate))
+		if (m_keys[index]->compare(key, Q6_SUFFIX, accurate))
 		{
 			result = m_values[index];
 			break;
@@ -279,7 +279,7 @@ const Item * ItemObject::operator[](const char * key) const
 	bool accurate;
 	for (int index = 0; index < (int)m_keys.size(); index++)
 	{
-		if (m_keys[index]->compare(key, '_', accurate))
+		if (m_keys[index]->compare(key, Q6_SUFFIX, accurate))
 		{
 			result = m_values[index];
 			break;

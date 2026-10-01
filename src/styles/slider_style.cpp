@@ -13,8 +13,8 @@ void SliderStyle::serialize(JsonIterator & it)
 	it[StyleNames::SLIDER_TRACK_COLOR]  = m_track_color;
 	it[StyleNames::SLIDER_HANDLE_COLOR] = m_handle_color;
 
-	berialdraw::unserialize(StyleNames::SLIDER_TRACK_SIZE, it, m_track_size);
-	berialdraw::unserialize(StyleNames::SLIDER_HANDLE_SIZE, it, m_handle_size);
+	berialdraw::unserialize(q6(StyleNames::SLIDER_TRACK_SIZE), it, m_track_size);
+	berialdraw::unserialize(q6(StyleNames::SLIDER_HANDLE_SIZE), it, m_handle_size);
 
 	it[StyleNames::RANGE_VALUE]        = (int)m_value;
 	it[StyleNames::RANGE_MIN_VALUE]    = (int)m_min_value;
@@ -27,8 +27,8 @@ void SliderStyle::unserialize(JsonIterator & it)
 {
 	m_track_color   = (int)(it[StyleNames::SLIDER_TRACK_COLOR]  | (int)m_track_color);
 	m_handle_color  = (int)(it[StyleNames::SLIDER_HANDLE_COLOR] | (int)m_handle_color);
-	m_track_size    = (int)(it[StyleNames::SLIDER_TRACK_SIZE]  | (int)m_track_size);
-	m_handle_size   = (int)(it[StyleNames::SLIDER_HANDLE_SIZE] | (int)m_handle_size);
+	m_track_size    = (int)(it[q6(StyleNames::SLIDER_TRACK_SIZE)]  | (int)m_track_size);
+	m_handle_size   = (int)(it[q6(StyleNames::SLIDER_HANDLE_SIZE)] | (int)m_handle_size);
 	m_value         = (int)(it[StyleNames::RANGE_VALUE]        | (int)m_value);
 	m_min_value     = (int)(it[StyleNames::RANGE_MIN_VALUE]    | (int)m_min_value);
 	m_max_value     = (int)(it[StyleNames::RANGE_MAX_VALUE]    | (int)m_max_value);

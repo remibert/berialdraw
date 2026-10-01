@@ -46,7 +46,7 @@ void Keyboard::copy(const Keyboard * keyboard)
 /** Serialize the content of widget into json */
 void Keyboard::serialize(JsonIterator& it)
 {
-	it["type"] = m_classname;
+	it[StyleNames::WIDGET_TYPE] = m_classname;
 	CommonStyle::serialize(it);
 	WidgetStyle::serialize(it);
 	TextStyle::serialize(it);

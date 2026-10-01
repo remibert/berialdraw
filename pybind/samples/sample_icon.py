@@ -27,13 +27,13 @@ class SampleIcon(Dialog):
 		icon = Icon(self.row)                                 # Adds a rounded icon to the content row
 		icon.filename = "$(ui.icons)/computer.icn"            # Sets the filename for the icon image
 		icon.text = "Rounded"                                 # Sets the icon's text
-		icon.radius_ = 1000                                   # Sets a large radius for a fully rounded shape
+		icon.radius = 1000                                    # Sets a large radius for a fully rounded shape
 		icon.on_click = self._on_icon_clicked                 # Binds the click event to the handler
 
 		icon = Icon(self.row)                                 # Adds a square icon to the content row
 		icon.filename = "$(ui.icons)/computer.icn"            # Sets the filename for the icon image
 		icon.text = "Square"                                  # Sets the icon's text
-		icon.radius_ = 0                                      # Sets the radius to 0 for sharp edges
+		icon.radius = 0                                       # Sets the radius to 0 for sharp edges
 		icon.on_click = self._on_icon_clicked                 # Binds the click event to the handler
 
 		icon = Icon(self.row)                                 # Adds another icon to the content row

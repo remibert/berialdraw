@@ -1047,8 +1047,8 @@ void Json::test21()
 		Json json;
 		String out;
 		JsonIterator win(json);
-		win["position"]["x_"] = 12345;
-		win["position"]["y_"] = -34456;
+		win["position"]["x_q6"] = 12345;
+		win["position"]["y_q6"] = -34456;
 		win["position"]["z"] = 789;
 		win["position"]["w"] = -555;
 		json.serialize(out);
@@ -1061,10 +1061,10 @@ void Json::test21()
 		json.unserialize("{\"position\":{\"x\":192.89,\"y\":-538.38,\"z\":789,\"w\":-555}}");
 		JsonIterator win(json);
 
-		int x = win["position"]["x_"];
-		int y = win["position"]["y_"];
-		int z = win["position"]["z_"];
-		int w = win["position"]["w_"];
+		int x = win["position"]["x_q6"];
+		int y = win["position"]["y_q6"];
+		int z = win["position"]["z_q6"];
+		int w = win["position"]["w_q6"];
 		assert(x == 12344 && y ==-34456 && z == 50496 && w == -35520);
 		
 		x = win["position"]["x"];

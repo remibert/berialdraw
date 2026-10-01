@@ -54,9 +54,17 @@ void bind_icon_style(pybind11::module_& m) {
         },
         "Icon filename");
 
+    // icon_frame_size property
+    bind_size_property(cls, berialdraw::StyleNames::ICON_FRAME_SIZE,
+        &berialdraw::IconStyle::icon_frame_size,
+        static_cast<void (berialdraw::IconStyle::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::IconStyle::icon_frame_size),
+        &berialdraw::IconStyle::icon_frame_size_q6,
+        "Icon frame size: int/float (square) or (width, height); float for high precision");
+
     // icon_color property
     bind_color_property(cls, berialdraw::StyleNames::ICON_COLOR,
         &berialdraw::IconStyle::icon_color,
         static_cast<void (berialdraw::IconStyle::*)(uint32_t)>(&berialdraw::IconStyle::icon_color),
+        static_cast<void (berialdraw::IconStyle::*)(uint32_t, uint8_t)>(&berialdraw::IconStyle::icon_color),
         "Icon color");
 }

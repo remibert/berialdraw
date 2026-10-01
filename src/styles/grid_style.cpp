@@ -14,8 +14,8 @@ void GridStyle::serialize(JsonIterator & it)
 {
 	it[StyleNames::GRIDSTYLE_GRID_COLOR] = m_grid_color;
 	it[StyleNames::GRIDSTYLE_GRID_VISIBLE] = m_grid_visible;
-	it[StyleNames::GRIDSTYLE_HORIZONTAL_THICKNESS] = m_horizontal_thickness;
-	it[StyleNames::GRIDSTYLE_VERTICAL_THICKNESS] = m_vertical_thickness;
+	it[q6(StyleNames::GRIDSTYLE_HORIZONTAL_THICKNESS)] = m_horizontal_thickness;
+	it[q6(StyleNames::GRIDSTYLE_VERTICAL_THICKNESS)] = m_vertical_thickness;
 }
 
 /** Unserialize the content of widget from json */
@@ -23,8 +23,8 @@ void GridStyle::unserialize(JsonIterator & it)
 {
 	m_grid_color = (int)(it[StyleNames::GRIDSTYLE_GRID_COLOR] | (int)m_grid_color);
 	m_grid_visible = (bool)(it[StyleNames::GRIDSTYLE_GRID_VISIBLE] | (int)m_grid_visible);
-	berialdraw::unserialize(StyleNames::GRIDSTYLE_HORIZONTAL_THICKNESS, it, m_horizontal_thickness);
-	berialdraw::unserialize(StyleNames::GRIDSTYLE_VERTICAL_THICKNESS, it, m_vertical_thickness);
+	berialdraw::unserialize(q6(StyleNames::GRIDSTYLE_HORIZONTAL_THICKNESS), it, m_horizontal_thickness);
+	berialdraw::unserialize(q6(StyleNames::GRIDSTYLE_VERTICAL_THICKNESS), it, m_vertical_thickness);
 }
 
 /** Set properties with another */

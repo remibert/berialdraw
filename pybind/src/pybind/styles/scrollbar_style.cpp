@@ -1,8 +1,8 @@
 #include "pybind/pyberialdraw.hpp"
 
 void bind_scrollbar_style(py::module& m) {
-    py::class_<berialdraw::ScrollbarStyle, berialdraw::Style>(m, "ScrollbarStyle")
-        .def(py::init<>(), "Constructor")
+    py::class_<berialdraw::ScrollbarStyle, berialdraw::Style> cls(m, "ScrollbarStyle");
+    cls.def(py::init<>(), "Constructor")
         .def_property(berialdraw::StyleNames::SCROLLBAR_VISIBLE,
             [](berialdraw::ScrollbarStyle& self) -> bool { 
                 return self.scrollbar_visible(); 
@@ -16,26 +16,21 @@ void bind_scrollbar_style(py::module& m) {
             },
             [](berialdraw::ScrollbarStyle& self, uint32_t c) { 
                 self.scrollbar_thumb_color(c); 
-            }, "Scrollbar thumb color")
-        .def_property(berialdraw::StyleNames::SCROLLBAR_WIDTH,
-            [](berialdraw::ScrollbarStyle& self) -> berialdraw::Dim { 
-                return self.scrollbar_width(); 
-            },
-            [](berialdraw::ScrollbarStyle& self, berialdraw::Dim w) { 
-                self.scrollbar_width(w); 
-            }, "Scrollbar width in pixels")
-        .def_property(berialdraw::StyleNames::SCROLLBAR_RADIUS,
-            [](berialdraw::ScrollbarStyle& self) -> berialdraw::Dim { 
-                return self.scrollbar_radius(); 
-            },
-            [](berialdraw::ScrollbarStyle& self, berialdraw::Dim r) { 
-                self.scrollbar_radius(r); 
-            }, "Scrollbar corner radius in pixels")
-        .def_property(berialdraw::StyleNames::SCROLLBAR_MARGIN,
-            [](berialdraw::ScrollbarStyle& self) -> berialdraw::Dim { 
-                return self.scrollbar_margin(); 
-            },
-            [](berialdraw::ScrollbarStyle& self, berialdraw::Dim m) { 
-                self.scrollbar_margin(m); 
-            }, "Scrollbar margin in pixels");
+            }, "Scrollbar thumb color");
+
+    bind_precision_property<berialdraw::ScrollbarStyle, berialdraw::Dim>(cls, berialdraw::StyleNames::SCROLLBAR_WIDTH,
+        &berialdraw::ScrollbarStyle::scrollbar_width,
+        &berialdraw::ScrollbarStyle::scrollbar_width,
+        &berialdraw::ScrollbarStyle::scrollbar_width_q6,
+        "Scrollbar width (int for normal, float for high precision)");
+    bind_precision_property<berialdraw::ScrollbarStyle, berialdraw::Dim>(cls, berialdraw::StyleNames::SCROLLBAR_RADIUS,
+        &berialdraw::ScrollbarStyle::scrollbar_radius,
+        &berialdraw::ScrollbarStyle::scrollbar_radius,
+        &berialdraw::ScrollbarStyle::scrollbar_radius_q6,
+        "Scrollbar corner radius (int for normal, float for high precision)");
+    bind_precision_property<berialdraw::ScrollbarStyle, berialdraw::Dim>(cls, berialdraw::StyleNames::SCROLLBAR_MARGIN,
+        &berialdraw::ScrollbarStyle::scrollbar_margin,
+        &berialdraw::ScrollbarStyle::scrollbar_margin,
+        &berialdraw::ScrollbarStyle::scrollbar_margin_q6,
+        "Scrollbar margin (int for normal, float for high precision)");
 }

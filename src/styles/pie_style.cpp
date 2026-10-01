@@ -13,16 +13,16 @@ PieStyle::PieStyle()
 /** Serialize the content of widget into json */
 void PieStyle::serialize(JsonIterator & it)
 {
-	it[StyleNames::PIE_SWEEP_ANGLE] = m_end_angle;
-	it[StyleNames::PIE_START_ANGLE] = m_start_angle;
+	it[q6(StyleNames::PIE_SWEEP_ANGLE)] = m_end_angle;
+	it[q6(StyleNames::PIE_START_ANGLE)] = m_start_angle;
 	it[StyleNames::PIE_ROPE]        = m_rope      ;
 }
 
 /** Unserialize the content of widget from json */
 void PieStyle::unserialize(JsonIterator & it)
 {
-	m_end_angle = (int)(it[StyleNames::PIE_SWEEP_ANGLE] | (int)(m_end_angle));
-	m_start_angle = (int)(it[StyleNames::PIE_START_ANGLE] | (int)(m_start_angle));
+	m_end_angle = (int)(it[q6(StyleNames::PIE_SWEEP_ANGLE)] | (int)(m_end_angle));
+	m_start_angle = (int)(it[q6(StyleNames::PIE_START_ANGLE)] | (int)(m_start_angle));
 	m_rope       = (int)(it[StyleNames::PIE_ROPE]        | (int)(m_rope      ));
 }
 

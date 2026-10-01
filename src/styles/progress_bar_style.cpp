@@ -13,8 +13,8 @@ void ProgressBarStyle::serialize(JsonIterator & it)
 	it[StyleNames::PROGRESSBAR_TRACK_COLOR]  = m_track_color;
 	it[StyleNames::PROGRESSBAR_FILL_COLOR]   = m_fill_color;
 
-	berialdraw::unserialize(StyleNames::PROGRESSBAR_TRACK_SIZE, it, m_track_size);
-	berialdraw::unserialize(StyleNames::PROGRESSBAR_FILL_SIZE , it, m_fill_size);
+	berialdraw::unserialize(q6(StyleNames::PROGRESSBAR_TRACK_SIZE), it, m_track_size);
+	berialdraw::unserialize(q6(StyleNames::PROGRESSBAR_FILL_SIZE) , it, m_fill_size);
 
 	it[StyleNames::RANGE_VALUE]        = (int)m_value;
 	it[StyleNames::RANGE_MIN_VALUE]    = (int)m_min_value;
@@ -27,8 +27,8 @@ void ProgressBarStyle::unserialize(JsonIterator & it)
 {
 	m_track_color   = (int)(it[StyleNames::PROGRESSBAR_TRACK_COLOR]  | (int)m_track_color);
 	m_fill_color    = (int)(it[StyleNames::PROGRESSBAR_FILL_COLOR] | (int)m_fill_color);
-	m_track_size    = (int)(it[StyleNames::PROGRESSBAR_TRACK_SIZE]  | (int)m_track_size);
-	m_fill_size     = (int)(it[StyleNames::PROGRESSBAR_FILL_SIZE] | (int)m_fill_size);
+	m_track_size    = (int)(it[q6(StyleNames::PROGRESSBAR_TRACK_SIZE)]  | (int)m_track_size);
+	m_fill_size     = (int)(it[q6(StyleNames::PROGRESSBAR_FILL_SIZE)] | (int)m_fill_size);
 	m_value         = (int)(it[StyleNames::RANGE_VALUE]        | (int)m_value);
 	m_min_value     = (int)(it[StyleNames::RANGE_MIN_VALUE]    | (int)m_min_value);
 	m_max_value     = (int)(it[StyleNames::RANGE_MAX_VALUE]    | (int)m_max_value);

@@ -11,8 +11,8 @@ RadioStyle::RadioStyle()
 void RadioStyle::serialize(JsonIterator & it)
 {
 	m_radio_size.serialize(StyleNames::RADIO_SIZE, it);
-	it[StyleNames::RADIO_PADDING]      = m_radio_padding >> 6;
-	it[StyleNames::RADIO_TEXT_PADDING] = m_text_padding >> 6;
+	it[q6(StyleNames::RADIO_PADDING)]      = m_radio_padding >> 6;
+	it[q6(StyleNames::RADIO_TEXT_PADDING)] = m_text_padding >> 6;
 	it[StyleNames::RADIO_COLOR]        = m_radio_color;
 	it[StyleNames::RADIO_SKETCH]       = m_radio_sketch.c_str();
 	it[StyleNames::RADIO_GROUP]        = m_group.c_str();
@@ -24,8 +24,8 @@ void RadioStyle::unserialize(JsonIterator & it)
 	m_radio_size.unserialize(StyleNames::RADIO_SIZE, it);
 	m_radio_color  = (int)(it[StyleNames::RADIO_COLOR] | (int)m_radio_color);
 	m_radio_sketch = it[StyleNames::RADIO_SKETCH] | m_radio_sketch.c_str();
-	berialdraw::unserialize(StyleNames::RADIO_PADDING, it, m_radio_padding);
-	berialdraw::unserialize(StyleNames::RADIO_TEXT_PADDING, it, m_text_padding);
+	berialdraw::unserialize(q6(StyleNames::RADIO_PADDING), it, m_radio_padding);
+	berialdraw::unserialize(q6(StyleNames::RADIO_TEXT_PADDING), it, m_text_padding);
 	m_group = it[StyleNames::RADIO_GROUP] | m_group.c_str();
 }
 

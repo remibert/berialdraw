@@ -25,18 +25,18 @@ Margin::Margin(const Margin& p) : m_top(p.m_top), m_left(p.m_left),m_bottom(p.m_
 
 void Margin::serialize(const char * name, JsonIterator & it) const
 {
-	it[name]["top_"]    = (int)(m_top);
-	it[name]["left_"]   = (int)(m_left);
-	it[name]["bottom_"] = (int)(m_bottom);
-	it[name]["right_"]  = (int)(m_right);
+	it[name][q6(StyleNames::MARGIN_TOP)]    = (int)(m_top);
+	it[name][q6(StyleNames::MARGIN_LEFT)]   = (int)(m_left);
+	it[name][q6(StyleNames::MARGIN_BOTTOM)] = (int)(m_bottom);
+	it[name][q6(StyleNames::MARGIN_RIGHT)]  = (int)(m_right);
 }
 
 void Margin::unserialize(const char * name, JsonIterator & it)
 {
-	int top     = it[name]["top_"]    | Size::MAX_SIZE;
-	int left    = it[name]["left_"]   | Size::MAX_SIZE;
-	int bottom  = it[name]["bottom_"] | Size::MAX_SIZE;
-	int right   = it[name]["right_"]  | Size::MAX_SIZE;
+	int top     = it[name][q6(StyleNames::MARGIN_TOP)]    | Size::MAX_SIZE;
+	int left    = it[name][q6(StyleNames::MARGIN_LEFT)]   | Size::MAX_SIZE;
+	int bottom  = it[name][q6(StyleNames::MARGIN_BOTTOM)] | Size::MAX_SIZE;
+	int right   = it[name][q6(StyleNames::MARGIN_RIGHT)]  | Size::MAX_SIZE;
 
 	m_top     = (top    == Size::MAX_SIZE) ? m_top    : top   ;
 	m_left    = (left   == Size::MAX_SIZE) ? m_left   : left  ;

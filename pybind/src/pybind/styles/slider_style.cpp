@@ -6,10 +6,12 @@ void bind_slider_style(py::module& m) {
     bind_color_property(cls, berialdraw::StyleNames::SLIDER_TRACK_COLOR,
         &berialdraw::SliderStyle::track_color,
         static_cast<void (berialdraw::SliderStyle::*)(uint32_t)>(&berialdraw::SliderStyle::track_color),
+        static_cast<void (berialdraw::SliderStyle::*)(uint32_t, uint8_t)>(&berialdraw::SliderStyle::track_color),
         "Track color");
     bind_color_property(cls, berialdraw::StyleNames::SLIDER_HANDLE_COLOR,
         &berialdraw::SliderStyle::handle_color,
         static_cast<void (berialdraw::SliderStyle::*)(uint32_t)>(&berialdraw::SliderStyle::handle_color),
+        static_cast<void (berialdraw::SliderStyle::*)(uint32_t, uint8_t)>(&berialdraw::SliderStyle::handle_color),
         "Handle color");
     
     cls.def_property(berialdraw::StyleNames::SLIDER_HANDLE_SIZE,

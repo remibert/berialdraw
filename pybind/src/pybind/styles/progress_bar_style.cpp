@@ -6,10 +6,12 @@ void bind_progress_bar_style(py::module& m) {
     bind_color_property(cls, berialdraw::StyleNames::PROGRESSBAR_TRACK_COLOR,
         &berialdraw::ProgressBarStyle::track_color,
         static_cast<void (berialdraw::ProgressBarStyle::*)(uint32_t)>(&berialdraw::ProgressBarStyle::track_color),
+        static_cast<void (berialdraw::ProgressBarStyle::*)(uint32_t, uint8_t)>(&berialdraw::ProgressBarStyle::track_color),
         "Track color");
     bind_color_property(cls, berialdraw::StyleNames::PROGRESSBAR_FILL_COLOR,
         &berialdraw::ProgressBarStyle::fill_color,
         static_cast<void (berialdraw::ProgressBarStyle::*)(uint32_t)>(&berialdraw::ProgressBarStyle::fill_color),
+        static_cast<void (berialdraw::ProgressBarStyle::*)(uint32_t, uint8_t)>(&berialdraw::ProgressBarStyle::fill_color),
         "Fill color");
     
     bind_precision_property<berialdraw::ProgressBarStyle>(cls, berialdraw::StyleNames::PROGRESSBAR_FILL_SIZE,

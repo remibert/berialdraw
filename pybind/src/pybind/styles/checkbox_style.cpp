@@ -9,6 +9,7 @@ void bind_checkbox_style(py::module& m) {
     bind_size_property(cls, berialdraw::StyleNames::CHECKBOX_SIZE,
         &berialdraw::CheckboxStyle::checkbox_size,
         static_cast<void (berialdraw::CheckboxStyle::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::CheckboxStyle::checkbox_size),
+        &berialdraw::CheckboxStyle::checkbox_size_q6,
         "Checkbox box size: int/float (same w/h) or (width, height) with automatic precision");
 
     cls.def_property(berialdraw::StyleNames::CHECKBOX_PADDING,
@@ -21,6 +22,7 @@ void bind_checkbox_style(py::module& m) {
     bind_color_property(cls, berialdraw::StyleNames::CHECKBOX_COLOR,
         &berialdraw::CheckboxStyle::check_color,
         static_cast<void (berialdraw::CheckboxStyle::*)(uint32_t)>(&berialdraw::CheckboxStyle::check_color),
+        static_cast<void (berialdraw::CheckboxStyle::*)(uint32_t, uint8_t)>(&berialdraw::CheckboxStyle::check_color),
         "Check mark color");
     
     cls.def_property("check_sketch",

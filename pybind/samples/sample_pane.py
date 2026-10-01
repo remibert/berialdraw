@@ -17,8 +17,8 @@ class SamplePane(Dialog):
 		super().__init__()
 		for index, (radius, position) in enumerate(_PANES):
 			pane = Pane(self.content)                        # Creates a pane container within the scroll view
-			pane.radius_ = radius                            # Sets the border radius of the pane
-			pane.thickness_ = 1                              # Sets the border thickness of the pane
+			pane.radius = radius                             # Sets the border radius of the pane
+			pane.thickness = 1                               # Sets the border thickness of the pane
 			pane.position = position                         # Positions the pane
 			pane.extend = Extend.EXTEND_NONE                 # Configures the pane to not extend
 

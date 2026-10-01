@@ -17,7 +17,7 @@ void IconStyle::serialize(JsonIterator & it)
 {
 	it[StyleNames::ICON_FILENAME]     = m_filename;
 	it[StyleNames::ICON_COLOR]        = m_icon_color;
-	it[StyleNames::ICON_TEXT_PADDING] = m_text_padding >> 6;
+	it[q6(StyleNames::ICON_TEXT_PADDING)] = m_text_padding >> 6;
 	m_icon_frame_size.serialize (StyleNames::ICON_FRAME_SIZE,it);
 	m_icon_padding.serialize    (StyleNames::ICON_PADDING,it);
 }
@@ -33,7 +33,7 @@ void IconStyle::unserialize(JsonIterator & it)
 		m_filename = new_filename;
 		m_icon_modified = true;
 	}
-	berialdraw::unserialize(StyleNames::ICON_TEXT_PADDING, it, m_text_padding);
+	berialdraw::unserialize(q6(StyleNames::ICON_TEXT_PADDING), it, m_text_padding);
 	m_icon_frame_size.unserialize(StyleNames::ICON_FRAME_SIZE,it);
 }
 

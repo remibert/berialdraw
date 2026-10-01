@@ -9,6 +9,7 @@ void bind_radio_style(py::module& m) {
     bind_size_property(cls, berialdraw::StyleNames::RADIO_SIZE,
         &berialdraw::RadioStyle::radio_size,
         static_cast<void (berialdraw::RadioStyle::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::RadioStyle::radio_size),
+        &berialdraw::RadioStyle::radio_size_q6,
         "Radio box size: int/float (same w/h) or (width, height) with automatic precision");
 
     cls.def_property(berialdraw::StyleNames::RADIO_PADDING,

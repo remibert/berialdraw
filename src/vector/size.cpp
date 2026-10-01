@@ -122,8 +122,8 @@ void Size::serialize(const char * name, JsonIterator & it) const
 {
 	int width  = m_width  != MAX_SIZE  ? m_width  : m_width;
 	int height = m_height != MAX_SIZE  ? m_height : m_height;
-	it[name]["width_"]  = width ;
-	it[name]["height_"] = height;
+	it[name][q6(StyleNames::SIZE_WIDTH)]  = width ;
+	it[name][q6(StyleNames::SIZE_HEIGHT)] = height;
 }
 
 void Size::unserialize(const char * name, JsonIterator & it)
@@ -140,11 +140,11 @@ void Size::unserialize(const char * name, JsonIterator & it)
 	else if (field.type() == JsonType::OBJECT)
 	{
 		Dim width = m_width;
-		m_width_undefined = berialdraw::unserialize("width_",field,width);
+		m_width_undefined = berialdraw::unserialize(q6(StyleNames::SIZE_WIDTH),field,width);
 		m_width = width;
 
 		Dim height = m_height;
-		m_height_undefined = berialdraw::unserialize("height_",field,height);
+		m_height_undefined = berialdraw::unserialize(q6(StyleNames::SIZE_HEIGHT),field,height);
 		m_height = height;
 	}
 }

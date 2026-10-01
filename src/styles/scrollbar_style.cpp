@@ -12,9 +12,9 @@ void ScrollbarStyle::serialize(JsonIterator & it)
 {
 	it[StyleNames::SCROLLBAR_VISIBLE    ] = m_scrollbar_visible;
 	it[StyleNames::SCROLLBAR_THUMB_COLOR] = (int)m_scrollbar_thumb_color;
-	it[StyleNames::SCROLLBAR_WIDTH      ] = (int)scrollbar_width();
-	it[StyleNames::SCROLLBAR_RADIUS     ] = (int)scrollbar_radius();
-	it[StyleNames::SCROLLBAR_MARGIN     ] = (int)scrollbar_margin();
+	it[q6(StyleNames::SCROLLBAR_WIDTH)] = (int)scrollbar_width();
+	it[q6(StyleNames::SCROLLBAR_RADIUS)] = (int)scrollbar_radius();
+	it[q6(StyleNames::SCROLLBAR_MARGIN)] = (int)scrollbar_margin();
 }
 
 /** Unserialize the content of style from json */
@@ -23,9 +23,9 @@ void ScrollbarStyle::unserialize(JsonIterator & it)
 	m_scrollbar_visible     = (bool)(it[StyleNames::SCROLLBAR_VISIBLE] | m_scrollbar_visible);
 	m_scrollbar_thumb_color = (int)(it[StyleNames::SCROLLBAR_THUMB_COLOR] | (int)m_scrollbar_thumb_color);
 	
-	berialdraw::unserialize(StyleNames::SCROLLBAR_WIDTH, it, m_scrollbar_width);
-	berialdraw::unserialize(StyleNames::SCROLLBAR_RADIUS, it, m_scrollbar_radius);
-	berialdraw::unserialize(StyleNames::SCROLLBAR_MARGIN, it, m_scrollbar_margin);
+	berialdraw::unserialize(q6(StyleNames::SCROLLBAR_WIDTH), it, m_scrollbar_width);
+	berialdraw::unserialize(q6(StyleNames::SCROLLBAR_RADIUS), it, m_scrollbar_radius);
+	berialdraw::unserialize(q6(StyleNames::SCROLLBAR_MARGIN), it, m_scrollbar_margin);
 }
 
 /** Copy operator */

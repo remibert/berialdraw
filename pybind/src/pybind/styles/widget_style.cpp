@@ -18,10 +18,12 @@ void bind_widget_style(pybind11::module_& m) {
     bind_size_property(cls, berialdraw::StyleNames::WIDGET_MIN_SIZE,
         &berialdraw::WidgetStyle::min_size,
         static_cast<void (berialdraw::WidgetStyle::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::WidgetStyle::min_size),
+        &berialdraw::WidgetStyle::min_size_q6,
         "Minimum size: int, (w,h), or Size");
     bind_size_property(cls, berialdraw::StyleNames::WIDGET_MAX_SIZE,
         &berialdraw::WidgetStyle::max_size,
         static_cast<void (berialdraw::WidgetStyle::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::WidgetStyle::max_size),
+        &berialdraw::WidgetStyle::max_size_q6,
         "Maximum size: int, (w,h), or Size");
 
     cls.def_property(berialdraw::StyleNames::KEY_ID, 

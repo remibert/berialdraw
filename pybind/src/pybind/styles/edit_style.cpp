@@ -15,14 +15,17 @@ void bind_edit_style(py::module& m) {
     bind_color_property(cls, berialdraw::StyleNames::EDIT_SELECT_COLOR,
         &berialdraw::EditStyle::select_color,
         static_cast<void (berialdraw::EditStyle::*)(uint32_t)>(&berialdraw::EditStyle::select_color),
+        static_cast<void (berialdraw::EditStyle::*)(uint32_t, uint8_t)>(&berialdraw::EditStyle::select_color),
         "Selection color");
     bind_color_property(cls, berialdraw::StyleNames::EDIT_CURSOR_COLOR,
         &berialdraw::EditStyle::cursor_color,
         static_cast<void (berialdraw::EditStyle::*)(uint32_t)>(&berialdraw::EditStyle::cursor_color),
+        static_cast<void (berialdraw::EditStyle::*)(uint32_t, uint8_t)>(&berialdraw::EditStyle::cursor_color),
         "Cursor color");
     bind_color_property(cls, berialdraw::StyleNames::EDIT_PLACEHOLDER_COLOR,
         &berialdraw::EditStyle::place_holder_color,
         static_cast<void (berialdraw::EditStyle::*)(uint32_t)>(&berialdraw::EditStyle::place_holder_color),
+        static_cast<void (berialdraw::EditStyle::*)(uint32_t, uint8_t)>(&berialdraw::EditStyle::place_holder_color),
         "Placeholder color");
     
     cls.def_property(berialdraw::StyleNames::EDIT_PASSWORD,

@@ -16,8 +16,8 @@ class SampleWindow(Dialog):
 		self.window1.position = (40, 100)                      # Positions the window at (40, 100)
 
 		pane = Pane(self.window1)                              # Adds a pane container inside the window
-		pane.radius_ = 15                                      # Rounded corners with a radius of 15
-		pane.thickness_ = 1                                    # Border thickness of 1
+		pane.radius = 15                                       # Rounded corners with a radius of 15
+		pane.thickness = 1                                     # Border thickness of 1
 		pane.color = Color.LIGHT_GRAY                          # Sets the pane background color
 		pane.border_color = Color.GRAY                         # Sets the border color
 		pane.margin = 5                                        # Adds a margin around the pane
@@ -38,8 +38,8 @@ class SampleWindow(Dialog):
 		self.window2.extend = Extend.EXTEND_WIDTH              # Extends the window's width across the screen
 
 		pane = Pane(self.window2)                              # Adds a pane container inside the window
-		pane.radius_ = 15                                      # Rounded corners with a radius of 15
-		pane.thickness_ = 1                                    # Border thickness of 1
+		pane.radius = 15                                       # Rounded corners with a radius of 15
+		pane.thickness = 1                                     # Border thickness of 1
 		pane.color = Color.LIGHT_GRAY                          # Sets the pane background color
 		pane.border_color = Color.GRAY                         # Sets the border color
 		pane.margin = 5                                        # Adds a margin around the pane

@@ -41,7 +41,7 @@ class Dialog:
 		button.text_align = Align.ALIGN_LEFT               # Aligns text to the left
 		button.border_color = Color.TRANSPARENT            # Sets border color to transparent
 		button.color = Color.TRANSPARENT                   # Sets background color to transparent
-		button.thickness_ = 0                              # Removes border thickness
+		button.thickness = 0                              # Removes border thickness
 		button.align = Align.ALIGN_LEFT                    # Aligns button to the left
 		button.extend = Extend.EXTEND_HEIGHT               # Extends button height to fill available space
 		button.on_click = self._on_menu_quit               # Binds the click event to the quit handler

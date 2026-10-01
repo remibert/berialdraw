@@ -12,15 +12,15 @@ RoundStyle::RoundStyle()
 /** Serialize the content of widget into json */
 void RoundStyle::serialize(JsonIterator & it)
 {
-	it[StyleNames::BORDER_RADIUS]      = m_radius;
-	it[StyleNames::BORDER_THICKNESS]   = m_thickness;
+	it[q6(StyleNames::BORDER_RADIUS)]      = m_radius;
+	it[q6(StyleNames::BORDER_THICKNESS)]   = m_thickness;
 }
 
 /** Unserialize the content of widget from json */
 void RoundStyle::unserialize(JsonIterator & it)
 {
-	berialdraw::unserialize(StyleNames::BORDER_RADIUS, it, m_radius);
-	berialdraw::unserialize(StyleNames::BORDER_THICKNESS, it, m_thickness);
+	berialdraw::unserialize(q6(StyleNames::BORDER_RADIUS), it, m_radius);
+	berialdraw::unserialize(q6(StyleNames::BORDER_THICKNESS), it, m_thickness);
 }
 
 /** Set properties with another */

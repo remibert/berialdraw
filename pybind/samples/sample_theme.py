@@ -69,11 +69,11 @@ class SampleTheme(Dialog):
 			color.color = palette_color                       # Sets the palette color
 			color.text = " "                                  # Sets label text
 			color.focusable = False                           # Sets the button to be non-focusable
-			color.radius_ = 0                                 # Sets the radius of the button to 0
+			color.radius = 0                                  # Sets the radius of the button to 0
 			color.margin = 1                                  # Sets the margin of the button to 1
 			color.id = int(palette_color)                     # Sets the ID of the button
 			color.on_click = self._on_color_event             # Binds the button to an event handler
-			color.thickness_ = 0
+			color.thickness = 0
 
 		label = Label(column)
 		label.text = "Rendering Widgets"
@@ -93,8 +93,8 @@ class SampleTheme(Dialog):
 		edit.focused = True                                   # Sets the edit box to be focused
 
 		col = Column(row)                                     # Creates another column within the row
-		switch_ = Switch(col)                                 # Creates a new switch within the column
-		switch_.checked = True                                # Sets the switch to be checked
+		switch = Switch(col)                                  # Creates a new switch within the column
+		switch.checked = True                                 # Sets the switch to be checked
 		checkbox = Checkbox(col)                              # Creates a new checkbox within the column
 		checkbox.checked = True                               # Sets the checkbox to be checked
 		slider = Slider(col)                                  # Creates a new slider within the column
@@ -116,18 +116,18 @@ class SampleTheme(Dialog):
 		canvas.size = (200, 40)                               # Set size of canvas
 		circle = Circle(canvas)                               # Creates a circle marker
 		circle.position = (70 + 18, 20)                       # Sets new position for the circle
-		circle.thickness_ = 2                                 # Sets thickness of the border
-		circle.radius_ = 14                                   # Adjusts radius of the circle
+		circle.thickness = 2                                  # Sets thickness of the border
+		circle.radius = 14                                    # Adjusts radius of the circle
 
 		triangle = Triangle(canvas)                           # Creates a triangle marker
-		triangle.thickness_ = 2                               # Sets thickness of the border
+		triangle.thickness = 2                                # Sets thickness of the border
 		triangle.position = (70 + 18 + 32, 24)                # Sets new position for the triangle
-		triangle.radius_ = 16                                 # Adjusts radius of the triangle
+		triangle.radius = 16                                  # Adjusts radius of the triangle
 
 		square = Square(canvas)                               # Creates a square marker
-		square.thickness_ = 2                                 # Sets thickness of the border
+		square.thickness = 2                                  # Sets thickness of the border
 		square.position = (70 + 18 + 64, 20)                  # Sets new position for the square
-		square.radius_ = 18                                   # Adjusts radius of the square
+		square.radius = 18                                    # Adjusts radius of the square
 
 		text = Text(canvas)                                   # Create a text
 		text.position = (0, 10)                               # Sets position of text

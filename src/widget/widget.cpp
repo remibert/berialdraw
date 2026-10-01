@@ -1193,7 +1193,7 @@ void Widget::serialize(JsonIterator & it)
 {
 	int index = 0;
 	Widget* child = m_children;
-	JsonIterator children = it["children"];
+	JsonIterator children = it[StyleNames::WIDGET_CHILDREN];
 	while (child)
 	{
 		JsonIterator widget   = children[index];

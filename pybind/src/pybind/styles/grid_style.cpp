@@ -12,15 +12,16 @@ void bind_grid_style(pybind11::module_& m) {
         .def_property(berialdraw::StyleNames::GRIDSTYLE_GRID_VISIBLE,
             [](berialdraw::GridStyle& self) -> bool { return self.grid_visible(); },
             [](berialdraw::GridStyle& self, bool visible) { self.grid_visible(visible); },
-            "Grid visibility state")
-        // Horizontal thickness property
-        .def_property(berialdraw::StyleNames::GRIDSTYLE_HORIZONTAL_THICKNESS,
-            [](berialdraw::GridStyle& self) -> berialdraw::Dim { return self.horizontal_thickness(); },
-            [](berialdraw::GridStyle& self, berialdraw::Dim value) { self.horizontal_thickness(value); },
-            "Horizontal grid thickness in pixels")
-        // Vertical thickness property
-        .def_property(berialdraw::StyleNames::GRIDSTYLE_VERTICAL_THICKNESS,
-            [](berialdraw::GridStyle& self) -> berialdraw::Dim { return self.vertical_thickness(); },
-            [](berialdraw::GridStyle& self, berialdraw::Dim value) { self.vertical_thickness(value); },
-            "Vertical grid thickness in pixels");
+            "Grid visibility state");
+
+    bind_precision_property<berialdraw::GridStyle, berialdraw::Dim>(cls, berialdraw::StyleNames::GRIDSTYLE_HORIZONTAL_THICKNESS,
+        &berialdraw::GridStyle::horizontal_thickness,
+        &berialdraw::GridStyle::horizontal_thickness,
+        &berialdraw::GridStyle::horizontal_thickness_q6,
+        "Horizontal grid thickness (int for normal, float for high precision)");
+    bind_precision_property<berialdraw::GridStyle, berialdraw::Dim>(cls, berialdraw::StyleNames::GRIDSTYLE_VERTICAL_THICKNESS,
+        &berialdraw::GridStyle::vertical_thickness,
+        &berialdraw::GridStyle::vertical_thickness,
+        &berialdraw::GridStyle::vertical_thickness_q6,
+        "Vertical grid thickness (int for normal, float for high precision)");
 }

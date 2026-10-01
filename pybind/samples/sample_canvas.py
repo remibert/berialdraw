@@ -21,8 +21,8 @@ class SampleCanvas(Dialog):
 		frame = Rect(self.canvas)                            # Creates a rectangle frame on the canvas
 		frame.position = (2, 2)                              # Sets position of the frame
 		frame.size = (228, 427)                              # Sets size of the frame
-		frame.thickness_ = 1                                 # Sets frame border thickness
-		frame.radius_ = 10                                   # Sets rounded corner radius
+		frame.thickness = 1                                  # Sets frame border thickness
+		frame.radius = 10                                    # Sets rounded corner radius
 
 		frame = Rect(frame)                                  # Duplicates frame object with the same properties
 		frame.position = (240, 2)                            # Sets position for the duplicated frame
@@ -41,7 +41,7 @@ class SampleCanvas(Dialog):
 		text.text = "Hello"                                  # Sets label text
 		text.position = (20, 55)                             # Positions label
 		text.font_size = 25                                  # Sets font size for label
-		text.angle_ = -20                                    # Sets rotation angle for label
+		text.angle = -20                                     # Sets rotation angle for label
 
 		text = Text(self.canvas)                             # Creates another text label
 		text.text = "Text"                                   # Sets label text
@@ -72,7 +72,7 @@ class SampleCanvas(Dialog):
 		polylines.append(40, 40)
 		polylines.append(50, 0)
 		polylines.append(70, 50)
-		polylines.thickness_ = 4                             # Sets frame line thickness
+		polylines.thickness = 4                              # Sets frame line thickness
 
 		text = Text(self.canvas)                             # Creates a text label on the canvas
 		text.text = "PolyLines"                              # Sets label text
@@ -83,7 +83,7 @@ class SampleCanvas(Dialog):
 		line_.position = (20, 235)                           # Sets position for the line
 		line_.point1 = (4, 4)                                # Sets the starting point of the line
 		line_.point2 = (70, 45)                              # Sets the ending point of the line
-		line_.thickness_ = 4                                 # Sets the thickness of the line
+		line_.thickness = 4                                  # Sets the thickness of the line
 
 		text = Text(self.canvas)                             # Creates a text label on the canvas
 		text.text = "Line"                                   # Sets label text
@@ -93,11 +93,11 @@ class SampleCanvas(Dialog):
 		rect = Rect(self.canvas)                             # Creates a rectangle shape
 		rect.size = (33, 44)                                 # Sets size of the rectangle
 		rect.position = (18, 300)                            # Sets position for the rectangle
-		rect.radius_ = 10                                    # Sets corner radius for rounded edges
-		rect.thickness_ = 0                                  # No border
+		rect.radius = 10                                     # Sets corner radius for rounded edges
+		rect.thickness = 0                                   # No border
 
 		rect = Rect(rect)                                    # Creates a rectangle shape
-		rect.thickness_ = 3                                  # Sets the border thickness
+		rect.thickness = 3                                   # Sets the border thickness
 		rect.size = (33, 44)                                 # Adjusts the size of the rectangle
 		rect.position = (62, 300)                            # Sets new position for the rectangle
 
@@ -108,15 +108,15 @@ class SampleCanvas(Dialog):
 
 		pie = Pie(self.canvas)                               # Creates a pie shape
 		pie.position = (36, 384)                             # Sets position for the pie shape
-		pie.radius_ = 20                                     # Sets radius of the pie shape
-		pie.thickness_ = 0                                   # No border
+		pie.radius = 20                                      # Sets radius of the pie shape
+		pie.thickness = 0                                    # No border
 		pie.rope = True                                      # Enables rope effect for pie segments
-		pie.start_angle_ = 0                                 # Sets start angle for the pie segment
-		pie.sweep_angle_ = 300                               # Sets end angle for the pie segment
+		pie.start_angle = 0                                  # Sets start angle for the pie segment
+		pie.sweep_angle = 300                                # Sets end angle for the pie segment
 
 		pie = Pie(pie)                                       # Creates a pie shape
-		pie.thickness_ = 3                                   # Sets thickness of the border
-		pie.radius_ = 20                                     # Adjusts radius of the pie segment
+		pie.thickness = 3                                    # Sets thickness of the border
+		pie.radius = 20                                      # Adjusts radius of the pie segment
 		pie.position = (80, 384)                             # Sets new position for the pie shape
 
 		text = Text(self.canvas)                             # Creates a text label on the canvas
@@ -126,13 +126,13 @@ class SampleCanvas(Dialog):
 
 		circle = Circle(self.canvas)                         # Creates a circle marker
 		circle.position = (266, 70)                          # Sets position for the circle
-		circle.radius_ = 20                                  # Sets radius of the circle
-		circle.thickness_ = 0                                # No border
+		circle.radius = 20                                   # Sets radius of the circle
+		circle.thickness = 0                                 # No border
 
 		circle = Circle(circle)                              # Creates a circle marker
 		circle.position = (309, 70)                          # Sets new position for the circle
-		circle.thickness_ = 3                                # Sets thickness of the border
-		circle.radius_ = 20                                  # Adjusts radius of the circle
+		circle.thickness = 3                                 # Sets thickness of the border
+		circle.radius = 20                                   # Adjusts radius of the circle
 
 		text = Text(self.canvas)                             # Creates a text label on the canvas
 		text.text = "Circle"                                 # Sets label text
@@ -141,13 +141,13 @@ class SampleCanvas(Dialog):
 
 		triangle = Triangle(self.canvas)                     # Creates a triangle marker
 		triangle.position = (266, 125)                       # Sets position for the triangle
-		triangle.radius_ = 20                                # Sets size of the triangle's bounding radius
-		triangle.thickness_ = 0                              # No border
+		triangle.radius = 20                                 # Sets size of the triangle's bounding radius
+		triangle.thickness = 0                               # No border
 
 		triangle = Triangle(triangle)                        # Creates a triangle marker
-		triangle.thickness_ = 3                              # Sets thickness of the border
+		triangle.thickness = 3                               # Sets thickness of the border
 		triangle.position = (309, 125)                       # Sets new position for the triangle
-		triangle.radius_ = 20                                # Adjusts radius of the triangle
+		triangle.radius = 20                                 # Adjusts radius of the triangle
 
 		text = Text(self.canvas)                             # Creates a text label on the canvas
 		text.text = "Triangle"                               # Sets label text
@@ -156,13 +156,13 @@ class SampleCanvas(Dialog):
 
 		square = Square(self.canvas)                         # Creates a square marker
 		square.position = (266, 170)                         # Sets position for the square
-		square.radius_ = 20                                  # Sets side length of the square
-		square.thickness_ = 0                                # No border
+		square.radius = 20                                   # Sets side length of the square
+		square.thickness = 0                                 # No border
 
 		square = Square(square)                              # Creates a square marker
-		square.thickness_ = 3                                # Sets thickness of the border
+		square.thickness = 3                                 # Sets thickness of the border
 		square.position = (309, 170)                         # Sets new position for the square
-		square.radius_ = 20                                  # Adjusts radius of the square
+		square.radius = 20                                   # Adjusts radius of the square
 
 		text = Text(self.canvas)                             # Creates a text label on the canvas
 		text.text = "Square"                                 # Sets label text
@@ -171,8 +171,8 @@ class SampleCanvas(Dialog):
 
 		cross = Cross(self.canvas)                           # Creates a cross marker
 		cross.position = (266, 220)                          # Sets position for the cross
-		cross.radius_ = 20                                   # Sets size of the cross arms
-		cross.thickness_ = 3                                 # Sets thickness of the cross arms
+		cross.radius = 20                                    # Sets size of the cross arms
+		cross.thickness = 3                                  # Sets thickness of the cross arms
 
 		text = Text(self.canvas)                             # Creates a text label on the canvas
 		text.text = "Cross"                                  # Sets label text
@@ -181,13 +181,13 @@ class SampleCanvas(Dialog):
 
 		star = Star(self.canvas)                             # Creates a star marker
 		star.position = (266, 270)                           # Sets position for the star
-		star.radius_ = 20                                    # Sets side length of the star
-		star.thickness_ = 0                                  # No border
+		star.radius = 20                                     # Sets side length of the star
+		star.thickness = 0                                   # No border
 
 		star = Star(star)                                    # Creates a star marker
-		star.thickness_ = 3                                  # Sets thickness of the border
+		star.thickness = 3                                   # Sets thickness of the border
 		star.position = (309, 270)                           # Sets new position for the star
-		star.radius_ = 20                                    # Adjusts radius of the star
+		star.radius = 20                                     # Adjusts radius of the star
 
 		text = Text(self.canvas)                             # Creates a text label on the canvas
 		text.text = "Star"                                   # Sets label text

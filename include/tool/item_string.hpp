@@ -17,6 +17,9 @@ namespace berialdraw
 		/** Serialize to json */
 		virtual void serialize(TextStream & out, int32_t indent=-1);
 
+		/** Serialize as a json key, without the precision suffix */
+		void serialize_key(TextStream & out);
+
 		/** Unserialize from json */
 		virtual bool unserialize(TextStream & content);
 
@@ -107,10 +110,10 @@ namespace berialdraw
 
 		/** Compares if the string buffer is equal to another C-style string.
 		@param other The C-style string to compare with.
-		@param last_char_ignored The last character to ignore in the comparison.
+		@param ignored_suffix Suffix ignored in the comparison (the key is accurate if only the searched key has it).
 		@param accurate Reference to a boolean that will be set to true if the comparison is accurate.
 		@return True if the strings are equal, false otherwise. */
-		bool compare(const char * other, char last_char_ignored, bool & accurate) const;
+		bool compare(const char * other, const char * ignored_suffix, bool & accurate) const;
 
 		/** Converts a C-style string to a long long integer.
 		@param str The C-style string to convert.

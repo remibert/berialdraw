@@ -9,5 +9,6 @@ void bind_padding_style(pybind11::module_& m) {
         static_cast<void (berialdraw::PaddingStyle::*)(berialdraw::Dim)>(&berialdraw::PaddingStyle::padding),
         static_cast<void (berialdraw::PaddingStyle::*)(berialdraw::Dim, berialdraw::Dim)>(&berialdraw::PaddingStyle::padding),
         static_cast<void (berialdraw::PaddingStyle::*)(berialdraw::Dim, berialdraw::Dim, berialdraw::Dim, berialdraw::Dim)>(&berialdraw::PaddingStyle::padding),
-        "Padding: int (all), (v,h), or (top,right,bottom,left)");
+        &berialdraw::PaddingStyle::padding_q6,
+        "Padding: int/float (all), (horizontal, vertical), or (top,left,bottom,right); float for high precision");
 }

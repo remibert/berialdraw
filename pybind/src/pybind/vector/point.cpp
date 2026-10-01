@@ -26,12 +26,12 @@ void bind_point(py::module& m) {
         .def("set", &berialdraw::Point::set,
              py::arg("x"), py::arg("y"),
              "Set the coordinates")
-        .def("set_", &berialdraw::Point::set_q6,
+        .def("set", [](berialdraw::Point& self, double x, double y) { self.set_q6(to_q6(x), to_q6(y)); },
              py::arg("x"), py::arg("y"),
-             "Set the coordinates with a precision of 64th of a pixel")
-        .def("move_", &berialdraw::Point::move_q6,
-             py::arg("x_"), py::arg("y_"),
-             "Move the point with a precision of 64th of a pixel")
+             "Set the coordinates with float values (high precision)")
+        .def("move", [](berialdraw::Point& self, double x, double y) { self.move_q6(to_q6(x), to_q6(y)); },
+             py::arg("x"), py::arg("y"),
+             "Move the point with float values (high precision)")
         .def("nearest_pixel", &berialdraw::Point::nearest_pixel,
              "Positions itself on the nearest pixel")
         .def("is_x_undefined", &berialdraw::Point::is_x_undefined,

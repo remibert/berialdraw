@@ -430,21 +430,14 @@ bool JsonIterator::is_null() const
 bool JsonIterator::is_accurate(const char * key)
 {
 	bool result = false;
-	const char * current = key;
 
 	if (key)
 	{
-		while(*current)
+		const size_t suffix_len = sizeof(Q6_SUFFIX) - 1;
+		size_t len = strlen(key);
+		if (len >= suffix_len && strcmp(key + len - suffix_len, Q6_SUFFIX) == 0)
 		{
-			if (*current == '_')
-			{
-				if (current[1] == '\0')
-				{
-					result = true;
-					break;
-				}
-			}
-			current ++;
+			result = true;
 		}
 	}
 	return result;

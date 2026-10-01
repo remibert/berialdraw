@@ -34,7 +34,7 @@ void Pane::copy(const Pane * pane)
 /** Serialize the content of widget into json */
 void Pane::serialize(JsonIterator& it)
 {
-	it["type"] = m_classname;
+	it[StyleNames::WIDGET_TYPE] = m_classname;
 	CommonStyle::serialize(it);
 	WidgetStyle::serialize(it);
 	BorderStyle::serialize(it);

@@ -47,15 +47,15 @@ void Path::color(uint32_t col, uint8_t alpha)
 /** Serialize the content of widget into json */
 void Path::serialize(JsonIterator & it)
 {
-	it["color"] = m_color;
-	it["path"]  = m_path;
+	it[StyleNames::SKETCH_COLOR] = m_color;
+	it[StyleNames::SKETCH_PATH]  = m_path;
 }
 
 /** Unserialize the content of widget from json */
 void Path::unserialize(JsonIterator & it)
 {
-	m_color = (int)(it["color"] | (int)m_color);
-	m_path  = it["path"]        | m_path;
+	m_color = (int)(it[StyleNames::SKETCH_COLOR] | (int)m_color);
+	m_path  = it[StyleNames::SKETCH_PATH]        | m_path;
 }
 
 /** Constructor for sketch
@@ -358,23 +358,23 @@ bool Sketch::load()
 /** Serialize the content of widget into json */
 void Sketch::serialize(JsonIterator & it)
 {
-	it["filename"] = m_filename;
+	it[StyleNames::SKETCH_FILENAME] = m_filename;
 	m_resolution.serialize ("resolution",it);
 	int zoom  = m_zoom  != Size::MAX_SIZE && m_zoom  != Size::MAX_SIZE ? m_zoom  : m_zoom;
-	it["zoom_"]  = zoom;
-	berialdraw::unserialize("zoom_", it, m_zoom);
+	it[q6(StyleNames::SKETCH_ZOOM)]  = zoom;
+	berialdraw::unserialize(q6(StyleNames::SKETCH_ZOOM), it, m_zoom);
 }
 
 /** Unserialize the content of widget from json */
 void Sketch::unserialize(JsonIterator & it)
 {
-	m_filename        = it["filename"]        | m_filename;
-	m_resolution.unserialize("resolution",it);
-	Dim zoom  = it["zoom_"]   | Size::MAX_SIZE;
+	m_filename        = it[StyleNames::SKETCH_FILENAME]        | m_filename;
+	m_resolution.unserialize(StyleNames::SKETCH_RESOLUTION,it);
+	Dim zoom  = it[q6(StyleNames::SKETCH_ZOOM)]   | Size::MAX_SIZE;
 
 	m_zoom    = (zoom == Size::MAX_SIZE) ? m_zoom  : zoom;
 
-	JsonIterator paths = it["paths"];
+	JsonIterator paths = it[StyleNames::SKETCH_PATHS];
 	for(paths.first(); paths.exist(); paths.next())
 	{
 		Path * path = new Path(m_parent);

@@ -47,7 +47,7 @@ void Edit::copy(const Edit * edit)
 /** Serialize the content of widget into json */
 void Edit::serialize(JsonIterator& it)
 {
-	it["type"] = m_classname;
+	it[StyleNames::WIDGET_TYPE] = m_classname;
 	CommonStyle::serialize(it);
 	WidgetStyle::serialize(it);
 	TextStyle::serialize(it);
@@ -57,7 +57,7 @@ void Edit::serialize(JsonIterator& it)
 
 	if (m_mask)
 	{
-		it["mask"] = *m_mask;
+		it[StyleNames::EDIT_MASK] = *m_mask;
 	}
 }
 
@@ -72,7 +72,7 @@ void Edit::unserialize(JsonIterator& it)
 	PaddingStyle::unserialize(it);
 
 	String mask;
-	mask = (String)it["text"];
+	mask = (String)it[StyleNames::TEXT_CONTENT];
 	if (mask.size())
 	{
 		if (m_mask)

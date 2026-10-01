@@ -20,8 +20,8 @@ class SampleButton(Dialog):
 		button.text = "Click\non me"                         # Sets button text with line break
 		button.font_size = 50                                # Sets font size
 		button.margin = 20                                   # Adds margin around the button
-		button.radius_ = 100                                 # Rounds corners with radius of 100
-		button.thickness_ = 4                                # Sets border thickness
+		button.radius = 100                                  # Rounds corners with radius of 100
+		button.thickness = 4                                 # Sets border thickness
 		button.on_click = self._on_button_clicked            # Binds click event to the handler
 
 	def _on_button_clicked(self, widget, event):

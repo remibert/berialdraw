@@ -10,11 +10,11 @@ SwitchStyle::SwitchStyle()
 /** Serialize the content of widget into json */
 void SwitchStyle::serialize(JsonIterator & it)
 {
-	it[StyleNames::SWITCH_THUMB_PADDING]  = m_thumb_padding;
+	it[q6(StyleNames::SWITCH_THUMB_PADDING)]  = m_thumb_padding;
 	it[StyleNames::SWITCH_ON_TRACK_COLOR] = m_on_track_color;
 	it[StyleNames::SWITCH_OFF_TRACK_COLOR]= m_off_track_color;
 	it[StyleNames::SWITCH_THUMB_COLOR]    = m_thumb_color;
-	it[StyleNames::SWITCH_TEXT_PADDING]   = m_text_padding;
+	it[q6(StyleNames::SWITCH_TEXT_PADDING)]   = m_text_padding;
 	m_switch_size.serialize (StyleNames::SWITCH_SIZE,it);
 }
 
@@ -25,8 +25,8 @@ void SwitchStyle::unserialize(JsonIterator & it)
 	m_on_track_color       = (int)(it[StyleNames::SWITCH_ON_TRACK_COLOR]        | (int)m_on_track_color);
 	m_off_track_color      = (int)(it[StyleNames::SWITCH_OFF_TRACK_COLOR]       | (int)m_off_track_color);
 	m_thumb_color          = (int)(it[StyleNames::SWITCH_THUMB_COLOR]           | (int)m_thumb_color);
-	berialdraw::unserialize(StyleNames::SWITCH_TEXT_PADDING, it, m_text_padding);
-	berialdraw::unserialize(StyleNames::SWITCH_THUMB_PADDING, it, m_thumb_padding);
+	berialdraw::unserialize(q6(StyleNames::SWITCH_TEXT_PADDING), it, m_text_padding);
+	berialdraw::unserialize(q6(StyleNames::SWITCH_THUMB_PADDING), it, m_thumb_padding);
 }
 
 /** Copy operator */

@@ -18,6 +18,7 @@
 #include "tool/string.hpp"
 #include "tool/shared_ptr.hpp"
 #include "tool/vector.hpp"
+#include "tool/q6_key.hpp"
 #include "tool/json_iterator.hpp"
 #include "tool/json.hpp"
 #include "tool/settings.hpp"
