@@ -1,29 +1,16 @@
 #include "pybind/pyberialdraw.hpp"
 void bind_round_style(py::module& m) {
-    py::class_<berialdraw::RoundStyle, berialdraw::Style>(m, "RoundStyle")
-        .def(py::init<>(), "Constructor")
-        
-        // Propriétés avec précision automatique int/float
-        .def_property(berialdraw::StyleNames::BORDER_THICKNESS,
-            [](berialdraw::RoundStyle& self) -> berialdraw::Dim { return self.thickness(); },
-            [](berialdraw::RoundStyle& self, py::object value) {
-                if (py::isinstance<py::int_>(value)) {
-                    self.thickness(value.cast<berialdraw::Dim>());
-                } else if (py::isinstance<py::float_>(value)) {
-                    self.thickness_q6(static_cast<berialdraw::Dim>(value.cast<double>() * 64));
-                } else {
-                    throw std::invalid_argument("thickness must be int or float");
-                }
-            }, "Line thickness (int for normal, float for high precision)")
-        .def_property(berialdraw::StyleNames::BORDER_RADIUS,
-            [](berialdraw::RoundStyle& self) -> berialdraw::Dim { return self.radius(); },
-            [](berialdraw::RoundStyle& self, py::object value) {
-                if (py::isinstance<py::int_>(value)) {
-                    self.radius(value.cast<berialdraw::Dim>());
-                } else if (py::isinstance<py::float_>(value)) {
-                    self.radius_q6(static_cast<berialdraw::Dim>(value.cast<double>() * 64));
-                } else {
-                    throw std::invalid_argument("radius must be int or float");
-                }
-            }, "Border radius (int for normal, float for high precision)");
+    py::class_<berialdraw::RoundStyle, berialdraw::Style> cls(m, "RoundStyle");
+    cls.def(py::init<>(), "Constructor");
+
+    bind_precision_property<berialdraw::RoundStyle, berialdraw::Dim>(cls, berialdraw::StyleNames::BORDER_THICKNESS,
+        &berialdraw::RoundStyle::thickness,
+        &berialdraw::RoundStyle::thickness,
+        &berialdraw::RoundStyle::thickness_q6,
+        "Line thickness (int for normal, float for high precision)");
+    bind_precision_property<berialdraw::RoundStyle, berialdraw::Dim>(cls, berialdraw::StyleNames::BORDER_RADIUS,
+        &berialdraw::RoundStyle::radius,
+        &berialdraw::RoundStyle::radius,
+        &berialdraw::RoundStyle::radius_q6,
+        "Border radius (int for normal, float for high precision)");
 }

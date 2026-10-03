@@ -9,14 +9,12 @@ void bind_scrollbar_style(py::module& m) {
             },
             [](berialdraw::ScrollbarStyle& self, bool v) { 
                 self.scrollbar_visible(v); 
-            }, "Whether scrollbar is visible")
-        .def_property(berialdraw::StyleNames::SCROLLBAR_THUMB_COLOR,
-            [](berialdraw::ScrollbarStyle& self) -> uint32_t { 
-                return self.scrollbar_thumb_color(); 
-            },
-            [](berialdraw::ScrollbarStyle& self, uint32_t c) { 
-                self.scrollbar_thumb_color(c); 
-            }, "Scrollbar thumb color");
+            }, "Whether scrollbar is visible");
+
+    bind_color_property(cls, berialdraw::StyleNames::SCROLLBAR_THUMB_COLOR,
+        &berialdraw::ScrollbarStyle::scrollbar_thumb_color,
+        static_cast<void (berialdraw::ScrollbarStyle::*)(uint32_t)>(&berialdraw::ScrollbarStyle::scrollbar_thumb_color),
+        "Scrollbar thumb color");
 
     bind_precision_property<berialdraw::ScrollbarStyle, berialdraw::Dim>(cls, berialdraw::StyleNames::SCROLLBAR_WIDTH,
         &berialdraw::ScrollbarStyle::scrollbar_width,

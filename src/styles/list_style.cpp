@@ -5,7 +5,7 @@ using namespace berialdraw;
 /** Constructor */
 ListStyle::ListStyle()
 {
-	m_selection_mode = (int)ListSelectionMode::LIST_NO_SELECTION;
+	m_selection_mode = (int)ListSelectionMode::LIST_SINGLE_SELECTION;
 }
 
 
