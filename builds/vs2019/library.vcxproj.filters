@@ -776,6 +776,9 @@
     <ClCompile Include="..\..\src\styles\line_style.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\shape\vector_image.cpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\shape\sketch.cpp">
       <Filter>berialdraw\shape</Filter>
     </ClCompile>
@@ -964,9 +967,6 @@
     <ClCompile Include="..\..\src\vector\clip_mask.cpp">
       <Filter>berialdraw\vector</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\styles\padding_style.cpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\event\timer_event.cpp">
       <Filter>berialdraw\event</Filter>
     </ClCompile>
@@ -1041,6 +1041,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\shape\compass.cpp">
       <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\padding_style.cpp">
+      <Filter>berialdraw\styles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1701,6 +1704,9 @@
     <ClInclude Include="..\..\include\styles\line_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\shape\vector_image.hpp">
+      <Filter>berialdraw\shape</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\shape\sketch.hpp">
       <Filter>berialdraw\shape</Filter>
     </ClInclude>
@@ -1839,9 +1845,6 @@
     <ClInclude Include="..\..\include\vector\clip_mask.hpp">
       <Filter>berialdraw\vector</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\styles\padding_style.hpp">
-      <Filter>berialdraw\shape</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\external\libjpeg-turbo\jconfig.h">
       <Filter>berialdraw\external\jpeg</Filter>
     </ClInclude>
@@ -1922,6 +1925,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\shape\compass.hpp">
       <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\styles\padding_style.hpp">
+      <Filter>berialdraw\styles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -72,7 +72,8 @@
 	},
 	"editor.snippetSuggestions": "none",
 	"chat.agent.maxRequests": 100,
-	//"window.zoomLevel": -1,
-	"editor.fontSize": 18,
-	"terminal.integrated.fontSize": 18
+	// "window.zoomLevel": 1.5,
+	"window.zoomLevel": -1,
+	// "editor.fontSize": 18,
+	// "terminal.integrated.fontSize": 18
 }

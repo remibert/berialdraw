@@ -2,166 +2,56 @@
 
 using namespace berialdraw;
 
-/** Constructor */
-Path::Path(void * parent) : m_parent(parent)
-{
-}
-
-/** Destructor */
-Path::~Path()
-{
-}
-
-/** Gets the path value */
-const String & Path::path() const
-{
-	return m_path;
-}
-
-/** Sets the path value */
-void Path::path(const String & path_)
-{
-	m_path = path_;
-}
-
-/** Get the back color */
-uint32_t Path::color() const
-{
-	return m_color;
-}
-
-/** Set the back color */
-void Path::color(uint32_t col)
-{
-	UIManager::invalidator()->dirty(m_parent, Invalidator::REDRAW);
-	m_color = col;
-}
-
-/** Set the back color with alpha */
-void Path::color(uint32_t col, uint8_t alpha)
-{
-	UIManager::invalidator()->dirty(m_parent, Invalidator::REDRAW);
-	m_color = (col & 0xFFFFFF) | (((uint32_t)(alpha)) << 24);
-}
-
-/** Serialize the content of widget into json */
-void Path::serialize(JsonIterator & it)
-{
-	it[StyleNames::SKETCH_COLOR] = m_color;
-	it[StyleNames::SKETCH_PATH]  = m_path;
-}
-
-/** Unserialize the content of widget from json */
-void Path::unserialize(JsonIterator & it)
-{
-	m_color = (int)(it[StyleNames::SKETCH_COLOR] | (int)m_color);
-	m_path  = it[StyleNames::SKETCH_PATH]        | m_path;
-}
-
-/** Constructor for sketch
-@param canvas Pointer to the canvas on which the sketch is drawn */
+// Constructor for sketch
 Sketch::Sketch(Canvas * canvas) :
 	Shape(canvas, sizeof(Sketch)),
 	m_polygon(0),
+	m_image(canvas),
 	m_parent(canvas)
 {
 }
 
-/** Constructor for sketch
-@param widget Pointer to the widget on which the sketch is drawn */
+// Constructor for sketch
 Sketch::Sketch(Widget * widget) :
 	Shape(widget, sizeof(Sketch)),
 	m_polygon(0),
+	m_image(widget),
 	m_parent(widget)
 {
 }
 
-/** Copy constructor for sketch
-@param other Other sketch object to copy from */
+// Copy constructor for sketch
 Sketch::Sketch(const Sketch & other):
 	Shape(other),
-	m_polygon(0)
+	m_polygon(0),
+	m_image(other.m_image),
+	m_parent(other.m_parent)
 {
 }
 
 // Render polygon
 void Sketch::paint(const Area & foreclip, uint32_t stated_color)
 {
-	if (m_loaded == false)
+	if (m_image.loaded() == false)
 	{
 		load();
-		m_loaded = true;
 	}
 
-	// If icon existing
-	if (m_paths.size() > 0)
+	if (m_image.path_count() > 0)
 	{
 		Point shift(foreclip.position());
-		Point position(foreclip.position());
-		bool one_color = true;
+		Point position;
+		Dim zoom = 64;
 
-		// Check if icon has only one color
-		for (uint32_t i = 1; i < m_paths.size(); i++)
-		{
-			Path * path = m_paths[i];
-			Path * path_prev = m_paths[i-1];
-				
-			if (path && path_prev)
-			{
-				if (path->color() != path_prev->color())
-				{
-					one_color = false;
-					break;
-				}
-			}
-		}
-
-		int zoom = zoom_q6();
-
-		// Adapt the zoom factor according to the size if it has been defined
+		// Adapt the zoom factor and the position according to the size if it has been defined
 		if (m_size.is_width_undefined() == false || m_size.is_height_undefined() == false)
 		{
-			Dim zoom_width = 0;
-			Dim zoom_height = 0;
-			Size size(m_size);
-
-			if (m_size.is_width_undefined() == false && size.width_q6() > 0 && m_resolution.width_q6() != 0)
-			{
-				zoom_width = (size.width_q6() << 6)/ m_resolution.width_q6();
-			}
-			if (m_size.is_height_undefined() == false && size.height_q6() > 0 && m_resolution.height_q6() != 0)
-			{
-				zoom_height = (size.height_q6() << 6) / m_resolution.height_q6();
-			}
-
-			if (zoom_width < zoom_height && zoom_width != 0)
-			{
-				zoom = zoom_width;
-				if (size.height_q6() > m_resolution.height_q6())
-				{
-					position.move_q6(0, (size.height_q6() - size.width_q6())>>1);
-				}
-			}
-			else if (zoom_height < zoom_width && zoom_height != 0)
-			{
-				zoom = zoom_height;
-				if (size.width_q6() > m_resolution.width_q6())
-				{
-					position.move_q6((size.width_q6() - size.height_q6())>>1, 0);
-				}
-			}
-			else if (zoom_height == zoom_width && zoom_height != 0)
-			{
-				zoom = zoom_height;
-			}
-
-			Area foreclip(m_position,m_size);
-			Size content;
-			content.width_q6((m_resolution.width_q6() * zoom) >> 6);
-			content.height_q6((m_resolution.height_q6() * zoom) >> 6);
+			zoom = m_image.fit_zoom_q6(m_size);
+			Area area(m_position, m_size);
+			Size content = m_image.content_size(zoom);
 			Area foreclip_sketch;
 
-			place_in_layout(foreclip, content, m_margin, EXTEND_NONE, foreclip_sketch, m_align);
+			place_in_layout(area, content, m_margin, EXTEND_NONE, foreclip_sketch, m_align);
 			position = foreclip_sketch.position();
 		}
 		else
@@ -169,55 +59,11 @@ void Sketch::paint(const Area & foreclip, uint32_t stated_color)
 			position = m_position;
 		}
 
-
-		// Display icon
-		for (uint32_t i = 0; i < m_paths.size(); i++)
-		{
-			Path * path = m_paths[i];
-
-			if (path)
-			{
-				uint32_t path_color = path->color();
-
-				// If the main color is defined
-				if (stated_color != Color::TRANSPARENT)
-				{
-					// If icon color can be changed
-					if (one_color)
-					{
-						// Change icon color
-						path_color = stated_color;
-					}
-					else
-					{
-						// The sketch has many color
-						uint32_t alpha = stated_color >> 24;
-
-						// Change the alpha according to alpha color selected
-						if (alpha < 255)
-						{
-							uint32_t path_alpha = ((path_color >> 24) * alpha) / 255;
-							path_color = (path_color & 0xFFFFFF) | (path_alpha << 24);
-						}
-					}
-				}
-
-				// Apply icon zoom
-				m_polygon.zoom_q6(zoom);
-					
-				// Parse icon path
-				VectorsScript vectors_script(m_polygon);
-				vectors_script.select(path->path());
-				vectors_script.parse();
-
-				// Paint icon path
-				UIManager::renderer()->draw_outline(position, 0, shift, m_center, path_color, m_angle, m_polygon.outline());
-			}
-		}
+		m_image.paint(position, shift, m_center, m_angle, zoom, stated_color, &m_polygon);
 	}
 }
 
-/** Render outline */
+// Render outline
 void Sketch::paint(const Point & shift)
 {
 	Area foreclip;
@@ -225,165 +71,74 @@ void Sketch::paint(const Point & shift)
 	Sketch::paint(foreclip, color());
 }
 
-/** Destructor */
+// Destructor
 Sketch::~Sketch()
 {
-	clear_paths();
 }
 
-/** Add bezier path */
+// Add bezier path
 void Sketch::add_path(uint32_t color, const String & path)
 {
-	Path * p = new Path(m_parent);
-
-	if (p)
-	{
-		p->color(color);
-		p->path(path);
-		m_paths.push_back(p);
-	}
+	m_image.add_path(color, path);
 }
 
-/** Clear all bezier path */
+// Clear all bezier path
 void Sketch::clear_paths()
 {
-	for(int index = 0; index < (int)m_paths.size(); index++)
-	{
-		delete m_paths[index];
-	}
-	m_paths.clear();
+	m_image.clear_paths();
 }
 
-/** Get the resolution */
+// Get the resolution
 const Size & Sketch::resolution() const
 {
-	return m_resolution;
+	return m_image.resolution();
 }
 
-/** Set the resolution */
+// Set the resolution
 void Sketch::resolution(const Size & resolution_)
 {
-	UIManager::invalidator()->dirty(m_parent, Invalidator::GEOMETRY);
-	m_resolution = resolution_;
+	m_image.resolution(resolution_);
 }
 
-/** Set the resolution with width and height in pixels */
+// Set the resolution with width and height in pixels
 void Sketch::resolution(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(m_parent, Invalidator::GEOMETRY);
-	m_resolution.set(w,h);
+	m_image.resolution(w, h);
 }
 
-/** Set the resolution with a precision of 64th of a pixel */
+// Set the resolution with a precision of 64th of a pixel
 void Sketch::resolution_q6(Dim w, Dim h)
 {
-	UIManager::invalidator()->dirty(m_parent, Invalidator::GEOMETRY);
-	m_resolution.set_q6(w,h);
+	m_image.resolution_q6(w, h);
 }
 
-/** Set the zoom ratio for the icon
-@param z zoom value */
-void Sketch::zoom(Dim z)
-{
-	UIManager::invalidator()->dirty(m_parent, Invalidator::GEOMETRY);
-	m_zoom = z <<6;
-}
-		
-/** Get the zoom ratio for the icon
-@return zoom zoom value */
-Dim Sketch::zoom() const
-{
-	return m_zoom >> 6;
-}
 
-/** Set the zoom ratio for the icon
-@param z zoom value shifted by 6 bits */
-void Sketch::zoom_q6(Dim z)
-{
-	UIManager::invalidator()->dirty(m_parent, Invalidator::GEOMETRY);
-	m_zoom = z;
-}
-
-/** Get the zoom ratio for the icon
-@return zoom zoom value shifted by 6 bits */
-Dim Sketch::zoom_q6() const
-{
-	return m_zoom;
-}
-
-/** Get the filename value */
+// Get the filename value
 const String & Sketch::filename() const
 {
-	return m_filename;
+	return m_image.filename();
 }
 
-/** Set filename value with string */
+// Set filename value with string
 void Sketch::filename(const String & s)
 {
-	UIManager::invalidator()->dirty(m_parent, Invalidator::GEOMETRY);
-	clear_paths();
-	m_loaded = false;
-	m_filename = s;
+	m_image.filename(s);
 }
 
-/** Load the icon from filename */
+// Load the icon from filename
 bool Sketch::load()
 {
-	bool result = false;
-	if (m_paths.size() == 0)
-	{
-		File file;
-		String filename = m_filename;
-		filename.strip();
-		
-		if (file.open(filename,"rb") != -1)
-		{
-			Json json;
-			try
-			{
-				json.unserialize(file);
-				JsonIterator it(json);
-				unserialize(it);
-				result = true;
-			}
-			catch(...)
-			{
-				bd_printf("Unable to decode the sketch file '%s'\n", filename.c_str());
-			}
-		}
-	}
-	return result;
+	return m_image.load();
 }
 
-/** Serialize the content of widget into json */
+// Serialize the content of widget into json
 void Sketch::serialize(JsonIterator & it)
 {
-	it[StyleNames::SKETCH_FILENAME] = m_filename;
-	m_resolution.serialize ("resolution",it);
-	int zoom  = m_zoom  != Size::MAX_SIZE && m_zoom  != Size::MAX_SIZE ? m_zoom  : m_zoom;
-	it[q6(StyleNames::SKETCH_ZOOM)]  = zoom;
-	berialdraw::unserialize(q6(StyleNames::SKETCH_ZOOM), it, m_zoom);
+	m_image.serialize(it);
 }
 
-/** Unserialize the content of widget from json */
+// Unserialize the content of widget from json
 void Sketch::unserialize(JsonIterator & it)
 {
-	m_filename        = it[StyleNames::SKETCH_FILENAME]        | m_filename;
-	m_resolution.unserialize(StyleNames::SKETCH_RESOLUTION,it);
-	Dim zoom  = it[q6(StyleNames::SKETCH_ZOOM)]   | Size::MAX_SIZE;
-
-	m_zoom    = (zoom == Size::MAX_SIZE) ? m_zoom  : zoom;
-
-	JsonIterator paths = it[StyleNames::SKETCH_PATHS];
-	for(paths.first(); paths.exist(); paths.next())
-	{
-		Path * path = new Path(m_parent);
-		JsonIterator child = paths.child();
-		path->unserialize(child);
-		m_paths.push_back(path);
-	}
+	m_image.unserialize(it);
 }
-
-
-
-

@@ -65,7 +65,6 @@ void RichText::parse(const String & raw_text, Font & default_font, uint32_t defa
 				{
 					// $$ : reset to default style
 					m_raw_to_clean.push_back(clean_index);
-					m_raw_to_clean.push_back(clean_index);
 					i += 2;
 
 					close_span(current_span, clean_index);
@@ -108,6 +107,7 @@ void RichText::init_default_span(TextSpan & span, uint32_t start, Font & font, u
 	span.color_set = false;
 	span.line_height = font.real_size().height_q6();
 	span.baseline = font.baseline_q6();
+	span.image = 0;
 }
 
 /** Close the current span and add it to the list if it has content */
@@ -149,7 +149,6 @@ Font & RichText::font_at(uint32_t clean_index) const
 		static Font * fallback = 0;
 		result = fallback;
 	}
-	
 	return *result;
 }
 
@@ -166,7 +165,6 @@ const TextSpan & RichText::span_at(uint32_t clean_index) const
 	}
 	return *result;
 }
-
 
 /** Get the color to use at a given clean text index */
 uint32_t RichText::color_at(uint32_t clean_index) const
@@ -191,7 +189,6 @@ Size RichText::char_size_at(uint32_t clean_index) const
 		wchar_t ch = m_clean_text.get(clean_index);
 		result = font.char_size(ch);
 	}
-	
 	return result;
 }
 
@@ -231,7 +228,6 @@ bool RichText::has_spans() const
 			result = true;
 		}
 	}
-	
 	return result;
 }
 
@@ -341,6 +337,20 @@ void RichText::parse_tag(const String & tag_content, Font & default_font,
 			span.color_set = true;
 		}
 
+		if (it.exists(StyleNames::TEXT_SKETCH))
+		{
+			span.image = new VectorImage(0);
+			if (span.image)
+			{
+				String filename = json[StyleNames::TEXT_SKETCH];
+				span.image->filename(filename);
+				if (span.image->load() == false)
+				{
+					delete span.image;
+					span.image = 0;
+				}
+			}
+		}
 		// Extract font if font-related properties specified
 		if (it.exists(StyleNames::TEXT_FONT_FAMILY) || it.exists(StyleNames::TEXT_FONT_SIZE))
 		{

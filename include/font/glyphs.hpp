@@ -31,7 +31,11 @@ namespace berialdraw
 
 	protected:
 /// @cond DOXYGEN_IGNORE
-		Vector<Glyph*> m_glyphs; /**< List of glyphs */
+		/** Lower bound index in the sorted list for (character, angle) */
+		uint32_t lower_bound(wchar_t character, Coord angle);
+
+		Vector<Glyph*> m_glyphs; /**< List of glyphs sorted by (character, angle) */
+		uint32_t m_stamp = 0;    /**< Load counter */
 		Font* m_font;            /**< Pointer to the font */
 		Coord m_angle = 0;       /**< Angle for the glyphs */
 /// @endcond

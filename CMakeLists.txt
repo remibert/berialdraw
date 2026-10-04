@@ -132,6 +132,7 @@ set(SRCS_LIB
 	src/shape/line.cpp
 	src/shape/pie.cpp
 	src/shape/polygon.cpp
+	src/shape/vector_image.cpp
 	src/shape/sketch.cpp
 	src/shape/image.cpp
 	src/shape/cross.cpp

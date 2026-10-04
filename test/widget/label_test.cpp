@@ -184,18 +184,15 @@ void Label::test6()
 	label->position(10, 140);
 	label->font_size(16);
 	label->text(
-		"$<'font_familly':'Cerial','font_size':{'width':50,'height':80},'text_color':0xFF00FF00>"
-		"@"
-		"$<'filename':'$(ui.icons)/filter_vintage.icn'>#");
+		"$<'font_familly':'Cerial','font_size':{'width':30,'height':30},'text_color':0xFF7F7F7F>"
+		"Sketch : "
+		"$<'sketch':'$(ui.icons)/filter_vintage.icn','text_color':0xFFFF0000> ...");
+	// while(1)
 	UIManager::desktop()->dispatch("$(ui.tests)/out/label6_1.svg");
 }
 
 void Label::test7()
 {
-	Window window;
-	Label* label = new Label(&window);
-	label->text("Hello\nWorld");
-	UIManager::desktop()->dispatch();
 }
 
 void Label::test()

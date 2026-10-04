@@ -2,47 +2,8 @@
 namespace berialdraw
 {
 	class Widget;
-	/** Class defines the behavior of path */
-	class Path
-	{
-	public:
-		/** Constructor */
-		Path(void * parent);
 
-		/** Destructor */
-		~Path();
-
-		/** Serialize the content of widget into json */
-		void serialize(JsonIterator & it);
-
-		/** Unserialize the content of widget from json */
-		void unserialize(JsonIterator & it);
-
-
-		/** Gets the path value */
-		const String & path() const;
-
-		/** Sets the path value */
-		void path(const String & path_);
-
-		/** Get the back color */
-		uint32_t color() const;
-
-		/** Set the back color */
-		void color(uint32_t col);
-
-		/** Set the back color with alpha */
-		void color(uint32_t col, uint8_t alpha);
-
-	protected:
-/// @cond DOXYGEN_IGNORE
-		String     m_path;
-		void * m_parent;
-		uint32_t   m_color = 0xFF000000;
-/// @endcond
-	};
-
-	/**  */
+	/** Vector image shape: layout and style come from Shape, content from VectorImage */
 	class Sketch : public Shape
 	{
 	public:
@@ -98,23 +59,6 @@ namespace berialdraw
 		void resolution_q6(Dim w, Dim h=0);
 
 
-		/** Set the zoom ratio for the polygon
-		@param z zoom value */
-		void zoom(Dim z);
-		
-		/** Get the zoom ratio for the polygon
-		@return zoom zoom value */
-		Dim zoom() const;
-
-		/** Set the zoom ratio for the polygon
-		@param z zoom value shifted by 6 bits */
-		void zoom_q6(Dim z);
-		
-		/** Get the zoom ratio for the polygon
-		@return zoom zoom value shifted by 6 bits */
-		Dim zoom_q6() const;
-
-
 		/** Get the filename value */
 		const String & filename() const;
 
@@ -140,11 +84,7 @@ namespace berialdraw
 	protected:
 /// @cond DOXYGEN_IGNORE
 		Polygon m_polygon; /**< Polygon representing the sketch*/
-		Vector<Path*> m_paths;
-		Size m_resolution;
-		Dim  m_zoom = 1<<6;
-		String m_filename;
-		bool m_loaded = false;
+		VectorImage m_image;
 		void * m_parent = 0;
 /// @endcond
 	};

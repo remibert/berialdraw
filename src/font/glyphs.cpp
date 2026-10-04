@@ -23,6 +23,28 @@ Glyphs::~Glyphs()
 	clear();
 }
 
+// Binary search of the first glyph not lower than (character, angle)
+uint32_t Glyphs::lower_bound(wchar_t character, Coord angle)
+{
+	uint32_t low = 0;
+	uint32_t high = m_glyphs.size();
+	while (low < high)
+	{
+		uint32_t mid = (low + high) / 2;
+		Glyph * glyph = m_glyphs[mid];
+		if (glyph->m_character < character || (glyph->m_character == character && glyph->m_angle < angle))
+		{
+			low = mid + 1;
+		}
+		else
+		{
+			high = mid;
+		}
+	}
+	return low;
+}
+
+// Search a glyph in the sorted list
 Glyph* Glyphs::search(wchar_t character, Coord angle)
 {
 	Glyph* result = 0;
@@ -35,17 +57,13 @@ Glyph* Glyphs::search(wchar_t character, Coord angle)
 		character = 0x20;
 	}
 
-	uint32_t size = m_glyphs.size();
-	for (uint32_t i=0; i < size; i++)
+	uint32_t index = lower_bound(character, angle);
+	if (index < m_glyphs.size())
 	{
-		Glyph * glyph = m_glyphs[i];
-		if (glyph)
+		Glyph * glyph = m_glyphs[index];
+		if (glyph->m_character == character && glyph->m_angle == angle)
 		{
-			if(glyph->m_character == character && glyph->m_angle == angle)
-			{
-				result = glyph;
-				break;
-			}
+			result = glyph;
 		}
 	}
 	return result;
@@ -60,11 +78,18 @@ Glyph* Glyphs::load(wchar_t character, Coord angle)
 		// If the glyph loaded is too high
 		if (m_glyphs.size() > 128)
 		{
-			delete m_glyphs[0];
-			m_glyphs[0] = nullptr;  
-
-			// Remove the older glyph
-			m_glyphs.remove(0);
+			// Find the oldest glyph (list is sorted by key, not by age)
+			uint32_t oldest = 0;
+			for (uint32_t i=1; i < m_glyphs.size(); i++)
+			{
+				if ((int32_t)(m_glyphs[i]->m_stamp - m_glyphs[oldest]->m_stamp) < 0)
+				{
+					oldest = i;
+				}
+			}
+			delete m_glyphs[oldest];
+			m_glyphs[oldest] = nullptr;
+			m_glyphs.remove(oldest);
 		}
 
 		// Glyph not found
@@ -80,8 +105,9 @@ Glyph* Glyphs::load(wchar_t character, Coord angle)
 			}
 			else
 			{
-				// Add glyph into the list
-				m_glyphs.push_back(result);
+				// Insert glyph at its sorted position
+				result->m_stamp = m_stamp++;
+				m_glyphs.insert(lower_bound(result->m_character, result->m_angle), result);
 			}
 		}
 	}

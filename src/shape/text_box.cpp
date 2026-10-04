@@ -531,8 +531,6 @@ void TextBox::paint(Font& font,
 		0, 0, true);
 }
 
-
-
 void TextBox::paint(Font& font, const String& text, const Point& position, const Area& area, uint32_t text_color)
 {
 	Point shift;
@@ -679,8 +677,20 @@ void TextBox::paint_line_segments(const LineInfo & line, const Point & position,
 		Point seg_center(seg_line_center);
 		seg_center.y_q6(seg_center.y_q6() - baseline_offset);
 
-		// Draw segment with its specific font and color
-		seg_font.draw(seg_text, seg_pos, seg_center, margin, angle, seg_color);
+		if (span.image != 0)
+		{
+			// Draw the vector image scaled to the line height, keeping its own colors
+			Size fit;
+			fit.height_q6(line.size.height_q6());
+			Dim zoom = span.image->fit_zoom_q6(fit);
+			Point no_shift;
+			span.image->paint(seg_pos, no_shift, seg_center, angle, zoom, Color::TRANSPARENT);
+		}
+		else
+		{
+			// Draw segment with its specific font and color
+			seg_font.draw(seg_text, seg_pos, seg_center, margin, angle, seg_color);
+		}
 
 		// Advance x position for next segment: iterate over the already extracted seg_text
 		// instead of indexing back into "clean" at seg_start, which would jump backward past

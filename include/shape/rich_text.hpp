@@ -3,6 +3,7 @@ namespace berialdraw
 {
 #ifndef SWIG
 /// @cond DOXYGEN_IGNORE
+	class VectorImage;
 
 	/** Describes a span of text with specific font and color attributes */
 	struct TextSpan
@@ -14,6 +15,8 @@ namespace berialdraw
 		bool     color_set = false;   ///< Whether color was explicitly set
 		Dim      line_height = 16;    ///< Cached line height for this span
 		Coord    baseline = 0;        ///< Baseline offset for this span (26.6 fixed point)
+		//InlineObject* object = 0;     ///< Used for sketch
+		VectorImage* image = 0;
 	};
 
 	/** Parses a string containing inline formatting tags and provides

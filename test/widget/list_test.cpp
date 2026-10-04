@@ -131,13 +131,9 @@ void List::test3()
 		
 		//list->size(3000, 250);
 		list->id(123);
-		//scroll->align(Align::ALIGN_TOP);
-		//list->extend(Extend::EXTEND_ALL);
 		list->size_policy(SizePolicy::ENLARGE_ALL);
 		list->selection_mode(ListSelectionMode::LIST_MULTI_SELECTION);
 
-//list->thickness(4);
-//list->padding(3);
 		list->append("One");
 		list->append("Two");
 		list->append("Three");

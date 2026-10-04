@@ -58,6 +58,9 @@ namespace berialdraw
 
 		/** Angle of character */
 		Coord m_angle = 0;
+
+		/** Load order, used for cache eviction */
+		uint32_t m_stamp = 0;
 	};
 }
 /// @endcond

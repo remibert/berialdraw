@@ -3822,7 +3822,7 @@
 		"$(ui.tests)/out/linechart.svg" : 
 		{
 			"scale_2" : 2328479071,
-			"scale_1" : 3187972588
+			"scale_1" : 2198032798
 		},
 		"$(ui.tests)/out/compass1.svg" : 
 		{
@@ -3857,7 +3857,7 @@
 		"$(ui.tests)/out/polyline2.svg" : 
 		{
 			"scale_2" : 3024907053,
-			"scale_1" : 1089090849
+			"scale_1" : 1596618110
 		},
 		"$(ui.tests)/out/polylines1_1.svg" : 
 		{
@@ -3887,7 +3887,7 @@
 		"$(ui.tests)/out/polylines1_6.svg" : 
 		{
 			"scale_2" : 1007746401,
-			"scale_1" : 325761622
+			"scale_1" : 1693640604
 		},
 		"$(ui.tests)/out/polylines1_7.svg" : 
 		{
@@ -5373,6 +5373,6 @@
 		},
 		"$(ui.tests)/out/label6_1.svg" : 
 		{
-			"scale_1" : 4012484685
+			"scale_1" : 1542991384
 		}
 	}

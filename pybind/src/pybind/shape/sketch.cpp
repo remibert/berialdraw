@@ -58,17 +58,7 @@ void bind_sketch(py::module& m) {
                     self.resolution_q6(static_cast<int>(value.cast<double>() * 64));
                 }
             }, "Resolution (Size object, int, float for high precision, or tuple(w,h))")
-            
-        .def_property("zoom", 
-            py::overload_cast<>(&berialdraw::Sketch::zoom, py::const_),
-            [](berialdraw::Sketch& self, py::object value) {
-                if (py::isinstance<py::int_>(value)) {
-                    self.zoom(value.cast<int>());
-                } else if (py::isinstance<py::float_>(value)) {
-                    self.zoom_q6(static_cast<int>(value.cast<double>() * 64));
-                }
-            }, "Zoom ratio (int for normal precision, float for high precision)")
-            
+
         .def_property("filename", 
             py::overload_cast<>(&berialdraw::Sketch::filename, py::const_),
             py::overload_cast<const berialdraw::String&>(&berialdraw::Sketch::filename),
