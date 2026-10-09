@@ -1,11 +1,13 @@
 {
 	"cmake.sourceDirectory": "${workspaceFolder}",
-	"cmake.debugConfig": {
+	"cmake.debugConfig": 
+	{
 		"cwd": "${workspaceFolder}"
 	},
 	"cmake.buildDirectory": "${env:HOME}/Downloads/build",
-	"cmake.parallelJobs": 4,
-	"files.associations": {
+	"cmake.parallelJobs": 8,
+	"files.associations": 
+	{
 		"ios": "cpp",
 		"__config": "cpp",
 		"tuple": "cpp",
@@ -53,27 +55,35 @@
 		"*.sty": "python"
 	},
 	"cmake.configureArgs": ["-DUSE_COCOA_DEVICE=ON"],
-	"cmake.configureSettings": {
-		"SDL3_INCLUDE_DIRS": "/Library/Frameworks/SDL3.framework"
+	"cmake.configureSettings": 
+	{
 	},
+
 	"editor.minimap.enabled": false,
 	"editor.renderWhitespace":"all",
 	"editor.suggest.insertMode": "replace",
+
 	"workbench.editor.enablePreview": false,
 	"workbench.tree.indent": 10,
 	"workbench.tree.renderIndentGuides": "always",
 	"workbench.colorTheme": "Visual Studio Light",
 	"workbench.iconTheme": "vscode-icons",
+
 	"extensions.ignoreRecommendations": true,
+
 	"editor.autoClosingBrackets": "never",
 	"editor.autoClosingQuotes": "never",
 	"editor.quickSuggestions": {
 		"other": "off"
 	},
 	"editor.snippetSuggestions": "none",
+
 	"chat.agent.maxRequests": 100,
+
 	// "window.zoomLevel": 1.5,
-	"window.zoomLevel": -1,
+	// "window.zoomLevel": -1,
+	"window.zoomLevel": 0.5,
+
 	// "editor.fontSize": 18,
 	// "terminal.integrated.fontSize": 18
 }

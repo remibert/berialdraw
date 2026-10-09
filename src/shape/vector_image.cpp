@@ -68,11 +68,14 @@ void Path::unserialize(JsonIterator & it)
 VectorImage::VectorImage(void * parent) :
 	m_parent(parent)
 {
+	m_image_size.set(24, 24);
 }
 
 // Copy constructor
 VectorImage::VectorImage(const VectorImage & other) :
 	m_resolution(other.m_resolution),
+	m_image_size(other.m_image_size),
+	m_image_color(other.m_image_color),
 	m_filename(other.m_filename),
 	m_loaded(other.m_loaded),
 	m_parent(other.m_parent)
@@ -156,6 +159,30 @@ uint32_t VectorImage::path_count() const
 const Size & VectorImage::resolution() const
 {
 	return m_resolution;
+}
+
+// Get the inline text size
+const Size & VectorImage::image_size() const
+{
+	return m_image_size;
+}
+
+// Set the inline text size
+void VectorImage::image_size(const Size & size)
+{
+	m_image_size = size;
+}
+
+// Get the inline text color override
+uint32_t VectorImage::image_color() const
+{
+	return m_image_color;
+}
+
+// Set the inline text color override
+void VectorImage::image_color(uint32_t color)
+{
+	m_image_color = color;
 }
 
 // Set the resolution

@@ -77,6 +77,18 @@ namespace berialdraw
 		/** Get the resolution */
 		const Size & resolution() const;
 
+		/** Get the inline text size */
+		const Size & image_size() const;
+
+		/** Set the inline text size */
+		void image_size(const Size & size);
+
+		/** Get the inline text color override */
+		uint32_t image_color() const;
+
+		/** Set the inline text color override */
+		void image_color(uint32_t color);
+
 		/** Set the resolution */
 		void resolution(const Size & s);
 
@@ -120,6 +132,8 @@ namespace berialdraw
 /// @cond DOXYGEN_IGNORE
 		Vector<Path*> m_paths;
 		Size   m_resolution;
+		Size   m_image_size;
+		uint32_t m_image_color = Color::TRANSPARENT;
 		String m_filename;
 		bool   m_loaded = false;
 		void * m_parent = 0;

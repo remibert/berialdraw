@@ -57,7 +57,20 @@ void RichText::parse(const String & raw_text, Font & default_font, uint32_t defa
 						TextSpan new_span;
 						new_span.start = clean_index;
 						parse_tag(tag_content, default_font, default_color, new_span);
-						current_span = new_span;
+						if (new_span.image != 0)
+						{
+							new_span.end = clean_index + 1;
+							m_spans.push_back(new_span);
+							m_clean_to_raw.push_back(i - pattern_len);
+							m_clean_text.write_char(0xFFFC);
+							clean_index++;
+							current_span.start = clean_index;
+							current_span.end = UINT32_MAX;
+						}
+						else
+						{
+							current_span = new_span;
+						}
 						continue;
 					}
 				}
@@ -350,6 +363,13 @@ void RichText::parse_tag(const String & tag_content, Font & default_font,
 					span.image = 0;
 				}
 			}
+			if (span.image != 0)
+			{
+				Size image_size = span.image->image_size();
+				image_size.unserialize("size", it);
+				span.image->image_size(image_size);
+				span.image->image_color((uint32_t)(it["color"] | (int)Color::TRANSPARENT));
+			}
 		}
 		// Extract font if font-related properties specified
 		if (it.exists(StyleNames::TEXT_FONT_FAMILY) || it.exists(StyleNames::TEXT_FONT_SIZE))
@@ -375,6 +395,17 @@ void RichText::parse_tag(const String & tag_content, Font & default_font,
 		{
 			span.line_height = span.font->real_size().height_q6();
 			span.baseline = span.font->baseline_q6();
+		}
+
+		// The image sits on the baseline: it raises the ascent, the font descent is kept below
+		if (span.image != 0)
+		{
+			Dim image_height = span.image->image_size().height_q6();
+			if ((Coord)image_height > span.baseline)
+			{
+				span.line_height = image_height + (span.line_height - (Dim)span.baseline);
+				span.baseline = (Coord)image_height;
+			}
 		}
 	}
 }

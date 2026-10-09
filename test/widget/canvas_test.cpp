@@ -475,6 +475,39 @@ void Canvas::test11()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/canvas11_1.svg");
 }
 
+
+void Canvas::test12()
+{
+	Window window;
+	Canvas* canvas = new Canvas(&window);
+		canvas->extend(Extend::EXTEND_ALL);
+		canvas->color(Color::SNOW);
+	Text* text;
+
+	int angle = 0;
+
+	for (int angle = 0; angle < 360; angle += 30)
+	{
+		text = new Text(canvas);
+		text->position(240, 240);
+		text->font_size(20, 20);
+		text->color(JADE, 64);
+		text->angle(angle);
+
+		text->text(
+			"|__ $<'font_familly':'Cerial','font_size':{'width':15,'height':25},'text_color':0xFF003F00>%3d$$__|"
+			"\n"
+			"|_"
+			"$<'sketch':'$(ui.icons)/maison.icn','size':{'width':20,'height':25},'color':0xFFFF0000>_"
+			"$<'sketch':'$(ui.icons)/home.icn'  ,'size':{'width':25,'height':20},'color':0xFFFF0000>_|"
+			,angle
+
+		);
+		text->center(-120,0);
+	}
+	UIManager::desktop()->dispatch("$(ui.tests)/out/canvas12_1.svg");
+}
+
 void Canvas::test()
 {
 	static bool done = false;
@@ -482,6 +515,7 @@ void Canvas::test()
 	{
 		MemoryLeakLog
 		done = true;
+		test12();
 		test11();
 		test10();
 		test8();

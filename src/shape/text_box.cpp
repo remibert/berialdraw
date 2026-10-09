@@ -94,7 +94,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		else
 		{
 			// Process a normal (non-newline) character, reusing the already resolved span's font
-			Size char_size = span.font->char_size(character);
+			Size char_size = span.image != 0 ? span.image->image_size() : span.font->char_size(character);
 			process_character(i, cursor_pos, info, line_width, char_size);
 		}
 	}
@@ -332,7 +332,6 @@ uint32_t TextBox::cursor_position(const Point & click_location, const Area & tex
 		last_line = current_line.y_q6() + (Coord)m_lines[i].size.height_q6();
 		current_line.move_q6(0, m_lines[i].size.height_q6());
 	}
-
 
 	if (line_detected == UINT32_MAX && m_lines.size() > 0)
 	{
@@ -624,7 +623,7 @@ void TextBox::paint_line_segments(const LineInfo & line, const Point & position,
 {
 	const String & clean = m_rich_text.clean_text();
 	uint32_t seg_start = line.line_start;
-	uint32_t seg_end_limit = line.line_end;
+	uint32_t line_end = line.line_end;
 
 	// Compute base position for this line
 	Point line_base(position);
@@ -636,20 +635,13 @@ void TextBox::paint_line_segments(const LineInfo & line, const Point & position,
 	Coord seg_x = 0;
 	Point seg_line_center(line_center);
 
-	while (seg_start <= seg_end_limit)
+	while (seg_start <= line_end)
 	{
-		// Determine the font and color for this segment
 		const TextSpan & span = m_rich_text.span_at(seg_start);
-		Font & seg_font = m_rich_text.font_at(seg_start);
-		uint32_t seg_color = m_rich_text.color_at(seg_start);
-		if (seg_color == 0)
-		{
-			seg_color = text_color;
-		}
 
 		// A span never mixes font/color, so its own bound gives the segment end directly,
 		// without having to compare font/color character by character
-		uint32_t seg_end = seg_end_limit;
+		uint32_t seg_end = line_end;
 		if (span.end != UINT32_MAX && span.end - 1 < seg_end)
 		{
 			seg_end = span.end - 1;
@@ -661,48 +653,71 @@ void TextBox::paint_line_segments(const LineInfo & line, const Point & position,
 			seg_end = seg_start;
 		}
 
-		// Extract segment text
-		String seg_text;
-		clean.slice(seg_start, seg_end+1, seg_text);
-
-		// Compute segment position
-		Point seg_pos(line_base);
-		seg_pos.move_q6(seg_x, 0);  // Move to the correct X position
-
-		// Adjust for baseline alignment: align this segment's baseline to the line's max baseline
-		// The offset is applied via center (not position) so it rotates correctly with the text angle
-		Coord seg_baseline = seg_font.baseline_q6();
-		Coord baseline_offset = line.baseline_ref - seg_baseline;
-
-		Point seg_center(seg_line_center);
-		seg_center.y_q6(seg_center.y_q6() - baseline_offset);
-
 		if (span.image != 0)
 		{
-			// Draw the vector image scaled to the line height, keeping its own colors
-			Size fit;
-			fit.height_q6(line.size.height_q6());
-			Dim zoom = span.image->fit_zoom_q6(fit);
-			Point no_shift;
-			span.image->paint(seg_pos, no_shift, seg_center, angle, zoom, Color::TRANSPARENT);
+			paint_image_segment(seg_start, span, line_base, seg_x, seg_line_center, line, angle);
 		}
 		else
 		{
-			// Draw segment with its specific font and color
-			seg_font.draw(seg_text, seg_pos, seg_center, margin, angle, seg_color);
-		}
-
-		// Advance x position for next segment: iterate over the already extracted seg_text
-		// instead of indexing back into "clean" at seg_start, which would jump backward past
-		// the position slice() just left its offset cache at and force a full O(n) rescan
-		uint32_t seg_char_count = seg_text.count();
-		for (uint32_t k = 0; k < seg_char_count; k++)
-		{
-			seg_x += seg_font.char_size(seg_text.get(k)).width_q6();
+			paint_text_segment(clean, seg_start, seg_end, line_base, seg_x,
+				seg_line_center, line, margin, angle, text_color);
 		}
 
 		seg_start = seg_end + 1;
 	}
+}
+
+/** Paint a text segment and advance the horizontal position */
+void TextBox::paint_text_segment(const String & clean, uint32_t seg_start, uint32_t seg_end,
+	const Point & line_base, Coord & seg_x, const Point & line_center,
+	const LineInfo & line, const Margin & margin, Coord angle, uint32_t text_color)
+{
+	Font & seg_font = m_rich_text.font_at(seg_start);
+	uint32_t seg_color = m_rich_text.color_at(seg_start);
+	if (seg_color == 0)
+	{
+		seg_color = text_color;
+	}
+
+	String seg_text;
+	clean.slice(seg_start, seg_end + 1, seg_text);
+
+	Point seg_pos(line_base);
+
+	// Align this segment's baseline to the line's maximum baseline.
+	Coord baseline_offset = line.baseline_ref - seg_font.baseline_q6();
+
+	Point seg_center(line_center);
+	seg_center.x_q6(seg_center.x_q6() - seg_x);
+	seg_center.y_q6(seg_center.y_q6() - baseline_offset);
+
+	seg_font.draw(seg_text, seg_pos, seg_center, margin, angle, seg_color);
+
+	// Advance using the extracted text to avoid rescanning clean after slice().
+	uint32_t seg_char_count = seg_text.count();
+	for (uint32_t k = 0; k < seg_char_count; k++)
+	{
+		seg_x += seg_font.char_size(seg_text.get(k)).width_q6();
+	}
+}
+
+/** Paint an inline image segment and advance the horizontal position */
+void TextBox::paint_image_segment(uint32_t seg_start,
+	const TextSpan & span, const Point & line_base, Coord & seg_x, const Point & line_center,
+	const LineInfo & line, Coord angle)
+{
+	Point seg_pos(line_base);
+
+	Dim zoom = span.image->fit_zoom_q6(span.image->image_size());
+	Size image_size = span.image->content_size(zoom);
+
+	// Image bottom sits on the line's maximum baseline.
+	Point seg_center(line_center);
+	seg_center.x_q6(seg_center.x_q6() - seg_x);
+	seg_center.y_q6(seg_center.y_q6() - (line.baseline_ref - (Coord)image_size.height_q6()));
+	Point no_shift;
+	span.image->paint(seg_pos, no_shift, seg_center, angle, zoom, span.image->image_color());
+	seg_x += image_size.width_q6();
 }
 
 /** Paint the text cursor rectangle if it is located on this line */

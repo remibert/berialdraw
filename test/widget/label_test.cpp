@@ -180,15 +180,24 @@ void Label::test5()
 void Label::test6()
 {
 	Window window;
+	window.color(Color::LIGHT_BEIGE);
 	Label* label = new Label(&window);
 	label->position(10, 140);
 	label->font_size(16);
+	label->text_align(Align::CENTER);
 	label->text(
-		"$<'font_familly':'Cerial','font_size':{'width':30,'height':30},'text_color':0xFF7F7F7F>"
-		"Sketch : "
-		"$<'sketch':'$(ui.icons)/filter_vintage.icn','text_color':0xFFFF0000> ...");
-	// while(1)
-	UIManager::desktop()->dispatch("$(ui.tests)/out/label6_1.svg");
+		//"Hello\n"
+		"$<'font_familly':'Cerial','font_size':{'width':30,'height':30},'text_color':0xFF7F7F7F> "
+		"Image : |_y->"
+		"$<'sketch':'$(ui.icons)/filter_vintage.icn','size':{'width':100,'height':100},'color':0xFFFF0000><- "
+		//"$$\nWorld"
+	
+	);
+	while (1)
+	{
+		UIManager::desktop()->dispatch("$(ui.tests)/out/label6_1.svg");
+
+	}
 }
 
 void Label::test7()
@@ -202,8 +211,8 @@ void Label::test()
 	{
 		MemoryLeakLog
 		done = true;
-		test7();
-		test6();
+		//test7();
+		//test6();
 		test5();
 		test4();
 		test3();
