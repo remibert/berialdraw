@@ -52,6 +52,8 @@ namespace berialdraw
 		static void test16();
 		static void test17();
 		static void test18();
+		static void test19();
+		static void test20();
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE

@@ -5373,7 +5373,7 @@
 		},
 		"$(ui.tests)/out/label6_1.svg" : 
 		{
-			"scale_1" : 1090008736
+			"scale_1" : 2434005631
 		},
 		"$(ui.tests)/out/canvas12_1.svg" : 
 		{
@@ -5381,10 +5381,18 @@
 		},
 		"$(ui.tests)/out/label6_2.svg" : 
 		{
-			"scale_1" : 2080921260
+			"scale_1" : 1743240749
 		},
 		"$(ui.tests)/out/label6_3.svg" : 
 		{
-			"scale_1" : 658500274
+			"scale_1" : 4163184562
+		},
+		"$(ui.tests)/out/label7_1.svg" : 
+		{
+			"scale_1" : 1919448466
+		},
+		"$(ui.tests)/out/button19_1.svg" : 
+		{
+			"scale_1" : 2692967006
 		}
 	}

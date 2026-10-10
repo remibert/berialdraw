@@ -156,6 +156,10 @@ void ListItem::place(const Area& area, bool in_layout)
 		m_text_foreclip.position().move_q6(m_leading_size.width_q6(), 0);
 		m_text_foreclip.size().decrease_q6(m_leading_size.width_q6() + m_trailing_size.width_q6(), 0);
 		place_in_layout(m_text_foreclip, m_text_foreclip.size(), marg, EXTEND_NONE, m_text_foreclip, m_text_align);
+		if (m_text_box && m_text_box->has_spacers())
+		{
+			m_text_box->parse(m_text_foreclip, *m_font, m_text, UINT32_MAX, UINT32_MAX, UINT32_MAX, m_text_align, false);
+		}
 	}
 
 	// Paint leading

@@ -24,6 +24,22 @@ bool TextBox::ignore_tags() const
 	return m_ignore_tags;
 }
 
+/** Check whether the text contains flexible tab spacers */
+bool TextBox::has_spacers() const
+{
+	bool result = false;
+	const String & clean = m_rich_text.clean_text();
+	for (uint32_t i = 0; i < clean.count(); i++)
+	{
+		if (clean.get(i) == L'\t')
+		{
+			result = true;
+			break;
+		}
+	}
+	return result;
+}
+
 void TextBox::parse(const Area & text_area, Font & font, String & text, 
 	uint32_t cursor_pos, uint32_t sel_start, uint32_t sel_end, Align text_align, bool text_changed)
 {
@@ -48,6 +64,72 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 	// Default line height and space size from default font
 	default_line_height = font.real_size().height_q6();
 	space_size = font.char_size(' ');
+
+	// Resolve natural character advances before distributing flexible tab spacers
+	m_character_widths.resize(count + 1);
+	for (i = 0; i < count; i++)
+	{
+		const TextSpan & span = m_rich_text.span_at(i);
+		character = clean.get(i);
+		if (character == L'\t')
+		{
+			m_character_widths[i] = span.font->char_size(' ').width_q6();
+		}
+		else if (span.image != 0)
+		{
+			m_character_widths[i] = span.image->image_size().width_q6();
+		}
+		else
+		{
+			m_character_widths[i] = span.font->char_size(character).width_q6();
+		}
+	}
+	m_character_widths[count] = space_size.width_q6();
+
+	// Distribute the remaining line width equally between tabs when a maximum width is known
+	if (text_area.width_q6() > 0)
+	{
+		uint32_t line_start = 0;
+		while (line_start < count)
+		{
+			uint32_t line_end = line_start;
+			uint32_t spacer_count = 0;
+			uint64_t fixed_width = 0;
+			Dim min_spacer_width = 0;
+			while (line_end < count && clean.get(line_end) != L'\n')
+			{
+				if (clean.get(line_end) == L'\t')
+				{
+					spacer_count++;
+					if (m_character_widths[line_end] > min_spacer_width)
+					{
+						min_spacer_width = m_character_widths[line_end];
+					}
+				}
+				else
+				{
+					fixed_width += m_character_widths[line_end];
+				}
+				line_end++;
+			}
+
+			if (spacer_count > 0 && fixed_width < text_area.width_q6())
+			{
+				Dim spacer_width = (Dim)((text_area.width_q6() - fixed_width) / spacer_count);
+				if (spacer_width >= min_spacer_width)
+				{
+					for (uint32_t j = line_start; j < line_end; j++)
+					{
+						if (clean.get(j) == L'\t')
+						{
+							m_character_widths[j] = spacer_width;
+						}
+					}
+				}
+			}
+			line_start = line_end + (line_end < count ? 1 : 0);
+		}
+	}
 
 	m_lines.clear();
 	m_lines_size.set(0,0);
@@ -111,6 +193,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		{
 			// Process a normal (non-newline) character, reusing the already resolved span's font
 			Size char_size = span.image != 0 ? span.image->image_size() : span.font->char_size(character);
+			char_size.width_q6(m_character_widths[i]);
 			process_character(i, cursor_pos, info, line_width, char_size);
 		}
 	}
@@ -398,6 +481,10 @@ uint32_t TextBox::cursor_position(const Point & click_location, const Area & tex
 			{
 				// Use per-character font size from rich text
 				Size char_size = m_rich_text.char_size_at(i);
+				if (i < m_character_widths.size())
+				{
+					char_size.width_q6(m_character_widths[i]);
+				}
 
 				// If cursor position found
 				if (click_location.x_q6() >= (line_position.x_q6() + coord_char.x_q6()) &&
@@ -657,6 +744,16 @@ void TextBox::paint_line_segments(const LineInfo & line, const Point & position,
 
 	while (seg_start <= line_end)
 	{
+		if (seg_start < clean.count() && clean.get(seg_start) == L'\t')
+		{
+			if (seg_start < m_character_widths.size())
+			{
+				seg_x += m_character_widths[seg_start];
+			}
+			seg_start++;
+			continue;
+		}
+
 		const TextSpan & span = m_rich_text.span_at(seg_start);
 
 		uint32_t seg_end = line_end;
@@ -668,6 +765,17 @@ void TextBox::paint_line_segments(const LineInfo & line, const Point & position,
 		if (seg_end < seg_start)
 		{
 			seg_end = seg_start;
+		}
+		if (span.image == 0)
+		{
+			for (uint32_t i = seg_start; i <= seg_end && i < clean.count(); i++)
+			{
+				if (clean.get(i) == L'\t')
+				{
+					seg_end = i - 1;
+					break;
+				}
+			}
 		}
 
 		if (span.image != 0)
@@ -714,7 +822,11 @@ void TextBox::paint_text_segment(const String & clean, uint32_t seg_start, uint3
 	uint32_t seg_char_count = seg_text.count();
 	for (uint32_t k = 0; k < seg_char_count; k++)
 	{
-		seg_x += seg_font.char_size(seg_text.get(k)).width_q6();
+		uint32_t clean_index = seg_start + k;
+		if (clean_index < m_character_widths.size())
+		{
+			seg_x += m_character_widths[clean_index];
+		}
 	}
 }
 

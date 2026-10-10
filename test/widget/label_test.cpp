@@ -182,7 +182,7 @@ void Label::test6()
 	Window window;
 	window.color(Color::LIGHT_BEIGE);
 	Label* label = new Label(&window);
-	// label->position(10, 140);
+	label->position(10, 140);
 	label->font_size(16);
 	label->text(
 		"Hello\n"
@@ -191,8 +191,8 @@ void Label::test6()
 		"$<'sketch':'$(ui.icons)/filter_vintage.icn','size':{'width':100,'height':100},'color':0xFFFF0000, 'align':'center'><-"
 		"$$\nWorld"
 	);
+	// while(1)
 	UIManager::desktop()->dispatch("$(ui.tests)/out/label6_1.svg");
-	UIManager::desktop()->dispatch();
 
 	label->text(
 		"Hello\n"
@@ -203,7 +203,6 @@ void Label::test6()
 	);
 
 	UIManager::desktop()->dispatch("$(ui.tests)/out/label6_2.svg");
-	UIManager::desktop()->dispatch();
 
 	label->text(
 		"Hello\n"
@@ -214,11 +213,24 @@ void Label::test6()
 	);
 
 	UIManager::desktop()->dispatch("$(ui.tests)/out/label6_3.svg");
-	UIManager::desktop()->dispatch();
 }
 
 void Label::test7()
 {
+	Window window;
+	window.color(Color::LIGHT_BEIGE);
+	Label* label = new Label(&window);
+		label->font_size(32);
+		label->text(
+			"One|\t|\n\n"
+			"|\t|Two|\t|\n\n"
+			"|\t|Three|\t|\t|\n\n"
+			"|\t|\t|Four|\t|\t|\n\n"
+			"|\t|\t|Five|\t|\t|\t|\n\n"
+			"|\t|\t|\t|Six|\t|\t|\t|"
+		);
+		label->size_policy(SizePolicy::ENLARGE_ALL);
+	UIManager::desktop()->dispatch("$(ui.tests)/out/label7_1.svg");
 }
 
 void Label::test()

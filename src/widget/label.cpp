@@ -83,6 +83,7 @@ Size Label::content_size()
 void Label::place(const Area & area, bool in_layout)
 {
 	Margin marg;
+	Align text_align = m_text_align;
 	if (m_text_align != Align::ALIGN_DEFAULT && m_align == Align::ALIGN_DEFAULT)
 	{
 		m_align = m_text_align;
@@ -90,6 +91,17 @@ void Label::place(const Area & area, bool in_layout)
 	}
 	compute_widget_placement(area, in_layout, 0);
 	place_in_layout(m_contentclip, m_text_size, marg, EXTEND_NONE, m_foreclip, m_text_align);
+	m_text_foreclip = m_foreclip;
+	if (m_text_box.has_spacers())
+	{
+		m_text_foreclip.x_q6(m_contentclip.x_q6());
+		m_text_foreclip.width_q6(m_contentclip.width_q6());
+		select_font();
+		if (m_font.get())
+		{
+			m_text_box.parse(m_text_foreclip, *m_font, m_text, UINT32_MAX, UINT32_MAX, UINT32_MAX, text_align, false);
+		}
+	}
 }
 
 void Label::paint(const Region & parent_region)
@@ -104,7 +116,7 @@ void Label::paint(const Region & parent_region)
 		select_font();
 		UIManager::renderer()->region(region);
 
-		m_text_box.paint(*m_font.get(), m_text, m_foreclip.position(), m_backclip, color);
+		m_text_box.paint(*m_font.get(), m_text, m_text_foreclip.position(), m_backclip, color);
 	}
 }
 

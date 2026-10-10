@@ -1349,6 +1349,29 @@ void Button::test18()
 	}
 }
 
+void Button::test19()
+{
+	Window window;
+	window.color(Color::LIGHT_BEIGE);
+	Button* button = new Button(&window);
+		button->font_size(32);
+		button->text(
+			"One|\t|\n\n"
+			"|\t|Two|\t|\n\n"
+			"|\t|Three|\t|\t|\n\n"
+			"|\t|\t|Four|\t|\t|\n\n"
+			"|\t|\t|Five|\t|\t|\t|\n\n"
+			"|\t|\t|\t|Six|\t|\t|\t|"
+		);
+	UIManager::desktop()->dispatch("$(ui.tests)/out/button19_1.svg");
+}
+
+void Button::test20()
+{
+
+}
+
+
 void Button::test()
 {
 	static bool done = false;
@@ -1357,6 +1380,8 @@ void Button::test()
 		MemoryLeakLog
 		done = true;
 
+		test20();
+		test19();
 		test18();
 		test17();
 		test16();

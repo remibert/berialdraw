@@ -37,7 +37,11 @@ namespace berialdraw
 		/** Check whether rich-text tags are treated as plain text */
 		bool ignore_tags() const;
 
+		/** Check whether the text contains flexible tab spacers */
+		bool has_spacers() const;
+
 		/** Parse the text to search each line, selection position and cursor position.
+		@param text_area  Available width used to expand tab spacers; width zero uses one space per tab.
 		@param text_changed  If false, skip reparsing (text content hasn't changed). Default true. */
 		void parse(const Area & text_area, Font & font, String & text, uint32_t cursor_pos, uint32_t sel_start, uint32_t sel_end, Align text_align, bool text_changed = true);
 
@@ -111,6 +115,7 @@ namespace berialdraw
 	protected:
 		RichText m_rich_text;
 		Vector<LineInfo> m_lines;
+		Vector<Dim> m_character_widths; ///< Resolved character advances, including flexible tab spacers
 		Size  m_lines_size;
 		Size m_cursor_size;
 		Point m_cursor_pos;

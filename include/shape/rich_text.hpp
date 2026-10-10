@@ -24,12 +24,16 @@ namespace berialdraw
 	/** Parses a string containing inline formatting tags and provides
 	    access to per-character font and color information.
 
-	    Text style : $<"font":"arial","size":24,"color":0xFF0000>styled text$$
-	    - $<json>  starts a styled span
-	    - $$       resets to default style
-
-	    Sketch image : $<'sketch':'$(ui.icons)/filter_vintage.icn','size':{'width':100,'height':100},'color':0xFFFF0000,'align':'center'>
-	    Image align values: 'center' or 'bottom' (default).
+	    Inline elements:
+	    - Text style: $<"font":"arial","size":24,"color":0xFF0000>styled text$$
+	      Supported properties include font family, size, and color. The style
+	      applies until the next tag or $$, which restores the default style.
+	    - Spacer: a tab character (\t) is not drawn. With a maximum line width,
+	      tabs share the remaining width equally; without one, each is one space.
+	      Each spacer is at least one space wide. Example: "Name\tValue\t>".
+	    - Image: $<'sketch':'$(ui.icons)/filter_vintage.icn','size':{'width':100,'height':100},'color':0xFFFF0000,'align':'center'>
+	      Inserts an inline sketch; size and color are optional. Alignment is
+	      'bottom' by default, or 'center' to center it vertically with the text.
 	*/
 	class RichText
 	{
