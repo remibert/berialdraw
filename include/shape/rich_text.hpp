@@ -13,28 +13,35 @@ namespace berialdraw
 		Font *   font = 0;            ///< Font for this span (0 = default font, non-owning)
 		uint32_t color = 0;           ///< Text color for this span (0 = default color)
 		bool     color_set = false;   ///< Whether color was explicitly set
-		Dim      line_height = 16;    ///< Cached line height for this span
+		Dim      height = 0;          ///< Height for this span
+		Dim      line_height = 0;     ///< Total height of this text line
 		Coord    baseline = 0;        ///< Baseline offset for this span (26.6 fixed point)
-		//InlineObject* object = 0;     ///< Used for sketch
-		VectorImage* image = 0;
+		VectorImage* image = 0;       ///< Used for sketch
+		bool     image_center = false; ///< Center the image vertically with text
+		Coord    image_baseline_offset = 0; ///< Image bottom offset from the line baseline
 	};
 
 	/** Parses a string containing inline formatting tags and provides
 	    access to per-character font and color information.
 
-	    Format: $<"font":"arial","size":24,"color":"#FF0000">styled text$$
+	    Text style : $<"font":"arial","size":24,"color":0xFF0000>styled text$$
 	    - $<json>  starts a styled span
 	    - $$       resets to default style
+
+	    Sketch image : $<'sketch':'$(ui.icons)/filter_vintage.icn','size':{'width':100,'height':100},'color':0xFFFF0000,'align':'center'>
+	    Image align values: 'center' or 'bottom' (default).
 	*/
 	class RichText
 	{
 	public:
+		/** Release inline images owned by the spans */
+		~RichText();
+
 		/** Parse a raw text string with inline formatting tags.
 		@param raw_text  The text containing formatting tags
 		@param default_font  The default font used when no span overrides it
-		@param default_color  The default text color
-		@param text_changed  If false, skip parsing (content hasn't changed). Default true. */
-		void parse(const String & raw_text, Font & default_font, uint32_t default_color, bool text_changed = true);
+		@param default_color  The default text color */
+		void parse(const String & raw_text, Font & default_font, uint32_t default_color, bool parse_tags = true);
 
 		/** Get the clean text (without formatting tags) */
 		const String & clean_text() const;
@@ -90,11 +97,23 @@ namespace berialdraw
 		/** Parse a JSON formatting tag using TextStyle and create a font span */
 		void parse_tag(const String & tag_content, Font & default_font, uint32_t default_color, TextSpan & span);
 
+		/** Compute each line's height, baseline, and inline-image offsets */
+		void calculate_line_heights();
+
+		/** Load an inline image from a formatting tag */
+		void parse_image_tag(Json & json, JsonIterator & it, TextSpan & span);
+
+		/** Apply font and color properties from a formatting tag */
+		void parse_style_tag(JsonIterator & it, Font & default_font, uint32_t default_color, TextSpan & span);
+
 		/** Initialize a text span with default values */
 		void init_default_span(TextSpan & span, uint32_t start, Font & font, uint32_t color);
 
 		/** Close the current span and add it to the list if it has content */
 		void close_span(TextSpan & span, uint32_t clean_index);
+
+		/** Delete span-owned images and clear the span list */
+		void clear_spans();
 
 		String           m_clean_text;              ///< Text without formatting tags
 		Vector<TextSpan> m_spans;                   ///< Formatting spans

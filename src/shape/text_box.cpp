@@ -12,17 +12,33 @@ TextBox::~TextBox()
 {
 }
 
+/** Set whether rich-text tags are treated as plain text */
+void TextBox::ignore_tags(bool ignore)
+{
+	m_ignore_tags = ignore;
+}
+
+/** Check whether rich-text tags are treated as plain text */
+bool TextBox::ignore_tags() const
+{
+	return m_ignore_tags;
+}
+
 void TextBox::parse(const Area & text_area, Font & font, String & text, 
 	uint32_t cursor_pos, uint32_t sel_start, uint32_t sel_end, Align text_align, bool text_changed)
 {
-	// Parse rich text formatting tags (skip if text hasn't changed)
-	m_rich_text.parse(text, font, 0, text_changed);
+	// If the text has changed
+	if (text_changed)
+	{
+		// Parse rich text
+		m_rich_text.parse(text, font, 0, !m_ignore_tags);
+	}
 
 	const String & clean = m_rich_text.clean_text();
 	uint32_t count = clean.count();
 
 	wchar_t character;
-	Dim line_height = 0;
+	Dim default_line_height = 0;
 	Dim line_width = 0;
 	Size space_size;
 	uint32_t i;
@@ -30,7 +46,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 	bool selection = false;
 
 	// Default line height and space size from default font
-	line_height = font.real_size().height_q6();
+	default_line_height = font.real_size().height_q6();
 	space_size = font.char_size(' ');
 
 	m_lines.clear();
@@ -40,8 +56,8 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 	m_cursor_line = 0;
 
 	// Track max line height for current line (may vary with rich text)
-	Dim max_line_height = line_height;
-	Coord max_baseline = font.baseline_q6();  ///< Track the maximum baseline on the line
+	Dim max_line_height = 0;
+	Coord max_baseline = 0;
 
 	// Parse all character to search new lines
 	for (i=0; i < count; i++)
@@ -51,7 +67,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		// Resolve the span once per character (font, color, line height, baseline in a single lookup)
 		const TextSpan & span = m_rich_text.span_at(i);
 
-		// Update max line height with the font at this character position
+		// Update line height using the metrics computed by RichText
 		if (span.line_height > max_line_height)
 		{
 			max_line_height = span.line_height;
@@ -89,7 +105,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 		// If new line detected
 		if (character == '\n')
 		{
-			finalize_line_at_newline(i, cursor_pos, font, line_height, info, line_width, max_line_height, max_baseline);
+			finalize_line_at_newline(i, cursor_pos, info, line_width, max_line_height, max_baseline);
 		}
 		else
 		{
@@ -100,6 +116,11 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 	}
 
 	i = i;
+	if (info.line_start == UINT32_MAX && info.line_end == UINT32_MAX)
+	{
+		max_line_height = default_line_height;
+		max_baseline = font.baseline_q6();
+	}
 	finalize_trailing_line(i, cursor_pos, sel_start, sel_end, space_size, info, line_width, max_line_height, max_baseline);
 
 	apply_alignment(text_area, text_align, cursor_pos);
@@ -113,7 +134,6 @@ void TextBox::process_character(uint32_t i, uint32_t cursor_pos, LineInfo & info
 	
 	if (cursor_pos != UINT32_MAX)
 	{
-	
 		// If the cursor in on the current character
 		if (i == cursor_pos)
 		{
@@ -129,7 +149,7 @@ void TextBox::process_character(uint32_t i, uint32_t cursor_pos, LineInfo & info
 }
 
 /** Finalize the current line when a newline character is found, and reset the running state for the next line */
-void TextBox::finalize_line_at_newline(uint32_t i, uint32_t cursor_pos, Font & font, Dim line_height,
+void TextBox::finalize_line_at_newline(uint32_t i, uint32_t cursor_pos,
 	LineInfo & info, Dim & line_width, Dim & max_line_height, Coord & max_baseline)
 {
 	// Set the size of line (use max line height for this line)
@@ -169,8 +189,8 @@ void TextBox::finalize_line_at_newline(uint32_t i, uint32_t cursor_pos, Font & f
 	m_lines.push_back(info);
 
 	line_width = 0;
-	max_line_height = line_height;
-	max_baseline = font.baseline_q6();  ///< Reset baseline reference to default
+	max_line_height = 0;
+	max_baseline = 0;
 
 	// Clear line informations
 	info.selection_end   = UINT32_MAX;
@@ -639,15 +659,12 @@ void TextBox::paint_line_segments(const LineInfo & line, const Point & position,
 	{
 		const TextSpan & span = m_rich_text.span_at(seg_start);
 
-		// A span never mixes font/color, so its own bound gives the segment end directly,
-		// without having to compare font/color character by character
 		uint32_t seg_end = line_end;
 		if (span.end != UINT32_MAX && span.end - 1 < seg_end)
 		{
 			seg_end = span.end - 1;
 		}
-		// Guard against a line_end past the span coverage (trailing line quirk): always
-		// consume at least one character so seg_start keeps advancing
+
 		if (seg_end < seg_start)
 		{
 			seg_end = seg_start;
@@ -711,10 +728,10 @@ void TextBox::paint_image_segment(uint32_t seg_start,
 	Dim zoom = span.image->fit_zoom_q6(span.image->image_size());
 	Size image_size = span.image->content_size(zoom);
 
-	// Image bottom sits on the line's maximum baseline.
+	// Place the image bottom at its computed line offset.
 	Point seg_center(line_center);
 	seg_center.x_q6(seg_center.x_q6() - seg_x);
-	seg_center.y_q6(seg_center.y_q6() - (line.baseline_ref - (Coord)image_size.height_q6()));
+				seg_center.y_q6(seg_center.y_q6() - (line.baseline_ref + span.image_baseline_offset - (Coord)image_size.height_q6()));
 	Point no_shift;
 	span.image->paint(seg_pos, no_shift, seg_center, angle, zoom, span.image->image_color());
 	seg_x += image_size.width_q6();

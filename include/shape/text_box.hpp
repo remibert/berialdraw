@@ -31,6 +31,12 @@ namespace berialdraw
 		@return Size object representing the content size of the TextBox */
 		virtual Size content_size();
 
+		/** Set whether rich-text tags are treated as plain text */
+		void ignore_tags(bool ignore);
+
+		/** Check whether rich-text tags are treated as plain text */
+		bool ignore_tags() const;
+
 		/** Parse the text to search each line, selection position and cursor position.
 		@param text_changed  If false, skip reparsing (text content hasn't changed). Default true. */
 		void parse(const Area & text_area, Font & font, String & text, uint32_t cursor_pos, uint32_t sel_start, uint32_t sel_end, Align text_align, bool text_changed = true);
@@ -69,7 +75,7 @@ namespace berialdraw
 		void process_character(uint32_t i, uint32_t cursor_pos, LineInfo & info, Dim & line_width, const Size & char_size);
 
 		/** Finalize the current line when a newline character is found, and reset the running state for the next line */
-		void finalize_line_at_newline(uint32_t i, uint32_t cursor_pos, Font & font, Dim line_height,
+		void finalize_line_at_newline(uint32_t i, uint32_t cursor_pos,
 			LineInfo & info, Dim & line_width, Dim & max_line_height, Coord & max_baseline);
 
 		/** Finalize the trailing line(s) after the main character loop: a line ending exactly on a trailing
@@ -109,6 +115,7 @@ namespace berialdraw
 		Size m_cursor_size;
 		Point m_cursor_pos;
 		Dim   m_cursor_line;
+		bool m_ignore_tags = false;
 	};
 /// @endcond
 #endif

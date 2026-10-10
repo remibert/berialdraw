@@ -2,10 +2,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Berialdraw",
+            "name": "Test",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/Users/remi/Downloads/berialdraw/berialdraw_",
+            "program": "/Users/remi/Downloads/build/samples/app_unitary_test",
+            "args": [],
+            "stopAtEntry": false,
+            "targetArchitecture": "arm64",
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "MIMode": "lldb"
+        },
+        {
+            "name": "Sample",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/Users/remi/Downloads/build/samples/app_sample",
             "args": [],
             "stopAtEntry": false,
             "targetArchitecture": "arm64",

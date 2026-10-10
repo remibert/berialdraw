@@ -8,6 +8,7 @@ Edit::Edit(Widget * parent):
 	m_text_box()
 {
 	m_position = m_position;
+	m_text_box.ignore_tags(true);
 	UIManager::styles()->apply(this, (CommonStyle*)this);
 	UIManager::styles()->apply(this, (WidgetStyle*)this);
 	UIManager::styles()->apply(this, (BorderStyle*)this);

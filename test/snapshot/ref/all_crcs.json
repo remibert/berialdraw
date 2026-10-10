@@ -4787,67 +4787,67 @@
 		"$(ui.tests)/out/canvas2_1.svg" : 
 		{
 			"scale_2" : 2578973897,
-			"scale_1" : 121483560
+			"scale_1" : 637321627
 		},
 		"$(ui.tests)/out/canvas2_2.svg" : 
 		{
 			"scale_2" : 1512004790,
-			"scale_1" : 1631860605
+			"scale_1" : 50780438
 		},
 		"$(ui.tests)/out/canvas2_3.svg" : 
 		{
 			"scale_2" : 672567031,
-			"scale_1" : 3284333523
+			"scale_1" : 3782332391
 		},
 		"$(ui.tests)/out/canvas2_4.svg" : 
 		{
 			"scale_2" : 3763072790,
-			"scale_1" : 3529172483
+			"scale_1" : 1391101153
 		},
 		"$(ui.tests)/out/canvas2_5.svg" : 
 		{
 			"scale_2" : 3389369742,
-			"scale_1" : 3678787042
+			"scale_1" : 182512960
 		},
 		"$(ui.tests)/out/canvas2_6.svg" : 
 		{
 			"scale_2" : 1436958866,
-			"scale_1" : 1985322465
+			"scale_1" : 2178008433
 		},
 		"$(ui.tests)/out/canvas2_7.svg" : 
 		{
 			"scale_2" : 3176768518,
-			"scale_1" : 229519618
+			"scale_1" : 807074098
 		},
 		"$(ui.tests)/out/canvas2_8.svg" : 
 		{
 			"scale_2" : 1334019773,
-			"scale_1" : 3012726479
+			"scale_1" : 3843020948
 		},
 		"$(ui.tests)/out/canvas2_9.svg" : 
 		{
 			"scale_2" : 4226006597,
-			"scale_1" : 1599443794
+			"scale_1" : 3218406771
 		},
 		"$(ui.tests)/out/canvas2_10.svg" : 
 		{
 			"scale_2" : 4129682019,
-			"scale_1" : 3329073055
+			"scale_1" : 1758409974
 		},
 		"$(ui.tests)/out/canvas2_11.svg" : 
 		{
 			"scale_2" : 781415605,
-			"scale_1" : 3001441259
+			"scale_1" : 3114580314
 		},
 		"$(ui.tests)/out/canvas2_12.svg" : 
 		{
 			"scale_2" : 2314860100,
-			"scale_1" : 22751756
+			"scale_1" : 4035998163
 		},
 		"$(ui.tests)/out/canvas2_13.svg" : 
 		{
 			"scale_2" : 1711774405,
-			"scale_1" : 677923687
+			"scale_1" : 15944638
 		},
 		"$(ui.tests)/out/label5_1.svg" : 
 		{
@@ -5373,10 +5373,18 @@
 		},
 		"$(ui.tests)/out/label6_1.svg" : 
 		{
-			"scale_1" : 1542991384
+			"scale_1" : 1090008736
 		},
 		"$(ui.tests)/out/canvas12_1.svg" : 
 		{
 			"scale_1" : 3033931408
+		},
+		"$(ui.tests)/out/label6_2.svg" : 
+		{
+			"scale_1" : 2080921260
+		},
+		"$(ui.tests)/out/label6_3.svg" : 
+		{
+			"scale_1" : 658500274
 		}
 	}

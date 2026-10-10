@@ -182,22 +182,39 @@ void Label::test6()
 	Window window;
 	window.color(Color::LIGHT_BEIGE);
 	Label* label = new Label(&window);
-	label->position(10, 140);
+	// label->position(10, 140);
 	label->font_size(16);
-	label->text_align(Align::CENTER);
 	label->text(
-		//"Hello\n"
-		"$<'font_familly':'Cerial','font_size':{'width':30,'height':30},'text_color':0xFF7F7F7F> "
+		"Hello\n"
+		"$<'font_familly':'Cerial','font_size':{'width':30,'height':30},'text_color':0xFF7F7F7F>"
 		"Image : |_y->"
-		"$<'sketch':'$(ui.icons)/filter_vintage.icn','size':{'width':100,'height':100},'color':0xFFFF0000><- "
-		//"$$\nWorld"
-	
+		"$<'sketch':'$(ui.icons)/filter_vintage.icn','size':{'width':100,'height':100},'color':0xFFFF0000, 'align':'center'><-"
+		"$$\nWorld"
 	);
-	while (1)
-	{
-		UIManager::desktop()->dispatch("$(ui.tests)/out/label6_1.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/label6_1.svg");
+	UIManager::desktop()->dispatch();
 
-	}
+	label->text(
+		"Hello\n"
+		"$<'font_familly':'Cerial','font_size':{'width':30,'height':30},'text_color':0xFF7F7F7F>"
+		"Image : |_y->"
+		"$<'sketch':'$(ui.icons)/filter_vintage.icn','size':{'width':10,'height':10},'color':0xFFFF0000, 'align':'center'><-"
+		"$$\nWorld"
+	);
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/label6_2.svg");
+	UIManager::desktop()->dispatch();
+
+	label->text(
+		"Hello\n"
+		"$<'font_familly':'Cerial','font_size':{'width':30,'height':30},'text_color':0xFF7F7F7F>"
+		"Image : |_y->"
+		"$<'sketch':'$(ui.icons)/filter_vintage.icn','size':{'width':100,'height':100},'color':0xFFFF0000, 'align':'bottom'><-"
+		"$$\nWorld"
+	);
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/label6_3.svg");
+	UIManager::desktop()->dispatch();
 }
 
 void Label::test7()
@@ -211,8 +228,8 @@ void Label::test()
 	{
 		MemoryLeakLog
 		done = true;
-		//test7();
-		//test6();
+		test7();
+		test6();
 		test5();
 		test4();
 		test3();

@@ -2,24 +2,23 @@
 
 using namespace berialdraw;
 
-/** Parse a raw text string with inline formatting tags */
-void RichText::parse(const String & raw_text, Font & default_font, uint32_t default_color, bool text_changed)
+/** Release inline images owned by the spans */
+RichText::~RichText()
 {
-	// Skip parsing if text hasn't changed
-	if (!text_changed)
-	{
-		return;
-	}
-	
+	clear_spans();
+}
+
+/** Parse a raw text string with inline formatting tags */
+void RichText::parse(const String & raw_text, Font & default_font, uint32_t default_color, bool parse_tags)
+{
 	m_clean_text = "";
-	m_spans.clear();
+	clear_spans();
 	m_raw_to_clean.clear();
 	m_clean_to_raw.clear();
 	m_default_font = &default_font;
 	m_default_color = default_color;
 	m_font_ptrs_count = 0;
 	m_span_cache_index = 0;
-
 	// Safety check: ensure default_font is valid
 	if (m_default_font != 0)
 	{
@@ -28,22 +27,24 @@ void RichText::parse(const String & raw_text, Font & default_font, uint32_t defa
 		uint32_t i = 0;
 		String tag_content;
 
-		TextSpan current_span;
-		init_default_span(current_span, 0, default_font, default_color);
+		TextSpan span;
+		init_default_span(span, 0, default_font, default_color);
 		m_raw_to_clean.reserve(raw_count);
 
 		while (i < raw_count)
 		{
 			wchar_t ch = raw_text.get(i);
-			// Check for $ character (tag delimiter)
-			if (ch == L'$' && i + 1 < raw_count)
+
+			// Parse formatting tags
+			if (parse_tags && ch == L'$' && i + 1 < raw_count)
 			{
 				wchar_t next = raw_text.get(i + 1);
 
 				if (next == L'<')
 				{
-					// $< : start of formatting tag - use search_pattern to find matching >
+					// Find the closing tag delimiter
 					int32_t pattern_pos = raw_text.search_pattern(tag_content, "$<", ">", i);
+
 					if (pattern_pos == (int32_t)i)
 					{
 						uint32_t pattern_len = 2 + tag_content.count() + 1;
@@ -53,48 +54,62 @@ void RichText::parse(const String & raw_text, Font & default_font, uint32_t defa
 						}
 						i += pattern_len;
 
-						close_span(current_span, clean_index);
+						close_span(span, clean_index);
 						TextSpan new_span;
 						new_span.start = clean_index;
 						parse_tag(tag_content, default_font, default_color, new_span);
+
+						// If an image is in rich text
 						if (new_span.image != 0)
 						{
+							// Insert the image as a single placeholder character
 							new_span.end = clean_index + 1;
 							m_spans.push_back(new_span);
 							m_clean_to_raw.push_back(i - pattern_len);
 							m_clean_text.write_char(0xFFFC);
 							clean_index++;
-							current_span.start = clean_index;
-							current_span.end = UINT32_MAX;
+							span.start = clean_index;
+							span.end = UINT32_MAX;
 						}
 						else
 						{
-							current_span = new_span;
+							span = new_span;
 						}
 						continue;
 					}
 				}
 				else if (next == L'$')
 				{
-					// $$ : reset to default style
+					// Reset to the default style
 					m_raw_to_clean.push_back(clean_index);
 					i += 2;
 
-					close_span(current_span, clean_index);
-					init_default_span(current_span, clean_index, default_font, default_color);
+					close_span(span, clean_index);
+					init_default_span(span, clean_index, default_font, default_color);
 					continue;
 				}
 			}
 
-			// Normal character : add to clean text and mappings
+			// Copy a regular character and record its indices
 			m_raw_to_clean.push_back(clean_index);
 			m_clean_to_raw.push_back(i);
 			m_clean_text.write_char(ch);
 			clean_index++;
 			i++;
+
+			// Split spans at line breaks so each span has one line's metrics
+			if (ch == L'\n')
+			{
+				TextSpan next_span = span;
+				close_span(span, clean_index);
+				next_span.start = clean_index;
+				next_span.end = UINT32_MAX;
+				next_span.image = 0;
+				span = next_span;
+			}
 		}
 
-		close_span(current_span, clean_index);
+		close_span(span, clean_index);
 
 		// Ensure there's always at least one span with a valid font
 		if (m_spans.size() == 0)
@@ -107,6 +122,117 @@ void RichText::parse(const String & raw_text, Font & default_font, uint32_t defa
 
 		// Add a final mapping entry for end-of-text
 		m_clean_to_raw.push_back(raw_count);
+
+		calculate_line_heights();
+	}
+}
+
+/** Delete span-owned images and clear the span list */
+void RichText::clear_spans()
+{
+	for (uint32_t i = 0; i < m_spans.size(); i++)
+	{
+		if (m_spans[i].image != 0)
+		{
+			delete m_spans[i].image;
+			m_spans[i].image = 0;
+		}
+	}
+	m_spans.clear();
+}
+
+/** Compute each line's height, baseline, and inline-image offsets */
+void RichText::calculate_line_heights()
+{
+	uint32_t line_start = 0;
+	uint32_t text_count = m_clean_text.count();
+
+	while (line_start < text_count)
+	{
+		uint32_t line_end = line_start;
+		int64_t text_ascent = 0;
+		int64_t text_descent = 0;
+
+		// Find the line boundary and maximum text ascent and descent
+		while (line_end < text_count)
+		{
+			uint32_t span_index = span_index_at(line_end);
+			if (span_index != UINT32_MAX && m_spans[span_index].image == 0)
+			{
+				const TextSpan & span = m_spans[span_index];
+				int64_t ascent = span.baseline;
+				int64_t descent = span.height > (Dim)ascent ? span.height - ascent : 0;
+				if (ascent > text_ascent)
+				{
+					text_ascent = ascent;
+				}
+				if (descent > text_descent)
+				{
+					text_descent = descent;
+				}
+			}
+
+			bool is_newline = m_clean_text.get(line_end) == L'\n';
+			line_end++;
+			if (is_newline)
+			{
+				break;
+			}
+		}
+
+		// Use the default font metrics for lines containing only images
+		if (text_ascent == 0 && m_default_font != 0)
+		{
+			text_ascent = m_default_font->baseline_q6();
+			Dim default_height = m_default_font->real_size().height_q6();
+			text_descent = default_height > (Dim)text_ascent ? default_height - (Dim)text_ascent : 0;
+		}
+
+		int64_t min_y = -text_ascent;
+		int64_t max_y = text_descent;
+
+		// Include each image according to its requested vertical alignment
+		for (uint32_t i = 0; i < m_spans.size(); i++)
+		{
+			TextSpan & span = m_spans[i];
+			if (span.start >= line_end || span.end <= line_start || span.image == 0)
+			{
+				continue;
+			}
+
+			int64_t image_height = span.image->image_size().height_q6();
+			int64_t image_bottom = 0;
+			if (span.image_center)
+			{
+				image_bottom = (text_descent - text_ascent + image_height) / 2;
+			}
+			int64_t image_top = image_bottom - image_height;
+			if (image_top < min_y)
+			{
+				min_y = image_top;
+			}
+			if (image_bottom > max_y)
+			{
+				max_y = image_bottom;
+			}
+			span.image_baseline_offset = (Coord)image_bottom;
+		}
+
+		Dim line_height = (Dim)(max_y - min_y);
+		Coord line_baseline = (Coord)(-min_y);
+
+		// Store the computed line metrics on every span in the line
+		for (uint32_t i = 0; i < m_spans.size(); i++)
+		{
+			TextSpan & span = m_spans[i];
+			if (span.start < line_end && span.end > line_start)
+			{
+				span.line_height = line_height;
+				span.baseline = line_baseline;
+			}
+		}
+
+		line_start = line_end;
 	}
 }
 
@@ -118,7 +244,7 @@ void RichText::init_default_span(TextSpan & span, uint32_t start, Font & font, u
 	span.font = &font;
 	span.color = color;
 	span.color_set = false;
-	span.line_height = font.real_size().height_q6();
+	span.height = font.real_size().height_q6();
 	span.baseline = font.baseline_q6();
 	span.image = 0;
 }
@@ -209,7 +335,7 @@ Size RichText::char_size_at(uint32_t clean_index) const
 Dim RichText::line_height_at(uint32_t clean_index) const
 {
 	// Use the span's cached line height directly, avoids resolving the font just to read its size
-	return span_at(clean_index).line_height;
+	return span_at(clean_index).height;
 }
 
 /** Get the baseline for the font at a given clean text index */
@@ -335,79 +461,83 @@ void RichText::parse_tag(const String & tag_content, Font & default_font,
 
 	if (valid_json)
 	{
-		TextStyle style;
-		style.font_size(default_font.pixel_size());
-		style.text_color(default_color);
-
 		JsonIterator it(json);
-		style.unserialize(it);
-		style.select_font();
-
-		// Extract color if specified
-		if (it.exists(StyleNames::TEXT_COLOR))
-		{
-			span.color = style.text_color();
-			span.color_set = true;
-		}
 
 		if (it.exists(StyleNames::TEXT_SKETCH))
 		{
-			span.image = new VectorImage(0);
-			if (span.image)
-			{
-				String filename = json[StyleNames::TEXT_SKETCH];
-				span.image->filename(filename);
-				if (span.image->load() == false)
-				{
-					delete span.image;
-					span.image = 0;
-				}
-			}
-			if (span.image != 0)
-			{
-				Size image_size = span.image->image_size();
-				image_size.unserialize("size", it);
-				span.image->image_size(image_size);
-				span.image->image_color((uint32_t)(it["color"] | (int)Color::TRANSPARENT));
-			}
+			parse_image_tag(json, it, span);
 		}
-		// Extract font if font-related properties specified
-		if (it.exists(StyleNames::TEXT_FONT_FAMILY) || it.exists(StyleNames::TEXT_FONT_SIZE))
+		else if (it.exists(StyleNames::TEXT_FONT_FAMILY) || it.exists(StyleNames::TEXT_FONT_SIZE) || 
+			it.exists(StyleNames::TEXT_COLOR))
 		{
-			Fonts * fonts = UIManager::fonts();
-			if (fonts != 0)
-			{
-				FontPtr font_ptr = fonts->select(style.font_familly(), style.font_size());
-				if (font_ptr.get() != 0)
-				{
-					if (m_font_ptrs_count < 16)
-					{
-						m_font_ptrs[m_font_ptrs_count] = font_ptr;
-						m_font_ptrs_count++;
-					}
-					span.font = font_ptr.get();
-				}
-			}
+			parse_style_tag(it, default_font, default_color, span);
 		}
 
 		// Update line_height and baseline from resolved font
 		if (span.font != 0)
 		{
-			span.line_height = span.font->real_size().height_q6();
+			span.height = span.font->real_size().height_q6();
 			span.baseline = span.font->baseline_q6();
 		}
 
-		// The image sits on the baseline: it raises the ascent, the font descent is kept below
-		if (span.image != 0)
+	}
+}
+
+/** Load an inline image from a formatting tag */
+void RichText::parse_image_tag(Json & json, JsonIterator & it, TextSpan & span)
+{
+	String align = it[StyleNames::COMMON_ALIGN] | "bottom";
+	span.image_center = align == "center";
+	span.image = new VectorImage(0);
+	if (span.image != 0)
+	{
+		String filename = json[StyleNames::TEXT_SKETCH];
+		span.image->filename(filename);
+		if (span.image->load())
 		{
-			Dim image_height = span.image->image_size().height_q6();
-			if ((Coord)image_height > span.baseline)
-			{
-				span.line_height = image_height + (span.line_height - (Dim)span.baseline);
-				span.baseline = (Coord)image_height;
-			}
+			Size image_size = span.image->image_size();
+			image_size.unserialize(StyleNames::COMMON_SIZE, it);
+			span.image->image_size(image_size);
+			span.image->image_color((uint32_t)(it[StyleNames::COMMON_COLOR] | (int)Color::TRANSPARENT));
+		}
+		else
+		{
+			delete span.image;
+			span.image = 0;
 		}
 	}
 }
 
+/** Apply font and color properties from a formatting tag */
+void RichText::parse_style_tag(JsonIterator & it, Font & default_font, uint32_t default_color, TextSpan & span)
+{
+	TextStyle style;
+	style.font_size(default_font.pixel_size());
+	style.text_color(default_color);
+	style.unserialize(it);
+	style.select_font();
 
+	if (it.exists(StyleNames::TEXT_COLOR))
+	{
+		span.color = style.text_color();
+		span.color_set = true;
+	}
+
+	if (it.exists(StyleNames::TEXT_FONT_FAMILY) || it.exists(StyleNames::TEXT_FONT_SIZE))
+	{
+		Fonts * fonts = UIManager::fonts();
+		if (fonts != 0)
+		{
+			FontPtr font_ptr = fonts->select(style.font_familly(), style.font_size());
+			if (font_ptr.get() != 0)
+			{
+				if (m_font_ptrs_count < 16)
+				{
+					m_font_ptrs[m_font_ptrs_count] = font_ptr;
+					m_font_ptrs_count++;
+				}
+				span.font = font_ptr.get();
+			}
+		}
+	}
+}
