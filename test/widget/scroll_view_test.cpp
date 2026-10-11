@@ -341,7 +341,7 @@ void ScrollView::test5()
 			button = new Button(grid);
 				button->margin(20,4);
 				button->text("%d",i);
-				button->color(Color::BLUE_WHALE);
+				button->color(Color::CYAN);
 				button->border_color(Color::TYRIAN_PURPLE);
 				button->id(id++);
 		}

@@ -158,6 +158,11 @@ bool Desktop::dispatch(const char * snapshot)
 	// Notify all user event to application
 	UIManager::notifier()->dispatch();
 
+#if defined(_DEBUG) && defined(USE_COCOA_DEVICE)
+	// Get event from screen device
+	result = UIManager::device()->dispatch();
+#endif
+
 	return result;
 }
 

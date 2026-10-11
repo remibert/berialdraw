@@ -7,27 +7,27 @@
 		"$(ui.tests)/out/scroll5_1.svg" : 
 		{
 			"scale_2" : 2164296028,
-			"scale_1" : 824707032
+			"scale_1" : 799442233
 		},
 		"$(ui.tests)/out/scroll5_2.svg" : 
 		{
 			"scale_2" : 3818010588,
-			"scale_1" : 3553779644
+			"scale_1" : 3445415261
 		},
 		"$(ui.tests)/out/scroll5_3.svg" : 
 		{
 			"scale_2" : 2432156721,
-			"scale_1" : 254201618
+			"scale_1" : 2168738461
 		},
 		"$(ui.tests)/out/scroll5_4.svg" : 
 		{
 			"scale_2" : 2009982163,
-			"scale_1" : 1215369083
+			"scale_1" : 2550055474
 		},
 		"$(ui.tests)/out/scroll5_5.svg" : 
 		{
 			"scale_2" : 2960726240,
-			"scale_1" : 574273305
+			"scale_1" : 4273335729
 		},
 		"$(ui.tests)/out/scroll4_1.svg" : 
 		{
@@ -5387,12 +5387,12 @@
 		{
 			"scale_1" : 4163184562
 		},
-		"$(ui.tests)/out/label7_1.svg" : 
-		{
-			"scale_1" : 1919448466
-		},
 		"$(ui.tests)/out/button19_1.svg" : 
 		{
 			"scale_1" : 2692967006
+		},
+		"$(ui.tests)/out/label7_1.svg" : 
+		{
+			"scale_1" : 1919448466
 		}
 	}

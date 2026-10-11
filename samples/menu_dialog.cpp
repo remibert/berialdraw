@@ -3,9 +3,9 @@
 using namespace berialdraw;         // Uses the berialdraw namespace to simplify access to classes and functions
 
 // Constructor for the MenuDialog class, initializing the main layout and header
-MenuDialog::MenuDialog() : Dialog()
+MenuDialog::MenuDialog() : Dialog(false)
 {
-	m_list = new List(m_content);;                    // Creates a list view
+	m_list = new List(m_main_layout);                    // Creates a list view
 	m_list->size_policy(SizePolicy::ENLARGE_ALL);
 	m_list->focusable(true);
 	m_list->margin(0);
@@ -28,10 +28,12 @@ ListItem* MenuDialog::create_menu(const String& text, const String& icon_filenam
 {
 	ListItem* result = m_list->append([text, icon_filename](ListItem* item) 
 	{
-		item->text(String(" ")+text);
-		item->padding(9);
-		item->leading(icon_filename);
-		item->trailing(">");
+		String item_text;
+		item->padding(3);
+		item_text.print(
+			"$<'sketch':'%s','size':{'width':40,'height':40}, 'align':'center'> " // Set the icon filename
+			"%s\t> ", icon_filename.c_str(), text.c_str());                       // Set the text of item
+		item->text(item_text);
 	});
 	return result;                                     // Returns the item menu
 }

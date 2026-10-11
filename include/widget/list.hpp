@@ -95,6 +95,26 @@ namespace berialdraw
 		/** Get all selected items from the list */
 		Vector<ListItem*> selected_items() const;
 
+		/** Get the selected item in case of only one item can be selected 
+		@return the selected item or null if no item selected */
+		ListItem * selected_item() const;
+
+		/** Select the next item in case of only one item can be selected 
+		@return the selected item or null if no item selected */
+		ListItem * select_next();
+
+		/** Select the previous item in case of only one item can be selected
+		@return the selected item or null if no item selected */
+		ListItem * select_previous();
+
+		/** Select the first item in case of only one item can be selected
+		@return the selected item or null if no item selected */
+		ListItem * select_first();
+
+		/** Select the last item in case of only one item can be selected
+		@return the selected item or null if no item selected */
+		ListItem * select_last();
+
 		/** Get all items from the list */
 		Vector<ListItem*> items() const;
 
@@ -157,6 +177,9 @@ namespace berialdraw
 		 * @return Normalized positive index, or UNDEFINED_INDEX if out of bounds
 		 */
 		int normalize_index(int index, bool for_insert = false) const;
+
+		/** Call back on key */
+		void on_key(Widget * widget, const KeyEvent & evt);
 
 		/** Internal column container holding all items */
 		Column * m_column;

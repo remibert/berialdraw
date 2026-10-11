@@ -678,13 +678,22 @@ void TextBox::paint(const Point & cursor_shift, Font & font, const String & text
 		const LineInfo & line = m_lines[i];
 
 		// Display selection
-		paint_selection(line, position, cursor_shift, accumulated_height, line_center, angle, select_color);
+		if (line.selection_start != line.selection_end && select_color != 0)
+		{
+			paint_selection(line, position, cursor_shift, accumulated_height, line_center, angle, select_color);
+		}
 
 		// Display text line segment by segment (each segment has the same font and color)
 		paint_line_segments(line, position, cursor_shift, accumulated_height, line_center, margin, angle, text_color);
 
 		// If the current line has a cursor
-		paint_cursor(i, line, position, cursor_shift, accumulated_height, line_center, angle, cursor_color, insertion);
+		if (i == m_cursor_line && cursor_color != 0)
+		{
+			if (m_cursor_size.width_q6() > 0 && m_cursor_size.height_q6() > 0)
+			{
+				paint_cursor(line, position, cursor_shift, accumulated_height, line_center, angle, cursor_color, insertion);
+			}
+		}
 
 		// Move rotation center to the next line (use actual line height)
 		accumulated_height += line.size.height_q6();
@@ -696,32 +705,29 @@ void TextBox::paint(const Point & cursor_shift, Font & font, const String & text
 void TextBox::paint_selection(const LineInfo & line, const Point & position, const Point & cursor_shift,
 	Dim accumulated_height, const Point & line_center, Coord angle, uint32_t select_color)
 {
-	if (line.selection_start != line.selection_end && select_color != 0)
-	{
-		Point shift;
+	Point shift;
 
-		// Compute selection position according to the line and center
-		Point select_pos;
-			select_pos = position;
-			select_pos.move(cursor_shift);
-			select_pos.move_q6(0, line.position.y_q6());
-			select_pos.move_q6(0,0-accumulated_height);
+	// Compute selection position according to the line and center
+	Point select_pos;
+		select_pos = position;
+		select_pos.move(cursor_shift);
+		select_pos.move_q6(0, line.position.y_q6());
+		select_pos.move_q6(0,0-accumulated_height);
 
-		// Compute the center
-		Point select_center(line_center);
-			select_center.move_q6(0-line.selection_start,0);
+	// Compute the center
+	Point select_center(line_center);
+		select_center.move_q6(0-line.selection_start,0);
 
-		// Draw rectangle
-		Rect rect(0);
-			rect.size_q6((line.selection_end-line.selection_start), line.size.height_q6());
-			rect.position(select_pos);
-			rect.center(select_center);
-			rect.thickness_q6(0);
-			rect.radius_q6(0);
-			rect.angle((angle>>6) + (90<<6));
-			rect.color(select_color);
-			rect.paint(shift);
-	}
+	// Draw rectangle
+	Rect rect(0);
+		rect.size_q6((line.selection_end-line.selection_start), line.size.height_q6());
+		rect.position(select_pos);
+		rect.center(select_center);
+		rect.thickness_q6(0);
+		rect.radius_q6(0);
+		rect.angle((angle>>6) + (90<<6));
+		rect.color(select_color);
+		rect.paint(shift);
 }
 
 /** Paint a single line's text, segment by segment (each segment shares the same font and color) */
@@ -780,12 +786,11 @@ void TextBox::paint_line_segments(const LineInfo & line, const Point & position,
 
 		if (span.image != 0)
 		{
-			paint_image_segment(seg_start, span, line_base, seg_x, seg_line_center, line, angle);
+			paint_image_segment(seg_start, span, line_base, seg_x, seg_line_center, line, angle, text_color);
 		}
 		else
 		{
-			paint_text_segment(clean, seg_start, seg_end, line_base, seg_x,
-				seg_line_center, line, margin, angle, text_color);
+			paint_text_segment(clean, seg_start, seg_end, line_base, seg_x,	seg_line_center, line, margin, angle, text_color);
 		}
 
 		seg_start = seg_end + 1;
@@ -833,66 +838,69 @@ void TextBox::paint_text_segment(const String & clean, uint32_t seg_start, uint3
 /** Paint an inline image segment and advance the horizontal position */
 void TextBox::paint_image_segment(uint32_t seg_start,
 	const TextSpan & span, const Point & line_base, Coord & seg_x, const Point & line_center,
-	const LineInfo & line, Coord angle)
+	const LineInfo & line, Coord angle, uint32_t text_color)
 {
 	Point seg_pos(line_base);
 
 	Dim zoom = span.image->fit_zoom_q6(span.image->image_size());
 	Size image_size = span.image->content_size(zoom);
 
+	uint32_t color = span.image->image_color();
+
+	// If not color defined in image
+	if (color == 0)
+	{
+		// Get the text color
+		color = text_color;
+	}
+
 	// Place the image bottom at its computed line offset.
 	Point seg_center(line_center);
-	seg_center.x_q6(seg_center.x_q6() - seg_x);
-				seg_center.y_q6(seg_center.y_q6() - (line.baseline_ref + span.image_baseline_offset - (Coord)image_size.height_q6()));
+		seg_center.x_q6(seg_center.x_q6() - seg_x);
+		seg_center.y_q6(seg_center.y_q6() - (line.baseline_ref + span.image_baseline_offset - (Coord)image_size.height_q6()));
+
 	Point no_shift;
-	span.image->paint(seg_pos, no_shift, seg_center, angle, zoom, span.image->image_color());
+	span.image->paint(seg_pos, no_shift, seg_center, angle, zoom, color);
 	seg_x += image_size.width_q6();
 }
 
 /** Paint the text cursor rectangle if it is located on this line */
-void TextBox::paint_cursor(uint32_t i, const LineInfo & line, const Point & position, const Point & cursor_shift,
+void TextBox::paint_cursor(const LineInfo & line, const Point & position, const Point & cursor_shift,
 	Dim accumulated_height, const Point & line_center, Coord angle, uint32_t cursor_color, bool insertion)
 {
-	if (i == m_cursor_line && cursor_color != 0)
-	{
-		// If cursor is visible
-		if (m_cursor_size.width_q6() > 0 && m_cursor_size.height_q6() > 0)
+	Point shift;
+
+	// Compute cursor position according to the line and center
+	Point cursor_pos;
+		cursor_pos = position;
+		cursor_pos.move(cursor_shift);
+		cursor_pos.move_q6(0, line.position.y_q6());
+		cursor_pos.move_q6(0,0-accumulated_height);
+
+	// Compute the center
+	Point cursor_center(line_center);
+	cursor_center.move_q6(0-m_cursor_pos.x_q6(),0);
+
+	// Draw cursor
+	Rect rect(0);
+		if (insertion)
 		{
-			Point shift;
-
-			// Compute cursor position according to the line and center
-			Point cursor_pos;
-				cursor_pos = position;
-				cursor_pos.move(cursor_shift);
-				cursor_pos.move_q6(0, line.position.y_q6());
-				cursor_pos.move_q6(0,0-accumulated_height);
-
-			// Compute the center
-			Point cursor_center(line_center);
-			cursor_center.move_q6(0-m_cursor_pos.x_q6(),0);
-
-			// Draw cursor
-			Rect rect(0);
-				if (insertion)
-				{
-					rect.size_q6(2<<6, m_cursor_size.height_q6());
-					cursor_center.move(1,0);
-				}
-				else
-				{
-					cursor_center.move_q6(0, 0-(m_cursor_size.height_q6()-(3<<6)));
-					rect.size_q6(m_cursor_size.width_q6(), 3<<6);
-				}
-
-				rect.position(cursor_pos);
-				rect.center(cursor_center);
-				rect.thickness_q6(0);
-				rect.radius_q6(0);
-				rect.angle((angle>>6) + (90<<6));
-				rect.color(cursor_color);
-				rect.paint(shift);
+			rect.size_q6(2<<6, m_cursor_size.height_q6());
+			cursor_center.move(1,0);
 		}
-	}
+		else
+		{
+			cursor_center.move_q6(0, 0-(m_cursor_size.height_q6()-(3<<6)));
+			rect.size_q6(m_cursor_size.width_q6(), 3<<6);
+		}
+
+		rect.position(cursor_pos);
+		rect.center(cursor_center);
+		rect.thickness_q6(0);
+		rect.radius_q6(0);
+		rect.angle((angle>>6) + (90<<6));
+		rect.color(cursor_color);
+		rect.paint(shift);
 }
 
 

@@ -6,7 +6,7 @@ namespace berialdraw
 	{
 	public:
 		/** Create dialog */
-		Dialog();
+		Dialog(bool scrolled_content = true);
 
 		/** Add title menu */
 		void title(const String & title);

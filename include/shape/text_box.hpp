@@ -106,10 +106,10 @@ namespace berialdraw
 		/** Paint an inline image segment and advance the horizontal position */
 		void paint_image_segment(uint32_t seg_start,
 			const TextSpan & span, const Point & line_base, Coord & seg_x, const Point & line_center,
-			const LineInfo & line, Coord angle);
+			const LineInfo & line, Coord angle, uint32_t text_color);
 
 		/** Paint the text cursor rectangle if it is located on this line */
-		void paint_cursor(uint32_t i, const LineInfo & line, const Point & position, const Point & cursor_shift,
+		void paint_cursor(const LineInfo & line, const Point & position, const Point & cursor_shift,
 			Dim accumulated_height, const Point & line_center, Coord angle, uint32_t cursor_color, bool insertion);
 
 	protected:

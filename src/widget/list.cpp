@@ -9,6 +9,8 @@ List::List(Widget * parent):
 {
 	UIManager::styles()->apply(this, (ListStyle*)this);
 
+	bind(this, &List::on_key);
+
 	// Set default scroll direction to vertical only
 	m_scroll_direction = SCROLL_VERTICAL;
 	align(Align::ALIGN_TOP);
@@ -135,8 +137,8 @@ ListItem* List::insert(int index, std::function<void(ListItem*)> config)
 ListItem* List::at(int index) const
 {
 	ListItem* result = nullptr;
-	size_t sz = count();
-	if (sz > 0)
+	size_t size = count();
+	if (size > 0)
 	{
 		int searched_index = normalize_index(index);
 		int current_index = 0;
@@ -146,19 +148,22 @@ ListItem* List::at(int index) const
 
 		while (current)
 		{
-			if (searched_index == current_index)
+			if (dynamic_cast<ListItem*>(current))
 			{
-				result = dynamic_cast<ListItem*>(current);
-				break;
-			}
+				if (searched_index == current_index)
+				{
+					result = dynamic_cast<ListItem*>(current);
+					break;
+				}
 
-			if (current->next() == 0)
-			{
-				result = dynamic_cast<ListItem*>(current);
-				break;
+				if (current->next() == 0)
+				{
+					result = dynamic_cast<ListItem*>(current);
+					break;
+				}
+				current_index++;
 			}
 			current = current->next();
-			current_index++;
 		}
 	}
 	return result;
@@ -168,9 +173,12 @@ ListItem* List::at(int index) const
 void List::unselect_all()
 {
 	Widget* current = m_column->children();
-	while (current) 
+	while (current)
 	{
-		current->selected(false);
+		if (dynamic_cast<ListItem*>(current))
+		{
+			current->selected(false);
+		}
 		current = current->next();
 	}
 }
@@ -197,7 +205,10 @@ void List::select(int index, bool state)
 		{
 			if (searched_index == current_index)
 			{
-				current->selected(state);
+				if (dynamic_cast<ListItem*>(current))
+				{
+					current->selected(state);
+				}
 				break;
 			}
 			current = current->next();
@@ -233,8 +244,11 @@ size_t List::count() const
 	Widget* child = m_column->children();
 	while (child)
 	{
+		if (dynamic_cast<ListItem*>(child))
+		{
+			result++;
+		}
 		child = child->next();
-		result++;
 	}
 	return result;
 }
@@ -274,6 +288,193 @@ Vector<ListItem*> List::selected_items() const
 	}
 	return result;
 }
+
+/** Get the selected item in case of only one item can be selected 
+@return the selected item or null if no item selected */
+ListItem * List::selected_item() const
+{
+	ListItem * result = nullptr;
+
+	if ((ListSelectionMode)m_selection_mode == ListSelectionMode::LIST_SINGLE_SELECTION)
+	{
+		Widget* current = m_column->children();
+		while (current)
+		{
+			ListItem * item = dynamic_cast<ListItem*>(current);
+			if (item)
+			{
+				if (item->selected())
+				{
+					result = item;
+					break;
+				}
+			}
+			current = current->next();
+		}
+	}
+	return result;
+}
+
+/** Select the next item in case of only one item can be selected 
+@return the selected item or null if no item selected */
+ListItem * List::select_next()
+{
+	ListItem * result = nullptr;
+
+	if ((ListSelectionMode)m_selection_mode == ListSelectionMode::LIST_SINGLE_SELECTION)
+	{
+		ListItem * sel = selected_item();
+
+		// If no item selected
+		if (sel == nullptr)
+		{
+			result = select_first();
+		}
+		// Select the next item
+		else
+		{
+			Widget* current = sel->next();
+
+			// Search the next item
+			while (current)
+			{
+				ListItem * item = dynamic_cast<ListItem*>(current);
+				if (item)
+				{
+					sel->selected(false);
+					item->selected(true);
+					result = item;
+					break;
+				}
+				current = current->next();
+			}
+
+			// If last reached
+			if (result == nullptr)
+			{
+				// Select the first
+				result = select_first();
+				if (result)
+				{
+					sel->selected(false);
+				}
+			}
+		}
+	}
+
+	// Move the scrollview to selected item
+	scroll_focus(result);
+	return result;
+}
+
+/** Select the previous item in case of only one item can be selected
+@return the selected item or null if no item selected */
+ListItem * List::select_previous()
+{
+	ListItem * result = nullptr;
+
+	if ((ListSelectionMode)m_selection_mode == ListSelectionMode::LIST_SINGLE_SELECTION)
+	{
+		ListItem * sel = selected_item();
+
+		// If no item selected
+		if (sel == nullptr)
+		{
+			result = select_last();
+		}
+		// Select the previous item
+		else
+		{
+			ListItem * previous = nullptr;
+			Widget * current = m_column->children();
+
+			// Search the previous item
+			while (current)
+			{
+				ListItem * item = dynamic_cast<ListItem*>(current);
+				if (item)
+				{
+					if (item == sel)
+					{
+						result = previous;
+						break;
+					}
+					previous = item;
+				}
+				current = current->next();
+			}
+
+			// If first reached, wrap to the last item
+			if (result == nullptr)
+			{
+				result = select_last();
+			}
+
+			if (result && result != sel)
+			{
+				result->selected(true);
+				sel->selected(false);
+			}
+		}
+	}
+
+	// Move the scrollview to selected item
+	scroll_focus(result);
+	return result;
+}
+
+/** Select the first item in case of only one item can be selected
+@return the selected item or null if no item selected */
+ListItem * List::select_first()
+{
+	ListItem * result = nullptr;
+	if ((ListSelectionMode)m_selection_mode == ListSelectionMode::LIST_SINGLE_SELECTION)
+	{
+		Widget* current = m_column->children();
+
+		while (current)
+		{
+			ListItem * item = dynamic_cast<ListItem*>(current);
+			if (item)
+			{
+				item->selected(true);
+				result = item;
+				break;
+			}
+			current = current->next();
+		}
+	}
+	return result;
+}
+
+/** Select the last item in case of only one item can be selected
+@return the selected item or null if no item selected */
+ListItem * List::select_last()
+{
+	ListItem * result = nullptr;
+	if ((ListSelectionMode)m_selection_mode == ListSelectionMode::LIST_SINGLE_SELECTION)
+	{
+		Widget * current = m_column->children();
+		while (current)
+		{
+			ListItem * item = dynamic_cast<ListItem*>(current);
+			if (item)
+			{
+				result = item;
+			}
+			current = current->next();
+		}
+
+		if (result)
+		{
+			result->selected(true);
+		}
+	}
+	return result;
+}
+
+
+
 
 // Get all items from the list
 Vector<ListItem*> List::items() const
@@ -324,4 +525,26 @@ void List::unserialize(JsonIterator & it)
 StyleCascadeMode List::style_cascade_mode() const
 {
 	return StyleCascadeMode::NONE;
+}
+
+/** Call back on key */
+void List::on_key(Widget * widget, const KeyEvent & evt)
+{
+	if (m_focused)
+	{
+		if ((ListSelectionMode)m_selection_mode == ListSelectionMode::LIST_SINGLE_SELECTION)
+		{
+			if (evt.state() == KeyEvent::KEY_DOWN)
+			{
+				if (evt.key() == (wchar_t)ReservedKey::KEY_DOWN)
+				{
+					select_next();
+				}
+				else if (evt.key() == (wchar_t)ReservedKey::KEY_UP)
+				{
+					select_previous();
+				}
+			}
+		}
+	}
 }
