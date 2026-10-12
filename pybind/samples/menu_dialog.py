@@ -7,7 +7,7 @@ class MenuDialog(Dialog):
 	"""Dialog box to display a menu with a list of options, a title and a button to cancel"""
 
 	def __init__(self):
-		super().__init__()
+		super().__init__(scrollable_content=False)
 		self.list = List(self.content)                       # Creates a list view
 		self.list.size_policy = SizePolicy.ENLARGE_ALL
 		self.list.focusable = True

@@ -3,9 +3,9 @@
 using namespace berialdraw;         // Uses the berialdraw namespace to simplify access to classes and functions
 
 // Constructor for the MenuDialog class, initializing the main layout and header
-MenuDialog::MenuDialog() : Dialog(false)
+MenuDialog::MenuDialog() : Dialog(ContentMode::PLAIN)
 {
-	m_list = new List(m_main_layout);                    // Creates a list view
+	m_list = new List(m_content);                     // Creates a list view
 	m_list->size_policy(SizePolicy::ENLARGE_ALL);
 	m_list->focusable(true);
 	m_list->margin(0);

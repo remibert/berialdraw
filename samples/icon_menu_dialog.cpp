@@ -45,7 +45,7 @@ Icon * IconMenuDialog::create_icon(const String & text, const String & icon_file
 		}
 
 		// Other settings
-		icon->focusable(false);                               // Disables focus for the icon
+		//icon->focusable(false);                               // Disables focus for the icon
 		icon->margin(5);                                      // Sets a margin of 5 around the icon
 	return icon;
 }

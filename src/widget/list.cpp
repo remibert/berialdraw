@@ -473,9 +473,6 @@ ListItem * List::select_last()
 	return result;
 }
 
-
-
-
 // Get all items from the list
 Vector<ListItem*> List::items() const
 {
@@ -543,6 +540,10 @@ void List::on_key(Widget * widget, const KeyEvent & evt)
 				else if (evt.key() == (wchar_t)ReservedKey::KEY_UP)
 				{
 					select_previous();
+				}
+				else if (evt.key() == (wchar_t)ReservedKey::KEY_ENTER)
+				{
+					
 				}
 			}
 		}

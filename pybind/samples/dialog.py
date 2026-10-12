@@ -5,7 +5,7 @@ from pyberialdraw import *
 class Dialog:
 	"""Dialog box to display a menu with a list of icons, a title and a button to cancel"""
 
-	def __init__(self):
+	def __init__(self, scrollable_content=True):
 		self.window = Window()
 
 		self.main_layout = Column(self.window)             # Sets up a main layout as a vertical column
@@ -14,10 +14,14 @@ class Dialog:
 		self.header.color = Color.HEADER_COLOR             # Sets header background color
 		self.header.size_policy = SizePolicy.SHRINK_HEIGHT # Shrinks header height based on content
 
-		scroll = ScrollView(self.main_layout)              # Adds a scrollable view for menu items
-		scroll.scroll_direction = ScrollDirection.SCROLL_VERTICAL
-		self.content = scroll
-		self.content.align = Align.ALIGN_TOP               # Aligns scroll view to the top
+		if scrollable_content:
+			scroll = ScrollView(self.main_layout)              # Adds a scrollable view for menu items
+			scroll.scroll_direction = ScrollDirection.SCROLL_VERTICAL
+			self.content = scroll
+			self.content.align = Align.ALIGN_TOP               # Aligns scroll view to the top
+		else:
+			self.content = Column(self.main_layout)            # Adds a non-scrollable content area
+			self.content.size_policy = SizePolicy.ENLARGE_ALL
 
 		self.selected = ""
 

@@ -2,7 +2,7 @@
 
 using namespace berialdraw;
 
-Dialog::Dialog(bool scrolled_content)
+Dialog::Dialog(ContentMode content_mode)
 {
 	m_main_layout = new Column(&m_window);                // Sets up a main layout as a vertical column
 
@@ -10,12 +10,18 @@ Dialog::Dialog(bool scrolled_content)
 	m_header->color(Color::HEADER_COLOR);                 // Sets header background color to medium blue
 	m_header->size_policy(SizePolicy::SHRINK_HEIGHT);     // Configures header to shrink in height based on content
 
-	if (scrolled_content)
+	if (content_mode == ContentMode::SCROLLABLE)
 	{
 		ScrollView * scroll = new ScrollView(m_main_layout);  // Adds a scrollable view for menu items
 		scroll->scroll_direction(SCROLL_VERTICAL);            // Scroll view height to fill available space
 		m_content = scroll;
-		m_content->align(Align::ALIGN_TOP);                   // Aligns scroll view to the top
+		m_content->align(Align::ALIGN_TOP);                  // Aligns scroll view to the top
+	}
+	else
+	{
+		Column * content = new Column(m_main_layout);        // Adds a non-scrollable content area
+		content->size_policy(SizePolicy::ENLARGE_ALL);
+		m_content = content;
 	}
 }
 

@@ -5,8 +5,14 @@ namespace berialdraw
 	class Dialog
 	{
 	public:
+		enum class ContentMode
+		{
+			SCROLLABLE,
+			PLAIN
+		};
+
 		/** Create dialog */
-		Dialog(bool scrolled_content = true);
+		Dialog(ContentMode content_mode = ContentMode::SCROLLABLE);
 
 		/** Add title menu */
 		void title(const String & title);
