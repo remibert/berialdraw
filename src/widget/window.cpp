@@ -297,11 +297,18 @@ void Window::on_key_focus(Widget * widget, const KeyEvent & evt)
 /** Treat the click on widget, used to change the focus */
 void Window::on_click_widget(Widget * widget, const ClickEvent & evt)
 {
-	focus_to(m_with_focus, widget);
+	Widget::focus_to(m_with_focus, widget);
 }
 
 /** Treat the select widget, used to change the focus */
 void Window::on_select_widget(Widget * widget, const SelectEvent & evt)
 {
-	focus_to(m_with_focus, widget);
+	Widget::focus_to(m_with_focus, widget);
 }
+
+/** Set the focus on this widget if it focusable */
+void Window::focus_to(Widget * widget)
+{
+	Widget::focus_to(m_with_focus, widget);
+}
+

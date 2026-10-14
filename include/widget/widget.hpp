@@ -160,6 +160,9 @@ namespace berialdraw
 		/** Paint the widget background */
 		void paint_background(Area& rectclip, const CommonStyle& common_style, const BorderStyle& border_style);
 
+		/** Set the focus on this widget if it focusable */
+		virtual void focus_to(Widget * widget);
+
 	protected:
 /// @cond DOXYGEN_IGNORE
 

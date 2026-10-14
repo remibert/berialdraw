@@ -968,6 +968,16 @@ void Widget::focusables(Vector<Widget *> & lst)
 }
 
 /** Set the focus on this widget */
+void Widget::focus_to(Widget * new_focus)
+{
+	Window * window = dynamic_cast<Window*>(root());
+	if (window)
+	{
+		window->focus_to(new_focus);
+	}
+}
+
+/** Set the focus on this widget */
 void Widget::focus_to(Widget * & current_focus, Widget * new_focus)
 {
 	if (new_focus)

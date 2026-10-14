@@ -271,7 +271,7 @@ void ListItem::on_click(Widget * widget, const ClickEvent & evt)
 	List * list = search_list();
 	if (list)
 	{
-		list->focused(true);
+		focus_to(list);
 		if (list->selection_mode() == ListSelectionMode::LIST_MULTI_SELECTION)
 		{
 			m_selected = !m_selected;

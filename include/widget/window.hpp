@@ -36,6 +36,9 @@ namespace berialdraw
 		/** Copy all styles of the window */
 		void copy(const Window & window);
 
+		/** Set the focus on this widget if it focusable */
+		virtual void focus_to(Widget * widget) override;
+
 	//protected:
 		/** Allocate the window */
 		void* operator new(size_t size);
