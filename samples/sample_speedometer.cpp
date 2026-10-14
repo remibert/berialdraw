@@ -14,9 +14,6 @@ public:
 		// Creates the main layout for the speedometer interface
 		Column * main_layout = new Column(m_content);
 
-		// Set the window's background color
-		m_window.color(Color::HEADER_COLOR);
-
 		// Initializes the speedometer interface components
 		create(main_layout);
 
@@ -34,7 +31,7 @@ public:
 	void on_slide_event(Widget * widget, const SlideEvent& slide_event)
 	{
 		// Updates the needle's angle based on the slider's value
-		m_needle->angle(0 - (slide_event.value() * m_angle_inc) / m_speed_inc);
+		m_needle->angle_q6(0 - (slide_event.value() * m_angle_inc * 64) / m_speed_inc);
 
 		// Updates the speed text to display the current slider value
 		m_speed_text->text("%d", slide_event.value());
@@ -91,30 +88,15 @@ void SampleSpeedometer::draw_dial(Column * column)
 
 	m_canvas = new Canvas(column);                                // Create the canvas for the speedometer
 		m_canvas->size(480, 400);                                 // Set the canvas size
-		m_canvas->color(Color::HEADER_COLOR);                     // Set the canvas background color
+		m_canvas->color(Color::TRANSPARENT);                      // Keep the canvas background transparent
 		m_canvas->id(1234);
-
-	Circle * border = new Circle(m_canvas);                       // Add a circular border to the speedometer dial
-		border->color(Color::GRAY);                               // Set the border color
-		border->position(m_dial_center);                          // Position the border at the center
-		border->radius(m_counter_radius);                         // Set the radius of the border
-		border->thickness(1);                                     // Define the thickness of the border
 }
 
 // Draws the graduations on the speedometer dial.
 void SampleSpeedometer::draw_graduations()
 {
-	Pie * pie = new Pie(m_canvas);                                // Create the outer graduation circle
-		pie->color(Color::NEON_BLUE);                             // Set the pie color
-		pie->position(m_dial_center);                             // Position the pie at the dial center
-		pie->radius(m_counter_radius-8);                            // Set the pie radius
-		pie->thickness(5);                                        // Define the pie thickness
-		pie->rope(false);                                         // Disable connecting ropes
-		pie->start_angle(m_angle_start);                          // Set the starting angle of the pie
-		pie->end_angle(m_angle_end);                              // Set the ending angle of the pie
-
 	Line * major_graduations = new Line(m_canvas);                // Draw the major graduations
-		major_graduations->color(Color::NEON_BLUE);               // Set the color of the lines
+		major_graduations->color(Color::LABEL_TEXT_COLOR);        // Set the color of the lines
 		major_graduations->point1(0,8 - m_counter_radius);        // Define the start point of the lines
 		major_graduations->point2(0,8 - m_counter_radius + 14);   // Define the end point of the lines
 		major_graduations->position(m_dial_center);               // Center position the lines
@@ -123,16 +105,29 @@ void SampleSpeedometer::draw_graduations()
 		                        m_angle_start, m_angle_end, 
 		                        m_angle_inc);
 
-	Line * minor_graduations = new Line(m_canvas);                // Draw the minor graduations
-		minor_graduations->color(Color::NEON_BLUE);               // Set the color of the lines
-		minor_graduations->point1(0, 8-m_counter_radius);         // Define the start point of the lines
-		minor_graduations->point2(0, 8-m_counter_radius+10);      // Define the end point of the lines
-		minor_graduations->position(m_dial_center);               // Center position the lines
-		minor_graduations->thickness(1);                          // Set the thickness of the lines
-		minor_graduations->repeat(Shape::REPEAT_ANGLE,            // Repeat the lines between major graduations
-		                          m_angle_start + (m_angle_inc / 2) + 1, 
-		                          m_angle_end - (m_angle_inc / 2), 
-		                          m_angle_inc);
+	Line * medium_graduations = new Line(m_canvas);               // Draw the medium graduations
+		medium_graduations->color(Color::LABEL_TEXT_COLOR);
+		medium_graduations->point1(0, 8 - m_counter_radius);
+		medium_graduations->point2(0, 8 - m_counter_radius + 10);
+		medium_graduations->position(m_dial_center);
+		medium_graduations->thickness(2);
+		medium_graduations->repeat_q6(Shape::REPEAT_ANGLE,
+			m_angle_start * 64,
+			m_angle_end * 64 - m_angle_inc * 32,
+			m_angle_inc * 32);
+
+	for (int angle_tenths = m_angle_start * 10;
+		angle_tenths <= m_angle_end * 10 - m_angle_inc;
+		angle_tenths += m_angle_inc)
+	{
+		Line * minor_graduations = new Line(m_canvas);            // Draw the fine graduations
+			minor_graduations->color(Color::LABEL_TEXT_COLOR);
+			minor_graduations->point1(0, 8 - m_counter_radius);
+			minor_graduations->point2(0, 8 - m_counter_radius + 5);
+			minor_graduations->position(m_dial_center);
+			minor_graduations->thickness(1);
+			minor_graduations->angle_q6((angle_tenths - 900) * 64 / 10);
+	}
 }
 
 // Draws the texts for the graduations on the dial.
@@ -150,7 +145,7 @@ void SampleSpeedometer::draw_text()
 		compass.angle(angle);                                     // Rotate the compass to the correct angle
 		graduation_texts = new Text(m_canvas);                    // Create a new text object
 			graduation_texts->font_size(m_font_size);             // Set the font size of the text
-			graduation_texts->color(WHITE);                       // Set the text color
+			graduation_texts->color(Color::LABEL_TEXT_COLOR);      // Set the text color
 			graduation_texts->text("%d", speed);                  // Set the text to display the speed value
 			graduation_texts->center(graduation_texts->           // Center the text in its bounding box
 			                         content_size().middle());
@@ -168,20 +163,20 @@ void SampleSpeedometer::draw_needle()
 		m_needle->angle(0);                                     // Set the initial rotation angle of the needle
 
 		// Define the shape of the needle (elongated trapezoid)
-		m_needle->add_point(0 - (m_counter_radius - 20),  3);   // Add the first point
-		m_needle->add_cubic(0 - (m_counter_radius - 15),  3);   // Create a rounded edge
-		m_needle->add_cubic(0 - (m_counter_radius - 15), -3);   // Add the next rounded edge
-		m_needle->add_point(0 - (m_counter_radius - 20), -3);   // Add another point
+		m_needle->add_point(0 - (m_counter_radius - 10),  2);   // Add the first point
+		m_needle->add_cubic(0 - (m_counter_radius -  5),  2);   // Create a rounded edge
+		m_needle->add_cubic(0 - (m_counter_radius -  5), -2);   // Add the next rounded edge
+		m_needle->add_point(0 - (m_counter_radius - 10), -2);   // Add another point
 		m_needle->add_point(0, -8);                             // Add the bottom of the needle
 		m_needle->add_cubic(13, -8);                            // Round the bottom edge
 		m_needle->add_cubic(13,  8);                            // Continue rounding the bottom edge
 		m_needle->add_point(0,  8);                             // Close the bottom of the needle
 		m_needle->next_contour();                               // Close the first and only contour
 
-	Circle * circle = new Circle(m_canvas);                     // Add a white circle above the needle
-		circle->radius(m_counter_radius / 12);                  // Set the radius of the circle
+	Circle * circle = new Circle(m_canvas);                     // Add a red circle above the needle
+		circle->radius(m_counter_radius / 20);                  // Set the radius of the circle
 		circle->position(m_dial_center);                        // Position the circle at the dial center
-		circle->color(Color::WHITE);                            // Set the circle color
+		circle->color(Color::RED);                              // Set the circle color
 		circle->thickness(0);                                   // Fill the circle
 }
 
@@ -194,10 +189,10 @@ void SampleSpeedometer::draw_speed_text()
 			m_dial_center.y() + (m_counter_radius / 2) - (m_font_size * 2));
 		m_speed_text->font_size(m_font_size * 2);               // Set the font size for the speed text
 		m_speed_text->text("0");                                // Initialize the speed text to "0"
-		m_speed_text->color(Color::WHITE);                      // Set the text color to white
+		m_speed_text->color(Color::LABEL_TEXT_COLOR);            // Set the text color
 }
 
-/** Creates a speedometer ranging from 0 to 240.
+/** Creates a speedometer ranging from 0 to 100.
 Animates the needle and updates the speed text dynamically. */
 void SampleSpeedometer::create(Column * column)
 {

@@ -4062,7 +4062,7 @@
 		"$(ui.tests)/out/sample_icon_list_1.svg" : 
 		{
 			"scale_2" : 1565334915,
-			"scale_1" : 3595461695
+			"scale_1" : 4207184055
 		},
 		"$(ui.tests)/out/sample_buton_1.svg" : 
 		{
@@ -4187,12 +4187,12 @@
 		"$(ui.tests)/out/sample_speed_1.svg" : 
 		{
 			"scale_2" : 4008591166,
-			"scale_1" : 4202490670
+			"scale_1" : 3178201023
 		},
 		"$(ui.tests)/out/sample_speed_2.svg" : 
 		{
 			"scale_2" : 1389463096,
-			"scale_1" : 118279981
+			"scale_1" : 1136379111
 		},
 		"$(ui.tests)/out/sample_theme_1.svg" : 
 		{

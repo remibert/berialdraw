@@ -183,6 +183,24 @@ void List::unselect_all()
 	}
 }
 
+/** Select all items when multi-selection is enabled */
+void List::select_all()
+{
+	if ((ListSelectionMode)m_selection_mode == ListSelectionMode::LIST_MULTI_SELECTION)
+	{
+		Widget* current = m_column->children();
+		while (current)
+		{
+			ListItem* item = dynamic_cast<ListItem*>(current);
+			if (item)
+			{
+				item->selected(true);
+			}
+			current = current->next();
+		}
+	}
+}
+
 /** Select one item in list
 @param index Item position (supports negative indexing) */
 void List::select(int index, bool state)

@@ -34,11 +34,11 @@ void bind_list(pybind11::module_& m) {
 		throw pybind11::type_error("Argument must be a string, list of strings, or callable");
 	};
 
-	pybind11::class_<berialdraw::List, berialdraw::ScrollableContent, std::unique_ptr<berialdraw::List, pybind11::nodelete>>(m, "List")
+	pybind11::class_<berialdraw::List, berialdraw::ScrollableContent, berialdraw::ListStyle, std::unique_ptr<berialdraw::List, pybind11::nodelete>>(m, "List")
 		.def(pybind11::init<berialdraw::Widget*>(), pybind11::return_value_policy::reference_internal, pybind11::keep_alive<1, 2>())
 		
 		// Create new list item
-		.def("new_item", &berialdraw::List::new_item, pybind11::return_value_policy::reference_internal, PYBIND11_RELEASE_GIL,
+		.def("new_item", &berialdraw::List::new_item, pybind11::return_value_policy::reference_internal, pybind11::arg("index") = UNDEFINED_INDEX, PYBIND11_RELEASE_GIL,
 			"Create new list item")
 		
 		// Append method (handles string, list of strings, and callable)
@@ -94,6 +94,18 @@ void bind_list(pybind11::module_& m) {
 			"Unselect one item in list (Python-style negative indexing)")
 		.def("unselect_all", &berialdraw::List::unselect_all, PYBIND11_RELEASE_GIL,
 			"Unselect all items in list")
+		.def("select_all", &berialdraw::List::select_all, PYBIND11_RELEASE_GIL,
+			"Select all items in multi-selection mode")
+		.def("selected_item", &berialdraw::List::selected_item, pybind11::return_value_policy::reference_internal, PYBIND11_RELEASE_GIL,
+			"Get the selected item in single-selection mode")
+		.def("select_next", &berialdraw::List::select_next, pybind11::return_value_policy::reference_internal, PYBIND11_RELEASE_GIL,
+			"Select the next item in single-selection mode")
+		.def("select_previous", &berialdraw::List::select_previous, pybind11::return_value_policy::reference_internal, PYBIND11_RELEASE_GIL,
+			"Select the previous item in single-selection mode")
+		.def("select_first", &berialdraw::List::select_first, pybind11::return_value_policy::reference_internal, PYBIND11_RELEASE_GIL,
+			"Select the first item in single-selection mode")
+		.def("select_last", &berialdraw::List::select_last, pybind11::return_value_policy::reference_internal, PYBIND11_RELEASE_GIL,
+			"Select the last item in single-selection mode")
 		
 		// Serialization
 		.def("serialize", &berialdraw::List::serialize, pybind11::arg("it"), PYBIND11_RELEASE_GIL)
@@ -112,7 +124,7 @@ void bind_list(pybind11::module_& m) {
 				result.append(items[i]);
 			}
 			return result;
-		}, PYBIND11_RELEASE_GIL, "Get all selected items from the list")
+		}, "Get all selected items from the list")
 		.def("items", [](berialdraw::List& self) -> pybind11::list {
 			pybind11::list result;
 			auto items = self.items();
@@ -121,7 +133,7 @@ void bind_list(pybind11::module_& m) {
 				result.append(items[i]);
 			}
 			return result;
-		}, PYBIND11_RELEASE_GIL, "Get all items from the list")
+		}, "Get all items from the list")
 		
 		// Event system integration
 		BIND_EVENT_PROPERTY(berialdraw::List, berialdraw::ClickEvent, on_click)

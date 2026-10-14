@@ -268,18 +268,35 @@ void Slider::on_key(Widget * widget, const KeyEvent & evt)
 		if (evt.state() == KeyEvent::KEY_DOWN)
 		{
 			bool notify = false;
-			if ((m_extend == Extend::EXTEND_HEIGHT && evt.key() == (wchar_t)ReservedKey::KEY_UP) ||
-				(m_extend != Extend::EXTEND_HEIGHT && evt.key() == (wchar_t)ReservedKey::KEY_LEFT))
-				
+
+			// If vertical slider
+			if (m_extend == Extend::EXTEND_HEIGHT)
 			{
-				m_value -= m_step_value;
-				notify = true;
+				if (evt.key() == (wchar_t)ReservedKey::KEY_UP)
+				{
+					m_value -= m_step_value;
+					notify = true;
+				}
+				else if (evt.key() == (wchar_t)ReservedKey::KEY_DOWN)
+				{
+					m_value += m_step_value;
+					notify = true;
+				}
+
 			}
-			else if ((m_extend == Extend::EXTEND_HEIGHT && evt.key() == (wchar_t)ReservedKey::KEY_DOWN) ||
-					 (m_extend != Extend::EXTEND_HEIGHT && evt.key() == (wchar_t)ReservedKey::KEY_RIGHT))
+			// Else if horizontal slider
+			else
 			{
-				m_value += m_step_value;
-				notify = true;
+				if (evt.key() == (wchar_t)ReservedKey::KEY_LEFT)
+				{
+					m_value -= m_step_value;
+					notify = true;
+				}
+				else if (evt.key() == (wchar_t)ReservedKey::KEY_RIGHT)
+				{
+					m_value += m_step_value;
+					notify = true;
+				}
 			}
 
 			if (notify)

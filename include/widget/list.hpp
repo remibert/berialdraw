@@ -78,6 +78,9 @@ namespace berialdraw
 		/** Unselect all item in list */
 		void unselect_all();
 
+		/** Select all items when multi-selection is enabled */
+		void select_all();
+
 		/** Select one item in list 
 		@param index Item position (supports negative indexing) */
 		void select(int index);

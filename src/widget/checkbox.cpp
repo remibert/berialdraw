@@ -171,7 +171,7 @@ void Checkbox::paint(const Region & parent_region)
 		}
 		
 		// Paint text to the right
-		if(m_text.size() > 0)
+		if (m_text.size() > 0)
 		{
 			select_font();
 			region.intersect(m_text_foreclip);

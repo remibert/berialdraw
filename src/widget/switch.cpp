@@ -5,12 +5,12 @@ using namespace berialdraw;
 Switch::Switch(Widget * parent):
 	Widget("switch", parent, sizeof(Switch))
 {
-	UIManager::styles()->apply(this, (CommonStyle*)this);
-	UIManager::styles()->apply(this, (WidgetStyle*)this);
-	UIManager::styles()->apply(this, (TextStyle*)this);
-	UIManager::styles()->apply(this, (BorderStyle*)this);
-	UIManager::styles()->apply(this, (SwitchStyle*)this);
-	UIManager::styles()->apply(this, (PaddingStyle*)this);
+	UIManager::styles()->apply(this, (CommonStyle  *)this);
+	UIManager::styles()->apply(this, (WidgetStyle  *)this);
+	UIManager::styles()->apply(this, (TextStyle    *)this);
+	UIManager::styles()->apply(this, (BorderStyle  *)this);
+	UIManager::styles()->apply(this, (SwitchStyle  *)this);
+	UIManager::styles()->apply(this, (PaddingStyle *)this);
 	bind(this, &Switch::on_key);
 	bind(this, &Switch::on_click);
 }
@@ -210,7 +210,7 @@ void Switch::on_key(Widget * widget, const KeyEvent & evt)
 	{
 		if (evt.state() == KeyEvent::KEY_DOWN)
 		{
-			if (evt.key() == (wchar_t)ReservedKey::KEY_BACKSPACE || evt.key() == (wchar_t)ReservedKey::KEY_DELETE)
+			if (evt.key() == (wchar_t)ReservedKey::KEY_BACKSPACE || evt.key() == (wchar_t)ReservedKey::KEY_DELETE || evt.key() == (wchar_t)ReservedKey::KEY_SPACE)
 			{
 				UIManager::invalidator()->dirty(this, Invalidator::REDRAW);
 				m_checked = (m_checked == 0 ? 1 : 0);

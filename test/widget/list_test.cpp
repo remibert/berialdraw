@@ -83,6 +83,10 @@ void List::test2()
 	list->unselect_all();
 	assert(list->selected_items().size() == 0);
 	assert(list->items().size() == 5);
+	list->select_all();
+	assert(list->selected_items().size() == 5);
+	list->unselect_all();
+	assert(list->selected_items().size() == 0);
 
 	UIManager::desktop()->dispatch("$(ui.tests)/out/list2_3.svg");
 
