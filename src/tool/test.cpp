@@ -14,7 +14,7 @@ namespace berialdraw
 		//UIManager::colors()->appearance("test_dark");
 
 #if defined(_DEBUG) && defined(ALL_TESTS)
-		// Label::test();
+		Canvas::test();
 		List::test();
 
 		// Widget

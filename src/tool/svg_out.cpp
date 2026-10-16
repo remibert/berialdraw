@@ -2,8 +2,9 @@
 
 using namespace berialdraw;
 
-SvgOut::SvgOut(const char * filename)
+SvgOut::SvgOut(const char * filename, bool text_vectorized)
 {
+	m_text_vectorized = text_vectorized;
 	if(filename)
 	{
 		m_filename = filename;
@@ -222,6 +223,13 @@ void SvgOut::add_image_file(const char * filename, int32_t x, int32_t y, uint32_
 	}
 }
 
+/** Indicates whether text should be exported as individual vectorized glyphs or as a text string.
+@return true to export each character as vector paths, or false to export the complete string as text. */
+bool SvgOut::is_text_vectorized() const
+{
+	return m_text_vectorized;
+}
+
 /** Add text in svg 
 @param position Position of the text
 @param size Size of the text
@@ -233,49 +241,73 @@ void SvgOut::add_image_file(const char * filename, int32_t x, int32_t y, uint32_
 @param color Color of the text */
 void SvgOut::add_text(const Point & position, const Size & size, const Point & center, const Margin & margin, Coord angle, const String & text, const Font & font, uint32_t color)
 {
-	uint32_t i;
-	uint32_t count = text.count();
-	String part;
-	Size part_size;
-	wchar_t character;
-	uint32_t max_length = 0;
-	uint32_t length = 0;
-	uint32_t line_count = 1;
-	Point ct(center);
-
-	for (i = 0; i < count; i++)
+	if (m_text_vectorized == false)
 	{
-		character = text.get(i);
-		if (character == '\n')
+		uint32_t i;
+		uint32_t count = text.count();
+		String part;
+		Size part_size;
+		wchar_t character;
+		uint32_t max_length = 0;
+		uint32_t length = 0;
+		uint32_t line_count = 1;
+		Point ct(center);
+
+		for (i = 0; i < count; i++)
 		{
-			line_count ++;
-			if (length > max_length)
+			character = text.get(i);
+			if (character == '\n')
 			{
-				max_length = length;
+				line_count ++;
+				if (length > max_length)
+				{
+					max_length = length;
+				}
+				length = 0;
 			}
-			length = 0;
+			else
+			{
+				length ++;
+			}
 		}
-		else
+		if (length > max_length)
 		{
-			length ++;
+			max_length = length;
 		}
-	}
-	if (length > max_length)
-	{
-		max_length = length;
-	}
 
-	Coord shift = 0; 
+		Coord shift = 0; 
 
-	if (line_count != 0)
-	{
-		shift = size.height_q6() / line_count;
-	}
+		if (line_count != 0)
+		{
+			shift = size.height_q6() / line_count;
+		}
 
-	for (i = 0; i < count; i++)
-	{
-		character = text.get(i);
-		if (character == '\n')
+		for (i = 0; i < count; i++)
+		{
+			character = text.get(i);
+			if (character == '\n')
+			{
+				part_size.height_q6(size.height_q6());
+				if (max_length != 0)
+				{
+					part_size.width_q6((size.width_q6() * part.count())/max_length);
+				}
+				else
+				{
+					part_size.width(0);
+				}
+
+				add_text_line(position, part_size, ct, margin, angle, part, font, color);
+				ct.move_q6(0,0-shift);
+				part.clear();
+			}
+			else
+			{
+				part += character;
+			}
+		}
+
+		if (part.size() > 0)
 		{
 			part_size.height_q6(size.height_q6());
 			if (max_length != 0)
@@ -286,29 +318,8 @@ void SvgOut::add_text(const Point & position, const Size & size, const Point & c
 			{
 				part_size.width(0);
 			}
-
 			add_text_line(position, part_size, ct, margin, angle, part, font, color);
-			ct.move_q6(0,0-shift);
-			part.clear();
 		}
-		else
-		{
-			part += character;
-		}
-	}
-
-	if (part.size() > 0)
-	{
-		part_size.height_q6(size.height_q6());
-		if (max_length != 0)
-		{
-			part_size.width_q6((size.width_q6() * part.count())/max_length);
-		}
-		else
-		{
-			part_size.width(0);
-		}
-		add_text_line(position, part_size, ct, margin, angle, part, font, color);
 	}
 }
 

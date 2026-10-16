@@ -10,9 +10,10 @@ namespace berialdraw
 	class SvgOut : public Exporter
 	{
 	public:
-		/** Create svg export 
-		@param filename Filename for the SVG export (optional) */
-		SvgOut(const char * filename = 0);
+		/** Create an SVG exporter.
+		@param filename Optional filename for the SVG export.
+		@param text_vectorized If true, export text as individual vectorized glyphs; otherwise, export each complete string as an SVG text element. */
+		SvgOut(const char * filename = 0, bool text_vectorized=false);
 
 		/** Destructor */
 		virtual ~SvgOut();
@@ -69,6 +70,10 @@ namespace berialdraw
 		virtual void close(uint32_t crc32);
 
 	protected:
+		/** Indicates whether text should be exported as individual vectorized glyphs or as a text string.
+		@return true to export each character as vector paths, or false to export the complete string as text. */
+		virtual bool is_text_vectorized() const;
+
 		/** Add text in svg 
 		@param position Position of the text
 		@param size Size of the text
@@ -124,6 +129,7 @@ namespace berialdraw
 		bool    m_closed = false; /**< Flag to indicate if SVG is closed */
 		String  m_filename;       /**< Filename for the SVG export */
 		int32_t m_id = 0;         /**< ID counter for elements in the SVG */
+		bool m_text_vectorized = false; /**< Indicates if text is vectorized */
 /// @endcond
 	};
 }

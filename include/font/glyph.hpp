@@ -43,6 +43,9 @@ namespace berialdraw
 		/** Glyph of character */
 		FT_Glyph m_glyph = 0;
 
+		/** Bitmap glyph of character */
+		FT_Glyph m_bitmap_glyph = 0;
+
 		/** Bitmap of glyph */
 		FT_Bitmap* m_bitmap = nullptr;
 

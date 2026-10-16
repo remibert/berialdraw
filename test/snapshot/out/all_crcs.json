@@ -5394,5 +5394,9 @@
 		"$(ui.tests)/out/label7_1.svg" : 
 		{
 			"scale_1" : 1919448466
+		},
+		"$(ui.tests)/out/canvas13_1.svg" : 
+		{
+			"scale_1" : 1961840591
 		}
 	}

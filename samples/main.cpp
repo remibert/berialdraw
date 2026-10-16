@@ -18,7 +18,7 @@ int main(int argc, char* args[])
 	//UIManager::notifier()->log();
 
 	// Execute menu with all samples
-	//sample_icon_menu();
+	sample_icon_menu();
 	sample_menu();
 
 	// Terminates use of the library, destroys all objects and frees the allocated memory

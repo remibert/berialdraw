@@ -5,6 +5,10 @@ using namespace berialdraw;
 /** Destructor */
 Glyph::~Glyph()
 {
+	if (m_bitmap_glyph)
+	{
+		FT_Done_Glyph(m_bitmap_glyph);
+	}
 	FT_Done_Glyph(m_glyph);
 }
 
@@ -85,21 +89,29 @@ void Glyph::paint(Point & position, const Point & center, const Margin & margin,
 	{
 		Dim scale = UIManager::renderer()->scale_q6();
 
-		if (scale != (1<<6))
+		FT_Glyph bitmap_glyph = 0;
+		if (!FT_Glyph_Copy(m_glyph, &bitmap_glyph))
 		{
-			FT_Matrix matrix;
-			matrix.xx = (FT_Fixed)scale << 10;
-			matrix.xy = 0;
-			matrix.yx = 0;
-			matrix.yy = (FT_Fixed)scale << 10;
-			FT_Glyph_Transform(m_glyph, &matrix, 0);
-		}
+			if (scale != (1<<6))
+			{
+				FT_Matrix matrix;
+				matrix.xx = (FT_Fixed)scale << 10;
+				matrix.xy = 0;
+				matrix.yx = 0;
+				matrix.yy = (FT_Fixed)scale << 10;
+				FT_Glyph_Transform(bitmap_glyph, &matrix, 0);
+			}
 
-		//FT_Outline_Embolden(&glyph,-64);
-		// Create bitmap with destruction of outline and glyph
-		if (!FT_Glyph_To_Bitmap(&m_glyph, FT_RENDER_MODE_NORMAL, 0, 1))
-		{
-			m_bitmap = &(((FT_BitmapGlyph)m_glyph)->bitmap);
+			// Convert the scaled copy so the original outline remains in logical coordinates
+			if (!FT_Glyph_To_Bitmap(&bitmap_glyph, FT_RENDER_MODE_NORMAL, 0, 1))
+			{
+				m_bitmap_glyph = bitmap_glyph;
+				m_bitmap = &(((FT_BitmapGlyph)m_bitmap_glyph)->bitmap);
+			}
+			else if (bitmap_glyph)
+			{
+				FT_Done_Glyph(bitmap_glyph);
+			}
 		}
 	}
 
@@ -107,7 +119,7 @@ void Glyph::paint(Point & position, const Point & center, const Margin & margin,
 	{
 		FT_Vector      vec;
 		FT_Matrix      matrix = vector_matrix((angle << 10));
-		FT_BitmapGlyph bitmap = (FT_BitmapGlyph)m_glyph;
+		FT_BitmapGlyph bitmap = (FT_BitmapGlyph)m_bitmap_glyph;
 		int32_t        x_left;
 		int32_t        y_top;
 
@@ -143,6 +155,40 @@ void Glyph::paint(Point & position, const Point & center, const Margin & margin,
 		FT_Vector_Transform(&vec, &matrix);
 		m_baselinex = vec.x;
 		m_baseliney = vec.y;
+
+		// If export svg required
+		if (UIManager::exporter())
+		{
+			if (UIManager::exporter()->is_text_vectorized())
+			{
+				if (m_glyph && m_glyph->format == FT_GLYPH_FORMAT_OUTLINE)
+				{
+					FT_OutlineGlyph outline_glyph = (FT_OutlineGlyph)m_glyph;
+					Outline out(outline_glyph->outline);
+					FT_Outline & outline = out.get();
+					FT_Matrix mirror;
+					mirror.xx = 1L << 16;
+					mirror.xy = 0;
+					mirror.yx = 0;
+					mirror.yy = -(1L << 16);
+					FT_Outline_Transform(&outline, &mirror);
+
+					FT_Vector path_position;
+					path_position.x = position.x_q6() + m_baselinex;
+					path_position.y = position.y_q6() + m_baseliney;
+					if (center.x_q6() != 0 || center.y_q6() != 0)
+					{
+						vec.x = -center.x_q6();
+						vec.y = -center.y_q6();
+						FT_Vector_Transform(&vec, &matrix);
+						path_position.x += vec.x;
+						path_position.y += vec.y;
+					}
+					FT_Outline_Translate(&outline, path_position.x, path_position.y);
+					UIManager::exporter()->add_path(out, color);
+				}
+			}
+		}
 
 		// Draw glyph
 		UIManager::renderer()->draw_buffer((xx+m_baselinex), (yy+m_baseliney), m_bitmap->buffer, m_bitmap->width, m_bitmap->rows, color);

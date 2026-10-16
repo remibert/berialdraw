@@ -214,12 +214,14 @@ Size Font::text_size(const String & text)
 			for(uint32_t i = 0; i < char_count; i++)
 			{
 				wchar_t character = text.get(i);
-
-				glyph = m_font->m_glyphs.load(character,0);
-				if (glyph)
+				if (character != '\n')
 				{
-					result.width_q6(result.width_q6() + glyph->m_advancex);
-					result.height_q6(result.height_q6()+ glyph->m_advancey);
+					glyph = m_font->m_glyphs.load(character,0);
+					if (glyph)
+					{
+						result.width_q6(result.width_q6() + glyph->m_advancex);
+						result.height_q6(result.height_q6()+ glyph->m_advancey);
+					}
 				}
 			}
 		}

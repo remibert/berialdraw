@@ -508,6 +508,27 @@ void Canvas::test12()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/canvas12_1.svg");
 }
 
+void Canvas::test13()
+{
+	Window window;
+		window.position(0, 0);
+		window.size(480, 480);
+		window.color(Color::WHITE);
+
+		Canvas* canvas = new Canvas(&window);
+			canvas->cell(0, 0);
+			canvas->extend(Extend::EXTEND_ALL);
+
+			Text* text = new Text(canvas);
+				text->text("hello\nworld\nI am\nHappy\nRegards");
+				text->position(240, 240);
+				text->font_size(60, 30);
+				text->color(JADE, 64);
+				text->angle(45);
+				text->center(text->content_size().middle());
+	UIManager::desktop()->dispatch("$(ui.tests)/out/canvas13_1.svg");
+}
+
 void Canvas::test()
 {
 	static bool done = false;
@@ -515,6 +536,7 @@ void Canvas::test()
 	{
 		MemoryLeakLog
 		done = true;
+		test13();
 		test12();
 		test11();
 		test10();

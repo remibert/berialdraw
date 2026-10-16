@@ -17,6 +17,10 @@ namespace berialdraw
 		@param color The color of the path. */
 		virtual void add_path(Outline & outline, uint32_t color) = 0;
 
+		/** Indicates whether text should be exported as individual vectorized glyphs or as a text string.
+		@return true to export each character as vector paths, or false to export the complete string as text. */
+		virtual bool is_text_vectorized() const = 0;
+
 		/** Adds text to the SVG.
 		@param position The position of the text.
 		@param size The size of the text bounding box.

@@ -52,6 +52,7 @@ namespace berialdraw
 		static void test10();
 		static void test11();
 		static void test12();
+		static void test13();
 #endif
 
 	protected:

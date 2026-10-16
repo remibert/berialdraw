@@ -232,6 +232,10 @@ void Label::test7()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/label7_1.svg");
 }
 
+void Label::test8()
+{
+}
+
 void Label::test()
 {
 	static bool done = false;
@@ -239,6 +243,7 @@ void Label::test()
 	{
 		MemoryLeakLog
 		done = true;
+		test8();
 		test7();
 		test6();
 		test5();
