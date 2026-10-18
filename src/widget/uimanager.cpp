@@ -6,6 +6,8 @@ using namespace berialdraw;
 Device      * UIManager::m_device = 0;
 std::unique_ptr<Renderer>    UIManager::m_renderer;
 std::unique_ptr<Framebuf>    UIManager::m_framebuf;
+Renderer*                    UIManager::m_context_renderer = nullptr;
+Framebuf*                    UIManager::m_context_framebuf = nullptr;
 Exporter    * UIManager::m_exporter = 0;
 std::unique_ptr<Notifier>    UIManager::m_notifier;
 std::unique_ptr<Invalidator> UIManager::m_invalidator;
@@ -21,6 +23,20 @@ std::unique_ptr<ImageCache>  UIManager::m_image_cache;
 std::unique_ptr<TimerManager> UIManager::m_timer_manager;
 bool          UIManager::m_initialized= false;
 bool          UIManager::m_is_shutting_down = false;
+
+UIManager::RenderContextScope::RenderContextScope(Renderer& renderer, Framebuf& framebuf):
+	m_previous_renderer(UIManager::m_context_renderer),
+	m_previous_framebuf(UIManager::m_context_framebuf)
+{
+	UIManager::m_context_renderer = &renderer;
+	UIManager::m_context_framebuf = &framebuf;
+}
+
+UIManager::RenderContextScope::~RenderContextScope()
+{
+	UIManager::m_context_renderer = m_previous_renderer;
+	UIManager::m_context_framebuf = m_previous_framebuf;
+}
 
 inline Dim adapt_scale(uint32_t scale)
 {
@@ -44,6 +60,8 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 {
 	if(device && m_device == 0)
 	{
+		m_context_renderer = nullptr;
+		m_context_framebuf = nullptr;
 		m_settings     = std::make_unique<Settings>();
 		scale = adapt_scale(scale);
 		String dir = File::resolve(root_dir);
@@ -84,6 +102,8 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 void UIManager::deinit()
 {
 	m_is_shutting_down = true;
+	m_context_renderer = nullptr;
+	m_context_framebuf = nullptr;
 	m_desktop.reset();
 	delete m_device;
 	m_renderer.reset();
@@ -124,7 +144,7 @@ void UIManager::exporter(Exporter * export_)
 {
 	if (m_exporter)
 	{
-		m_exporter->close(m_framebuf->crc32());
+		m_exporter->close(framebuf()->crc32());
 		delete m_exporter;
 	}
 
@@ -138,8 +158,9 @@ void UIManager::exporter(Exporter * export_)
 /** Return the pointer on internal framebuf */
 Framebuf * UIManager::framebuf()
 {
-	if (m_framebuf == 0) bd_printf("UIManager::framebuf no existing");
-	return m_framebuf.get();
+	Framebuf* result = m_context_framebuf != nullptr ? m_context_framebuf : m_framebuf.get();
+	if (result == nullptr) bd_printf("UIManager::framebuf no existing");
+	return result;
 }
 
 /** Return the notifier */
@@ -152,8 +173,9 @@ Notifier * UIManager::notifier()
 /** Return the renderer */
 Renderer * UIManager::renderer()
 {
-	if (m_renderer == 0) bd_printf("UIManager::renderer no existing");
-	return m_renderer.get();
+	Renderer* result = m_context_renderer != nullptr ? m_context_renderer : m_renderer.get();
+	if (result == nullptr) bd_printf("UIManager::renderer no existing");
+	return result;
 }
 
 /** Return the screen device */

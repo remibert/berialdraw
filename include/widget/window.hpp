@@ -9,7 +9,7 @@ namespace berialdraw
 	@example sample_window.cpp*/
 	public:
 /// @cond DOXYGEN_IGNORE
-		friend Desktop;
+		friend class Desktop;
 /// @endcond
 
 		/** Create widget */

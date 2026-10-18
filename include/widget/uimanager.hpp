@@ -11,6 +11,30 @@ namespace berialdraw
 	class UIManager
 	{
 	public:
+		/** Temporarily route renderer and framebuffer access to a render target.
+		Scopes may be nested and must be destroyed in reverse construction order.
+		This context is global and intended for the single UI rendering thread. */
+		class RenderContextScope
+		{
+		public:
+			/** Activate a renderer and its framebuffer for the current scope
+			@param renderer Renderer to use while this scope is active
+			@param framebuf Framebuffer written by the renderer */
+			RenderContextScope(Renderer& renderer, Framebuf& framebuf);
+
+			/** Restore the previously active render target */
+			~RenderContextScope();
+
+			RenderContextScope(const RenderContextScope&) = delete;
+			RenderContextScope& operator=(const RenderContextScope&) = delete;
+			RenderContextScope(RenderContextScope&&) = delete;
+			RenderContextScope& operator=(RenderContextScope&&) = delete;
+
+		private:
+			Renderer* m_previous_renderer;
+			Framebuf* m_previous_framebuf;
+		};
+
 		/** Initialize the ui manager with device
 		@param device screen device
 		@param width width in pixels on device
@@ -90,6 +114,8 @@ namespace berialdraw
 		static Device      * m_device;
 		static std::unique_ptr<Renderer>    m_renderer;
 		static std::unique_ptr<Framebuf>    m_framebuf;
+		static Renderer*                    m_context_renderer;
+		static Framebuf*                    m_context_framebuf;
 		static Exporter    * m_exporter;
 		static std::unique_ptr<Notifier>    m_notifier;
 		static std::unique_ptr<Invalidator> m_invalidator;

@@ -234,6 +234,106 @@ void Label::test7()
 
 void Label::test8()
 {
+	class OffscreenTestWindow : public Window
+	{
+	public:
+		void place_for_test()
+		{
+			Window::place();
+		}
+
+		void paint_for_test(const Region& parent_region)
+		{
+			Window::paint(parent_region);
+		}
+	};
+
+	Framebuf* screen_framebuf = UIManager::framebuf();
+	Renderer* screen_renderer = UIManager::renderer();
+	assert(screen_framebuf != nullptr);
+	assert(screen_renderer != nullptr);
+
+	std::unique_ptr<Framebuf> offscreen_framebuf(
+		Framebuf::create(screen_framebuf->width(), screen_framebuf->height(), Framebuf::ARGB8888));
+	assert(offscreen_framebuf != nullptr);
+
+	Size render_size = screen_renderer->size();
+	Renderer offscreen_renderer(render_size.width(), render_size.height(), screen_renderer->scale_q6());
+
+	OffscreenTestWindow window;
+		window.position(10, 10);
+		window.size(100, 40);
+		window.color(0x80FF0000);
+		Label* label = new Label(&window);
+			label->position(4, 4);
+			label->font_size(8);
+			label->text_color(Color::WHITE);
+			label->text("Offscreen");
+	const int32_t test_x = (10 + 100 - 5) * screen_renderer->scale();
+	const int32_t test_y = (10 + 40 - 5) * screen_renderer->scale();
+	const int32_t transparent_x = (int32_t)screen_framebuf->width() - 1;
+	const int32_t transparent_y = (int32_t)screen_framebuf->height() - 1;
+	uint32_t screen_pixel_before = screen_framebuf->pixel(test_x, test_y);
+
+	assert(offscreen_framebuf->pixel(test_x, test_y) != 0x80FF0000);
+
+	Region no_occlusion;
+	{
+		// Paint directly into the offscreen target; do not dispatch or refresh the device.
+		UIManager::RenderContextScope render_context(offscreen_renderer, *offscreen_framebuf);
+		assert(UIManager::renderer() == &offscreen_renderer);
+		assert(UIManager::framebuf() == offscreen_framebuf.get());
+
+		offscreen_framebuf->clear(0x00000000);
+		window.place_for_test();
+		window.paint_for_test(no_occlusion);
+	}
+
+	assert(UIManager::renderer() == screen_renderer);
+	assert(UIManager::framebuf() == screen_framebuf);
+	assert(offscreen_framebuf->pixel(test_x, test_y) == 0x80FF0000);
+	assert(offscreen_framebuf->pixel(transparent_x, transparent_y) == 0x00000000);
+	assert(screen_framebuf->pixel(test_x, test_y) == screen_pixel_before);
+
+	// Convert the placed window's Q6 bounds to physical framebuffer pixel bounds.
+	const int64_t scale_q6 = screen_renderer->scale_q6();
+	auto floor_scaled = [scale_q6](int64_t coordinate_q6)
+	{
+		int64_t value = coordinate_q6 * scale_q6;
+		return value >= 0 ? value / 4096 : -((-value + 4095) / 4096);
+	};
+	auto ceil_scaled = [scale_q6](int64_t coordinate_q6)
+	{
+		int64_t value = coordinate_q6 * scale_q6;
+		return value >= 0 ? (value + 4095) / 4096 : -((-value) / 4096);
+	};
+
+	const Area& window_bounds = window.backclip();
+	int64_t crop_left = floor_scaled(window_bounds.x_q6());
+	int64_t crop_top = floor_scaled(window_bounds.y_q6());
+	int64_t crop_right = ceil_scaled((int64_t)window_bounds.x_q6() + window_bounds.width_q6());
+	int64_t crop_bottom = ceil_scaled((int64_t)window_bounds.y_q6() + window_bounds.height_q6());
+
+	uint32_t requested_width = (uint32_t)(crop_right - crop_left);
+	uint32_t requested_height = (uint32_t)(crop_bottom - crop_top);
+	std::unique_ptr<Argb8888> cropped = Argb8888::crop(
+		*offscreen_framebuf, (int32_t)crop_left, (int32_t)crop_top, requested_width, requested_height);
+	assert(cropped != nullptr);
+
+	int64_t clipped_left = crop_left < 0 ? 0 : crop_left;
+	int64_t clipped_top = crop_top < 0 ? 0 : crop_top;
+	int64_t clipped_right = crop_right > screen_framebuf->width() ? screen_framebuf->width() : crop_right;
+	int64_t clipped_bottom = crop_bottom > screen_framebuf->height() ? screen_framebuf->height() : crop_bottom;
+	assert(cropped->width() == (uint32_t)(clipped_right - clipped_left));
+	assert(cropped->height() == (uint32_t)(clipped_bottom - clipped_top));
+	assert(cropped->pixel(test_x - (int32_t)clipped_left, test_y - (int32_t)clipped_top) == 0x80FF0000);
+	assert(cropped->pixel(0, 0) == offscreen_framebuf->pixel((int32_t)clipped_left, (int32_t)clipped_top));
+	std::unique_ptr<Argb8888> edge_cropped = Argb8888::crop(
+		*offscreen_framebuf, -5, -7, screen_framebuf->width() + 5, screen_framebuf->height() + 7);
+	assert(edge_cropped != nullptr);
+	assert(edge_cropped->width() == screen_framebuf->width());
+	assert(edge_cropped->height() == screen_framebuf->height());
+	assert(Argb8888::crop(*offscreen_framebuf, (int32_t)screen_framebuf->width(), 0, 1, 1) == nullptr);
 }
 
 void Label::test()

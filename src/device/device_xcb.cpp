@@ -451,17 +451,39 @@ void DeviceXcb::copy(const uint8_t* buffer, Dim width, Dim height)
 	m_dirty = true;
 	if (m_buffer && buffer)
 	{
-		// Convert RGB to BGRA (X11 format)
-		for (Dim y = 0; y < height; y++)
+		// Convert packed ARGB pixels to opaque BGRA for X11, compositing transparency on white.
+		const uint32_t* source = reinterpret_cast<const uint32_t*>(buffer);
+		Dim copy_width = (width < m_width) ? width : m_width;
+		Dim copy_height = (height < m_height) ? height : m_height;
+		for (Dim y = 0; y < copy_height; y++)
 		{
-			for (Dim x = 0; x < width; x++)
+			const uint32_t* source_row = source + (size_t)y * width;
+			uint8_t* destination = m_buffer + (size_t)y * m_width * 4;
+			for (Dim x = 0; x < copy_width; x++)
 			{
-				uint32_t src_pos = ((y * width) + x) * 3;
-				uint32_t dst_pos = ((y * width) + x) * 4;
-				m_buffer[dst_pos + 0] = buffer[src_pos + 2]; // B
-				m_buffer[dst_pos + 1] = buffer[src_pos + 1]; // G
-				m_buffer[dst_pos + 2] = buffer[src_pos + 0]; // R
-				m_buffer[dst_pos + 3] = 0xFF;                // A
+				uint32_t color = source_row[x];
+				uint32_t alpha = color >> 24;
+				if (alpha == 255)
+				{
+					*destination++ = (uint8_t)color; // B
+					*destination++ = (uint8_t)(color >> 8); // G
+					*destination++ = (uint8_t)(color >> 16); // R
+				}
+				else if (alpha == 0)
+				{
+					*destination++ = 255; // B
+					*destination++ = 255; // G
+					*destination++ = 255; // R
+				}
+				else
+				{
+					uint32_t inverse_alpha = 255 - alpha;
+					uint32_t white_contribution = 255 * inverse_alpha + 127;
+					*destination++ = (uint8_t)(((color & 0xFF) * alpha + white_contribution) / 255); // B
+					*destination++ = (uint8_t)(((color >> 8 & 0xFF) * alpha + white_contribution) / 255); // G
+					*destination++ = (uint8_t)(((color >> 16 & 0xFF) * alpha + white_contribution) / 255); // R
+				}
+				*destination++ = 0xFF; // A
 			}
 		}
 	}

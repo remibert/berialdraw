@@ -125,6 +125,8 @@ set(SRCS_LIB
 	src/image/image_fit.cpp
 	src/image/png_decoder.cpp
 	src/image/jpeg_decoder.cpp
+	src/image/png_encoder.cpp
+	src/image/jpeg_encoder.cpp
 	src/image/image_processor.cpp
 
 	src/shape/shape.cpp

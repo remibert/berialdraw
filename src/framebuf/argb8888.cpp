@@ -2,6 +2,62 @@
 
 using namespace berialdraw;
 
+namespace
+{
+	// Blend a source ARGB pixel over a straight-alpha destination pixel.
+	inline uint32_t blend_argb8888(uint32_t destination, uint32_t source)
+	{
+		uint32_t result = destination;
+		uint32_t source_alpha = source >> 24;
+		uint32_t destination_alpha = destination >> 24;
+
+		if (source_alpha == 255)
+		{
+			result = source;
+		}
+		else if (source_alpha > 0)
+		{
+			uint32_t inverse_alpha = 255 - source_alpha;
+			if (destination_alpha == 0)
+			{
+				result = source;
+			}
+			else if (destination_alpha == 255)
+			{
+				// Preserve the legacy RGB blend rounding for opaque screen pixels.
+				uint32_t legacy_inverse_alpha = 256 - source_alpha;
+				int32_t source_red = (source >> 16) & 0xFF;
+				int32_t source_green = (source >> 8) & 0xFF;
+				int32_t source_blue = source & 0xFF;
+				int32_t destination_red = (destination >> 16) & 0xFF;
+				int32_t destination_green = (destination >> 8) & 0xFF;
+				int32_t destination_blue = destination & 0xFF;
+				int32_t red = (((destination_red - source_red) * (int32_t)legacy_inverse_alpha) >> 8) + source_red;
+				int32_t green = (((destination_green - source_green) * (int32_t)legacy_inverse_alpha) >> 8) + source_green;
+				int32_t blue = (((destination_blue - source_blue) * (int32_t)legacy_inverse_alpha) >> 8) + source_blue;
+				result = 0xFF000000 | ((uint32_t)(red & 0xFF) << 16) | ((uint32_t)(green & 0xFF) << 8) | (uint32_t)(blue & 0xFF);
+			}
+			else
+			{
+				uint32_t output_alpha_numerator = source_alpha * 255 + destination_alpha * inverse_alpha;
+				uint32_t output_alpha = (output_alpha_numerator + 127) / 255;
+				uint32_t source_red = (source >> 16) & 0xFF;
+				uint32_t source_green = (source >> 8) & 0xFF;
+				uint32_t source_blue = source & 0xFF;
+				uint32_t destination_red = (destination >> 16) & 0xFF;
+				uint32_t destination_green = (destination >> 8) & 0xFF;
+				uint32_t destination_blue = destination & 0xFF;
+				uint32_t red = (source_red * source_alpha * 255 + destination_red * destination_alpha * inverse_alpha + output_alpha_numerator / 2) / output_alpha_numerator;
+				uint32_t green = (source_green * source_alpha * 255 + destination_green * destination_alpha * inverse_alpha + output_alpha_numerator / 2) / output_alpha_numerator;
+				uint32_t blue = (source_blue * source_alpha * 255 + destination_blue * destination_alpha * inverse_alpha + output_alpha_numerator / 2) / output_alpha_numerator;
+				result = (output_alpha << 24) | (red << 16) | (green << 8) | blue;
+			}
+		}
+
+		return result;
+	}
+}
+
 
 
 Argb8888::Argb8888(uint32_t width, uint32_t height)
@@ -9,7 +65,7 @@ Argb8888::Argb8888(uint32_t width, uint32_t height)
 	m_dirty = true;
 	m_width  = width;
 	m_height = height;
-	m_buffer = new uint8_t[(int)m_width * (int)m_height * 3]();
+	m_buffer = new uint32_t[(size_t)m_width * (size_t)m_height]();
 }
 
 Argb8888::~Argb8888()
@@ -19,34 +75,11 @@ Argb8888::~Argb8888()
 
 void     Argb8888::pixel(int32_t x, int32_t y, uint32_t col)
 {
-	uint32_t alpha = (uint32_t)((col & 0xFF000000) >> 24);
-	if (alpha > 0)
+	if ((col >> 24) > 0 && y >= 0 && y < (int32_t)m_height && x >= 0 && x < (int32_t)m_width)
 	{
-		uint32_t inv_alpha = 256 - alpha;
-
+		size_t index = (size_t)y * m_width + (size_t)x;
+		m_buffer[index] = blend_argb8888(m_buffer[index], col);
 		m_dirty = true;
-
-		// If the rectangle is not outside the screen
-		if (y >= 0 && y < (int32_t)m_height && x >= 0 && x < (int32_t)m_width)
-		{
-			uint32_t red   = (uint32_t)((col & 0x00FF0000) >> 16);
-			uint32_t green = (uint32_t)((col & 0x0000FF00) >> 8);
-			uint32_t blue  = (uint32_t)((col & 0x000000FF));
-			uint8_t* buf   = &((uint8_t*)m_buffer)[(x * 3) + (y * m_width * 3)];
-
-			if (alpha == 0xFF)
-			{
-				*buf++ = red;
-				*buf++ = green;
-				*buf++ = blue;
-			}
-			else
-			{
-				*buf = ((((*buf - red  ) * inv_alpha) >> 8) + red  ); buf++;
-				*buf = ((((*buf - green) * inv_alpha) >> 8) + green); buf++;
-				*buf = ((((*buf - blue ) * inv_alpha) >> 8) + blue ); buf++;
-			}
-		}
 	}
 }
 
@@ -54,160 +87,56 @@ uint32_t Argb8888::pixel(int32_t x, int32_t y)
 {
 	uint32_t result = 0;
 
-	// If the rectangle is not outside the screen
 	if (y >= 0 && y < (int32_t)m_height && x >= 0 && x < (int32_t)m_width)
 	{
-		uint8_t* buf = &((uint8_t*)m_buffer)[(x * 3) + (y * m_width * 3)];
-
-		result = ((uint32_t)*buf++) << 16;
-		result |= ((uint32_t)*buf++) << 8;
-		result |= ((uint32_t)*buf++);
-		result |= 0xFF000000;
+		result = m_buffer[(size_t)y * m_width + (size_t)x];
 	}
 	return result;
 }
 
 void     Argb8888::paint_rect(int32_t x, int32_t y, uint32_t width, uint32_t height, uint32_t col)
 {
-	uint8_t alpha = (uint8_t)((col & 0xFF000000) >> 24);
-	uint8_t inv_alpha = 256 - alpha;
-
-	// If the color is visible
-	if (alpha > 0)
+	if ((col >> 24) > 0)
 	{
-		m_dirty = true;
-
-		// If the rectangle start on the left of screen
-		if (x < 0)
+		int64_t left = x;
+		int64_t top = y;
+		int64_t right = left + (int64_t)width;
+		int64_t bottom = top + (int64_t)height;
+		if (left < 0)
 		{
-			// If the rectangle continu on the screen
-			if (width > (unsigned int)-x)
-			{
-				// Adapt the width
-				width += x;
-			}
-			else
-			{
-				// No width
-				width = 0;
-			}
-			x = 0;
+			left = 0;
+		}
+		if (top < 0)
+		{
+			top = 0;
+		}
+		if (right > m_width)
+		{
+			right = m_width;
+		}
+		if (bottom > m_height)
+		{
+			bottom = m_height;
 		}
 
-		// If the rectangle start on before the top of screen
-		if (y < 0)
+		if (left < right && top < bottom)
 		{
-			// If the rectangle continu on the screen
-			if (height > (unsigned int)-y)
+			m_dirty = true;
+			uint32_t alpha = col >> 24;
+			for (int64_t row = top; row < bottom; row++)
 			{
-				// Adapt the height
-				height += y;
-			}
-			else
-			{
-				// No height
-				height = 0;
-			}
-			y = 0;
-		}
-
-		// If the rectangle is not outside the screen
-		if (y < (int32_t)m_height && x < (int32_t)m_width && width > 0 && height > 0)
-		{
-			// If the rectangle exceed the screen width
-			if (x + width >= m_width)
-			{
-				// Reduce the width
-				width = m_width - x;
-			}
-
-			// If the rectangle exceed the screen height
-			if (y + height >= m_height)
-			{
-				// Reduce the height
-				height = m_height - y;
-			}
-
-			{
-				uint8_t* buf   = &((uint8_t*)m_buffer)[(x * 3) + (y * m_width * 3)];
-				uint8_t  red   = (uint8_t)((col & 0x00FF0000) >> 16);
-				uint8_t  green = (uint8_t)((col & 0x0000FF00) >> 8);
-				uint8_t  blue  = (uint8_t)((col & 0x000000FF));
-				uint32_t offset_line = (m_width * 3);
-				uint8_t* buf_line = buf;
-
-				// If no transparency
-				if (alpha == 0xFF)
+				uint32_t* pixel = m_buffer + (size_t)row * m_width + (size_t)left;
+				if (alpha == 255)
 				{
-					uint32_t c1;
-					uint32_t c2;
-					uint32_t c3;
-					uint16_t number = 0x1;
-					char *ptr = reinterpret_cast<char*>(&number);
-					if (ptr[0] == 1)
-					{
-						// Init color for fast line
-						c1 = red   << 24 | blue  << 16 | green << 8 | red  ;
-						c2 = green << 24 | red   << 16 | blue  << 8 | green;
-						c3 = blue  << 24 | green << 16 | red   << 8 | blue ;
-					}
-					else
-					{
-						// Init color for fast line
-						c1 = red   << 24 | green << 16 | blue  << 8 | red  ;
-						c2 = green << 24 | blue  << 16 | red   << 8 | green;
-						c3 = blue  << 24 | red   << 16 | green << 8 | blue ;
-					}
-					
-					while (height--)
-					{
-						uint32_t width_remaining = width;
-						if(width >= 16)
-						{
-							uint32_t * buf_fast = (uint32_t *)buf;
-
-							// Fast set line
-							for(unsigned int i = width/16; i; --i)
-							{
-								*buf_fast++ = c1;  // RGBR
-								*buf_fast++ = c2;  // GBRG
-								*buf_fast++ = c3;  // BRGB
-								*buf_fast++ = c1;  // RGBR
-								*buf_fast++ = c2;  // GBRG
-								*buf_fast++ = c3;  // BRGB
-								*buf_fast++ = c1;  // RGBR
-								*buf_fast++ = c2;  // GBRG
-								*buf_fast++ = c3;  // BRGB
-								*buf_fast++ = c1;  // RGBR
-								*buf_fast++ = c2;  // GBRG
-								*buf_fast++ = c3;  // BRGB
-							}
-							width_remaining = width%16;
-							buf = (uint8_t *)buf_fast;
-						}
-						for (unsigned int i = width_remaining; i; --i)
-						{
-							*buf++ = red;
-							*buf++ = green;
-							*buf++ = blue;
-						}
-						buf_line += offset_line;
-						buf = buf_line;
-					}
+					// Fill repeated 32-bit pixels; the standard algorithm can use optimized bulk stores.
+					std::fill(pixel, pixel + (right - left), col);
 				}
-				// else transparency
 				else
 				{
-					while (height--)
+					for (int64_t column = left; column < right; column++)
 					{
-						for (unsigned int i = width; i; --i)
-						{
-							*buf = ((((*buf - red  ) * inv_alpha) >> 8) + red  ); buf++;
-							*buf = ((((*buf - green) * inv_alpha) >> 8) + green); buf++;
-							*buf = ((((*buf - blue ) * inv_alpha) >> 8) + blue ); buf++;
-						}
-						buf_line += offset_line;
-						buf = buf_line;
+						*pixel = blend_argb8888(*pixel, col);
+						pixel++;
 					}
 				}
 			}
@@ -217,7 +146,7 @@ void     Argb8888::paint_rect(int32_t x, int32_t y, uint32_t width, uint32_t hei
 
 const uint8_t* Argb8888::buffer()
 {
-	return m_buffer;
+	return reinterpret_cast<const uint8_t*>(m_buffer);
 }
 
 uint32_t        Argb8888::width()
@@ -231,7 +160,8 @@ uint32_t        Argb8888::height()
 
 void Argb8888::clear(uint32_t color)
 {
-	paint_rect(0,0,width(), height(), color);
+	std::fill(m_buffer, m_buffer + (size_t)m_width * m_height, color);
+	m_dirty = true;
 }
 
 bool Argb8888::dirty(int32_t val)
@@ -251,8 +181,61 @@ bool Argb8888::dirty(int32_t val)
 /** Compute crc32 on the content of framebuffer */
 uint32_t Argb8888::crc32()
 {
-	//to_bmp("result.bmp");
-	return compute_crc32(m_buffer, m_width*m_height*3);
+	uint32_t result = 0;
+	uint8_t rgb[3];
+	for (size_t index = 0; index < (size_t)m_width * m_height; index++)
+	{
+		uint32_t color = m_buffer[index];
+		rgb[0] = (uint8_t)((color >> 16) & 0xFF);
+		rgb[1] = (uint8_t)((color >> 8) & 0xFF);
+		rgb[2] = (uint8_t)(color & 0xFF);
+		compute_crc32(rgb, sizeof(rgb), result);
+	}
+	return result;
+}
+
+std::unique_ptr<Argb8888> Argb8888::crop(Framebuf& source, int32_t x, int32_t y, uint32_t width, uint32_t height)
+{
+	std::unique_ptr<Argb8888> result;
+	int64_t left = x;
+	int64_t top = y;
+	int64_t right = left + (int64_t)width;
+	int64_t bottom = top + (int64_t)height;
+
+	if (left < 0)
+	{
+		left = 0;
+	}
+	if (top < 0)
+	{
+		top = 0;
+	}
+	if (right > source.width())
+	{
+		right = source.width();
+	}
+	if (bottom > source.height())
+	{
+		bottom = source.height();
+	}
+
+	if (left < right && top < bottom)
+	{
+		uint32_t crop_width = (uint32_t)(right - left);
+		uint32_t crop_height = (uint32_t)(bottom - top);
+		result = std::make_unique<Argb8888>(crop_width, crop_height);
+		for (uint32_t row = 0; row < crop_height; row++)
+		{
+			for (uint32_t column = 0; column < crop_width; column++)
+			{
+				result->m_buffer[(size_t)row * crop_width + column] =
+					source.pixel((int32_t)(left + column), (int32_t)(top + row));
+			}
+		}
+		result->m_dirty = true;
+	}
+
+	return result;
 }
 
 #pragma pack(push, 1) // Disable structure alignment for BMP headers
@@ -319,10 +302,21 @@ void Argb8888::to_bmp(const char * filename)
 
 		// Write image data with padding on rows if necessary
 		uint8_t padding[3] = {0, 0, 0};  // Padding to align to 4 bytes
-		for (int y = 0; y < (int)m_height; ++y) 
+		uint8_t* row = new uint8_t[(size_t)m_width * 3];
+		for (int y = 0; y < (int)m_height; ++y)
 		{
-			file.write(m_buffer + (int)y * (int)m_width * 3,(int) m_width * 3);
+			for (uint32_t x = 0; x < m_width; x++)
+			{
+				uint32_t color = m_buffer[(size_t)y * m_width + x];
+				uint32_t alpha = color >> 24;
+				uint32_t inverse_alpha = 255 - alpha;
+				row[x * 3 + 0] = (uint8_t)(((color & 0xFF) * alpha + 255 * inverse_alpha + 127) / 255);
+				row[x * 3 + 1] = (uint8_t)((((color >> 8) & 0xFF) * alpha + 255 * inverse_alpha + 127) / 255);
+				row[x * 3 + 2] = (uint8_t)((((color >> 16) & 0xFF) * alpha + 255 * inverse_alpha + 127) / 255);
+			}
+			file.write(row, (int)m_width * 3);
 			file.write(padding, (int)row_stride - (int)m_width * 3);  // Padding
 		}
+		delete[] row;
 	}
 }

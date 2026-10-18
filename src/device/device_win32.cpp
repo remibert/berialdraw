@@ -241,14 +241,40 @@ void DeviceWin32::position(Coord x, Coord y)
 
 void DeviceWin32::copy(const uint8_t* buffer, Dim width, Dim height)
 {
-	for (Dim y = 0; y < height; y++)
+	if (m_buffer && buffer)
 	{
-		for (Dim x = 0; x < width; x++)
+		const uint32_t* source = reinterpret_cast<const uint32_t*>(buffer);
+		Dim copy_width = (width < m_width) ? width : m_width;
+		Dim copy_height = (height < m_height) ? height : m_height;
+		for (Dim y = 0; y < copy_height; y++)
 		{
-			int32_t pos = ((y * width) + x) * 3;
-			m_buffer[pos] = buffer[pos];
-			m_buffer[pos + 1] = buffer[pos + 1];
-			m_buffer[pos + 2] = buffer[pos + 2];
+			const uint32_t* source_row = source + (size_t)y * width;
+			uint8_t* destination = m_buffer + (size_t)y * m_width * 3;
+			for (Dim x = 0; x < copy_width; x++)
+			{
+				uint32_t color = source_row[x];
+				uint32_t alpha = color >> 24;
+				if (alpha == 255)
+				{
+					*destination++ = (uint8_t)(color >> 16);
+					*destination++ = (uint8_t)(color >> 8);
+					*destination++ = (uint8_t)color;
+				}
+				else if (alpha == 0)
+				{
+					*destination++ = 255;
+					*destination++ = 255;
+					*destination++ = 255;
+				}
+				else
+				{
+					uint32_t inverse_alpha = 255 - alpha;
+					uint32_t white_contribution = 255 * inverse_alpha + 127;
+					*destination++ = (uint8_t)(((color >> 16 & 0xFF) * alpha + white_contribution) / 255);
+					*destination++ = (uint8_t)(((color >> 8 & 0xFF) * alpha + white_contribution) / 255);
+					*destination++ = (uint8_t)(((color & 0xFF) * alpha + white_contribution) / 255);
+				}
+			}
 		}
 	}
 	InvalidateRect((HWND)m_hwnd, NULL, FALSE);

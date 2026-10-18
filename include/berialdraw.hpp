@@ -67,6 +67,8 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "image/image_decoder.hpp"
 #include "image/png_decoder.hpp"
 #include "image/jpeg_decoder.hpp"
+#include "image/png_encoder.hpp"
+#include "image/jpeg_encoder.hpp"
 #include "image/image_processor.hpp"
 #include "image/image_cache.hpp"
 #include "image/image_item.hpp"

@@ -316,12 +316,17 @@ public:
 // Helper method: Send a mouse/touch event to the notifier
 - (void)sendMouseEventWithType:(int)touchType position:(berialdraw::Point)position
 {
-	if (UIManager::notifier())
+	bool can_send_event = self.device != nullptr && UIManager::is_initialized() && !UIManager::is_shutting_down();
+	if (can_send_event)
 	{
-		// Send the touch event and refresh display
-		UIManager::notifier()->push_event(new TouchEvent(position, (TouchEvent::TouchState)touchType));
-		self.device->refresh();
-		self.device->blit();
+		Notifier* notifier = UIManager::notifier();
+		if (notifier != nullptr)
+		{
+			// Queue the touch event and refresh display while UIManager is active.
+			notifier->push_event(new TouchEvent(position, (TouchEvent::TouchState)touchType));
+			self.device->refresh();
+			self.device->blit();
+		}
 	}
 }
 
@@ -985,27 +990,38 @@ void berialdraw::DeviceCocoaImpl::copy(const uint8_t* buffer, Dim width, Dim hei
 
 	if (m_buffer && buffer)
 	{
-		// Use optimized memory copy for ARM64 instead of pixel-by-pixel
-		size_t source_size = width * height * 3;
-		size_t dest_size = m_width * m_height * 3;
-
-		if (width == m_width && height == m_height)
+		// Convert packed 0xAARRGGBB framebuffer pixels to the view's RGB buffer.
+		const uint32_t* source = reinterpret_cast<const uint32_t*>(buffer);
+		Dim copy_width = (width < m_width) ? width : m_width;
+		Dim copy_height = (height < m_height) ? height : m_height;
+		for (Dim y = 0; y < copy_height; y++)
 		{
-			// Direct memcpy for same size buffers - much faster on ARM64
-			memcpy(m_buffer, buffer, source_size);
-		}
-		else
-		{
-			// Fallback to row-by-row copy for different sizes
-			Dim copy_width = (width < m_width) ? width : m_width;
-			Dim copy_height = (height < m_height) ? height : m_height;
-            
-			for (Dim y = 0; y < copy_height; y++)
+			const uint32_t* source_row = source + (size_t)y * width;
+			uint8_t* destination = m_buffer + (size_t)y * m_width * 3;
+			for (Dim x = 0; x < copy_width; x++)
 			{
-				// Copy entire rows at once - more ARM64 SIMD friendly
-				const uint8_t* src_row = buffer + (y * width * 3);
-				uint8_t* dst_row = m_buffer + (y * m_width * 3);
-				memcpy(dst_row, src_row, copy_width * 3);
+				uint32_t color = source_row[x];
+				uint32_t alpha = color >> 24;
+				if (alpha == 255)
+				{
+					*destination++ = (uint8_t)(color >> 16);
+					*destination++ = (uint8_t)(color >> 8);
+					*destination++ = (uint8_t)color;
+				}
+				else if (alpha == 0)
+				{
+					*destination++ = 255;
+					*destination++ = 255;
+					*destination++ = 255;
+				}
+				else
+				{
+					uint32_t inverse_alpha = 255 - alpha;
+					uint32_t white_contribution = 255 * inverse_alpha + 127;
+					*destination++ = (uint8_t)((((color >> 16) & 0xFF) * alpha + white_contribution) / 255);
+					*destination++ = (uint8_t)((((color >> 8) & 0xFF) * alpha + white_contribution) / 255);
+					*destination++ = (uint8_t)(((color & 0xFF) * alpha + white_contribution) / 255);
+				}
 			}
 		}
 	}

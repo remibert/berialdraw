@@ -363,6 +363,12 @@
     <ClCompile Include="..\..\src\image\jpeg_decoder.cpp">
       <Filter>berialdraw\image</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\image\png_encoder.cpp">
+      <Filter>berialdraw\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\image\jpeg_encoder.cpp">
+      <Filter>berialdraw\image</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\image\image_processor.cpp">
       <Filter>berialdraw\image</Filter>
     </ClCompile>
@@ -1318,6 +1324,12 @@
       <Filter>berialdraw\image</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\image\jpeg_decoder.hpp">
+      <Filter>berialdraw\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\image\png_encoder.hpp">
+      <Filter>berialdraw\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\image\jpeg_encoder.hpp">
       <Filter>berialdraw\image</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\image\image_processor.hpp">

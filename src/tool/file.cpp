@@ -285,14 +285,42 @@ namespace
 	void parse_file_location(const char* input, const char* colon, File::Location& location)
 	{
 		location.type = File::LocationType::FILE_PATH;
-		location.full_path = File::resolve_path(input);
+		const char* input_end = input + strlen(input);
+		const char* fragment_start = strchr(input, '#');
+		const char* query_start = strchr(input, '?');
+		if (query_start != nullptr && fragment_start != nullptr && query_start > fragment_start)
+		{
+			query_start = nullptr;
+		}
+
+		const char* path_end = input_end;
+		if (query_start != nullptr)
+		{
+			path_end = query_start;
+		}
+		if (fragment_start != nullptr && fragment_start < path_end)
+		{
+			path_end = fragment_start;
+		}
+
+		location.full_path = File::resolve_path(String(input, (size_t)(path_end - input)).c_str());
 		split_location_path(location.full_path, false, location);
 
-		if (colon == input + 1 && location.full_path.size() >= 2 && input[2] != '/' && input[2] != '\\')
+		if (colon == input + 1 && location.full_path.size() >= 2 && location.full_path.c_str()[2] != '/' && location.full_path.c_str()[2] != '\\')
 		{
 			// Preserve drive-relative paths such as C:file.txt as drive plus filename.
 			location.path = String(location.full_path.c_str(), 2);
 			location.filename = String(location.full_path.c_str() + 2);
+		}
+
+		if (query_start != nullptr)
+		{
+			const char* query_end = fragment_start != nullptr ? fragment_start : input_end;
+			parse_location_query(query_start + 1, query_end, location);
+		}
+		if (fragment_start != nullptr)
+		{
+			location.fragment = File::resolve_path(fragment_start + 1);
 		}
 	}
 }

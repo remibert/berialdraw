@@ -208,6 +208,13 @@ void File::test9()
 	assert(location.full_path == File::resolve_path("$(ui.tests)/out/test.svg"));
 	assert(location.query_parameters.empty());
 	assert(location.fragment == "");
+	assert(File::parse_location("$(ui.tests)/out/snapshot.JPG?quality=82&background=0xFF112233#preview", location));
+	assert(location.full_path == File::resolve_path("$(ui.tests)/out/snapshot.JPG"));
+	assert(location.filename == "snapshot.JPG");
+	assert(location.query_parameters.size() == 2);
+	assert(location.query_parameters[0].name == "quality");
+	assert(location.query_parameters[0].value == "82");
+	assert(location.fragment == "preview");
 
 	assert(File::parse_location("zip://archive.zip/file.ext?root=$(ui.tests)", location));
 	assert(location.query_parameters.size() == 1);

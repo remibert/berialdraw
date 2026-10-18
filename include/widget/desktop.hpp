@@ -12,8 +12,9 @@ namespace berialdraw
 		/** Destroy desktop */
 		~Desktop();
 
-		/** Refreshes the screen, processes user events, and exports the rendering to an svg file if the filename is specified */
-		bool dispatch(const char * output_svg_filename=0);
+		/** Refreshes the screen, processes user events, and exports a snapshot when an output path is specified.
+		Supported extensions are SVG, PNG, JPG, and JPEG. */
+		bool dispatch(const char * snapshot_filename=0);
 
 		/** Asks to quit the mainloop */
 		void quit();
