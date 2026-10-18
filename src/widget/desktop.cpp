@@ -239,8 +239,6 @@ void Desktop::refresh(const char * snapshot)
 #endif
 	}
 	UIManager::exporter(0);
-
-	//usleep(10000);
 }
 
 /** Get the front window */

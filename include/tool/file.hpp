@@ -8,6 +8,37 @@ namespace berialdraw
 		File();
 		virtual ~File();
 
+		enum class LocationType
+		{
+			FILE_PATH,
+			URL
+		};
+
+		struct QueryParameter
+		{
+			String name;
+			String value;
+		};
+
+		struct Location
+		{
+			LocationType type = LocationType::FILE_PATH;
+			String protocol;       // URL protocol; empty for filesystem paths
+			String authority;      // URL authority; empty when absent
+			String path;           // Directory component, including its trailing separator
+			String filename;       // Final path component; empty when absent
+			String full_path;      // Resolved URL/path, excluding query parameters and fragment
+			String fragment;       // URL fragment, without '#'
+			Vector<QueryParameter> query_parameters;
+		};
+
+		/** Parse a URL or filesystem path and resolve Settings variables
+		@param input URL or filesystem path to parse
+		@param result Parsed location components
+		@return True if parsing succeeded, false for null or empty input
+		Repeated query parameters are preserved; percent-encoded query text is not decoded. */
+		static bool parse_location(const char* input, Location& result);
+
 		/** Open file with mode
 		@param pathname path and filename
 		@param mode "r" to read "w" to write 
@@ -118,6 +149,7 @@ namespace berialdraw
 		static void test6();
 		static void test7();
 		static void test8();
+		static void test9();
 #endif
 	};
 }

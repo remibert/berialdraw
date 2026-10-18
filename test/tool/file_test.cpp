@@ -170,6 +170,86 @@ void File::test8()
 	assert(!nomatch);
 }
 
+// Test URL, query parameter, filesystem path, and Settings variable parsing
+void File::test9()
+{
+	Location location;
+	assert(File::parse_location("zip://archive.zip/dir/file.ext?var=one&var2=two#section", location));
+	assert(location.type == LocationType::URL);
+	assert(location.protocol == "zip");
+	assert(location.authority == "archive.zip");
+	assert(location.path == "/dir/");
+	assert(location.filename == "file.ext");
+	assert(location.full_path == "zip://archive.zip/dir/file.ext");
+	assert(location.fragment == "section");
+	assert(location.query_parameters.size() == 2);
+	assert(location.query_parameters[0].name == "var");
+	assert(location.query_parameters[0].value == "one");
+	assert(location.query_parameters[1].name == "var2");
+	assert(location.query_parameters[1].value == "two");
+
+	assert(File::parse_location("C:\\directory\\filename.ext", location));
+	assert(location.type == LocationType::FILE_PATH);
+	assert(location.protocol == "");
+	assert(location.path == "C:\\directory\\");
+	assert(location.filename == "filename.ext");
+	assert(location.full_path == "C:\\directory\\filename.ext");
+	assert(File::parse_location("/tmp/directory/filename.ext", location));
+	assert(location.type == LocationType::FILE_PATH);
+	assert(location.path == "/tmp/directory/");
+	assert(location.filename == "filename.ext");
+
+	assert(File::parse_location("$(ui.tests)/out/test.svg", location));
+	assert(location.type == LocationType::FILE_PATH);
+	assert(location.protocol == "");
+	assert(location.authority == "");
+	assert(location.path == File::resolve_path("$(ui.tests)/out/"));
+	assert(location.filename == "test.svg");
+	assert(location.full_path == File::resolve_path("$(ui.tests)/out/test.svg"));
+	assert(location.query_parameters.empty());
+	assert(location.fragment == "");
+
+	assert(File::parse_location("zip://archive.zip/file.ext?root=$(ui.tests)", location));
+	assert(location.query_parameters.size() == 1);
+	assert(location.query_parameters[0].name == "root");
+	assert(location.query_parameters[0].value == File::resolve_path("$(ui.tests)"));
+
+	assert(File::parse_location("https://example.org/dir/file.ext#section?ignored=yes", location));
+	assert(location.type == LocationType::URL);
+	assert(location.path == "/dir/");
+	assert(location.filename == "file.ext");
+	assert(location.full_path == "https://example.org/dir/file.ext");
+	assert(location.fragment == "section?ignored=yes");
+	assert(location.query_parameters.empty());
+
+	assert(File::parse_location("mailto:user@example.org?subject=hello", location));
+	assert(location.type == LocationType::URL);
+	assert(location.protocol == "mailto");
+	assert(location.path == "user@example.org");
+	assert(location.filename == "");
+	assert(location.query_parameters.size() == 1);
+	assert(location.query_parameters[0].name == "subject");
+	assert(location.query_parameters[0].value == "hello");
+
+	assert(File::parse_location("C:file.ext", location));
+	assert(location.type == LocationType::FILE_PATH);
+	assert(location.path == "C:");
+	assert(location.filename == "file.ext");
+
+	assert(File::parse_location("file.ext", location));
+	assert(location.type == LocationType::FILE_PATH);
+	assert(location.path == "");
+	assert(location.filename == "file.ext");
+
+	assert(File::parse_location("invalid_scheme://host/file.ext", location));
+	assert(location.type == LocationType::FILE_PATH);
+	assert(location.protocol == "");
+	assert(location.filename == "file.ext");
+
+	assert(!File::parse_location(nullptr, location));
+	assert(!File::parse_location("", location));
+}
+
 void File::test()
 {
 	MemoryLeakLog
@@ -181,5 +261,6 @@ void File::test()
 	test6();
 	test7();
 	test8();
+	test9();
 }
 

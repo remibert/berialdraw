@@ -5,6 +5,7 @@ using namespace berialdraw;
 SvgOut::SvgOut(const char * filename, bool text_vectorized)
 {
 	m_text_vectorized = text_vectorized;
+	m_text_vectorized = true;
 	if(filename)
 	{
 		m_filename = filename;
