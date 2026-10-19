@@ -3,11 +3,59 @@
 #include <setjmp.h>
 #include <limits.h>
 #include <limits>
+#include <cerrno>
+#include <cstdlib>
 
 using namespace berialdraw;
 
 namespace
 {
+	// Read the last occurrence of a named query parameter.
+	bool jpeg_parameter(const File::Location& location, const char* name, String& value)
+	{
+		bool found = false;
+		for (uint32_t index = 0; index < location.query_parameters.size(); index++)
+		{
+			if (location.query_parameters[index].name == name)
+			{
+				value = location.query_parameters[index].value;
+				found = true;
+			}
+		}
+		return found;
+	}
+
+	// Parse optional JPEG quality and matte query parameters.
+	bool jpeg_options(const File::Location& location, uint32_t default_background_color, uint32_t& background_color, int& quality)
+	{
+		bool valid = true;
+		background_color = default_background_color | 0xFF000000;
+		String option;
+		if (jpeg_parameter(location, "quality", option))
+		{
+			char* end = nullptr;
+			errno = 0;
+			long parsed = strtol(option.c_str(), &end, 0);
+			valid = end != option.c_str() && *end == '\0' && errno != ERANGE && parsed >= 1 && parsed <= 100;
+			if (valid)
+			{
+				quality = (int)parsed;
+			}
+		}
+		if (valid && jpeg_parameter(location, "background", option))
+		{
+			char* end = nullptr;
+			errno = 0;
+			unsigned long long parsed = strtoull(option.c_str(), &end, 0);
+			valid = end != option.c_str() && *end == '\0' && errno != ERANGE && parsed <= 0xFFFFFFFFULL;
+			if (valid)
+			{
+				background_color = (uint32_t)parsed | 0xFF000000;
+			}
+		}
+		return valid;
+	}
+
 	struct JpegEncoderErrorManager
 	{
 		struct jpeg_error_mgr pub;
@@ -36,13 +84,24 @@ namespace
 	}
 }
 
+// Check whether the location names a JPEG file.
+bool JpegEncoder::supports(const File::Location& location)
+{
+	const char* filename = location.filename.c_str();
+	return File::match_pattern("*.jpg", filename, true) || File::match_pattern("*.jpeg", filename, true);
+}
+
 // Encode ARGB8888 pixels to JPEG, compositing alpha over the requested matte.
-bool JpegEncoder::encode(Framebuf& source, const char* filename, uint32_t background_color, int quality)
+bool JpegEncoder::encode(Framebuf& source, const File::Location& location, uint32_t default_background_color)
 {
 	bool result = false;
+	uint32_t background_color = 0xFFFFFFFF;
+	int quality = 90;
+	bool options_valid = jpeg_options(location, default_background_color, background_color, quality);
+	const char* filename = location.full_path.c_str();
 	uint32_t width = source.width();
 	uint32_t height = source.height();
-	if (filename != nullptr && filename[0] != '\0' && width > 0 && height > 0 &&
+	if (options_valid && filename != nullptr && filename[0] != '\0' && width > 0 && height > 0 &&
 		width <= JPEG_MAX_DIMENSION && height <= JPEG_MAX_DIMENSION && (size_t)width <= std::numeric_limits<size_t>::max() / 3 &&
 		quality >= 1 && quality <= 100)
 	{

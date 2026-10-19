@@ -1486,6 +1486,23 @@ void Edit::test9()
 	UIManager::desktop()->mainloop();
 }
 
+void Edit::test10()
+{
+	Window window;
+		Edit * edit = new Edit(&window);
+			edit->max_columns(20);
+			edit->max_lines(3);
+			edit->text("Hello World");
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/edit10_0.svg");
+		edit->text("Bonjour");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/edit10_1.svg");
+		edit->move_cursor(0,3,false);
+	UIManager::desktop()->dispatch("$(ui.tests)/out/edit10_2.svg");
+		edit->font_size(30);
+	UIManager::desktop()->dispatch("$(ui.tests)/out/edit10_3.svg");
+}
+
 void Edit::test()
 {
 	static bool done = false;
@@ -1493,6 +1510,7 @@ void Edit::test()
 	{
 		MemoryLeakLog
 		done = true;
+		test10();
 		//test9();
 		test8();
 		test7();

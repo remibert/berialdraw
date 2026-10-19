@@ -1,6 +1,11 @@
 #pragma once
+#include <memory>
+#include "tool/file.hpp"
+
 namespace berialdraw
 {
+	class Argb8888;
+
 	/** The Desktop class manages all top-level windows and serves as the root context for the user interface. 
 	It handles global events and coordinates interactions between multiple windows. */
 	class Desktop
@@ -45,6 +50,11 @@ namespace berialdraw
 
 		/** Remove all windows */
 		void remove_all();
+
+	private:
+		void export_raster_snapshot(const File::Location& location, bool jpeg);
+		bool encode_raster_snapshot(Window& window, Argb8888& image, const File::Location& location, bool jpeg);
+		std::unique_ptr<Argb8888> render_window_offscreen(Window& window);
 
 	protected:
 /// @cond DOXYGEN_IGNORE

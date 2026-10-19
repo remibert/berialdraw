@@ -3,6 +3,7 @@
 
 #ifdef _MSC_VER
 /* MSVC configuration */
+#define HIDDEN
 #define INLINE  __forceinline
 #define THREAD_LOCAL  __declspec(thread)
 #define FALLTHROUGH

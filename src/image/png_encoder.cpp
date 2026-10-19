@@ -2,11 +2,47 @@
 #include <png.h>
 #include <limits.h>
 #include <limits>
+#include <cerrno>
+#include <cstdlib>
 
 using namespace berialdraw;
 
 namespace
 {
+	// Read the last occurrence of a named query parameter.
+	bool png_parameter(const File::Location& location, const char* name, String& value)
+	{
+		bool found = false;
+		for (uint32_t index = 0; index < location.query_parameters.size(); index++)
+		{
+			if (location.query_parameters[index].name == name)
+			{
+				value = location.query_parameters[index].value;
+				found = true;
+			}
+		}
+		return found;
+	}
+
+	// Parse the optional PNG compression level.
+	bool png_compression(const File::Location& location, int& compression_level)
+	{
+		bool valid = true;
+		String option;
+		if (png_parameter(location, "compression", option))
+		{
+			char* end = nullptr;
+			errno = 0;
+			long parsed = strtol(option.c_str(), &end, 0);
+			valid = end != option.c_str() && *end == '\0' && errno != ERANGE && parsed >= 0 && parsed <= 9;
+			if (valid)
+			{
+				compression_level = (int)parsed;
+			}
+		}
+		return valid;
+	}
+
 	// Write PNG bytes through the project file abstraction.
 	void png_write_file(png_structp png_ptr, png_bytep data, png_size_t length)
 	{
@@ -31,13 +67,22 @@ namespace
 	}
 }
 
+// Check whether the location names a PNG file.
+bool PngEncoder::supports(const File::Location& location)
+{
+	return File::match_pattern("*.png", location.filename.c_str(), true);
+}
+
 // Encode ARGB8888 pixels to an RGBA PNG while preserving transparency.
-bool PngEncoder::encode(Framebuf& source, const char* filename, int compression_level)
+bool PngEncoder::encode(Framebuf& source, const File::Location& location)
 {
 	bool result = false;
+	int compression_level = -1;
+	bool options_valid = png_compression(location, compression_level);
+	const char* filename = location.full_path.c_str();
 	uint32_t width = source.width();
 	uint32_t height = source.height();
-	if (filename != nullptr && filename[0] != '\0' && width > 0 && height > 0 &&
+	if (options_valid && filename != nullptr && filename[0] != '\0' && width > 0 && height > 0 &&
 		width <= 0x7FFFFFFFU && height <= 0x7FFFFFFFU && (size_t)width <= std::numeric_limits<size_t>::max() / 4 &&
 		compression_level >= -1 && compression_level <= 9)
 	{

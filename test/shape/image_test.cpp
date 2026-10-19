@@ -298,8 +298,28 @@ void Image::test7()
 
 	String png_path = File::resolve_path("$(ui.tests)/out/image7_1.png");
 	String jpeg_path = File::resolve_path("$(ui.tests)/out/image7_2.jpg");
-	assert(PngEncoder::encode(source, png_path.c_str()));
-	assert(JpegEncoder::encode(source, jpeg_path.c_str(), 0xFF00FF00));
+	File::Location png_location;
+	assert(File::parse_location(png_path.c_str(), png_location));
+	assert(PngEncoder::supports(png_location));
+	assert(!JpegEncoder::supports(png_location));
+	File::QueryParameter compression_parameter;
+	compression_parameter.name = "compression";
+	compression_parameter.value = "6";
+	png_location.query_parameters.push_back(compression_parameter);
+	assert(PngEncoder::encode(source, png_location));
+	File::Location jpeg_location;
+	assert(File::parse_location(jpeg_path.c_str(), jpeg_location));
+	assert(JpegEncoder::supports(jpeg_location));
+	assert(!PngEncoder::supports(jpeg_location));
+	File::QueryParameter quality_parameter;
+	quality_parameter.name = "quality";
+	quality_parameter.value = "80";
+	jpeg_location.query_parameters.push_back(quality_parameter);
+	File::QueryParameter background_parameter;
+	background_parameter.name = "background";
+	background_parameter.value = "0xFF00FF00";
+	jpeg_location.query_parameters.push_back(background_parameter);
+	assert(JpegEncoder::encode(source, jpeg_location));
 
 	PngDecoder png_decoder;
 	assert(png_decoder.decode(png_path.c_str()));
@@ -403,11 +423,11 @@ void Image::test9()
 		transparent_blue_text->color(0x800000FF);
 		transparent_blue_text->text("BLUE 50%");
 
-	String output = File::resolve_path("$(ui.tests)/out/image9_1.png");
-	UIManager::desktop()->dispatch(output.c_str());
+	String output = "$(ui.tests)/out/image9_1.png";
+	UIManager::desktop()->dispatch(output);
 
 	PngDecoder decoder;
-	assert(decoder.decode(output.c_str()));
+	assert(decoder.decode(output));
 	assert(decoder.has_alpha());
 	assert(decoder.size().width() > 0 && decoder.size().height() > 0);
 	assert(decoder.pixel_data()[0] >> 24 == 0);

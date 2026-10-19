@@ -5398,5 +5398,21 @@
 		"$(ui.tests)/out/canvas13_1.svg" : 
 		{
 			"scale_1" : 1961840591
+		},
+		"$(ui.tests)/out/edit10_0.svg" : 
+		{
+			"scale_1" : 2452958318
+		},
+		"$(ui.tests)/out/edit10_1.svg" : 
+		{
+			"scale_1" : 3120732690
+		},
+		"$(ui.tests)/out/edit10_2.svg" : 
+		{
+			"scale_1" : 2571173177
+		},
+		"$(ui.tests)/out/edit10_3.svg" : 
+		{
+			"scale_1" : 3349987397
 		}
 	}

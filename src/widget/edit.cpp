@@ -93,19 +93,21 @@ StyleCascadeMode Edit::style_cascade_mode() const
 Size Edit::content_size()
 {
 	Size result;
+	int font_modified = m_font_modified;
 	if (m_text_modified || m_font_modified)
 	{
 		select_font();
 	}
+	m_font_modified = font_modified;
 
-	if (m_edited == 1)
+	if (m_edited || m_text_modified)
 	{
 		m_edited = 0;
 		select_all();
 		entry_align(m_text_align);
 	}
 
-	if(m_text_modified)
+	if(m_text_modified || m_font_modified)
 	{
 		Size char_size = m_font->text_size(" ");
 
@@ -201,11 +203,12 @@ void Edit::paint(const Region & parent_region)
 
 		if (m_font.get())
 		{
-			m_text_box.parse(m_text_foreclip, *m_font, display, m_cursor_position, m_selection_start, m_selection_end, m_text_align, m_edit_modified);
+			m_text_box.parse(m_text_foreclip, *m_font, display, m_cursor_position, m_selection_start, m_selection_end, m_text_align, m_edit_modified | m_text_modified | m_font_modified);
 
 			// Reset text modified flag after layout is computed
 			m_edit_modified = 0;
 			m_text_modified = 0;
+			m_font_modified = 0;
 		}
 		
 		paint_background(m_foreclip, *(CommonStyle*)this, *(BorderStyle*)this);
