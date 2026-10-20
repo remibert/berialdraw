@@ -4,7 +4,7 @@ using namespace berialdraw;
 
 
 /** Init the content of the entry */
-Entry::Entry(String * str) : m_input(str)
+Entry::Entry(String * str, Widget * widget) : m_input(str), m_widget(widget)
 {
 	m_selection_start = 0;
 	if (m_input)
@@ -56,6 +56,38 @@ Entry::~Entry()
 	delete m_mask;
 }
 
+/** Update entry */
+void Entry::force_update()
+{
+	if (m_widget)
+	{
+		UIManager::invalidator()->dirty(m_widget, Invalidator::REDRAW);
+	}
+}
+
+
+/** Keep the cursor and selection within the input text */
+void Entry::update_positions()
+{
+	if (m_input)
+	{
+		uint32_t count = m_input->count();
+		if (m_cursor_position > count)
+		{
+			m_cursor_position = count;
+		}
+		if (m_selection_start > count)
+		{
+			m_selection_start = count;
+		}
+		if (m_selection_end > count)
+		{
+			m_selection_end = count;
+		}
+	}
+}
+
+
 /** Insert or replace a char in the entry at the cursor position 
 @param character character to add in the input */
 void Entry::append_key(wchar_t character)
@@ -84,6 +116,7 @@ void Entry::append_key(wchar_t character)
 			m_cursor_position++;
 			m_selection_end = m_selection_start = m_cursor_position;
 		}
+		force_update();
 	}
 }
 
@@ -165,6 +198,7 @@ void Entry::line_column(uint32_t & line, uint32_t & column)
 				column ++;
 			}
 		}
+		force_update();
 	}
 }
 
@@ -250,6 +284,7 @@ void Entry::move_cursor(uint32_t line, uint32_t column, bool selected)
 			}
 			m_cursor_position = new_position;
 		}
+		force_update();
 	}
 }
 
@@ -619,6 +654,47 @@ uint32_t Entry::cursor_position() const
 	return m_cursor_position;
 }
 
+/** Move the cursor to a position relative to the beginning or end of entry */
+void Entry::cursor_position(int32_t position, bool selected)
+{
+	if (m_input)
+	{
+		int64_t target = position;
+		int64_t count = m_input->count();
+		if (target < 0)
+		{
+			target += count + 1;
+		}
+		if (target < 0)
+		{
+			target = 0;
+		}
+		if (target > count)
+		{
+			target = count;
+		}
+
+		uint32_t target_position = (uint32_t)target;
+		if (selected)
+		{
+			while (m_cursor_position < target_position)
+			{
+				right_arrow_key(true);
+			}
+			while (m_cursor_position > target_position)
+			{
+				left_arrow_key(true);
+			}
+		}
+		else
+		{
+			m_cursor_position = target_position;
+			m_selection_start = m_selection_end = target_position;
+		}
+		force_update();
+	}
+}
+
 /** Get selected text */
 void Entry::text_selected(String & text)
 {
@@ -709,6 +785,7 @@ void Entry::select_text(uint32_t from, uint32_t to)
 				m_selection_start = m_selection_end = m_cursor_position = count;
 			}
 		}
+		force_update();
 	}
 }
 
@@ -975,6 +1052,7 @@ bool Entry::on_key_down(wchar_t key, KeyEvent::Modifier modifier)
 			}
 			break;
 		}
+		force_update();
 	}
 	return result;
 }
@@ -1003,6 +1081,7 @@ void Entry::mask(const String & mask_)
 	{
 		m_mask = new String(mask_);
 	}
+	force_update();
 }
 
 /** Get input mask */

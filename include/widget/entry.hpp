@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 /// @cond DOXYGEN_IGNORE
 namespace berialdraw
 {
@@ -7,7 +8,7 @@ namespace berialdraw
 	{
 	public:
 		/** Constructor */
-		Entry(String * str);
+		Entry(String * str, Widget * widget = 0);
 
 		/** Copy contructor */
 		Entry(const Entry & entry, String * inp);
@@ -39,6 +40,9 @@ namespace berialdraw
 
 		/** Get the cursor position in entry */
 		uint32_t cursor_position() const;
+
+		/** Move the cursor to a position relative to the beginning or end of entry */
+		void cursor_position(int32_t position, bool selected = false);
 
 		/** Position of the cursor in line and column */
 		void line_column(uint32_t & line, uint32_t & column);
@@ -100,6 +104,12 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Update entry */
+		void force_update();
+
+		/** Keep the cursor and selection within the input text */
+		void update_positions();
+
 		/** Set the entry alignement 
 		@param alignement */
 		void entry_align(Align align);
@@ -160,6 +170,9 @@ namespace berialdraw
 
 		// String mask
 		String * m_mask = 0;
+
+		// Widget parent
+		Widget* m_widget = 0;
 /// @endcond
 	};
 }

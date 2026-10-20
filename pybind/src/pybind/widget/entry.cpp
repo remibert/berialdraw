@@ -13,7 +13,30 @@ void bind_entry(pybind11::module_& m) {
         .def_property("typing_mode", 
             static_cast<berialdraw::Entry::TypingMode (berialdraw::Entry::*)() const>(&berialdraw::Entry::typing_mode),
             static_cast<void (berialdraw::Entry::*)(berialdraw::Entry::TypingMode)>(&berialdraw::Entry::typing_mode))
-        .def_property_readonly("cursor_position", &berialdraw::Entry::cursor_position)
+        .def_property("cursor_position",
+            [](berialdraw::Entry& self) -> uint32_t { return self.cursor_position(); },
+            [](berialdraw::Entry& self, pybind11::object value) {
+                if (pybind11::isinstance<pybind11::int_>(value))
+                {
+                    self.cursor_position(value.cast<int32_t>(), false);
+                }
+                else if (pybind11::isinstance<pybind11::tuple>(value) || pybind11::isinstance<pybind11::list>(value))
+                {
+                    auto sequence = value.cast<pybind11::sequence>();
+                    if (pybind11::len(sequence) == 2)
+                    {
+                        self.cursor_position(sequence[0].cast<int32_t>(), sequence[1].cast<bool>());
+                    }
+                    else
+                    {
+                        throw std::invalid_argument("cursor_position must be an int or a tuple/list of (position, selected)");
+                    }
+                }
+                else
+                {
+                    throw std::invalid_argument("cursor_position must be an int or a tuple/list of (position, selected)");
+                }
+            }, "Cursor position: int or (position, selected)")
         .def_property_readonly("selection_start", &berialdraw::Entry::selection_start)
         .def_property_readonly("selection_end", &berialdraw::Entry::selection_end)
         .def_property_readonly("input", &berialdraw::Entry::input, 

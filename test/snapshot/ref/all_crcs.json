@@ -5401,7 +5401,7 @@
 		},
 		"$(ui.tests)/out/edit10_0.svg" : 
 		{
-			"scale_1" : 2452958318
+			"scale_1" : 2621571518
 		},
 		"$(ui.tests)/out/edit10_1.svg" : 
 		{
@@ -5414,5 +5414,37 @@
 		"$(ui.tests)/out/edit10_3.svg" : 
 		{
 			"scale_1" : 3349987397
+		},
+		"$(ui.tests)/out/edit11_1.svg" : 
+		{
+			"scale_1" : 2328424636
+		},
+		"$(ui.tests)/out/edit11_2.svg" : 
+		{
+			"scale_1" : 2913312353
+		},
+		"$(ui.tests)/out/edit11_3.svg" : 
+		{
+			"scale_1" : 924164903
+		},
+		"$(ui.tests)/out/edit11_4.svg" : 
+		{
+			"scale_1" : 255149328
+		},
+		"$(ui.tests)/out/edit11_5.svg" : 
+		{
+			"scale_1" : 1732654365
+		},
+		"$(ui.tests)/out/edit11_6.svg" : 
+		{
+			"scale_1" : 3233410651
+		},
+		"$(ui.tests)/out/edit11_7.svg" : 
+		{
+			"scale_1" : 3313219269
+		},
+		"$(ui.tests)/out/edit11_8.svg" : 
+		{
+			"scale_1" : 3155663114
 		}
 	}

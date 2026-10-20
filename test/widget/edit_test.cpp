@@ -1492,7 +1492,7 @@ void Edit::test10()
 		Edit * edit = new Edit(&window);
 			edit->max_columns(20);
 			edit->max_lines(3);
-			edit->text("Hello World");
+			edit->text("You are beautiful");
 
 	UIManager::desktop()->dispatch("$(ui.tests)/out/edit10_0.svg");
 		edit->text("Bonjour");
@@ -1503,6 +1503,51 @@ void Edit::test10()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/edit10_3.svg");
 }
 
+// Test cursor positioning at the end, beginning, and middle
+void Edit::test11()
+{
+	Window window;
+	Edit * edit = new Edit(&window);
+	edit->text("Hello World");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/edit11_1.svg");
+	edit->cursor_position(-1, false);
+	assert(edit->cursor_position() == 11);
+	UIManager::desktop()->dispatch("$(ui.tests)/out/edit11_2.svg");
+
+	edit->cursor_position(0, false);
+	assert(edit->cursor_position() == 0);
+	UIManager::desktop()->dispatch("$(ui.tests)/out/edit11_3.svg");
+
+	edit->cursor_position(5, false);
+	assert(edit->cursor_position() == 5);
+	UIManager::desktop()->dispatch("$(ui.tests)/out/edit11_4.svg");
+
+	edit->cursor_position(-1, true);
+	assert(edit->cursor_position() == 11);
+	assert(edit->selection_start() == 5);
+	assert(edit->selection_end() == 11);
+	UIManager::desktop()->dispatch("$(ui.tests)/out/edit11_5.svg");
+
+	edit->cursor_position(0, true);
+	assert(edit->cursor_position() == 0);
+	assert(edit->selection_start() == 0);
+	assert(edit->selection_end() == 5);
+	UIManager::desktop()->dispatch("$(ui.tests)/out/edit11_6.svg");
+
+	edit->select_all();
+	edit->text("Short");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/edit11_7.svg");
+	assert(edit->cursor_position() == 0);
+	assert(edit->selection_start() == 0);
+	assert(edit->selection_end() == 5);
+
+	edit->text("Much longer text");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/edit11_8.svg");
+	assert(edit->cursor_position() == 0);
+	assert(edit->selection_start() == 0);
+	assert(edit->selection_end() == 5);
+}
+
 void Edit::test()
 {
 	static bool done = false;
@@ -1510,6 +1555,7 @@ void Edit::test()
 	{
 		MemoryLeakLog
 		done = true;
+		test11();
 		test10();
 		//test9();
 		test8();

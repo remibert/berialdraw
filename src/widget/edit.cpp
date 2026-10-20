@@ -4,7 +4,7 @@ using namespace berialdraw;
 
 Edit::Edit(Widget * parent):
 	Widget("edit", parent, sizeof(Edit)),
-	Entry(&m_text),
+	Entry(&m_text, this),
 	m_text_box()
 {
 	m_position = m_position;
@@ -100,7 +100,12 @@ Size Edit::content_size()
 	}
 	m_font_modified = font_modified;
 
-	if (m_edited || m_text_modified)
+	if (m_edited == 0 && m_text_modified == 1)
+	{
+		update_positions();
+	}
+
+	if (m_edited)
 	{
 		m_edited = 0;
 		select_all();
@@ -264,7 +269,7 @@ void Edit::on_key(Widget * widget, const KeyEvent & evt)
 			if (!(evt.key() == (wchar_t)ReservedKey::KEY_ENTER && m_max_lines <= 1))
 			{
 				m_edit_modified = on_key_down(evt.key(), evt.modifier()) ? 1 : 0;
-				UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+				//UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 			}
 		}
 	}
@@ -297,7 +302,7 @@ void Edit::on_select(Widget * widget, const SelectEvent & evt)
 		{
 			m_select_from = UINT32_MAX;
 		}
-		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+		//UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	}
 }
 
@@ -315,6 +320,6 @@ void Edit::on_click(Widget * widget, const ClickEvent & evt)
 		{
 			select_text(position,position);
 		}
-		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+		//UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	}
 }

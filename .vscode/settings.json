@@ -80,7 +80,7 @@
 
 	"chat.agent.maxRequests": 100,
 
-	"window.zoomLevel": 1.2, // Ecran verticaux
+	// "window.zoomLevel": 1.2, // Ecran verticaux
 	// "window.zoomLevel": -1,
-	// "window.zoomLevel": -0.2,
+	"window.zoomLevel": -0.2, //
 }

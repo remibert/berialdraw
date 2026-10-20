@@ -261,6 +261,34 @@ void Entry::test1()
 	}
 
 	{
+		String s("Hello World");
+		Entry entry(&s);
+		entry.cursor_position(4, false);
+		assert(entry.cursor_position() == 4);
+		assert(entry.selection_start() == 4);
+		assert(entry.selection_end() == 4);
+
+		entry.cursor_position(7, true);
+		assert(entry.cursor_position() == 7);
+		assert(entry.selection_start() == 4);
+		assert(entry.selection_end() == 7);
+
+		entry.cursor_position(2, true);
+		assert(entry.cursor_position() == 2);
+		assert(entry.selection_start() == 2);
+		assert(entry.selection_end() == 4);
+
+		entry.cursor_position(-1, false);
+		assert(entry.cursor_position() == 11);
+		entry.cursor_position(-2, false);
+		assert(entry.cursor_position() == 10);
+		entry.cursor_position(20, false);
+		assert(entry.cursor_position() == 11);
+		entry.cursor_position(-20, false);
+		assert(entry.cursor_position() == 0);
+	}
+
+	{
 		String s("Default value");
 		Entry entry(&s);
 		//entry.input(s);

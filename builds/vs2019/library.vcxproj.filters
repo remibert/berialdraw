@@ -560,6 +560,9 @@
     <ClCompile Include="..\..\external\libjpeg-turbo\jmemnobs.c">
       <Filter>external\libjpeg-turbo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\external\libjpeg-turbo\jpeg_nbits.c">
+      <Filter>external\libjpeg-turbo</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\external\libjpeg-turbo\jquant1.c">
       <Filter>external\libjpeg-turbo</Filter>
     </ClCompile>
