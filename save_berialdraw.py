@@ -15,8 +15,8 @@ def zip_directory(directory_path, output_dir, excluded):
 						print("+",file_path)
 						arcname = os.path.relpath(file_path, directory_path)
 						zipf.write(file_path, arcname)
-					else:
-						print("-",file_path)
+					#~ else:
+						#~ print("-",file_path)
 	print(f"zip created : {zip_path}")
 
 if __name__ == "__main__":
@@ -28,7 +28,7 @@ if __name__ == "__main__":
 		'*/.vs/berialdraw/*',
 		'*/resources.zip',
 		'*/palette.svg',
-		'*/builds/*',
+		#~ '*/builds/*',
 		'*/berialdraw/external/*',
 		'*/build/*',
 		'*/html/*',

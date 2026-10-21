@@ -410,6 +410,21 @@ KeyEvent::Modifier get_modifier()
 	return modifier;
 }
 
+static wchar_t map_shortcut_key(WPARAM virtual_key, wchar_t key, KeyEvent::Modifier modifier)
+{
+	if (modifier & KeyEvent::MODIFIER_CONTROL)
+	{
+		switch (virtual_key)
+		{
+		case 'A': key = (wchar_t)ReservedKey::KEY_SELECT_ALL; break;
+		case 'C': key = (wchar_t)ReservedKey::KEY_COPY; break;
+		case 'V': key = (wchar_t)ReservedKey::KEY_PASTE; break;
+		case 'X': key = (wchar_t)ReservedKey::KEY_CUT; break;
+		}
+	}
+	return key;
+}
+
 static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM w_param, LPARAM l_param)
 {
 	bool treat_event = true;
@@ -434,20 +449,28 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM w_param, LPARAM 
 
 		case WM_KEYDOWN:
 		case WM_SYSKEYDOWN:
+		{
 			key = get_key(w_param, l_param);
+			KeyEvent::Modifier modifier = get_modifier();
+			key = map_shortcut_key(w_param, key, modifier);
 			if(key)
 			{
-				UIManager::notifier()->push_event(new KeyEvent(key,KeyEvent::KEY_DOWN,get_modifier()));
+				UIManager::notifier()->push_event(new KeyEvent(key,KeyEvent::KEY_DOWN,modifier));
 			}
+		}
 			break;
 
 		case WM_KEYUP:
 		case WM_SYSKEYUP:
+		{
 			key = get_key(w_param, l_param);
+			KeyEvent::Modifier modifier = get_modifier();
+			key = map_shortcut_key(w_param, key, modifier);
 			if(key)
 			{
-				UIManager::notifier()->push_event(new KeyEvent(key,KeyEvent::KEY_UP,get_modifier()));
+				UIManager::notifier()->push_event(new KeyEvent(key,KeyEvent::KEY_UP,modifier));
 			}
+		}
 			break;
 
 		case WM_MOUSEMOVE:

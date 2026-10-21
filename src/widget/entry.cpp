@@ -92,7 +92,7 @@ void Entry::update_positions()
 @param character character to add in the input */
 void Entry::append_key(wchar_t character)
 {
-	if (m_input)
+	if (m_input && (TypingMode)m_typing_mode != TypingMode::READ_ONLY)
 	{
 		bool selected = (m_selection_start != m_selection_end);
 		erase_text_selected();
@@ -124,7 +124,7 @@ void Entry::append_key(wchar_t character)
 @return true if the new character is accepted */
 void Entry::backspace_key()
 {
-	if (m_input)
+	if (m_input && (TypingMode)m_typing_mode != TypingMode::READ_ONLY)
 	{
 		// If nothing selected
 		if (m_selection_start == m_selection_end)
@@ -153,7 +153,7 @@ void Entry::backspace_key()
 /** Delete a character at the cursor position */
 void Entry::delete_key()
 {
-	if (m_input)
+	if (m_input && (TypingMode)m_typing_mode != TypingMode::READ_ONLY)
 	{
 		// If nothing selected
 		if (m_selection_start == m_selection_end)
@@ -622,7 +622,7 @@ void Entry::end_key(bool selected)
 /** Clear the content of the entry */
 void Entry::clear_input()
 {
-	if (m_input)
+	if (m_input && (TypingMode)m_typing_mode != TypingMode::READ_ONLY)
 	{
 		m_input->clear();
 		m_selection_start = m_selection_end = m_cursor_position = 0;
@@ -810,7 +810,7 @@ void Entry::select_none()
 /** Erase text selected */
 void Entry::erase_text_selected()
 {
-	if (m_input)
+	if (m_input && (TypingMode)m_typing_mode != TypingMode::READ_ONLY)
 	{
 		// If text selected
 		if (m_selection_start != m_selection_end)
@@ -933,7 +933,7 @@ bool Entry::on_key_down(wchar_t key, KeyEvent::Modifier modifier)
 			}
 			break;
 
-		case (wchar_t)ReservedKey::KEY_CTRL_X:
+		case (wchar_t)ReservedKey::KEY_CUT:
 			result = true;
 			// Cut: Ctrl+X
 			{
@@ -942,7 +942,7 @@ bool Entry::on_key_down(wchar_t key, KeyEvent::Modifier modifier)
 				text_selected(selected);
 				
 				// Copy to clipboard
-				if (UIManager::is_initialized() && selected.size() > 0)
+				if ((TypingMode)m_typing_mode != TypingMode::READ_ONLY && UIManager::is_initialized() && selected.size() > 0)
 				{
 					UIManager::clipboard()->cut_text(selected);
 					// Delete selected text
@@ -952,13 +952,13 @@ bool Entry::on_key_down(wchar_t key, KeyEvent::Modifier modifier)
 			}
 			break;
 
-		case (wchar_t)ReservedKey::KEY_CTRL_A:
+		case (wchar_t)ReservedKey::KEY_SELECT_ALL:
 			// Select All: Ctrl+A
 			select_all();
 			accept = false;
 			break;
 
-		case (wchar_t)ReservedKey::KEY_CTRL_C:
+		case (wchar_t)ReservedKey::KEY_COPY:
 			// Copy: Ctrl+C
 			{
 				// Get selected text
@@ -974,13 +974,13 @@ bool Entry::on_key_down(wchar_t key, KeyEvent::Modifier modifier)
 			}
 			break;
 
-		case (wchar_t)ReservedKey::KEY_CTRL_V:
+		case (wchar_t)ReservedKey::KEY_PASTE:
 			result = true;
 			// Paste: Ctrl+V
 			{
 				// Get text from clipboard
 				String pasted;
-				if (UIManager::is_initialized() && UIManager::clipboard()->paste_text(pasted))
+				if ((TypingMode)m_typing_mode != TypingMode::READ_ONLY && UIManager::is_initialized() && UIManager::clipboard()->paste_text(pasted))
 				{
 					// Erase any selected text first
 					erase_text_selected();

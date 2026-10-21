@@ -43,6 +43,11 @@ namespace berialdraw
 		KEY_CTRL_Y      = 0x0019,	// Y key
 		KEY_CTRL_Z      = 0x001A,	// Z key
 
+		KEY_COPY        = 0x2398,	// Copy selected text
+		KEY_PASTE       = 0x1F4CB,	// Paste clipboard text
+		KEY_CUT         = 0x2702,	// Cut selected text
+		KEY_SELECT_ALL  = 0x2611,	// Select all text
+
 		KEY_LEFT        = 0x2190,
 		KEY_UP          = 0x2191,
 		KEY_RIGHT       = 0x2192,

@@ -30,6 +30,7 @@ namespace berialdraw
 		{
 			INSERTION,
 			REPLACEMENT,
+			READ_ONLY,
 		};
 
 		/** Set typing mode */

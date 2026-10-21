@@ -482,9 +482,9 @@ public:
 				// Map character to ReservedKey
 				switch (ch)
 				{
-				case 'a': result = (wchar_t)ReservedKey::KEY_CTRL_A; break;
+				case 'a': result = (wchar_t)ReservedKey::KEY_SELECT_ALL; break;
 				case 'b': result = (wchar_t)ReservedKey::KEY_CTRL_B; break;
-				case 'c': result = (wchar_t)ReservedKey::KEY_CTRL_C; break;
+				case 'c': result = (wchar_t)ReservedKey::KEY_COPY; break;
 				case 'd': result = (wchar_t)ReservedKey::KEY_CTRL_D; break;
 				case 'e': result = (wchar_t)ReservedKey::KEY_CTRL_E; break;
 				case 'f': result = (wchar_t)ReservedKey::KEY_CTRL_F; break;
@@ -503,9 +503,9 @@ public:
 				case 's': result = (wchar_t)ReservedKey::KEY_CTRL_S; break;
 				case 't': result = (wchar_t)ReservedKey::KEY_CTRL_T; break;
 				case 'u': result = (wchar_t)ReservedKey::KEY_CTRL_U; break;
-				case 'v': result = (wchar_t)ReservedKey::KEY_CTRL_V; break;
+				case 'v': result = (wchar_t)ReservedKey::KEY_PASTE; break;
 				case 'w': result = (wchar_t)ReservedKey::KEY_CTRL_W; break;
-				case 'x': result = (wchar_t)ReservedKey::KEY_CTRL_X; break;
+				case 'x': result = (wchar_t)ReservedKey::KEY_CUT; break;
 				case 'y': result = (wchar_t)ReservedKey::KEY_CTRL_Y; break;
 				case 'z': result = (wchar_t)ReservedKey::KEY_CTRL_Z; break;
 				}

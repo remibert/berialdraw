@@ -3,7 +3,8 @@ void bind_entry(pybind11::module_& m) {
     // TypingMode enum
     pybind11::enum_<berialdraw::Entry::TypingMode>(m, "TypingMode")
         .value("INSERTION", berialdraw::Entry::TypingMode::INSERTION)
-        .value("REPLACEMENT", berialdraw::Entry::TypingMode::REPLACEMENT);
+        .value("REPLACEMENT", berialdraw::Entry::TypingMode::REPLACEMENT)
+        .value("READ_ONLY", berialdraw::Entry::TypingMode::READ_ONLY);
 
     // Note: KeyEvent::Modifier is already bound in key_event.cpp with name "Modifier"
     // No need to rebind it here

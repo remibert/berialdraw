@@ -239,6 +239,21 @@ KeyEvent::Modifier DeviceXcb::get_modifier(uint16_t state)
 	return modifier;
 }
 
+static wchar_t map_shortcut_key(wchar_t key, KeyEvent::Modifier modifier)
+{
+	if (modifier & KeyEvent::MODIFIER_CONTROL)
+	{
+		switch (key)
+		{
+		case 'a': case 'A': key = (wchar_t)ReservedKey::KEY_SELECT_ALL; break;
+		case 'c': case 'C': key = (wchar_t)ReservedKey::KEY_COPY; break;
+		case 'v': case 'V': key = (wchar_t)ReservedKey::KEY_PASTE; break;
+		case 'x': case 'X': key = (wchar_t)ReservedKey::KEY_CUT; break;
+		}
+	}
+	return key;
+}
+
 bool DeviceXcb::dispatch(bool blocking)
 {
 	xcb_connection_t* conn = (xcb_connection_t*)m_connection;
@@ -350,10 +365,11 @@ bool DeviceXcb::dispatch(bool blocking)
 		case XCB_KEY_PRESS:
 			{
 				xcb_key_press_event_t* kp = (xcb_key_press_event_t*)event;
-				wchar_t key = get_key(kp->detail, kp->state);
+				KeyEvent::Modifier modifier = get_modifier(kp->state);
+				wchar_t key = map_shortcut_key(get_key(kp->detail, kp->state), modifier);
 				if (key)
 				{
-					UIManager::notifier()->push_event(new KeyEvent(key, KeyEvent::KEY_DOWN, get_modifier(kp->state)));
+					UIManager::notifier()->push_event(new KeyEvent(key, KeyEvent::KEY_DOWN, modifier));
 				}
 			}
 			break;
@@ -361,10 +377,11 @@ bool DeviceXcb::dispatch(bool blocking)
 		case XCB_KEY_RELEASE:
 			{
 				xcb_key_release_event_t* kr = (xcb_key_release_event_t*)event;
-				wchar_t key = get_key(kr->detail, kr->state);
+				KeyEvent::Modifier modifier = get_modifier(kr->state);
+				wchar_t key = map_shortcut_key(get_key(kr->detail, kr->state), modifier);
 				if (key)
 				{
-					UIManager::notifier()->push_event(new KeyEvent(key, KeyEvent::KEY_UP, get_modifier(kr->state)));
+					UIManager::notifier()->push_event(new KeyEvent(key, KeyEvent::KEY_UP, modifier));
 				}
 			}
 			break;

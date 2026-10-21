@@ -1267,8 +1267,8 @@ void Edit::test8()
 		"{'type':'key','key':0x23F8,'state':'up'  ,'modifier':''     ,'character':' '},"
 		
 		// Step 5: Cut the selected word (Ctrl+X)
-		"{'type':'key','key':0x0018,'state':'down','modifier':'ctrl'     ,'character':' '},"
-		"{'type':'key','key':0x0018,'state':'up'  ,'modifier':'ctrl'     ,'character':' '},"
+		"{'type':'key','key':0x2702,'state':'down','modifier':'ctrl'     ,'character':' '},"
+		"{'type':'key','key':0x2702,'state':'up'  ,'modifier':'ctrl'     ,'character':' '},"
 		
 		// Step 6: Screenshot after cut
 		"{'type':'key','key':0x23F8,'state':'down','modifier':''     ,'character':' '},"
@@ -1287,8 +1287,8 @@ void Edit::test8()
 		"{'type':'key','key':0x23F8,'state':'up'  ,'modifier':''     ,'character':' '},"
 		
 		// Step 9: Paste the cut word (Ctrl+V)
-		"{'type':'key','key':0x0016,'state':'down','modifier':'ctrl'     ,'character':' '},"
-		"{'type':'key','key':0x0016,'state':'up'  ,'modifier':'ctrl'     ,'character':' '},"
+		"{'type':'key','key':0x1F4CB,'state':'down','modifier':'ctrl'     ,'character':' '},"
+		"{'type':'key','key':0x1F4CB,'state':'up'  ,'modifier':'ctrl'     ,'character':' '},"
 		
 		// Step 10: Screenshot after paste
 		"{'type':'key','key':0x23F8,'state':'down','modifier':''     ,'character':' '},"
@@ -1323,8 +1323,8 @@ void Edit::test8()
 		"{'type':'key','key':0x23F8,'state':'up'  ,'modifier':''     ,'character':' '},"
 		
 		// Step 16: Copy the selected word (Ctrl+C)
-		"{'type':'key','key':0x0003,'state':'down','modifier':'ctrl'     ,'character':' '},"
-		"{'type':'key','key':0x0003,'state':'up'  ,'modifier':'ctrl'     ,'character':' '},"
+		"{'type':'key','key':0x2398,'state':'down','modifier':'ctrl'     ,'character':' '},"
+		"{'type':'key','key':0x2398,'state':'up'  ,'modifier':'ctrl'     ,'character':' '},"
 		
 		// Step 17: Screenshot after copy
 		"{'type':'key','key':0x23F8,'state':'down','modifier':''     ,'character':' '},"
@@ -1339,8 +1339,8 @@ void Edit::test8()
 		"{'type':'key','key':0x23F8,'state':'up'  ,'modifier':''     ,'character':' '},"
 		
 		// Step 20: Paste the copied word (Ctrl+V)
-		"{'type':'key','key':0x0016,'state':'down','modifier':'ctrl'     ,'character':' '},"
-		"{'type':'key','key':0x0016,'state':'up'  ,'modifier':'ctrl'     ,'character':' '},"
+		"{'type':'key','key':0x1F4CB,'state':'down','modifier':'ctrl'     ,'character':' '},"
+		"{'type':'key','key':0x1F4CB,'state':'up'  ,'modifier':'ctrl'     ,'character':' '},"
 		
 		// Step 21: Final screenshot with pasted content at beginning
 		"{'type':'key','key':0x23F8,'state':'down','modifier':''     ,'character':' '},"

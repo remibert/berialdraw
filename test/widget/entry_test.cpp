@@ -402,6 +402,37 @@ void Entry::test1()
 		assert(entry.typing_mode() == TypingMode::REPLACEMENT);
 	}
 	{
+		String s("Read only");
+		Entry entry(&s);
+		entry.typing_mode(TypingMode::READ_ONLY);
+		entry.cursor_position(2);
+		assert(entry.cursor_position() == 2);
+		entry.select_text(1, 4);
+		assert(entry.selection_start() == 1);
+		assert(entry.selection_end() == 4);
+
+		entry.append_key('X');
+		entry.backspace_key();
+		entry.delete_key();
+		entry.erase_text_selected();
+		entry.clear_input();
+		assert(strcmp(entry.input().c_str(), "Read only") == 0);
+		assert(entry.selection_start() == 1);
+		assert(entry.selection_end() == 4);
+
+		entry.on_key_down((wchar_t)ReservedKey::KEY_COPY, (KeyEvent::Modifier)0);
+		entry.on_key_down((wchar_t)ReservedKey::KEY_CUT, (KeyEvent::Modifier)0);
+		entry.on_key_down((wchar_t)ReservedKey::KEY_PASTE, (KeyEvent::Modifier)0);
+		entry.on_key_down((wchar_t)ReservedKey::KEY_SELECT_ALL, (KeyEvent::Modifier)0);
+		assert(entry.selection_start() == 0);
+		assert(entry.selection_end() == 9);
+		entry.on_key_down((wchar_t)ReservedKey::KEY_BACKSPACE, (KeyEvent::Modifier)0);
+		entry.on_key_down((wchar_t)ReservedKey::KEY_DELETE, (KeyEvent::Modifier)0);
+		entry.on_key_down((wchar_t)ReservedKey::KEY_ENTER, (KeyEvent::Modifier)0);
+		entry.on_key_down('Z', (KeyEvent::Modifier)0);
+		assert(strcmp(entry.input().c_str(), "Read only") == 0);
+	}
+	{
 		String s("rémi à la plage");
 		Entry entry(&s);
 		entry.select_text(0,0);

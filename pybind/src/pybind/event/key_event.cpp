@@ -38,6 +38,10 @@ void bind_key_event(pybind11::module_& m) {
     reserved_key_values["KEY_CTRL_X"] = (int)berialdraw::ReservedKey::KEY_CTRL_X;
     reserved_key_values["KEY_CTRL_Y"] = (int)berialdraw::ReservedKey::KEY_CTRL_Y;
     reserved_key_values["KEY_CTRL_Z"] = (int)berialdraw::ReservedKey::KEY_CTRL_Z;
+    reserved_key_values["KEY_COPY"] = (int)berialdraw::ReservedKey::KEY_COPY;
+    reserved_key_values["KEY_PASTE"] = (int)berialdraw::ReservedKey::KEY_PASTE;
+    reserved_key_values["KEY_CUT"] = (int)berialdraw::ReservedKey::KEY_CUT;
+    reserved_key_values["KEY_SELECT_ALL"] = (int)berialdraw::ReservedKey::KEY_SELECT_ALL;
     reserved_key_values["KEY_LEFT"] = (int)berialdraw::ReservedKey::KEY_LEFT;
     reserved_key_values["KEY_UP"] = (int)berialdraw::ReservedKey::KEY_UP;
     reserved_key_values["KEY_RIGHT"] = (int)berialdraw::ReservedKey::KEY_RIGHT;
