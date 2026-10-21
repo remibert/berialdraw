@@ -72,6 +72,9 @@ namespace berialdraw
 		/** Get the widget hovered */
 		virtual Widget * hovered(const Region & parent_region, const Point & position) override;
 
+		/** Call back on key */
+		void on_key(Widget * widget, const KeyEvent & evt);
+
 		Area m_text_foreclip;
 		TextBox m_text_box;
 /// @endcond 

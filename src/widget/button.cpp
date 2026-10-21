@@ -10,6 +10,7 @@ Button::Button(Widget * parent):
 	UIManager::styles()->apply(this, (BorderStyle*)this);
 	UIManager::styles()->apply(this, (TextStyle*)this);
 	UIManager::styles()->apply(this, (PaddingStyle*)this);
+	bind(this, &Button::on_key);
 }
 
 Button::~Button()
@@ -159,4 +160,15 @@ Widget * Button::hovered(const Region & parent_region, const Point & position)
 		return this;
 	}
 	return 0;
+}
+
+/** Call back on key */
+void Button::on_key(Widget * widget, const KeyEvent & evt)
+{
+	if (m_focused && evt.state() == KeyEvent::KEY_DOWN && evt.key() == (wchar_t)ReservedKey::KEY_ENTER)
+	{
+		Coord x = m_foreclip.position().x() + (Coord)(m_foreclip.size().width() / 2);
+		Coord y = m_foreclip.position().y() + (Coord)(m_foreclip.size().height() / 2);
+		UIManager::notifier()->click(x, y, this);
+	}
 }

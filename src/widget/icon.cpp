@@ -12,6 +12,7 @@ Icon::Icon(Widget * parent):
 	UIManager::styles()->apply(this, (IconStyle*)this);
 	UIManager::styles()->apply(this, (TextStyle*)this);
 	UIManager::styles()->apply(this, (PaddingStyle*)this);
+	bind(this, &Icon::on_key);
 }
 
 Icon::~Icon()
@@ -220,4 +221,15 @@ Widget * Icon::hovered(const Region & parent_region, const Point & position)
 		return this;
 	}
 	return 0;
+}
+
+/** Call back on key */
+void Icon::on_key(Widget * widget, const KeyEvent & evt)
+{
+	if (m_focused && evt.state() == KeyEvent::KEY_DOWN && evt.key() == (wchar_t)ReservedKey::KEY_ENTER)
+	{
+		Coord x = m_foreclip.position().x() + (Coord)(m_foreclip.size().width() / 2);
+		Coord y = m_foreclip.position().y() + (Coord)(m_foreclip.size().height() / 2);
+		UIManager::notifier()->click(x, y, this);
+	}
 }

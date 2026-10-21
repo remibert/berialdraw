@@ -263,6 +263,15 @@ Widget* ListItem::hovered(const Region& parent_region, const Point& position)
 /** Call back on key */
 void ListItem::on_key(Widget * widget, const KeyEvent & evt)
 {
+	List * list = search_list();
+	if (list && list->focused() && selected() &&
+		list->selection_mode() == ListSelectionMode::LIST_SINGLE_SELECTION &&
+		evt.state() == KeyEvent::KEY_DOWN && evt.key() == (wchar_t)ReservedKey::KEY_ENTER)
+	{
+		Coord x = m_foreclip.position().x() + (Coord)(m_foreclip.size().width() / 2);
+		Coord y = m_foreclip.position().y() + (Coord)(m_foreclip.size().height() / 2);
+		UIManager::notifier()->click(x, y, this);
+	}
 }
 
 /** Call back on click */
