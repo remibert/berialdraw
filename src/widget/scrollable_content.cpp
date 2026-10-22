@@ -295,6 +295,28 @@ void ScrollableContent::place(const Area & area, bool in_layout)
 	// Place all children in scrolled area
 	Widget::place(scroll_area, false);
 
+	// Recompute content size after flow layouts have placed their children.
+	Size updated_scroll_size(m_scroll_size);
+	Area updated_fixed_area;
+	compute_content_dimensions(m_contentclip, updated_scroll_size, updated_fixed_area);
+	if (updated_scroll_size.width_q6() != scroll_size.width_q6() ||
+		updated_scroll_size.height_q6() != scroll_size.height_q6())
+	{
+		Point updated_scroll_position(m_scroll_position);
+		Point updated_scroll_out = compute_scroll_view(m_contentclip, updated_scroll_position, updated_scroll_size);
+		if (updated_scroll_out.x() | updated_scroll_out.y())
+		{
+			if (m_parent)
+			{
+				UIManager::notifier()->scroll(updated_scroll_out.x(), updated_scroll_out.y(), m_parent->scrollable_content());
+			}
+		}
+
+		updated_scroll_position.move(m_contentclip.position());
+		Area updated_scroll_area(updated_scroll_position, updated_scroll_size);
+		Widget::place(updated_scroll_area, false);
+	}
+
 	// Restore viewport
 	m_backclip = backclip;
 	m_foreclip = foreclip;

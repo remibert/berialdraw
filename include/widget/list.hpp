@@ -19,6 +19,7 @@ namespace berialdraw
 	  at(-2)  → D (second-to-last)
 	  at(-5)  → A (same as at(0))
 	  at(10)  → E (out of bounds → clamped to last)
+	  at(-10) → A (out of bounds → clamped to first)
 	
 	Python equivalent:
 	  Python:  mylist[0], mylist[2], mylist[-1], mylist[-2]
@@ -66,13 +67,13 @@ namespace berialdraw
 
 		
 		/** Get item at index (Python-style indexing).
-		@param index Item position (supports negative indexing)
-		@return Pointer to ListItem, or nullptr if index is out of bounds */
+		@param index Item position (supports negative indexing; out-of-range indices are clamped to the nearest end)
+		@return Pointer to ListItem, or nullptr if the list is empty */
 		ListItem* at(int index) const;
 
 		/** Array access operator for list items (Python-style indexing).
-		@param index Item position (supports negative indexing)
-		@return Pointer to ListItem, or nullptr if index is out of bounds */
+		@param index Item position (supports negative indexing; out-of-range indices are clamped to the nearest end)
+		@return Pointer to ListItem, or nullptr if the list is empty */
 		ListItem* operator[](int index) const;
 
 		/** Unselect all item in list */

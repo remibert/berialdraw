@@ -23,48 +23,52 @@ namespace berialdraw
 		/** Dispatch events
 		@param blocking If true, the call blocks until an event is dispatched
 		@return True if an event was dispatched, false otherwise */
-		virtual bool dispatch(bool blocking = true);
+		virtual bool dispatch(bool blocking = true) override;
 
 		/** Enter the main event loop */
-		virtual void mainloop();
+		virtual void mainloop() override;
 
 		/** Get the size of screen device in pixels 
 		@return the size */
-		virtual Size size() const;
+		virtual Size size() const override;
 
 		/** Set the size of screen device in pixels
 		@param s size of screen */
-		virtual void size(const Size & s);
+		virtual void size(const Size & s) override;
+
+		virtual void window_mode(WindowMode mode) override;
+
+		virtual void window_state(WindowState state) override;
 
 		/** Resize the window
 		@param width The new width of the window
 		@param height The new height of the window */
-		virtual void size(Dim width, Dim height);
+		virtual void size(Dim width, Dim height) override;
 
 		/** Get the position of the window
 		@return the position as a Point */
-		virtual Point position() const;
+		virtual Point position() const override;
 
 		/** Set the position of the window
 		@param p position of the window */
-		virtual void position(const Point & p);
+		virtual void position(const Point & p) override;
 
 		/** Move the window
 		@param x The x position of the window
 		@param y The y position of the window */
-		virtual void position(Coord x, Coord y);
+		virtual void position(Coord x, Coord y) override;
 
 		/** Clear the window */
-		virtual void clear();
+		virtual void clear() override;
 
 		/** Copy a buffer to the window
 		@param buffer The buffer to copy from
 		@param width The width of the buffer
 		@param height The height of the buffer */
-		virtual void copy(const uint8_t* buffer = 0, Dim width = 0, Dim height = 0);
+		virtual void copy(const uint8_t* buffer = 0, Dim width = 0, Dim height = 0) override;
 
 		/** Refresh the window display */
-		virtual void refresh();
+		virtual void refresh() override;
 
 		/** Blit the buffer to the window */
 		virtual void blit();

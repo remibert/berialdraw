@@ -51,6 +51,9 @@ namespace berialdraw
 		/** Remove all windows */
 		void remove_all();
 
+		/** Invalidate all windows after the screen size changes */
+		void screen_size_changed();
+
 	private:
 		void export_raster_snapshot(const File::Location& location, bool jpeg);
 		bool encode_raster_snapshot(Window& window, Argb8888& image, const File::Location& location, bool jpeg);

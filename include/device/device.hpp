@@ -4,6 +4,19 @@ namespace berialdraw
 	class Event;
 	class Desktop;
 
+	enum class WindowMode
+	{
+		FIXED,
+		RESIZABLE
+	};
+
+	enum class WindowState
+	{
+		NORMAL,
+		MAXIMIZED,
+		FULLSCREEN
+	};
+
 	/** Abstract device class to be implemented for different platforms (e.g., Win32, SDL) */
 	class Device
 	{
@@ -26,6 +39,12 @@ namespace berialdraw
 		/** Set the size of screen device in pixels
 		@param s size of screen */
 		virtual void size(const Size & s) = 0;
+
+		/** Set the window resize policy */
+		virtual void window_mode(WindowMode) {}
+
+		/** Set the initial window state */
+		virtual void window_state(WindowState) {}
 
 		/** Resize the window
 		@param width The new width of the window

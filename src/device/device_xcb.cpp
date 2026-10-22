@@ -33,6 +33,22 @@ using namespace berialdraw;
 #define XCB_MOD_CONTROL 0x0004
 #define XCB_MOD_ALT     0x0008
 
+namespace
+{
+	xcb_atom_t intern_atom(xcb_connection_t* connection, const char* name)
+	{
+		xcb_atom_t result = XCB_ATOM_NONE;
+		xcb_intern_atom_cookie_t cookie = xcb_intern_atom(connection, 0, (uint16_t)strlen(name), name);
+		xcb_intern_atom_reply_t* reply = xcb_intern_atom_reply(connection, cookie, nullptr);
+		if (reply)
+		{
+			result = reply->atom;
+			free(reply);
+		}
+		return result;
+	}
+}
+
 DeviceXcb::DeviceXcb(const char * title, Dim width, Dim height, Coord x, Coord y)
 	: m_connection(nullptr)
 	, m_window(0)
@@ -111,6 +127,7 @@ void DeviceXcb::open_window()
 	                  XCB_WINDOW_CLASS_INPUT_OUTPUT,
 	                  screen->root_visual,
 	                  mask, values);
+	apply_window_mode();
 
 	// Set window title
 	xcb_change_property(conn,
@@ -155,6 +172,7 @@ void DeviceXcb::open_window()
 	// Map (show) the window
 	xcb_map_window(conn, m_window);
 	xcb_flush(conn);
+	apply_window_state();
 }
 
 void DeviceXcb::close_window()
@@ -175,6 +193,90 @@ void DeviceXcb::close_window()
 
 	delete[] m_buffer;
 	m_buffer = nullptr;
+}
+
+void DeviceXcb::resize_buffer(Dim width, Dim height)
+{
+	if (width > 0 && height > 0 && (width != m_width || height != m_height))
+	{
+		size_t buffer_size = (size_t)width * (size_t)height * 4;
+		uint8_t* buffer = new uint8_t[buffer_size];
+		memset(buffer, 0xFF, buffer_size);
+		delete[] m_buffer;
+		m_buffer = buffer;
+		m_width = width;
+		m_height = height;
+		m_dirty = true;
+		if (UIManager::is_initialized())
+		{
+			UIManager::resize(width, height);
+		}
+	}
+}
+
+void DeviceXcb::window_mode(WindowMode mode)
+{
+	m_window_mode = mode;
+	apply_window_mode();
+}
+
+void DeviceXcb::window_state(WindowState state)
+{
+	m_window_state = state;
+	apply_window_state();
+}
+
+void DeviceXcb::apply_window_mode()
+{
+	if (m_connection && m_window)
+	{
+		xcb_connection_t* conn = (xcb_connection_t*)m_connection;
+		xcb_atom_t normal_hints_atom = intern_atom(conn, "WM_NORMAL_HINTS");
+		if (m_window_mode == WindowMode::FIXED)
+		{
+			xcb_size_hints_t hints = {};
+			xcb_size_hints_set_min_size(&hints, (int32_t)m_width, (int32_t)m_height);
+			xcb_size_hints_set_max_size(&hints, (int32_t)m_width, (int32_t)m_height);
+			xcb_icccm_set_wm_normal_hints(conn, m_window, &hints);
+		}
+		else if (normal_hints_atom != XCB_ATOM_NONE)
+		{
+			xcb_delete_property(conn, m_window, normal_hints_atom);
+		}
+		xcb_flush(conn);
+	}
+}
+
+void DeviceXcb::apply_window_state()
+{
+	if (m_connection && m_window && m_window_state != WindowState::NORMAL)
+	{
+		xcb_connection_t* conn = (xcb_connection_t*)m_connection;
+		xcb_atom_t state_atom = intern_atom(conn, "_NET_WM_STATE");
+		xcb_atom_t first_state_atom = m_window_state == WindowState::MAXIMIZED ?
+			intern_atom(conn, "_NET_WM_STATE_MAXIMIZED_HORZ") :
+			intern_atom(conn, "_NET_WM_STATE_FULLSCREEN");
+		xcb_atom_t second_state_atom = m_window_state == WindowState::MAXIMIZED ?
+			intern_atom(conn, "_NET_WM_STATE_MAXIMIZED_VERT") : XCB_ATOM_NONE;
+		const xcb_setup_t* setup = xcb_get_setup(conn);
+		xcb_screen_iterator_t screen_iterator = xcb_setup_roots_iterator(setup);
+		if (state_atom != XCB_ATOM_NONE && first_state_atom != XCB_ATOM_NONE && screen_iterator.data)
+		{
+			xcb_client_message_event_t event = {};
+			event.response_type = XCB_CLIENT_MESSAGE;
+			event.window = m_window;
+			event.type = state_atom;
+			event.format = 32;
+			event.data.data32[0] = 1;
+			event.data.data32[1] = first_state_atom;
+			event.data.data32[2] = second_state_atom;
+			event.data.data32[3] = 1;
+			xcb_send_event(conn, 0, screen_iterator.data->root,
+				XCB_EVENT_MASK_SUBSTRUCTURE_REDIRECT | XCB_EVENT_MASK_SUBSTRUCTURE_NOTIFY,
+				(const char*)&event);
+			xcb_flush(conn);
+		}
+	}
 }
 
 void DeviceXcb::quit()
@@ -310,6 +412,13 @@ bool DeviceXcb::dispatch(bool blocking)
 
 		switch (response_type)
 		{
+		case XCB_CONFIGURE_NOTIFY:
+			{
+				xcb_configure_notify_event_t* configure = (xcb_configure_notify_event_t*)event;
+				resize_buffer(configure->width, configure->height);
+			}
+			break;
+
 		case XCB_EXPOSE:
 			m_dirty = true;
 			blit();

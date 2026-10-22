@@ -69,6 +69,8 @@ public:
 	Dim           m_height;
 	uint8_t*      m_buffer;
 	CGFloat       m_scale_factor;
+	WindowMode    m_window_mode = WindowMode::FIXED;
+	WindowState   m_window_state = WindowState::NORMAL;
 	String        m_title;
 	bool          m_app_initialized;
 
@@ -83,6 +85,10 @@ public:
 	void blit();
 	void refresh();
 	void size(Dim width, Dim height);
+	void window_mode(WindowMode mode);
+	void window_state(WindowState state);
+	void resize_from_window();
+	NSWindowStyleMask window_style_mask() const;
 	berialdraw::Size size() const;
 	void position(Coord x, Coord y);
 	berialdraw::Point position() const;
@@ -160,6 +166,23 @@ public:
 			UIManager::notifier()->push_event(new KeyEvent((wchar_t)ReservedKey::KEY_EXIT, KeyEvent::KEY_DOWN));
 		}
 		self.device->quit();
+	}
+}
+
+- (void)windowDidResize:(NSNotification *)notification
+{
+	NSWindow* window = [notification object];
+	if (self.device && ![window inLiveResize])
+	{
+		self.device->resize_from_window();
+	}
+}
+
+- (void)windowDidEndLiveResize:(NSNotification *)notification
+{
+	if (self.device)
+	{
+		self.device->resize_from_window();
 	}
 }
 
@@ -669,6 +692,18 @@ bool berialdraw::DeviceCocoaImpl::initialize_app()
 }
 
 // Create and configure the window on the main thread
+NSWindowStyleMask berialdraw::DeviceCocoaImpl::window_style_mask() const
+{
+	NSWindowStyleMask result = NSWindowStyleMaskTitled |
+		NSWindowStyleMaskClosable |
+		NSWindowStyleMaskMiniaturizable;
+	if (m_window_mode == WindowMode::RESIZABLE)
+	{
+		result |= NSWindowStyleMaskResizable;
+	}
+	return result;
+}
+
 void berialdraw::DeviceCocoaImpl::open_window()
 {
 	MemoryLeakTracer::suspend();
@@ -698,9 +733,7 @@ void berialdraw::DeviceCocoaImpl::open_window()
 
 			// Create window with title bar, close, and minimize buttons
 			m_window = [[NSWindow alloc] initWithContentRect:frame
-												styleMask:(NSWindowStyleMaskTitled | 
-															NSWindowStyleMaskClosable | 
-															NSWindowStyleMaskMiniaturizable)
+												styleMask:window_style_mask()
 													backing:NSBackingStoreBuffered
 													defer:NO];
 
@@ -759,9 +792,7 @@ void berialdraw::DeviceCocoaImpl::open_window()
 					NSRect frame = NSMakeRect(0, 0, display_width, display_height);
 
 					m_window = [[NSWindow alloc] initWithContentRect:frame
-															styleMask:(NSWindowStyleMaskTitled | 
-																	NSWindowStyleMaskClosable | 
-																	NSWindowStyleMaskMiniaturizable)
+																styleMask:window_style_mask()
 															backing:NSBackingStoreBuffered
 																defer:NO];
 
@@ -1059,6 +1090,74 @@ void berialdraw::DeviceCocoaImpl::size(Dim width, Dim height)
 	m_height = height;
 	close_window();
 	open_window();
+	window_state(m_window_state);
+}
+
+void berialdraw::DeviceCocoaImpl::window_mode(WindowMode mode)
+{
+	m_window_mode = mode;
+	if (m_window)
+	{
+		[m_window setStyleMask:window_style_mask()];
+	}
+}
+
+void berialdraw::DeviceCocoaImpl::window_state(WindowState state)
+{
+	m_window_state = state;
+	if (m_window)
+	{
+		if (state == WindowState::MAXIMIZED && ![m_window isZoomed])
+		{
+			[m_window zoom:nil];
+		}
+		else if (state == WindowState::FULLSCREEN)
+		{
+			[m_window setCollectionBehavior:[m_window collectionBehavior] | NSWindowCollectionBehaviorFullScreenPrimary];
+			if (([m_window styleMask] & NSWindowStyleMaskFullScreen) == 0)
+			{
+				[m_window toggleFullScreen:nil];
+			}
+		}
+	}
+}
+
+void berialdraw::DeviceCocoaImpl::resize_from_window()
+{
+	if (m_window && m_view)
+	{
+		BerialView* view = (__bridge BerialView*)m_view;
+		NSRect bounds = [view bounds];
+		CGFloat scale_factor = [m_window backingScaleFactor];
+		if (scale_factor <= 0.0 || !isfinite(scale_factor))
+		{
+			scale_factor = 1.0;
+		}
+		Dim width = (Dim)(bounds.size.width * scale_factor + 0.5);
+		Dim height = (Dim)(bounds.size.height * scale_factor + 0.5);
+		if (width > 0 && height > 0 && (width != m_width || height != m_height))
+		{
+			size_t buffer_size = (size_t)width * (size_t)height * 3;
+			size_t aligned_buffer_size = (buffer_size + 15) & ~(size_t)15;
+			uint8_t* buffer = nullptr;
+			if (posix_memalign((void**)&buffer, 16, aligned_buffer_size) == 0)
+			{
+				memset(buffer, 0xFF, buffer_size);
+				free(m_buffer);
+				m_buffer = buffer;
+				m_width = width;
+				m_height = height;
+				m_scale_factor = scale_factor;
+				m_dirty = true;
+				[view setScaleFactor:scale_factor];
+				[view updateBuffer:m_buffer width:m_width height:m_height];
+				if (UIManager::is_initialized())
+				{
+					UIManager::resize(width, height);
+				}
+			}
+		}
+	}
 }
 
 // Get current window size
@@ -1167,6 +1266,16 @@ void DeviceCocoa::size(const berialdraw::Size& s)
 void DeviceCocoa::size(Dim width, Dim height)
 {
 	m_impl->size(width, height);
+}
+
+void DeviceCocoa::window_mode(WindowMode mode)
+{
+	m_impl->window_mode(mode);
+}
+
+void DeviceCocoa::window_state(WindowState state)
+{
+	m_impl->window_state(state);
 }
 
 // Get window position

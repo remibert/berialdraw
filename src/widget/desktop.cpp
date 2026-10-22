@@ -262,6 +262,18 @@ void Desktop::quit()
 	m_quit = 1;
 }
 
+void Desktop::screen_size_changed()
+{
+	for (uint32_t i = 0; i < m_windows.size(); i++)
+	{
+		if (m_windows[i])
+		{
+			UIManager::invalidator()->dirty(m_windows[i], Invalidator::GEOMETRY);
+			m_windows[i]->force_flow_replacement();
+		}
+	}
+}
+
 /** Indicates if the mainloop is running */
 bool Desktop::is_loop()
 {

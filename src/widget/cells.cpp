@@ -52,12 +52,12 @@ void Cells::reallocate(Dim rows_count, Dim columns_count)
 			m_columns_count = columns_count;
 		}
 		
+		// Keep placed sizes: rebound() can run for measurement after layout.
 		for (Dim row = 0; row < rows_count; row ++)
 		{
 			m_heights[row].m_marged     = 0;
 			m_heights[row].m_maxi       = Size::MAX_SIZE;
 			m_heights[row].m_mini       = 0;
-			m_heights[row].m_placed     = 0;
 			m_heights[row].m_size_policy = SizePolicy::NORMAL_SIZE;
 		}
 		for (Dim column = 0; column < columns_count; column++)
@@ -65,7 +65,6 @@ void Cells::reallocate(Dim rows_count, Dim columns_count)
 			m_widths[column].m_marged     = 0;
 			m_widths[column].m_maxi       = Size::MAX_SIZE;
 			m_widths[column].m_mini       = 0;
-			m_widths[column].m_placed     = 0;
 			m_widths[column].m_size_policy = SizePolicy::NORMAL_SIZE;
 		}
 	}

@@ -41,8 +41,17 @@ namespace berialdraw
 		@param height height in pixels on device
 		@param type type of framebuffer supported by the display
 		@param scale rendering scale (a number less than 31 is direct, a number greater than 31 is equivalent to a floating point of divide by 64) 
-		@param root_dir root directory */
-		static void init(Device * device, Dim width, Dim height, enum Framebuf::Type type, uint32_t scale=1, const berialdraw::String & root_dir="");
+		@param root_dir root directory
+		@param window_mode Whether the window is fixed or resizable
+		@param window_state Initial normal, maximized, or fullscreen state */
+		static void init(Device * device, Dim width, Dim height, enum Framebuf::Type type,
+			uint32_t scale=1, const berialdraw::String & root_dir="",
+			WindowMode window_mode=WindowMode::FIXED, WindowState window_state=WindowState::NORMAL);
+
+		/** Resize the screen framebuffer and renderer
+		@param width The new width in pixels
+		@param height The new height in pixels */
+		static void resize(Dim width, Dim height);
 
 		/** Deinitialize the ui manager */
 		static void deinit();

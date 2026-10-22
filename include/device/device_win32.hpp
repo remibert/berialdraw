@@ -32,6 +32,10 @@ namespace berialdraw
 		@param s size of screen */
 		virtual void size(const Size & s);
 
+		virtual void window_mode(WindowMode mode) override;
+
+		virtual void window_state(WindowState state) override;
+
 		/** Resize the window
 		@param width The new width of the window
 		@param height The new height of the window */

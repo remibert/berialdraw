@@ -56,7 +56,7 @@ DeviceWin32::DeviceWin32(const char * title, Dim width, Dim height, Coord x, Coo
 	HWND hwnd = CreateWindow(
 		sz_app_name,
 		sz_app_name,         // Window title
-		WS_OVERLAPPEDWINDOW & ~WS_SIZEBOX & ~WS_MAXIMIZEBOX, // Window style
+		WS_OVERLAPPEDWINDOW & ~(WS_SIZEBOX | WS_MAXIMIZEBOX), // Window style
 		(int)x,              // x position - now using parameter
 		(int)y,              // y position - now using parameter
 		0,                    // Width
@@ -111,7 +111,7 @@ DeviceWin32::DeviceWin32(const char * title, Dim width, Dim height, Coord x, Coo
 
 DeviceWin32::~DeviceWin32()
 {
-	delete m_buffer;
+	delete[] m_buffer;
 }
 
 void DeviceWin32::quit()
@@ -183,16 +183,58 @@ void DeviceWin32::size(const Size & s)
 	size(s.width(), s.height());
 }
 
+void DeviceWin32::window_mode(WindowMode mode)
+{
+	HWND hwnd = (HWND)m_hwnd;
+	LONG_PTR style = GetWindowLongPtr(hwnd, GWL_STYLE);
+	if (mode == WindowMode::RESIZABLE)
+	{
+		style |= WS_SIZEBOX | WS_MAXIMIZEBOX;
+	}
+	else
+	{
+		style &= ~(WS_SIZEBOX | WS_MAXIMIZEBOX);
+	}
+	SetWindowLongPtr(hwnd, GWL_STYLE, style);
+	SetWindowPos(hwnd, NULL, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+}
+
+void DeviceWin32::window_state(WindowState state)
+{
+	HWND hwnd = (HWND)m_hwnd;
+	if (state == WindowState::MAXIMIZED)
+	{
+		ShowWindow(hwnd, SW_MAXIMIZE);
+	}
+	else if (state == WindowState::FULLSCREEN)
+	{
+		MONITORINFO monitor_info = {};
+		monitor_info.cbSize = sizeof(monitor_info);
+		HMONITOR monitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+		if (GetMonitorInfo(monitor, &monitor_info))
+		{
+			LONG_PTR style = GetWindowLongPtr(hwnd, GWL_STYLE);
+			style &= ~WS_OVERLAPPEDWINDOW;
+			style |= WS_POPUP;
+			SetWindowLongPtr(hwnd, GWL_STYLE, style);
+			SetWindowPos(hwnd, HWND_TOP,
+				monitor_info.rcMonitor.left, monitor_info.rcMonitor.top,
+				monitor_info.rcMonitor.right - monitor_info.rcMonitor.left,
+				monitor_info.rcMonitor.bottom - monitor_info.rcMonitor.top,
+				SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+		}
+	}
+}
+
 void DeviceWin32::size(Dim width, Dim height)
 {
 	RECT client_rect;
 
-
-	delete m_buffer;
+	delete[] m_buffer;
 	m_width = width;
 	m_height = height;
 
-	m_buffer = new uint8_t [(int)m_width * (int)m_height * 3];
+	m_buffer = new uint8_t [(size_t)m_width * (size_t)m_height * 3];
 	GetClientRect((HWND)m_hwnd, &client_rect);
 
 	int client_width = client_rect.right - client_rect.left;
@@ -204,7 +246,12 @@ void DeviceWin32::size(Dim width, Dim height)
 	int window_width = window_rect.right - window_rect.left;
 	int window_height = window_rect.bottom - window_rect.top;
 
-	SetWindowPos((HWND)m_hwnd, NULL, 0, 0, window_width + (width - client_width), window_height + (height - client_height), SWP_NOMOVE | SWP_NOZORDER);
+	int target_width = window_width + (int)width - client_width;
+	int target_height = window_height + (int)height - client_height;
+	if (target_width != window_width || target_height != window_height)
+	{
+		SetWindowPos((HWND)m_hwnd, NULL, 0, 0, target_width, target_height, SWP_NOMOVE | SWP_NOZORDER);
+	}
 	UpdateWindow((HWND)m_hwnd);
 	clear();
 }
@@ -282,7 +329,9 @@ void DeviceWin32::copy(const uint8_t* buffer, Dim width, Dim height)
 
 void DeviceWin32::blit()
 {
-	uint8_t* image = (uint8_t*)malloc((int)m_width * (int)m_height * 3);
+	size_t source_stride = (size_t)m_width * 3;
+	size_t image_stride = (source_stride + 3) & ~(size_t)3;
+	uint8_t* image = (uint8_t*)malloc(image_stride * (size_t)m_height);
 
 	if (image)
 	{
@@ -298,13 +347,17 @@ void DeviceWin32::blit()
 
 		for (Dim y = 0; y < m_height; y++) 
 		{
+			const uint8_t* source_row = m_buffer + (size_t)y * source_stride;
+			uint8_t* destination_row = image + (size_t)y * image_stride;
 			for (Dim x = 0; x < m_width; x++) 
 			{
-				int32_t pos = ((y * m_width) + x) * 3;
-				image[(int)(pos)    ] = m_buffer[(int)(pos) + 2];
-				image[(int)(pos) + 1] = m_buffer[(int)(pos) + 1];
-				image[(int)(pos) + 2] = m_buffer[(int)(pos)];
+				size_t source_pos = (size_t)x * 3;
+				size_t destination_pos = source_pos;
+				destination_row[destination_pos] = source_row[source_pos + 2];
+				destination_row[destination_pos + 1] = source_row[source_pos + 1];
+				destination_row[destination_pos + 2] = source_row[source_pos];
 			}
+			memset(destination_row + source_stride, 0, image_stride - source_stride);
 		}
 
 		SetDIBitsToDevice(
@@ -425,12 +478,35 @@ static wchar_t map_shortcut_key(WPARAM virtual_key, wchar_t key, KeyEvent::Modif
 	return key;
 }
 
+static void resize_to_client(HWND hwnd, DeviceWin32* device)
+{
+	if (UIManager::is_initialized())
+	{
+		RECT client_rect;
+		if (GetClientRect(hwnd, &client_rect))
+		{
+			Dim width = (Dim)(client_rect.right - client_rect.left);
+			Dim height = (Dim)(client_rect.bottom - client_rect.top);
+			if (width > 0 && height > 0)
+			{
+				Size current_size = device->size();
+				if (current_size.width() != width || current_size.height() != height)
+				{
+					device->size(width, height);
+				}
+				UIManager::resize(width, height);
+			}
+		}
+	}
+}
+
 static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM w_param, LPARAM l_param)
 {
 	bool treat_event = true;
 	wchar_t key;
 	DeviceWin32* device = (DeviceWin32*)GetWindowLongPtr(hwnd, GWL_USERDATA);
 	static bool mouse_down = false;
+	static bool in_size_move = false;
 	LRESULT result = 0;
 
 	if(device)
@@ -439,6 +515,22 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM w_param, LPARAM 
 		{
 		case WM_PAINT:
 			device->blit();
+			break;
+
+		case WM_ENTERSIZEMOVE:
+			in_size_move = true;
+			break;
+
+		case WM_EXITSIZEMOVE:
+			in_size_move = false;
+			resize_to_client(hwnd, device);
+			break;
+
+		case WM_SIZE:
+			if (w_param != SIZE_MINIMIZED && !in_size_move)
+			{
+				resize_to_client(hwnd, device);
+			}
 			break;
 
 		case WM_CLOSE:

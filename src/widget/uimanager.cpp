@@ -1,5 +1,6 @@
 #include "berialdraw_imp.hpp"
 #include <memory>
+#include <utility>
 
 using namespace berialdraw;
 
@@ -56,7 +57,7 @@ inline Dim adapt_size(Dim size, uint32_t scale)
 	return ((size << 6) / scale);
 }
 
-void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type type, uint32_t scale, const berialdraw::String & root_dir)
+void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type type, uint32_t scale, const berialdraw::String & root_dir, WindowMode window_mode, WindowState window_state)
 {
 	if(device && m_device == 0)
 	{
@@ -85,6 +86,7 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 		m_screen_crc   = std::make_unique<ScreenCrc>();
 		m_device       = device;
 		m_clipboard    = std::make_unique<Clipboard>();
+		m_device->window_mode(window_mode);
 		m_device->size(width, height);
 		m_framebuf     = std::unique_ptr<Framebuf>(Framebuf::create(width, height, type));
 		m_renderer     = std::make_unique<Renderer>(adapt_size(width,scale), adapt_size(height,scale), scale);
@@ -92,10 +94,32 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 		m_image_cache  = std::make_unique<ImageCache>();
 		m_timer_manager.reset(TimerManager::create(device));
 		m_initialized = true;
+		m_device->window_state(window_state);
 	}
 	else
 	{
 		bd_printf("UIManager::init failed");
+	}
+}
+
+void UIManager::resize(Dim width, Dim height)
+{
+	if (m_initialized && width > 0 && height > 0 && m_framebuf && m_renderer &&
+		(m_framebuf->width() != width || m_framebuf->height() != height))
+	{
+		Dim scale = m_renderer->scale_q6();
+		std::unique_ptr<Framebuf> framebuf(Framebuf::create(width, height, Framebuf::ARGB8888));
+		std::unique_ptr<Renderer> renderer(new Renderer(adapt_size(width, scale), adapt_size(height, scale), scale));
+		if (framebuf)
+		{
+			m_framebuf = std::move(framebuf);
+			m_renderer = std::move(renderer);
+			if (m_exporter)
+			{
+				m_exporter->size(m_renderer->size());
+			}
+			m_desktop->screen_size_changed();
+		}
 	}
 }
 

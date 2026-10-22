@@ -33,6 +33,10 @@ namespace berialdraw
 		@param s size of screen */
 		virtual void size(const Size & s);
 
+		virtual void window_mode(WindowMode mode) override;
+
+		virtual void window_state(WindowState state) override;
+
 		/** Resize the window
 		@param width The new width of the window
 		@param height The new height of the window */
@@ -76,6 +80,9 @@ namespace berialdraw
 /// @cond DOXYGEN_IGNORE
 		void open_window();
 		void close_window();
+		void resize_buffer(Dim width, Dim height);
+		void apply_window_mode();
+		void apply_window_state();
 
 		/** Convert XCB keycode to berialdraw key */
 		wchar_t get_key(uint8_t keycode, uint16_t state);
@@ -95,6 +102,8 @@ namespace berialdraw
 		bool          m_mouse_down;     /**< Track mouse button state */
 		bool          m_running;        /**< Running flag */
 		String        m_title;          /**< Window title */
+		WindowMode    m_window_mode = WindowMode::FIXED;
+		WindowState   m_window_state = WindowState::NORMAL;
 /// @endcond
 	};
 
