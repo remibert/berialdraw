@@ -12,7 +12,9 @@ const int SCREEN_WIDTH  = 280*ZOOM;
 const int SCREEN_HEIGHT = 280*ZOOM;
 #endif
 /*
-palette,tab,combo,qr,apng,calendrier,clavier numeric,icns,ico,icn,icone appli*/
+palette,tab,combo,qr,apng,calendrier,clavier numeric,icns,ico,icn,icone appli, gradient,
+button back clavier virtuel lie a la fonte
+*/
 using namespace berialdraw; 
 
 int main(int argc, char* args[])

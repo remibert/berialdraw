@@ -145,7 +145,7 @@ set(INCLUDES_PYBIND11
 	"${CMAKE_CURRENT_SOURCE_DIR}/../external/freetype/include;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/../external/freetype/include/freetype;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/../external/libpng;"
-	"${CMAKE_CURRENT_SOURCE_DIR}/../external/libjpeg-turbo;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../external/libjpeg-turbo/src;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/inc;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/.."
 	"${CMAKE_CURRENT_SOURCE_DIR}/../external/pybind11/include;"

@@ -252,92 +252,105 @@ set(SRCS_LIB
 	external/zlib/inflate.c
 	external/zlib/inftrees.c
 	external/zlib/trees.c
-	external/zlib/uncompr.c
 	external/zlib/zutil.c
-
-	# minizip archive library
-	external/minizip/mz_crypt.c
-	external/minizip/mz_os.c
-	external/minizip/mz_strm.c
-	external/minizip/mz_strm_buf.c
-	external/minizip/mz_strm_mem.c
-	external/minizip/mz_strm_split.c
-	external/minizip/mz_strm_zlib.c
-	external/minizip/mz_strm_pkcrypt.c
-	external/minizip/mz_zip.c
-	external/minizip/mz_zip_rw.c
-	external/minizip/compat/unzip.c
-	external/minizip/compat/ioapi.c
-	src/tool/mz_stream_os_berialdraw.c
-
-	# libpng
-	external/libpng/png.c
-	external/libpng/pngerror.c
-	external/libpng/pngget.c
-	external/libpng/pngmem.c
-	external/libpng/pngpread.c
-	external/libpng/pngread.c
-	external/libpng/pngrio.c
-	external/libpng/pngrtran.c
-	external/libpng/pngrutil.c
-	external/libpng/pngset.c
-	external/libpng/pngsimd.c
-	external/libpng/pngtrans.c
-	external/libpng/pngwio.c
-	external/libpng/pngwrite.c
-	external/libpng/pngwtran.c
-	external/libpng/pngwutil.c
-
-	# libjpeg-turbo (decode only)
-	external/libjpeg-turbo/jcapimin.c
-	external/libjpeg-turbo/jcapistd.c
-	external/libjpeg-turbo/jccoefct.c
-	external/libjpeg-turbo/jccolor.c
-	external/libjpeg-turbo/jcdctmgr.c
-	external/libjpeg-turbo/jchuff.c
-	external/libjpeg-turbo/jcicc.c
-	external/libjpeg-turbo/jcinit.c
-	external/libjpeg-turbo/jcmainct.c
-	external/libjpeg-turbo/jcmarker.c
-	external/libjpeg-turbo/jcmaster.c
-	external/libjpeg-turbo/jcomapi.c
-	external/libjpeg-turbo/jcparam.c
-	external/libjpeg-turbo/jcphuff.c
-	external/libjpeg-turbo/jcprepct.c
-	external/libjpeg-turbo/jcsample.c
-	external/libjpeg-turbo/jctrans.c
-	external/libjpeg-turbo/jdapimin.c
-	external/libjpeg-turbo/jdapistd.c
-	external/libjpeg-turbo/jdatadst.c
-	external/libjpeg-turbo/jdatasrc.c
-	external/libjpeg-turbo/jdcoefct.c
-	external/libjpeg-turbo/jdcolor.c
-	external/libjpeg-turbo/jddctmgr.c
-	external/libjpeg-turbo/jdhuff.c
-	external/libjpeg-turbo/jdicc.c
-	external/libjpeg-turbo/jdinput.c
-	external/libjpeg-turbo/jdmainct.c
-	external/libjpeg-turbo/jdmarker.c
-	external/libjpeg-turbo/jdmaster.c
-	external/libjpeg-turbo/jdmerge.c
-	external/libjpeg-turbo/jdphuff.c
-	external/libjpeg-turbo/jdpostct.c
-	external/libjpeg-turbo/jdsample.c
-	external/libjpeg-turbo/jdtrans.c
-	external/libjpeg-turbo/jerror.c
-	external/libjpeg-turbo/jfdctflt.c
-	external/libjpeg-turbo/jfdctfst.c
-	external/libjpeg-turbo/jfdctint.c
-	external/libjpeg-turbo/jidctflt.c
-	external/libjpeg-turbo/jidctfst.c
-	external/libjpeg-turbo/jidctint.c
-	external/libjpeg-turbo/jidctred.c
-	external/libjpeg-turbo/jmemmgr.c
-	external/libjpeg-turbo/jmemnobs.c
-	external/libjpeg-turbo/jquant1.c
-	external/libjpeg-turbo/jquant2.c
-	external/libjpeg-turbo/jsimd_none.c
-	external/libjpeg-turbo/jutils.c
+	external/libjpeg-turbo/src/jcapimin.c
+	external/libjpeg-turbo/src/wrapper/jcapistd-8.c
+	external/libjpeg-turbo/src/wrapper/jcapistd-12.c
+	external/libjpeg-turbo/src/wrapper/jcapistd-16.c
+	external/libjpeg-turbo/src/wrapper/jccoefct-8.c
+	external/libjpeg-turbo/src/wrapper/jccoefct-12.c
+	external/libjpeg-turbo/src/wrapper/jccolor-8.c
+	external/libjpeg-turbo/src/wrapper/jccolor-12.c
+	external/libjpeg-turbo/src/wrapper/jccolor-16.c
+	external/libjpeg-turbo/src/wrapper/jcdctmgr-8.c
+	external/libjpeg-turbo/src/wrapper/jcdctmgr-12.c
+	external/libjpeg-turbo/src/wrapper/jcdiffct-8.c
+	external/libjpeg-turbo/src/wrapper/jcdiffct-12.c
+	external/libjpeg-turbo/src/wrapper/jcdiffct-16.c
+	external/libjpeg-turbo/src/jchuff.c
+	external/libjpeg-turbo/src/jcicc.c
+	external/libjpeg-turbo/src/jcinit.c
+	external/libjpeg-turbo/src/jclhuff.c
+	external/libjpeg-turbo/src/wrapper/jclossls-8.c
+	external/libjpeg-turbo/src/wrapper/jclossls-12.c
+	external/libjpeg-turbo/src/wrapper/jclossls-16.c
+	external/libjpeg-turbo/src/wrapper/jcmainct-8.c
+	external/libjpeg-turbo/src/wrapper/jcmainct-12.c
+	external/libjpeg-turbo/src/wrapper/jcmainct-16.c
+	external/libjpeg-turbo/src/jcmarker.c
+	external/libjpeg-turbo/src/jcmaster.c
+	external/libjpeg-turbo/src/jcomapi.c
+	external/libjpeg-turbo/src/jcparam.c
+	external/libjpeg-turbo/src/jcphuff.c
+	external/libjpeg-turbo/src/wrapper/jcprepct-8.c
+	external/libjpeg-turbo/src/wrapper/jcprepct-12.c
+	external/libjpeg-turbo/src/wrapper/jcprepct-16.c
+	external/libjpeg-turbo/src/wrapper/jcsample-8.c
+	external/libjpeg-turbo/src/wrapper/jcsample-12.c
+	external/libjpeg-turbo/src/wrapper/jcsample-16.c
+	external/libjpeg-turbo/src/jctrans.c
+	external/libjpeg-turbo/src/jdapimin.c
+	external/libjpeg-turbo/src/wrapper/jdapistd-8.c
+	external/libjpeg-turbo/src/wrapper/jdapistd-12.c
+	external/libjpeg-turbo/src/wrapper/jdapistd-16.c
+	external/libjpeg-turbo/src/jdatadst.c
+	external/libjpeg-turbo/src/jdatasrc.c
+	external/libjpeg-turbo/src/wrapper/jdcoefct-8.c
+	external/libjpeg-turbo/src/wrapper/jdcoefct-12.c
+	external/libjpeg-turbo/src/wrapper/jdcolor-8.c
+	external/libjpeg-turbo/src/wrapper/jdcolor-12.c
+	external/libjpeg-turbo/src/wrapper/jdcolor-16.c
+	external/libjpeg-turbo/src/wrapper/jddctmgr-8.c
+	external/libjpeg-turbo/src/wrapper/jddctmgr-12.c
+	external/libjpeg-turbo/src/wrapper/jddiffct-8.c
+	external/libjpeg-turbo/src/wrapper/jddiffct-12.c
+	external/libjpeg-turbo/src/wrapper/jddiffct-16.c
+	external/libjpeg-turbo/src/jdhuff.c
+	external/libjpeg-turbo/src/jdicc.c
+	external/libjpeg-turbo/src/jdinput.c
+	external/libjpeg-turbo/src/jdlhuff.c
+	external/libjpeg-turbo/src/wrapper/jdlossls-8.c
+	external/libjpeg-turbo/src/wrapper/jdlossls-12.c
+	external/libjpeg-turbo/src/wrapper/jdlossls-16.c
+	external/libjpeg-turbo/src/wrapper/jdmainct-8.c
+	external/libjpeg-turbo/src/wrapper/jdmainct-12.c
+	external/libjpeg-turbo/src/wrapper/jdmainct-16.c
+	external/libjpeg-turbo/src/jdmarker.c
+	external/libjpeg-turbo/src/jdmaster.c
+	external/libjpeg-turbo/src/wrapper/jdmerge-8.c
+	external/libjpeg-turbo/src/wrapper/jdmerge-12.c
+	external/libjpeg-turbo/src/jdphuff.c
+	external/libjpeg-turbo/src/wrapper/jdpostct-8.c
+	external/libjpeg-turbo/src/wrapper/jdpostct-12.c
+	external/libjpeg-turbo/src/wrapper/jdpostct-16.c
+	external/libjpeg-turbo/src/wrapper/jdsample-8.c
+	external/libjpeg-turbo/src/wrapper/jdsample-12.c
+	external/libjpeg-turbo/src/wrapper/jdsample-16.c
+	external/libjpeg-turbo/src/jdtrans.c
+	external/libjpeg-turbo/src/jerror.c
+	external/libjpeg-turbo/src/jfdctflt.c
+	external/libjpeg-turbo/src/wrapper/jfdctfst-8.c
+	external/libjpeg-turbo/src/wrapper/jfdctfst-12.c
+	external/libjpeg-turbo/src/wrapper/jfdctint-8.c
+	external/libjpeg-turbo/src/wrapper/jfdctint-12.c
+	external/libjpeg-turbo/src/wrapper/jidctflt-8.c
+	external/libjpeg-turbo/src/wrapper/jidctflt-12.c
+	external/libjpeg-turbo/src/wrapper/jidctfst-8.c
+	external/libjpeg-turbo/src/wrapper/jidctfst-12.c
+	external/libjpeg-turbo/src/wrapper/jidctint-8.c
+	external/libjpeg-turbo/src/wrapper/jidctint-12.c
+	external/libjpeg-turbo/src/wrapper/jidctred-8.c
+	external/libjpeg-turbo/src/wrapper/jidctred-12.c
+	external/libjpeg-turbo/src/jmemmgr.c
+	external/libjpeg-turbo/src/jmemnobs.c
+	external/libjpeg-turbo/src/jpeg_nbits.c
+	external/libjpeg-turbo/src/wrapper/jquant1-8.c
+	external/libjpeg-turbo/src/wrapper/jquant1-12.c
+	external/libjpeg-turbo/src/wrapper/jquant2-8.c
+	external/libjpeg-turbo/src/wrapper/jquant2-12.c
+	external/libjpeg-turbo/src/wrapper/jutils-8.c
+	external/libjpeg-turbo/src/wrapper/jutils-12.c
+	external/libjpeg-turbo/src/wrapper/jutils-16.c
 )
 
 set(INCLUDES_LIB 
@@ -348,17 +361,46 @@ set(INCLUDES_LIB
 	"${CMAKE_CURRENT_SOURCE_DIR}/external/minizip;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/external/minizip/compat;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/external/libpng;"
-	"${CMAKE_CURRENT_SOURCE_DIR}/external/libjpeg-turbo;"
+	"${CMAKE_CURRENT_SOURCE_DIR}/external/libjpeg-turbo/src;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/external/libpng;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/external/libjpeg-turbo;"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include;"
 	"${CMAKE_CURRENT_SOURCE_DIR};"
 )
 
+# Build the vendored PNG library and minizip compatibility API.
+set(PNG_SHARED OFF CACHE BOOL "Build libpng as a shared library" FORCE)
+set(PNG_STATIC ON CACHE BOOL "Build libpng as a static library" FORCE)
+set(PNG_FRAMEWORK OFF CACHE BOOL "Build libpng as a framework" FORCE)
+set(PNG_TESTS OFF CACHE BOOL "Build libpng tests" FORCE)
+set(PNG_TOOLS OFF CACHE BOOL "Build libpng tools" FORCE)
+set(PNG_EXECUTABLES OFF CACHE BOOL "Build libpng executables" FORCE)
+add_subdirectory(external/libpng EXCLUDE_FROM_ALL)
+
+set(MZ_COMPAT ON CACHE BOOL "Enable minizip compatibility API" FORCE)
+set(MZ_ZLIB ON CACHE BOOL "Enable zlib compression in minizip" FORCE)
+set(MZ_ZLIB_FLAVOR "zlib" CACHE STRING "Use zlib with minizip" FORCE)
+set(MZ_LIBCOMP OFF CACHE BOOL "Disable Apple Compression for minizip" FORCE)
+set(MZ_BZIP2 OFF CACHE BOOL "Disable BZip2 in minizip" FORCE)
+set(MZ_LZMA OFF CACHE BOOL "Disable LZMA in minizip" FORCE)
+set(MZ_PPMD OFF CACHE BOOL "Disable PPMd in minizip" FORCE)
+set(MZ_ZSTD OFF CACHE BOOL "Disable Zstandard in minizip" FORCE)
+set(MZ_OPENSSL OFF CACHE BOOL "Disable OpenSSL in minizip" FORCE)
+set(MZ_LIBBSD OFF CACHE BOOL "Disable libbsd in minizip" FORCE)
+set(MZ_ICONV OFF CACHE BOOL "Disable iconv in minizip" FORCE)
+set(MZ_PKCRYPT OFF CACHE BOOL "Disable PKWARE encryption in minizip" FORCE)
+set(MZ_WZAES OFF CACHE BOOL "Disable WinZIP AES in minizip" FORCE)
+set(MZ_FETCH_LIBS OFF CACHE BOOL "Do not fetch minizip dependencies" FORCE)
+set(MZ_FORCE_FETCH_LIBS OFF CACHE BOOL "Do not force-fetch minizip dependencies" FORCE)
+set(MZ_BUILD_TESTS OFF CACHE BOOL "Do not build minizip tests" FORCE)
+set(MZ_BUILD_UNIT_TESTS OFF CACHE BOOL "Do not build minizip unit tests" FORCE)
+set(MZ_BUILD_FUZZ_TESTS OFF CACHE BOOL "Do not build minizip fuzz tests" FORCE)
+add_subdirectory(external/minizip EXCLUDE_FROM_ALL)
 
 # Static library
 add_library                (${BD_LIB} STATIC  ${SRCS_DEVICE} ${SRCS_LIB} )
 target_include_directories (${BD_LIB} PRIVATE ${INCLUDES_LIB})
+target_include_directories (${BD_LIB} BEFORE PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/external/libpng")
 target_compile_definitions (${BD_LIB} PRIVATE ${COMPILE_DEF}
 	-DPACKAGE=1
 	-DHAVE_PTHREAD_SETSPECIFIC=1
@@ -367,6 +409,7 @@ target_compile_definitions (${BD_LIB} PRIVATE ${COMPILE_DEF}
 	-D_DEFAULT_SOURCE
 	-DHAVE_ZLIB
 	-DZLIB_COMPAT)
+target_link_libraries       (${BD_LIB} PRIVATE png_static MINIZIP::minizip)
 
 # Add subdirectories for modular build
 add_subdirectory(pybind)
