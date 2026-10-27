@@ -106,6 +106,7 @@ public:
 @property (nonatomic, assign) BOOL appStarted;
 @property (nonatomic, strong) id globalEventMonitor;
 - (void)updateBuffer:(uint8_t*)buffer width:(Dim)width height:(Dim)height;
+- (BOOL)performKeyEquivalent:(NSEvent *)event;
 - (void)keyDown:(NSEvent *)event;
 - (void)keyUp:(NSEvent *)event;
 - (wchar_t)convertKeyFromEvent:(NSEvent*)event;
@@ -422,6 +423,19 @@ public:
 	}
 }
 
+// Forward Command+Arrow key equivalents to the widget event handler
+- (BOOL)performKeyEquivalent:(NSEvent *)event
+{
+	BOOL isCommandArrow = (event.modifierFlags & NSEventModifierFlagCommand) != 0 &&
+		(event.keyCode == MacOSKeyCode::KEY_LEFT_ARROW || event.keyCode == MacOSKeyCode::KEY_RIGHT_ARROW);
+	if (isCommandArrow)
+	{
+		[self keyDown:event];
+		return YES;
+	}
+	return [super performKeyEquivalent:event];
+}
+
 // Handle key down event
 - (void)keyDown:(NSEvent *)event
 {
@@ -471,10 +485,24 @@ public:
 			result = (wchar_t)ReservedKey::KEY_DELETE;
 			break;
 		case MacOSKeyCode::KEY_RIGHT_ARROW:
-			result = (wchar_t)ReservedKey::KEY_RIGHT;
+			if (hasCmd)
+			{
+				result = (wchar_t)ReservedKey::KEY_END;
+			}
+			else
+			{
+				result = (wchar_t)ReservedKey::KEY_RIGHT;
+			}
 			break;
 		case MacOSKeyCode::KEY_LEFT_ARROW:
-			result = (wchar_t)ReservedKey::KEY_LEFT;
+			if (hasCmd)
+			{
+				result = (wchar_t)ReservedKey::KEY_HOME;
+			}
+			else
+			{
+				result = (wchar_t)ReservedKey::KEY_LEFT;
+			}
 			break;
 		case MacOSKeyCode::KEY_DOWN_ARROW:
 			result = (wchar_t)ReservedKey::KEY_DOWN;

@@ -169,7 +169,7 @@ void Entry::test1()
 		entry.home_key();
 		entry.down_arrow_key();
 		entry.append_key('3');
-		check(entry,"Hello  World\n32H0W1\n");
+		check(entry,"Hello  World\n2H0W1\n3");
 		
 	}
 	{
@@ -195,6 +195,32 @@ void Entry::test1()
 		assert(count == 0);
 		count = entry.line_length(3);
 		assert(count == 0);
+	}
+	{
+		String s("first line\nsecond line\nthird line");
+		Entry entry(&s);
+		entry.cursor_position(15);
+		entry.home_key();
+		assert(entry.cursor_position() == 11);
+		entry.end_key();
+		assert(entry.cursor_position() == 22);
+
+		entry.cursor_position(15);
+		entry.home_key(true);
+		assert(entry.cursor_position() == 11);
+		assert(entry.selection_start() == 11);
+		assert(entry.selection_end() == 15);
+		entry.end_key(true);
+		assert(entry.cursor_position() == 22);
+		assert(entry.selection_start() == 15);
+		assert(entry.selection_end() == 22);
+
+		entry.cursor_position(15);
+		entry.end_key(true);
+		entry.home_key(true);
+		assert(entry.cursor_position() == 11);
+		assert(entry.selection_start() == 11);
+		assert(entry.selection_end() == 15);
 	}
 
 	{

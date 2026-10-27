@@ -555,66 +555,81 @@ void Entry::left_arrow_key(bool selected)
 	}
 }
 
-/** Move the cursor to the first character  */
+/** Move the cursor to the beginning of the current line */
 void Entry::home_key(bool selected)
 {
 	if (m_input)
 	{
+		uint32_t target_position = m_cursor_position;
+		while (target_position > 0 && m_input->get(target_position - 1) != '\n')
+		{
+			target_position--;
+		}
+
 		// If home with shift pressed
 		if (selected)
 		{
-			// If nothing selected
-			if (m_selection_start == m_selection_end)
+			uint32_t anchor = m_cursor_position;
+			if (m_selection_start != m_selection_end)
 			{
-				// Selection end at current position
-				m_selection_end = m_cursor_position;
-			}
-			// If the cursor is at the end of selection
-			else if (m_cursor_position == m_selection_end)
-			{
-				// Selection end at start selection
-				m_selection_end = m_selection_start;
+				anchor = (m_cursor_position == m_selection_start) ? m_selection_end : m_selection_start;
 			}
 
-			// Set the start of selection at the begin of entry
-			m_selection_start = m_cursor_position = 0;
+			if (target_position < anchor)
+			{
+				m_selection_start = target_position;
+				m_selection_end = anchor;
+			}
+			else
+			{
+				m_selection_start = anchor;
+				m_selection_end = target_position;
+			}
+			m_cursor_position = target_position;
 		}
 		else
 		{
-			// Move cursor to the first character
-			m_selection_start = m_selection_end = m_cursor_position = 0;
+			m_selection_start = m_selection_end = m_cursor_position = target_position;
 		}
 	}
 }
 
-/** Move the cursor to the last character */
+/** Move the cursor to the end of the current line */
 void Entry::end_key(bool selected)
 {
 	if (m_input)
 	{
+		uint32_t target_position = m_cursor_position;
+		uint32_t count = m_input->count();
+		while (target_position < count && m_input->get(target_position) != '\n')
+		{
+			target_position++;
+		}
+
 		// If end with shift pressed
 		if (selected)
 		{
-			// If nothing selected
-			if (m_selection_start == m_selection_end)
+			uint32_t anchor = m_cursor_position;
+			if (m_selection_start != m_selection_end)
 			{
-				// Selection start at current position
-				m_selection_start = m_cursor_position;
-			}
-			// If the cursor is at the begin of selection
-			else if (m_cursor_position == m_selection_start)
-			{
-				// Selection start at end of selection
-				m_selection_start = m_selection_end;
+				anchor = (m_cursor_position == m_selection_start) ? m_selection_end : m_selection_start;
 			}
 
-			// Set the end of selection at the end of entry
-			m_selection_end = m_cursor_position = m_input->count();
+			if (target_position < anchor)
+			{
+				m_selection_start = target_position;
+				m_selection_end = anchor;
+			}
+			else
+			{
+				m_selection_start = anchor;
+				m_selection_end = target_position;
+			}
+			m_cursor_position = target_position;
 		}
 		else
 		{
-			// Move cursor to the last character
-			m_selection_start = m_selection_end = m_cursor_position = m_input->count();
+			m_selection_start = m_selection_end = m_cursor_position = target_position;
 		}
 	}
 }

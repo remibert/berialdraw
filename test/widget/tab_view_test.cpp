@@ -59,7 +59,7 @@ void TabView::test1()
 
 	// assert(tabs->select(11));
 	// UIManager::desktop()->dispatch("$(ui.tests)/out/tab_view1_3.svg");
-	UIManager::desktop()->mainloop();
+// UIManager::desktop()->mainloop();
 
 	// assert(tabs->select(12) == false);
 	// assert(tabs->selected_index() == 11);

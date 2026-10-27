@@ -142,10 +142,10 @@ namespace berialdraw
 		/** Delete a character at the cursor position */
 		void delete_key();
 
-		/** Move the cursor to the first character */
+		/** Move the cursor to the beginning of the current line */
 		void home_key(bool selected=false);
 
-		/** Move the cursor to the last character */
+		/** Move the cursor to the end of the current line */
 		void end_key(bool selected=false);
 
 		/** Clear the content of the entry */
