@@ -546,6 +546,26 @@ void Grid::test5()
 
 void Grid::test6()
 {
+	Window window;
+		window.color(Color::SNOW);
+		ScrollView * scroll = new ScrollView(&window);
+
+		Column * column = new Column(scroll);
+			column->margin(17);
+
+			Row * row;
+			for (int j = 0; j < 5; j++)
+			{
+				row = new Row(column);
+					row->margin(((j+1) * 7));
+					for (int i = 0; i < 5; i++)
+					{
+						Button * but = new Button(row);
+							but->text("%d",((j+1) * 7));
+					}
+			}
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/grid6_1.svg");
 }
 
 void Grid::test()

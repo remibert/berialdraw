@@ -156,9 +156,10 @@ public:
 	return YES;
 }
 
-// Handle window close event by sending exit key event
-- (void)windowWillClose:(NSNotification *)notification
+// Request application exit while keeping the Cocoa window open.
+- (BOOL)windowShouldClose:(NSWindow *)sender
 {
+	BOOL should_close = YES;
 	if (self.device && self.appStarted)
 	{
 		if (UIManager::notifier())
@@ -166,7 +167,9 @@ public:
 			UIManager::notifier()->push_event(new KeyEvent((wchar_t)ReservedKey::KEY_EXIT, KeyEvent::KEY_DOWN));
 		}
 		self.device->quit();
+		should_close = NO;
 	}
+	return should_close;
 }
 
 - (void)windowDidResize:(NSNotification *)notification

@@ -173,7 +173,7 @@ void ScrollableContent::compute_content_dimensions(const Area & viewport, Size &
 	if (auto_width || auto_height)
 	{
 		// Layout children size (containers like Grid/Column report their total size)
-		Size children_size = Widget::children_content_size();
+		Size children_size = Widget::children_marged_size();
 
 		// Bounding box of absolutely positioned direct children only
 		scroll_area(fixed_area);
@@ -437,7 +437,7 @@ const Point & ScrollableContent::scroll_position() const
 /** Return the size of content without marges */
 Size ScrollableContent::content_size()
 {
-	Size result = Widget::content_size();
+	Size result = Widget::children_marged_size();
 	if (!m_size.is_width_undefined())
 	{
 		result.width_q6(m_size.width_q6());

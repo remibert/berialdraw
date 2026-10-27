@@ -37,24 +37,6 @@ namespace berialdraw
 		/** Set the scroll direction */
 		void scroll_direction(ScrollDirection dir);
 
-		/** Get the padding */
-		//const Margin& padding() const { return m_padding; }
-
-		///** Set the padding */
-		//void padding(const Margin& m);
-
-		///** Set the padding in pixels */
-		//void padding(Dim top, Dim left, Dim bottom, Dim right);
-
-		///** Set the padding with a precision of 64th of a pixel */
-		//void padding_q6(Dim top, Dim left, Dim bottom, Dim right);
-
-		///** Set the padding */
-		//void padding(Dim horizontal, Dim vertical);
-
-		///** Set the padding */
-		//void padding(Dim value);
-
 
 		/** Get the property name for this style */
 		const char* property_name() const override { return "scrollview"; }

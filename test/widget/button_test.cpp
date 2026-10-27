@@ -1103,28 +1103,37 @@ void Button::test14()
 	Switch * check;
 
 		window.color(0xFFF4F4F4);
-		Column * column = new Column(&window);
-		Row * row = new Row(column);
-			row->size_policy(SizePolicy::SHRINK_WIDTH);
+
+		ScrollView * main_scroll = new ScrollView(&window);
+		main_scroll->scroll_direction(ScrollDirection::SCROLL_VERTICAL);
+		Column * column = new Column(main_scroll);
+
+		ScrollView * scroll = new ScrollView(column);
+		scroll->scroll_direction(ScrollDirection::SCROLL_HORIZONTAL);
+		scroll->align(Align::ALIGN_LEFT);
+		scroll->scrollbar_visible(false);
+		Row * row = new Row(scroll);
+			// row->size_policy(SizePolicy::SHRINK_WIDTH);
 			Button * buttonRef;
 			row->margin(10,10,0,10);
 			Button * button;
 
-			buttonRef = new Button(row);
-				buttonRef->text("⏴");
-				buttonRef->borders(ALL_BORDERS| ROUNDED_END | RIGHT_ANGLE_WITHOUT_BORDER);
-				buttonRef->margin(5,1,0,1);
-				buttonRef->radius(0);
-				buttonRef->thickness(1);
-				buttonRef->bind(&test13_on_page);
-				buttonRef->id(5);
-				buttonRef->focusable(false);
-				buttonRef->extend(Extend::EXTEND_HEIGHT);
-				buttonRef->size_policy(SizePolicy::SHRINK_WIDTH);
+			// buttonRef = new Button(row);
+			// 	buttonRef->text("⏴");
+			// 	buttonRef->borders(ALL_BORDERS| ROUNDED_END | RIGHT_ANGLE_WITHOUT_BORDER);
+			// 	buttonRef->margin(5,1,0,1);
+			// 	buttonRef->radius(0);
+			// 	buttonRef->thickness(1);
+			// 	buttonRef->bind(&test13_on_page);
+			// 	buttonRef->id(5);
+			// 	buttonRef->focusable(false);
+			// 	buttonRef->extend(Extend::EXTEND_HEIGHT);
+			// 	buttonRef->size_policy(SizePolicy::SHRINK_WIDTH);
 
-			button = new Button(row);
-				button->copy(buttonRef);
-				button->text("⏵");
+			// button = new Button(row);
+			// 	button->copy(buttonRef);
+			// 	button->text("⏵");
+
 
 			buttonRef = new Button(row);
 				buttonRef->text("One");
@@ -1152,6 +1161,22 @@ void Button::test14()
 				button->text("Four");
 				button->bind(&test13_on_page);
 				button->id(4);
+
+			button = new Button(row);
+				button->copy(*buttonRef);
+				button->text("Five");
+				button->bind(&test13_on_page);
+				button->id(4);
+
+			for (int i = 0; i < 10; i++)
+			{
+				button = new Button(row);
+					button->copy(*buttonRef);
+					button->text("%d",i);
+					button->bind(&test13_on_page);
+					button->id(i);
+			}
+
 
 		Grid * pages = new Grid(column);
 			pages->margin(0,10,10,10);
@@ -1213,7 +1238,7 @@ void Button::test14()
 					spacer = new Label(col);
 						spacer->size_policy(SizePolicy::ENLARGE_ALL);
 
-		//UIManager::desktop()->dispatch("$(ui.tests)/out/button13.svg");
+		UIManager::desktop()->dispatch("$(ui.tests)/out/button13.svg");
 	while(1)
 		UIManager::desktop()->dispatch();
 }
@@ -1379,7 +1404,7 @@ void Button::test()
 	{
 		MemoryLeakLog
 		done = true;
-
+test14();
 		test20();
 		test19();
 		test18();

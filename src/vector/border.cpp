@@ -4,6 +4,15 @@ using namespace berialdraw;
 
 namespace berialdraw
 {
+	static bool has_border_token(const String & value, const char * token)
+	{
+		String padded = String(",") + value + ",";
+		String searched(",");
+		searched += token;
+		searched += ",";
+		return padded.find(searched.c_str()) != INT32_MAX;
+	}
+
 	/** Unserialize the content of extend from json */
 	void unserialize(JsonIterator & it, Borders & borders)
 	{
@@ -13,39 +22,39 @@ namespace berialdraw
 		{
 			borders = NO_BORDER;
 
-			if (str.find("top") != INT32_MAX)
+			if (has_border_token(str, "top"))
 			{
 				borders = borders | TOP_BORDER;
 			}
-			if (str.find("bottom") != INT32_MAX)
+			if (has_border_token(str, "bottom"))
 			{
 				borders = borders | BOTTOM_BORDER;
 			}
-			if (str.find("left") != INT32_MAX)
+			if (has_border_token(str, "left"))
 			{
 				borders = borders | LEFT_BORDER;
 			}
-			if (str.find("right") != INT32_MAX)
+			if (has_border_token(str, "right"))
 			{
-				borders = borders | LEFT_BORDER;
+				borders = borders | RIGHT_BORDER;
 			}
-			if (str.find("all") != INT32_MAX)
+			if (has_border_token(str, "all"))
 			{
 				borders = borders | ALL_BORDERS;
 			}
-			if (str.find("inner") != INT32_MAX)
+			if (has_border_token(str, "inner"))
 			{
 				borders = borders | INNER_AREA;
 			}
-			if (str.find("right-angle-end") != INT32_MAX)
+			if (has_border_token(str, "right-angle-end"))
 			{
 				borders = borders | RIGHT_ANGLE_END;
 			}
-			if (str.find("rounded-end") != INT32_MAX)
+			if (has_border_token(str, "rounded-end"))
 			{
 				borders = borders | ROUNDED_END;
 			}
-			if (str.find("right-angle-without-border") != INT32_MAX)
+			if (has_border_token(str, "right-angle-without-border"))
 			{
 				borders = borders | RIGHT_ANGLE_WITHOUT_BORDER;
 			}

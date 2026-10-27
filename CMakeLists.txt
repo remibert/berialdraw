@@ -74,6 +74,7 @@ set(SRCS_LIB
 	src/widget/radio.cpp
 	src/widget/scrollable_content.cpp
 	src/widget/scroll_view.cpp
+	src/widget/tab_view.cpp
 	src/widget/slider.cpp
 	src/widget/row.cpp
 	src/widget/column.cpp
@@ -112,6 +113,7 @@ set(SRCS_LIB
 	src/styles/list_style.cpp
 	src/styles/list_selection_mode.cpp
 	src/styles/table_view_style.cpp
+	src/styles/tab_view_style.cpp
 	src/styles/grid_style.cpp
 	src/styles/cell_style.cpp
 	src/styles/cells_style.cpp

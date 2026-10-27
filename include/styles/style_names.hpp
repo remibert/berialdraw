@@ -115,6 +115,7 @@ namespace berialdraw
 		// Table view style
 		static constexpr char TABLEVIEW_ALTERNATING_ROW_COLOR_1[] = "alternating_row_color_1";
 		static constexpr char TABLEVIEW_ALTERNATING_ROW_COLOR_2[] = "alternating_row_color_2";
+		static constexpr char TABVIEW_TAB_DIRECTION[] = "tab_direction";
 
 		// Grid style
 		static constexpr char GRIDSTYLE_GRID_COLOR[] = "grid_color";

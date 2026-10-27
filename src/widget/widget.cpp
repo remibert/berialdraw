@@ -608,6 +608,32 @@ Size Widget::children_content_size()
 	return result;
 }
 
+/** Return the size of children content with marges */
+Size Widget::children_marged_size()
+{
+	Size result;
+	Size size;
+
+	Widget* child = m_children;
+	while (child)
+	{
+		size = child->marged_size();
+
+		if (size.height_q6() > result.height_q6())
+		{
+			result.height_q6(size.height_q6());
+		}
+		if (size.width_q6() > result.width_q6())
+		{
+			result.width_q6(size.width_q6());
+		}
+		child = child->next();
+	}
+	return result;
+}
+
+
+
 Size Widget::content_size()
 {
 	Size result = children_content_size();
@@ -627,7 +653,7 @@ Size Widget::content_size()
 			result.height_q6(size().height_q6());
 		}
 	}
-
+	
 	return result;
 }
 
@@ -1210,6 +1236,27 @@ void Widget::serialize(JsonIterator & it)
 		child->serialize(widget);
 		index ++;
 		child = child->m_next;
+	}
+}
+
+void Widget::dump(Widget * parent, int level)
+{
+	Widget* current = parent;
+	String pad;
+	for (int i = 0; i < level; i++)
+	{
+		pad.write_char(' ');
+	}
+
+	while (current)
+	{
+		bd_printf("%s%s : (r=%d,c=%d) id=%08X\n",pad.c_str(),current->classname(), current->m_row, current->m_column, current->m_id);
+
+		if (current->m_children)
+		{
+			dump(current->m_children, level+1);
+		}
+		current = current->next();
 	}
 }
 

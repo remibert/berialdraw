@@ -68,7 +68,7 @@ namespace berialdraw
 		void set(const FT_Outline & outline);
 
 		/** Maximum coordinate value for the outline */
-		const int32_t MAX_COORD = (2048 << 6);
+		const int32_t MAX_COORD = (16384 << 6);
 
 #ifdef _DEBUG
 		static void test();

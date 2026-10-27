@@ -55,6 +55,9 @@ namespace berialdraw
 		/** Return the size of children content without marges */
 		virtual Size children_content_size();
 
+		/** Return the size of children content with marges */
+		virtual Size children_marged_size();
+
 		/** Return the size of content with its marges */
 		virtual Size marged_size();
 
@@ -165,6 +168,8 @@ namespace berialdraw
 
 	protected:
 /// @cond DOXYGEN_IGNORE
+
+		void dump(Widget * parent, int level = 0);
 
 		/** Indicates whether the widget is positioned absolutely */
 		bool is_absolute();
