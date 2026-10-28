@@ -32,7 +32,7 @@ ListItem* MenuDialog::create_menu(const String& text, const String& icon_filenam
 		item->padding(3);
 		item_text.print(
 			"$<'sketch':'%s','size':{'width':40,'height':40}, 'align':'center'> " // Set the icon filename
-			"%s\t> ", icon_filename.c_str(), text.c_str());                       // Set the text of item
+			"%s\v> ", icon_filename.c_str(), text.c_str());                       // Set the text of item
 		item->text(item_text);
 	});
 	return result;                                     // Returns the item menu

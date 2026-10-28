@@ -1381,12 +1381,12 @@ void Button::test19()
 	Button* button = new Button(&window);
 		button->font_size(32);
 		button->text(
-			"One|\t|\n\n"
-			"|\t|Two|\t|\n\n"
-			"|\t|Three|\t|\t|\n\n"
-			"|\t|\t|Four|\t|\t|\n\n"
-			"|\t|\t|Five|\t|\t|\t|\n\n"
-			"|\t|\t|\t|Six|\t|\t|\t|"
+			"One|\v|\n\n"
+			"|\v|Two|\v|\n\n"
+			"|\v|Three|\v|\v|\n\n"
+			"|\v|\v|Four|\v|\v|\n\n"
+			"|\v|\v|Five|\v|\v|\v|\n\n"
+			"|\v|\v|\v|Six|\v|\v|\v|"
 		);
 	UIManager::desktop()->dispatch("$(ui.tests)/out/button19_1.svg");
 }

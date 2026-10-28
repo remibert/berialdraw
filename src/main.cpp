@@ -14,7 +14,7 @@ const int SCREEN_HEIGHT = 280*ZOOM;
 /*
 palette,tab,combo,qr,apng,calendrier,clavier numeric,icns,ico,icn,icone appli, gradient,
 button back clavier virtuel lie a la fonte, q6 float, cadre tableview a revoir,
-treeview, convertir les \t pour espacer en \v
+treeview
 */
 using namespace berialdraw; 
 

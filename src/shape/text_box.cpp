@@ -24,14 +24,14 @@ bool TextBox::ignore_tags() const
 	return m_ignore_tags;
 }
 
-/** Check whether the text contains flexible tab spacers */
+/** Check whether the text contains flexible spacers */
 bool TextBox::has_spacers() const
 {
 	bool result = false;
 	const String & clean = m_rich_text.clean_text();
 	for (uint32_t i = 0; i < clean.count(); i++)
 	{
-		if (clean.get(i) == L'\t')
+		if (clean.get(i) == L'\v')
 		{
 			result = true;
 			break;
@@ -65,13 +65,13 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 	default_line_height = font.real_size().height_q6();
 	space_size = font.char_size(' ');
 
-	// Resolve natural character advances before distributing flexible tab spacers
+	// Resolve natural character advances before distributing flexible spacers
 	m_character_widths.resize(count + 1);
 	for (i = 0; i < count; i++)
 	{
 		const TextSpan & span = m_rich_text.span_at(i);
 		character = clean.get(i);
-		if (character == L'\t')
+		if (character == L'\v')
 		{
 			m_character_widths[i] = span.font->char_size(' ').width_q6();
 		}
@@ -86,7 +86,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 	}
 	m_character_widths[count] = space_size.width_q6();
 
-	// Distribute the remaining line width equally between tabs when a maximum width is known
+	// Distribute the remaining line width equally between vertical-tab spacers when a maximum width is known
 	if (text_area.width_q6() > 0)
 	{
 		uint32_t line_start = 0;
@@ -98,7 +98,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 			Dim min_spacer_width = 0;
 			while (line_end < count && clean.get(line_end) != L'\n')
 			{
-				if (clean.get(line_end) == L'\t')
+				if (clean.get(line_end) == L'\v')
 				{
 					spacer_count++;
 					if (m_character_widths[line_end] > min_spacer_width)
@@ -120,7 +120,7 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 				{
 					for (uint32_t j = line_start; j < line_end; j++)
 					{
-						if (clean.get(j) == L'\t')
+						if (clean.get(j) == L'\v')
 						{
 							m_character_widths[j] = spacer_width;
 						}
@@ -750,7 +750,7 @@ void TextBox::paint_line_segments(const LineInfo & line, const Point & position,
 
 	while (seg_start <= line_end)
 	{
-		if (seg_start < clean.count() && clean.get(seg_start) == L'\t')
+		if (seg_start < clean.count() && clean.get(seg_start) == L'\v')
 		{
 			if (seg_start < m_character_widths.size())
 			{
@@ -776,7 +776,7 @@ void TextBox::paint_line_segments(const LineInfo & line, const Point & position,
 		{
 			for (uint32_t i = seg_start; i <= seg_end && i < clean.count(); i++)
 			{
-				if (clean.get(i) == L'\t')
+				if (clean.get(i) == L'\v')
 				{
 					seg_end = i - 1;
 					break;

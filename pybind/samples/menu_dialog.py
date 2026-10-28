@@ -23,7 +23,7 @@ class MenuDialog(Dialog):
 		"""Create item in menu"""
 		def configure(item):
 			item.padding = 3
-			item.text = "$<'sketch':'%s','size':{'width':40,'height':40}, 'align':'center'> %s\t> "%(icon_filename,text)
+			item.text = "$<'sketch':'%s','size':{'width':40,'height':40}, 'align':'center'> %s\v> "%(icon_filename,text)
 		return self.list.append(configure)
 
 	def add_choice(self, text, icon_filename="", callback=None):
