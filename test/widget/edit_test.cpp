@@ -1548,6 +1548,34 @@ void Edit::test11()
 	assert(edit->selection_end() == 5);
 }
 
+void Edit::test12()
+{
+	Window window;
+	Column * layout = new Column(&window);
+	List * tasks = new List(layout);
+		tasks->selection_mode(ListSelectionMode::LIST_MULTI_SELECTION);
+		tasks->size_policy(SizePolicy::ENLARGE_HEIGHT);
+		tasks->focusable(false);
+
+	Edit * edit = new Edit(layout);
+		edit->text("");
+		edit->max_lines(1000);
+		edit->max_columns(1000);
+		edit->font_size(14);
+
+	Button * button = new Button(layout);
+		button->text("Build");
+
+	for (int i = 0; i < 7; i++)
+	{
+		tasks->append("Build");
+	}
+	UIManager::desktop()->dispatch();
+
+	assert(button->backclip().y_q6() + button->backclip().height_q6() ==
+		window.backclip().y_q6() + window.backclip().height_q6());
+}
+
 void Edit::test()
 {
 	static bool done = false;
@@ -1555,6 +1583,7 @@ void Edit::test()
 	{
 		MemoryLeakLog
 		done = true;
+		test12();
 		test11();
 		test10();
 		//test9();

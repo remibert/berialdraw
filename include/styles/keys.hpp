@@ -54,6 +54,8 @@ namespace berialdraw
 		KEY_DOWN        = 0x2193,
 		KEY_HOME        = 0x21E4,
 		KEY_END         = 0x21E5,
+		KEY_PAGE_UP     = 0x23EB,
+		KEY_PAGE_DOWN   = 0x23EC,
 		KEY_PAUSE       = 0x23F8,
 		KEY_EXIT        = 0x23F9,
 	};

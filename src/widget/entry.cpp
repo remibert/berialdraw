@@ -366,6 +366,62 @@ void Entry::down_arrow_key(bool selected)
 	}
 }
 
+/** Move the cursor by one visible page */
+void Entry::page_key(bool down, bool selected)
+{
+	if (m_input)
+	{
+		uint32_t line = 0;
+		uint32_t column = 0;
+		line_column(line, column);
+
+		uint32_t visible_lines = 1;
+		Edit * edit = dynamic_cast<Edit *>(m_widget);
+		if (edit && edit->max_lines() > 0)
+		{
+			visible_lines = edit->max_lines();
+		}
+
+		uint32_t last_line = 0;
+		uint32_t count = m_input->count();
+		for (uint32_t index = 0; index < count; index++)
+		{
+			if (m_input->get(index) == '\n')
+			{
+				last_line++;
+			}
+		}
+
+		uint64_t target_line = line;
+		if (down)
+		{
+			target_line += visible_lines;
+		}
+		else if (target_line > visible_lines)
+		{
+			target_line -= visible_lines;
+		}
+		else
+		{
+			target_line = 0;
+		}
+
+		if (target_line > last_line)
+		{
+			target_line = last_line;
+		}
+
+		if ((m_entry_align & Align::ALIGN_HORIZONTAL) == Align::ALIGN_LEFT)
+		{
+			move_cursor((uint32_t)target_line, column, selected);
+		}
+		else
+		{
+			move_arrow(line, (uint32_t)target_line, column, selected);
+		}
+	}
+}
+
 /** Move the cursor from the line to another line with the same column */
 void Entry::move_arrow(uint32_t from_line, uint32_t to_line, uint32_t column, bool selected)
 {
@@ -873,6 +929,14 @@ bool Entry::on_key_down(wchar_t key, KeyEvent::Modifier modifier)
 
 		case (wchar_t)ReservedKey::KEY_END:
 			end_key(modifier & KeyEvent::MODIFIER_SHIFT);
+			break;
+
+		case (wchar_t)ReservedKey::KEY_PAGE_UP:
+			page_key(false, modifier & KeyEvent::MODIFIER_SHIFT);
+			break;
+
+		case (wchar_t)ReservedKey::KEY_PAGE_DOWN:
+			page_key(true, modifier & KeyEvent::MODIFIER_SHIFT);
 			break;
 
 		case (wchar_t)ReservedKey::KEY_LEFT :

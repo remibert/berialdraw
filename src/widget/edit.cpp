@@ -125,7 +125,6 @@ Size Edit::content_size()
 	// Add padding and thickness in size
 	result.increase(padding());
 	result.increase_q6(m_thickness << 1, m_thickness << 1);
-
 	return result;
 }
 
@@ -208,6 +207,10 @@ void Edit::paint(const Region & parent_region)
 
 		if (m_font.get())
 		{
+			if (m_text_modified)
+			{
+				m_cursor_shift.set(0, 0);
+			}
 			m_text_box.parse(m_text_foreclip, *m_font, display, m_cursor_position, m_selection_start, m_selection_end, m_text_align, m_edit_modified | m_text_modified | m_font_modified);
 
 			// Reset text modified flag after layout is computed

@@ -457,6 +457,7 @@ Size ScrollableContent::content_size()
 		result.increase_q6(thickness_q6() + thickness_q6(), 0);
 		result.increase_q6(padding().left_q6() + padding().right_q6(), 0);
 	}
+
 	return result;
 }
 

@@ -437,17 +437,17 @@
 		"$(ui.tests)/out/edit3_8.svg" : 
 		{
 			"scale_2" : 1577486996,
-			"scale_1" : 847837327
+			"scale_1" : 376532266
 		},
 		"$(ui.tests)/out/edit3_9.svg" : 
 		{
 			"scale_2" : 3254821744,
-			"scale_1" : 1059811570
+			"scale_1" : 885244040
 		},
 		"$(ui.tests)/out/edit3_10.svg" : 
 		{
 			"scale_2" : 3418192665,
-			"scale_1" : 2049409960
+			"scale_1" : 1583732860
 		},
 		"$(ui.tests)/out/edit2_1.svg" : 
 		{
@@ -552,7 +552,7 @@
 		"$(ui.tests)/out/edit1_1.svg" : 
 		{
 			"scale_2" : 3449439345,
-			"scale_1" : 2764100550
+			"scale_1" : 2321219510
 		},
 		"$(ui.tests)/out/edit1_2.svg" : 
 		{
@@ -562,42 +562,42 @@
 		"$(ui.tests)/out/edit1_3.svg" : 
 		{
 			"scale_2" : 1944306934,
-			"scale_1" : 529379951
+			"scale_1" : 3925845453
 		},
 		"$(ui.tests)/out/edit1_4.svg" : 
 		{
 			"scale_2" : 2087533988,
-			"scale_1" : 2102696882
+			"scale_1" : 455728819
 		},
 		"$(ui.tests)/out/edit1_5.svg" : 
 		{
 			"scale_2" : 4022910362,
-			"scale_1" : 212272025
+			"scale_1" : 2699139180
 		},
 		"$(ui.tests)/out/edit1_6.svg" : 
 		{
 			"scale_2" : 2433571499,
-			"scale_1" : 2659151220
+			"scale_1" : 2314572840
 		},
 		"$(ui.tests)/out/edit1_7.svg" : 
 		{
 			"scale_2" : 3829566389,
-			"scale_1" : 65639815
+			"scale_1" : 1593702237
 		},
 		"$(ui.tests)/out/edit1_8.svg" : 
 		{
 			"scale_2" : 2942253683,
-			"scale_1" : 1005551019
+			"scale_1" : 1803275736
 		},
 		"$(ui.tests)/out/edit1_9.svg" : 
 		{
 			"scale_2" : 1380072172,
-			"scale_1" : 3108525978
+			"scale_1" : 3835925145
 		},
 		"$(ui.tests)/out/edit1_10.svg" : 
 		{
 			"scale_2" : 3260855350,
-			"scale_1" : 3365999707
+			"scale_1" : 1627403176
 		},
 		"$(ui.tests)/out/switch1_1.svg" : 
 		{
@@ -5142,7 +5142,7 @@
 		"$(ui.tests)/out/sample_picture_1.svg" : 
 		{
 			"scale_2" : 350519077,
-			"scale_1" : 728920825
+			"scale_1" : 2530171902
 		},
 		"$(ui.tests)/out/label5_2.svg" : 
 		{
@@ -5446,5 +5446,9 @@
 		"$(ui.tests)/out/edit11_8.svg" : 
 		{
 			"scale_1" : 3155663114
+		},
+		"$(ui.tests)/out/grid6_1.svg" : 
+		{
+			"scale_1" : 2058753720
 		}
 	}

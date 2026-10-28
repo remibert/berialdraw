@@ -48,6 +48,8 @@ void bind_key_event(pybind11::module_& m) {
     reserved_key_values["KEY_DOWN"] = (int)berialdraw::ReservedKey::KEY_DOWN;
     reserved_key_values["KEY_HOME"] = (int)berialdraw::ReservedKey::KEY_HOME;
     reserved_key_values["KEY_END"] = (int)berialdraw::ReservedKey::KEY_END;
+    reserved_key_values["KEY_PAGE_UP"] = (int)berialdraw::ReservedKey::KEY_PAGE_UP;
+    reserved_key_values["KEY_PAGE_DOWN"] = (int)berialdraw::ReservedKey::KEY_PAGE_DOWN;
     reserved_key_values["KEY_PAUSE"] = (int)berialdraw::ReservedKey::KEY_PAUSE;
     reserved_key_values["KEY_EXIT"] = (int)berialdraw::ReservedKey::KEY_EXIT;
 

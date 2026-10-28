@@ -367,13 +367,13 @@ Dim Cells::flatten_marged(Cell * cells, Dim count, Dim area_size,  Dim missing, 
 		}
 	}
 
-	Dim to_remove_space;
+	Dim used_space;
 	Dim to_remove_count;
 
 	// Distributes the recovered space in priority to those who are not too greedy
 	do
 	{
-		to_remove_space = 0;
+		used_space = 0;
 		to_remove_count = 0;
 		placed = 0;
 		for (Dim i = 0; i < count; i++)
@@ -383,15 +383,19 @@ Dim Cells::flatten_marged(Cell * cells, Dim count, Dim area_size,  Dim missing, 
 				uint64_t add = (((total_recovered << 7) / count_missing) + 64)>>7;
 				if ((cells[i].m_placed + add) > cells[i].m_marged)
 				{
-					to_remove_space = (cells[i].m_placed + (uint32_t)add) - cells[i].m_marged;
-					to_remove_count++;
-					cells[i].m_placed = cells[i].m_marged;
+					Dim needed = cells[i].m_marged - cells[i].m_placed;
+					if ((uint64_t)used_space + needed <= total_recovered)
+					{
+						used_space += needed;
+						to_remove_count++;
+						cells[i].m_placed = cells[i].m_marged;
+					}
 				}
 			}
 			placed += cells[i].m_placed;
 		}
 		count_missing -= to_remove_count;
-		total_recovered -= to_remove_space;
+		total_recovered -= used_space;
 	}
 	while (to_remove_count != 0);
 
@@ -747,5 +751,4 @@ void Cells::rebound(Widget * widget)
 		reallocate(1, 1);
 	}
 }
-
 

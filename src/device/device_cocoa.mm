@@ -51,7 +51,9 @@ namespace MacOSKeyCode {
 	constexpr uint16_t KEY_DOWN_ARROW      = 125;   // Down arrow
 	constexpr uint16_t KEY_UP_ARROW        = 126;   // Up arrow
 	constexpr uint16_t KEY_HOME            = 115;   // Home key
+	constexpr uint16_t KEY_PAGE_UP         = 116;   // Page Up key
 	constexpr uint16_t KEY_END             = 119;   // End key
+	constexpr uint16_t KEY_PAGE_DOWN       = 121;   // Page Down key
 }
 
 // Forward declare
@@ -515,6 +517,12 @@ public:
 			break;
 		case MacOSKeyCode::KEY_END:
 			result = (wchar_t)ReservedKey::KEY_END;
+			break;
+		case MacOSKeyCode::KEY_PAGE_UP:
+			result = (wchar_t)ReservedKey::KEY_PAGE_UP;
+			break;
+		case MacOSKeyCode::KEY_PAGE_DOWN:
+			result = (wchar_t)ReservedKey::KEY_PAGE_DOWN;
 			break;
 		case MacOSKeyCode::KEY_SPACE:
 			result = ' ';  // Space

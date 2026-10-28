@@ -130,6 +130,9 @@ namespace berialdraw
 		/** Move the cursor to the down character */
 		void down_arrow_key(bool selected=false);
 
+		/** Move the cursor by one visible page */
+		void page_key(bool down, bool selected=false);
+
 		/** Move the cursor to the next character  */
 		void right_arrow_key(bool selected=false);
 		

@@ -432,6 +432,8 @@ wchar_t get_key(WPARAM w_param, LPARAM l_param)
 	case VK_DELETE: key = (wchar_t)ReservedKey::KEY_DELETE;    break;
 	case VK_HOME:   key = (wchar_t)ReservedKey::KEY_HOME;      break;
 	case VK_END:    key = (wchar_t)ReservedKey::KEY_END;       break;
+	case VK_PRIOR:  key = (wchar_t)ReservedKey::KEY_PAGE_UP;   break;
+	case VK_NEXT:   key = (wchar_t)ReservedKey::KEY_PAGE_DOWN; break;
 	case VK_PAUSE:  key = (wchar_t)ReservedKey::KEY_PAUSE;     break;
 
 	default:

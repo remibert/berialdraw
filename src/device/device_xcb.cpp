@@ -309,6 +309,8 @@ wchar_t DeviceXcb::get_key(uint8_t keycode, uint16_t state)
 	case XK_Up:        return (wchar_t)ReservedKey::KEY_UP;
 	case XK_Home:      return (wchar_t)ReservedKey::KEY_HOME;
 	case XK_End:       return (wchar_t)ReservedKey::KEY_END;
+	case XK_Page_Up:   return (wchar_t)ReservedKey::KEY_PAGE_UP;
+	case XK_Page_Down: return (wchar_t)ReservedKey::KEY_PAGE_DOWN;
 	case XK_Pause:     return (wchar_t)ReservedKey::KEY_PAUSE;
 	case XK_Tab:       return (wchar_t)ReservedKey::KEY_TAB;
 	default:
