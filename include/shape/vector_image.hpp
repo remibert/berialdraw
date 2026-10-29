@@ -56,6 +56,9 @@ namespace berialdraw
 		/** Copy constructor */
 		VectorImage(const VectorImage & other);
 
+		/** Copy constructor with an explicit invalidation parent */
+		VectorImage(const VectorImage & other, void * parent);
+
 		/** Destructor */
 		~VectorImage();
 

@@ -336,6 +336,36 @@ void Label::test8()
 	assert(Argb8888::crop(*offscreen_framebuf, (int32_t)screen_framebuf->width(), 0, 1, 1) == nullptr);
 }
 
+void Label::test9()
+{
+	Fonts * fonts = UIManager::fonts();
+	assert(fonts != nullptr);
+	assert(fonts->define_vector_glyph((wchar_t)'Z', String("$(ui.icons)/maison.icn")));
+	assert(fonts->define_vector_glyph((wchar_t)0xE000, String("$(ui.icons)/maison.icn")));
+	assert(fonts->define_vector_glyph((wchar_t)0xE001, String("$(ui.icons)/home.icn")));
+
+	Window window;
+	window.size(480, 240);
+	window.color(Color::WHITE);
+
+	Label * label = new Label(&window);
+	label->font_size(22);
+	label->text_color(Color::BLUE);
+
+	String text("\n _Z_ : existing char not replaced\n\n _");
+	text += (wchar_t)0xE000;
+	text += "_ : colored icon\n\n _";
+	text += (wchar_t)0xE001;
+	text += "_ : monochrome icon";
+	label->text(text);
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/label9_1.svg");
+
+	fonts->remove_vector_glyph((wchar_t)'Z');
+	fonts->remove_vector_glyph((wchar_t)0xE000);
+	fonts->remove_vector_glyph((wchar_t)0xE001);
+}
+
 void Label::test()
 {
 	static bool done = false;
@@ -343,6 +373,7 @@ void Label::test()
 	{
 		MemoryLeakLog
 		done = true;
+		test9();
 		test8();
 		test7();
 		test6();

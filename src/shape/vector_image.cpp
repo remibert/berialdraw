@@ -73,12 +73,18 @@ VectorImage::VectorImage(void * parent) :
 
 // Copy constructor
 VectorImage::VectorImage(const VectorImage & other) :
+	VectorImage(other, other.m_parent)
+{
+}
+
+// Copy constructor with an explicit invalidation parent
+VectorImage::VectorImage(const VectorImage & other, void * parent) :
 	m_resolution(other.m_resolution),
 	m_image_size(other.m_image_size),
 	m_image_color(other.m_image_color),
 	m_filename(other.m_filename),
 	m_loaded(other.m_loaded),
-	m_parent(other.m_parent)
+	m_parent(parent)
 {
 	for (uint32_t i = 0; i < other.m_paths.size(); i++)
 	{

@@ -4,24 +4,16 @@
 namespace berialdraw
 {
 	class Font;
+	class VectorImage;
 	class Glyph;
 
-	/** Glyph informations */
+	/** Base glyph interface and shared metrics */
 	class Glyph
 	{
 	public:
-		/** Constructor
-		@param font Pointer to the font */
 		Glyph(Font * font);
 
-		/** Destructor */
-		~Glyph();
-
-		/** Load character
-		@param character The character to load
-		@param angle The angle of the character
-		@return True if the character was successfully loaded */
-		bool load(wchar_t character, Coord angle);
+		virtual ~Glyph();
 
 		/** Draw character
 		@param position The position to draw the character
@@ -29,16 +21,40 @@ namespace berialdraw
 		@param margin The margin around the character
 		@param angle The angle to draw the character
 		@param color The color of the character */
-		void paint(Point & position, const Point & center, const Margin & margin, Coord angle, uint32_t color);
-
-		/** Handle on font loaded */
-		Font* m_font = 0;
-
-		/** Face */
-		FT_GlyphSlot m_slot = 0;
+		virtual void paint(Point & position, const Point & center, const Margin & margin, Coord angle, uint32_t color) = 0;
 
 		/** Current character */
 		wchar_t m_character = 0;
+
+		/** Advance direction */
+		int32_t m_advancex = 0;
+		int32_t m_advancey = 0;
+
+		/** Angle of character */
+		Coord m_angle = 0;
+
+		/** Load order, used for cache eviction */
+		uint32_t m_stamp = 0;
+
+	protected:
+		FT_Face ft_face() const;
+
+		/** Handle on font loaded */
+		Font* m_font = 0;
+	};
+
+	/** FreeType-backed glyph */
+	class FontGlyph : public Glyph
+	{
+	public:
+		FontGlyph(Font * font);
+		~FontGlyph() override;
+
+		bool load(wchar_t character, Coord angle);
+		void paint(Point & position, const Point & center, const Margin & margin, Coord angle, uint32_t color) override;
+
+		/** Face */
+		FT_GlyphSlot m_slot = 0;
 
 		/** Glyph of character */
 		FT_Glyph m_glyph = 0;
@@ -49,21 +65,30 @@ namespace berialdraw
 		/** Bitmap of glyph */
 		FT_Bitmap* m_bitmap = nullptr;
 
-		/** Advance direction */
-		int32_t m_advancex = 0;
-		int32_t m_advancey = 0;
-
 		/** Character size */
 		int32_t m_width = 0;
 
 		int32_t m_baselinex = 0;
 		int32_t m_baseliney = 0;
 
-		/** Angle of character */
-		Coord m_angle = 0;
+	};
 
-		/** Load order, used for cache eviction */
-		uint32_t m_stamp = 0;
+	/** VectorImage-backed glyph definition */
+	class VectorGlyph : public Glyph
+	{
+	public:
+		VectorGlyph(Font * font, wchar_t character, VectorImage * image);
+		~VectorGlyph() override;
+
+		bool valid() const;
+		void paint(Point & position, const Point & center, const Margin & margin, Coord angle, uint32_t color) override;
+
+	protected:
+		VectorImage * m_image = 0;
+		Dim m_zoom = 0;
+		Coord m_height = 0;
+		Coord m_draw_width = 0;
+		bool m_valid = false;
 	};
 }
 /// @endcond

@@ -34,10 +34,14 @@ namespace berialdraw
 		/** Lower bound index in the sorted list for (character, angle) */
 		uint32_t lower_bound(wchar_t character, Coord angle);
 
+		/** Lower bound index in the sorted vector glyph list */
+		uint32_t lower_bound_vector(wchar_t character);
+
 		Vector<Glyph*> m_glyphs; /**< List of glyphs sorted by (character, angle) */
 		uint32_t m_stamp = 0;    /**< Load counter */
 		Font* m_font;            /**< Pointer to the font */
 		Coord m_angle = 0;       /**< Angle for the glyphs */
+		Vector<Glyph*> m_vectors; /**< Cached vector glyphs sorted by character */
 /// @endcond
 	};
 }

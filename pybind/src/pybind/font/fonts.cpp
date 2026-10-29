@@ -5,6 +5,18 @@ void bind_fonts(py::module& m) {
         .def(py::init<>(), "Create fonts")
         .def("load", &berialdraw::Fonts::load, py::arg("filename"), PYBIND11_RELEASE_GIL, "Load font and add into the list")
         .def("unload", &berialdraw::Fonts::unload, py::arg("filename"), PYBIND11_RELEASE_GIL, "Unload font and remove from the list")
+        .def("define_vector_glyph",
+             [](berialdraw::Fonts& self, wchar_t character, const std::string& filename) {
+                 return self.define_vector_glyph(character, berialdraw::String(filename.c_str()));
+             },
+             py::arg("character"), py::arg("filename"), PYBIND11_RELEASE_GIL,
+             "Define a vector glyph from a file for every font")
+        .def("remove_vector_glyph", &berialdraw::Fonts::remove_vector_glyph,
+             py::arg("character"), PYBIND11_RELEASE_GIL,
+             "Remove a vector glyph definition")
+        .def("clear_vector_glyphs", &berialdraw::Fonts::clear_vector_glyphs,
+             PYBIND11_RELEASE_GIL,
+             "Remove all vector glyph definitions")
         .def("select", &berialdraw::Fonts::select, py::arg("familly"), py::arg("size"), py::arg("style") = berialdraw::Font::UNDEFINED, PYBIND11_RELEASE_GIL,
              "Select the instance of font, if the font family not found return the first font")
         .def("load_directory", &berialdraw::Fonts::load_directory,

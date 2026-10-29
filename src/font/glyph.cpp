@@ -2,23 +2,42 @@
 
 using namespace berialdraw;
 
-/** Destructor */
+// Construct a glyph base
+Glyph::Glyph(Font * font) : m_font(font)
+{
+}
+
+// Destroy a glyph base
 Glyph::~Glyph()
+{
+}
+
+// Get the FreeType face used by this glyph
+FT_Face Glyph::ft_face() const
+{
+	return m_font->m_font->m_fontface->face();
+}
+
+// Construct a FreeType glyph
+FontGlyph::FontGlyph(Font * font) : Glyph(font)
+{
+}
+
+// Destroy a FreeType glyph
+FontGlyph::~FontGlyph()
 {
 	if (m_bitmap_glyph)
 	{
 		FT_Done_Glyph(m_bitmap_glyph);
 	}
-	FT_Done_Glyph(m_glyph);
+	if (m_glyph)
+	{
+		FT_Done_Glyph(m_glyph);
+	}
 }
 
-/** Constructor */
-Glyph::Glyph(Font * font) : m_font(font)
-{
-}
-
-/** Load character */
-bool Glyph::load(wchar_t character, Coord angle)
+// Load character from the font face
+bool FontGlyph::load(wchar_t character, Coord angle)
 {
 	bool result = false;
 
@@ -37,22 +56,17 @@ bool Glyph::load(wchar_t character, Coord angle)
 		}
 		FT_UInt glyph_index;
 		
-		glyph_index = FT_Get_Char_Index(m_font->m_font->m_fontface->face(), character);
-		if (glyph_index == 0)
-		{
-			character = '?';
-			glyph_index = FT_Get_Char_Index(m_font->m_font->m_fontface->face(), character);
-		}
+		glyph_index = FT_Get_Char_Index(ft_face(), character);
 		if (glyph_index != 0)
 		{
 			// Load glyph
-			if (!FT_Load_Glyph(m_font->m_font->m_fontface->face(), glyph_index, FT_LOAD_DEFAULT))
+			if (!FT_Load_Glyph(ft_face(), glyph_index, FT_LOAD_DEFAULT))
 			{
 				m_character = character;
-				m_slot = m_font->m_font->m_fontface->face()->glyph;
+				m_slot = ft_face()->glyph;
 
 				// Get glyph informations
-				if (!FT_Get_Glyph(m_font->m_font->m_fontface->face()->glyph, &m_glyph))
+				if (!FT_Get_Glyph(ft_face()->glyph, &m_glyph))
 				{
 					// Rotate glyph according to angle
 					FT_Matrix matrix = vector_matrix(- (angle << 10));
@@ -79,7 +93,8 @@ bool Glyph::load(wchar_t character, Coord angle)
 	return result;
 }
 
-void Glyph::paint(Point & position, const Point & center, const Margin & margin, Coord angle, uint32_t color)
+// Paint character from the FreeType bitmap
+void FontGlyph::paint(Point & position, const Point & center, const Margin & margin, Coord angle, uint32_t color)
 {
 	int32_t xx = 0;
 	int32_t yy = 0;
@@ -197,6 +212,72 @@ void Glyph::paint(Point & position, const Point & center, const Margin & margin,
 	// Move position to next character
 	position.x_q6(position.x_q6() + m_advancex);
 	position.y_q6(position.y_q6() + m_advancey);
+}
+
+// Construct a vector glyph for a square cell matching the font height
+VectorGlyph::VectorGlyph(Font * font, wchar_t character, VectorImage * image) : Glyph(font), m_image(image)
+{
+	m_character = character;
+	if (m_image)
+	{
+		if (m_image->path_count() == 0)
+		{
+			m_image->load();
+		}
+		if (m_image->path_count() > 0)
+		{
+			m_advancex = (int32_t)m_font->real_size().height_q6();
+			Size cell_size;
+			cell_size.width_q6((Dim)m_advancex);
+			cell_size.height_q6((Dim)m_advancex);
+			m_zoom = m_image->fit_zoom_q6(cell_size);
+			Size content = m_image->content_size(m_zoom);
+			m_height = (Coord)content.height_q6();
+			m_draw_width = (Coord)content.width_q6();
+			m_valid = m_zoom > 0 && m_advancex > 0 && m_height > 0 && m_draw_width > 0;
+		}
+	}
+}
+
+// Destroy a vector glyph
+VectorGlyph::~VectorGlyph()
+{
+	delete m_image;
+	 m_image = 0;
+}
+
+// Check whether the vector glyph has drawable content
+bool VectorGlyph::valid() const
+{
+	return m_valid;
+}
+
+// Paint the vector image at the font baseline
+void VectorGlyph::paint(Point & position, const Point & center, const Margin & margin, Coord angle, uint32_t color)
+{
+	if (m_valid && m_image)
+	{
+		FT_Vector offset;
+		offset.x = margin.left_q6() + (m_advancex - m_draw_width) / 2;
+		offset.y = margin.top_q6() + m_font->baseline_q6() - m_height;
+		FT_Matrix matrix = vector_matrix(angle << 10);
+		FT_Vector_Transform(&offset, &matrix);
+
+		Point image_position(position);
+		image_position.x_q6(image_position.x_q6() + offset.x);
+		image_position.y_q6(image_position.y_q6() + offset.y);
+
+		Point shift;
+		m_image->paint(image_position, shift, center, angle, m_zoom, color);
+	}
+
+	FT_Vector advance;
+	advance.x = m_advancex;
+	advance.y = -m_advancey;
+	FT_Matrix advance_matrix = vector_matrix(-(angle << 10));
+	FT_Vector_Transform(&advance, &advance_matrix);
+	position.x_q6(position.x_q6() + advance.x);
+	position.y_q6(position.y_q6() - advance.y);
 }
 
 

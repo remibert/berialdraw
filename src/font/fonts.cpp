@@ -2,6 +2,38 @@
 
 using namespace berialdraw;
 
+namespace berialdraw
+{
+	class VectorGlyphDefinition
+	{
+	public:
+		VectorGlyphDefinition(wchar_t character, const VectorImage & image) :
+			m_character(character),
+			m_image(new VectorImage(image, 0))
+		{
+			if (m_image && m_image->path_count() == 0)
+			{
+				m_image->load();
+			}
+			m_valid = m_image && m_image->path_count() > 0;
+		}
+
+		~VectorGlyphDefinition()
+		{
+			delete m_image;
+		}
+
+		VectorImage* copy_image() const
+		{
+			return m_valid ? new VectorImage(*m_image, 0) : 0;
+		}
+
+		wchar_t m_character;
+		VectorImage * m_image;
+		bool m_valid = false;
+	};
+}
+
 /** Create fonts */
 Fonts::Fonts()
 {
@@ -17,6 +49,11 @@ Fonts::~Fonts()
 	m_fonts = 0;
 	delete m_fonts_faces;
 	m_fonts_faces = 0;
+	for (uint32_t i = 0; i < m_vector_glyphs.size(); i++)
+	{
+		delete m_vector_glyphs[i];
+	}
+	m_vector_glyphs.clear();
 	_Font::unload_ft_lib();
 }
 
@@ -226,6 +263,131 @@ void Fonts::clear_cach()
 		(*m_fonts)[i]->clear();
 	}
 	m_loaded = false;
+}
+
+// Find the first vector glyph not lower than the character
+uint32_t Fonts::lower_bound_vector_glyph(wchar_t character)
+{
+	uint32_t low = 0;
+	uint32_t high = m_vector_glyphs.size();
+	while (low < high)
+	{
+		uint32_t mid = (low + high) / 2;
+		if (m_vector_glyphs[mid]->m_character < character)
+		{
+			low = mid + 1;
+		}
+		else
+		{
+			high = mid;
+		}
+	}
+	return low;
+}
+
+// Invalidate cached glyphs for all managed font instances
+void Fonts::clear_font_glyph_caches()
+{
+	if (m_fonts)
+	{
+		for (uint32_t i = 0; i < m_fonts->size(); i++)
+		{
+			(*m_fonts)[i]->clear();
+		}
+	}
+}
+
+// Define or replace a vector glyph available to every font
+bool Fonts::define_vector_glyph(wchar_t character, const VectorImage & image)
+{
+	bool result = false;
+	if (character != 0)
+	{
+		if (character < 0x20)
+		{
+			character = 0x20;
+		}
+		VectorGlyphDefinition * definition = new VectorGlyphDefinition(character, image);
+		if (definition && definition->m_valid)
+		{
+			std::lock_guard<std::recursive_mutex> lock(m_mutex);
+			uint32_t index = lower_bound_vector_glyph(character);
+			if (index < m_vector_glyphs.size() && m_vector_glyphs[index]->m_character == character)
+			{
+				delete m_vector_glyphs[index];
+				m_vector_glyphs[index] = definition;
+			}
+			else
+			{
+				m_vector_glyphs.insert(index, definition);
+			}
+			clear_font_glyph_caches();
+			result = true;
+		}
+		else
+		{
+			delete definition;
+		}
+	}
+	return result;
+}
+
+// Define or replace a vector glyph by loading its image from a file
+bool Fonts::define_vector_glyph(wchar_t character, const String & filename)
+{
+	bool result = false;
+	VectorImage image(0);
+	image.filename(filename);
+	if (image.load())
+	{
+		result = define_vector_glyph(character, image);
+	}
+	return result;
+}
+
+// Remove a vector glyph definition available to every font
+bool Fonts::remove_vector_glyph(wchar_t character)
+{
+	bool result = false;
+	if (character < 0x20)
+	{
+		character = 0x20;
+	}
+	std::lock_guard<std::recursive_mutex> lock(m_mutex);
+	uint32_t index = lower_bound_vector_glyph(character);
+	if (index < m_vector_glyphs.size() && m_vector_glyphs[index]->m_character == character)
+	{
+		delete m_vector_glyphs[index];
+		m_vector_glyphs.remove(index);
+		clear_font_glyph_caches();
+		result = true;
+	}
+	return result;
+}
+
+// Remove all vector glyph definitions
+void Fonts::clear_vector_glyphs()
+{
+	std::lock_guard<std::recursive_mutex> lock(m_mutex);
+	for (uint32_t i = 0; i < m_vector_glyphs.size(); i++)
+	{
+		delete m_vector_glyphs[i];
+	}
+	m_vector_glyphs.clear();
+	clear_font_glyph_caches();
+}
+
+// Copy a registered vector glyph image for a per-font cache
+VectorImage* Fonts::copy_vector_glyph(wchar_t character)
+{
+	VectorImage * result = 0;
+	std::lock_guard<std::recursive_mutex> lock(m_mutex);
+	uint32_t index = lower_bound_vector_glyph(character);
+	if (index < m_vector_glyphs.size() && m_vector_glyphs[index]->m_character == character)
+	{
+		result = m_vector_glyphs[index]->copy_image();
+	}
+	return result;
 }
 
 /** Get default familly font name */
