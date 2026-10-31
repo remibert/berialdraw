@@ -1,6 +1,7 @@
 #pragma once
 namespace berialdraw
 {
+	class Popup;
 	/** The Window class represents a top-level container for UI elements. 
 	It provides a frame, title, and close/minimize controls, serving as the main interface for user interaction. */
 	class Window: public Widget
@@ -103,6 +104,16 @@ namespace berialdraw
 
 		unsigned int m_allocated:1;
 		Widget * m_with_focus = 0;
+		friend class Popup;
+		friend class ScrollableContent;
+		friend class Widget;
+
+		void activate_popup(Popup * popup);
+		void deactivate_popup(Popup * popup, bool scroll_to_focus);
+		void close_popup_if_anchor(Widget * widget);
+		void close_popup_for_scroll(Widget * widget);
+
+		Popup * m_popup = 0;
 /// @endcond
 /// }
 	};

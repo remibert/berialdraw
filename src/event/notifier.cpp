@@ -119,9 +119,19 @@ void Notifier::notify(KeyEvent & evt)
 			if (callback)
 			{
 				Widget * widget = callback->widget();
+				bool visible = true;
+				Widget * parent = widget;
+				while (parent && visible)
+				{
+					if (parent->hidden())
+					{
+						visible = false;
+					}
+					parent = parent->parent();
+				}
 
 				// If callback is for this event type
-				if(callback->type() == evt.type() && widget)
+				if(callback->type() == evt.type() && widget && visible)
 				{
 					// If the widget or window is equal
 					if(widget == front_window || widget->root() == front_window)

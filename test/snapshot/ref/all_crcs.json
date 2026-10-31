@@ -5450,5 +5450,33 @@
 		"$(ui.tests)/out/grid6_1.svg" : 
 		{
 			"scale_1" : 2058753720
+		},
+		"$(ui.tests)/out/popup4.svg" : 
+		{
+			"scale_1" : 2139245042
+		},
+		"$(ui.tests)/out/popup3_1.svg" : 
+		{
+			"scale_1" : 653104274
+		},
+		"$(ui.tests)/out/popup3_2.svg" : 
+		{
+			"scale_1" : 3739038033
+		},
+		"$(ui.tests)/out/popup3_3.svg" : 
+		{
+			"scale_1" : 649843022
+		},
+		"$(ui.tests)/out/popup2.svg" : 
+		{
+			"scale_1" : 561460924
+		},
+		"$(ui.tests)/out/popup1.svg" : 
+		{
+			"scale_1" : 3721379785
+		},
+		"$(ui.tests)/out/label9_1.svg" : 
+		{
+			"scale_1" : 436575757
 		}
 	}

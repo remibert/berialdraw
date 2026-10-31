@@ -60,6 +60,11 @@ void ScrollableContent::unserialize(JsonIterator& it)
 /** Call back on scroll */
 void ScrollableContent::on_scroll(Widget * widget, const ScrollEvent & evt)
 {
+	Window * window = dynamic_cast<Window*>(root());
+	if (window)
+	{
+		window->close_popup_for_scroll(widget);
+	}
 	m_scroll_position.move(evt.shift());
 	UIManager::invalidator()->dirty(this,Invalidator::GEOMETRY);
 }

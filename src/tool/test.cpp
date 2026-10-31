@@ -14,6 +14,8 @@ namespace berialdraw
 		//UIManager::colors()->appearance("test_dark");
 
 #if defined(_DEBUG) && defined(ALL_TESTS)
+		Popup::test();
+		TableView::test();
 		TabView::test();
 		Button::test();
 		Label::test();
@@ -31,6 +33,7 @@ namespace berialdraw
 		Keyboard::test();
 		List::test();
 		Pane::test();
+		Popup::test();
 		Picture::test();
 		ProgressBar::test();
 		Radio::test();

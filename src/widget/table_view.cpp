@@ -44,15 +44,6 @@ StyleCascadeMode TableView::style_cascade_mode() const
 /** Return the size of content without marges */
 Size TableView::content_size()
 {
-#if 0
-	// Set grid line thickness for cell placement
-	if (m_grid)
-	{
-		m_grid->m_cells.horizontal_line_thickness(horizontal_thickness_q6());
-		m_grid->m_cells.vertical_line_thickness(vertical_thickness_q6());
-	}	
-	return ScrollableContent::content_size();
-#else
 	// Set grid line thickness for cell placement
 	if (m_grid)
 	{
@@ -65,7 +56,6 @@ Size TableView::content_size()
 	result.increase(padding());
 	result.increase_q6(m_thickness << 1, m_thickness << 1);
 	return result;
-#endif
 }
 
 
@@ -134,118 +124,129 @@ void TableView::paint_grid_lines()
 {
 	if (m_grid && grid_visible())
 	{
-		paint_top_border_line();
-		paint_left_border_line();
-		paint_horizontal_lines();
-		paint_vertical_lines();
-	}
-}
-
-void TableView::paint_top_border_line()
-{
-	const Dim* row_positions = m_grid->m_cells.get_row_positions();
-	if (row_positions)
-	{
 		const Area& foreclip = m_grid->foreclip();
+		const Area& visible_area = m_foreclip;
+		const Dim* row_positions = m_grid->m_cells.get_row_positions();
+		const Dim* col_positions = m_grid->m_cells.get_col_positions();
+		Dim row_count = m_grid->m_cells.row_count();
+		Dim col_count = m_grid->m_cells.column_count();
 		Dim horizontal_thickness = m_grid->m_cells.horizontal_line_thickness();
-		uint32_t line_color = grid_color();
-		
-		Dim line_y = row_positions[0] - horizontal_thickness;
-		
-		Area line_area(foreclip.x_q6(), line_y, foreclip.width_q6(), horizontal_thickness, false);
-		line_area.nearest_pixel();
-		line_area.clip(m_foreclip);
-		if (line_area.is_not_empty())
-		{
-			RectRenderer::paint_rect(line_area, line_color);
-		}
-	}
-}
-
-void TableView::paint_left_border_line()
-{
-	const Dim* col_positions = m_grid->m_cells.get_col_positions();
-	if (col_positions)
-	{
-		const Area& foreclip = m_grid->foreclip();
 		Dim vertical_thickness = m_grid->m_cells.vertical_line_thickness();
 		uint32_t line_color = grid_color();
-		
-		Dim line_x = col_positions[0] - vertical_thickness;
-		Area line_area(line_x, foreclip.y_q6(), vertical_thickness, foreclip.height_q6(), false);
-		line_area.nearest_pixel();
-		line_area.clip(m_foreclip);
-		if (line_area.is_not_empty())
-		{
-			RectRenderer::paint_rect(line_area, line_color);
-		}
-	}
-}
+		Outline outline;
+		bool has_lines = false;
 
-void TableView::paint_horizontal_lines()
-{
-	const Dim* row_positions = m_grid->m_cells.get_row_positions();
-	Dim row_count = m_grid->m_cells.row_count();
-	const Area& foreclip = m_grid->foreclip();
-	Dim horizontal_thickness = m_grid->m_cells.horizontal_line_thickness();
-	uint32_t line_color = grid_color();
-	
-	for (Dim row = 0; row < row_count; row++)
-	{
-		Dim row_y = row_positions[row];
-		Dim row_height = m_grid->m_cells.row_height(row);
-		Dim line_y;
-		
-		if (row == row_count - 1)
+		auto add_rectangle = [&outline, &visible_area, &has_lines](Area line_area)
 		{
-			line_y = (row_y + row_height + 63) & 0xFFFFFFC0;
-		}
-		else
+			line_area.nearest_pixel();
+			line_area.clip(visible_area);
+			if (line_area.is_not_empty())
+			{
+				Coord left = line_area.x_q6();
+				Coord top = line_area.y_q6();
+				Coord right = left + (Coord)line_area.width_q6();
+				Coord bottom = top + (Coord)line_area.height_q6();
+				outline.add_point(Point(left, top, false));
+				outline.add_point(Point(right, top, false));
+				outline.add_point(Point(right, bottom, false));
+				outline.add_point(Point(left, bottom, false));
+				outline.next_contour();
+				has_lines = true;
+			}
+		};
+
+		if (row_positions && row_count > 0 && horizontal_thickness > 0)
 		{
-			line_y = row_y + row_height;
+			Dim top_y = row_positions[0] - horizontal_thickness;
+			add_rectangle(Area(foreclip.x_q6(), (Coord)top_y, foreclip.width_q6(), horizontal_thickness, false));
+
+			auto horizontal_line_y = [this, row_positions, row_count](Dim row)
+			{
+				Dim line_y = row_positions[row] + m_grid->m_cells.row_height(row);
+				if (row == row_count - 1)
+				{
+					line_y = (line_y + 63) & 0xFFFFFFC0;
+				}
+				return (int64_t)line_y;
+			};
+
+			int64_t first_visible_y = (int64_t)visible_area.y_q6() - horizontal_thickness - 64;
+			int64_t last_visible_y = (int64_t)visible_area.y_q6() + visible_area.height_q6() + 64;
+			Dim first_row = 0;
+			Dim end_row = row_count;
+			while (first_row < end_row)
+			{
+				Dim middle = first_row + (end_row - first_row) / 2;
+				if (horizontal_line_y(middle) < first_visible_y)
+				{
+					first_row = middle + 1;
+				}
+				else
+				{
+					end_row = middle;
+				}
+			}
+
+			for (Dim row = first_row; row < row_count; row++)
+			{
+				int64_t line_y = horizontal_line_y(row);
+				if (line_y > last_visible_y)
+				{
+					break;
+				}
+				add_rectangle(Area(foreclip.x_q6(), (Coord)line_y, foreclip.width_q6(), horizontal_thickness, false));
+			}
 		}
 
-		Area line_area(foreclip.x_q6(), line_y, foreclip.width_q6(), horizontal_thickness, false);
-		line_area.nearest_pixel();
-		line_area.clip(m_foreclip);
-		
-		if (line_area.is_not_empty())
+		if (col_positions && col_count > 0 && vertical_thickness > 0)
 		{
-			RectRenderer::paint_rect(line_area, line_color);
-		}
-	}
-}
+			Dim left_x = col_positions[0] - vertical_thickness;
+			add_rectangle(Area((Coord)left_x, foreclip.y_q6(), vertical_thickness, foreclip.height_q6(), false));
 
-void TableView::paint_vertical_lines()
-{
-	const Dim* col_positions = m_grid->m_cells.get_col_positions();
-	Dim col_count = m_grid->m_cells.column_count();
-	const Area& foreclip = m_grid->foreclip();
-	Dim vertical_thickness = m_grid->m_cells.vertical_line_thickness();
-	uint32_t line_color = grid_color();
-	
-	for (Dim col = 0; col < col_count; col++)
-	{
-		Dim col_x = col_positions[col];
-		Dim col_width = m_grid->m_cells.column_width(col);
-		Dim line_x;
+			auto vertical_line_x = [this, col_positions, col_count](Dim column)
+			{
+				Dim line_x = col_positions[column] + m_grid->m_cells.column_width(column);
+				if (column == col_count - 1)
+				{
+					line_x = (line_x + 63) & 0xFFFFFFC0;
+				}
+				return (int64_t)line_x;
+			};
 
-		if (col == col_count - 1)
-		{
-			line_x = (col_x + col_width + 63) & 0xFFFFFFC0;
+			int64_t first_visible_x = (int64_t)visible_area.x_q6() - vertical_thickness - 64;
+			int64_t last_visible_x = (int64_t)visible_area.x_q6() + visible_area.width_q6() + 64;
+			Dim first_column = 0;
+			Dim end_column = col_count;
+			while (first_column < end_column)
+			{
+				Dim middle = first_column + (end_column - first_column) / 2;
+				if (vertical_line_x(middle) < first_visible_x)
+				{
+					first_column = middle + 1;
+				}
+				else
+				{
+					end_column = middle;
+				}
+			}
+
+			for (Dim column = first_column; column < col_count; column++)
+			{
+				int64_t line_x = vertical_line_x(column);
+				if (line_x > last_visible_x)
+				{
+					break;
+				}
+				add_rectangle(Area((Coord)line_x, foreclip.y_q6(), vertical_thickness, foreclip.height_q6(), false));
+			}
 		}
-		else
+
+		if (has_lines)
 		{
-			line_x = col_x + col_width;
-		}
-		
-		Area line_area(line_x, foreclip.y_q6(), vertical_thickness, foreclip.height_q6(), false);
-		line_area.nearest_pixel();
-		line_area.clip(m_foreclip);
-		
-		if (line_area.is_not_empty())
-		{
-			RectRenderer::paint_rect(line_area, line_color);
+			Point origin(0, 0, false);
+			Point center(0, 0, false);
+			Margin margin;
+			UIManager::renderer()->draw_outline(origin, margin, origin, center, line_color, 0, outline);
 		}
 	}
 }

@@ -243,6 +243,9 @@
     <ClCompile Include="..\..\src\widget\pane.cpp">
       <Filter>berialdraw\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\widget\popup.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\widget\row.cpp">
       <Filter>berialdraw\widget</Filter>
     </ClCompile>
@@ -1581,6 +1584,9 @@
     <ClInclude Include="..\..\include\widget\pane.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\widget\popup.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\widget\row.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
@@ -2543,6 +2549,9 @@
     <None Include="..\..\resources\styles\test\pane.sty">
       <Filter>resources\styles\test</Filter>
     </None>
+    <None Include="..\..\resources\styles\test\popup.sty">
+      <Filter>resources\styles\test</Filter>
+    </None>
     <None Include="..\..\resources\styles\test\progress_bar.sty">
       <Filter>resources\styles\test</Filter>
     </None>
@@ -2574,6 +2583,9 @@
       <Filter>resources\styles\pearl</Filter>
     </None>
     <None Include="..\..\resources\styles\pearl\pane.sty">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\popup.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
     <None Include="..\..\resources\styles\pearl\progress_bar.sty">

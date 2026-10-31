@@ -42,6 +42,8 @@ namespace berialdraw
 /// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		Pane& operator=(const Pane& other) = delete;
+				/** Create a pane-derived widget with its own class name and allocation size */
+				Pane(const char * classname, Widget * parent, size_t size_of_widget);
 		
 		/** Return the size of content without marges */
 		virtual Size content_size() override;

@@ -74,6 +74,9 @@
     <ClCompile Include="..\..\pybind\src\pybind\widget\pane.cpp">
       <Filter>pybind\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\widget\popup.cpp">
+      <Filter>pybind\widget</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\widget\progress_bar.cpp">
       <Filter>pybind\widget</Filter>
     </ClCompile>

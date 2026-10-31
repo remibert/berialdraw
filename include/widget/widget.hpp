@@ -18,6 +18,7 @@ namespace berialdraw
 	{
 	friend class Cells;
 	friend class Invalidator;
+	friend class Popup;
 	public:
 		/** Create widget */
 		Widget(const char * classname, Widget * parent, size_t size_of_widget, Dim index = UNDEFINED_INDEX);
@@ -145,6 +146,9 @@ namespace berialdraw
 		/** Get the class name of this widget (e.g., "Button", "TextEdit", "Label") */
 		virtual const char* classname() const { return m_classname; }
 
+		/** Indicates whether this widget is transient and excluded from serialization */
+		virtual bool is_transient() const { return false; }
+
 		/** Return the color value when the widget is pressed */
 		uint32_t pressed_color(uint32_t color, bool pressed);
 
@@ -187,9 +191,9 @@ namespace berialdraw
 		void focus_to(Widget * & current_focus, Widget * new_focus);
 
 		void focusables(Vector<Widget *> & lst);
-		void focus_next(Widget * & widget);
+		void focus_next(Widget * & widget, bool scroll_to_focus = true);
 		void focus_previous(Widget * & widget);
-		void change_focus(Widget * & widget, Widget * & new_widget_focus, Vector<Widget *> & all);
+		void change_focus(Widget * & widget, Widget * & new_widget_focus, Vector<Widget *> & all, bool scroll_to_focus = true);
 
 		/** Compute the size according to different size defined */
 		Size compute_size(const Size & size, const Size & min_size, const Size & max_size, const Margin & margin);
@@ -202,6 +206,9 @@ namespace berialdraw
 
 		/** Apply cascade styles to this widget and all its children recursively */
 		void apply_cascade_styles();
+
+		/** Move this widget to the end of its parent's child list */
+		void move_to_end();
 
 		Area m_foreclip;
 		Area m_backclip;

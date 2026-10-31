@@ -91,18 +91,6 @@ namespace berialdraw
 		/** Paint grid lines and borders */
 		void paint_grid_lines();
 
-		/** Paint top border line */
-		void paint_top_border_line();
-
-		/** Paint left border line */
-		void paint_left_border_line();
-
-		/** Paint horizontal grid lines */
-		void paint_horizontal_lines();
-
-		/** Paint vertical grid lines */
-		void paint_vertical_lines();
-
 		Grid* m_grid;
 		uint8_t m_table_view_modified;
 /// @endcond

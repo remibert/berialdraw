@@ -1258,6 +1258,12 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\..\src\widget\popup.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="..\..\src\widget\progress_bar.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -1727,6 +1733,7 @@
     <ClInclude Include="..\..\include\widget\keyboard.hpp" />
     <ClInclude Include="..\..\include\widget\label.hpp" />
     <ClInclude Include="..\..\include\widget\pane.hpp" />
+      <ClInclude Include="..\..\include\widget\popup.hpp" />
     <ClInclude Include="..\..\include\widget\progress_bar.hpp" />
     <ClInclude Include="..\..\include\widget\row.hpp" />
     <ClInclude Include="..\..\include\widget\scrollable_content.hpp" />
@@ -1810,6 +1817,7 @@
     <None Include="..\..\resources\styles\pearl\keyboard.sty" />
     <None Include="..\..\resources\styles\pearl\label.sty" />
     <None Include="..\..\resources\styles\pearl\pane.sty" />
+      <None Include="..\..\resources\styles\pearl\popup.sty" />
     <None Include="..\..\resources\styles\pearl\progress_bar.sty" />
     <None Include="..\..\resources\styles\pearl\scroll_view.sty" />
     <None Include="..\..\resources\styles\pearl\slider.sty" />
@@ -1830,6 +1838,7 @@
     <None Include="..\..\resources\styles\test\keyboard.sty" />
     <None Include="..\..\resources\styles\test\label.sty" />
     <None Include="..\..\resources\styles\test\pane.sty" />
+      <None Include="..\..\resources\styles\test\popup.sty" />
     <None Include="..\..\resources\styles\test\progress_bar.sty" />
     <None Include="..\..\resources\styles\test\reorg_color.py" />
     <None Include="..\..\resources\styles\test\scroll_view.sty" />

@@ -121,6 +121,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_radio(m);
     bind_grid(m);
     bind_pane(m);
+        bind_popup(m);
     bind_scrollable_content(m);
     bind_scroll_view(m);
     bind_table_view(m);

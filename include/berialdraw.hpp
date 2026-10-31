@@ -174,6 +174,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "widget/label.hpp"
 #include "widget/window.hpp"
 #include "widget/pane.hpp"
+#include "widget/popup.hpp"
 #include "widget/canvas.hpp"
 #include "widget/grid.hpp"
 #include "widget/column.hpp"
@@ -238,6 +239,7 @@ Features anti-aliased vector graphics and raster image rendering via FreeType's 
 	<li>@ref berialdraw::Keyboard - On-screen keyboard widget</li>
 	<li>@ref berialdraw::Label - Text label widget</li>
 	<li>@ref berialdraw::Pane - Container widget with borders</li>
+		<li>@ref berialdraw::Popup - Transient anchored container</li>
 	<li>@ref berialdraw::Picture - Picture/image widget</li>
 	<li>@ref berialdraw::ProgressBar - Progress bar widget</li>
 	<li>@ref berialdraw::Radio - Radio button widget</li>

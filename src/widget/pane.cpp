@@ -3,7 +3,12 @@
 using namespace berialdraw;
 
 Pane::Pane(Widget * parent):
-	Widget("pane", parent, sizeof(Pane))
+	Pane("pane", parent, sizeof(Pane))
+{
+}
+
+Pane::Pane(const char * classname, Widget * parent, size_t size_of_widget):
+	Widget(classname, parent, size_of_widget)
 {
 	UIManager::styles()->apply(this, (CommonStyle*)this);
 	UIManager::styles()->apply(this, (WidgetStyle*)this);

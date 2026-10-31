@@ -25,6 +25,10 @@ void* Window::operator new(size_t size)
 
 Window::~Window()
 {
+	if (m_popup)
+	{
+		m_popup->close();
+	}
 	if (UIManager::is_initialized())
 	{
 		UIManager::desktop()->remove(this);
@@ -280,6 +284,12 @@ void Window::on_key_focus(Widget * widget, const KeyEvent & evt)
 	{
 		switch(evt.key())
 		{
+		case (wchar_t)ReservedKey::KEY_ESCAPE:
+			if (m_popup)
+			{
+				m_popup->close();
+			}
+			break;
 		case (wchar_t)ReservedKey::KEY_TABULATION  :
 			if (evt.modifier() & KeyEvent::MODIFIER_SHIFT)
 			{
@@ -297,6 +307,10 @@ void Window::on_key_focus(Widget * widget, const KeyEvent & evt)
 /** Treat the click on widget, used to change the focus */
 void Window::on_click_widget(Widget * widget, const ClickEvent & evt)
 {
+	if (m_popup && m_popup->contains(widget) == false)
+	{
+		m_popup->close();
+	}
 	Widget::focus_to(m_with_focus, widget);
 }
 
@@ -310,5 +324,42 @@ void Window::on_select_widget(Widget * widget, const SelectEvent & evt)
 void Window::focus_to(Widget * widget)
 {
 	Widget::focus_to(m_with_focus, widget);
+}
+
+void Window::activate_popup(Popup * popup)
+{
+	if (m_popup && m_popup != popup)
+	{
+		m_popup->close();
+	}
+	m_popup = popup;
+}
+
+void Window::deactivate_popup(Popup * popup, bool scroll_to_focus)
+{
+	if (m_popup == popup)
+	{
+		if (m_with_focus && popup->contains(m_with_focus))
+		{
+			focus_next(m_with_focus, scroll_to_focus);
+		}
+		m_popup = 0;
+	}
+}
+
+void Window::close_popup_if_anchor(Widget * widget)
+{
+	if (m_popup && m_popup->m_anchor == widget)
+	{
+		m_popup->close();
+	}
+}
+
+void Window::close_popup_for_scroll(Widget * widget)
+{
+	if (m_popup && m_popup->contains(widget) == false)
+	{
+		m_popup->close_internal(false);
+	}
 }
 

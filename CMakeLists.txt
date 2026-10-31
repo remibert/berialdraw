@@ -68,6 +68,7 @@ set(SRCS_LIB
 	src/widget/entry.cpp
 	src/widget/label.cpp
 	src/widget/pane.cpp
+		src/widget/popup.cpp
 	src/widget/keyboard.cpp
 	src/widget/switch.cpp
 	src/widget/checkbox.cpp

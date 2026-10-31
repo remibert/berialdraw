@@ -117,6 +117,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/widget/keyboard.cpp
 	src/pybind/widget/label.cpp
 	src/pybind/widget/pane.cpp
+		src/pybind/widget/popup.cpp
 	src/pybind/widget/progress_bar.cpp
 	src/pybind/widget/row.cpp
 	src/pybind/widget/scroll_view.cpp

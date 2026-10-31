@@ -99,6 +99,11 @@ void Widget::clear()
 
 Widget::~Widget()
 {
+	Window * window = dynamic_cast<Window*>(root());
+	if (window)
+	{
+		window->close_popup_if_anchor(this);
+	}
 	clear();
 
 	if (UIManager::invalidator())
@@ -247,6 +252,36 @@ void Widget::place_children(const Area& area, bool in_layout)
 	m_backclip    = backclip;
 	m_foreclip    = foreclip;
 	m_contentclip = contentclip;
+}
+
+void Widget::move_to_end()
+{
+	if (m_parent && m_parent->m_last_children != this)
+	{
+		Widget * previous = 0;
+		Widget * current = m_parent->m_children;
+		while (current && current != this)
+		{
+			previous = current;
+			current = current->m_next;
+		}
+
+		if (current && current->m_next)
+		{
+			if (previous)
+			{
+				previous->m_next = current->m_next;
+			}
+			else
+			{
+				m_parent->m_children = current->m_next;
+			}
+			m_parent->m_last_children->m_next = current;
+			current->m_next = 0;
+			m_parent->m_last_children = current;
+			UIManager::invalidator()->dirty(m_parent, Invalidator::GEOMETRY);
+		}
+	}
 }
 
 
@@ -1043,7 +1078,7 @@ void Widget::focus_to(Widget * & current_focus, Widget * new_focus)
 	}
 }
 
-void Widget::focus_next(Widget * & widget)
+void Widget::focus_next(Widget * & widget, bool scroll_to_focus)
 {
 	Vector<Widget *> all;
 	focusables(all);
@@ -1077,7 +1112,7 @@ void Widget::focus_next(Widget * & widget)
 			}
 		}
 
-		change_focus(widget, new_widget_focus, all);
+		change_focus(widget, new_widget_focus, all, scroll_to_focus);
 	}
 	else
 	{
@@ -1125,7 +1160,7 @@ void Widget::focus_previous(Widget * & widget)
 }
 
 
-void Widget::change_focus(Widget * & widget, Widget * & new_widget_focus, Vector<Widget *> & all)
+void Widget::change_focus(Widget * & widget, Widget * & new_widget_focus, Vector<Widget *> & all, bool scroll_to_focus)
 {
 	// If no widget widget was found
 	if (new_widget_focus == 0)
@@ -1168,18 +1203,13 @@ void Widget::change_focus(Widget * & widget, Widget * & new_widget_focus, Vector
 		widget = new_widget_focus;
 		new_widget_focus->m_focused = 1;
 
-		ScrollView * scroll_view = dynamic_cast<ScrollView*>(widget->scrollable_content());
-		if (scroll_view)
+		if (scroll_to_focus)
 		{
-			scroll_view->scroll_focus(widget);
-		}
-		else
-		{
-			//List * list = dynamic_cast<List*>(widget->scrollable_content());
-			//if (list)
-			//{
-			//	list->scroll_focus(widget);
-			//}
+			ScrollView * scroll_view = dynamic_cast<ScrollView*>(widget->scrollable_content());
+			if (scroll_view)
+			{
+				scroll_view->scroll_focus(widget);
+			}
 		}
 	}
 }
@@ -1232,9 +1262,12 @@ void Widget::serialize(JsonIterator & it)
 	JsonIterator children = it[StyleNames::WIDGET_CHILDREN];
 	while (child)
 	{
-		JsonIterator widget   = children[index];
-		child->serialize(widget);
-		index ++;
+		if (child->is_transient() == false)
+		{
+			JsonIterator widget = children[index];
+			child->serialize(widget);
+			index++;
+		}
 		child = child->m_next;
 	}
 }

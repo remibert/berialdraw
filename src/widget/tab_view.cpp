@@ -68,7 +68,7 @@ void TabView::update_tabs()
 // Create a tab and its page, returning the page owned by this TabView.
 Pane * TabView::add_tab(const String & title)
 {
-	dump(m_tab_layout);
+	// dump(m_tab_layout);
 	Pane * result = new Pane(m_tab_layout);
 	if (result)
 	{
