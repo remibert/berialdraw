@@ -273,15 +273,18 @@ void Popup::position_popup(const Area & area, Dim width, Dim height)
 // Place an open popup and restore its size constraints.
 void Popup::place_open_popup(const Area & area, bool & in_layout)
 {
+	Size original_size = m_size;
 	Size original_min_size = m_min_size;
 	Size original_max_size = m_max_size;
 	Dim width = 0;
 	Dim height = 0;
 	fit_size_to_area(area, width, height);
+	m_size.set_q6(width, height);
 	position_popup(area, width, height);
 
 	in_layout = false;
 	Pane::place(area, in_layout);
+	m_size = original_size;
 	m_min_size = original_min_size;
 	m_max_size = original_max_size;
 }

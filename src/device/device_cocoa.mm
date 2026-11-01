@@ -1104,6 +1104,9 @@ void berialdraw::DeviceCocoaImpl::blit()
 	{
 		BerialView* view = (__bridge BerialView*)m_view;
 		[view updateBuffer:m_buffer width:m_width height:m_height];
+		#if defined(_DEBUG)
+		[view displayIfNeeded];
+		#endif
 		m_dirty = false;
 	}
 }
@@ -1351,6 +1354,7 @@ void DeviceCocoa::copy(const uint8_t* buffer, Dim width, Dim height)
 void DeviceCocoa::refresh()
 {
 	m_impl->refresh();
+	m_impl->blit();
 }
 
 // Blit buffer to screen

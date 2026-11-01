@@ -72,6 +72,9 @@ void sample_picture(berialdraw::Widget * widget, const berialdraw::ClickEvent & 
 // Sample function to show List widget
 void sample_list(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
 
+// Sample function to show Popup widget
+void sample_popup(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
+
 // Simple example of a window displaying a clickable button with the text "hello world",
 // the example contains the initialization of the library, as well as the deinitialization
 void sample_hello_world();

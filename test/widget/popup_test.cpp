@@ -103,7 +103,6 @@ void Popup::test3()
 	assert(popup->foreclip().y_q6() + popup->foreclip().height_q6() >
 		scroll_view->foreclip().y_q6() + scroll_view->foreclip().height_q6());
 	Coord initial_list_scroll = list->scroll_position().y_q6();
-	UIManager::desktop()->mainloop();	
 	UIManager::notifier()->scroll(0, 8, list);
 	UIManager::desktop()->dispatch();
 	UIManager::desktop()->dispatch();
@@ -150,7 +149,7 @@ void Popup::test4()
 	assert(popup->is_open());
 	assert(popup->foreclip().x_q6() >= window.foreclip().x_q6());
 	assert(popup->foreclip().y_q6() >= window.foreclip().y_q6());
-	assert(popup->foreclip().x_q6() + popup->foreclip().width_q6() <=
+	assert(popup->foreclip().x_q6() + popup->foreclip().width_q6() ==
 		window.foreclip().x_q6() + window.foreclip().width_q6());
 	assert(popup->foreclip().y_q6() + popup->foreclip().height_q6() <=
 		window.foreclip().y_q6() + window.foreclip().height_q6());
@@ -195,6 +194,192 @@ void Popup::test5()
 	assert(scroll_view->scroll_position().y() == 8);
 }
 
+// Verify popup hit testing while open and after closing.
+void Popup::test6()
+{
+	MemoryLeakLog
+	Window window;
+	window.position(20,20);
+	window.size(320,240);
+
+	Button * background = new Button(&window);
+	background->position(100,80);
+	background->size(180,120);
+
+	Popup * popup = new Popup(&window);
+	popup->size(120,80);
+	Button * action = new Button(popup);
+	action->position(10,10);
+	action->size(80,30);
+
+	Point anchor_position(120,100);
+	assert(popup->open_at(anchor_position));
+	UIManager::desktop()->dispatch();
+
+	Point hit_position;
+	hit_position.set_q6(
+		action->foreclip().x_q6() + (Coord)(action->foreclip().width_q6() / 2),
+		action->foreclip().y_q6() + (Coord)(action->foreclip().height_q6() / 2));
+	assert(UIManager::desktop()->hovered(hit_position) == action);
+
+	popup->close();
+	assert(UIManager::desktop()->hovered(hit_position) == background);
+}
+
+// Verify destruction closes an active popup and safely unregisters a closed one.
+void Popup::test7()
+{
+	MemoryLeakLog
+	Window window;
+	window.position(20,20);
+	window.size(320,240);
+
+	Point popup_position(80,60);
+	Popup * popup = new Popup(&window);
+	popup->size(80,60);
+	assert(popup->open_at(popup_position));
+	UIManager::desktop()->dispatch();
+	assert(popup->is_open());
+	delete popup;
+
+	Popup * replacement = new Popup(&window);
+	replacement->size(80,60);
+	assert(replacement->open_at(popup_position));
+	UIManager::desktop()->dispatch();
+	assert(replacement->is_open());
+	replacement->close();
+	delete replacement;
+}
+
+// Verify anchor visibility against hidden and clipped ancestors.
+void Popup::test8()
+{
+	MemoryLeakLog
+	Window window;
+	window.position(20,20);
+	window.size(320,240);
+
+	Pane * clipper = new Pane(&window);
+	clipper->position(40,40);
+	clipper->size(120,120);
+	Button * anchor = new Button(clipper);
+	anchor->position(20,20);
+	anchor->size(40,40);
+
+	Popup * popup = new Popup(&window);
+	popup->size(80,60);
+	assert(popup->open(anchor));
+	UIManager::desktop()->dispatch();
+
+	Area anchor_area = anchor->foreclip();
+	Area clip = anchor_area;
+	clip.x_q6(anchor_area.x_q6() + 10 * 64);
+	clip.width_q6(anchor_area.width_q6() - 10 * 64);
+	clipper->m_contentclip = clip;
+	assert(popup->anchor_is_visible());
+
+	clip = anchor_area;
+	clip.y_q6(anchor_area.y_q6() + 10 * 64);
+	clip.height_q6(anchor_area.height_q6() - 10 * 64);
+	clipper->m_contentclip = clip;
+	assert(popup->anchor_is_visible());
+
+	clip = anchor_area;
+	clip.width_q6(anchor_area.width_q6() - 10 * 64);
+	clipper->m_contentclip = clip;
+	assert(popup->anchor_is_visible());
+
+	clip = anchor_area;
+	clip.height_q6(anchor_area.height_q6() - 10 * 64);
+	clipper->m_contentclip = clip;
+	assert(popup->anchor_is_visible());
+
+	clip = anchor_area;
+	clip.x_q6(anchor_area.x_q6() + (Coord)anchor_area.width_q6() + 64);
+	clip.width_q6(10 * 64);
+	clipper->m_contentclip = clip;
+	assert(popup->anchor_is_visible() == false);
+
+	clip = anchor_area;
+	clip.y_q6(anchor_area.y_q6() + (Coord)anchor_area.height_q6() + 64);
+	clip.height_q6(10 * 64);
+	clipper->m_contentclip = clip;
+	assert(popup->anchor_is_visible() == false);
+
+	bool in_layout = true;
+	popup->place(window.foreclip(), in_layout);
+	assert(popup->is_open() == false);
+
+	clipper->m_contentclip = anchor_area;
+	assert(popup->open(anchor));
+	UIManager::desktop()->dispatch();
+	clipper->hidden(true);
+	assert(popup->anchor_is_visible() == false);
+	clipper->hidden(false);
+
+	anchor->hidden(true);
+	assert(popup->anchor_is_visible() == false);
+	popup->place(window.foreclip(), in_layout);
+	assert(popup->is_open() == false);
+}
+
+// Verify popup size constraints and position clamping at every area boundary.
+void Popup::test9()
+{
+	MemoryLeakLog
+	Window window;
+	window.position(20,20);
+	window.size(320,240);
+
+	Popup * popup = new Popup(&window);
+	popup->size(60,40);
+	UIManager::desktop()->dispatch();
+	Area area = window.foreclip();
+
+	popup->m_point_anchor = true;
+	popup->m_anchor_position.set_q6(area.x_q6() + 100 * 64, area.y_q6() + 100 * 64);
+	popup->position_popup(area, area.width_q6() + 64, area.height_q6() + 64);
+	assert(popup->position().x_q6() == 0);
+	assert(popup->position().y_q6() == 0);
+	popup->m_point_anchor = false;
+
+	Size requested_min(500,400);
+	Size requested_max(600,500);
+	popup->min_size(requested_min);
+	popup->max_size(requested_max);
+	Point center_position(area.x() + 100, area.y() + 80);
+	assert(popup->open_at(center_position));
+	UIManager::desktop()->dispatch();
+	assert(popup->foreclip().width_q6() == popup->backclip().width_q6());
+	assert(popup->foreclip().height_q6() == popup->backclip().height_q6());
+	assert(popup->min_size() == requested_min);
+	assert(popup->max_size() == requested_max);
+
+	popup->close();
+	popup->min_size(0,0);
+	popup->max_size(200,150);
+	popup->size(60,40);
+
+	Point left_position(0, area.y() + 60);
+	assert(popup->open_at(left_position));
+	UIManager::desktop()->dispatch();
+	assert(popup->foreclip().x_q6() == area.x_q6());
+
+	popup->close();
+	Point top_position(area.x() + 100, 0);
+	assert(popup->open_at(top_position));
+	UIManager::desktop()->dispatch();
+	assert(popup->foreclip().y_q6() == area.y_q6());
+
+	popup->close();
+	Point bottom_position(area.x() + 100, area.y() + area.height() + 100);
+	assert(popup->open_at(bottom_position));
+	UIManager::desktop()->dispatch();
+	assert(popup->foreclip().y_q6() + popup->foreclip().height_q6() ==
+		area.y_q6() + area.height_q6());
+	popup->close();
+}
+
 void Popup::test()
 {
 	static bool done = false;
@@ -202,6 +387,10 @@ void Popup::test()
 	{
 		MemoryLeakLog
 		done = true;
+		test9();
+		test8();
+		test7();
+		test6();
 		test5();
 		test4();
 		test3();

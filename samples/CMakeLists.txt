@@ -24,6 +24,7 @@ set(SRCS_SAMPLE
 	sample_tableview.cpp
 	sample_picture.cpp
 	sample_list.cpp
+	sample_popup.cpp
 	sample_window.cpp
 	sample_hello_world.cpp
 )

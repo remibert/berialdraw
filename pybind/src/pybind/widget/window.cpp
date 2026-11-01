@@ -8,6 +8,6 @@ void bind_window(pybind11::module_& m) {
         .def("front", &berialdraw::Window::front, PYBIND11_RELEASE_GIL)
         
         // Event system integration (useful for background interactions)
-        BIND_EVENT_PROPERTY(berialdraw::Window, berialdraw::ClickEvent, on_click)
-        BIND_EVENT_PROPERTY(berialdraw::Window, berialdraw::TouchEvent, on_touch);
+        BIND_ROOT_EVENT_PROPERTY(berialdraw::Window, berialdraw::ClickEvent, on_click)
+        BIND_ROOT_EVENT_PROPERTY(berialdraw::Window, berialdraw::TouchEvent, on_touch);
 }

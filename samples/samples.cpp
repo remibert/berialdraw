@@ -30,6 +30,7 @@ static const MenuBinding menu_bindings[] = {
 	{"TableView",   "$(ui.icons)/grid_on.icn",            sample_tableview   },
 	{"Picture",     "$(ui.icons)/image.icn",              sample_picture     },
 	{"List",        "$(ui.icons)/sort.icn",               sample_list        },
+	{"Popup",       "$(ui.icons)/more_vert.icn",          sample_popup       },
 };
 
 template<class DialogType>

@@ -81,6 +81,9 @@
     <ClCompile Include="..\..\samples\sample_list.cpp">
       <Filter>samples</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\samples\sample_popup.cpp">
+      <Filter>samples</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\samples\sample_hello_world.cpp">
       <Filter>samples</Filter>
     </ClCompile>

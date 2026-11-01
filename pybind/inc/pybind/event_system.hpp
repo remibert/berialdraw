@@ -117,6 +117,18 @@ void bridge_callback(berialdraw::Widget* widget, const EventType& event) {
     }
 }
 
+// Dispatch events to callbacks registered on the widget's root window.
+template<typename EventType>
+void bridge_root_callback(berialdraw::Widget* widget, const EventType& event) {
+    berialdraw::Widget* root = widget ? widget->root() : nullptr;
+    if (root) {
+        auto manager = EventSystemManager::instance().get_manager<EventType>(root);
+        if (manager && !manager->empty()) {
+            manager->trigger(widget, event);
+        }
+    }
+}
+
 // Declaration of specialization for KeyEvent (defined in event_managers.cpp)
 template<>
 void bridge_callback<berialdraw::KeyEvent>(berialdraw::Widget* widget, const berialdraw::KeyEvent& event);
@@ -144,4 +156,25 @@ void bridge_callback<berialdraw::TimerEvent>(berialdraw::Widget* widget, const b
             } \
             \
             self.template bind<EventType>(bridge_callback<EventType>); \
+        })
+
+// Bind an event callback to the root window while passing the actual clicked widget.
+#define BIND_ROOT_EVENT_PROPERTY(WidgetClass, EventType, property_name) \
+    .def_property(#property_name, \
+        [](WidgetClass& self) { \
+            return nullptr; /* Return None for getter to avoid complex signature */ \
+        }, \
+        [](WidgetClass& self, const pybind11::object& value) { \
+            auto manager = EventSystemManager::instance().get_manager<EventType>(&self); \
+            if (!manager) return; \
+            \
+            if (pybind11::isinstance<pybind11::function>(value)) { \
+                manager->assign(value.cast<pybind11::function>()); \
+            } else if (pybind11::isinstance<pybind11::list>(value)) { \
+                manager->assign_list(value.cast<pybind11::list>()); \
+            } else { \
+                throw std::invalid_argument(#property_name " must be a function or list of functions"); \
+            } \
+            \
+            self.template bind<EventType>(bridge_root_callback<EventType>); \
         })

@@ -23,6 +23,7 @@ from samples.sample_theme import sample_palette
 from samples.sample_tableview import sample_tableview
 from samples.sample_picture import sample_picture
 from samples.sample_list import sample_list
+from samples.sample_popup import sample_popup
 
 
 # Menu items configuration (shared between icon and plain menus)
@@ -47,6 +48,7 @@ menu_bindings = [
 	("TableView",   "$(ui.icons)/grid_on.icn",            sample_tableview),
 	("Picture",     "$(ui.icons)/image.icn",              sample_picture),
 	("List",        "$(ui.icons)/sort.icn",               sample_list),
+	("Popup",       "$(ui.icons)/more_vert.icn",          sample_popup),
 ]
 
 

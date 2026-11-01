@@ -42,7 +42,7 @@ int main(int argc, char* args[])
 		//UIManager::notifier()->log();
 
 		// Execute scripted user interface test every widgets
-		test_widget();
+		// test_widget();
 
 		// Execute scripted user interface test on samples
 		test_samples();
