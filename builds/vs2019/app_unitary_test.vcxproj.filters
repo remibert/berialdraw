@@ -135,6 +135,9 @@
     <ClCompile Include="..\..\test\widget\edit_test.cpp">
       <Filter>test\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\test\widget\combo_test.cpp">
+      <Filter>test\widget</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\test\widget\entry_test.cpp">
       <Filter>test\widget</Filter>
     </ClCompile>

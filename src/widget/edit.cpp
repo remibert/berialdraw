@@ -241,8 +241,9 @@ void Edit::paint(const Region & parent_region)
 		Point text_shift(m_text_foreclip.position());
 		text_shift.move(m_cursor_shift);
 
+		bool show_cursor = focused() && typing_mode() != Entry::TypingMode::READ_ONLY;
 		m_text_box.paint(m_cursor_shift, *m_font.get(), display, m_text_foreclip.position(), m_contentclip, txt_col,
-			focused() ? stated_color(m_cursor_color) : Color::TRANSPARENT, 
+			show_cursor ? stated_color(m_cursor_color) : Color::TRANSPARENT,
 			focused() ? stated_color(m_select_color) : Color::TRANSPARENT,
 			(TypingMode)m_typing_mode == TypingMode::INSERTION);
 	}

@@ -24,7 +24,8 @@ void Popup::test1()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/popup1.svg");
 
 	assert(popup->is_open());
-	assert(popup->foreclip().y_q6() >= anchor->foreclip().y_q6() + anchor->foreclip().height_q6());
+	assert((int64_t)popup->foreclip().y_q6() >=
+		(int64_t)anchor->foreclip().y_q6() + (int64_t)anchor->foreclip().height_q6());
 }
 
 void Popup::test2()

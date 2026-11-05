@@ -15,6 +15,7 @@
 #define INLINE  __attribute__((always_inline)) inline
 #define THREAD_LOCAL  __thread
 #define FALLTHROUGH  __attribute__((fallthrough));
+#define HIDDEN  __attribute__((visibility("hidden")))
 #define HAVE_BUILTIN_CTZL
 #endif
 

@@ -333,6 +333,9 @@
     <ClCompile Include="..\..\pybind\src\pybind\widget\list.cpp">
       <Filter>pybind\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\widget\combo.cpp">
+      <Filter>pybind\widget</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\widget\picture.cpp">
       <Filter>pybind\widget</Filter>
     </ClCompile>
@@ -365,6 +368,9 @@
       <Filter>pybind\styles</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\styles\list_style.cpp">
+      <Filter>pybind\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\styles\combo_style.cpp">
       <Filter>pybind\styles</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\styles\list_selection_mode.cpp">

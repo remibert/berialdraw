@@ -1063,6 +1063,9 @@
     <ClCompile Include="..\..\src\widget\list.cpp">
       <Filter>berialdraw\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\widget\combo.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\styles\grid_style.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
@@ -1103,6 +1106,9 @@
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\styles\list_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\styles\combo_style.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\styles\list_selection_mode.cpp">
@@ -2208,6 +2214,9 @@
     <ClInclude Include="..\..\include\widget\list.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\widget\combo.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\styles\table_view_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
@@ -2257,6 +2266,9 @@
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\styles\list_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\styles\combo_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\styles\list_selection_mode.hpp">
@@ -2531,6 +2543,9 @@
     <None Include="..\..\resources\styles\test\button.sty">
       <Filter>resources\styles\test</Filter>
     </None>
+    <None Include="..\..\resources\styles\test\combo_button.sty">
+      <Filter>resources\styles\test</Filter>
+    </None>
     <None Include="..\..\resources\styles\test\canvas.sty">
       <Filter>resources\styles\test</Filter>
     </None>
@@ -2565,6 +2580,9 @@
       <Filter>resources\styles\test</Filter>
     </None>
     <None Include="..\..\resources\styles\pearl\button.sty">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\combo_button.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
     <None Include="..\..\resources\styles\pearl\canvas.sty">

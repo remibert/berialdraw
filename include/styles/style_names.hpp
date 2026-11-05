@@ -36,6 +36,11 @@ namespace berialdraw
 		static constexpr char CHECKBOX_SIZE[] = "checkbox_size";
 		static constexpr char CHECKBOX_TEXT_PADDING[] = "text_padding";
 
+		// Combo style
+		static constexpr char COMBO_EDITABLE[] = "editable";
+		static constexpr char COMBO_BUTTON_WIDTH[] = "button_width";
+		static constexpr char COMBO_MAX_POPUP_HEIGHT[] = "max_popup_height";
+
 		// Common style
 		static constexpr char COMMON_COLOR[] = "color";
 		static constexpr char COMMON_LIGHT[] = "light";

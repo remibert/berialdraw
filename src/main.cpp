@@ -36,13 +36,13 @@ int main(int argc, char* args[])
 		// Select the CRC checks for the screens to verify whether the tests are successful or not.
 		UIManager::screen_crc()->open("$(ui.tests)/out/all_crcs.json","$(ui.tests)/ref/all_crcs.json");
 
-		//UIManager::device()->position(1400+480+480+300,1100);;
+		UIManager::device()->position(1400+480+480+300,1100);;
 
 		// Starts the user event logger, useful if you want to script user interface tests
 		//UIManager::notifier()->log();
 
 		// Execute scripted user interface test every widgets
-		// test_widget();
+		test_widget();
 
 		// Execute scripted user interface test on samples
 		test_samples();

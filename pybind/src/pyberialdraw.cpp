@@ -51,6 +51,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_radio_style(m);
     bind_progress_bar_style(m);
     bind_edit_style(m);
+    bind_combo_style(m);
     bind_pie_style(m);
     bind_scroll_view_style(m);
     bind_scrollbar_style(m);
@@ -112,6 +113,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_canvas(m);
     bind_entry(m);
     bind_edit(m);
+    bind_combo(m);
     bind_slider(m);
     bind_progress_bar(m);
     bind_row(m);

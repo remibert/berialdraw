@@ -73,6 +73,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/styles/color.cpp
 	src/pybind/styles/common_style.cpp
 	src/pybind/styles/edit_style.cpp
+	src/pybind/styles/combo_style.cpp
 	src/pybind/styles/icon_style.cpp
 	src/pybind/styles/picture_style.cpp
 	src/pybind/styles/timer_style.cpp
@@ -110,6 +111,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/widget/column.cpp
 	src/pybind/widget/desktop.cpp
 	src/pybind/widget/edit.cpp
+	src/pybind/widget/combo.cpp
 	src/pybind/widget/entry.cpp
 	src/pybind/widget/grid.cpp
 	src/pybind/widget/icon.cpp

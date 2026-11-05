@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.18)
 
+if(APPLE AND CMAKE_BUILD_TYPE STREQUAL "Release")
+	set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "macOS architectures" FORCE)
+elseif(APPLE)
+	unset(CMAKE_OSX_ARCHITECTURES CACHE)
+endif()
+
 project(berialdraw)
 
 set(BD_LIB         berialdraw)
@@ -27,11 +33,8 @@ elseif(APPLE)
 	execute_process(COMMAND uname -m OUTPUT_VARIABLE ARCHITECTURE OUTPUT_STRIP_TRAILING_WHITESPACE)
 	# Universal binary only for Release builds (not for Debug)
 	if(CMAKE_BUILD_TYPE STREQUAL "Release")
-		set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
 		message(STATUS "Architecture Apple (Universal: x86_64 + arm64) [Release]")
 	else()
-		# For Debug or other, use native architecture
-		unset(CMAKE_OSX_ARCHITECTURES)
 		message(STATUS "Architecture Apple (Native arch only) [Debug]")
 	endif()
 
@@ -58,6 +61,7 @@ endif()
 
 set(SRCS_LIB
 	src/widget/edit.cpp
+	src/widget/combo.cpp
 	src/widget/desktop.cpp
 	src/widget/grid.cpp
 	src/widget/cells.cpp
@@ -68,7 +72,7 @@ set(SRCS_LIB
 	src/widget/entry.cpp
 	src/widget/label.cpp
 	src/widget/pane.cpp
-		src/widget/popup.cpp
+	src/widget/popup.cpp
 	src/widget/keyboard.cpp
 	src/widget/switch.cpp
 	src/widget/checkbox.cpp
@@ -101,6 +105,7 @@ set(SRCS_LIB
 	src/styles/widget_style.cpp
 	src/styles/common_style.cpp
 	src/styles/edit_style.cpp
+	src/styles/combo_style.cpp
 	src/styles/switch_style.cpp
 	src/styles/radio_style.cpp
 	src/styles/checkbox_style.cpp
@@ -379,6 +384,10 @@ set(PNG_TESTS OFF CACHE BOOL "Build libpng tests" FORCE)
 set(PNG_TOOLS OFF CACHE BOOL "Build libpng tools" FORCE)
 set(PNG_EXECUTABLES OFF CACHE BOOL "Build libpng executables" FORCE)
 add_subdirectory(external/libpng EXCLUDE_FROM_ALL)
+if(APPLE AND CMAKE_OSX_ARCHITECTURES MATCHES ";")
+	# libpng cannot select architecture-specific NEON sources for universal builds.
+	target_compile_definitions(png_static PRIVATE PNG_ARM_NEON_OPT=0)
+endif()
 
 set(MZ_COMPAT ON CACHE BOOL "Enable minizip compatibility API" FORCE)
 set(MZ_ZLIB ON CACHE BOOL "Enable zlib compression in minizip" FORCE)
