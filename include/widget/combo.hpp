@@ -150,6 +150,8 @@ namespace berialdraw
 		/// @cond DOXYGEN_IGNORE
 		static void test();
 		static void test1();
+		static void test2();
+		static void test3();
 		/// @endcond
 #endif
 

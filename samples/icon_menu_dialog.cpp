@@ -33,7 +33,7 @@ Icon * IconMenuDialog::create_icon(const String & text, const String & icon_file
 		// Icon settings
 		icon->filename(icon_filename);                        // Sets the filename for the icon image
 		icon->icon_color(Color::WHITE);                       // Sets the color of icon
-		icon->color(m_backcolor);                                 // Sets the computed color of background icon
+		icon->color(m_backcolor);                             // Sets the computed color of background icon
 		icon->thickness(0);                                   // Sets the thickness of borders
 		icon->radius(200);                                    // Sets the radius of rounded borders
 		icon->icon_padding(20);                               // Adds paddings between icon and borders

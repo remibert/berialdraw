@@ -23,6 +23,7 @@ set(SRCS_SAMPLE
 	sample_theme.cpp
 	sample_tableview.cpp
 	sample_picture.cpp
+	sample_combo.cpp
 	sample_list.cpp
 	sample_popup.cpp
 	sample_window.cpp

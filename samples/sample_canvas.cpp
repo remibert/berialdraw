@@ -198,18 +198,18 @@ public:
 			text->font_size(20);             // Sets the font size for the label text
 
 
-		Star * star = new Star(m_canvas); // Creates a star marker
-			star->position(266, 270);      // Sets position for the star
-			star->radius(20);              // Sets side length of the star
-			star->thickness(0);            // Sets thickness of the border to 0
+		Star * star = new Star(m_canvas);    // Creates a star marker
+			star->position(266, 270);        // Sets position for the star
+			star->radius(20);                // Sets side length of the star
+			star->thickness(0);              // Sets thickness of the border to 0
 
-		star = new Star(*star);        // Creates a star marker
-			star->thickness(3);            // Sets thickness of the border
-			star->position(309, 270);      // Sets new position for the star
-			star->radius(20);              // Adjusts radius of the star
+		star = new Star(*star);              // Creates a star marker
+			star->thickness(3);              // Sets thickness of the border
+			star->position(309, 270);        // Sets new position for the star
+			star->radius(20);                // Adjusts radius of the star
 
 		text = new Text(m_canvas);           // Creates a text label on the canvas
-			text->text("Star");            // Sets label text
+			text->text("Star");              // Sets label text
 			text->position(350, 260);        // Positions the label on the canvas
 			text->font_size(20);             // Sets the font size for the label text
 
@@ -227,7 +227,7 @@ public:
 protected:
 	// Member variables representing UI elements and state
 	Canvas * m_canvas = 0;  // Main clickable canvas
-	Column * m_column = 0; // Content of dialog
+	Column * m_column = 0;  // Content of dialog
 };
 
 // Sample function to show Canvas widget
@@ -235,8 +235,8 @@ void sample_canvas(Widget * widget, const ClickEvent & evt)
 {
 	(void)(widget);
 	(void)(evt);
-	SampleCanvas sample;  // Creates a SampleCanvas 
-	sample.title("Canvas sample"); // Add dialog title
-	sample.add_back_button("Back");      // Add back button
-	sample.exec();                 // Starts the interface and its main loop
+	SampleCanvas sample;            // Creates a SampleCanvas 
+	sample.title("Canvas sample");  // Add dialog title
+	sample.add_back_button("Back"); // Add back button
+	sample.exec();                  // Starts the interface and its main loop
 }

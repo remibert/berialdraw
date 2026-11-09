@@ -31,6 +31,7 @@ static const MenuBinding menu_bindings[] = {
 	{"Picture",     "$(ui.icons)/image.icn",              sample_picture     },
 	{"List",        "$(ui.icons)/sort.icn",               sample_list        },
 	{"Popup",       "$(ui.icons)/more_vert.icn",          sample_popup       },
+	{"Combo",       "$(ui.icons)/sort.icn",               sample_combo       },
 };
 
 template<class DialogType>
@@ -42,9 +43,9 @@ void populate_menu(DialogType& dialog) {
 
 void sample_icon_menu()
 {
-	//UIManager::notifier()->log();                 // Log all user events if it uncommented
-	UIManager::styles()->style("pearl");            // Select the style pearl
-	UIManager::colors()->appearance("light");       // Select the light appearance
+	// UIManager::notifier()->log();                 // Log all user events if it uncommented
+	UIManager::styles()->style("pearl");                // Select the style pearl
+	UIManager::colors()->appearance("light");           // Select the light appearance
 	UIManager::colors()->palette(Color::PALETTE_LIME);  // Select the color palette
 
 	IconMenuDialog dialog;

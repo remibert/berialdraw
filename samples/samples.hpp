@@ -69,6 +69,9 @@ void sample_tableview(berialdraw::Widget * widget, const berialdraw::ClickEvent 
 // Sample function to show Picture widget
 void sample_picture(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
 
+// Sample function to show Combo widget date selection
+void sample_combo(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
+
 // Sample function to show List widget
 void sample_list(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
 

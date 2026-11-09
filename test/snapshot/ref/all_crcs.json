@@ -3829,6 +3829,10 @@
 			"scale_2" : 4184721421,
 			"scale_1" : 677129901
 		},
+		"$(ui.tests)/out/combo1_1.svg" : 
+		{
+			"scale_1" : 3612706748
+		},
 		"$(ui.tests)/out/line1.svg" : 
 		{
 			"scale_2" : 2621795062,
@@ -5478,5 +5482,33 @@
 		"$(ui.tests)/out/label9_1.svg" : 
 		{
 			"scale_1" : 436575757
+		},
+		"$(ui.tests)/out/combo3_1.svg" : 
+		{
+			"scale_1" : 2086783495
+		},
+		"$(ui.tests)/out/combo3_2.svg" : 
+		{
+			"scale_1" : 3140646458
+		},
+		"$(ui.tests)/out/combo3_3.svg" : 
+		{
+			"scale_1" : 432586416
+		},
+		"$(ui.tests)/out/combo3_4.svg" : 
+		{
+			"scale_1" : 994233427
+		},
+		"$(ui.tests)/out/combo3_5.svg" : 
+		{
+			"scale_1" : 3069642886
+		},
+		"$(ui.tests)/out/combo3_6.svg" : 
+		{
+			"scale_1" : 3630803784
+		},
+		"$(ui.tests)/out/combo2_1.svg" : 
+		{
+			"scale_1" : 3090800726
 		}
 	}

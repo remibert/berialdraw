@@ -78,6 +78,9 @@
     <ClCompile Include="..\..\samples\sample_picture.cpp">
       <Filter>samples</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\samples\sample_combo.cpp">
+      <Filter>samples</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\samples\sample_list.cpp">
       <Filter>samples</Filter>
     </ClCompile>

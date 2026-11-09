@@ -492,13 +492,19 @@ void * MemoryLeakTracer::alloc(std::size_t size)
 	MemHeader* header = 0;
 	if (size > 0)
 	{
-		if (MemoryLeakTracer::m_started) m_mutex.lock();
+		const bool mutex_locked = MemoryLeakTracer::m_started;
+		if (mutex_locked) m_mutex.lock();
+		if (size > static_cast<size_t>(-1) - sizeof(MemHeader) - 4)
+		{
+			if (mutex_locked) m_mutex.unlock();
+			throw std::bad_alloc();
+		}
 		size_t alloc_size = size + sizeof(MemHeader);
 		header = (MemHeader*)std::malloc(alloc_size + 4);
 
 		if (!header)
 		{
-			m_mutex.unlock();
+			if (mutex_locked) m_mutex.unlock();
 			throw std::bad_alloc();
 		}
 		else
@@ -564,7 +570,7 @@ void * MemoryLeakTracer::alloc(std::size_t size)
 			}
 		}
 		header++;
-		if (MemoryLeakTracer::m_started) m_mutex.unlock();
+		if (mutex_locked) m_mutex.unlock();
 	}
 	return header;
 }
@@ -643,10 +649,64 @@ void MemoryLeakTracer::unalloc(void* ptr) noexcept
 }
 
 #if defined(_DEBUG)
+namespace
+{
+	/** Allocate an over-aligned block and store its tracked base pointer immediately before it. */
+	void* allocate_aligned(std::size_t size, std::size_t alignment)
+	{
+		if (size == 0)
+		{
+			size = 1;
+		}
+		if (alignment < alignof(max_align_t))
+		{
+			alignment = alignof(max_align_t);
+		}
+		if ((alignment & (alignment - 1)) != 0)
+		{
+			throw std::bad_alloc();
+		}
+
+		const std::size_t max_size = static_cast<std::size_t>(-1);
+		const std::size_t overhead = sizeof(void*) + (alignment - 1);
+		if (overhead < sizeof(void*) || size > max_size - overhead)
+		{
+			throw std::bad_alloc();
+		}
+
+		void* base = MemoryLeakTracer::malloc(size + overhead);
+		if (base == nullptr)
+		{
+			throw std::bad_alloc();
+		}
+
+		uintptr_t address = reinterpret_cast<uintptr_t>(base) + sizeof(void*);
+		const std::size_t remainder = address % alignment;
+		if (remainder != 0)
+		{
+			address += alignment - remainder;
+		}
+		void* aligned = reinterpret_cast<void*>(address);
+		std::memcpy(reinterpret_cast<unsigned char*>(aligned) - sizeof(void*), &base, sizeof(base));
+		return aligned;
+	}
+
+	/** Release an over-aligned block through the tracked base allocation. */
+	void free_aligned(void* ptr) noexcept
+	{
+		if (ptr)
+		{
+			void* base = nullptr;
+			std::memcpy(&base, reinterpret_cast<unsigned char*>(ptr) - sizeof(void*), sizeof(base));
+			MemoryLeakTracer::free(base);
+		}
+	}
+}
+
 /** Redefinition of the global new operator */
 void* operator new(std::size_t size)
 {
-	return MemoryLeakTracer::malloc(size);
+	return MemoryLeakTracer::malloc(size == 0 ? 1 : size);
 }
 
 /** Redefinition of the global delete operator */
@@ -658,7 +718,7 @@ void operator delete(void* ptr) noexcept
 /** Redefinition of the new[] operator for arrays */
 void* operator new[](std::size_t size)
 {
-	return MemoryLeakTracer::malloc(size);
+	return MemoryLeakTracer::malloc(size == 0 ? 1 : size);
 }
 
 /** Redefinition of the delete[] operator for arrays */
@@ -666,4 +726,135 @@ void operator delete[](void* ptr) noexcept
 {
 	MemoryLeakTracer::free(ptr);
 }
+
+/** Redefinition of the non-throwing global new operator */
+void* operator new(std::size_t size, const std::nothrow_t&) noexcept
+{
+	try
+	{
+		return MemoryLeakTracer::malloc(size == 0 ? 1 : size);
+	}
+	catch (...)
+	{
+		return nullptr;
+	}
+}
+
+/** Redefinition of the non-throwing global new[] operator */
+void* operator new[](std::size_t size, const std::nothrow_t&) noexcept
+{
+	try
+	{
+		return MemoryLeakTracer::malloc(size == 0 ? 1 : size);
+	}
+	catch (...)
+	{
+		return nullptr;
+	}
+}
+
+/** Matching non-throwing placement delete operator */
+void operator delete(void* ptr, const std::nothrow_t&) noexcept
+{
+	MemoryLeakTracer::free(ptr);
+}
+
+/** Matching non-throwing placement delete[] operator */
+void operator delete[](void* ptr, const std::nothrow_t&) noexcept
+{
+	MemoryLeakTracer::free(ptr);
+}
+
+// Sized deallocation functions are part of C++14 and later.
+#if (defined(_MSVC_LANG) && _MSVC_LANG >= 201402L) || (!defined(_MSVC_LANG) && __cplusplus >= 201402L)
+/** Redefinition of the sized global delete operator */
+void operator delete(void* ptr, std::size_t) noexcept
+{
+	MemoryLeakTracer::free(ptr);
+}
+
+/** Redefinition of the sized global delete[] operator */
+void operator delete[](void* ptr, std::size_t) noexcept
+{
+	MemoryLeakTracer::free(ptr);
+}
+#endif
+
+#if defined(__cpp_aligned_new) && __cpp_aligned_new >= 201606L
+/** Redefinition of the aligned global new operator */
+void* operator new(std::size_t size, std::align_val_t alignment)
+{
+	return allocate_aligned(size, static_cast<std::size_t>(alignment));
+}
+
+/** Redefinition of the aligned global new[] operator */
+void* operator new[](std::size_t size, std::align_val_t alignment)
+{
+	return allocate_aligned(size, static_cast<std::size_t>(alignment));
+}
+
+/** Redefinition of the non-throwing aligned global new operator */
+void* operator new(std::size_t size, std::align_val_t alignment, const std::nothrow_t&) noexcept
+{
+	try
+	{
+		return allocate_aligned(size, static_cast<std::size_t>(alignment));
+	}
+	catch (...)
+	{
+		return nullptr;
+	}
+}
+
+/** Redefinition of the non-throwing aligned global new[] operator */
+void* operator new[](std::size_t size, std::align_val_t alignment, const std::nothrow_t&) noexcept
+{
+	try
+	{
+		return allocate_aligned(size, static_cast<std::size_t>(alignment));
+	}
+	catch (...)
+	{
+		return nullptr;
+	}
+}
+
+/** Redefinition of the aligned global delete operator */
+void operator delete(void* ptr, std::align_val_t) noexcept
+{
+	free_aligned(ptr);
+}
+
+/** Redefinition of the aligned global delete[] operator */
+void operator delete[](void* ptr, std::align_val_t) noexcept
+{
+	free_aligned(ptr);
+}
+
+/** Matching non-throwing aligned placement delete operator */
+void operator delete(void* ptr, std::align_val_t, const std::nothrow_t&) noexcept
+{
+	free_aligned(ptr);
+}
+
+/** Matching non-throwing aligned placement delete[] operator */
+void operator delete[](void* ptr, std::align_val_t, const std::nothrow_t&) noexcept
+{
+	free_aligned(ptr);
+}
+
+#if (defined(_MSVC_LANG) && _MSVC_LANG >= 201402L) || (!defined(_MSVC_LANG) && __cplusplus >= 201402L)
+/** Redefinition of the sized aligned global delete operator */
+void operator delete(void* ptr, std::size_t, std::align_val_t) noexcept
+{
+	free_aligned(ptr);
+}
+
+/** Redefinition of the sized aligned global delete[] operator */
+void operator delete[](void* ptr, std::size_t, std::align_val_t) noexcept
+{
+	free_aligned(ptr);
+}
+#endif
+#endif
 #endif
