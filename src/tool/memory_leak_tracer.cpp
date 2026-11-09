@@ -642,6 +642,7 @@ void MemoryLeakTracer::unalloc(void* ptr) noexcept
 	}
 }
 
+#if defined(_DEBUG)
 /** Redefinition of the global new operator */
 void* operator new(std::size_t size)
 {
@@ -665,3 +666,4 @@ void operator delete[](void* ptr) noexcept
 {
 	MemoryLeakTracer::free(ptr);
 }
+#endif

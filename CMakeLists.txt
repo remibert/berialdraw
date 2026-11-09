@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.18)
 
-if(APPLE AND CMAKE_BUILD_TYPE STREQUAL "Release")
-	set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "macOS architectures" FORCE)
-elseif(APPLE)
-	unset(CMAKE_OSX_ARCHITECTURES CACHE)
+if(CMAKE_HOST_APPLE)
+	if(CMAKE_BUILD_TYPE STREQUAL "Release")
+		set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "macOS architectures" FORCE)
+	else()
+		set(CMAKE_OSX_ARCHITECTURES "" CACHE STRING "macOS architectures (native default)" FORCE)
+	endif()
 endif()
 
 project(berialdraw)
@@ -33,7 +35,8 @@ elseif(APPLE)
 	execute_process(COMMAND uname -m OUTPUT_VARIABLE ARCHITECTURE OUTPUT_STRIP_TRAILING_WHITESPACE)
 	# Universal binary only for Release builds (not for Debug)
 	if(CMAKE_BUILD_TYPE STREQUAL "Release")
-		message(STATUS "Architecture Apple (Universal: x86_64 + arm64) [Release]")
+		message(STATUS "Build configuration: Release")
+		message(STATUS "Generating universal macOS binary for architectures: x86_64 + arm64")
 	else()
 		message(STATUS "Architecture Apple (Native arch only) [Debug]")
 	endif()
@@ -444,6 +447,13 @@ configure_file(
 # Always remove the stamp file at configure time to force the copy at every build
 file(REMOVE "${CMAKE_CURRENT_BINARY_DIR}/delivery/.copy_delivery_stamp")
 
+set(BD_BUILD_TRACE_COMMANDS)
+if(APPLE AND CMAKE_BUILD_TYPE STREQUAL "Release")
+	list(APPEND BD_BUILD_TRACE_COMMANDS
+		COMMAND ${CMAKE_COMMAND} -E echo
+			"[Build] Release: universal macOS binary (x86_64 + arm64)")
+endif()
+
 add_custom_command(
     OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/delivery/.copy_delivery_stamp"
     COMMAND python3 "${CMAKE_CURRENT_BINARY_DIR}/deliver.py"
@@ -456,7 +466,9 @@ add_custom_command(
 )
 
 add_custom_target(copy_delivery ALL
+	${BD_BUILD_TRACE_COMMANDS}
     DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/delivery/.copy_delivery_stamp"
+	VERBATIM
 )
 
 add_dependencies(copy_delivery ${BD_PY11_LIB})

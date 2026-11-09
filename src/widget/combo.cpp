@@ -425,6 +425,7 @@ Widget * Combo::hovered(const Region & parent_region, const Point & position)
 	return result;
 }
 
+// Handle keyboard navigation and commit editable text
 void Combo::on_key(Widget * widget, const KeyEvent & evt)
 {
 	(void)widget;
@@ -441,6 +442,35 @@ void Combo::on_key(Widget * widget, const KeyEvent & evt)
 		else if (evt.key() == (wchar_t)ReservedKey::KEY_DOWN)
 		{
 			select_next();
+		}
+		else if (evt.key() == (wchar_t)ReservedKey::KEY_ENTER && editable())
+		{
+			int existing_index = -1;
+			if (input().size() > 0)
+			{
+				for (int index = 0; index < (int)count(); index++)
+				{
+					if (at(index)->text() == input())
+					{
+						existing_index = index;
+						break;
+					}
+				}
+
+				if (existing_index >= 0)
+				{
+					select(existing_index);
+				}
+				else
+				{
+					append(input());
+					select((int)count() - 1);
+				}
+			}
+			else
+			{
+				unselect_all();
+			}
 		}
 	}
 }

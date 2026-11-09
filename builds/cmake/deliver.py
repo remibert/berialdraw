@@ -32,6 +32,7 @@ def copy_with_filter(src, dst, wildcard=None, filter_func=None):
 	if os.path.isdir(src):
 		if wildcard is None:
 			wildcard = '**/*'
+		matched_files = set(glob.glob(os.path.join(src, wildcard), recursive=True))
 		for root, dirs, files in os.walk(src):
 			# Skip CMakeFiles directory for all jobs
 			dirs[:] = [d for d in dirs if d != 'CMakeFiles' and d != '.git']
@@ -40,7 +41,7 @@ def copy_with_filter(src, dst, wildcard=None, filter_func=None):
 				src_file = os.path.join(root, name)
 				rel_path = os.path.normpath(os.path.join(rel_root, name))
 				dst_file = os.path.join(dst, rel_path)
-				if filter_func is None or filter_func(root, name):
+				if src_file in matched_files and (filter_func is None or filter_func(root, name)):
 					os.makedirs(os.path.dirname(dst_file), exist_ok=True)
 					shutil.copy2(src_file, dst_file)
 	elif wildcard:

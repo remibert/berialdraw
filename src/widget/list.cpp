@@ -367,16 +367,6 @@ ListItem * List::select_next()
 				current = current->next();
 			}
 
-			// If last reached
-			if (result == nullptr)
-			{
-				// Select the first
-				result = select_first();
-				if (result)
-				{
-					sel->selected(false);
-				}
-			}
 		}
 	}
 
@@ -420,12 +410,6 @@ ListItem * List::select_previous()
 					previous = item;
 				}
 				current = current->next();
-			}
-
-			// If first reached, wrap to the last item
-			if (result == nullptr)
-			{
-				result = select_last();
 			}
 
 			if (result && result != sel)
