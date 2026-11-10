@@ -56,6 +56,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/shape/cross.cpp
 	src/pybind/shape/star.cpp
 	src/pybind/shape/line.cpp
+	src/pybind/shape/grid_shape.cpp
 	src/pybind/shape/marker.cpp
 	src/pybind/shape/pie.cpp
 	src/pybind/shape/polygon.cpp

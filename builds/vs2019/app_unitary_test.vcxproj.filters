@@ -51,6 +51,9 @@
     <ClCompile Include="..\..\test\shape\line_test.cpp">
       <Filter>test\shape</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\test\shape\grid_shape_test.cpp">
+      <Filter>test\shape</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\test\shape\marker_test.cpp">
       <Filter>test\shape</Filter>
     </ClCompile>

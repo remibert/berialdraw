@@ -488,6 +488,7 @@ void bind_polygon(py::module& m);
 void bind_marker(py::module& m);
 void bind_rect(py::module& m);
 void bind_line(py::module& m);
+void bind_grid_shape(py::module& m);
 void bind_circle(py::module& m);
 void bind_triangle(py::module& m);
 void bind_square(py::module& m);

@@ -70,6 +70,7 @@
 
 #include "shape/renderer.hpp"
 #include "shape/outline.hpp"
+#include "shape/grid_painter.hpp"
 
 #include "vector/region.hpp"
 #include "vector/clip_mask.hpp"

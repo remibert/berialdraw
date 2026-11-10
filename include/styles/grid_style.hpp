@@ -1,7 +1,7 @@
 #pragma once
 namespace berialdraw
 {
-	/** The GridStyle class specifies the appearance of grid lines, including colors and thickness. */
+	/** The GridStyle class specifies reusable grid-line appearance, including visibility, color, and thickness. */
 	class GridStyle : public Style
 	{
 	public:

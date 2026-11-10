@@ -1159,6 +1159,12 @@
     <ClCompile Include="..\..\src\shape\line.cpp">
       <Filter>berialdraw\shape\shape</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\shape\grid_shape.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shape\grid_painter.cpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\shape\marker.cpp">
       <Filter>berialdraw\shape\shape</Filter>
     </ClCompile>
@@ -2326,6 +2332,12 @@
       <Filter>berialdraw\shape\shape</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\shape\line.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\grid_shape.hpp">
+      <Filter>berialdraw\shape\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shape\grid_painter.hpp">
       <Filter>berialdraw\shape\shape</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\shape\marker.hpp">

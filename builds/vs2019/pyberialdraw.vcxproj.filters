@@ -128,6 +128,9 @@
     <ClCompile Include="..\..\pybind\src\pybind\shape\line.cpp">
       <Filter>pybind\shape</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\shape\grid_shape.cpp">
+      <Filter>pybind\shape</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\shape\marker.cpp">
       <Filter>pybind\shape</Filter>
     </ClCompile>

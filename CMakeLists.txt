@@ -143,6 +143,8 @@ set(SRCS_LIB
 	src/shape/shape.cpp
 	src/shape/circle.cpp
 	src/shape/line.cpp
+	src/shape/grid_shape.cpp
+	src/shape/grid_painter.cpp
 	src/shape/pie.cpp
 	src/shape/polygon.cpp
 	src/shape/vector_image.cpp

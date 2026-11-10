@@ -8,6 +8,7 @@ TableView::TableView(Widget * parent):
 	m_table_view_modified(1)
 {
 	UIManager::styles()->apply(this, (CommonStyle*)this);
+	UIManager::styles()->apply(this, (GridStyle*)this);
 	UIManager::styles()->apply(this, (TableViewStyle*)this);
 
 	// Create internal grid directly as a child of TableView
@@ -24,6 +25,7 @@ void TableView::serialize(JsonIterator& it)
 	it[StyleNames::WIDGET_TYPE] = m_classname;
 	CommonStyle::serialize(it);
 	WidgetStyle::serialize(it);
+	GridStyle::serialize(it);
 	TableViewStyle::serialize(it);
 }
 
@@ -32,6 +34,7 @@ void TableView::unserialize(JsonIterator& it)
 {
 	CommonStyle::unserialize(it);
 	WidgetStyle::unserialize(it);
+	GridStyle::unserialize(it);
 	TableViewStyle::unserialize(it);
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
@@ -135,110 +138,48 @@ void TableView::paint_grid_lines()
 		uint32_t line_color = grid_color();
 		Outline outline;
 		bool has_lines = false;
-
-		auto add_rectangle = [&outline, &visible_area, &has_lines](Area line_area)
+		struct CellGridLineData
 		{
-			line_area.nearest_pixel();
-			line_area.clip(visible_area);
-			if (line_area.is_not_empty())
+			const Cells* cells;
+			const Dim* positions;
+			Dim cell_count;
+			Dim thickness;
+			bool horizontal;
+		};
+
+		auto get_line_position = [](const void* context, Dim index) -> Coord
+		{
+			const CellGridLineData& data = *(const CellGridLineData*)context;
+			int64_t position;
+			if (index == 0)
 			{
-				Coord left = line_area.x_q6();
-				Coord top = line_area.y_q6();
-				Coord right = left + (Coord)line_area.width_q6();
-				Coord bottom = top + (Coord)line_area.height_q6();
-				outline.add_point(Point(left, top, false));
-				outline.add_point(Point(right, top, false));
-				outline.add_point(Point(right, bottom, false));
-				outline.add_point(Point(left, bottom, false));
-				outline.next_contour();
-				has_lines = true;
+				position = (int64_t)data.positions[0] - data.thickness;
 			}
+			else
+			{
+				Dim cell = index - 1;
+				Dim extent = data.horizontal ? data.cells->row_height(cell) : data.cells->column_width(cell);
+				position = (int64_t)data.positions[cell] + extent;
+				if (cell == data.cell_count - 1)
+				{
+					position = (position + 63) & ~INT64_C(63);
+				}
+			}
+			return (Coord)position;
 		};
 
 		if (row_positions && row_count > 0 && horizontal_thickness > 0)
 		{
-			Dim top_y = row_positions[0] - horizontal_thickness;
-			add_rectangle(Area(foreclip.x_q6(), (Coord)top_y, foreclip.width_q6(), horizontal_thickness, false));
-
-			auto horizontal_line_y = [this, row_positions, row_count](Dim row)
-			{
-				Dim line_y = row_positions[row] + m_grid->m_cells.row_height(row);
-				if (row == row_count - 1)
-				{
-					line_y = (line_y + 63) & 0xFFFFFFC0;
-				}
-				return (int64_t)line_y;
-			};
-
-			int64_t first_visible_y = (int64_t)visible_area.y_q6() - horizontal_thickness - 64;
-			int64_t last_visible_y = (int64_t)visible_area.y_q6() + visible_area.height_q6() + 64;
-			Dim first_row = 0;
-			Dim end_row = row_count;
-			while (first_row < end_row)
-			{
-				Dim middle = first_row + (end_row - first_row) / 2;
-				if (horizontal_line_y(middle) < first_visible_y)
-				{
-					first_row = middle + 1;
-				}
-				else
-				{
-					end_row = middle;
-				}
-			}
-
-			for (Dim row = first_row; row < row_count; row++)
-			{
-				int64_t line_y = horizontal_line_y(row);
-				if (line_y > last_visible_y)
-				{
-					break;
-				}
-				add_rectangle(Area(foreclip.x_q6(), (Coord)line_y, foreclip.width_q6(), horizontal_thickness, false));
-			}
+			CellGridLineData data = {&m_grid->m_cells, row_positions, row_count, horizontal_thickness, true};
+			has_lines = GridPainter::add_horizontal_lines(outline, visible_area, foreclip.x_q6(), foreclip.width_q6(),
+				horizontal_thickness, row_count + 1, &data, get_line_position) || has_lines;
 		}
 
 		if (col_positions && col_count > 0 && vertical_thickness > 0)
 		{
-			Dim left_x = col_positions[0] - vertical_thickness;
-			add_rectangle(Area((Coord)left_x, foreclip.y_q6(), vertical_thickness, foreclip.height_q6(), false));
-
-			auto vertical_line_x = [this, col_positions, col_count](Dim column)
-			{
-				Dim line_x = col_positions[column] + m_grid->m_cells.column_width(column);
-				if (column == col_count - 1)
-				{
-					line_x = (line_x + 63) & 0xFFFFFFC0;
-				}
-				return (int64_t)line_x;
-			};
-
-			int64_t first_visible_x = (int64_t)visible_area.x_q6() - vertical_thickness - 64;
-			int64_t last_visible_x = (int64_t)visible_area.x_q6() + visible_area.width_q6() + 64;
-			Dim first_column = 0;
-			Dim end_column = col_count;
-			while (first_column < end_column)
-			{
-				Dim middle = first_column + (end_column - first_column) / 2;
-				if (vertical_line_x(middle) < first_visible_x)
-				{
-					first_column = middle + 1;
-				}
-				else
-				{
-					end_column = middle;
-				}
-			}
-
-			for (Dim column = first_column; column < col_count; column++)
-			{
-				int64_t line_x = vertical_line_x(column);
-				if (line_x > last_visible_x)
-				{
-					break;
-				}
-				add_rectangle(Area((Coord)line_x, foreclip.y_q6(), vertical_thickness, foreclip.height_q6(), false));
-			}
+			CellGridLineData data = {&m_grid->m_cells, col_positions, col_count, vertical_thickness, false};
+			has_lines = GridPainter::add_vertical_lines(outline, visible_area, foreclip.y_q6(), foreclip.height_q6(),
+				vertical_thickness, col_count + 1, &data, get_line_position) || has_lines;
 		}
 
 		if (has_lines)

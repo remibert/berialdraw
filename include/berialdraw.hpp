@@ -136,6 +136,7 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "shape/polygon.hpp"
 #include "shape/poly_points.hpp"
 #include "shape/line.hpp"
+#include "shape/grid_shape.hpp"
 #include "shape/poly_lines.hpp"
 #include "shape/rect.hpp"
 #include "shape/rect_renderer.hpp"

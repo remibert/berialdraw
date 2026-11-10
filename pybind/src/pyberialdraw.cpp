@@ -78,6 +78,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_marker(m);
     bind_rect(m);
     bind_line(m);
+    bind_grid_shape(m);
     bind_circle(m);
     bind_triangle(m);
     bind_square(m);

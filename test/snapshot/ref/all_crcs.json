@@ -5146,7 +5146,7 @@
 		"$(ui.tests)/out/sample_picture_1.svg" : 
 		{
 			"scale_2" : 350519077,
-			"scale_1" : 3460665883
+			"scale_1" : 2530171902
 		},
 		"$(ui.tests)/out/label5_2.svg" : 
 		{
@@ -5510,5 +5510,13 @@
 		"$(ui.tests)/out/combo2_1.svg" : 
 		{
 			"scale_1" : 3090800726
+		},
+		"$(ui.tests)/out/grid_shape1.svg" : 
+		{
+			"scale_1" : 2795854248
+		},
+		"$(ui.tests)/out/sample_combo_1.svg" : 
+		{
+			"scale_1" : 1447421712
 		}
 	}

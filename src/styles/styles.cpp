@@ -359,6 +359,7 @@ template bool Styles::apply<ProgressBarStyle>(Widget* widget, ProgressBarStyle* 
 template bool Styles::apply<IconStyle>(Widget* widget, IconStyle* properties);
 template bool Styles::apply<ScrollViewStyle>(Widget* widget, ScrollViewStyle* properties);
 template bool Styles::apply<ScrollbarStyle>(Widget* widget, ScrollbarStyle* properties);
+template bool Styles::apply<GridStyle>(Widget* widget, GridStyle* properties);
 template bool Styles::apply<TableViewStyle>(Widget* widget, TableViewStyle* properties);
 template bool Styles::apply<TabViewStyle>(Widget* widget, TabViewStyle* properties);
 template bool Styles::apply<Mappings>(Widget* widget, Mappings* properties);
