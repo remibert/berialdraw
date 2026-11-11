@@ -189,11 +189,11 @@
     <ClCompile Include="..\..\test\widget\window_test.cpp">
       <Filter>test\widget</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\tool\test.cpp" />
+    <ClCompile Include="..\..\test\test.cpp" />
     <ClCompile Include="..\..\test\shape\image_test.cpp">
       <Filter>test\shape</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\test\main.cpp" />
     <ClCompile Include="..\..\test\widget\timer_test.cpp">
       <Filter>test\widget</Filter>
     </ClCompile>
@@ -210,6 +210,6 @@
     <Text Include="..\..\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\tool\test.hpp" />
+    <ClInclude Include="..\..\test\test.hpp" />
   </ItemGroup>
 </Project>

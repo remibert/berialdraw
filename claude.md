@@ -290,7 +290,7 @@ UIManager::notifier()->play_script(script, "$(ui.tests)/out/testname_%d.svg");
 ```
 
 ### Test orchestration
-- All `::test()` methods called from `src/tool/test.cpp` → `test_widget()`, `test_shape()`, etc.
+- All `::test()` methods called from `test/test.cpp` → `test_widget()`, `test_shape()`, etc.
 - `ScreenCrc` compares CRC32 of rendered outputs (out/ vs ref/)
 - Add new tests to the `#ifdef _DEBUG` block in the class header
 
@@ -503,7 +503,7 @@ uint32_t* ImageProcessor::resize_bicubic(...)
 | Image processing | `include/image/*.hpp`, `src/image/*.cpp` |
 | Style system | `include/styles/*.hpp`, `src/styles/*.cpp` |
 | Test files | `test/**/*_test.cpp` (naming: `test/widget/canvas_test.cpp`) |
-| Test orchestrator | `src/tool/test.cpp` |
+| Test orchestrator | `test/test.cpp` |
 | Tools / utilities | `include/tool/*.hpp`, `src/tool/*.cpp` |
 
 ---

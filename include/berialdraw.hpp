@@ -158,7 +158,6 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "chart/line_chart.hpp"
 
 // Tool
-#include "tool/test.hpp"
 #include "tool/exporter.hpp"
 #include "tool/svg_out.hpp"
 #include "tool/file.hpp"

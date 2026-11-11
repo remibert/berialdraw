@@ -1,5 +1,6 @@
 #include "berialdraw_imp.hpp"
 #include "samples/samples.hpp"
+#include "test.hpp"
 
 // Screen resolution
 #if 1

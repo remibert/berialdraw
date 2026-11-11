@@ -1,5 +1,6 @@
 #include "berialdraw_imp.hpp"
 #include "samples/samples.hpp"
+#include "test.hpp"
 #define ALL_TESTS
 namespace berialdraw
 {
@@ -14,8 +15,8 @@ namespace berialdraw
 		//UIManager::colors()->appearance("test_dark");
 
 #if defined(_DEBUG) && defined(ALL_TESTS)
-		TableView::test();
 		TabView::test();
+		TableView::test();
 
 		// Widget
 		Button::test();

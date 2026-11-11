@@ -43,7 +43,7 @@ foreach(test_source IN LISTS SRCS_TEST)
 	list(APPEND SRCS_TEST_DEBUG "$<$<CONFIG:Debug>:${test_source}>")
 endforeach()
 
-add_executable(${BD_APP_TEST} ../src/main.cpp ../src/tool/test.cpp ${SRCS_SAMPLE} ${SRCS_TEST_DEBUG})
+add_executable(${BD_APP_TEST} ../test/main.cpp ../test/test.cpp ${SRCS_SAMPLE} ${SRCS_TEST_DEBUG})
 target_include_directories(${BD_APP_TEST} PRIVATE ${INCLUDES_LIB})
 target_compile_definitions(${BD_APP_TEST} PRIVATE ${COMPILE_DEF})
 target_link_libraries(${BD_APP_TEST} PRIVATE ${BD_LIB} ${DEVICE_LIBRARIES})
