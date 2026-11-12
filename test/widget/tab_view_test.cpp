@@ -5,22 +5,23 @@ using namespace berialdraw;
 void TabView::test1()
 {
 	Window window;
-		window.position(0, 0);
+		// window.position(0, 0);
 		// window.size(320, 220);
 		window.color(Color::SNOW);
 
 	TabView * tabs = new TabView(&window);
+	Edit * second_page_edit = 0;
 		// tabs->size_policy(SizePolicy::ENLARGE_ALL);
-	assert(tabs->tab_direction() == TabViewStyle::TabDirection::TAB_HORIZONTAL);
-	tabs->tab_direction(TabViewStyle::TabDirection::TAB_VERTICAL);
-	assert(tabs->tab_direction() == TabViewStyle::TabDirection::TAB_VERTICAL);
-	tabs->tab_direction(TabViewStyle::TabDirection::TAB_HORIZONTAL);
-	// assert(tabs->tab_margin().top() == 10);
-	// assert(tabs->tab_margin().left() == 10);
-	// assert(tabs->tab_inter_margin().top() == 5);
-	// assert(tabs->tab_inter_margin().left() == 3);
-	// assert(tabs->tab_inter_margin().bottom() == 0);
-	// assert(tabs->tab_inter_margin().right() == 3);
+	// assert(tabs->tab_direction() == TabViewStyle::TabDirection::TAB_HORIZONTAL);
+	// tabs->tab_direction(TabViewStyle::TabDirection::TAB_VERTICAL);
+	// assert(tabs->tab_direction() == TabViewStyle::TabDirection::TAB_VERTICAL);
+	// tabs->tab_direction(TabViewStyle::TabDirection::TAB_HORIZONTAL);
+	assert(tabs->tab_margin().top() == 10);
+	assert(tabs->tab_margin().left() == 10);
+	assert(tabs->tab_inter_margin().top() == 5);
+	assert(tabs->tab_inter_margin().left() == 3);
+	assert(tabs->tab_inter_margin().bottom() == 0);
+	assert(tabs->tab_inter_margin().right() == 3);
 	// assert(tabs->thickness() == 1);
 	// assert(tabs->radius() == 0);
 	// assert(tabs->font_size().width() == 20);
@@ -37,27 +38,67 @@ void TabView::test1()
 		String title;
 		title.print("Tab %02u", (unsigned)(index + 1));
 		Pane * page = tabs->add_tab(title);
-		assert(page != 0);
-		Column * content = new Column(page);
-		Label * label = new Label(content);
-		label->text("Content for tab %02u", (unsigned)(index + 1));
+			assert(page != 0);
+			Column * content = new Column(page);
+				Label * label = new Label(content);
+					label->text("Content for tab %02u", (unsigned)(index + 1));
+
+
+				Edit * edit = new Edit(content);
+				edit->focusable(true);
+				if (index == 1)
+				{
+					second_page_edit = edit;
+				}
+				label = new Label(content);
+				label->text("next field");
+				edit = new Edit(content);
+				edit->focusable(true);
+
 	}
 
-	// assert(tabs->tab_count() == 12);
-	// assert(tabs->selected_index() == 0);
-	// assert(tabs->selected_page() == tabs->page(0));
-	// assert(tabs->page(0)->hidden() == false);
-	// assert(tabs->page(1)->hidden());
+	assert(tabs->tab_count() == 12);
+	assert(tabs->selected_index() == 0);
+	assert(tabs->selected_page() == tabs->page(0));
+	assert(tabs->page(0)->hidden() == false);
+	assert(tabs->page(1)->hidden());
 	// UIManager::desktop()->dispatch("$(ui.tests)/out/tab_view1_1.svg");
 
-	// assert(tabs->select(5));
-	// assert(tabs->selected_index() == 5);
-	// assert(tabs->selected_page() == tabs->page(5));
-	// assert(tabs->page(5)->hidden() == false);
-	// assert(tabs->page(0)->hidden());
+	assert(tabs->select(5));
+	assert(tabs->selected_index() == 5);
+	assert(tabs->selected_page() == tabs->page(5));
+	assert(tabs->page(5)->hidden() == false);
+	assert(tabs->page(0)->hidden());
 	// UIManager::desktop()->dispatch("$(ui.tests)/out/tab_view1_2.svg");
 
-	// assert(tabs->select(11));
+	assert(tabs->select(11));
+	assert(tabs->page(11)->hidden() == false);
+	assert(tabs->page(5)->hidden());
+	assert(tabs->select(12) == false);
+	assert(tabs->selected_index() == 11);
+	assert(tabs->select(0));
+
+	Widget * first_tab = tabs->search(0x20000000);
+	Widget * second_tab = tabs->search(0x20000001);
+	assert(first_tab != 0);
+	assert(second_tab != 0);
+	assert(second_page_edit != 0);
+	window.focus_to(first_tab);
+	UIManager::notifier()->key((wchar_t)ReservedKey::KEY_RIGHT, KeyEvent::KEY_DOWN);
+	UIManager::notifier()->dispatch();
+	assert(tabs->selected_index() == 1);
+	assert(second_tab->focused());
+	UIManager::notifier()->key((wchar_t)ReservedKey::KEY_TABULATION, KeyEvent::KEY_DOWN);
+	UIManager::notifier()->dispatch();
+	assert(second_page_edit->focused());
+	assert(tabs->selected_index() == 1);
+	UIManager::notifier()->key((wchar_t)ReservedKey::KEY_TABULATION, KeyEvent::KEY_DOWN, KeyEvent::MODIFIER_SHIFT);
+	UIManager::notifier()->dispatch();
+	assert(second_tab->focused());
+	UIManager::notifier()->key((wchar_t)ReservedKey::KEY_LEFT, KeyEvent::KEY_DOWN);
+	UIManager::notifier()->dispatch();
+	assert(tabs->selected_index() == 0);
+	assert(first_tab->focused());
 	// UIManager::desktop()->dispatch("$(ui.tests)/out/tab_view1_3.svg");
  UIManager::desktop()->mainloop();
 

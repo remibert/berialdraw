@@ -8,8 +8,6 @@ enum TabId
 	FIRST_PAGE = 0x40000000,
 };
 
-
-
 // Create a tab view.
 TabView::TabView(Widget * parent):
 	Widget("tab_view", parent, sizeof(TabView))
@@ -20,23 +18,25 @@ TabView::TabView(Widget * parent):
 	UIManager::styles()->apply(this, (TextStyle *)this);
 	UIManager::styles()->apply(this, (BorderStyle *)this);
 	UIManager::styles()->apply(this, (TabViewStyle *)this);
-	m_tab_layout = new Grid(parent);
+	m_tab_layout = new Grid(this);
 	m_scroll_tab  = new ScrollView(m_tab_layout);
 	m_tabs = new Grid(m_scroll_tab);
-		if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
-		{
-			m_scroll_tab->scroll_direction(ScrollDirection::SCROLL_HORIZONTAL);
-			m_scroll_tab->align(Align::ALIGN_LEFT);
-			m_scroll_tab->cell(0,0);
-		}
-		else
-		{
-			m_scroll_tab->scroll_direction(ScrollDirection::SCROLL_VERTICAL);
-			m_scroll_tab->align(Align::ALIGN_TOP);
-			m_scroll_tab->cell(0,0);
-
-		}
-		m_scroll_tab->scrollbar_visible(false);
+	if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
+	{
+		m_scroll_tab->scroll_direction(ScrollDirection::SCROLL_HORIZONTAL);
+		m_scroll_tab->align(Align::ALIGN_LEFT);
+		m_scroll_tab->cell(0,0);
+	}
+	else
+	{
+		m_scroll_tab->scroll_direction(ScrollDirection::SCROLL_VERTICAL);
+		m_scroll_tab->align(Align::ALIGN_TOP);
+		m_scroll_tab->cell(0,0);
+	}
+	m_scroll_tab->margin(m_tab_margin);
+	m_scroll_tab->scrollbar_visible(false);
+	m_focusable = false;
+	bind(this, &TabView::on_key_tab);
 }
 
 // Destroy the tab view.
@@ -47,7 +47,27 @@ TabView::~TabView()
 /** Update tab */
 void TabView::update_tabs()
 {
-	if (m_tab_direction != m_tab_previous_direction)
+	bool direction_changed = m_tab_direction != m_tab_previous_direction;
+	bool tab_margin_changed = m_tab_margin != m_previous_tab_margin;
+	bool inter_margin_changed = m_tab_inter_margin != m_previous_tab_inter_margin;
+	bool horizontal_style_changed = m_previous_tab_align != align() ||
+		m_previous_tab_text_align != text_align();
+	bool vertical_style_changed = m_previous_vertical_tab_align != m_tab_vertical_align ||
+		m_previous_vertical_tab_text_align != m_tab_vertical_text_align;
+	bool color_style_changed = m_tab_button_style_initialized == false ||
+		m_previous_tab_color != color() || m_previous_tab_text_color != text_color() ||
+		m_previous_tab_selected_color != tab_selected_color() ||
+		m_previous_tab_selected_text_color != tab_selected_text_color() ||
+		m_previous_tab_selected_color_defined != has_tab_selected_color() ||
+		m_previous_tab_selected_text_color_defined != has_tab_selected_text_color() ||
+		m_previous_tab_vertical_borders != tab_vertical_borders() ||
+		m_previous_tab_vertical_borders_defined != has_tab_vertical_borders();
+	bool vertical_borders_changed = m_previous_tab_vertical_borders != tab_vertical_borders() ||
+		m_previous_tab_vertical_borders_defined != has_tab_vertical_borders();
+	bool changed = direction_changed || tab_margin_changed || inter_margin_changed ||
+		horizontal_style_changed || vertical_style_changed || color_style_changed || vertical_borders_changed;
+
+	if (direction_changed)
 	{
 		if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
 		{
@@ -62,51 +82,308 @@ void TabView::update_tabs()
 		m_scroll_tab->scrollbar_visible(false);
 		m_tab_previous_direction = m_tab_direction;
 	}
-}
+	if (tab_margin_changed)
+	{
+		m_scroll_tab->margin(m_tab_margin);
+		m_previous_tab_margin = m_tab_margin;
+	}
+	if (inter_margin_changed)
+	{
+		m_previous_tab_inter_margin = m_tab_inter_margin;
+	}
+	if (horizontal_style_changed)
+	{
+		m_previous_tab_align = align();
+		m_previous_tab_text_align = text_align();
+	}
+	if (vertical_style_changed)
+	{
+		m_previous_vertical_tab_align = m_tab_vertical_align;
+		m_previous_vertical_tab_text_align = m_tab_vertical_text_align;
+	}
+	if (color_style_changed)
+	{
+		m_previous_tab_color = color();
+		m_previous_tab_text_color = text_color();
+		m_previous_tab_selected_color = tab_selected_color();
+		m_previous_tab_selected_text_color = tab_selected_text_color();
+		m_previous_tab_vertical_borders = tab_vertical_borders();
+		m_previous_tab_selected_color_defined = has_tab_selected_color();
+		m_previous_tab_selected_text_color_defined = has_tab_selected_text_color();
+		m_previous_tab_vertical_borders_defined = has_tab_vertical_borders();
+		m_tab_button_style_initialized = true;
+	}
 
+	if (changed)
+	{
+		// Reflow the existing tab buttons and pages after a style change.
+		for (Dim index = 0; index < m_tab_id; index++)
+		{
+			Button * title = tab_button(index);
+			Pane * tab_page = page(index);
+			if (title)
+			{
+				if (direction_changed)
+				{
+					if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
+					{
+						title->cell(0, index);
+					}
+					else
+					{
+						title->cell(index, 0);
+					}
+				}
+				if (inter_margin_changed)
+				{
+					title->margin(m_tab_inter_margin);
+				}
+				if (direction_changed || horizontal_style_changed || vertical_style_changed)
+				{
+					if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
+					{
+						title->align(align());
+						title->text_align(text_align());
+					}
+					else
+					{
+						title->align(m_tab_vertical_align);
+						title->text_align(m_tab_vertical_text_align);
+					}
+				}
+				if (color_style_changed)
+				{
+					bool selected = index == m_selected_index;
+					title->color(selected && has_tab_selected_color() ? tab_selected_color() : color());
+					title->text_color(selected && has_tab_selected_text_color() ? tab_selected_text_color() : text_color());
+				}
+				if (direction_changed || vertical_borders_changed)
+				{
+					title->borders(m_tab_direction == TabDirection::TAB_VERTICAL && has_tab_vertical_borders() ?
+						tab_vertical_borders() : (Borders)borders());
+				}
+			}
+			if (tab_page && direction_changed)
+			{
+				if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
+				{
+					tab_page->cell(1, 0);
+				}
+				else
+				{
+					tab_page->cell(0, 1);
+				}
+			}
+		}
+		UIManager::invalidator()->dirty(m_tab_layout, Invalidator::GEOMETRY);
+	}
+}
 
 // Create a tab and its page, returning the page owned by this TabView.
 Pane * TabView::add_tab(const String & title)
 {
-	// dump(m_tab_layout);
+	Dim index = m_tab_id++;
 	Pane * result = new Pane(m_tab_layout);
-	if (result)
+	result->id(FIRST_PAGE + index);
+	if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
 	{
-		result->id(FIRST_PAGE+m_tab_id);
-		if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
-		{
-			result->cell(1, 0);
-		}
-		else
-		{
-			result->cell(0, 1);
-		}
+		result->cell(1, 0);
+	}
+	else
+	{
+		result->cell(0, 1);
 	}
 	result->hidden(true);
+	result->size_policy(SizePolicy::ENLARGE_ALL);
 
 	Button * tab_title = new Button(m_tabs);
 	if (tab_title)
 	{
-		// tab_title->CommonStyle::set(*this);
-		// tab_title->WidgetStyle::set(*this);
-		// tab_title->BorderStyle::set(*this);
-		// tab_title->TextStyle::set(*this);
-		// tab_title->PaddingStyle::set(*this);
+		// Copy visual properties only; container geometry and visibility stay local to TabView.
+		tab_title->color(color());
+		tab_title->borders(borders());
+		tab_title->pressable(pressable());
+		tab_title->enabled(enabled());
+		tab_title->BorderStyle::set(*this);
+		tab_title->borders(m_tab_direction == TabDirection::TAB_VERTICAL && has_tab_vertical_borders() ?
+			tab_vertical_borders() : (Borders)borders());
+		tab_title->TextStyle::set(*this);
+		tab_title->PaddingStyle::set(*this);
 		tab_title->text(title);
-
-		tab_title->id(FIRST_TAB+m_tab_id);
+		tab_title->id(FIRST_TAB + index);
+		tab_title->focusable(false);
+		tab_title->margin(m_tab_inter_margin);
 		if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
 		{
-			tab_title->cell(0, m_tab_id++);
+			tab_title->cell(0, index);
+			tab_title->align(align());
+			tab_title->text_align(text_align());
 		}
 		else
 		{
-			tab_title->cell(m_tab_id++, 0);
+			tab_title->cell(index, 0);
+			tab_title->align(m_tab_vertical_align);
+			tab_title->text_align(m_tab_vertical_text_align);
+		}
+		tab_title->bind(this, &TabView::on_click_tab);
+	}
+	if (m_selected_index == UNDEFINED_INDEX)
+	{
+		select_tab(index, false);
+	}
+	return result;
+}
+
+// Get a page by its tab index.
+Pane * TabView::page(Dim index) const
+{
+	Pane * result = 0;
+	if (m_tab_layout && index < m_tab_id)
+	{
+		result = dynamic_cast<Pane *>(m_tab_layout->search(FIRST_PAGE + index));
+	}
+	return result;
+}
+
+// Get the selected page.
+Pane * TabView::selected_page() const
+{
+	return page(m_selected_index);
+}
+
+// Get a tab button by its index.
+Button * TabView::tab_button(Dim index) const
+{
+	Button * result = 0;
+	if (m_tabs && index < m_tab_id)
+	{
+		result = dynamic_cast<Button *>(m_tabs->search(FIRST_TAB + index));
+	}
+	return result;
+}
+
+// Select a tab by its index.
+bool TabView::select(Dim index)
+{
+	return select_tab(index, false);
+}
+
+// Check whether a widget or one of its descendants has focus.
+bool TabView::contains_focus(Widget * widget) const
+{
+	bool result = false;
+	if (widget)
+	{
+		result = widget->focused();
+		Widget * child = widget->children();
+		while (child && result == false)
+		{
+			result = contains_focus(child);
+			child = child->next();
 		}
 	}
 	return result;
 }
 
+// Select a tab and optionally move focus to its button.
+bool TabView::select_tab(Dim index, bool focus_tab)
+{
+	bool result = false;
+	Pane * new_page = page(index);
+	Button * new_button = tab_button(index);
+	if (new_page && new_button)
+	{
+		result = true;
+		if (index == m_selected_index)
+		{
+			new_page->hidden(false);
+			if (focus_tab && new_button->focused() == false)
+			{
+				new_button->focus_to(new_button);
+			}
+		}
+		else
+		{
+			Pane * old_page = selected_page();
+			Button * old_button = tab_button(m_selected_index);
+			bool move_focus = focus_tab || contains_focus(old_page) ||
+				(old_button && old_button->focused());
+
+			if (old_page)
+			{
+				old_page->hidden(true);
+			}
+			new_page->hidden(false);
+			m_selected_index = index;
+
+			for (Dim tab = 0; tab < m_tab_id; tab++)
+			{
+				Button * button = tab_button(tab);
+				if (button)
+				{
+					bool selected = tab == index;
+					button->focusable(selected);
+					button->selected(selected);
+					button->color(selected && has_tab_selected_color() ? tab_selected_color() : color());
+					button->text_color(selected && has_tab_selected_text_color() ? tab_selected_text_color() : text_color());
+				}
+			}
+			if (move_focus)
+			{
+				new_button->focus_to(new_button);
+			}
+			UIManager::invalidator()->dirty(m_tab_layout, Invalidator::GEOMETRY);
+		}
+	}
+	return result;
+}
+
+// Handle a click on a tab button.
+void TabView::on_click_tab(Widget * widget, const ClickEvent &)
+{
+	if (widget && widget->id() >= FIRST_TAB)
+	{
+		Dim index = widget->id() - FIRST_TAB;
+		select_tab(index, widget->focused() == false);
+	}
+}
+
+// Handle keyboard navigation while the active tab button has focus.
+void TabView::on_key_tab(Widget *, const KeyEvent & evt)
+{
+	if (evt.state() == KeyEvent::KEY_DOWN && m_selected_index != UNDEFINED_INDEX && m_tab_id > 1)
+	{
+		Button * active_button = tab_button(m_selected_index);
+		bool previous = false;
+		bool next = false;
+		if (active_button && active_button->focused())
+		{
+			if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
+			{
+				previous = evt.key() == (wchar_t)ReservedKey::KEY_LEFT;
+				next = evt.key() == (wchar_t)ReservedKey::KEY_RIGHT;
+			}
+			else
+			{
+				previous = evt.key() == (wchar_t)ReservedKey::KEY_UP;
+				next = evt.key() == (wchar_t)ReservedKey::KEY_DOWN;
+			}
+		}
+		if (previous || next)
+		{
+			Dim target = m_selected_index;
+			if (previous)
+			{
+				target = target == 0 ? m_tab_id - 1 : target - 1;
+			}
+			else
+			{
+				target = target + 1 == m_tab_id ? 0 : target + 1;
+			}
+			select_tab(target, true);
+		}
+	}
+}
 
 // Serialize the widget and its children.
 void TabView::serialize(JsonIterator & it)
@@ -130,6 +407,7 @@ void TabView::unserialize(JsonIterator & it)
 	TextStyle::unserialize(it);
 	BorderStyle::unserialize(it);
 	TabViewStyle::unserialize(it);
+	focusable(false);
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
@@ -143,33 +421,7 @@ StyleCascadeMode TabView::style_cascade_mode() const
 void TabView::place(const Area & area, bool in_layout)
 {
 	update_tabs();
-
-
 	compute_widget_placement(area, in_layout, 0, true);
-}
-
-// Handle a focus event
-void TabView::on_focus_event(Widget * widget, const FocusEvent & evt)
-{
-	Widget * window = widget->root();
-
-	if (window)
-	{
-		uint16_t id;
-		for (id = 100; id < 110; id++)
-		{
-			Widget * page = window->search(id);
-			if (page)
-			{
-				if (widget->id() + 100 == page->id())
-				{
-					page->hidden(false);
-				}
-				else
-				{
-					page->hidden(true);
-				}
-			}
-		}
-	}
+	UIManager::invalidator()->dirty(m_tab_layout, Invalidator::GEOMETRY);
+	m_tab_layout->layout(m_contentclip, true);
 }

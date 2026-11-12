@@ -79,3 +79,9 @@ Dim Grid::column_count() const
 	return m_cells.column_count();
 }
 
+// Place the grid and its cells in the specified area.
+void Grid::layout(const Area & area, bool in_layout)
+{
+	place(area, in_layout);
+}
+

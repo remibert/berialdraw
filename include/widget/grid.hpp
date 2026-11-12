@@ -2,6 +2,7 @@
 namespace berialdraw
 {
 	class TableView;
+	class TabView;
 
 	/** The Grid class arranges child widgets in a grid, enabling precise alignment and consistent spacing. 
 	It is ideal for forms, tables, or structured UI designs. */
@@ -31,6 +32,9 @@ namespace berialdraw
 
 		/** Get the number of columns */
 		Dim column_count() const;
+
+		/** Place the grid and its cells in the specified area. */
+		void layout(const Area & area, bool in_layout);
 
 #ifdef _DEBUG
 		static void test();

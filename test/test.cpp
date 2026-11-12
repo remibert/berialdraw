@@ -15,6 +15,7 @@ namespace berialdraw
 		//UIManager::colors()->appearance("test_dark");
 
 #if defined(_DEBUG) && defined(ALL_TESTS)
+		// Button::test();
 		TabView::test();
 		TableView::test();
 
