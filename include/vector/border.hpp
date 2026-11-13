@@ -34,8 +34,14 @@ namespace berialdraw
 
 	/** Unserialize the content of border from json */
 	void unserialize(JsonIterator & it, Borders & border);
+
+	/** Unserialize a named border value from json. */
+	void unserialize(const char * name, JsonIterator & it, Borders & border);
 	
 	/** Serialize the content of border into json */
 	void serialize(JsonIterator & it, Borders border);
+
+	/** Serialize a named border value into json. */
+	void serialize(const char * name, JsonIterator & it, Borders border);
 
 }

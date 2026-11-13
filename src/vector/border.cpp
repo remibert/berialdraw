@@ -16,7 +16,13 @@ namespace berialdraw
 	/** Unserialize the content of extend from json */
 	void unserialize(JsonIterator & it, Borders & borders)
 	{
-		String str = it[StyleNames::WIDGET_BORDERS] | "nothing";
+		unserialize(StyleNames::WIDGET_BORDERS, it, borders);
+	}
+
+	/** Unserialize a named border value from json. */
+	void unserialize(const char * name, JsonIterator & it, Borders & borders)
+	{
+		String str = it[name] | "nothing";
 	
 		if (str != "nothing")
 		{
@@ -64,6 +70,12 @@ namespace berialdraw
 	/** Serialize the content of extend into json */
 	void serialize(JsonIterator & it, Borders borders)
 	{
+		serialize(StyleNames::WIDGET_BORDERS, it, borders);
+	}
+
+	/** Serialize a named border value into json. */
+	void serialize(const char * name, JsonIterator & it, Borders borders)
+	{
 		String value;
 		switch(borders &ALL_BORDERS)
 		{
@@ -101,7 +113,7 @@ namespace berialdraw
 		{
 			value = value + ",right-angle-without-border";
 		}
-		it[StyleNames::WIDGET_BORDERS] = value;
+		it[name] = value;
 	}
 }
 

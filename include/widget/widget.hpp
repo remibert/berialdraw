@@ -165,7 +165,8 @@ namespace berialdraw
 		uint32_t parent_focus_color(uint32_t color, uint8_t alpha);
 
 		/** Paint the widget background */
-		void paint_background(Area& rectclip, const CommonStyle& common_style, const BorderStyle& border_style);
+		void paint_background(Area& rectclip, const CommonStyle& common_style,
+			const BorderStyle& border_style, bool selected_state = false);
 
 		/** Set the focus on this widget if it focusable */
 		virtual void focus_to(Widget * widget);

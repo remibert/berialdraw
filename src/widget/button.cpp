@@ -133,7 +133,7 @@ void Button::paint(const Region & parent_region)
 	{
 		UIManager::renderer()->region(region);
 
-		paint_background(m_foreclip, *(CommonStyle*)this, *(BorderStyle*)this);
+		paint_background(m_foreclip, *(CommonStyle*)this, *(BorderStyle*)this, selected());
 
 		// Paint children
 		Widget::paint(region);
@@ -144,7 +144,8 @@ void Button::paint(const Region & parent_region)
 
 		UIManager::renderer()->region(region);
 
-		m_text_box.paint(*m_font.get(), m_text, m_text_foreclip.position(), m_contentclip, stated_color(m_text_color));
+		m_text_box.paint(*m_font.get(), m_text, m_text_foreclip.position(), m_contentclip,
+			stated_color(m_text_color, focused() || selected()));
 	}
 }
 

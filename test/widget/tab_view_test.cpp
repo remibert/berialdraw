@@ -2,6 +2,64 @@
 using namespace berialdraw;
 
 #ifdef _DEBUG
+void TabView::test2()
+{
+	Window window;
+	TabView * tabs = new TabView(&window);
+	tabs->align(Align::ALIGN_RIGHT);
+	tabs->text_align(Align::ALIGN_LEFT);
+	tabs->tab_horizontal_borders(TOP_BORDER);
+	tabs->tab_vertical_borders(LEFT_BORDER);
+	tabs->add_tab("First");
+	tabs->add_tab("Second");
+	tabs->add_tab("Third");
+	tabs->tab_button(0)->align(Align::ALIGN_LEFT);
+	tabs->tab_button(0)->text_align(Align::ALIGN_RIGHT);
+	tabs->tab_button(0)->borders(BOTTOM_BORDER);
+	tabs->tab_horizontal_borders(RIGHT_BORDER);
+	tabs->add_tab("Fourth");
+	assert(tabs->tab_count() == 4);
+	assert(tabs->selected_index() == 0);
+	assert(tabs->tab_button(0)->align() == Align::ALIGN_LEFT);
+	assert(tabs->tab_button(0)->text_align() == Align::ALIGN_RIGHT);
+	assert(tabs->tab_button(0)->borders() == BOTTOM_BORDER);
+	assert(tabs->tab_button(1)->borders() == TOP_BORDER);
+	assert(tabs->tab_button(2)->borders() == TOP_BORDER);
+	assert(tabs->tab_button(3)->borders() == RIGHT_BORDER);
+	assert(tabs->align() == Align::ALIGN_RIGHT);
+	assert(tabs->text_align() == Align::ALIGN_LEFT);
+
+	assert(tabs->select(2));
+	assert(tabs->tab_button(0)->align() == Align::ALIGN_LEFT);
+	assert(tabs->tab_button(0)->text_align() == Align::ALIGN_RIGHT);
+	assert(tabs->tab_button(0)->borders() == BOTTOM_BORDER);
+	assert(tabs->remove_tab(1));
+	assert(tabs->tab_count() == 3);
+	assert(tabs->selected_index() == 1);
+	assert(tabs->page(1) != 0);
+	assert(tabs->page(1)->hidden() == false);
+	assert(tabs->tab_button(1)->text() == "Third");
+
+	assert(tabs->remove_tab(String("Third")));
+	assert(tabs->tab_count() == 2);
+	assert(tabs->selected_index() == 1);
+	assert(tabs->page(1)->hidden() == false);
+	assert(tabs->remove_tab(0));
+	assert(tabs->tab_count() == 1);
+	assert(tabs->selected_index() == 0);
+	assert(tabs->remove_tab(String("Fourth")));
+	assert(tabs->tab_count() == 0);
+	assert(tabs->selected_index() == UNDEFINED_INDEX);
+	assert(tabs->remove_tab(0) == false);
+	assert(tabs->remove_tab(String("Missing")) == false);
+
+	tabs->tab_direction(TabDirection::TAB_VERTICAL);
+	tabs->add_tab("After removal");
+	assert(tabs->tab_count() == 1);
+	assert(tabs->selected_index() == 0);
+	assert(tabs->tab_button(0)->borders() == LEFT_BORDER);
+}
+
 void TabView::test1()
 {
 	Window window;
@@ -123,6 +181,7 @@ void TabView::test()
 	{
 		MemoryLeakLog
 		done = true;
+		// test2();
 		test1();
 	}
 }

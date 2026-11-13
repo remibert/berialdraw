@@ -12,12 +12,12 @@ enum TabId
 TabView::TabView(Widget * parent):
 	Widget("tab_view", parent, sizeof(TabView))
 {
+	UIManager::styles()->apply(this, (TabViewStyle *)this);
 	UIManager::styles()->apply(this, (CommonStyle *)this);
 	UIManager::styles()->apply(this, (WidgetStyle *)this);
 	UIManager::styles()->apply(this, (PaddingStyle *)this);
 	UIManager::styles()->apply(this, (TextStyle *)this);
 	UIManager::styles()->apply(this, (BorderStyle *)this);
-	UIManager::styles()->apply(this, (TabViewStyle *)this);
 	m_tab_layout = new Grid(this);
 	m_scroll_tab  = new ScrollView(m_tab_layout);
 	m_tabs = new Grid(m_scroll_tab);
@@ -47,26 +47,35 @@ TabView::~TabView()
 /** Update tab */
 void TabView::update_tabs()
 {
-	bool direction_changed = m_tab_direction != m_tab_previous_direction;
+	bool direction_changed = m_tab_direction != m_previous_tab_direction;
 	bool tab_margin_changed = m_tab_margin != m_previous_tab_margin;
 	bool inter_margin_changed = m_tab_inter_margin != m_previous_tab_inter_margin;
-	bool horizontal_style_changed = m_previous_tab_align != align() ||
-		m_previous_tab_text_align != text_align();
-	bool vertical_style_changed = m_previous_vertical_tab_align != m_tab_vertical_align ||
-		m_previous_vertical_tab_text_align != m_tab_vertical_text_align;
-	bool color_style_changed = m_tab_button_style_initialized == false ||
-		m_previous_tab_color != color() || m_previous_tab_text_color != text_color() ||
-		m_previous_tab_selected_color != tab_selected_color() ||
-		m_previous_tab_selected_text_color != tab_selected_text_color() ||
-		m_previous_tab_selected_color_defined != has_tab_selected_color() ||
-		m_previous_tab_selected_text_color_defined != has_tab_selected_text_color() ||
-		m_previous_tab_vertical_borders != tab_vertical_borders() ||
-		m_previous_tab_vertical_borders_defined != has_tab_vertical_borders();
-	bool vertical_borders_changed = m_previous_tab_vertical_borders != tab_vertical_borders() ||
-		m_previous_tab_vertical_borders_defined != has_tab_vertical_borders();
-	bool changed = direction_changed || tab_margin_changed || inter_margin_changed ||
-		horizontal_style_changed || vertical_style_changed || color_style_changed || vertical_borders_changed;
 
+	if (direction_changed || tab_margin_changed)
+	{
+		update_tab_scroll(direction_changed, tab_margin_changed);
+	}
+	if (inter_margin_changed)
+	{
+		for (Dim index = 0; index < m_tab_id; index++)
+		{
+			Button * title = tab_button(index);
+			if (title)
+			{
+				title->margin(m_tab_inter_margin);
+			}
+		}
+		m_previous_tab_inter_margin = m_tab_inter_margin;
+	}
+	if (direction_changed)
+	{
+		reflow_tabs();
+	}
+}
+
+// Update the tab bar scroll settings.
+void TabView::update_tab_scroll(bool direction_changed, bool tab_margin_changed)
+{
 	if (direction_changed)
 	{
 		if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
@@ -80,103 +89,46 @@ void TabView::update_tabs()
 			m_scroll_tab->align(Align::ALIGN_TOP);
 		}
 		m_scroll_tab->scrollbar_visible(false);
-		m_tab_previous_direction = m_tab_direction;
+		m_previous_tab_direction = m_tab_direction;
 	}
 	if (tab_margin_changed)
 	{
 		m_scroll_tab->margin(m_tab_margin);
 		m_previous_tab_margin = m_tab_margin;
 	}
-	if (inter_margin_changed)
-	{
-		m_previous_tab_inter_margin = m_tab_inter_margin;
-	}
-	if (horizontal_style_changed)
-	{
-		m_previous_tab_align = align();
-		m_previous_tab_text_align = text_align();
-	}
-	if (vertical_style_changed)
-	{
-		m_previous_vertical_tab_align = m_tab_vertical_align;
-		m_previous_vertical_tab_text_align = m_tab_vertical_text_align;
-	}
-	if (color_style_changed)
-	{
-		m_previous_tab_color = color();
-		m_previous_tab_text_color = text_color();
-		m_previous_tab_selected_color = tab_selected_color();
-		m_previous_tab_selected_text_color = tab_selected_text_color();
-		m_previous_tab_vertical_borders = tab_vertical_borders();
-		m_previous_tab_selected_color_defined = has_tab_selected_color();
-		m_previous_tab_selected_text_color_defined = has_tab_selected_text_color();
-		m_previous_tab_vertical_borders_defined = has_tab_vertical_borders();
-		m_tab_button_style_initialized = true;
-	}
+}
 
-	if (changed)
+// Reposition the existing tabs and pages after a direction change.
+void TabView::reflow_tabs()
+{
+	for (Dim index = 0; index < m_tab_id; index++)
 	{
-		// Reflow the existing tab buttons and pages after a style change.
-		for (Dim index = 0; index < m_tab_id; index++)
+		Button * title = tab_button(index);
+		Pane * tab_page = page(index);
+		if (title)
 		{
-			Button * title = tab_button(index);
-			Pane * tab_page = page(index);
-			if (title)
+			if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
 			{
-				if (direction_changed)
-				{
-					if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
-					{
-						title->cell(0, index);
-					}
-					else
-					{
-						title->cell(index, 0);
-					}
-				}
-				if (inter_margin_changed)
-				{
-					title->margin(m_tab_inter_margin);
-				}
-				if (direction_changed || horizontal_style_changed || vertical_style_changed)
-				{
-					if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
-					{
-						title->align(align());
-						title->text_align(text_align());
-					}
-					else
-					{
-						title->align(m_tab_vertical_align);
-						title->text_align(m_tab_vertical_text_align);
-					}
-				}
-				if (color_style_changed)
-				{
-					bool selected = index == m_selected_index;
-					title->color(selected && has_tab_selected_color() ? tab_selected_color() : color());
-					title->text_color(selected && has_tab_selected_text_color() ? tab_selected_text_color() : text_color());
-				}
-				if (direction_changed || vertical_borders_changed)
-				{
-					title->borders(m_tab_direction == TabDirection::TAB_VERTICAL && has_tab_vertical_borders() ?
-						tab_vertical_borders() : (Borders)borders());
-				}
+				title->cell(0, index);
 			}
-			if (tab_page && direction_changed)
+			else
 			{
-				if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
-				{
-					tab_page->cell(1, 0);
-				}
-				else
-				{
-					tab_page->cell(0, 1);
-				}
+				title->cell(index, 0);
 			}
 		}
-		UIManager::invalidator()->dirty(m_tab_layout, Invalidator::GEOMETRY);
+		if (tab_page)
+		{
+			if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
+			{
+				tab_page->cell(1, 0);
+			}
+			else
+			{
+				tab_page->cell(0, 1);
+			}
+		}
 	}
+	UIManager::invalidator()->dirty(m_tab_layout, Invalidator::GEOMETRY);
 }
 
 // Create a tab and its page, returning the page owned by this TabView.
@@ -199,37 +151,120 @@ Pane * TabView::add_tab(const String & title)
 	Button * tab_title = new Button(m_tabs);
 	if (tab_title)
 	{
-		// Copy visual properties only; container geometry and visibility stay local to TabView.
-		tab_title->color(color());
-		tab_title->borders(borders());
-		tab_title->pressable(pressable());
-		tab_title->enabled(enabled());
-		tab_title->BorderStyle::set(*this);
-		tab_title->borders(m_tab_direction == TabDirection::TAB_VERTICAL && has_tab_vertical_borders() ?
-			tab_vertical_borders() : (Borders)borders());
-		tab_title->TextStyle::set(*this);
-		tab_title->PaddingStyle::set(*this);
+		// The Button owns its visual style; TabView supplies creation-time border defaults.
 		tab_title->text(title);
 		tab_title->id(FIRST_TAB + index);
 		tab_title->focusable(false);
 		tab_title->margin(m_tab_inter_margin);
+		tab_title->borders(m_tab_direction == TabDirection::TAB_HORIZONTAL ?
+			tab_horizontal_borders() : tab_vertical_borders());
 		if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
 		{
 			tab_title->cell(0, index);
-			tab_title->align(align());
-			tab_title->text_align(text_align());
 		}
 		else
 		{
 			tab_title->cell(index, 0);
-			tab_title->align(m_tab_vertical_align);
-			tab_title->text_align(m_tab_vertical_text_align);
 		}
 		tab_title->bind(this, &TabView::on_click_tab);
 	}
 	if (m_selected_index == UNDEFINED_INDEX)
 	{
 		select_tab(index, false);
+	}
+	return result;
+}
+
+// Remove a tab by its index.
+bool TabView::remove_tab(Dim index)
+{
+	bool result = false;
+	if (index < m_tab_id)
+	{
+		result = true;
+		Button * title = tab_button(index);
+		Pane * tab_page = page(index);
+		bool was_selected = index == m_selected_index;
+		bool tab_has_focus = contains_focus(tab_page) || (title && title->focused());
+		Dim replacement_index = UNDEFINED_INDEX;
+
+		// Move focus and selection before deleting the active tab.
+		if (was_selected && m_tab_id > 1)
+		{
+			replacement_index = index + 1 < m_tab_id ? index + 1 : index - 1;
+			select_tab(replacement_index, tab_has_focus);
+		}
+		else if (was_selected == false && tab_has_focus && m_selected_index != UNDEFINED_INDEX)
+		{
+			select_tab(m_selected_index, true);
+		}
+
+		// Delete the page and its corresponding tab button.
+		if (tab_page)
+		{
+			delete tab_page;
+		}
+		if (title)
+		{
+			delete title;
+		}
+
+		// Keep tab ids and grid cells contiguous after the removal.
+		for (Dim tab = index + 1; tab < m_tab_id; tab++)
+		{
+			Button * shifted_title = tab_button(tab);
+			Pane * shifted_page = page(tab);
+			if (shifted_title)
+			{
+				shifted_title->id(FIRST_TAB + tab - 1);
+				if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
+				{
+					shifted_title->cell(0, tab - 1);
+				}
+				else
+				{
+					shifted_title->cell(tab - 1, 0);
+				}
+			}
+			if (shifted_page)
+			{
+				shifted_page->id(FIRST_PAGE + tab - 1);
+			}
+		}
+		m_tab_id--;
+
+		// Retain the same selected tab, adjusting its index when necessary.
+		if (was_selected)
+		{
+			if (replacement_index == UNDEFINED_INDEX)
+			{
+				m_selected_index = UNDEFINED_INDEX;
+			}
+			else
+			{
+				m_selected_index = replacement_index > index ? replacement_index - 1 : replacement_index;
+			}
+		}
+		else if (index < m_selected_index)
+		{
+			m_selected_index--;
+		}
+		UIManager::invalidator()->dirty(m_tab_layout, Invalidator::GEOMETRY);
+	}
+	return result;
+}
+
+// Remove the first tab with the matching title.
+bool TabView::remove_tab(const String & title)
+{
+	bool result = false;
+	for (Dim index = 0; index < m_tab_id && result == false; index++)
+	{
+		Button * tab_title = tab_button(index);
+		if (tab_title && tab_title->text() == title)
+		{
+			result = remove_tab(index);
+		}
 	}
 	return result;
 }
@@ -324,8 +359,6 @@ bool TabView::select_tab(Dim index, bool focus_tab)
 					bool selected = tab == index;
 					button->focusable(selected);
 					button->selected(selected);
-					button->color(selected && has_tab_selected_color() ? tab_selected_color() : color());
-					button->text_color(selected && has_tab_selected_text_color() ? tab_selected_text_color() : text_color());
 				}
 			}
 			if (move_focus)

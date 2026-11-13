@@ -47,57 +47,23 @@ namespace berialdraw
 		/** Set the margin between tab buttons. */
 		void tab_inter_margin(const Margin & margin);
 
-		/** Get the alignment of buttons in a vertical tab bar. */
-		Align tab_vertical_align() const { return m_tab_vertical_align; }
+		/** Get the default borders for subsequently created horizontal tabs. */
+		Borders tab_horizontal_borders() const { return m_tab_horizontal_borders; }
 
-		/** Set the alignment of buttons in a vertical tab bar. */
-		void tab_vertical_align(Align align);
+		/** Set the default borders for subsequently created horizontal tabs. */
+		void tab_horizontal_borders(Borders borders);
 
-		/** Get the text alignment in a vertical tab bar. */
-		Align tab_vertical_text_align() const { return m_tab_vertical_text_align; }
-
-		/** Set the text alignment in a vertical tab bar. */
-		void tab_vertical_text_align(Align align);
-
-		/** Check whether a vertical tab border configuration is defined. */
-		bool has_tab_vertical_borders() const { return m_has_tab_vertical_borders; }
-
-		/** Get the vertical tab border configuration. */
+		/** Get the default borders for subsequently created vertical tabs. */
 		Borders tab_vertical_borders() const { return m_tab_vertical_borders; }
 
-		/** Set the vertical tab border configuration. */
+		/** Set the default borders for subsequently created vertical tabs. */
 		void tab_vertical_borders(Borders borders);
-
-		/** Check whether a selected tab background color is defined. */
-		bool has_tab_selected_color() const { return m_has_tab_selected_color; }
-
-		/** Get the selected tab background color. */
-		uint32_t tab_selected_color() const { return m_tab_selected_color; }
-
-		/** Set the selected tab background color. */
-		void tab_selected_color(uint32_t color);
-
-		/** Check whether a selected tab text color is defined. */
-		bool has_tab_selected_text_color() const { return m_has_tab_selected_text_color; }
-
-		/** Get the selected tab text color. */
-		uint32_t tab_selected_text_color() const { return m_tab_selected_text_color; }
-
-		/** Set the selected tab text color. */
-		void tab_selected_text_color(uint32_t color);
 
 	protected:
 		TabDirection m_tab_direction = TabDirection::TAB_HORIZONTAL;
-		TabDirection m_tab_previous_direction = TabDirection::TAB_HORIZONTAL;
 		Margin m_tab_margin = {0,0,0,0};
 		Margin m_tab_inter_margin = {0,0,0,0};
-		Align m_tab_vertical_align = Align::ALIGN_LEFT;
-		Align m_tab_vertical_text_align = Align::CENTER;
-		uint32_t m_tab_selected_color = 0;
-		uint32_t m_tab_selected_text_color = 0;
-		bool m_has_tab_selected_color = false;
-		bool m_has_tab_selected_text_color = false;
+		Borders m_tab_horizontal_borders = ALL_BORDERS;
 		Borders m_tab_vertical_borders = ALL_BORDERS;
-		bool m_has_tab_vertical_borders = false;
 	};
 }

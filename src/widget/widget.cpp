@@ -76,8 +76,6 @@ Widget::Widget(const char * classname, Widget * parent, size_t size_of_widget, D
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
-
-
 /* Clears all children from the widget */
 void Widget::clear()
 {
@@ -934,12 +932,14 @@ uint32_t Widget::stated_color(uint32_t color, int state)
 }
 
 /** Paint the widget background */
-void Widget::paint_background(Area & rectclip, const CommonStyle& common_style, const BorderStyle& border_style)
+void Widget::paint_background(Area & rectclip, const CommonStyle& common_style,
+	const BorderStyle& border_style, bool selected_state)
 {
+	bool color_state = m_focused || selected_state;
 	RectRenderer::paint_focused_round_rect(rectclip,
 		(Borders)common_style.borders(),
-		stated_color(m_color, m_focused),
-		stated_color(border_style.border_color(), m_focused),
+		stated_color(m_color, color_state),
+		stated_color(border_style.border_color(), color_state),
 		border_style.radius_q6(),
 		border_style.thickness_q6(),
 		border_style.focus_thickness(),
@@ -1074,6 +1074,12 @@ void Widget::focus_to(Widget * & current_focus, Widget * new_focus)
 			current_focus = new_focus;
 			
 			new_focus->m_focused = 1;
+
+			ScrollView * scroll_view = dynamic_cast<ScrollView*>(new_focus->scrollable_content());
+			if (scroll_view)
+			{
+				scroll_view->scroll_focus(new_focus);
+			}
 		}
 	}
 }

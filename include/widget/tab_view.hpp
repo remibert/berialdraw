@@ -14,6 +14,12 @@ namespace berialdraw
 		/** Create a tab and its page, returning the page owned by this TabView. */
 		Pane * add_tab(const String & title);
 
+		/** Remove a tab by its index. */
+		bool remove_tab(Dim index);
+
+		/** Remove the first tab with the matching title. */
+		bool remove_tab(const String & title);
+
 		/** Get the number of tabs. */
 		Dim tab_count() const { return m_tab_id; }
 
@@ -25,6 +31,9 @@ namespace berialdraw
 
 		/** Get a page by its tab index. */
 		Pane * page(Dim index) const;
+
+		/** Get a tab button by its index for per-tab styling. */
+		Button * tab_button(Dim index) const;
 
 		/** Select a tab by its index. */
 		bool select(Dim index);
@@ -41,17 +50,21 @@ namespace berialdraw
 #ifdef _DEBUG
 		static void test();
 		static void test1();
+		static void test2();
 #endif
 
 	protected:
 		/** Place the internal layout in the TabView area. */
 		virtual void place(const Area & area, bool in_layout) override;
 
-		/** Update tab */
+		/** Synchronize shared tab layout settings. */
 		void update_tabs();
 	private:
-		/** Get a tab button by its index. */
-		Button * tab_button(Dim index) const;
+		/** Update the tab bar scroll settings. */
+		void update_tab_scroll(bool direction_changed, bool tab_margin_changed);
+
+		/** Reposition the existing tabs and pages after a direction change. */
+		void reflow_tabs();
 
 		/** Select a tab and optionally move focus to its button. */
 		bool select_tab(Dim index, bool focus_tab);
@@ -70,20 +83,8 @@ namespace berialdraw
 		ScrollView * m_scroll_tab = 0;
 		Grid * m_tabs = 0;
 		uint32_t m_tab_id = 0;
+		TabDirection m_previous_tab_direction = TabDirection::TAB_HORIZONTAL;
 		Margin m_previous_tab_margin;
 		Margin m_previous_tab_inter_margin;
-		Align m_previous_tab_align = Align::ALIGN_DEFAULT;
-		Align m_previous_tab_text_align = Align::ALIGN_DEFAULT;
-		Align m_previous_vertical_tab_align = Align::ALIGN_DEFAULT;
-		Align m_previous_vertical_tab_text_align = Align::ALIGN_DEFAULT;
-		uint32_t m_previous_tab_color = 0;
-		uint32_t m_previous_tab_text_color = 0;
-		uint32_t m_previous_tab_selected_color = 0;
-		uint32_t m_previous_tab_selected_text_color = 0;
-		Borders m_previous_tab_vertical_borders = ALL_BORDERS;
-		bool m_previous_tab_selected_color_defined = false;
-		bool m_previous_tab_selected_text_color_defined = false;
-		bool m_previous_tab_vertical_borders_defined = false;
-		bool m_tab_button_style_initialized = false;
 	};
 }
