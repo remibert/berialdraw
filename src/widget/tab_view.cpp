@@ -18,6 +18,7 @@ TabView::TabView(Widget * parent):
 	UIManager::styles()->apply(this, (PaddingStyle *)this);
 	UIManager::styles()->apply(this, (TextStyle *)this);
 	UIManager::styles()->apply(this, (BorderStyle *)this);
+	m_previous_active_tab_style = tab_style(m_tab_direction);
 	m_tab_layout = new Grid(this);
 	m_scroll_tab  = new ScrollView(m_tab_layout);
 	m_tabs = new Grid(m_scroll_tab);
@@ -33,7 +34,7 @@ TabView::TabView(Widget * parent):
 		m_scroll_tab->align(Align::ALIGN_TOP);
 		m_scroll_tab->cell(0,0);
 	}
-	m_scroll_tab->margin(m_tab_margin);
+	m_scroll_tab->margin(tab_style(m_tab_direction).margin());
 	m_scroll_tab->scrollbar_visible(false);
 	m_focusable = false;
 	bind(this, &TabView::on_key_tab);
@@ -48,24 +49,14 @@ TabView::~TabView()
 void TabView::update_tabs()
 {
 	bool direction_changed = m_tab_direction != m_previous_tab_direction;
-	bool tab_margin_changed = m_tab_margin != m_previous_tab_margin;
-	bool inter_margin_changed = m_tab_inter_margin != m_previous_tab_inter_margin;
+	const TabStyle & active_style = tab_style(m_tab_direction);
+	bool tab_style_changed = active_style != m_previous_active_tab_style;
 
-	if (direction_changed || tab_margin_changed)
+	if (direction_changed || tab_style_changed)
 	{
-		update_tab_scroll(direction_changed, tab_margin_changed);
-	}
-	if (inter_margin_changed)
-	{
-		for (Dim index = 0; index < m_tab_id; index++)
-		{
-			Button * title = tab_button(index);
-			if (title)
-			{
-				title->margin(m_tab_inter_margin);
-			}
-		}
-		m_previous_tab_inter_margin = m_tab_inter_margin;
+		update_tab_scroll(direction_changed, tab_style_changed);
+		apply_tab_style(active_style);
+		m_previous_active_tab_style = active_style;
 	}
 	if (direction_changed)
 	{
@@ -74,7 +65,7 @@ void TabView::update_tabs()
 }
 
 // Update the tab bar scroll settings.
-void TabView::update_tab_scroll(bool direction_changed, bool tab_margin_changed)
+void TabView::update_tab_scroll(bool direction_changed, bool tab_style_changed)
 {
 	if (direction_changed)
 	{
@@ -91,10 +82,23 @@ void TabView::update_tab_scroll(bool direction_changed, bool tab_margin_changed)
 		m_scroll_tab->scrollbar_visible(false);
 		m_previous_tab_direction = m_tab_direction;
 	}
-	if (tab_margin_changed)
+	if (tab_style_changed)
 	{
-		m_scroll_tab->margin(m_tab_margin);
-		m_previous_tab_margin = m_tab_margin;
+		m_scroll_tab->margin(tab_style(m_tab_direction).margin());
+	}
+}
+
+// Apply the active directional style to every existing tab button.
+void TabView::apply_tab_style(const TabStyle & style)
+{
+	for (Dim index = 0; index < m_tab_id; index++)
+	{
+		Button * title = tab_button(index);
+		if (title)
+		{
+			title->margin(style.inter_margin());
+			title->borders(style.borders());
+		}
 	}
 }
 
@@ -151,13 +155,13 @@ Pane * TabView::add_tab(const String & title)
 	Button * tab_title = new Button(m_tabs);
 	if (tab_title)
 	{
-		// The Button owns its visual style; TabView supplies creation-time border defaults.
+		const TabStyle & active_style = tab_style(m_tab_direction);
+		// TabView supplies directional layout defaults; callers can still customize each button.
 		tab_title->text(title);
 		tab_title->id(FIRST_TAB + index);
 		tab_title->focusable(false);
-		tab_title->margin(m_tab_inter_margin);
-		tab_title->borders(m_tab_direction == TabDirection::TAB_HORIZONTAL ?
-			tab_horizontal_borders() : tab_vertical_borders());
+		tab_title->margin(active_style.inter_margin());
+		tab_title->borders(active_style.borders());
 		if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
 		{
 			tab_title->cell(0, index);

@@ -41,6 +41,7 @@ int main(int argc, char* args[])
 
 		// Starts the user event logger, useful if you want to script user interface tests
 		//UIManager::notifier()->log();
+		// test_samples();
 
 		// Execute scripted user interface test every widgets
 		test_widget();

@@ -2,17 +2,95 @@
 
 using namespace berialdraw;
 
+// Set the margin around the tab bar.
+void TabStyle::margin(const Margin & value)
+{
+	if (m_margin != value)
+	{
+		m_margin = value;
+		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	}
+}
+
+// Set the spacing around each tab button.
+void TabStyle::inter_margin(const Margin & value)
+{
+	if (m_inter_margin != value)
+	{
+		m_inter_margin = value;
+		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	}
+}
+
+// Set the borders applied to tab buttons.
+void TabStyle::borders(Borders value)
+{
+	if (m_borders != value)
+	{
+		m_borders = value;
+		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	}
+}
+
+// Serialize the profile properties.
+void TabStyle::serialize(JsonIterator & it) const
+{
+	Margin margin_pixels(m_margin.top(), m_margin.left(), m_margin.bottom(), m_margin.right());
+	Margin inter_margin_pixels(m_inter_margin.top(), m_inter_margin.left(), m_inter_margin.bottom(), m_inter_margin.right());
+	margin_pixels.serialize(StyleNames::TABSTYLE_MARGIN, it);
+	inter_margin_pixels.serialize(StyleNames::TABSTYLE_INTER_MARGIN, it);
+	berialdraw::serialize(StyleNames::WIDGET_BORDERS, it, m_borders);
+}
+
+// Restore the profile properties.
+void TabStyle::unserialize(JsonIterator & it)
+{
+	Margin margin_pixels;
+	Margin inter_margin_pixels;
+	margin_pixels.unserialize(StyleNames::TABSTYLE_MARGIN, it);
+	inter_margin_pixels.unserialize(StyleNames::TABSTYLE_INTER_MARGIN, it);
+	if (it.exists(StyleNames::TABSTYLE_MARGIN))
+	{
+		m_margin = Margin(margin_pixels.top(), margin_pixels.left(), margin_pixels.bottom(), margin_pixels.right());
+	}
+	if (it.exists(StyleNames::TABSTYLE_INTER_MARGIN))
+	{
+		m_inter_margin = Margin(inter_margin_pixels.top(), inter_margin_pixels.left(), inter_margin_pixels.bottom(), inter_margin_pixels.right());
+	}
+	if (it.exists(StyleNames::WIDGET_BORDERS))
+	{
+		berialdraw::unserialize(StyleNames::WIDGET_BORDERS, it, m_borders);
+	}
+}
+
+// Copy the profile properties.
+void TabStyle::set(const TabStyle & other)
+{
+	if (this != &other)
+	{
+		m_margin = other.m_margin;
+		m_inter_margin = other.m_inter_margin;
+		m_borders = other.m_borders;
+		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	}
+}
+
+// Compare profile properties.
+bool TabStyle::operator==(const TabStyle & other) const
+{
+	return m_margin == other.m_margin && m_inter_margin == other.m_inter_margin &&
+		m_borders == other.m_borders;
+}
+
 // Serialize TabView-specific style properties.
 void TabViewStyle::serialize(JsonIterator & it)
 {
 	const char * direction = m_tab_direction == TabDirection::TAB_VERTICAL ? "vertical" : "horizontal";
 	it[StyleNames::TABVIEW_TAB_DIRECTION] = direction;
-	Margin tab_margin_pixels(m_tab_margin.top(), m_tab_margin.left(), m_tab_margin.bottom(), m_tab_margin.right());
-	Margin tab_inter_margin_pixels(m_tab_inter_margin.top(), m_tab_inter_margin.left(), m_tab_inter_margin.bottom(), m_tab_inter_margin.right());
-	tab_margin_pixels.serialize(StyleNames::TABVIEW_TAB_MARGIN, it);
-	tab_inter_margin_pixels.serialize(StyleNames::TABVIEW_TAB_INTER_MARGIN, it);
-	berialdraw::serialize(StyleNames::TABVIEW_TAB_HORIZONTAL_BORDERS, it, m_tab_horizontal_borders);
-	berialdraw::serialize(StyleNames::TABVIEW_TAB_VERTICAL_BORDERS, it, m_tab_vertical_borders);
+	JsonIterator horizontal_style = it[StyleNames::TABVIEW_HORIZONTAL_STYLE];
+	JsonIterator vertical_style = it[StyleNames::TABVIEW_VERTICAL_STYLE];
+	m_horizontal_tab_style.serialize(horizontal_style);
+	m_vertical_tab_style.serialize(vertical_style);
 }
 
 // Unserialize TabView-specific style properties.
@@ -27,25 +105,15 @@ void TabViewStyle::unserialize(JsonIterator & it)
 	{
 		m_tab_direction = TabDirection::TAB_VERTICAL;
 	}
-	Margin tab_margin_pixels;
-	Margin tab_inter_margin_pixels;
-	tab_margin_pixels.unserialize(StyleNames::TABVIEW_TAB_MARGIN, it);
-	tab_inter_margin_pixels.unserialize(StyleNames::TABVIEW_TAB_INTER_MARGIN, it);
-	if (it.exists(StyleNames::TABVIEW_TAB_MARGIN))
+	if (it.exists(StyleNames::TABVIEW_HORIZONTAL_STYLE))
 	{
-		m_tab_margin = Margin(tab_margin_pixels.top(), tab_margin_pixels.left(), tab_margin_pixels.bottom(), tab_margin_pixels.right());
+		JsonIterator horizontal_style = it[StyleNames::TABVIEW_HORIZONTAL_STYLE];
+		m_horizontal_tab_style.unserialize(horizontal_style);
 	}
-	if (it.exists(StyleNames::TABVIEW_TAB_INTER_MARGIN))
+	if (it.exists(StyleNames::TABVIEW_VERTICAL_STYLE))
 	{
-		m_tab_inter_margin = Margin(tab_inter_margin_pixels.top(), tab_inter_margin_pixels.left(), tab_inter_margin_pixels.bottom(), tab_inter_margin_pixels.right());
-	}
-	if (it.exists(StyleNames::TABVIEW_TAB_HORIZONTAL_BORDERS))
-	{
-		berialdraw::unserialize(StyleNames::TABVIEW_TAB_HORIZONTAL_BORDERS, it, m_tab_horizontal_borders);
-	}
-	if (it.exists(StyleNames::TABVIEW_TAB_VERTICAL_BORDERS))
-	{
-		berialdraw::unserialize(StyleNames::TABVIEW_TAB_VERTICAL_BORDERS, it, m_tab_vertical_borders);
+		JsonIterator vertical_style = it[StyleNames::TABVIEW_VERTICAL_STYLE];
+		m_vertical_tab_style.unserialize(vertical_style);
 	}
 }
 
@@ -55,10 +123,8 @@ void TabViewStyle::set(const TabViewStyle & other)
 	if (this != &other)
 	{
 		m_tab_direction = other.m_tab_direction;
-		m_tab_margin = other.m_tab_margin;
-		m_tab_inter_margin = other.m_tab_inter_margin;
-		m_tab_horizontal_borders = other.m_tab_horizontal_borders;
-		m_tab_vertical_borders = other.m_tab_vertical_borders;
+		m_horizontal_tab_style.set(other.m_horizontal_tab_style);
+		m_vertical_tab_style.set(other.m_vertical_tab_style);
 		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	}
 }
@@ -84,35 +150,15 @@ void TabViewStyle::tab_direction(TabDirection direction)
 	}
 }
 
-// Set the margin around the tab bar.
-void TabViewStyle::tab_margin(const Margin & margin)
+// Get a directional tab style profile.
+TabStyle & TabViewStyle::tab_style(TabDirection direction)
 {
-	if (m_tab_margin != margin)
-	{
-		m_tab_margin = margin;
-		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	}
+	return direction == TabDirection::TAB_VERTICAL ? m_vertical_tab_style : m_horizontal_tab_style;
 }
 
-// Set the margin between tab buttons.
-void TabViewStyle::tab_inter_margin(const Margin & margin)
+// Get a directional tab style profile.
+const TabStyle & TabViewStyle::tab_style(TabDirection direction) const
 {
-	if (m_tab_inter_margin != margin)
-	{
-		m_tab_inter_margin = margin;
-		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
-	}
-}
-
-// Set the default borders for subsequently created horizontal tabs.
-void TabViewStyle::tab_horizontal_borders(Borders borders)
-{
-	m_tab_horizontal_borders = borders;
-}
-
-// Set the default borders for subsequently created vertical tabs.
-void TabViewStyle::tab_vertical_borders(Borders borders)
-{
-	m_tab_vertical_borders = borders;
+	return direction == TabDirection::TAB_VERTICAL ? m_vertical_tab_style : m_horizontal_tab_style;
 }
 

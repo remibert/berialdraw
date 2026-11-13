@@ -50,6 +50,27 @@ inline void* remove_mark(void* ptr)
 	return (void*)((uintptr_t)ptr & (~(uintptr_t)3));
 }
 
+// Find a focusable text widget by its exact label.
+static Widget * find_focusable_widget_by_text(Widget * parent, const String & text)
+{
+	Widget * result = nullptr;
+	if (parent && parent->hidden() == false)
+	{
+		TextStyle * text_style = dynamic_cast<TextStyle *>(parent);
+		if (parent->focusable() && text_style && text_style->text() == text)
+		{
+			result = parent;
+		}
+		Widget * child = parent->children();
+		while (child && result == nullptr)
+		{
+			result = find_focusable_widget_by_text(child, text);
+			child = child->next();
+		}
+	}
+	return result;
+}
+
 /** Constructor */
 Notifier::Notifier()
 {
@@ -837,9 +858,25 @@ const char * Notifier::next_step_script()
 					}
 				}
 			}
+			else if (evt["type"] == "select")
+			{
+				String text = evt["text"] | "";
+				Window * window = UIManager::desktop()->front();
+				Widget * widget = find_focusable_widget_by_text(window, text);
+				if (widget)
+				{
+					widget->focus_to(widget);
+				}
+			}
 			
 			if (take_snapshot)
 			{
+				// bd_printf("Take snapshot %s %d\n",m_snapshot_name->c_str(),m_snapshot_id+1);
+
+				// if (*m_snapshot_name == "$(ui.tests)/out/sample_picture_%d.svg")
+				// {
+				// 	bd_printf(".");
+				// }
 				m_snapshot_current->print(m_snapshot_name->c_str(), ++m_snapshot_id);
 			}
 			

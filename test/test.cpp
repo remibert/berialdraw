@@ -75,32 +75,46 @@ namespace berialdraw
 		{
 			MemoryLeakLog
 			done = true;
-			String script(
-			"["
+			String script("[");
+			String enter_test = 
+				"{'type':'key','key':10,'state':'down','modifier':''     ,'character':'\n'},"
+				"{'type':'key','key':10,'state':'up'  ,'modifier':''     ,'character':'\n'},";
+
+			auto select_test = [](const char * text)
+			{
+				String event;
+				event.print("{'type':'select','text':'%s'},", text);
+				return event;
+			};
+
+			String exit_test = 
+				"{'type':'touch','x': 57,'y': 28,'state':'down'},"
+				"{'type':'touch','x': 57,'y': 28,'state':'up'},";
+
+			String icon_list_test =
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_icon_list_%d.svg'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
+			
+				script += icon_list_test + select_test("Button");
 
+			String button_test =
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_buton_%d.svg'},"
-				"{'type':'touch','x': 81,'y': 93,'state':'down'},"
-				"{'type':'touch','x': 81,'y': 93,'state':'up'},"
 				"{'type':'touch','x':229,'y':134,'state':'down'},"
 				"{'type':'touch','x':229,'y':134,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
+			
+				script += enter_test + button_test + exit_test;
 
-				"{'type':'touch','x': 59,'y': 26,'state':'down'},"
-				"{'type':'touch','x': 59,'y': 26,'state':'up'},"
-
+			String canvas_test = 
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_canvas_%d.svg'},"
-				"{'type':'touch','x':181,'y': 81,'state':'down'},"
-				"{'type':'touch','x':181,'y': 81,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
+			
+				script += select_test("Canvas") + enter_test + canvas_test + exit_test;
 
-				"{'type':'touch','x': 43,'y': 24,'state':'down'},"
-				"{'type':'touch','x': 43,'y': 24,'state':'up'},"
-
+			String column_test = 
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_column_%d.svg'},"
 				"{'type':'touch','x':296,'y': 68,'state':'down'},"
 				"{'type':'touch','x':296,'y': 68,'state':'up'},"
@@ -121,11 +135,11 @@ namespace berialdraw
 				"{'type':'touch','x':289,'y': 95,'state':'move'},"
 				"{'type':'touch','x':289,'y': 95,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
-				"{'type':'touch','x': 59,'y': 15,'state':'down'},"
-				"{'type':'touch','x': 59,'y': 15,'state':'up'},"
+				script += select_test("Column") + enter_test + column_test + exit_test;
 
+			String edit_test = 
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_edit_%d.svg'},"
 				"{'type':'touch','x':401,'y': 90,'state':'down'},"
 				"{'type':'touch','x':401,'y': 90,'state':'up'},"
@@ -227,13 +241,11 @@ namespace berialdraw
 				"{'type':'key','key':  9,'state':'down','modifier':''     ,'character':'I'},"
 				"{'type':'key','key':  9,'state':'up'  ,'modifier':''     ,'character':'I'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
-				"{'type':'touch','x': 29,'y': 17,'state':'down'},"
-				"{'type':'touch','x': 29,'y': 17,'state':'up'},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
-				"{'type':'touch','x': 71,'y':221,'state':'down'},"
-				"{'type':'touch','x': 71,'y':221,'state':'up'},"
+				script += select_test("Edit") + enter_test + edit_test + exit_test;
 
+			String grid_test = 
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_grid_%d.svg'},"
 				"{'type':'touch','x':360,'y':453,'state':'down'},"
 				"{'type':'touch','x':358,'y':447,'state':'move'},"
@@ -242,22 +254,22 @@ namespace berialdraw
 				"{'type':'touch','x':317,'y':158,'state':'move'},"
 				"{'type':'touch','x':319,'y':143,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
-				"{'type':'touch','x': 48,'y': 14,'state':'down'},"
-				"{'type':'touch','x': 48,'y': 14,'state':'up'},"
+				script += select_test("Grid") + enter_test + grid_test + exit_test;
 
+			String icon_test = 
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_icon_%d.svg'},"
 				"{'type':'touch','x':196,'y':211,'state':'down'},"
 				"{'type':'touch','x':196,'y':211,'state':'up'},"
 				"{'type':'touch','x':248,'y': 77,'state':'down'},"
 				"{'type':'touch','x':248,'y': 77,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
-				"{'type':'touch','x': 53,'y': 27,'state':'down'},"
-				"{'type':'touch','x': 52,'y': 26,'state':'up'},"
+				script += select_test("Icon") + enter_test + icon_test + exit_test;
 
+			String keyboard_test =
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_keyboard_%d.svg'},"
 				"{'type':'touch','x':322,'y':214,'state':'down'},"
 				"{'type':'touch','x':322,'y':214,'state':'up'},"
@@ -288,22 +300,22 @@ namespace berialdraw
 				"{'type':'touch','x': 11,'y': 78,'state':'move'},"
 				"{'type':'touch','x': 11,'y': 78,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
-				"{'type':'touch','x': 39,'y': 28,'state':'down'},"
-				"{'type':'touch','x': 39,'y': 28,'state':'up'},"
-
+				script += select_test("Keyboard") + enter_test + keyboard_test + exit_test;
+			
+			String label_test = 
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_label_%d.svg'},"
 				"{'type':'touch','x':388,'y':231,'state':'down'},"
 				"{'type':'touch','x':388,'y':230,'state':'up'},"
 				"{'type':'touch','x':379,'y':230,'state':'down'},"
 				"{'type':'touch','x':379,'y':230,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
-				"{'type':'touch','x': 62,'y': 12,'state':'down'},"
-				"{'type':'touch','x': 62,'y': 12,'state':'up'},"
+				script += select_test("Label") + enter_test + label_test + exit_test;
 
+			String pane_test = 
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_pane_%d.svg'},"
 				"{'type':'touch','x': 62,'y':339,'state':'down'},"
 				"{'type':'touch','x': 62,'y':339,'state':'up'},"
@@ -314,11 +326,11 @@ namespace berialdraw
 				"{'type':'key','key':  9,'state':'down','modifier':''     ,'character':'I'},"
 				"{'type':'key','key':  9,'state':'up'  ,'modifier':''     ,'character':'I'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
-				"{'type':'touch','x': 39,'y': 17,'state':'down'},"
-				"{'type':'touch','x': 39,'y': 17,'state':'up'},"
+				script += select_test("Pane") + enter_test + pane_test + exit_test;
 
+			String progress_test = 
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_progress_%d.svg'},"
 				"{'type':'touch','x':197,'y':327,'state':'down'},"
 				"{'type':'touch','x':197,'y':327,'state':'up'},"
@@ -332,11 +344,11 @@ namespace berialdraw
 				"{'type':'touch','x':369,'y':443,'state':'move'},"
 				"{'type':'touch','x':368,'y':443,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
-				"{'type':'touch','x': 33,'y': 10,'state':'down'},"
-				"{'type':'touch','x': 33,'y': 10,'state':'up'},"
+				script += select_test("ProgressBar") + enter_test + progress_test + exit_test;
 
+			String row_test = 
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_row_%d.svg'},"
 				"{'type':'touch','x':315,'y':332,'state':'down'},"
 				"{'type':'touch','x':315,'y':332,'state':'up'},"
@@ -349,11 +361,11 @@ namespace berialdraw
 				"{'type':'touch','x': 38,'y':318,'state':'move'},"
 				"{'type':'touch','x': 37,'y':319,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
-				"{'type':'touch','x': 26,'y': 14,'state':'down'},"
-				"{'type':'touch','x': 26,'y': 14,'state':'up'},"
+				script += select_test("Row") + enter_test + row_test + exit_test;
 
+			String scroll_test = 
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_scroll_%d.svg'},"
 				"{'type':'touch','x':424,'y':379,'state':'down'},"
 				"{'type':'touch','x':423,'y':378,'state':'up'},"
@@ -376,11 +388,11 @@ namespace berialdraw
 				"{'type':'touch','x':265,'y': 69,'state':'up'},"
 				"{'type':'touch','x':265,'y': 69,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
-				"{'type':'touch','x': 57,'y': 14,'state':'down'},"
-				"{'type':'touch','x': 57,'y': 14,'state':'up'},"
+				script += select_test("ScrollView") + enter_test + scroll_test + exit_test;
 
+			String slider_test = 
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_slider_%d.svg'},"
 				"{'type':'touch','x': 69,'y':429,'state':'down'},"
 				"{'type':'touch','x': 69,'y':429,'state':'up'},"
@@ -393,11 +405,11 @@ namespace berialdraw
 				"{'type':'touch','x':126,'y':318,'state':'move'},"
 				"{'type':'touch','x':126,'y':318,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
-				"{'type':'touch','x': 27,'y': 23,'state':'down'},"
-				"{'type':'touch','x': 27,'y': 23,'state':'up'},"
+				script += select_test("Slider") + enter_test + slider_test + exit_test;
 
+			String switch_test = 
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_switch_%d.svg'},"
 				"{'type':'touch','x':181,'y':450,'state':'down'},"
 				"{'type':'touch','x':181,'y':450,'state':'up'},"
@@ -408,23 +420,21 @@ namespace berialdraw
 				"{'type':'touch','x':273,'y':191,'state':'down'},"
 				"{'type':'touch','x':273,'y':191,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
-				"{'type':'touch','x': 51,'y': 22,'state':'down'},"
-				"{'type':'touch','x': 51,'y': 22,'state':'up'},"
+				script += select_test("Switch") + enter_test + switch_test + exit_test;
 
+			String window_test =
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_window_%d.svg'},"
 				"{'type':'touch','x':298,'y':460,'state':'down'},"
 				"{'type':'touch','x':298,'y':460,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
-				"{'type':'touch','x': 45,'y': 30,'state':'down'},"
-				"{'type':'touch','x': 45,'y': 30,'state':'up'},"
+				script += select_test("Window") + enter_test + window_test + exit_test;
 
+			String speed_test = 
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_speed_%d.svg'},"
-				"{'type':'touch','x':433,'y':452,'state':'down'},"
-				"{'type':'touch','x':433,'y':452,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
 				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
 				"{'type':'touch','x': 32,'y':451,'state':'down'},"
@@ -437,25 +447,12 @@ namespace berialdraw
 				"{'type':'touch','x':317,'y':452,'state':'move'},"
 				"{'type':'touch','x':319,'y':452,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
-				"{'type':'touch','x': 54,'y': 20,'state':'down'},"
-				"{'type':'touch','x': 54,'y': 20,'state':'up'},"
+				script += select_test("Speedometer") + enter_test + speed_test + exit_test;
 
+			String palette_test = 
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_palette_%d.svg'},"
-				"{'type':'touch','x':313,'y':356,'state':'down'},"
-				"{'type':'touch','x':313,'y':347,'state':'move'},"
-				"{'type':'touch','x':306,'y':287,'state':'move'},"
-				"{'type':'touch','x':300,'y':217,'state':'move'},"
-				"{'type':'touch','x':300,'y':174,'state':'move'},"
-				"{'type':'touch','x':300,'y':157,'state':'move'},"
-				"{'type':'touch','x':300,'y':150,'state':'move'},"
-				"{'type':'touch','x':300,'y':145,'state':'move'},"
-				"{'type':'touch','x':300,'y':139,'state':'move'},"
-				"{'type':'touch','x':300,'y':133,'state':'up'},"
-				"{'type':'touch','x':300,'y':134,'state':'move'},"
-				"{'type':'touch','x': 61,'y':405,'state':'down'},"
-				"{'type':'touch','x': 61,'y':405,'state':'up'},"
 				"{'type':'touch','x': 10,'y': 84,'state':'down'},"
 				"{'type':'touch','x': 10,'y': 84,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
@@ -617,28 +614,25 @@ namespace berialdraw
 				"{'type':'touch','x':466,'y': 83,'state':'down'},"
 				"{'type':'touch','x':466,'y': 83,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
-				"{'type':'touch','x': 54,'y': 20,'state':'down'},"
-				"{'type':'touch','x': 54,'y': 20,'state':'up'},"
+				script += select_test("Theme") + enter_test + palette_test + exit_test;
 
-				"{'type':'touch','x':368,'y':429,'state':'down'},"
-				"{'type':'touch','x':368,'y':429,'state':'move'},"
-				"{'type':'touch','x':353,'y':295,'state':'move'},"
-				"{'type':'touch','x':365,'y':225,'state':'move'},"
-				"{'type':'touch','x':367,'y':197,'state':'move'},"
-				"{'type':'touch','x':367,'y':194,'state':'move'},"
-				"{'type':'touch','x':367,'y':193,'state':'up'},"
+			String table_view_test = 
+				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_table_view_%d.svg'},"
+				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
-				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_picture_%d.svg'},"
+				script += select_test("TableView") + enter_test + table_view_test + exit_test;
 
 				"{'type':'touch','x':316,'y':250,'state':'down'},"
 				"{'type':'touch','x':316,'y':250,'state':'up'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
-				"{'type':'touch','x': 60,'y': 23,'state':'down'},"
-				"{'type':'touch','x': 60,'y': 23,'state':'up'},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
+				script += select_test("Picture") + enter_test + picture_test + exit_test;
+
+			String combo_test = 
 				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_combo_%d.svg'},"
 				"{'type':'touch','x':177,'y':413,'state':'down'},"
 				"{'type':'touch','x':177,'y':413,'state':'up'},"
@@ -666,16 +660,13 @@ namespace berialdraw
 				"{'type':'key','key': 53,'state':'up'  ,'modifier':''     ,'character':'5'},"
 				"{'type':'key','key': 10,'state':'down','modifier':''     ,'character':'J'},"
 				"{'type':'key','key': 10,'state':'up'  ,'modifier':''     ,'character':'J'},"
-
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
-				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
-				"{'type':'touch','x': 57,'y': 28,'state':'down'},"
-				"{'type':'touch','x': 57,'y': 28,'state':'up'},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
+
+				script += select_test("Combo") + enter_test + combo_test + exit_test;
 
 				// Exit all
-				"{'type':'touch','x': 54,'y': 20,'state':'down'},"
-				"{'type':'touch','x': 54,'y': 20,'state':'up'},"
-			"]");
+				script += exit_test + "]";
 			UIManager::notifier()->start_script(script, "$(ui.tests)/out/sample_%d.svg");
 			{
 				UIManager::styles()->style("pearl");

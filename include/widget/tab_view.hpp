@@ -51,6 +51,7 @@ namespace berialdraw
 		static void test();
 		static void test1();
 		static void test2();
+		static void test3();
 #endif
 
 	protected:
@@ -61,7 +62,10 @@ namespace berialdraw
 		void update_tabs();
 	private:
 		/** Update the tab bar scroll settings. */
-		void update_tab_scroll(bool direction_changed, bool tab_margin_changed);
+		void update_tab_scroll(bool direction_changed, bool tab_style_changed);
+
+		/** Apply the active directional style to every existing tab button. */
+		void apply_tab_style(const TabStyle & style);
 
 		/** Reposition the existing tabs and pages after a direction change. */
 		void reflow_tabs();
@@ -84,7 +88,6 @@ namespace berialdraw
 		Grid * m_tabs = 0;
 		uint32_t m_tab_id = 0;
 		TabDirection m_previous_tab_direction = TabDirection::TAB_HORIZONTAL;
-		Margin m_previous_tab_margin;
-		Margin m_previous_tab_inter_margin;
+		TabStyle m_previous_active_tab_style;
 	};
 }

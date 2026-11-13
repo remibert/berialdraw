@@ -71,6 +71,7 @@ namespace berialdraw
 		- type: touch, key
 		- state: up, down, move (only for touch)
 		- modifier: alt, shift, control
+		- select: focus the visible focusable widget with an exact matching text value
 		@param snapshot_name Name of the SVG file to generate when the Pause key is pressed. If the key is pressed multiple times, the name should include a %d in it. */
 		void play_script(TextStream & script, const String & snapshot_name);
 		void play_script(const String & script, const String & snapshot_name);
