@@ -15,9 +15,7 @@ namespace berialdraw
 		//UIManager::colors()->appearance("test_dark");
 
 #if defined(_DEBUG) && defined(ALL_TESTS)
-		// Button::test();
 		TabView::test();
-		TableView::test();
 
 		// Widget
 		Button::test();
@@ -625,8 +623,8 @@ namespace berialdraw
 
 				script += select_test("TableView") + enter_test + table_view_test + exit_test;
 
-				"{'type':'touch','x':316,'y':250,'state':'down'},"
-				"{'type':'touch','x':316,'y':250,'state':'up'},"
+			String picture_test = 
+				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_picture_%d.svg'},"
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
 				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 

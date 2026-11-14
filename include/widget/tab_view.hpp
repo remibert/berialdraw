@@ -1,8 +1,10 @@
 #pragma once
 namespace berialdraw
 {
+	class Tab;
+
 	/** A tab container with a scrollable tab bar and Pane pages. */
-	class TabView : public Widget, public TextStyle, public BorderStyle, public TabViewStyle
+	class TabView : public Widget, public BorderStyle, public TabViewStyle
 	{
 	public:
 		/** Create a tab view. */
@@ -33,7 +35,7 @@ namespace berialdraw
 		Pane * page(Dim index) const;
 
 		/** Get a tab button by its index for per-tab styling. */
-		Button * tab_button(Dim index) const;
+		Tab * tab_button(Dim index) const;
 
 		/** Select a tab by its index. */
 		bool select(Dim index);
@@ -52,6 +54,7 @@ namespace berialdraw
 		static void test1();
 		static void test2();
 		static void test3();
+		static void test4();
 #endif
 
 	protected:
@@ -62,10 +65,10 @@ namespace berialdraw
 		void update_tabs();
 	private:
 		/** Update the tab bar scroll settings. */
-		void update_tab_scroll(bool direction_changed, bool tab_style_changed);
+		void update_tab_scroll(bool position_changed, bool tab_margin_changed);
 
-		/** Apply the active directional style to every existing tab button. */
-		void apply_tab_style(const TabStyle & style);
+		/** Reapply tab.sty to each tab in the selected position. */
+		void apply_tab_style();
 
 		/** Reposition the existing tabs and pages after a direction change. */
 		void reflow_tabs();
@@ -87,7 +90,7 @@ namespace berialdraw
 		ScrollView * m_scroll_tab = 0;
 		Grid * m_tabs = 0;
 		uint32_t m_tab_id = 0;
-		TabDirection m_previous_tab_direction = TabDirection::TAB_HORIZONTAL;
-		TabStyle m_previous_active_tab_style;
+		TabPosition m_previous_tab_position = TabPosition::TOP;
+		Margin m_previous_tab_margin;
 	};
 }

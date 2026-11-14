@@ -56,6 +56,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_scroll_view_style(m);
     bind_scrollbar_style(m);
     bind_table_view_style(m);
+    bind_tab_view_style(m);
     bind_grid_style(m);
     bind_cell_style(m);
     bind_cells_style(m);
@@ -109,6 +110,8 @@ PYBIND11_MODULE(pyberialdraw, m) {
     // Bind widget classes (derived classes)
     bind_widget(m);
     bind_button(m);
+    bind_tab(m);
+    bind_tab_view(m);
     bind_label(m);
     bind_window(m);
     bind_canvas(m);

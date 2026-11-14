@@ -12,6 +12,9 @@ namespace berialdraw
 		/** Create widget */
 		Button(Widget * parent);
 
+		/** Create a button using a dedicated style class name. */
+		Button(const char * classname, Widget * parent);
+
 		/** Destroy widget */
 		virtual ~Button(); 
 
@@ -57,6 +60,9 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
+			/** Create a button-derived widget and register its full object size. */
+			Button(const char * classname, Widget * parent, size_t object_size);
+
 		/** Remove operator = */
 		Button& operator=(const Button& other) = delete;
 

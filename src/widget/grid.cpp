@@ -63,7 +63,10 @@ Widget * Grid::hovered(const Region & parent_region, const Point & position)
 	// Scan all widget children
 	while (child && result == 0)
 	{
-		result = child->hovered(parent_region, position);
+		if (child->hidden() == false)
+		{
+			result = child->hovered(parent_region, position);
+		}
 		child = child->next();
 	}
 	return result;

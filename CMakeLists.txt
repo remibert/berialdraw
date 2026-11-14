@@ -82,6 +82,7 @@ set(SRCS_LIB
 	src/widget/radio.cpp
 	src/widget/scrollable_content.cpp
 	src/widget/scroll_view.cpp
+	src/widget/tab.cpp
 	src/widget/tab_view.cpp
 	src/widget/slider.cpp
 	src/widget/row.cpp

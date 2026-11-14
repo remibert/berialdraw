@@ -47,6 +47,12 @@
     <ClCompile Include="..\..\pybind\src\pybind\widget\button.cpp">
       <Filter>pybind\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\widget\tab.cpp">
+      <Filter>pybind\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\widget\tab_view.cpp">
+      <Filter>pybind\widget</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\widget\canvas.cpp">
       <Filter>pybind\widget</Filter>
     </ClCompile>
@@ -186,6 +192,9 @@
       <Filter>pybind\styles</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\styles\table_view_style.cpp">
+      <Filter>pybind\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\styles\tab_view_style.cpp">
       <Filter>pybind\styles</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\styles\grid_style.cpp">

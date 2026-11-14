@@ -88,6 +88,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/styles/list_style.cpp
 	src/pybind/styles/list_selection_mode.cpp
 	src/pybind/styles/table_view_style.cpp
+	src/pybind/styles/tab_view_style.cpp
 	src/pybind/styles/grid_style.cpp
 	src/pybind/styles/cell_style.cpp
 	src/pybind/styles/cells_style.cpp
@@ -108,6 +109,8 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/widget/scrollable_content.cpp
 	src/pybind/widget/widget.cpp
 	src/pybind/widget/button.cpp
+	src/pybind/widget/tab.cpp
+	src/pybind/widget/tab_view.cpp
 	src/pybind/widget/canvas.cpp
 	src/pybind/widget/column.cpp
 	src/pybind/widget/desktop.cpp

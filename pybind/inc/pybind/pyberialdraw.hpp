@@ -464,6 +464,7 @@ void bind_pie_style(pybind11::module_& m);
 void bind_scroll_view_style(pybind11::module_& m);
 void bind_scrollbar_style(pybind11::module_& m);
 void bind_table_view_style(pybind11::module_& m);
+void bind_tab_view_style(pybind11::module_& m);
 void bind_grid_style(pybind11::module_& m);
 void bind_cell_style(pybind11::module_& m);
 void bind_cells_style(pybind11::module_& m);
@@ -519,6 +520,8 @@ void bind_notifier(pybind11::module_& m);
 // Widget bindings
 void bind_widget(pybind11::module_& m);
 void bind_button(pybind11::module_& m);
+void bind_tab(pybind11::module_& m);
+void bind_tab_view(pybind11::module_& m);
 void bind_label(pybind11::module_& m);
 void bind_window(pybind11::module_& m);
 void bind_canvas(pybind11::module& m);

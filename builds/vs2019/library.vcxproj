@@ -1246,6 +1246,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="..\..\src\widget\tab_view.cpp" />
+    <ClCompile Include="..\..\src\widget\tab.cpp" />
     <ClCompile Include="..\..\src\widget\timer.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">berialdraw_imp.hpp</PrecompiledHeaderFile>
@@ -1773,6 +1774,7 @@
     <ClInclude Include="..\..\include\widget\list.hpp" />
     <ClInclude Include="..\..\include\widget\combo.hpp" />
     <ClInclude Include="..\..\include\widget\tab_view.hpp" />
+    <ClInclude Include="..\..\include\widget\tab.hpp" />
     <ClInclude Include="..\..\include\widget\timer.hpp" />
     <ClInclude Include="..\..\include\widget\uimanager.hpp" />
     <ClInclude Include="..\..\include\widget\widget.hpp" />
@@ -1835,6 +1837,8 @@
     <None Include="..\..\resources\icons\warning.icn" />
     <None Include="..\..\resources\icons\wifi.icn" />
     <None Include="..\..\resources\styles\pearl\button.sty" />
+  <None Include="..\..\resources\styles\pearl\tab.sty" />
+  <None Include="..\..\resources\styles\pearl\tab_view.sty" />
     <None Include="..\..\resources\styles\pearl\combo_button.sty" />
     <None Include="..\..\resources\styles\pearl\canvas.sty" />
     <None Include="..\..\resources\styles\pearl\checkbox.sty" />
@@ -1856,6 +1860,8 @@
     <None Include="..\..\resources\styles\pearl\window.sty" />
     <None Include="..\..\resources\styles\test\.DS_Store" />
     <None Include="..\..\resources\styles\test\button.sty" />
+  <None Include="..\..\resources\styles\test\tab.sty" />
+  <None Include="..\..\resources\styles\test\tab_view.sty" />
     <None Include="..\..\resources\styles\test\combo_button.sty" />
     <None Include="..\..\resources\styles\test\canvas.sty" />
     <None Include="..\..\resources\styles\test\checkbox.sty" />

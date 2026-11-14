@@ -648,8 +648,6 @@ void Notifier::push_event(Event * evt)
 		// If the space not saturated
 		else if (m_events.size() < 256)
 		{
-			bool collapse = false;
-
 			// If the event can be ignored
 			if (is_touch_move(evt) == false)
 			{

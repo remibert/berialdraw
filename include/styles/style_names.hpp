@@ -120,11 +120,8 @@ namespace berialdraw
 		// Table view style
 		static constexpr char TABLEVIEW_ALTERNATING_ROW_COLOR_1[] = "alternating_row_color_1";
 		static constexpr char TABLEVIEW_ALTERNATING_ROW_COLOR_2[] = "alternating_row_color_2";
-		static constexpr char TABVIEW_TAB_DIRECTION[] = "tab_direction";
-		static constexpr char TABVIEW_HORIZONTAL_STYLE[] = "tab_horizontal";
-		static constexpr char TABVIEW_VERTICAL_STYLE[] = "tab_vertical";
-		static constexpr char TABSTYLE_MARGIN[] = "margin";
-		static constexpr char TABSTYLE_INTER_MARGIN[] = "inter_margin";
+		static constexpr char TABVIEW_TAB_POSITION[] = "tab_position";
+		static constexpr char TABVIEW_TAB_MARGIN[] = "tab_margin";
 
 		// Grid style
 		static constexpr char GRIDSTYLE_GRID_COLOR[] = "grid_color";

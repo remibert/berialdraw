@@ -5521,66 +5521,86 @@
 		},
 		"$(ui.tests)/out/tab_view3_1.svg" : 
 		{
-			"scale_1" : 1823201942
+			"scale_1" : 308142955
 		},
 		"$(ui.tests)/out/tab_view3_2.svg" : 
 		{
-			"scale_1" : 1339691402
+			"scale_1" : 1689694623
 		},
 		"$(ui.tests)/out/tab_view3_3.svg" : 
 		{
-			"scale_1" : 3919622332
+			"scale_1" : 1416007791
 		},
 		"$(ui.tests)/out/tab_view3_4.svg" : 
 		{
-			"scale_1" : 3919622332
+			"scale_1" : 1416007791
 		},
 		"$(ui.tests)/out/tab_view3_5.svg" : 
 		{
-			"scale_1" : 2519342115
+			"scale_1" : 4003598956
 		},
 		"$(ui.tests)/out/tab_view3_6.svg" : 
 		{
-			"scale_1" : 1955710307
+			"scale_1" : 3237144209
 		},
 		"$(ui.tests)/out/tab_view3_7.svg" : 
 		{
-			"scale_1" : 139240389
+			"scale_1" : 1085895568
 		},
 		"$(ui.tests)/out/tab_view3_8.svg" : 
 		{
-			"scale_1" : 139240389
+			"scale_1" : 1294076236
 		},
 		"$(ui.tests)/out/tab_view2_1.svg" : 
 		{
-			"scale_1" : 3331562123
+			"scale_1" : 303135537
 		},
 		"$(ui.tests)/out/tab_view2_2.svg" : 
 		{
-			"scale_1" : 3956921863
+			"scale_1" : 1910681709
 		},
 		"$(ui.tests)/out/tab_view2_3.svg" : 
 		{
-			"scale_1" : 3158273850
+			"scale_1" : 2599013920
 		},
 		"$(ui.tests)/out/tab_view2_4.svg" : 
 		{
-			"scale_1" : 284187203
+			"scale_1" : 2823452188
 		},
 		"$(ui.tests)/out/tab_view2_5.svg" : 
 		{
-			"scale_1" : 3760477391
+			"scale_1" : 2417282111
 		},
 		"$(ui.tests)/out/tab_view1_1.svg" : 
 		{
-			"scale_1" : 3195952739
+			"scale_1" : 2937785836
 		},
 		"$(ui.tests)/out/tab_view1_2.svg" : 
 		{
-			"scale_1" : 3195952739
+			"scale_1" : 2937785836
 		},
 		"$(ui.tests)/out/sample_table_view_1.svg" : 
 		{
 			"scale_1" : 1899629639
+		},
+		"$(ui.tests)/out/tab_view4_1.svg" : 
+		{
+			"scale_1" : 3333489998
+		},
+		"$(ui.tests)/out/tab_view4_2.svg" : 
+		{
+			"scale_1" : 2853526750
+		},
+		"$(ui.tests)/out/tab_view4_3.svg" : 
+		{
+			"scale_1" : 3874424676
+		},
+		"$(ui.tests)/out/tab_view4_4.svg" : 
+		{
+			"scale_1" : 2296751475
+		},
+		"$(ui.tests)/out/tab_view4_5.svg" : 
+		{
+			"scale_1" : 3333489998
 		}
 	}

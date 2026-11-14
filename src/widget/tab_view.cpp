@@ -8,6 +8,69 @@ enum TabId
 	FIRST_PAGE = 0x40000000,
 };
 
+// Check whether tabs are arranged along the horizontal axis.
+static bool is_horizontal_tab_position(TabPosition position)
+{
+	return position == TabPosition::TOP || position == TabPosition::BOTTOM;
+}
+
+// Place one tab button in the cell for its index and position.
+static void place_tab_button(Tab * tab, Dim index, TabPosition position)
+{
+	if (tab)
+	{
+		if (is_horizontal_tab_position(position))
+		{
+			tab->cell(0, index);
+		}
+		else
+		{
+			tab->cell(index, 0);
+		}
+	}
+}
+
+// Place one page in the cell opposite its tab bar.
+static void place_tab_page(Pane * page, TabPosition position)
+{
+	if (page)
+	{
+		switch (position)
+		{
+		case TabPosition::TOP: page->cell(1, 0); break;
+		case TabPosition::RIGHT: page->cell(0, 0); break;
+		case TabPosition::BOTTOM: page->cell(0, 0); break;
+		case TabPosition::LEFT: page->cell(0, 1); break;
+		}
+	}
+}
+
+// Place the tab bar scroll view on its requested side.
+static void place_tab_bar(ScrollView * scroll, TabPosition position)
+{
+	if (scroll)
+	{
+		if (is_horizontal_tab_position(position))
+		{
+			scroll->scroll_direction(ScrollDirection::SCROLL_HORIZONTAL);
+			scroll->align(Align::ALIGN_LEFT);
+		}
+		else
+		{
+			scroll->scroll_direction(ScrollDirection::SCROLL_VERTICAL);
+			scroll->align(Align::ALIGN_TOP);
+		}
+		switch (position)
+		{
+		case TabPosition::TOP: scroll->cell(0, 0); break;
+		case TabPosition::RIGHT: scroll->cell(0, 1); break;
+		case TabPosition::BOTTOM: scroll->cell(1, 0); break;
+		case TabPosition::LEFT: scroll->cell(0, 0); break;
+		}
+		scroll->scrollbar_visible(false);
+	}
+}
+
 // Create a tab view.
 TabView::TabView(Widget * parent):
 	Widget("tab_view", parent, sizeof(TabView))
@@ -16,27 +79,14 @@ TabView::TabView(Widget * parent):
 	UIManager::styles()->apply(this, (CommonStyle *)this);
 	UIManager::styles()->apply(this, (WidgetStyle *)this);
 	UIManager::styles()->apply(this, (PaddingStyle *)this);
-	UIManager::styles()->apply(this, (TextStyle *)this);
 	UIManager::styles()->apply(this, (BorderStyle *)this);
-	m_previous_active_tab_style = tab_style(m_tab_direction);
+	m_previous_tab_position = m_tab_position;
+	m_previous_tab_margin = m_tab_margin;
 	m_tab_layout = new Grid(this);
 	m_scroll_tab  = new ScrollView(m_tab_layout);
 	m_tabs = new Grid(m_scroll_tab);
-	if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
-	{
-		m_scroll_tab->scroll_direction(ScrollDirection::SCROLL_HORIZONTAL);
-		m_scroll_tab->align(Align::ALIGN_LEFT);
-		m_scroll_tab->cell(0,0);
-	}
-	else
-	{
-		m_scroll_tab->scroll_direction(ScrollDirection::SCROLL_VERTICAL);
-		m_scroll_tab->align(Align::ALIGN_TOP);
-		m_scroll_tab->cell(0,0);
-	}
-	m_scroll_tab->margin(tab_style(m_tab_direction).margin());
-	m_scroll_tab->scrollbar_visible(false);
-	m_focusable = false;
+	place_tab_bar(m_scroll_tab, m_tab_position);
+	m_scroll_tab->margin(Tab::rotate_margin(m_tab_margin, m_tab_position));
 	bind(this, &TabView::on_key_tab);
 }
 
@@ -48,56 +98,46 @@ TabView::~TabView()
 /** Update tab */
 void TabView::update_tabs()
 {
-	bool direction_changed = m_tab_direction != m_previous_tab_direction;
-	const TabStyle & active_style = tab_style(m_tab_direction);
-	bool tab_style_changed = active_style != m_previous_active_tab_style;
+	bool position_changed = m_tab_position != m_previous_tab_position;
+	bool tab_margin_changed = m_tab_margin != m_previous_tab_margin;
 
-	if (direction_changed || tab_style_changed)
+	if (position_changed || tab_margin_changed)
 	{
-		update_tab_scroll(direction_changed, tab_style_changed);
-		apply_tab_style(active_style);
-		m_previous_active_tab_style = active_style;
+		update_tab_scroll(position_changed, tab_margin_changed);
 	}
-	if (direction_changed)
+	if (position_changed)
 	{
+		apply_tab_style();
 		reflow_tabs();
 	}
 }
 
 // Update the tab bar scroll settings.
-void TabView::update_tab_scroll(bool direction_changed, bool tab_style_changed)
+void TabView::update_tab_scroll(bool position_changed, bool tab_margin_changed)
 {
-	if (direction_changed)
+	if (position_changed)
 	{
-		if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
-		{
-			m_scroll_tab->scroll_direction(ScrollDirection::SCROLL_HORIZONTAL);
-			m_scroll_tab->align(Align::ALIGN_LEFT);
-		}
-		else
-		{
-			m_scroll_tab->scroll_direction(ScrollDirection::SCROLL_VERTICAL);
-			m_scroll_tab->align(Align::ALIGN_TOP);
-		}
-		m_scroll_tab->scrollbar_visible(false);
-		m_previous_tab_direction = m_tab_direction;
+		place_tab_bar(m_scroll_tab, m_tab_position);
+		m_previous_tab_position = m_tab_position;
 	}
-	if (tab_style_changed)
+	if (position_changed || tab_margin_changed)
 	{
-		m_scroll_tab->margin(tab_style(m_tab_direction).margin());
+		m_scroll_tab->margin(Tab::rotate_margin(m_tab_margin, m_tab_position));
+		m_previous_tab_margin = m_tab_margin;
 	}
 }
 
-// Apply the active directional style to every existing tab button.
-void TabView::apply_tab_style(const TabStyle & style)
+// Reapply tab.sty to each tab in the selected position.
+void TabView::apply_tab_style()
 {
 	for (Dim index = 0; index < m_tab_id; index++)
 	{
-		Button * title = tab_button(index);
+		Tab * title = tab_button(index);
 		if (title)
 		{
-			title->margin(style.inter_margin());
-			title->borders(style.borders());
+			title->position(m_tab_position);
+			title->selected(index == m_selected_index);
+			title->focusable(index == m_selected_index);
 		}
 	}
 }
@@ -107,30 +147,13 @@ void TabView::reflow_tabs()
 {
 	for (Dim index = 0; index < m_tab_id; index++)
 	{
-		Button * title = tab_button(index);
+		Tab * title = tab_button(index);
 		Pane * tab_page = page(index);
 		if (title)
 		{
-			if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
-			{
-				title->cell(0, index);
-			}
-			else
-			{
-				title->cell(index, 0);
-			}
+			place_tab_button(title, index, m_tab_position);
 		}
-		if (tab_page)
-		{
-			if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
-			{
-				tab_page->cell(1, 0);
-			}
-			else
-			{
-				tab_page->cell(0, 1);
-			}
-		}
+		place_tab_page(tab_page, m_tab_position);
 	}
 	UIManager::invalidator()->dirty(m_tab_layout, Invalidator::GEOMETRY);
 }
@@ -141,35 +164,18 @@ Pane * TabView::add_tab(const String & title)
 	Dim index = m_tab_id++;
 	Pane * result = new Pane(m_tab_layout);
 	result->id(FIRST_PAGE + index);
-	if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
-	{
-		result->cell(1, 0);
-	}
-	else
-	{
-		result->cell(0, 1);
-	}
+	place_tab_page(result, m_tab_position);
 	result->hidden(true);
 	result->size_policy(SizePolicy::ENLARGE_ALL);
 
-	Button * tab_title = new Button(m_tabs);
+	Tab * tab_title = new Tab(m_tabs);
 	if (tab_title)
 	{
-		const TabStyle & active_style = tab_style(m_tab_direction);
-		// TabView supplies directional layout defaults; callers can still customize each button.
 		tab_title->text(title);
 		tab_title->id(FIRST_TAB + index);
 		tab_title->focusable(false);
-		tab_title->margin(active_style.inter_margin());
-		tab_title->borders(active_style.borders());
-		if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
-		{
-			tab_title->cell(0, index);
-		}
-		else
-		{
-			tab_title->cell(index, 0);
-		}
+		tab_title->position(m_tab_position);
+		place_tab_button(tab_title, index, m_tab_position);
 		tab_title->bind(this, &TabView::on_click_tab);
 	}
 	if (m_selected_index == UNDEFINED_INDEX)
@@ -186,7 +192,7 @@ bool TabView::remove_tab(Dim index)
 	if (index < m_tab_id)
 	{
 		result = true;
-		Button * title = tab_button(index);
+		Tab * title = tab_button(index);
 		Pane * tab_page = page(index);
 		bool was_selected = index == m_selected_index;
 		bool tab_has_focus = contains_focus(tab_page) || (title && title->focused());
@@ -216,19 +222,12 @@ bool TabView::remove_tab(Dim index)
 		// Keep tab ids and grid cells contiguous after the removal.
 		for (Dim tab = index + 1; tab < m_tab_id; tab++)
 		{
-			Button * shifted_title = tab_button(tab);
+			Tab * shifted_title = tab_button(tab);
 			Pane * shifted_page = page(tab);
 			if (shifted_title)
 			{
 				shifted_title->id(FIRST_TAB + tab - 1);
-				if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
-				{
-					shifted_title->cell(0, tab - 1);
-				}
-				else
-				{
-					shifted_title->cell(tab - 1, 0);
-				}
+				place_tab_button(shifted_title, tab - 1, m_tab_position);
 			}
 			if (shifted_page)
 			{
@@ -264,7 +263,7 @@ bool TabView::remove_tab(const String & title)
 	bool result = false;
 	for (Dim index = 0; index < m_tab_id && result == false; index++)
 	{
-		Button * tab_title = tab_button(index);
+		Tab * tab_title = tab_button(index);
 		if (tab_title && tab_title->text() == title)
 		{
 			result = remove_tab(index);
@@ -291,12 +290,12 @@ Pane * TabView::selected_page() const
 }
 
 // Get a tab button by its index.
-Button * TabView::tab_button(Dim index) const
+Tab * TabView::tab_button(Dim index) const
 {
-	Button * result = 0;
+	Tab * result = 0;
 	if (m_tabs && index < m_tab_id)
 	{
-		result = dynamic_cast<Button *>(m_tabs->search(FIRST_TAB + index));
+		result = dynamic_cast<Tab *>(m_tabs->search(FIRST_TAB + index));
 	}
 	return result;
 }
@@ -329,7 +328,7 @@ bool TabView::select_tab(Dim index, bool focus_tab)
 {
 	bool result = false;
 	Pane * new_page = page(index);
-	Button * new_button = tab_button(index);
+		Tab * new_button = tab_button(index);
 	if (new_page && new_button)
 	{
 		result = true;
@@ -344,7 +343,7 @@ bool TabView::select_tab(Dim index, bool focus_tab)
 		else
 		{
 			Pane * old_page = selected_page();
-			Button * old_button = tab_button(m_selected_index);
+			Tab * old_button = tab_button(m_selected_index);
 			bool move_focus = focus_tab || contains_focus(old_page) ||
 				(old_button && old_button->focused());
 
@@ -357,7 +356,7 @@ bool TabView::select_tab(Dim index, bool focus_tab)
 
 			for (Dim tab = 0; tab < m_tab_id; tab++)
 			{
-				Button * button = tab_button(tab);
+				Tab * button = tab_button(tab);
 				if (button)
 				{
 					bool selected = tab == index;
@@ -390,12 +389,12 @@ void TabView::on_key_tab(Widget *, const KeyEvent & evt)
 {
 	if (evt.state() == KeyEvent::KEY_DOWN && m_selected_index != UNDEFINED_INDEX && m_tab_id > 1)
 	{
-		Button * active_button = tab_button(m_selected_index);
+		Tab * active_button = tab_button(m_selected_index);
 		bool previous = false;
 		bool next = false;
 		if (active_button && active_button->focused())
 		{
-			if (m_tab_direction == TabDirection::TAB_HORIZONTAL)
+			if (is_horizontal_tab_position(m_tab_position))
 			{
 				previous = evt.key() == (wchar_t)ReservedKey::KEY_LEFT;
 				next = evt.key() == (wchar_t)ReservedKey::KEY_RIGHT;
@@ -430,7 +429,6 @@ void TabView::serialize(JsonIterator & it)
 	WidgetStyle::serialize(it);
 	PaddingStyle::serialize(it);
 	TabViewStyle::serialize(it);
-	TextStyle::serialize(it);
 	BorderStyle::serialize(it);
 	Widget::serialize(it);
 }
@@ -441,7 +439,6 @@ void TabView::unserialize(JsonIterator & it)
 	CommonStyle::unserialize(it);
 	WidgetStyle::unserialize(it);
 	PaddingStyle::unserialize(it);
-	TextStyle::unserialize(it);
 	BorderStyle::unserialize(it);
 	TabViewStyle::unserialize(it);
 	focusable(false);

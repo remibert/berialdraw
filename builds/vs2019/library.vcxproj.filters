@@ -1474,6 +1474,9 @@
     <ClCompile Include="..\..\src\widget\tab_view.cpp">
       <Filter>berialdraw\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\widget\tab.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\config.h">
@@ -2385,6 +2388,9 @@
     <ClInclude Include="..\..\include\widget\tab_view.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\widget\tab.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\resources\icons\account_circle.icn">
@@ -2651,7 +2657,19 @@
     <None Include="..\..\resources\styles\pearl\table_view.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
+    <None Include="..\..\resources\styles\pearl\tab.sty">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\tab_view.sty">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
     <None Include="..\..\resources\styles\test\table_view.sty">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\tab.sty">
+      <Filter>resources\styles\test</Filter>
+    </None>
+    <None Include="..\..\resources\styles\test\tab_view.sty">
       <Filter>resources\styles\test</Filter>
     </None>
     <None Include="..\..\resources\styles\pearl\list.sty">

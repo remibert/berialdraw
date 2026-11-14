@@ -3,7 +3,17 @@
 using namespace berialdraw;
 
 Button::Button(Widget * parent):
-	Widget("button", parent, sizeof(Button))
+	Button("button", parent, sizeof(Button))
+{
+}
+
+Button::Button(const char * classname, Widget * parent):
+	Button(classname, parent, sizeof(Button))
+{
+}
+
+Button::Button(const char * classname, Widget * parent, size_t object_size):
+	Widget(classname, parent, object_size)
 {
 	UIManager::styles()->apply(this, (CommonStyle*)this);
 	UIManager::styles()->apply(this, (WidgetStyle*)this);
