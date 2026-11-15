@@ -31,6 +31,7 @@ static const MenuBinding menu_bindings[] = {
 	{"Window",      "$(ui.icons)/select_window.icn",      sample_window      },
 	{"Speedometer", "$(ui.icons)/speed.icn",              sample_speedometer },
 	{"TableView",   "$(ui.icons)/grid_on.icn",            sample_tableview   },
+	{"TabView",     "$(ui.icons)/tab_group.icn",          sample_tab_view    },
 	{"Theme",       "$(ui.icons)/filter_vintage.icn",     sample_palette     },
 };
 

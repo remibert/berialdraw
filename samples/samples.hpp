@@ -66,6 +66,9 @@ void sample_palette(berialdraw::Widget * widget, const berialdraw::ClickEvent & 
 // Sample function to show TableView widget
 void sample_tableview(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
 
+// Sample function to show TabView widget
+void sample_tab_view(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
+
 // Sample function to show Picture widget
 void sample_picture(berialdraw::Widget * widget, const berialdraw::ClickEvent & evt);
 

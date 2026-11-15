@@ -24,6 +24,7 @@ from samples.sample_tableview import sample_tableview
 from samples.sample_picture import sample_picture
 from samples.sample_combo import sample_combo
 from samples.sample_list import sample_list
+from samples.sample_tab_view import sample_tab_view
 from samples.sample_popup import sample_popup
 
 
@@ -32,12 +33,16 @@ menu_bindings = [
 	("Button",      "$(ui.icons)/view_agenda.icn",        sample_button),
 	("Canvas",      "$(ui.icons)/draw_abstract.icn",      sample_canvas),
 	("Column",      "$(ui.icons)/table_rows_narrow.icn",  sample_column),
+	("Combo",       "$(ui.icons)/sort.icn",                sample_combo),
 	("Edit",        "$(ui.icons)/text_fields_alt.icn",    sample_edit),
 	("Grid",        "$(ui.icons)/grid_on.icn",            sample_grid),
 	("Icon",        "$(ui.icons)/image.icn",              sample_icon),
+	("List",        "$(ui.icons)/sort.icn",               sample_list),
 	("Keyboard",    "$(ui.icons)/keyboard.icn",           sample_keyboard),
 	("Label",       "$(ui.icons)/format_size.icn",        sample_label),
 	("Pane",        "$(ui.icons)/featured_video.icn",     sample_pane),
+	("Picture",     "$(ui.icons)/image.icn",              sample_picture),
+	("Popup",       "$(ui.icons)/more_vert.icn",          sample_popup),
 	("ProgressBar", "$(ui.icons)/sliders.icn",            sample_progress_bar),
 	("Row",         "$(ui.icons)/calendar_view_week.icn", sample_row),
 	("ScrollView",  "$(ui.icons)/scrollable_header.icn",  sample_scroll_view),
@@ -45,12 +50,9 @@ menu_bindings = [
 	("Switch",      "$(ui.icons)/toggle_on.icn",          sample_switch),
 	("Window",      "$(ui.icons)/select_window.icn",      sample_window),
 	("Speedometer", "$(ui.icons)/speed.icn",              sample_speedometer),
-	("Theme",       "$(ui.icons)/filter_vintage.icn",     sample_palette),
 	("TableView",   "$(ui.icons)/grid_on.icn",            sample_tableview),
-	("Picture",     "$(ui.icons)/image.icn",              sample_picture),
-	("Combo",       "$(ui.icons)/sort.icn",                sample_combo),
-	("List",        "$(ui.icons)/sort.icn",               sample_list),
-	("Popup",       "$(ui.icons)/more_vert.icn",          sample_popup),
+	("TabView",     "$(ui.icons)/tab_group.icn",          sample_tab_view),
+	("Theme",       "$(ui.icons)/filter_vintage.icn",     sample_palette),
 ]
 
 
