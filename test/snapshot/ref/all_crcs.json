@@ -5602,5 +5602,17 @@
 		"$(ui.tests)/out/tab_view4_5.svg" : 
 		{
 			"scale_1" : 3192540474
+		},
+		"$(ui.tests)/out/sample_list_1.svg" : 
+		{
+			"scale_1" : 840119251
+		},
+		"$(ui.tests)/out/sample_popup_1.svg" : 
+		{
+			"scale_1" : 877408740
+		},
+		"$(ui.tests)/out/sample_popup_2.svg" : 
+		{
+			"scale_1" : 3083065625
 		}
 	}

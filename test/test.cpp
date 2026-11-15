@@ -621,16 +621,62 @@ namespace berialdraw
 				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
 				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
 
+			String list_test = 
+				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_list_%d.svg'},"
+				"{'type':'touch','x':265,'y':268,'state':'down'},"
+				"{'type':'touch','x':265,'y':268,'state':'up'},"
+				"{'type':'touch','x':265,'y':268,'state':'down'},"
+				"{'type':'touch','x':265,'y':268,'state':'up'},"
+				"{'type':'touch','x':265,'y':268,'state':'down'},"
+				"{'type':'touch','x':265,'y':268,'state':'up'},"
+				"{'type':'touch','x':254,'y':272,'state':'down'},"
+				"{'type':'touch','x':254,'y':272,'state':'up'},"
+				"{'type':'touch','x':229,'y':221,'state':'down'},"
+				"{'type':'touch','x':228,'y':214,'state':'move'},"
+				"{'type':'touch','x':228,'y':198,'state':'move'},"
+				"{'type':'touch','x':227,'y':177,'state':'move'},"
+				"{'type':'touch','x':224,'y':159,'state':'move'},"
+				"{'type':'touch','x':222,'y':150,'state':'move'},"
+				"{'type':'touch','x':222,'y':138,'state':'move'},"
+				"{'type':'touch','x':221,'y':129,'state':'move'},"
+				"{'type':'touch','x':221,'y':127,'state':'move'},"
+				"{'type':'touch','x':221,'y':127,'state':'up'},"
+				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
+	
+			String popup_test = 
+				"{'type':'snapshot','filename':'$(ui.tests)/out/sample_popup_%d.svg'},"
+				"{'type':'touch','x':159,'y':202,'state':'down'},"
+				"{'type':'touch','x':159,'y':202,'state':'up'},"
+				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},"
+				"{'type':'touch','x':191,'y':214,'state':'down'},"
+				"{'type':'touch','x':191,'y':214,'state':'up'},"
+				"{'type':'touch','x':312,'y':342,'state':'down'},"
+				"{'type':'touch','x':312,'y':342,'state':'up'},"
+				"{'type':'touch','x':346,'y':376,'state':'down'},"
+				"{'type':'touch','x':346,'y':376,'state':'up'},"
+				"{'type':'touch','x':305,'y':174,'state':'down'},"
+				"{'type':'touch','x':305,'y':174,'state':'up'},"
+				"{'type':'touch','x':336,'y':214,'state':'down'},"
+				"{'type':'touch','x':336,'y':214,'state':'up'},"
+				"{'type':'key','key':9208,'state':'down','modifier':''     ,'character':' '},"
+				"{'type':'key','key':9208,'state':'up'  ,'modifier':''     ,'character':' '},";
+	
 				script += icon_list_test;
 				script += focus_on("Button")      + enter_test + button_test     + exit_test;
 				script += focus_on("Canvas")      + enter_test + canvas_test     + exit_test;
 				script += focus_on("Column")      + enter_test + column_test     + exit_test;
+				script += focus_on("Combo")       + enter_test + combo_test      + exit_test;
 				script += focus_on("Edit")        + enter_test + edit_test       + exit_test;
 				script += focus_on("Grid")        + enter_test + grid_test       + exit_test;
 				script += focus_on("Icon")        + enter_test + icon_test       + exit_test;
+				script += focus_on("List")        + enter_test + list_test       + exit_test;
 				script += focus_on("Keyboard")    + enter_test + keyboard_test   + exit_test;
 				script += focus_on("Label")       + enter_test + label_test      + exit_test;
 				script += focus_on("Pane")        + enter_test + pane_test       + exit_test;
+				script += focus_on("Picture")     + enter_test + picture_test    + exit_test;
+				script += focus_on("Popup")       + enter_test + popup_test      + exit_test;
 				script += focus_on("ProgressBar") + enter_test + progress_test   + exit_test;
 				script += focus_on("Row")         + enter_test + row_test        + exit_test;
 				script += focus_on("ScrollView")  + enter_test + scroll_test     + exit_test;
@@ -639,8 +685,6 @@ namespace berialdraw
 				script += focus_on("Window")      + enter_test + window_test     + exit_test;
 				script += focus_on("Speedometer") + enter_test + speed_test      + exit_test;
 				script += focus_on("TableView")   + enter_test + table_view_test + exit_test;
-				script += focus_on("Picture")     + enter_test + picture_test    + exit_test;
-				script += focus_on("Combo")       + enter_test + combo_test      + exit_test;
 				script += focus_on("Theme")       + enter_test + palette_test    + exit_test;
 
 				// Exit all
