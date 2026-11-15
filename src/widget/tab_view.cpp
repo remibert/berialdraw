@@ -429,7 +429,6 @@ void TabView::serialize(JsonIterator & it)
 	WidgetStyle::serialize(it);
 	PaddingStyle::serialize(it);
 	TabViewStyle::serialize(it);
-	BorderStyle::serialize(it);
 	Widget::serialize(it);
 }
 
@@ -439,7 +438,6 @@ void TabView::unserialize(JsonIterator & it)
 	CommonStyle::unserialize(it);
 	WidgetStyle::unserialize(it);
 	PaddingStyle::unserialize(it);
-	BorderStyle::unserialize(it);
 	TabViewStyle::unserialize(it);
 	focusable(false);
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);

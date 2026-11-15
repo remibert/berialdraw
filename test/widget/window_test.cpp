@@ -589,9 +589,9 @@ void Window::test8()
 	Window window;
 	window_all_widgets(window);
 	UIManager::desktop()->dispatch("$(ui.tests)/out/window8_1.svg");
-	UIManager::colors()->appearance("test_dark");
+	UIManager::colors()->appearance("dark");
 	UIManager::desktop()->dispatch("$(ui.tests)/out/window8_2.svg");
-	UIManager::colors()->appearance("test_light");
+	UIManager::colors()->appearance("light");
 	UIManager::desktop()->dispatch("$(ui.tests)/out/window8_3.svg");
 }
 

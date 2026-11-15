@@ -856,7 +856,7 @@ const char * Notifier::next_step_script()
 					}
 				}
 			}
-			else if (evt["type"] == "select")
+			else if (evt["type"] == "focus-on")
 			{
 				String text = evt["text"] | "";
 				Window * window = UIManager::desktop()->front();

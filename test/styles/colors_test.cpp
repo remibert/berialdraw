@@ -15,7 +15,7 @@ void Colors::test1()
 	assert(UIManager::colors()->color(LABEL_TEXT_COLOR) == 0xffffffff);
 	assert(UIManager::colors()->color(100) == 100);
 
-	assert(UIManager::colors()->appearance("test_light") == true);
+	assert(UIManager::colors()->appearance("light") == true);
 	assert(UIManager::colors()->color(LABEL_TEXT_COLOR) == 0xFF000000);
 	assert(UIManager::colors()->color(100) == 100);
 }

@@ -4066,7 +4066,7 @@
 		"$(ui.tests)/out/sample_icon_list_1.svg" : 
 		{
 			"scale_2" : 1565334915,
-			"scale_1" : 4233135890
+			"scale_1" : 3415911237
 		},
 		"$(ui.tests)/out/sample_buton_1.svg" : 
 		{
@@ -5146,7 +5146,7 @@
 		"$(ui.tests)/out/sample_picture_1.svg" : 
 		{
 			"scale_2" : 350519077,
-			"scale_1" : 2530171902
+			"scale_1" : 833592182
 		},
 		"$(ui.tests)/out/label5_2.svg" : 
 		{
@@ -5517,35 +5517,35 @@
 		},
 		"$(ui.tests)/out/sample_combo_1.svg" : 
 		{
-			"scale_1" : 1447421712
+			"scale_1" : 3140611732
 		},
 		"$(ui.tests)/out/tab_view3_1.svg" : 
 		{
-			"scale_1" : 308142955
+			"scale_1" : 3990413897
 		},
 		"$(ui.tests)/out/tab_view3_2.svg" : 
 		{
-			"scale_1" : 1689694623
+			"scale_1" : 2801276456
 		},
 		"$(ui.tests)/out/tab_view3_3.svg" : 
 		{
-			"scale_1" : 1416007791
+			"scale_1" : 4086996934
 		},
 		"$(ui.tests)/out/tab_view3_4.svg" : 
 		{
-			"scale_1" : 1416007791
+			"scale_1" : 4086996934
 		},
 		"$(ui.tests)/out/tab_view3_5.svg" : 
 		{
-			"scale_1" : 4003598956
+			"scale_1" : 4105826647
 		},
 		"$(ui.tests)/out/tab_view3_6.svg" : 
 		{
-			"scale_1" : 3237144209
+			"scale_1" : 456914032
 		},
 		"$(ui.tests)/out/tab_view3_7.svg" : 
 		{
-			"scale_1" : 1085895568
+			"scale_1" : 712473263
 		},
 		"$(ui.tests)/out/tab_view3_8.svg" : 
 		{
@@ -5553,54 +5553,54 @@
 		},
 		"$(ui.tests)/out/tab_view2_1.svg" : 
 		{
-			"scale_1" : 303135537
+			"scale_1" : 4151299820
 		},
 		"$(ui.tests)/out/tab_view2_2.svg" : 
 		{
-			"scale_1" : 1910681709
+			"scale_1" : 2598058399
 		},
 		"$(ui.tests)/out/tab_view2_3.svg" : 
 		{
-			"scale_1" : 2599013920
+			"scale_1" : 3753255058
 		},
 		"$(ui.tests)/out/tab_view2_4.svg" : 
 		{
-			"scale_1" : 2823452188
+			"scale_1" : 516338371
 		},
 		"$(ui.tests)/out/tab_view2_5.svg" : 
 		{
-			"scale_1" : 2417282111
+			"scale_1" : 90498771
 		},
 		"$(ui.tests)/out/tab_view1_1.svg" : 
 		{
-			"scale_1" : 2937785836
+			"scale_1" : 4083940675
 		},
 		"$(ui.tests)/out/tab_view1_2.svg" : 
 		{
-			"scale_1" : 2937785836
+			"scale_1" : 4083940675
 		},
 		"$(ui.tests)/out/sample_table_view_1.svg" : 
 		{
-			"scale_1" : 1899629639
+			"scale_1" : 3729700720
 		},
 		"$(ui.tests)/out/tab_view4_1.svg" : 
 		{
-			"scale_1" : 3333489998
+			"scale_1" : 3192540474
 		},
 		"$(ui.tests)/out/tab_view4_2.svg" : 
 		{
-			"scale_1" : 2853526750
+			"scale_1" : 1561666559
 		},
 		"$(ui.tests)/out/tab_view4_3.svg" : 
 		{
-			"scale_1" : 3874424676
+			"scale_1" : 1400323701
 		},
 		"$(ui.tests)/out/tab_view4_4.svg" : 
 		{
-			"scale_1" : 2296751475
+			"scale_1" : 3340294462
 		},
 		"$(ui.tests)/out/tab_view4_5.svg" : 
 		{
-			"scale_1" : 3333489998
+			"scale_1" : 3192540474
 		}
 	}

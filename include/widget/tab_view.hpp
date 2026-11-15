@@ -4,7 +4,7 @@ namespace berialdraw
 	class Tab;
 
 	/** A tab container with a scrollable tab bar and Pane pages. */
-	class TabView : public Widget, public BorderStyle, public TabViewStyle
+	class TabView : public Widget, public TabViewStyle
 	{
 	public:
 		/** Create a tab view. */
