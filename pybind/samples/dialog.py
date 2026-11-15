@@ -4,6 +4,14 @@ from pyberialdraw import *
 
 class Dialog:
 	"""Dialog box to display a menu with a list of icons, a title and a button to cancel"""
+	# Cycle of theme colors, equivalent of Color::FIRST_PALETTE_COLOR..Color::LAST_PALETTE_COLOR
+	_PALETTE_COLORS = [
+		Color.PALETTE_RED, Color.PALETTE_ORANGE, Color.PALETTE_YELLOW, Color.PALETTE_LIME,
+		Color.PALETTE_GREEN, Color.PALETTE_JADE, Color.PALETTE_CYAN, Color.PALETTE_AZURE,
+		Color.PALETTE_BLUE, Color.PALETTE_INDIGO, Color.PALETTE_PURPLE, Color.PALETTE_VIOLET,
+		Color.PALETTE_FUSHIA, Color.PALETTE_PINK, Color.PALETTE_ROSEWOOD, Color.PALETTE_SAND,
+		Color.PALETTE_ASH, Color.PALETTE_GRAY, Color.PALETTE_ZINC, Color.PALETTE_SLATE,
+	]
 
 	def __init__(self, scrollable_content=True):
 		self.window = Window()
@@ -24,6 +32,12 @@ class Dialog:
 			self.content.size_policy = SizePolicy.ENLARGE_ALL
 
 		self.selected = ""
+		self._backcolor_index = 0                            # Hue index for automatic back color of icons
+
+	def _next_backcolor(self):
+		color = UIManager.colors().color(self._PALETTE_COLORS[self._backcolor_index])
+		self._backcolor_index = (self._backcolor_index + 1) % len(self._PALETTE_COLORS)
+		return color
 
 	def _on_menu_quit(self, widget, event):
 		if isinstance(widget, Button):

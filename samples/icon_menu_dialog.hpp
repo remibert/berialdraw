@@ -42,8 +42,5 @@ namespace berialdraw
 
 		/** Row layout of icon menu */
 		Row * m_row = 0;
-
-		/** Hue for automatic back color of icons */
-		uint32_t m_backcolor = Color::FIRST_PALETTE_COLOR;
 	};
 }

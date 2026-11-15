@@ -27,10 +27,14 @@ namespace berialdraw
 		/** Callback on click on menu item */
 		void on_menu_quit(Widget * widget, const ClickEvent & evt);
 
+		/** Return next resolved palette color */
+		uint32_t next_backcolor();
+
 		Window   m_window;
 		String   m_selected;
 		Pane   * m_header = 0;
 		Widget * m_main_layout = 0;
 		Widget * m_content = 0;
+		uint32_t m_backcolor = Color::FIRST_PALETTE_COLOR;
 	};
 }

@@ -35,6 +35,18 @@ void Dialog::on_menu_quit(Widget * widget, const ClickEvent & evt)
 	UIManager::desktop()->quit();                        // Exits the main loop, closing the dialog
 }
 
+// Return next resolved palette color
+uint32_t Dialog::next_backcolor()
+{
+	uint32_t color = UIManager::colors()->color(m_backcolor);
+	m_backcolor ++;
+	if (m_backcolor > Color::LAST_PALETTE_COLOR)
+	{
+		m_backcolor = Color::FIRST_PALETTE_COLOR;
+	}
+	return color;
+}
+
 /** Add title menu */
 void Dialog::title(const String & title)
 {

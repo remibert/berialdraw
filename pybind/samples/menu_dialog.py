@@ -2,7 +2,6 @@
 from pyberialdraw import *
 from samples.dialog import Dialog
 
-
 class MenuDialog(Dialog):
 	"""Dialog box to display a menu with a list of options, a title and a button to cancel"""
 
@@ -14,7 +13,7 @@ class MenuDialog(Dialog):
 		self.list.margin = 0
 		self.list.thickness = 0
 
-	def _on_menu_click(self, widget, event):
+	def _on_menu_click(self, widget, _):
 		if isinstance(widget, ListItem):
 			self.selected = widget.text                     # Stores the text of the selected item
 		UIManager.desktop().quit()                           # Exits the main loop, closing the dialog
@@ -23,7 +22,13 @@ class MenuDialog(Dialog):
 		"""Create item in menu"""
 		def configure(item):
 			item.padding = 3
-			item.text = "$<'sketch':'%s','size':{'width':40,'height':40}, 'align':'center'> %s\v> "%(icon_filename,text)
+			color = self._next_backcolor()
+			item.text = \
+				f"$<'sketch':'{icon_filename}',"+\
+				f"'size':{{'width':40,'height':40}},"+\
+				f"'align':'center',"+\
+				f"'color':{color}>"+\
+				f" {text}\v> "
 		return self.list.append(configure)
 
 	def add_choice(self, text, icon_filename="", callback=None):

@@ -26,13 +26,17 @@ void MenuDialog::on_menu_click(Widget * widget, const ClickEvent & evt)
 /** Create item in menu */
 ListItem* MenuDialog::create_menu(const String& text, const String& icon_filename)
 {
-	ListItem* result = m_list->append([text, icon_filename](ListItem* item) 
+	uint32_t backcolor = next_backcolor();
+	ListItem* result = m_list->append([text, icon_filename, backcolor](ListItem* item) 
 	{
 		String item_text;
 		item->padding(3);
 		item_text.print(
-			"$<'sketch':'%s','size':{'width':40,'height':40}, 'align':'center'> " // Set the icon filename
-			"%s\v> ", icon_filename.c_str(), text.c_str());                       // Set the text of item
+			"$<'sketch':'%s',"
+			"'size':{'width':40,'height':40},"
+			"'align':'center',"
+			"'color':%d>"
+			"%s\v> ", icon_filename.c_str(), backcolor, text.c_str());                       // Set the text of item
 		item->text(item_text);
 	});
 	return result;                                     // Returns the item menu
