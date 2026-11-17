@@ -135,7 +135,7 @@ void TableView::paint_grid_lines()
 		Dim col_count = m_grid->m_cells.column_count();
 		Dim horizontal_thickness = m_grid->m_cells.horizontal_line_thickness();
 		Dim vertical_thickness = m_grid->m_cells.vertical_line_thickness();
-		uint32_t line_color = grid_color();
+		uint32_t line_color = stated_color(grid_color());
 		Outline outline;
 		bool has_lines = false;
 		struct CellGridLineData
