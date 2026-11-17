@@ -75,6 +75,7 @@ static Widget * find_focusable_widget_by_text(Widget * parent, const String & te
 Notifier::Notifier()
 {
 	m_touch_down = 0;
+	m_slider_handle_pressed = 0;
 	m_playing_script = 0;
 	m_log = LogEvent::LOG_NONE;
 }
@@ -169,6 +170,8 @@ void Notifier::notify(KeyEvent & evt)
 /** Notify desktop with a touch down event */
 void Notifier::treat_touch_down(TouchEvent & evt)
 {
+	m_slider_handle_pressed = 0;
+
 	if(m_clicked)
 	{
 		m_clicked->pressed(false);
@@ -186,6 +189,12 @@ void Notifier::treat_touch_down(TouchEvent & evt)
 		m_move_position = evt.position();
 		m_scrolled = 0;
 		m_selected = 0;
+
+		Slider * slider = dynamic_cast<Slider *>(m_clicked);
+		if (slider && slider->handle_contains(evt.position()))
+		{
+			m_slider_handle_pressed = 1;
+		}
 	}
 
 	m_move_count = 0;
@@ -195,8 +204,17 @@ void Notifier::treat_touch_down(TouchEvent & evt)
 /** Notify desktop with a touch down event */
 void Notifier::treat_touch_move(TouchEvent & evt)
 {
+	// A press on the slider handle captures the drag regardless of direction.
+	if (m_slider_handle_pressed && m_clicked)
+	{
+		push_event(new SelectEvent(SelectEvent::SELECT_START, evt.position(), m_clicked));
+		m_selected = m_clicked;
+		m_clicked->pressed(false);
+		m_clicked = 0;
+		m_slider_handle_pressed = 0;
+	}
 	// Move on same widget
-	if (m_clicked && (m_hovered == m_clicked))
+	else if (m_clicked && (m_hovered == m_clicked))
 	{
 		if (m_move_count <= 2)
 		{
@@ -211,18 +229,9 @@ void Notifier::treat_touch_move(TouchEvent & evt)
 				Coord move_x = abs(m_down_position.x_q6() - evt.position().x_q6());
 				Coord move_y = abs(m_down_position.y_q6() - evt.position().y_q6());
 
-				if (String(m_clicked->classname()) == "slider")
-				{
-					if (m_clicked->extend() == Extend::EXTEND_HEIGHT)
-					{
-						if (move_x < move_y*2) scroll = false;
-					}
-					else 
-					{
-						if (move_y < move_x*2) scroll = false;
-					}
-				}
-				else if (move_y < move_x*2)
+				// Only a press on the slider handle captures a slider drag.
+				Slider * slider = dynamic_cast<Slider *>(m_clicked);
+				if (slider == 0 && move_y < move_x*2)
 				{
 					scroll = false;
 				}
@@ -300,6 +309,7 @@ Widget * Notifier::treat_touch_up(TouchEvent & evt)
 	m_scrolled = 0;
 	m_clicked = 0;
 	m_selected = 0;
+	m_slider_handle_pressed = 0;
 	m_touch_down = 0;
 	return clicked;
 }
@@ -518,6 +528,7 @@ void Notifier::remove(Widget * widget)
 	if (m_clicked == widget)
 	{
 		m_clicked = 0;
+		m_slider_handle_pressed = 0;
 	}
 	if (m_selected == widget)
 	{

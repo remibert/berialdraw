@@ -4,7 +4,7 @@ namespace berialdraw
 	class Tab;
 
 	/** A tab container with a scrollable tab bar and Pane pages. */
-	class TabView : public Widget, public TabViewStyle
+	class TabView : public Widget, public TabViewStyle, public BorderStyle
 	{
 	public:
 		/** Create a tab view. */
@@ -58,6 +58,9 @@ namespace berialdraw
 #endif
 
 	protected:
+		/** Paint the tab view and its page frame. */
+		virtual void paint(const Region & parent_region) override;
+
 		/** Place the internal layout in the TabView area. */
 		virtual void place(const Area & area, bool in_layout) override;
 

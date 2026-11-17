@@ -337,12 +337,12 @@
 		"$(ui.tests)/out/slider3_7.svg" : 
 		{
 			"scale_2" : 305069547,
-			"scale_1" : 1661269212
+			"scale_1" : 3324948963
 		},
 		"$(ui.tests)/out/slider3_8.svg" : 
 		{
 			"scale_2" : 2003601114,
-			"scale_1" : 241061091
+			"scale_1" : 1970138209
 		},
 		"$(ui.tests)/out/slider2_1.svg" : 
 		{
@@ -3492,12 +3492,12 @@
 		"$(ui.tests)/out/pie1_1.svg" : 
 		{
 			"scale_2" : 852619336,
-			"scale_1" : 3148628572
+			"scale_1" : 839950016
 		},
 		"$(ui.tests)/out/pie1_2.svg" : 
 		{
 			"scale_2" : 1242169471,
-			"scale_1" : 790486143
+			"scale_1" : 3263581005
 		},
 		"$(ui.tests)/out/pie1_3.svg" : 
 		{
@@ -3507,12 +3507,12 @@
 		"$(ui.tests)/out/pie1_4.svg" : 
 		{
 			"scale_2" : 3273487813,
-			"scale_1" : 3532951438
+			"scale_1" : 2740821438
 		},
 		"$(ui.tests)/out/pie1_5.svg" : 
 		{
 			"scale_2" : 2955482981,
-			"scale_1" : 1083841683
+			"scale_1" : 431263796
 		},
 		"$(ui.tests)/out/pie1_6.svg" : 
 		{
@@ -3822,7 +3822,7 @@
 		"$(ui.tests)/out/linechart.svg" : 
 		{
 			"scale_2" : 2328479071,
-			"scale_1" : 2198032798
+			"scale_1" : 556071375
 		},
 		"$(ui.tests)/out/compass1.svg" : 
 		{
@@ -3861,67 +3861,67 @@
 		"$(ui.tests)/out/polyline2.svg" : 
 		{
 			"scale_2" : 3024907053,
-			"scale_1" : 1596618110
+			"scale_1" : 3166441969
 		},
 		"$(ui.tests)/out/polylines1_1.svg" : 
 		{
 			"scale_2" : 3721593319,
-			"scale_1" : 2755456910
+			"scale_1" : 2842846544
 		},
 		"$(ui.tests)/out/polylines1_2.svg" : 
 		{
 			"scale_2" : 1873164117,
-			"scale_1" : 1333074055
+			"scale_1" : 3503797084
 		},
 		"$(ui.tests)/out/polylines1_3.svg" : 
 		{
 			"scale_2" : 3239192286,
-			"scale_1" : 2746014842
+			"scale_1" : 2250601418
 		},
 		"$(ui.tests)/out/polylines1_4.svg" : 
 		{
 			"scale_2" : 3315650346,
-			"scale_1" : 2654263413
+			"scale_1" : 668008825
 		},
 		"$(ui.tests)/out/polylines1_5.svg" : 
 		{
 			"scale_2" : 731683628,
-			"scale_1" : 1611346763
+			"scale_1" : 2720082905
 		},
 		"$(ui.tests)/out/polylines1_6.svg" : 
 		{
 			"scale_2" : 1007746401,
-			"scale_1" : 1693640604
+			"scale_1" : 2940401525
 		},
 		"$(ui.tests)/out/polylines1_7.svg" : 
 		{
 			"scale_2" : 16360964,
-			"scale_1" : 1634088287
+			"scale_1" : 3459820744
 		},
 		"$(ui.tests)/out/polylines1_8.svg" : 
 		{
 			"scale_2" : 1761884245,
-			"scale_1" : 1851649008
+			"scale_1" : 1679152665
 		},
 		"$(ui.tests)/out/polylines1_9.svg" : 
 		{
 			"scale_2" : 3503644874,
-			"scale_1" : 4194498213
+			"scale_1" : 745164416
 		},
 		"$(ui.tests)/out/polylines1_10.svg" : 
 		{
 			"scale_2" : 462534630,
-			"scale_1" : 474591001
+			"scale_1" : 2165670169
 		},
 		"$(ui.tests)/out/polyline0_1.svg" : 
 		{
 			"scale_2" : 1320383460,
-			"scale_1" : 4269513313
+			"scale_1" : 3120606404
 		},
 		"$(ui.tests)/out/polyline0_2.svg" : 
 		{
 			"scale_2" : 3505009834,
-			"scale_1" : 1147529174
+			"scale_1" : 1849913130
 		},
 		"$(ui.tests)/out/polyline0_3.svg" : 
 		{
@@ -3931,7 +3931,7 @@
 		"$(ui.tests)/out/polyline0_4.svg" : 
 		{
 			"scale_2" : 1953772829,
-			"scale_1" : 2471743228
+			"scale_1" : 195630940
 		},
 		"$(ui.tests)/out/polyline0_5.svg" : 
 		{
@@ -3956,17 +3956,17 @@
 		"$(ui.tests)/out/polyline0_9.svg" : 
 		{
 			"scale_2" : 1179967279,
-			"scale_1" : 1553278850
+			"scale_1" : 4074491479
 		},
 		"$(ui.tests)/out/polyline0_10.svg" : 
 		{
 			"scale_2" : 3195608318,
-			"scale_1" : 1143322758
+			"scale_1" : 4099744533
 		},
 		"$(ui.tests)/out/polyline0_11.svg" : 
 		{
 			"scale_2" : 3715180126,
-			"scale_1" : 1731655477
+			"scale_1" : 2602270157
 		},
 		"$(ui.tests)/out/polyline0_12.svg" : 
 		{
@@ -3986,17 +3986,17 @@
 		"$(ui.tests)/out/polyline0_15.svg" : 
 		{
 			"scale_2" : 3953926573,
-			"scale_1" : 112250352
+			"scale_1" : 412797114
 		},
 		"$(ui.tests)/out/polyline0_16.svg" : 
 		{
 			"scale_2" : 2312901574,
-			"scale_1" : 3527565991
+			"scale_1" : 2120855484
 		},
 		"$(ui.tests)/out/polyline0_17.svg" : 
 		{
 			"scale_2" : 1272969171,
-			"scale_1" : 1602952303
+			"scale_1" : 98747024
 		},
 		"$(ui.tests)/out/polyline0_18.svg" : 
 		{
@@ -4021,7 +4021,7 @@
 		"$(ui.tests)/out/polyline0_22.svg" : 
 		{
 			"scale_2" : 2909867824,
-			"scale_1" : 1632270428
+			"scale_1" : 4184748756
 		},
 		"$(ui.tests)/out/polyline0_23.svg" : 
 		{
@@ -4036,7 +4036,7 @@
 		"$(ui.tests)/out/polyline0_25.svg" : 
 		{
 			"scale_2" : 149469823,
-			"scale_1" : 2077102921
+			"scale_1" : 4172499447
 		},
 		"$(ui.tests)/out/polyline0_26.svg" : 
 		{
@@ -4066,7 +4066,7 @@
 		"$(ui.tests)/out/sample_icon_list_1.svg" : 
 		{
 			"scale_2" : 1565334915,
-			"scale_1" : 3415911237
+			"scale_1" : 126760762
 		},
 		"$(ui.tests)/out/sample_buton_1.svg" : 
 		{
@@ -4076,7 +4076,7 @@
 		"$(ui.tests)/out/sample_canvas_1.svg" : 
 		{
 			"scale_2" : 3716239225,
-			"scale_1" : 711115443
+			"scale_1" : 850786299
 		},
 		"$(ui.tests)/out/sample_column_1.svg" : 
 		{
@@ -5521,31 +5521,31 @@
 		},
 		"$(ui.tests)/out/tab_view3_1.svg" : 
 		{
-			"scale_1" : 3990413897
+			"scale_1" : 599559943
 		},
 		"$(ui.tests)/out/tab_view3_2.svg" : 
 		{
-			"scale_1" : 2801276456
+			"scale_1" : 3445916446
 		},
 		"$(ui.tests)/out/tab_view3_3.svg" : 
 		{
-			"scale_1" : 4086996934
+			"scale_1" : 1258170213
 		},
 		"$(ui.tests)/out/tab_view3_4.svg" : 
 		{
-			"scale_1" : 4086996934
+			"scale_1" : 1258170213
 		},
 		"$(ui.tests)/out/tab_view3_5.svg" : 
 		{
-			"scale_1" : 4105826647
+			"scale_1" : 1396985855
 		},
 		"$(ui.tests)/out/tab_view3_6.svg" : 
 		{
-			"scale_1" : 456914032
+			"scale_1" : 1291601166
 		},
 		"$(ui.tests)/out/tab_view3_7.svg" : 
 		{
-			"scale_1" : 712473263
+			"scale_1" : 4128011694
 		},
 		"$(ui.tests)/out/tab_view3_8.svg" : 
 		{
@@ -5553,31 +5553,31 @@
 		},
 		"$(ui.tests)/out/tab_view2_1.svg" : 
 		{
-			"scale_1" : 4151299820
+			"scale_1" : 3668092460
 		},
 		"$(ui.tests)/out/tab_view2_2.svg" : 
 		{
-			"scale_1" : 2598058399
+			"scale_1" : 4078927334
 		},
 		"$(ui.tests)/out/tab_view2_3.svg" : 
 		{
-			"scale_1" : 3753255058
+			"scale_1" : 1232030849
 		},
 		"$(ui.tests)/out/tab_view2_4.svg" : 
 		{
-			"scale_1" : 516338371
+			"scale_1" : 858072174
 		},
 		"$(ui.tests)/out/tab_view2_5.svg" : 
 		{
-			"scale_1" : 90498771
+			"scale_1" : 842286892
 		},
 		"$(ui.tests)/out/tab_view1_1.svg" : 
 		{
-			"scale_1" : 4083940675
+			"scale_1" : 818259815
 		},
 		"$(ui.tests)/out/tab_view1_2.svg" : 
 		{
-			"scale_1" : 4083940675
+			"scale_1" : 818259815
 		},
 		"$(ui.tests)/out/sample_table_view_1.svg" : 
 		{
@@ -5585,23 +5585,23 @@
 		},
 		"$(ui.tests)/out/tab_view4_1.svg" : 
 		{
-			"scale_1" : 3192540474
+			"scale_1" : 1725802884
 		},
 		"$(ui.tests)/out/tab_view4_2.svg" : 
 		{
-			"scale_1" : 1561666559
+			"scale_1" : 3516417180
 		},
 		"$(ui.tests)/out/tab_view4_3.svg" : 
 		{
-			"scale_1" : 1400323701
+			"scale_1" : 1488139349
 		},
 		"$(ui.tests)/out/tab_view4_4.svg" : 
 		{
-			"scale_1" : 3340294462
+			"scale_1" : 2280930903
 		},
 		"$(ui.tests)/out/tab_view4_5.svg" : 
 		{
-			"scale_1" : 3192540474
+			"scale_1" : 1725802884
 		},
 		"$(ui.tests)/out/sample_list_1.svg" : 
 		{

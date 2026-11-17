@@ -20,7 +20,7 @@ namespace berialdraw
 		@param y2 Y-coordinate of the second point */
 		Linear(Coord x1, Coord y1, Coord x2, Coord y2);
 
-		/** Set the coefficients of the linear equation
+		/** Set the line using two points
 		@param x1 X-coordinate of the first point
 		@param y1 Y-coordinate of the first point
 		@param x2 X-coordinate of the second point
@@ -128,6 +128,9 @@ namespace berialdraw
 		static int64_t norms(const Point& p1, const Point& p2);
 
 #ifdef _DEBUG
+		/** Unitary test */
+		static void test();
+
 		/** Unit test 1 */
 		static void test1();
 
@@ -136,8 +139,9 @@ namespace berialdraw
 #endif 
 
 	protected:
-		float       a;        /**< Coefficient a of the linear equation */
-		float       b;        /**< Coefficient b of the linear equation */
-		bool        vertical; /**< Flag indicating if the line is vertical */
+		int64_t     m_x1;     /**< X-coordinate of the line origin */
+		int64_t     m_y1;     /**< Y-coordinate of the line origin */
+		int64_t     m_dx;     /**< Horizontal direction of the line */
+		int64_t     m_dy;     /**< Vertical direction of the line */
 	};
 }

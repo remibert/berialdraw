@@ -26,6 +26,7 @@ static void place_tab_button(Tab * tab, Dim index, TabPosition position)
 		else
 		{
 			tab->cell(index, 0);
+			tab->extend(Extend::EXTEND_WIDTH);
 		}
 	}
 }
@@ -79,7 +80,8 @@ TabView::TabView(Widget * parent):
 	UIManager::styles()->apply(this, (CommonStyle *)this);
 	UIManager::styles()->apply(this, (WidgetStyle *)this);
 	UIManager::styles()->apply(this, (PaddingStyle *)this);
-	UIManager::styles()->apply(this, (BorderStyle *)this);
+	UIManager::styles()->apply("button", (BorderStyle *)this);
+	radius_q6(0);
 	m_previous_tab_position = m_tab_position;
 	m_previous_tab_margin = m_tab_margin;
 	m_tab_layout = new Grid(this);
@@ -428,6 +430,7 @@ void TabView::serialize(JsonIterator & it)
 	CommonStyle::serialize(it);
 	WidgetStyle::serialize(it);
 	PaddingStyle::serialize(it);
+	BorderStyle::serialize(it);
 	TabViewStyle::serialize(it);
 	Widget::serialize(it);
 }
@@ -438,6 +441,7 @@ void TabView::unserialize(JsonIterator & it)
 	CommonStyle::unserialize(it);
 	WidgetStyle::unserialize(it);
 	PaddingStyle::unserialize(it);
+	BorderStyle::unserialize(it);
 	TabViewStyle::unserialize(it);
 	focusable(false);
 	UIManager::invalidator()->dirty(this, Invalidator::ALL);
@@ -449,11 +453,33 @@ StyleCascadeMode TabView::style_cascade_mode() const
 	return StyleCascadeMode::NONE;
 }
 
+// Paint the page frame after its contents so the border remains visible.
+void TabView::paint(const Region & parent_region)
+{
+	Region region(parent_region);
+	region.intersect(m_backclip);
+
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Overlap::OUT)
+	{
+		Widget::paint(region);
+
+		Pane * selected = selected_page();
+		if (selected && selected->hidden() == false)
+		{
+			UIManager::renderer()->region(region);
+			RectRenderer::paint_border_round_rect(selected->foreclip(), 0, m_thickness,
+				0, ALL_BORDERS, 0, stated_color(m_border_color));
+		}
+	}
+}
+
 // Place the internal layout in the TabView area.
 void TabView::place(const Area & area, bool in_layout)
 {
 	update_tabs();
 	compute_widget_placement(area, in_layout, 0, true);
+	// Reserve the page frame after the TabView padding has been applied.
+	m_contentclip.decrease_thickness(m_thickness);
 	UIManager::invalidator()->dirty(m_tab_layout, Invalidator::GEOMETRY);
 	m_tab_layout->layout(m_contentclip, true);
 }

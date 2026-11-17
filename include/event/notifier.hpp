@@ -152,6 +152,7 @@ namespace berialdraw
 		uint32_t m_proof = 0;
 		unsigned int     m_playing_script:1;
 		unsigned int     m_touch_down:1;
+		unsigned int     m_slider_handle_pressed:1;
 		unsigned int     m_log:4;
 		unsigned int     m_move_count:6;
 /// @endcond

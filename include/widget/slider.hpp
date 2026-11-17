@@ -41,9 +41,15 @@ namespace berialdraw
 #endif
 	protected:
 /// @cond DOXYGEN_IGNORE
+		friend class Notifier;
+
 		/** Remove operator = */
 		Slider& operator=(const Slider& other) = delete;
 
+		/** Return the slider handle area */
+		Area handle_area();
+		/** Check whether a position is on the slider handle */
+		bool handle_contains(const Point & position);
 		void draw_track();
 		Dim get_location(Dim width);
 

@@ -128,11 +128,59 @@ Dim Slider::get_location(Dim length)
 	return result;
 }
 
+// Return the slider handle area
+Area Slider::handle_area()
+{
+	Dim track_size = (m_track_size >> 6) % 2 ? m_track_size + 64 : m_track_size;
+	Dim handle_size = (m_handle_size >> 6) % 2 ? m_handle_size + 64 : m_handle_size;
+	Coord x = m_foreclip.x_q6();
+	Coord y = m_foreclip.y_q6();
+
+	if (track_size >= handle_size)
+	{
+		Dim dif_radius = (track_size - handle_size) >> 1;
+		if (m_extend == Extend::EXTEND_HEIGHT)
+		{
+			y += get_location(substract(m_foreclip.height_q6(), dif_radius + dif_radius)) + dif_radius;
+			x += dif_radius;
+		}
+		else
+		{
+			x += get_location(substract(m_foreclip.width_q6(), dif_radius + dif_radius)) + dif_radius;
+			y += dif_radius;
+		}
+	}
+	else
+	{
+		if (m_extend == Extend::EXTEND_HEIGHT)
+		{
+			y += get_location(m_foreclip.height_q6());
+		}
+		else
+		{
+			x += get_location(m_foreclip.width_q6());
+		}
+	}
+
+	Area area(m_foreclip);
+	area.position().set_q6(x, y);
+	area.size().set_q6(m_handle_size, m_handle_size);
+	return area;
+}
+
+// Check whether a position is on the slider handle
+bool Slider::handle_contains(const Point & position)
+{
+	Area area = handle_area();
+	area.nearest_pixel();
+	int64_t x = position.x_q6();
+	int64_t y = position.y_q6();
+	return x >= area.x_q6() && x < (int64_t)area.x_q6() + area.width_q6() &&
+		y >= area.y_q6() && y < (int64_t)area.y_q6() + area.height_q6();
+}
+
 void Slider::draw_track()
 {
-	Coord x;
-	Coord y;
-
 	Dim      track_size = (m_track_size>>6) % 2 ? m_track_size + 64 : m_track_size;
 	Dim      track_radius = m_radius;
 	uint32_t track_border_color;
@@ -143,7 +191,7 @@ void Slider::draw_track()
 	Dim      handle_radius = m_radius;
 	Dim      handle_thickness;
 	uint32_t handle_border_color;
-	Area     handle_area(m_foreclip);
+	Area     handle = handle_area();
 
 	Dim half_thickness = ((m_thickness>>7)<<6);
 
@@ -158,18 +206,6 @@ void Slider::draw_track()
 		handle_border_color = Color::TRANSPARENT;
 		track_border_color = stated_color(m_border_color);
 		
-		// Vertical slider
-		if (m_extend == Extend::EXTEND_HEIGHT)
-		{
-			y = m_foreclip.y_q6() + get_location(substract(m_foreclip.height_q6(),dif_radius+dif_radius)) + dif_radius;
-			x = m_foreclip.x_q6() + dif_radius;
-		}
-		// Horizontal slider
-		else
-		{
-			x = m_foreclip.x_q6() + get_location(substract(m_foreclip.width_q6(),dif_radius+dif_radius)) + dif_radius;
-			y = m_foreclip.y_q6() + dif_radius;
-		}
 	}
 	// If the track is thinner than fill
 	else if (track_size < handle_size)
@@ -192,8 +228,6 @@ void Slider::draw_track()
 			track_area.width_q6(track_size);
 			track_area.height_q6(substract(track_area.height_q6(),dif_radius+dif_radius));
 
-			y = m_foreclip.y_q6() + get_location(m_foreclip.height_q6());
-			x = m_foreclip.x_q6();
 		}
 		// Horizontal slider
 		else
@@ -204,22 +238,16 @@ void Slider::draw_track()
 			track_area.width_q6(substract(track_area.width_q6(),dif_radius+dif_radius));
 			track_area.height_q6(track_size);
 			
-			x = m_foreclip.x_q6() + get_location(m_foreclip.width_q6());
-			y = m_foreclip.y_q6();
 		}
 	}
-
-	// Move handle
-	handle_area.position().set_q6(x,y);
-	handle_area.size().set_q6(m_handle_size,m_handle_size);
 
 	// Draw track
 	track_area.nearest_pixel();
 	RectRenderer::paint_border_round_rect(track_area, track_radius, track_thickness, 0, m_borders, stated_color(m_track_color), track_border_color);
 
 	// Draw fill
-	handle_area.nearest_pixel();
-	RectRenderer::paint_focused_round_rect(handle_area,
+	handle.nearest_pixel();
+	RectRenderer::paint_focused_round_rect(handle,
 		(Borders)borders(),
 		stated_color(m_handle_color), 
 		handle_border_color,

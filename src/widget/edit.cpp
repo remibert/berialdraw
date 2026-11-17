@@ -131,6 +131,7 @@ Size Edit::content_size()
 void Edit::place(const Area & area, bool in_layout)
 {
 	compute_widget_placement(area, in_layout, m_thickness);
+	Area previous_text_foreclip(m_text_foreclip);
 
 	// If text area greater than the max columns authorised
 	if (m_contentclip.width_q6() > m_text_size.width_q6())
@@ -158,6 +159,12 @@ void Edit::place(const Area & area, bool in_layout)
 
 	// Place the text and compute the size of text
 	place_in_layout(m_contentclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, m_text_align);
+
+	if (previous_text_foreclip.width_q6() != m_text_foreclip.width_q6() ||
+		previous_text_foreclip.height_q6() != m_text_foreclip.height_q6())
+	{
+		m_cursor_shift.set(0, 0);
+	}
 }
 
 void Edit::paint(const Region & parent_region)

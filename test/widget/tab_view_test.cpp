@@ -306,8 +306,20 @@ void TabView::test4()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/tab_view4_2.svg");
 	tabs->tab_position(TabPosition::RIGHT);
 	UIManager::desktop()->dispatch("$(ui.tests)/out/tab_view4_3.svg");
+	Dim tab_width = tabs->tab_button(0)->foreclip().width_q6();
+	for (Dim index = 1; index < tabs->tab_count(); index++)
+	{
+		assert(tabs->tab_button(index)->foreclip().width_q6() == tab_width);
+	}
+
 	tabs->tab_position(TabPosition::LEFT);
 	UIManager::desktop()->dispatch("$(ui.tests)/out/tab_view4_4.svg");
+	tab_width = tabs->tab_button(0)->foreclip().width_q6();
+	for (Dim index = 1; index < tabs->tab_count(); index++)
+	{
+		assert(tabs->tab_button(index)->foreclip().width_q6() == tab_width);
+	}
+
 	tabs->tab_position(TabPosition::TOP);
 	UIManager::desktop()->dispatch("$(ui.tests)/out/tab_view4_5.svg");
 }

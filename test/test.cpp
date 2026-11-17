@@ -50,6 +50,7 @@ namespace berialdraw
 		Image::test();
 		GridShape::test();
 		Line::test();
+		Linear::test();
 		LineChart::test();
 		Marker::test();
 		Outline::test();

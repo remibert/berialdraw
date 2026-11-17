@@ -1546,6 +1546,22 @@ void Edit::test11()
 	assert(edit->cursor_position() == 0);
 	assert(edit->selection_start() == 0);
 	assert(edit->selection_end() == 5);
+
+	{
+		Window resize_window;
+		resize_window.size(100,80);
+		Edit * resized_edit = new Edit(&resize_window);
+		resized_edit->max_columns(100);
+		resized_edit->text("This is a long input text that extends beyond the field width");
+		UIManager::desktop()->dispatch();
+		resized_edit->cursor_position(-1, false);
+		UIManager::desktop()->dispatch();
+		Coord narrow_shift = resized_edit->m_cursor_shift.x();
+
+		resize_window.size(250,80);
+		UIManager::desktop()->dispatch();
+		assert(resized_edit->m_cursor_shift.x() > narrow_shift);
+	}
 }
 
 void Edit::test12()

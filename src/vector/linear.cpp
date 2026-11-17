@@ -2,11 +2,13 @@
 
 using namespace berialdraw;
 
+// Initialize an empty line
 Linear::Linear()
 {
-	a = 0;
-	b = 0;
-	vertical = false;
+	m_x1 = 0;
+	m_y1 = 0;
+	m_dx = 0;
+	m_dy = 0;
 }
 
 Linear::Linear(const Point& p1, const Point& p2)
@@ -14,21 +16,14 @@ Linear::Linear(const Point& p1, const Point& p2)
 	set_coef(p1.x_q6(), p1.y_q6(), p2.x_q6(), p2.y_q6());
 }
 
+// Set the line using two points
 bool Linear::set_coef(Coord  x1, Coord  y1, Coord  x2, Coord  y2)
 {
-	if (x1 != x2)
-	{
-		vertical = false;
-		a = (float)(y2 - y1) / (float)(x2 - x1);
-		b = (float)y1 - a * (float)x1;
-	}
-	else
-	{
-		a = 0;
-		b = (float)x1;
-		vertical = true;
-	}
-	return vertical;
+	m_x1 = x1;
+	m_y1 = y1;
+	m_dx = (int64_t)x2 - (int64_t)x1;
+	m_dy = (int64_t)y2 - (int64_t)y1;
+	return m_dx == 0;
 }
 
 Linear::Linear(Coord  x1, Coord  y1, Coord  x2, Coord  y2)
@@ -36,32 +31,44 @@ Linear::Linear(Coord  x1, Coord  y1, Coord  x2, Coord  y2)
 	set_coef(x1, y1, x2, y2);
 }
 
+// Get the intersection point of two lines
 bool Linear::get_intersection(Linear& line, Point& point)
 {
-	bool result = true;
+	bool result = false;
+	int64_t x = 0;
+	int64_t y = 0;
 
-	if (line.vertical && vertical == false)
+	if (m_dx == 0 && line.m_dx != 0)
 	{
-		point.x_q6((int32_t)(line.b));
-		point.y_q6((int32_t)(a * point.x_q6() + b));
+		x = m_x1;
+		y = (line.m_y1 * line.m_dx + line.m_dy * (x - line.m_x1)) / line.m_dx;
+		result = true;
 	}
-	else if (line.vertical == false && vertical)
+	else if (m_dx != 0 && line.m_dx == 0)
 	{
-		point.x_q6((int32_t)b);
-		point.y_q6((int32_t)(line.a * point.x_q6() + line.b));
+		x = line.m_x1;
+		y = (m_y1 * m_dx + m_dy * (x - m_x1)) / m_dx;
+		result = true;
 	}
-	else if (line.vertical == true && vertical)
+	else if (m_dx != 0 && line.m_dx != 0)
 	{
-		result = false;
+		int64_t denominator = m_dx * line.m_dy - m_dy * line.m_dx;
+		if (denominator != 0)
+		{
+			int64_t delta_x = line.m_x1 - m_x1;
+			int64_t delta_y = line.m_y1 - m_y1;
+			int64_t numerator = delta_x * line.m_dy - delta_y * line.m_dx;
+
+			x = (m_x1 * denominator + m_dx * numerator) / denominator;
+			y = (m_y1 * denominator + m_dy * numerator) / denominator;
+			result = true;
+		}
 	}
-	else if ((a - line.a) != 0.)
+
+	if (result)
 	{
-		point.x_q6((int32_t)((line.b - b) / (a - line.a)));
-		point.y_q6((int32_t)(a * point.x_q6() + b));
-	}
-	else
-	{
-		result = false;
+		point.x_q6((Coord)x);
+		point.y_q6((Coord)y);
 	}
 	return result;
 }
@@ -123,14 +130,28 @@ void Linear::add_vector(const Point& p1, const Point& p2, const Point& p3, Point
 	p4.set_q6(x4,y4);
 }
 
+// Get the y coordinate for a given x coordinate
 Coord Linear::fx(Coord  x)
 {
-	return (int32_t)(a*x + b);
+	Coord result = (Coord)m_x1;
+	if (m_dx != 0)
+	{
+		int64_t numerator = m_y1 * m_dx + m_dy * ((int64_t)x - m_x1);
+		result = (Coord)(numerator / m_dx);
+	}
+	return result;
 }
 
+// Get the x coordinate for a given y coordinate
 Coord Linear::fy(Coord  y)
 {
-	return (int32_t)((y -b)/a);
+	Coord result = (Coord)m_x1;
+	if (m_dy != 0)
+	{
+		int64_t numerator = m_x1 * m_dy + m_dx * ((int64_t)y - m_y1);
+		result = (Coord)(numerator / m_dy);
+	}
+	return result;
 }
 
 bool Linear::is_in_segment(const Point& p,const Point& p1,const Point& p2)
