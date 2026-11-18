@@ -25,7 +25,7 @@ Combo::Combo(Widget * parent):
 	UIManager::styles()->apply("combo_button", (BorderStyle*)m_button);
 	UIManager::styles()->apply("combo_button", (TextStyle*)m_button);
 	UIManager::styles()->apply("combo_button", (PaddingStyle*)m_button);
-	m_button->text("V");
+	m_button->text("v");
 	m_button->margin(0);
 	m_button->extend(Extend::EXTEND_ALL);
 	m_button->bind(this, &Combo::on_button_click);

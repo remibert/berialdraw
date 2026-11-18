@@ -80,8 +80,7 @@ TabView::TabView(Widget * parent):
 	UIManager::styles()->apply(this, (CommonStyle *)this);
 	UIManager::styles()->apply(this, (WidgetStyle *)this);
 	UIManager::styles()->apply(this, (PaddingStyle *)this);
-	UIManager::styles()->apply("button", (BorderStyle *)this);
-	radius_q6(0);
+	UIManager::styles()->apply(this, (BorderStyle *)this);
 	m_previous_tab_position = m_tab_position;
 	m_previous_tab_margin = m_tab_margin;
 	m_tab_layout = new Grid(this);
@@ -467,7 +466,7 @@ void TabView::paint(const Region & parent_region)
 		if (selected && selected->hidden() == false)
 		{
 			UIManager::renderer()->region(region);
-			RectRenderer::paint_border_round_rect(selected->foreclip(), 0, m_thickness,
+			RectRenderer::paint_border_round_rect(selected->foreclip(), radius_q6(), m_thickness,
 				0, ALL_BORDERS, 0, stated_color(m_border_color));
 		}
 	}
