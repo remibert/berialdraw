@@ -236,6 +236,12 @@
     <ClCompile Include="..\..\pybind\src\pybind\tool\settings.cpp">
       <Filter>pybind\tool</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\tool\language.cpp">
+      <Filter>pybind\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\tool\date.cpp">
+      <Filter>pybind\tool</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\tool\clipboard.cpp">
       <Filter>pybind\tool</Filter>
     </ClCompile>
@@ -259,6 +265,9 @@
       <Filter>pybind\styles</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\styles\styles.cpp">
+      <Filter>pybind\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\styles\calendar_style.cpp">
       <Filter>pybind\styles</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\widget\entry.cpp">
@@ -342,6 +351,9 @@
     <ClCompile Include="..\..\pybind\src\pybind\widget\table_view.cpp">
       <Filter>pybind\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\widget\calendar.cpp">
+      <Filter>pybind\widget</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\widget\list.cpp">
       <Filter>pybind\widget</Filter>
     </ClCompile>
@@ -367,6 +379,9 @@
       <Filter>pybind\widget</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\event\timer_event.cpp">
+      <Filter>pybind\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\event\calendar_event.cpp">
       <Filter>pybind\event</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\styles\timer_style.cpp">

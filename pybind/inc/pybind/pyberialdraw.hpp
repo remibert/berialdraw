@@ -428,6 +428,8 @@ void bind_file(py::module& m);
 void bind_directory(py::module& m);
 void bind_json(py::module& m);
 void bind_settings(py::module& m);
+void bind_language(py::module& m);
+void bind_date(py::module& m);
 void bind_clipboard(py::module& m);
 
 // Vector bindings
@@ -443,6 +445,7 @@ void bind_scroll_direction(py::module& m);
 
 // Style bindings
 void bind_style(py::module& m);
+void bind_calendar_style(pybind11::module_& m);
 void bind_styles(py::module& m);
 void bind_color(py::module& m);
 void bind_colors(py::module& m);
@@ -514,6 +517,7 @@ void bind_scroll_event(pybind11::module_& m);
 void bind_focus_event(pybind11::module_& m);
 void bind_touch_event(pybind11::module_& m);
 void bind_timer_event(pybind11::module_& m);
+void bind_calendar_event(pybind11::module_& m);
 void bind_event_managers(pybind11::module_& m);
 void bind_notifier(pybind11::module_& m);
 
@@ -541,6 +545,7 @@ void bind_popup(pybind11::module_& m);
 void bind_scrollable_content(pybind11::module_& m);
 void bind_scroll_view(pybind11::module_& m);
 void bind_table_view(pybind11::module_& m);
+void bind_calendar(pybind11::module_& m);
 void bind_list(pybind11::module_& m);
 void bind_list_item(pybind11::module_& m);
 void bind_icon(pybind11::module_& m);

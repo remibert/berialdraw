@@ -42,11 +42,14 @@ namespace berialdraw
    
 		// Widgets colors   
 		LABEL_TEXT_COLOR              = 0x00000019, ///< Label text color (used for text on a standard color background).
+
 		BUTTON_COLOR                  = 0x0000001A, ///< Background color of standard buttons.
 		BUTTON_BORDER_COLOR           = 0x0000001B, ///< Boder color of standard buttons.
 		BUTTON_TEXT_COLOR             = 0x0000001C, ///< Text color of standard buttons.
 		BUTTON_FOCUS_COLOR            = 0x0000001D, ///< Focus color of standard buttons.
+
 		CANVAS_COLOR                  = 0x0000001E, ///< Background color of canvas.
+
 		EDIT_COLOR                    = 0x0000001F, ///< Background color of edit.
 		EDIT_BORDER_COLOR             = 0x00000020, ///< Border color of edit.
 		EDIT_TEXT_COLOR               = 0x00000021, ///< Text color of edit.
@@ -54,39 +57,50 @@ namespace berialdraw
 		EDIT_PLACE_HOLDER_COLOR       = 0x00000023, ///< Place holder text color
 		EDIT_FOCUS_COLOR              = 0x00000024, ///< Focus color of edit.
 		EDIT_SELECT_COLOR             = 0x00000025, ///< Text selected color of edit.
+
 		ICON_BACK_COLOR               = 0x00000026, ///< Background color of icon.
 		ICON_BORDER_COLOR             = 0x00000027, ///< Border color of icon.
 		ICON_TEXT_COLOR               = 0x00000028, ///< Text color of icon.
 		ICON_COLOR                    = 0x00000029, ///< Color of icon.
 		ICON_FOCUS_COLOR              = 0x0000002A, ///< Focus color of icon.
+
 		SWITCH_BORDER_COLOR           = 0x0000002B, ///< Border color of switch.
 		SWITCH_ON_TRACK_COLOR         = 0x0000002C, ///< Color of an active switch.
 		SWITCH_OFF_TRACK_COLOR        = 0x0000002D, ///< Color of an inactive switch.
 		SWITCH_THUMB_COLOR            = 0x0000002E, ///< Thumb color of switch.
 		SWITCH_FOCUS_COLOR            = 0x0000002F, ///< Focus color of switch.
+
 		SLIDER_BORDER_COLOR           = 0x00000030, ///< Border color of slider.
 		SLIDER_TRACK_COLOR            = 0x00000031, ///< Track color of slider.
 		SLIDER_HANDLE_COLOR           = 0x00000032, ///< Handle color of slider.
 		SLIDER_FOCUS_COLOR            = 0x00000033, ///< Focus color of slider.
+
 		PROGRESS_BAR_BORDER_COLOR     = 0x00000034, ///< Border color of progress bar.
 		PROGRESS_BAR_TRACK_COLOR      = 0x00000035, ///< Track color of progress bar.
 		PROGRESS_BAR_FILL_COLOR       = 0x00000036, ///< Fill color of progress bar.
+
 		PANE_COLOR                    = 0x00000037, ///< Background color of pane.
 		PANE_BORDER_COLOR             = 0x00000038, ///< Border color of pane.
+
 		KEYBOARD_KEY_COLOR            = 0x00000039, ///< Back color of normal key for keyboard.
 		KEYBOARD_KEY_BORDER_COLOR     = 0x0000003A, ///< Border color of normal key for keyboard.
 		KEYBOARD_KEY_TEXT_COLOR       = 0x0000003B, ///< Text color of normal key for keyboard.
 		KEYBOARD_FUNC_COLOR           = 0x0000003C, ///< Back color of function key for keyboard.
 		KEYBOARD_FUNC_BORDER_COLOR    = 0x0000003D, ///< Border color of function key for keyboard.
 		KEYBOARD_FUNC_TEXT_COLOR      = 0x0000003E, ///< Text color of function key for keyboard.
+
 		WINDOW_COLOR                  = 0x0000003F, ///< Back color of window.
+
 		SHAPE_COLOR                   = 0x00000040, ///< Default color for shape.
+
 		HEADER_COLOR                  = 0x00000041, ///< Color of header.
 		HEADER_TEXT_COLOR             = 0x00000042, ///< Text color of header.
+
 		CHECKBOX_CHECK_COLOR          = 0x00000043, ///< Check color of checkbox.
 		CHECKBOX_BORDER_COLOR         = 0x00000044, ///< Border color of checkbox.
 		CHECKBOX_FOCUS_COLOR          = 0x00000045, ///< Focus color of checkbox.
 		CHECKBOX_COLOR                = 0x00000046, ///< Check box color
+		
 		RADIO_COLOR                   = 0x00000047, ///< Radio indicator color.
 		RADIO_BORDER_COLOR            = 0x00000048, ///< Border color of radio button.
 		RADIO_FOCUS_COLOR             = 0x00000049, ///< Focus color of radio button.
@@ -107,6 +121,17 @@ namespace berialdraw
 		LIST_ITEM_SELECTED_COLOR      = 0x00000054, ///< List item selected back color
 		LIST_ITEM_SELECTED_TEXT_COLOR = 0x00000055, ///< List item selected text color
 		LIST_ITEM_BORDER_COLOR        = 0x00000056, ///< List item border color
+
+		CALENDAR_WEEKDAY_TEXT_COLOR        = 0x00000057, ///< Calendar weekday header text color
+		CALENDAR_WEEKDAY_BACK_COLOR        = 0x00000058, ///< Calendar weekday header background color
+		CALENDAR_OUTSIDE_DAY_TEXT_COLOR    = 0x00000059, ///< Calendar days outside the displayed month text color
+		CALENDAR_OUTSIDE_DAY_BACK_COLOR    = 0x0000005A, ///< Calendar days outside the displayed month background color
+		CALENDAR_DAY_TEXT_COLOR            = 0x0000005B, ///< Calendar day text color
+		CALENDAR_DAY_BACK_COLOR            = 0x0000005C, ///< Calendar day background color
+		CALENDAR_DAY_SELECTED_TEXT_COLOR   = 0x0000005D, ///< Selected calendar day text color
+		CALENDAR_DAY_SELECTED_BACK_COLOR   = 0x0000005E, ///< Selected calendar day background color
+		CALENDAR_GRID_COLOR                = 0x0000005F, ///< Calendar grid line color
+		CALENDAR_DAY_BORDER_COLOR          = 0x00000060, ///< Calendar day cell border color
 
 		PALETTE_BACK_COLOR            = 0x000000E0, // Base color theme
 		PALETTE_BACK_COLOR_LIGHT_1    = 0x000000E1, //   |

@@ -92,6 +92,7 @@ set(SRCS_LIB
 	src/widget/picture.cpp
 	src/widget/uimanager.cpp
 	src/widget/table_view.cpp
+	src/widget/calendar.cpp
 	src/widget/list.cpp
 	src/widget/list_item.cpp
 	src/widget/timer.cpp
@@ -123,6 +124,7 @@ set(SRCS_LIB
 	src/styles/list_style.cpp
 	src/styles/list_selection_mode.cpp
 	src/styles/table_view_style.cpp
+	src/styles/calendar_style.cpp
 	src/styles/tab_view_style.cpp
 	src/styles/grid_style.cpp
 	src/styles/cell_style.cpp
@@ -219,6 +221,8 @@ set(SRCS_LIB
 	src/tool/arc_cache.cpp
 	src/tool/clipboard.cpp
 	src/tool/settings.cpp
+	src/tool/language.cpp
+	src/tool/date.cpp
 	src/tool/local_file.cpp
 	src/tool/local_directory.cpp
 	src/tool/zip_file.cpp
@@ -232,6 +236,7 @@ set(SRCS_LIB
 	src/event/touch_event.cpp
 	src/event/click_event.cpp
 	src/event/check_event.cpp
+	src/event/calendar_event.cpp
 	src/event/select_event.cpp
 	src/event/scroll_event.cpp
 	src/event/slide_event.cpp

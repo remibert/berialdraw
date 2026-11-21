@@ -123,6 +123,21 @@ namespace berialdraw
 		static constexpr char TABVIEW_TAB_POSITION[] = "tab_position";
 		static constexpr char TABVIEW_TAB_MARGIN[] = "tab_margin";
 
+		// Calendar style
+		static constexpr char CALENDAR_WEEKDAY_TEXT_COLOR[] = "weekday_text_color";
+		static constexpr char CALENDAR_WEEKDAY_FONT_SIZE[] = "weekday_font_size";
+		static constexpr char CALENDAR_OUTSIDE_DAY_TEXT_COLOR[] = "outside_day_text_color";
+		static constexpr char CALENDAR_DAY_TEXT_COLOR[] = "day_text_color";
+		static constexpr char CALENDAR_DAY_FONT_SIZE[] = "day_font_size";
+		static constexpr char CALENDAR_DAY_BACK_COLOR[] = "day_back_color";
+		static constexpr char CALENDAR_DAY_SELECTED_TEXT_COLOR[] = "day_selected_text_color";
+		static constexpr char CALENDAR_DAY_SELECTED_BACK_COLOR[] = "day_selected_back_color";
+		static constexpr char CALENDAR_WEEKDAY_BACK_COLOR[] = "weekday_back_color";
+		static constexpr char CALENDAR_OUTSIDE_DAY_BACK_COLOR[] = "outside_day_back_color";
+		static constexpr char CALENDAR_GRID_THICKNESS[] = "grid_thickness";
+		static constexpr char CALENDAR_DAY_BORDER_COLOR[] = "day_border_color";
+		static constexpr char CALENDAR_DAY_BORDER_THICKNESS[] = "day_border_thickness";
+
 		// Grid style
 		static constexpr char GRIDSTYLE_GRID_COLOR[] = "grid_color";
 		static constexpr char GRIDSTYLE_GRID_VISIBLE[] = "grid_visible";

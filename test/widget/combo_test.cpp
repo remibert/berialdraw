@@ -43,21 +43,24 @@ void Combo::test1()
 	combo->editable(true);
 	combo->typing_mode(Entry::TypingMode::READ_ONLY);
 
-	assert(combo->selection_start() == combo->input().count());
-	assert(combo->selection_end() == combo->input().count());
+	assert(combo->cursor_position() == 0);
+	assert(combo->selection_start() == 0);
+	assert(combo->selection_end() == 0);
 
 	assert(combo->count() == 14);
 	combo->select(1);
 	assert(combo->selected_index() == 1);
 	assert(combo->input() == String("Second"));
-	assert(combo->selection_start() == combo->input().count());
-	assert(combo->selection_end() == combo->input().count());
+	assert(combo->cursor_position() == 0);
+	assert(combo->selection_start() == 0);
+	assert(combo->selection_end() == 0);
 	combo->select_text(0, 3);
 	ClickEvent click_event(Point(), combo->at(0));
 	combo->on_item_click(combo->at(0), click_event);
 	assert(combo->input() == String("First"));
-	assert(combo->selection_start() == combo->input().count());
-	assert(combo->selection_end() == combo->input().count());
+	assert(combo->cursor_position() == 0);
+	assert(combo->selection_start() == 0);
+	assert(combo->selection_end() == 0);
 	window.focus_to(combo);
 	KeyEvent key_down((wchar_t)ReservedKey::KEY_DOWN, KeyEvent::KEY_DOWN);
 	combo->on_key(combo, key_down);

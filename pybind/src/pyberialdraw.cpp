@@ -19,6 +19,8 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_directory(m);
     bind_json(m);
     bind_settings(m);
+    bind_language(m);
+    bind_date(m);
     bind_clipboard(m);
     
     // Bind vector classes next (fundamental classes)
@@ -34,6 +36,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     
     // Bind styles next (base classes)
     bind_style(m);
+    bind_calendar_style(m);
     bind_styles(m);
     bind_color(m);
     bind_colors(m);
@@ -104,6 +107,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_focus_event(m);
     bind_touch_event(m);
     bind_timer_event(m);
+    bind_calendar_event(m);
     bind_event_managers(m);
     bind_notifier(m);
     
@@ -131,6 +135,7 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_scrollable_content(m);
     bind_scroll_view(m);
     bind_table_view(m);
+    bind_calendar(m);
     bind_list(m);
     bind_list_item(m);
     bind_icon(m);

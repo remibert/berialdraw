@@ -75,6 +75,18 @@ void bind_color(py::module& m) {
         .value("SHAPE_COLOR", berialdraw::Color::SHAPE_COLOR)
         .value("HEADER_COLOR", berialdraw::Color::HEADER_COLOR)
         .value("HEADER_TEXT_COLOR", berialdraw::Color::HEADER_TEXT_COLOR)
+
+        // Calendar colors
+        .value("CALENDAR_WEEKDAY_TEXT_COLOR", berialdraw::Color::CALENDAR_WEEKDAY_TEXT_COLOR)
+        .value("CALENDAR_OUTSIDE_DAY_TEXT_COLOR", berialdraw::Color::CALENDAR_OUTSIDE_DAY_TEXT_COLOR)
+        .value("CALENDAR_DAY_TEXT_COLOR", berialdraw::Color::CALENDAR_DAY_TEXT_COLOR)
+        .value("CALENDAR_DAY_BACK_COLOR", berialdraw::Color::CALENDAR_DAY_BACK_COLOR)
+        .value("CALENDAR_DAY_SELECTED_TEXT_COLOR", berialdraw::Color::CALENDAR_DAY_SELECTED_TEXT_COLOR)
+        .value("CALENDAR_DAY_SELECTED_BACK_COLOR", berialdraw::Color::CALENDAR_DAY_SELECTED_BACK_COLOR)
+        .value("CALENDAR_GRID_COLOR", berialdraw::Color::CALENDAR_GRID_COLOR)
+        .value("CALENDAR_DAY_BORDER_COLOR", berialdraw::Color::CALENDAR_DAY_BORDER_COLOR)
+        .value("CALENDAR_WEEKDAY_BACK_COLOR", berialdraw::Color::CALENDAR_WEEKDAY_BACK_COLOR)
+        .value("CALENDAR_OUTSIDE_DAY_BACK_COLOR", berialdraw::Color::CALENDAR_OUTSIDE_DAY_BACK_COLOR)
         
         // Theme background colors
         .value("PALETTE_BACK_COLOR", berialdraw::Color::PALETTE_BACK_COLOR)

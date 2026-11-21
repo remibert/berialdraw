@@ -52,9 +52,6 @@
     <Filter Include="resources\styles">
       <UniqueIdentifier>{cfac3bea-60bc-4894-aead-57b37b327463}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resources\styles\test">
-      <UniqueIdentifier>{e4d1be2e-7a4d-4888-aebb-38e8f4449dee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="resources\styles\pearl">
       <UniqueIdentifier>{6f29c167-3b9e-45e7-af6e-98877f076e21}</UniqueIdentifier>
     </Filter>
@@ -325,6 +322,9 @@
       <Filter>berialdraw\tool\validator</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\event\check_event.cpp">
+      <Filter>berialdraw\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\event\calendar_event.cpp">
       <Filter>berialdraw\event</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\event\click_event.cpp">
@@ -941,6 +941,12 @@
     <ClCompile Include="..\..\src\tool\settings.cpp">
       <Filter>berialdraw\tool</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\tool\language.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tool\date.cpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\tool\file.cpp">
       <Filter>berialdraw\tool\file</Filter>
     </ClCompile>
@@ -1058,6 +1064,9 @@
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\widget\table_view.cpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\widget\calendar.cpp">
       <Filter>berialdraw\widget</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\widget\list.cpp">
@@ -1471,6 +1480,9 @@
     <ClCompile Include="..\..\src\styles\table_view_style.cpp">
       <Filter>berialdraw\styles</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\styles\calendar_style.cpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\widget\tab_view.cpp">
       <Filter>berialdraw\widget</Filter>
     </ClCompile>
@@ -1708,6 +1720,9 @@
       <Filter>berialdraw\event</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\event\check_event.hpp">
+      <Filter>berialdraw\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\event\calendar_event.hpp">
       <Filter>berialdraw\event</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\event\click_event.hpp">
@@ -2160,6 +2175,15 @@
     <ClInclude Include="..\..\include\tool\settings.hpp">
       <Filter>berialdraw\tool</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\tool\language.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\tool\language_gettext.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\tool\date.hpp">
+      <Filter>berialdraw\tool</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\tool\file.hpp">
       <Filter>berialdraw\tool\file</Filter>
     </ClInclude>
@@ -2220,6 +2244,9 @@
     <ClInclude Include="..\..\include\widget\table_view.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\widget\calendar.hpp">
+      <Filter>berialdraw\widget</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\widget\list.hpp">
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
@@ -2227,6 +2254,9 @@
       <Filter>berialdraw\widget</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\styles\table_view_style.hpp">
+      <Filter>berialdraw\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\styles\calendar_style.hpp">
       <Filter>berialdraw\styles</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\styles\cell_style.hpp">
@@ -2558,45 +2588,6 @@
     <None Include="..\..\resources\colors\test_light.sty">
       <Filter>resources\colors</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\button.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\combo_button.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\canvas.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\edit.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\icon.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\keyboard.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\label.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\pane.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\popup.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\progress_bar.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\slider.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\switch.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\window.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
     <None Include="..\..\resources\styles\pearl\button.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
@@ -2642,12 +2633,6 @@
     <None Include="..\..\src\device\device_cocoa.mm">
       <Filter>berialdraw\device\cocoa</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\checkbox.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\radio.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
     <None Include="..\..\resources\styles\pearl\checkbox.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
@@ -2663,32 +2648,8 @@
     <None Include="..\..\resources\styles\pearl\tab_view.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\table_view.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\tab.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\tab_view.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
     <None Include="..\..\resources\styles\pearl\list.sty">
       <Filter>resources\styles\pearl</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\.DS_Store">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\list.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\picture.sty">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\reorg_color.py">
-      <Filter>resources\styles\test</Filter>
-    </None>
-    <None Include="..\..\resources\styles\test\scroll_view.sty">
-      <Filter>resources\styles\test</Filter>
     </None>
     <None Include="..\..\resources\styles\pearl\picture.sty">
       <Filter>resources\styles\pearl</Filter>
@@ -2699,8 +2660,8 @@
     <None Include="..\..\resources\styles\pearl\list_item.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
-    <None Include="..\..\resources\styles\test\list_item.sty">
-      <Filter>resources\styles\test</Filter>
+    <None Include="..\..\resources\styles\pearl\calendar.sty">
+      <Filter>resources\styles\pearl</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

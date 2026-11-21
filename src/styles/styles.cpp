@@ -372,6 +372,7 @@ template bool Styles::apply<ListItemStyle>(Widget* widget, ListItemStyle* proper
 template bool Styles::apply<ListStyle>(Widget* widget, ListStyle* properties);
 template bool Styles::apply<ComboStyle>(Widget* widget, ComboStyle* properties);
 template bool Styles::apply<PaddingStyle>(Widget* widget, PaddingStyle* properties);
+template bool Styles::apply<CalendarStyle>(Widget* widget, CalendarStyle* properties);
 
 /** Specialization for Key to resolve ambiguous 'create()' from multiple inheritance */
 template<>

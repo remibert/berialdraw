@@ -24,6 +24,7 @@ set(SRCS_PYBIND11_LIB
 	src/pyberialdraw.cpp
 	src/pybind/styles/colors.cpp
 	src/pybind/styles/styles.cpp
+	src/pybind/styles/calendar_style.cpp
 	src/pybind/device/device.cpp
 	src/pybind/device/device_screen.cpp
 	src/pybind/event/touch_event.cpp
@@ -37,6 +38,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/event/slide_event.cpp
 	src/pybind/event/key_event.cpp
 	src/pybind/event/timer_event.cpp
+	src/pybind/event/calendar_event.cpp
 	src/pybind/event/event_managers.cpp
 	src/pybind/font/font.cpp
 	src/pybind/font/fonts.cpp
@@ -104,6 +106,8 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/tool/string.cpp
 	src/pybind/tool/json.cpp
 	src/pybind/tool/settings.cpp
+	src/pybind/tool/language.cpp
+	src/pybind/tool/date.cpp
 	src/pybind/tool/clipboard.cpp
 	src/pybind/tool/bd_system.cpp
 	src/pybind/widget/scrollable_content.cpp
@@ -130,6 +134,7 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/widget/list.cpp
 	src/pybind/widget/list_item.cpp
 	src/pybind/widget/table_view.cpp
+	src/pybind/widget/calendar.cpp
 	src/pybind/widget/slider.cpp
 	src/pybind/widget/switch.cpp
 	src/pybind/widget/radio.cpp

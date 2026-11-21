@@ -1,0 +1,25 @@
+{
+  "locale": "en-US",
+  "messages": {
+    "calendar.action.today": "Today",
+    "calendar.weekday.monday.short": "Mon",
+    "calendar.weekday.tuesday.short": "Tue",
+    "calendar.weekday.wednesday.short": "Wed",
+    "calendar.weekday.thursday.short": "Thu",
+    "calendar.weekday.friday.short": "Fri",
+    "calendar.weekday.saturday.short": "Sat",
+    "calendar.weekday.sunday.short": "Sun",
+    "calendar.month.january": "Jan",
+    "calendar.month.february": "Feb",
+    "calendar.month.march": "Mar",
+    "calendar.month.april": "Apr",
+    "calendar.month.may": "May",
+    "calendar.month.june": "Jun",
+    "calendar.month.july": "Jul",
+    "calendar.month.august": "Aug",
+    "calendar.month.september": "Sep",
+    "calendar.month.october": "Oct",
+    "calendar.month.november": "Nov",
+    "calendar.month.december": "Dec"
+  }
+}

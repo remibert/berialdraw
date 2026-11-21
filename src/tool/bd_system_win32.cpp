@@ -138,4 +138,20 @@ int bd_read_symlink(const char* path, char* target_path, int max_target_path)
 	return result;
 }
 
+// Get the local civil date from the operating system.
+bool bd_get_local_date(int * year, int * month, int * day)
+{
+	bool result = false;
+	if (year != nullptr && month != nullptr && day != nullptr)
+	{
+		SYSTEMTIME local_time;
+		GetLocalTime(&local_time);
+		*year = local_time.wYear;
+		*month = local_time.wMonth;
+		*day = local_time.wDay;
+		result = true;
+	}
+	return result;
+}
+
 #endif

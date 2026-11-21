@@ -25,6 +25,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\pybind\src\pybind\event\timer_event.cpp" />
+    <ClCompile Include="..\..\pybind\src\pybind\event\calendar_event.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\shape\star.cpp" />
     <ClCompile Include="..\..\pybind\src\pybind\styles\list_item_style.cpp" />
     <ClCompile Include="..\..\pybind\src\pybind\styles\list_style.cpp" />
@@ -93,6 +99,12 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\styles\styles.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\styles\calendar_style.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -464,6 +476,18 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\tool\language.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\tool\date.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\tool\clipboard.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
@@ -609,6 +633,12 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\widget\table_view.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\widget\calendar.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pybind/pyberialdraw.hpp</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -803,7 +833,9 @@
       <Culture>0x040c</Culture>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
-    <ProjectReference />
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
     <Link>
       <AdditionalLibraryDirectories>C:\Development\Python314\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>python3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib</AdditionalDependencies>

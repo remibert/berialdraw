@@ -5,6 +5,7 @@ namespace berialdraw
 	class Renderer;
 	class Settings;
 	class TimerManager;
+	class Language;
 
 	/** The UIManager class coordinates the display and behavior of widgets. 
 	It handles events, manages widget lifecycles, and ensures consistent rendering across the application. */
@@ -25,9 +26,16 @@ namespace berialdraw
 			/** Restore the previously active render target */
 			~RenderContextScope();
 
+			/** Copying a render context scope is not supported. */
 			RenderContextScope(const RenderContextScope&) = delete;
+
+			/** Copy assignment is not supported. */
 			RenderContextScope& operator=(const RenderContextScope&) = delete;
+
+			/** Moving a render context scope is not supported. */
 			RenderContextScope(RenderContextScope&&) = delete;
+
+			/** Move assignment is not supported. */
 			RenderContextScope& operator=(RenderContextScope&&) = delete;
 
 		private:
@@ -64,55 +72,75 @@ namespace berialdraw
 		@return Pointer to the Exporter object if export is in progress, otherwise null pointer */
 		static Exporter * exporter();
 
-		/** Return the pointer on internal framebuf */
+		/** Return the active framebuffer.
+		@return Current render-context framebuffer, or the UI framebuffer */
 		static Framebuf * framebuf();
 
-		/** Return the notifier */
+		/** Return the event notifier.
+		@return UI notifier, or null before initialization */
 		static Notifier * notifier();
 
-		/** Return the renderer */
+		/** Return the active renderer.
+		@return Current render-context renderer, or the UI renderer */
 		static Renderer * renderer();
 
-		/** Return the screen device */
+		/** Return the screen device.
+		@return Device owned by the UI manager */
 		static Device * device();
 
-		/** Return the fonts manager */
+		/** Return the fonts manager.
+		@return Font manager owned by the UI manager */
 		static Fonts * fonts();
 
-		/** Return the dirty manager */
+		/** Return the invalidation manager.
+		@return Invalidator owned by the UI manager */
 		static Invalidator * invalidator();
 
-		/** Return the styles manager */
+		/** Return the styles manager.
+		@return Style manager owned by the UI manager */
 		static Styles * styles();
 
-		/** Return the colors manager */
+		/** Return the colors manager.
+		@return Color manager owned by the UI manager */
 		static Colors * colors();
 
-		/** Return the desktop */
+		/** Return the desktop widget.
+		@return Desktop owned by the UI manager */
 		static Desktop * desktop();
 
-		/** Return screen crc */
+		/** Return the screen CRC manager.
+		@return CRC manager owned by the UI manager */
 		static ScreenCrc * screen_crc();
 
-		/** Return the arc cache handle */
+		/** Return the arc cache.
+		@return Arc cache owned by the UI manager */
 		static ArcCache * arc_cache();
 
-		/** Return the image cache */
+		/** Return the image cache.
+		@return Image cache owned by the UI manager */
 		static ImageCache * image_cache();
 
-		/** Return the settings manager */
+		/** Return the settings manager.
+		@return Settings owned by the UI manager */
 		static Settings * settings();
 
-		/** Return the clipboard manager */
+		/** Return the language catalog manager.
+		@details The manager is created during init() and destroyed during deinit().
+		@return Language manager, or null before initialization */
+		static Language * language();
+
+		/** Return the clipboard manager.
+		@return Clipboard owned by the UI manager */
 		static Clipboard * clipboard();
 
-		/** Return the timer manager */
+		/** Return the timer manager.
+		@return Timer manager owned by the UI manager */
 		static TimerManager * timer_manager();
 
-		/** Indicates if the UIManager is initialized or not */
+		/** Check whether the UI manager is initialized. */
 		static bool is_initialized();
 
-		/** Indicates if the UIManager is shutting down (deinit in progress) */
+		/** Check whether UIManager::deinit() is in progress. */
 		static bool is_shutting_down();
 	protected:
 /// @cond DOXYGEN_IGNORE
@@ -135,6 +163,7 @@ namespace berialdraw
 		static std::unique_ptr<ScreenCrc>   m_screen_crc;
 		static std::unique_ptr<ArcCache>    m_arc_cache;
 		static std::unique_ptr<Settings>    m_settings;
+		static std::unique_ptr<Language>    m_language;
 		static std::unique_ptr<Clipboard>   m_clipboard;
 		static std::unique_ptr<ImageCache>  m_image_cache;	static std::unique_ptr<TimerManager> m_timer_manager;/// @endcond
 	};

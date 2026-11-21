@@ -19,6 +19,7 @@ std::unique_ptr<Desktop>     UIManager::m_desktop;
 std::unique_ptr<ScreenCrc>   UIManager::m_screen_crc;
 std::unique_ptr<ArcCache>    UIManager::m_arc_cache;
 std::unique_ptr<Settings>    UIManager::m_settings;
+std::unique_ptr<Language>    UIManager::m_language;
 std::unique_ptr<Clipboard>   UIManager::m_clipboard;
 std::unique_ptr<ImageCache>  UIManager::m_image_cache;
 std::unique_ptr<TimerManager> UIManager::m_timer_manager;
@@ -76,7 +77,9 @@ void UIManager::init(Device * device, Dim width, Dim height, enum Framebuf::Type
 		(*m_settings)["ui"]["icons"]     = "$(ui.root-dir)/icons";
 		(*m_settings)["ui"]["images"]    = "$(ui.root-dir)/images";
 		(*m_settings)["ui"]["colors"]    = "$(ui.root-dir)/colors";
+		(*m_settings)["ui"]["languages"] = "$(ui.root-dir)/languages";
 		(*m_settings)["ui"]["tests"]     = "$(ui.root-dir)/../test/snapshot";
+		m_language    = std::make_unique<Language>();
 		m_notifier     = std::make_unique<Notifier>();
 		m_invalidator  = std::make_unique<Invalidator>();
 		m_styles       = std::make_unique<Styles>();
@@ -143,6 +146,7 @@ void UIManager::deinit()
 	m_clipboard.reset();
 	m_image_cache.reset();
 	m_timer_manager.reset();
+	m_language.reset();
 	m_settings.reset();
 
 	m_initialized = false;
@@ -270,6 +274,13 @@ Settings * UIManager::settings()
 {
 	if (m_settings == 0) bd_printf("UIManager::settings no existing");
 	return m_settings.get();
+}
+
+/** Return the language manager */
+Language * UIManager::language()
+{
+	if (m_language == 0) bd_printf("UIManager::language no existing");
+	return m_language.get();
 }
 
 /** Return the clipboard manager */

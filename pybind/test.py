@@ -17,6 +17,24 @@ device.position = (100,100)
 UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "./resources;../resources")
 #~ UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "zip://resources.zip/resources")
 
+language = UIManager.language()
+assert language.locale == "en-US"
+assert language.translate("calendar.action.today") == "Today"
+assert language.select("fr-FR")
+assert language.translate("calendar.action.today") == "Aujourd’hui"
+assert language.select("en-US")
+
+calendar_parent = Window()
+calendar = Calendar(calendar_parent, CalendarDate(2024, 1, 31))
+assert calendar.date.year == 2024
+assert calendar.month == 1
+calendar.month = 2
+assert calendar.day == 29
+calendar.year = 2023
+assert calendar.day == 28
+calendar.destroy()
+calendar_parent.destroy()
+
 UIManager.style = "pearl"
 UIManager.appearance = "light"
 UIManager.palette = PALETTE_LIME

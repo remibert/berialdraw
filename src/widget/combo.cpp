@@ -134,7 +134,7 @@ bool Combo::is_open() const
 void Combo::set_value(const String & value)
 {
 	text(value);
-	cursor_position((int32_t)input().count());
+	cursor_position(0);
 }
 
 ListItem * Combo::new_item(int index)

@@ -39,6 +39,7 @@ void bind_uimanager(pybind11::module_& m) {
         .def_static("colors", &berialdraw::UIManager::colors, pybind11::return_value_policy::reference)
         .def_static("desktop", &berialdraw::UIManager::desktop, pybind11::return_value_policy::reference)
         .def_static("settings", &berialdraw::UIManager::settings, pybind11::return_value_policy::reference)
+        .def_static("language", &berialdraw::UIManager::language, pybind11::return_value_policy::reference)
         .def_static("is_initialized", &berialdraw::UIManager::is_initialized)
         
         // Propriétés avec getters/setters pour une API plus Pythonique

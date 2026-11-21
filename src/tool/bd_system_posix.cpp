@@ -171,4 +171,23 @@ int bd_read_symlink(const char* path, char* target_path, int max_target_path)
 	return result;
 }
 
+// Get the local civil date from the operating system.
+bool bd_get_local_date(int * year, int * month, int * day)
+{
+	bool result = false;
+	if (year != nullptr && month != nullptr && day != nullptr)
+	{
+		time_t current_time = time(nullptr);
+		struct tm local_time;
+		if (current_time != (time_t)-1 && localtime_r(&current_time, &local_time) != nullptr)
+		{
+			*year = local_time.tm_year + 1900;
+			*month = local_time.tm_mon + 1;
+			*day = local_time.tm_mday;
+			result = true;
+		}
+	}
+	return result;
+}
+
 #endif // !_WIN32

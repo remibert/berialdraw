@@ -27,6 +27,13 @@ extern "C"
 	@param ptr A pointer to the memory block to free. If NULL, no action is performed. */
 	void bd_free(void* ptr);
 
+	/** Get the local civil date from the operating system.
+	@param year Receives the full year
+	@param month Receives the month in the range 1 through 12
+	@param day Receives the day in the range 1 through 31
+	@return True when the local date was read successfully */
+	bool bd_get_local_date(int * year, int * month, int * day);
+
 	#if defined(__cplusplus)
 		/** @typedef bd_FILE
 		Defines bd_FILE as an alias for berialdraw::File in C++. */
