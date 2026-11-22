@@ -161,6 +161,7 @@ namespace berialdraw
 		Size content_size() override;
 		Widget * hovered(const Region & parent_region, const Point & position) override;
 		void on_key(Widget * widget, const KeyEvent & evt);
+		void on_combo_click(Widget * widget, const ClickEvent & evt);
 		void on_button_click(Widget * widget, const ClickEvent & evt);
 		void on_item_click(Widget * widget, const ClickEvent & evt);
 		void set_value(const String & value);

@@ -82,6 +82,10 @@ void Combo::test1()
 
 	combo->editable(false);
 	assert(combo->typing_mode() == Entry::TypingMode::READ_ONLY);
+	ClickEvent field_click(Point(), combo);
+	combo->on_combo_click(combo, field_click);
+	assert(combo->is_open());
+	combo->close();
 
 	combo->editable(true);
 	assert(combo->typing_mode() == Entry::TypingMode::INSERTION);

@@ -143,21 +143,13 @@ void Calendar::build_controls()
 		m_previous_button->focusable(false);
 		m_previous_button->size_policy(SizePolicy::SHRINK_WIDTH);
 
-	m_day_combo = new Combo(controls);
-		m_day_combo->editable(false);
-		m_day_combo->max_columns(2);
-		m_day_combo->size_policy(SizePolicy::SHRINK_WIDTH);
-		// m_day_combo->padding(0);
-		// m_day_combo->margin(1);
-		m_day_combo->bind(this, &Calendar::on_day_month_key);
-
 	m_month_combo = new Combo(controls);
-		// m_month_combo->editable(false);
+		m_month_combo->editable(false);
 		m_month_combo->max_columns(3);
 		m_month_combo->size_policy(SizePolicy::SHRINK_WIDTH);
 		// m_month_combo->padding(0);
 		// m_month_combo->margin(1);
-		m_month_combo->bind(this, &Calendar::on_day_month_key);
+		m_month_combo->bind(this, &Calendar::on_month_key);
 
 	m_year_combo = new Combo(controls);
 		m_year_combo->editable(true);
@@ -537,7 +529,6 @@ void Calendar::update_controls()
 		{
 			m_today_button->text(translated_message("calendar.action.today"));
 		}
-		update_day_combo();
 		m_month_combo->clear();
 		for (int index = 0; index < 12; index++)
 		{
@@ -550,27 +541,6 @@ void Calendar::update_controls()
 		m_month_combo->select((int)m_date.month - 1);
 		update_year_combo();
 		update_date_grid();
-	}
-}
-
-// Populate valid day choices for the currently selected month.
-void Calendar::update_day_combo()
-{
-	if (m_date.is_valid())
-	{
-		m_day_combo->clear();
-		uint8_t days = Date::days_in_month(m_date.year, m_date.month);
-		for (uint8_t day = 1; day <= days; day++)
-		{
-			String text;
-			text.print("%u", (unsigned int)day);
-			ListItem * item = m_day_combo->append(text);
-			if (item)
-			{
-				item->bind(this, &Calendar::on_day_selection);
-			}
-		}
-		m_day_combo->select((int)m_date.day - 1);
 	}
 }
 
@@ -757,27 +727,6 @@ void Calendar::on_today(Widget * widget, const ClickEvent & event)
 	today();
 }
 
-// Select a day chosen from the day combo.
-void Calendar::on_day_selection(Widget * widget, const ClickEvent & event)
-{
-	(void)event;
-	ListItem * clicked_item = dynamic_cast<ListItem*>(widget);
-	int selected_index = -1;
-	for (int index = 0; clicked_item && index < (int)m_day_combo->count(); index++)
-	{
-		if (m_day_combo->at(index) == clicked_item)
-		{
-			selected_index = index;
-		}
-	}
-	if (selected_index >= 0 && m_date.is_valid())
-	{
-		CalendarDate updated = m_date;
-		updated.day = (uint8_t)(selected_index + 1);
-		commit_date(updated, true);
-	}
-}
-
 // Select a month chosen from the month combo.
 void Calendar::on_month_selection(Widget * widget, const ClickEvent & event)
 {
@@ -800,10 +749,7 @@ void Calendar::on_month_selection(Widget * widget, const ClickEvent & event)
 		{
 			updated.day = maximum_day;
 		}
-		if (commit_date(updated, true))
-		{
-			update_day_combo();
-		}
+		commit_date(updated, true);
 	}
 }
 
@@ -823,45 +769,26 @@ void Calendar::on_year_selection(Widget * widget, const ClickEvent & event)
 		{
 			updated.day = maximum_day;
 		}
-		if (commit_date(updated, true))
-		{
-			update_day_combo();
-		}
+		commit_date(updated, true);
 	}
 }
 
-// Apply day and month combo changes made with the keyboard.
-void Calendar::on_day_month_key(Widget * widget, const KeyEvent & event)
+// Apply month combo changes made with the keyboard.
+void Calendar::on_month_key(Widget * widget, const KeyEvent & event)
 {
-	if (event.state() == KeyEvent::KEY_UP && m_date.is_valid())
+	if (widget == m_month_combo && event.state() == KeyEvent::KEY_UP && m_date.is_valid())
 	{
-		if (widget == m_day_combo)
+		int selected_index = m_month_combo->selected_index();
+		if (selected_index >= 0)
 		{
-			int selected_index = m_day_combo->selected_index();
-			if (selected_index >= 0)
+			CalendarDate updated = m_date;
+			updated.month = (uint8_t)(selected_index + 1);
+			uint8_t maximum_day = Date::days_in_month(updated.year, updated.month);
+			if (updated.day > maximum_day)
 			{
-				CalendarDate updated = m_date;
-				updated.day = (uint8_t)(selected_index + 1);
-				commit_date(updated, true);
+				updated.day = maximum_day;
 			}
-		}
-		else if (widget == m_month_combo)
-		{
-			int selected_index = m_month_combo->selected_index();
-			if (selected_index >= 0)
-			{
-				CalendarDate updated = m_date;
-				updated.month = (uint8_t)(selected_index + 1);
-				uint8_t maximum_day = Date::days_in_month(updated.year, updated.month);
-				if (updated.day > maximum_day)
-				{
-					updated.day = maximum_day;
-				}
-				if (commit_date(updated, true))
-				{
-					update_day_combo();
-				}
-			}
+			commit_date(updated, true);
 		}
 	}
 }
@@ -897,7 +824,7 @@ void Calendar::on_year_key(Widget * widget, const KeyEvent & event)
 			}
 			if (commit_date(updated, true))
 			{
-				update_day_combo();
+				update_controls();
 			}
 		}
 		else

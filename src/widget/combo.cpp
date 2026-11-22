@@ -15,6 +15,7 @@ Combo::Combo(Widget * parent):
 	UIManager::styles()->apply(this, (PaddingStyle*)this);
 	UIManager::styles()->apply(this, (ComboStyle*)this);
 	bind(this, &Combo::on_key);
+	bind(this, &Combo::on_combo_click);
 
 	m_editable_typing_mode = typing_mode();
 	update_editable_state();
@@ -484,6 +485,17 @@ void Combo::on_button_click(Widget * widget, const ClickEvent & evt)
 		close();
 	}
 	else
+	{
+		open();
+	}
+}
+
+// Open the option list when the read-only text field is clicked.
+void Combo::on_combo_click(Widget * widget, const ClickEvent & evt)
+{
+	(void)widget;
+	(void)evt;
+	if (editable() == false)
 	{
 		open();
 	}

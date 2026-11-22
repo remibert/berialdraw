@@ -4,7 +4,6 @@ namespace berialdraw
 	class Button;
 	class Column;
 	class Combo;
-	class Label;
 	class Row;
 	class TableView;
 
@@ -87,7 +86,6 @@ namespace berialdraw
 		void initialize();
 		void build_controls();
 		void update_controls();
-		void update_day_combo();
 		void update_year_combo();
 		void update_table_grid_style();
 		void update_weekday_style(Button * weekday);
@@ -98,10 +96,9 @@ namespace berialdraw
 		void on_previous_month(Widget * widget, const ClickEvent & event);
 		void on_next_month(Widget * widget, const ClickEvent & event);
 		void on_today(Widget * widget, const ClickEvent & event);
-		void on_day_selection(Widget * widget, const ClickEvent & event);
 		void on_month_selection(Widget * widget, const ClickEvent & event);
 		void on_year_selection(Widget * widget, const ClickEvent & event);
-		void on_day_month_key(Widget * widget, const KeyEvent & event);
+		void on_month_key(Widget * widget, const KeyEvent & event);
 		void on_year_key(Widget * widget, const KeyEvent & event);
 		void on_date_cell_click(Widget * widget, const ClickEvent & event);
 		void on_date_cell_key(Widget * widget, const KeyEvent & event);
@@ -112,7 +109,6 @@ namespace berialdraw
 		Button * m_today_button = nullptr;
 		Button * m_previous_button = nullptr;
 		Button * m_next_button = nullptr;
-		Combo * m_day_combo = nullptr;
 		Combo * m_month_combo = nullptr;
 		Combo * m_year_combo = nullptr;
 		TableView * m_table = nullptr;
