@@ -16,6 +16,8 @@ const int SCREEN_HEIGHT = 280*ZOOM;
 palette,qr,calendrier,clavier numeric,icns,ico,icn,icone appli, gradient,
 button back clavier virtuel lie a la fonte, q6 float
 treeview
+
+-exec watchpoint set expression -w write -- &m_thickness
 */
 using namespace berialdraw; 
 
@@ -32,7 +34,7 @@ int main(int argc, char* args[])
 		test_unitary();
 
 		// Start and init berial draw library
-		UIManager::init(new DeviceScreen("Test BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888,ZOOM, "../resources;./resources;zip://resources.zip/resources");
+		UIManager::init(new DeviceScreen("Test BerialDraw"), SCREEN_WIDTH, SCREEN_HEIGHT, Framebuf::ARGB8888,ZOOM, "../resources;./resources;zip://resources.zip/resources", WindowMode::RESIZABLE);
 
 		// Select the CRC checks for the screens to verify whether the tests are successful or not.
 		UIManager::screen_crc()->open("$(ui.tests)/out/all_crcs.json","$(ui.tests)/ref/all_crcs.json");

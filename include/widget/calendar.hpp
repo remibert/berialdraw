@@ -89,6 +89,9 @@ namespace berialdraw
 		void update_controls();
 		void update_day_combo();
 		void update_year_combo();
+		void update_table_grid_style();
+		void update_weekday_style(Button * weekday);
+		void update_day_style(Button * day, bool outside_month, bool selected);
 		void update_date_grid();
 		bool commit_date(const CalendarDate & value, bool notify);
 		bool parse_year(const String & value, int & year) const;

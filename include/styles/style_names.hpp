@@ -124,6 +124,9 @@ namespace berialdraw
 		static constexpr char TABVIEW_TAB_MARGIN[] = "tab_margin";
 
 		// Calendar style
+		static constexpr char CALENDAR_DATE_YEAR[] = "year";
+		static constexpr char CALENDAR_DATE_MONTH[] = "month";
+		static constexpr char CALENDAR_DATE_DAY[] = "day";
 		static constexpr char CALENDAR_WEEKDAY_TEXT_COLOR[] = "weekday_text_color";
 		static constexpr char CALENDAR_WEEKDAY_FONT_SIZE[] = "weekday_font_size";
 		static constexpr char CALENDAR_OUTSIDE_DAY_TEXT_COLOR[] = "outside_day_text_color";

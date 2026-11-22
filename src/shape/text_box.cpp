@@ -511,9 +511,13 @@ uint32_t TextBox::cursor_position(const Point & click_location, const Area & tex
 }
 
 /** Moves the text to make the area containing the cursor visible. */
-void TextBox::text_shift(Point & cursor_shift, const Area & text_area)
+void TextBox::text_shift(Point & cursor_shift, const Area & text_area, bool insertion)
 {
 	Area cursor_clip(m_cursor_pos,m_cursor_size);
+	if (insertion)
+	{
+		cursor_clip.size().width_q6(INSERTION_CURSOR_WIDTH << 6);
+	}
 	cursor_clip.move(text_area.position());
 
 	Coord movex = horizontal_shift(cursor_clip, cursor_shift, text_area);
@@ -885,7 +889,7 @@ void TextBox::paint_cursor(const LineInfo & line, const Point & position, const 
 	Rect rect(0);
 		if (insertion)
 		{
-			rect.size_q6(2<<6, m_cursor_size.height_q6());
+			rect.size_q6(INSERTION_CURSOR_WIDTH << 6, m_cursor_size.height_q6());
 			cursor_center.move(1,0);
 		}
 		else

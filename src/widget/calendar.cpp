@@ -138,40 +138,56 @@ void Calendar::build_controls()
 		m_previous_button->text("<");
 		m_previous_button->bind(this, &Calendar::on_previous_month);
 		m_previous_button->radius(3);
+		m_previous_button->padding(5,0);
+		m_previous_button->margin(0,5);
 		m_previous_button->focusable(false);
+		m_previous_button->size_policy(SizePolicy::SHRINK_WIDTH);
 
 	m_day_combo = new Combo(controls);
 		m_day_combo->editable(false);
+		m_day_combo->max_columns(2);
+		m_day_combo->size_policy(SizePolicy::SHRINK_WIDTH);
+		// m_day_combo->padding(0);
+		// m_day_combo->margin(1);
 		m_day_combo->bind(this, &Calendar::on_day_month_key);
 
 	m_month_combo = new Combo(controls);
-		m_month_combo->editable(false);
+		// m_month_combo->editable(false);
+		m_month_combo->max_columns(3);
+		m_month_combo->size_policy(SizePolicy::SHRINK_WIDTH);
+		// m_month_combo->padding(0);
+		// m_month_combo->margin(1);
 		m_month_combo->bind(this, &Calendar::on_day_month_key);
 
 	m_year_combo = new Combo(controls);
 		m_year_combo->editable(true);
+		m_year_combo->max_columns(4);
+		m_year_combo->size_policy(SizePolicy::SHRINK_WIDTH);
+		// m_year_combo->padding(0);
+		// m_year_combo->margin(1);
 		m_year_combo->bind(this, &Calendar::on_year_key);
 
 	m_next_button = new Button(controls);
 		m_next_button->text(">");
+		m_next_button->padding(5,0);
+		m_next_button->margin(0,5);
 		m_next_button->bind(this, &Calendar::on_next_month);
 		m_next_button->radius(3);
 		m_next_button->focusable(false);
+		m_next_button->size_policy(SizePolicy::SHRINK_WIDTH);
 
 	m_today_button = new Button(controls);
 		m_today_button->text(translated_message("calendar.action.today"));
 
-	m_today_button->bind(this, &Calendar::on_today);
+	 m_today_button->bind(this, &Calendar::on_today);
 
 	m_table = new TableView(m_content);
 		m_table->margin(0);
-		m_table->grid_color(grid_color());
-		m_table->grid_visible(grid_thickness() > 0);
-		m_table->horizontal_thickness(grid_thickness());
-		m_table->vertical_thickness(grid_thickness());
+		update_table_grid_style();
 		m_table->alternating_row_color1(Color::RED);
 		m_table->alternating_row_color2(Color::TRANSPARENT);
 		m_table->border_color(Color::TRANSPARENT);
+		m_table->thickness(0);
 		m_table->radius(0);
 
 	for (Dim column = 0; column < 7; column++)
@@ -181,14 +197,10 @@ void Calendar::build_controls()
 			weekday->align(Align::CENTER);
 			weekday->text_align(Align::CENTER);
 			weekday->radius(0);
-			weekday->border_color(Color::TRANSPARENT);
-			weekday->thickness(0);
 			weekday->margin(0);
 			weekday->focusable(false);
 			weekday->pressable(false);
-			weekday->color(weekday_back_color());
-			weekday->text_color(weekday_text_color());
-			weekday->font_size(weekday_font_size());
+			update_weekday_style(weekday);
 			weekday->text(translated_message(weekday_message_ids[column]));
 		m_table->set_widget(0, column, weekday);
 	}
@@ -200,12 +212,7 @@ void Calendar::build_controls()
 			day->extend(Extend::EXTEND_ALL);
 			day->align(Align::CENTER);
 			day->text_align(Align::CENTER);
-			day->radius(0);
-			day->border_color(day_border_color());
-			day->thickness(day_border_thickness());
-			day->color(day_back_color());
-			day->text_color(day_text_color());
-			day->font_size(day_font_size());
+			update_day_style(day, false, false);
 			day->hidden(true);
 			day->bind(this, &Calendar::on_date_cell_click);
 		m_table->set_widget((index / 7) + 1, index % 7, day);
@@ -424,9 +431,9 @@ void Calendar::serialize(JsonIterator & it)
 	WidgetStyle::serialize(it);
 	PaddingStyle::serialize(it);
 	CalendarStyle::serialize(it);
-	it["year"] = m_date.year;
-	it["month"] = (unsigned int)m_date.month;
-	it["day"] = (unsigned int)m_date.day;
+	it[StyleNames::CALENDAR_DATE_YEAR] = m_date.year;
+	it[StyleNames::CALENDAR_DATE_MONTH] = (unsigned int)m_date.month;
+	it[StyleNames::CALENDAR_DATE_DAY] = (unsigned int)m_date.day;
 }
 
 // Restore calendar styles and the selected date.
@@ -437,15 +444,15 @@ void Calendar::unserialize(JsonIterator & it)
 	PaddingStyle::unserialize(it);
 	CalendarStyle::unserialize(it);
 
-	bool has_year = it["year"].exist();
-	bool has_month = it["month"].exist();
-	bool has_day = it["day"].exist();
+	bool has_year = it[StyleNames::CALENDAR_DATE_YEAR].exist();
+	bool has_month = it[StyleNames::CALENDAR_DATE_MONTH].exist();
+	bool has_day = it[StyleNames::CALENDAR_DATE_DAY].exist();
 	if (has_year || has_month || has_day)
 	{
 		CalendarDate restored;
-		restored.year = (int)(it["year"] | 0);
-		restored.month = (uint8_t)(it["month"] | 0);
-		restored.day = (uint8_t)(it["day"] | 0);
+		restored.year = (int)(it[StyleNames::CALENDAR_DATE_YEAR] | 0);
+		restored.month = (uint8_t)(it[StyleNames::CALENDAR_DATE_MONTH] | 0);
+		restored.day = (uint8_t)(it[StyleNames::CALENDAR_DATE_DAY] | 0);
 		if (has_year && has_month && has_day && restored.is_valid())
 		{
 			commit_date(restored, false);
@@ -526,9 +533,11 @@ void Calendar::update_controls()
 {
 	if (m_date.is_valid())
 	{
-		m_today_button->text(translated_message("calendar.action.today"));
+		if (m_today_button)
+		{
+			m_today_button->text(translated_message("calendar.action.today"));
+		}
 		update_day_combo();
-
 		m_month_combo->clear();
 		for (int index = 0; index < 12; index++)
 		{
@@ -594,28 +603,65 @@ void Calendar::update_year_combo()
 	}
 }
 
-// Update the fixed-capacity weekday and date grid.
-void Calendar::update_date_grid()
+// Apply shared table grid settings.
+void Calendar::update_table_grid_style()
 {
-	if (m_table && m_date.is_valid())
+	if (m_table)
 	{
 		m_table->grid_color(grid_color());
 		m_table->grid_visible(grid_thickness() > 0);
 		m_table->horizontal_thickness(grid_thickness());
 		m_table->vertical_thickness(grid_thickness());
+	}
+}
+
+// Apply the weekday header appearance.
+void Calendar::update_weekday_style(Button * weekday)
+{
+	if (weekday)
+	{
+		weekday->border_color(Color::TRANSPARENT);
+		weekday->thickness(0);
+		weekday->radius(0);
+		weekday->color(weekday_back_color());
+		weekday->text_color(weekday_text_color());
+		weekday->font_size(weekday_font_size());
+	}
+}
+
+// Apply the appearance for a date cell according to its month and selection state.
+void Calendar::update_day_style(Button * day, bool outside_month, bool selected)
+{
+	if (day)
+	{
+		day->radius(0);
+		day->border_color(day_border_color());
+		day->thickness(day_border_thickness());
+		day->font_size(day_font_size());
+		day->color(selected ? day_selected_back_color() :
+			(outside_month ? outside_day_back_color() : day_back_color()));
+		day->text_color(selected ? day_selected_text_color() :
+			(outside_month ? outside_day_text_color() : day_text_color()));
+	}
+}
+
+// Update the fixed-capacity weekday and date grid.
+void Calendar::update_date_grid()
+{
+	if (m_table && m_date.is_valid())
+	{
+		update_table_grid_style();
 		m_table->alternating_row_color1(Color::TRANSPARENT);
 		m_table->alternating_row_color2(Color::TRANSPARENT);
 		m_table->border_color(grid_color());
-		m_table->thickness(grid_thickness());
+		m_table->thickness(0);
 
 		for (Dim column = 0; column < 7; column++)
 		{
 			Button * weekday = dynamic_cast<Button*>(m_table->get_widget(0, column));
 			if (weekday)
 			{
-				weekday->color(weekday_back_color());
-				weekday->text_color(weekday_text_color());
-				weekday->font_size(weekday_font_size());
+				update_weekday_style(weekday);
 			}
 		}
 
@@ -654,25 +700,17 @@ void Calendar::update_date_grid()
 					String day_text;
 					day_text.print("%u", (unsigned int)cell_date.day);
 					cell->text(day_text);
-					cell->font_size(day_font_size());
 					bool outside_month = cell_date.year != m_date.year || cell_date.month != m_date.month;
 					bool selected = cell_date == m_date;
-					cell->color(selected ? day_selected_back_color() :
-						(outside_month ? outside_day_back_color() : day_back_color()));
-					cell->text_color(selected ? day_selected_text_color() :
-						(outside_month ? outside_day_text_color() : day_text_color()));
-					cell->border_color(day_border_color());
-					cell->thickness(day_border_thickness());
+					update_day_style(cell, outside_month, selected);
 					cell->enabled(true);
 				}
 				else
 				{
 					m_cell_dates[cell_index] = CalendarDate();
 					cell->text("");
+					update_day_style(cell, true, false);
 					cell->color(Color::TRANSPARENT);
-					cell->text_color(outside_day_text_color());
-					cell->border_color(day_border_color());
-					cell->thickness(day_border_thickness());
 					cell->enabled(false);
 				}
 				cell->hidden(false);

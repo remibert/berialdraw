@@ -21,6 +21,8 @@ namespace berialdraw
 	class TextBox
 	{
 	public:
+		static constexpr Dim INSERTION_CURSOR_WIDTH = 2;
+
 		/** Constructor */
 		TextBox();
 
@@ -49,7 +51,7 @@ namespace berialdraw
 		uint32_t cursor_position(const Point & click_location, const Area & text_area, const Point & text_shift,  Font & font, const String & text, Align text_align);
 
 		/** Moves the text to make the area containing the cursor visible. */
-		void text_shift(Point & cursor_shift, const Area & text_area);
+		void text_shift(Point & cursor_shift, const Area & text_area, bool insertion = true);
 
 		/** Moves the text to make the area containing the cursor visible. */
 		Coord horizontal_shift(Area & cursor_clip, Point & cursor_shift, const Area & text_area);

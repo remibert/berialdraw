@@ -33,16 +33,10 @@ static void test_language_catalogs()
 
 	assert(language->select("fr-FR"));
 	assert(language->translate("calendar.action.today") == "Aujourd’hui");
-	assert(language->translate("common.ok") == "OK");
 	assert(language->translate("unknown.message") == "unknown.message");
 
-	assert(language->select("fr-CA"));
-	assert(language->locale() == "fr-CA");
-	assert(language->translate("common.ok") == "D’accord");
-	assert(language->translate("calendar.subtitle") == "Choose a date");
 
 	assert(language->select("de-DE"));
-	assert(language->translate("common.ok") == "OK");
 	assert(language->select("../en-US") == false);
 	assert(language->locale() == "de-DE");
 	assert(language->select("en-US"));

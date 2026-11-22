@@ -35,7 +35,7 @@ void Calendar::test1()
 	assert(Date::weekday_monday(CalendarDate{2026, 11, 1}) == 6);
 
 	Window window;
-	window.size(480, 480);
+	// window.size(480, 480);
 	Calendar * calendar = new Calendar(&window, CalendarDate{2026, 11, 19});
 	calendar->position(20, 20);
 	calendar->size(420, 420);

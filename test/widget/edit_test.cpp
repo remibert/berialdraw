@@ -1548,6 +1548,34 @@ void Edit::test11()
 	assert(edit->selection_end() == 5);
 
 	{
+		Window cursor_window;
+		cursor_window.size(240, 80);
+		Edit * cursor_edit = new Edit(&cursor_window);
+		cursor_edit->max_columns(4);
+		cursor_edit->text("2026");
+		cursor_edit->select_font();
+		Dim expected_width = cursor_edit->m_font->char_size(' ').width_q6() * 4 +
+			(TextBox::INSERTION_CURSOR_WIDTH << 6);
+		UIManager::desktop()->dispatch();
+		assert(cursor_edit->m_text_size.width_q6() == expected_width);
+		cursor_edit->cursor_position(-1, false);
+		UIManager::desktop()->dispatch();
+		assert(cursor_edit->m_cursor_shift.x() == 0);
+
+		Edit * read_only_edit = new Edit(&cursor_window);
+		read_only_edit->typing_mode(Entry::TypingMode::READ_ONLY);
+		read_only_edit->max_columns(4);
+		read_only_edit->text("2026");
+		read_only_edit->select_font();
+		Dim read_only_width = read_only_edit->m_font->char_size(' ').width_q6() * 4;
+		UIManager::desktop()->dispatch();
+		assert(read_only_edit->m_text_size.width_q6() == read_only_width);
+		read_only_edit->cursor_position(-1, false);
+		UIManager::desktop()->dispatch();
+		assert(read_only_edit->m_cursor_shift.x() == 0);
+	}
+
+	{
 		Window resize_window;
 		resize_window.size(100,80);
 		Edit * resized_edit = new Edit(&resize_window);

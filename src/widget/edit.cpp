@@ -117,7 +117,12 @@ Size Edit::content_size()
 		Size char_size = m_font->text_size(" ");
 
 		// Adapt the size of text according to its size specified
-		m_text_size.set_q6(char_size.width_q6() * m_max_columns, char_size.height_q6() * m_max_lines);
+		Dim text_width = char_size.width_q6() * m_max_columns;
+		if (typing_mode() == Entry::TypingMode::INSERTION)
+		{
+			text_width += TextBox::INSERTION_CURSOR_WIDTH << 6;
+		}
+		m_text_size.set_q6(text_width, char_size.height_q6() * m_max_lines);
 	}
 
 	result = m_text_size;
@@ -241,8 +246,16 @@ void Edit::paint(const Region & parent_region)
 		region.intersect(text_clip);
 		UIManager::renderer()->region(region);
 
-		// Shift to show cursor
-		m_text_box.text_shift(m_cursor_shift, m_text_foreclip);
+		// Only scroll the text to follow a visible, editable cursor.
+		if (typing_mode() != Entry::TypingMode::READ_ONLY)
+		{
+			bool insertion_cursor = (TypingMode)m_typing_mode == TypingMode::INSERTION;
+			m_text_box.text_shift(m_cursor_shift, m_text_foreclip, insertion_cursor);
+		}
+		else
+		{
+			m_cursor_shift.set(0, 0);
+		}
 
 		// Move to text to display cursor location
 		Point text_shift(m_text_foreclip.position());
