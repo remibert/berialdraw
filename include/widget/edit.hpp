@@ -59,6 +59,9 @@ namespace berialdraw
 		/** Call back on click */
 		void on_click(Widget * widget, const ClickEvent & evt);
 
+		/** Notify listeners when the text value changes */
+		void on_text_changed(const String & previous_text) override;
+
 		/** Paint on screen memory the content of this widget */
 		virtual void paint(const Region & parent_region) override;
 

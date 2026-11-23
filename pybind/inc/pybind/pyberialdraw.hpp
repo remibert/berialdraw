@@ -512,6 +512,8 @@ void bind_click_event(pybind11::module_& m);
 void bind_key_event(pybind11::module_& m);
 void bind_check_event(pybind11::module_& m);
 void bind_select_event(pybind11::module_& m);
+void bind_text_event(pybind11::module_& m);
+void bind_selection_event(pybind11::module_& m);
 void bind_slide_event(pybind11::module_& m);
 void bind_scroll_event(pybind11::module_& m);
 void bind_focus_event(pybind11::module_& m);

@@ -38,11 +38,28 @@ void List::test1()
 /** Test 2: List with selection */
 void List::test2()
 {
+	struct SelectionEventCapture
+	{
+		uint32_t count = 0;
+		Vector<int32_t> previous_indices;
+		Vector<int32_t> indices;
+
+		void on_selection_changed(Widget * widget, const SelectionEvent & evt)
+		{
+			(void)widget;
+			count++;
+			previous_indices = evt.previous_indices();
+			indices = evt.indices();
+		}
+	};
+
+	SelectionEventCapture selection_event_capture;
 	MemoryLeakLog
 	Window window;
 	window.color(Color::LIGHT_GRAY);
 	List* list = new List(&window);
 	list->selection_mode(ListSelectionMode::LIST_MULTI_SELECTION);
+	list->bind(&selection_event_capture, &SelectionEventCapture::on_selection_changed);
 
 	// Add items
 	list->append("Option 1");
@@ -57,16 +74,29 @@ void List::test2()
 
 	// Select first item
 	list->select(0);
+	UIManager::notifier()->dispatch();
 	assert(list->selected_items().size() == 1);
 	assert(list->selected_items()[0]->text() == "Option 1");
+	assert(selection_event_capture.count == 1);
+	assert(selection_event_capture.indices.size() == 1);
+	assert(selection_event_capture.indices[0] == 0);
 
 	// Select third item (multi-selection enabled)
 	list->select(2);
+	UIManager::notifier()->dispatch();
 	assert(list->selected_items().size() == 2);
+	assert(selection_event_capture.count == 2);
+	assert(selection_event_capture.previous_indices.size() == 1);
+	assert(selection_event_capture.previous_indices[0] == 0);
+	assert(selection_event_capture.indices.size() == 2);
+	assert(selection_event_capture.indices[0] == 0);
+	assert(selection_event_capture.indices[1] == 2);
 
 	// Select with negative index
 	list->select(-1);
+	UIManager::notifier()->dispatch();
 	assert(list->selected_items().size() == 3);
+	assert(selection_event_capture.count == 3);
 	auto selected = list->selected_items();
 	assert(selected[-1]->text() == "Option 5");
 
@@ -76,6 +106,10 @@ void List::test2()
 	list->unselect(0);
 	UIManager::desktop()->dispatch();
 	assert(list->selected_items().size() == 2);
+	assert(selection_event_capture.count == 4);
+	assert(selection_event_capture.indices.size() == 2);
+	assert(selection_event_capture.indices[0] == 2);
+	assert(selection_event_capture.indices[1] == 4);
 
 	UIManager::desktop()->dispatch("$(ui.tests)/out/list2_2.svg");
 

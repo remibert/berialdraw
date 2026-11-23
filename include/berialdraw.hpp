@@ -125,6 +125,8 @@ extern "C" void bd_redirect_printf(void (*callback)(const char* format, va_list 
 #include "event/scroll_event.hpp"
 #include "event/click_event.hpp"
 #include "event/select_event.hpp"
+#include "event/text_event.hpp"
+#include "event/selection_event.hpp"
 #include "event/slide_event.hpp"
 #include "event/focus_event.hpp"
 #include "event/timer_event.hpp"

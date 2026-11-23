@@ -24,6 +24,7 @@ void TextStyle::serialize(JsonIterator & it)
 /** Unserialize the content of widget from json */
 void TextStyle::unserialize(JsonIterator & it)
 {
+	String previous_text = m_text;
 	Align align = m_text_align;
 	berialdraw::unserialize(StyleNames::TEXT_ALIGN,it, align);
 	m_text_align   = align;
@@ -34,6 +35,10 @@ void TextStyle::unserialize(JsonIterator & it)
 	m_padding.unserialize (StyleNames::TEXT_PADDING,it);
 	m_text_modified = 1;
 	m_font_modified = 1;
+	if (m_text != previous_text)
+	{
+		on_text_changed(previous_text);
+	}
 }
 
 /** Copy operator */
@@ -48,6 +53,7 @@ void TextStyle::set(const TextStyle & other)
 {
 	if (this != &other)
 	{
+		String previous_text = m_text;
 		m_padding     = other.m_padding;
 		m_text_align   = other.m_text_align;
 		m_text_color   = other.m_text_color;
@@ -57,7 +63,17 @@ void TextStyle::set(const TextStyle & other)
 		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 		m_text_modified = 1;
 		m_font_modified = 1;
+		if (m_text != previous_text)
+		{
+			on_text_changed(previous_text);
+		}
 	}
+}
+
+// Notify derived text widgets when their content changes.
+void TextStyle::on_text_changed(const String & previous_text)
+{
+	(void)previous_text;
 }
 
 Style * TextStyle::create()
@@ -154,27 +170,42 @@ const String & TextStyle::text()
 /** Set text value with printf format */
 void TextStyle::text(const char * text_, ...)
 {
+	String previous_text = m_text;
 	va_list args;
 	va_start(args, text_);
 	m_text_modified = 1;
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_text.vprint(text_, args);
 	va_end(args);
+	if (m_text != previous_text)
+	{
+		on_text_changed(previous_text);
+	}
 }
 
 /** Set text value with string */
 void TextStyle::text(const String & str)
 {
+	String previous_text = m_text;
 	m_text_modified = 1;
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 	m_text = str;
+	if (m_text != previous_text)
+	{
+		on_text_changed(previous_text);
+	}
 }
 
 /** Set text value with unicode value */
 void TextStyle::text(wchar_t value)
 {
+	String previous_text = m_text;
 	m_text_modified = 1;
 	m_text = value;
+	if (m_text != previous_text)
+	{
+		on_text_changed(previous_text);
+	}
 }
 
 /** Set the text align */

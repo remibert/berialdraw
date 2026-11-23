@@ -238,6 +238,8 @@ set(SRCS_LIB
 	src/event/check_event.cpp
 	src/event/calendar_event.cpp
 	src/event/select_event.cpp
+	src/event/text_event.cpp
+	src/event/selection_event.cpp
 	src/event/scroll_event.cpp
 	src/event/slide_event.cpp
 	src/event/focus_event.cpp

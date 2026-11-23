@@ -297,7 +297,13 @@
     <ClCompile Include="..\..\pybind\src\pybind\event\select_event.cpp">
       <Filter>pybind\event</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\event\selection_event.cpp">
+      <Filter>pybind\event</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\event\slide_event.cpp">
+      <Filter>pybind\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pybind\src\pybind\event\text_event.cpp">
       <Filter>pybind\event</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pybind\src\pybind\event\touch_event.cpp">

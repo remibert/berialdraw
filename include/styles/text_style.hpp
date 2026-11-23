@@ -81,6 +81,9 @@ namespace berialdraw
 
 	protected:
 /// @cond DOXYGEN_IGNORE
+		/** Notify derived text widgets when their content changes. */
+		virtual void on_text_changed(const String & previous_text);
+
 		uint32_t m_text_color   = 0xFF000000;
 		String  m_font_familly;
 		Size    m_font_size = {0,10};

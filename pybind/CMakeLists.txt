@@ -32,6 +32,8 @@ set(SRCS_PYBIND11_LIB
 	src/pybind/event/scroll_event.cpp
 	src/pybind/event/check_event.cpp
 	src/pybind/event/select_event.cpp
+	src/pybind/event/text_event.cpp
+	src/pybind/event/selection_event.cpp
 	src/pybind/event/notifier.cpp
 	src/pybind/event/click_event.cpp
 	src/pybind/event/focus_event.cpp

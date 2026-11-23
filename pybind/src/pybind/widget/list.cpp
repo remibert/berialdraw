@@ -53,9 +53,10 @@ void bind_list(pybind11::module_& m) {
 		
 		// Prepend method (handles string, list of strings, and callable)
 		.def("prepend", [handle_list_operation](berialdraw::List& self, pybind11::object arg) -> pybind11::object {
+			int insert_index = 0;
 			return handle_list_operation(arg,
 				[&self](const char* text) { return pybind11::cast(self.prepend(text)); },
-				[&self](const char* text) { self.insert((int)self.count(), text); },
+				[&self, &insert_index](const char* text) { self.insert(insert_index++, text); },
 				[&self](const auto& config) { return pybind11::cast(self.prepend(config)); }
 			);
 		}, pybind11::arg("arg"),
@@ -63,9 +64,23 @@ void bind_list(pybind11::module_& m) {
 		
 		// Insert method (handles string, list of strings, and callable at specific index)
 		.def("insert", [handle_list_operation](berialdraw::List& self, int index, pybind11::object arg) -> pybind11::object {
+			int item_count = static_cast<int>(self.count());
+			int insert_index = index;
+			if (index == UNDEFINED_INDEX || index > item_count)
+			{
+				insert_index = item_count;
+			}
+			else if (index < 0)
+			{
+				insert_index = item_count + index + 1;
+				if (insert_index < 0)
+				{
+					insert_index = 0;
+				}
+			}
 			return handle_list_operation(arg,
 				[&self, index](const char* text) { return pybind11::cast(self.insert(index, text)); },
-				[&self, index](const char* text) { self.insert(index, text); },
+				[&self, &insert_index](const char* text) { self.insert(insert_index++, text); },
 				[&self, index](const auto& config) { return pybind11::cast(self.insert(index, config)); }
 			);
 		}, pybind11::arg("index"), pybind11::arg("arg"),
@@ -137,6 +152,7 @@ void bind_list(pybind11::module_& m) {
 		
 		// Event system integration
 		BIND_EVENT_PROPERTY(berialdraw::List, berialdraw::ClickEvent, on_click)
+		BIND_EVENT_PROPERTY(berialdraw::List, berialdraw::SelectionEvent, on_selection_changed)
 		BIND_EVENT_PROPERTY(berialdraw::List, berialdraw::TouchEvent, on_touch)
 		BIND_EVENT_PROPERTY(berialdraw::List, berialdraw::ScrollEvent, on_scroll);
 }

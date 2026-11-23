@@ -102,6 +102,8 @@ PYBIND11_MODULE(pyberialdraw, m) {
     bind_key_event(m);
     bind_check_event(m);
     bind_select_event(m);
+    bind_text_event(m);
+    bind_selection_event(m);
     bind_slide_event(m);
     bind_scroll_event(m);
     bind_focus_event(m);

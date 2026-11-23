@@ -136,6 +136,35 @@ void Combo::set_value(const String & value)
 {
 	text(value);
 	cursor_position(0);
+	notify_selection_changed();
+}
+
+// Notify listeners when the text changes and refresh the selected option.
+void Combo::on_text_changed(const String & previous_text)
+{
+	Edit::on_text_changed(previous_text);
+	notify_selection_changed();
+}
+
+// Notify listeners when the selected option changes.
+void Combo::notify_selection_changed()
+{
+	int current_index = selected_index();
+	if (current_index != m_selection_index)
+	{
+		Vector<int32_t> previous_indices;
+		Vector<int32_t> indices;
+		if (m_selection_index >= 0)
+		{
+			previous_indices.push_back(m_selection_index);
+		}
+		if (current_index >= 0)
+		{
+			indices.push_back(current_index);
+		}
+		m_selection_index = current_index;
+		UIManager::notifier()->push_event(new SelectionEvent(previous_indices, indices, this));
+	}
 }
 
 ListItem * Combo::new_item(int index)
@@ -145,6 +174,7 @@ ListItem * Combo::new_item(int index)
 	{
 		result = m_list->new_item(index);
 		result->bind(this, &Combo::on_item_click);
+		notify_selection_changed();
 	}
 	return result;
 }
@@ -229,6 +259,10 @@ void Combo::select(int index)
 		{
 			set_value(item->text());
 		}
+		else
+		{
+			notify_selection_changed();
+		}
 	}
 }
 
@@ -277,6 +311,7 @@ void Combo::unselect(int index)
 	if (m_list)
 	{
 		m_list->unselect(index);
+		notify_selection_changed();
 	}
 }
 
@@ -285,6 +320,7 @@ void Combo::unselect_all()
 	if (m_list)
 	{
 		m_list->unselect_all();
+		notify_selection_changed();
 	}
 }
 
@@ -334,6 +370,7 @@ void Combo::remove(int index)
 		{
 			set_value(String());
 		}
+		notify_selection_changed();
 	}
 }
 

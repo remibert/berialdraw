@@ -17,6 +17,46 @@ device.position = (100,100)
 UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "./resources;../resources")
 #~ UIManager.init(device, 480, 800, Framebuf.ARGB8888, 2, "zip://resources.zip/resources")
 
+event_window = Window()
+event_edit = Edit(event_window)
+text_events = []
+event_edit.on_text_changed = lambda widget, event: text_events.append(
+	(event.previous_text(), event.text()))
+event_edit.text = "before"
+event_edit.text = "after"
+event_edit.text = "after"
+UIManager.desktop().dispatch()
+assert text_events == [("", "before"), ("before", "after")]
+
+event_list = List(event_window)
+list_selection_events = []
+event_list.on_selection_changed = lambda widget, event: list_selection_events.append(
+	(event.previous_indices(), event.indices()))
+event_list.append(["debug", "release"])
+event_list.select(0)
+event_list.select(1)
+UIManager.desktop().dispatch()
+assert list_selection_events == [([], [0]), ([0], [1])]
+
+event_combo = Combo(event_window)
+event_combo.append(["debug", "release"])
+UIManager.desktop().dispatch()
+combo_text_events = []
+combo_selection_events = []
+event_combo.on_text_changed = lambda widget, event: combo_text_events.append(
+	(event.previous_text(), event.text()))
+event_combo.on_selection_changed = lambda widget, event: combo_selection_events.append(
+	(event.previous_indices(), event.indices()))
+event_combo.select(1)
+UIManager.desktop().dispatch()
+assert combo_text_events == [("debug", "release")]
+assert combo_selection_events == [([], [1])]
+event_edit.on_text_changed = []
+event_list.on_selection_changed = []
+event_combo.on_text_changed = []
+event_combo.on_selection_changed = []
+event_window.destroy()
+
 language = UIManager.language()
 assert language.locale == "en-US"
 assert language.translate("calendar.action.today") == "Today"

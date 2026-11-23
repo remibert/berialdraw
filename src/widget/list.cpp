@@ -29,7 +29,10 @@ List::~List()
 /** Create new list item */
 ListItem* List::new_item(int index)
 {
-	return new ListItem(m_column, normalize_index(index));
+	Vector<int32_t> previous_indices = selection_indices();
+	ListItem* result = new ListItem(m_column, normalize_index(index));
+	notify_selection_changed(previous_indices);
+	return result;
 }
 
 int List::normalize_index(int index, bool for_insert) const
@@ -172,6 +175,7 @@ ListItem* List::at(int index) const
 /** Unselect all item in list */
 void List::unselect_all()
 {
+	Vector<int32_t> previous_indices = selection_indices();
 	Widget* current = m_column->children();
 	while (current)
 	{
@@ -181,11 +185,13 @@ void List::unselect_all()
 		}
 		current = current->next();
 	}
+	notify_selection_changed(previous_indices);
 }
 
 /** Select all items when multi-selection is enabled */
 void List::select_all()
 {
+	Vector<int32_t> previous_indices = selection_indices();
 	if ((ListSelectionMode)m_selection_mode == ListSelectionMode::LIST_MULTI_SELECTION)
 	{
 		Widget* current = m_column->children();
@@ -199,16 +205,26 @@ void List::select_all()
 			current = current->next();
 		}
 	}
+	notify_selection_changed(previous_indices);
 }
 
 /** Select one item in list
 @param index Item position (supports negative indexing) */
 void List::select(int index, bool state)
 {
+	Vector<int32_t> previous_indices = selection_indices();
 	if ((ListSelectionMode)m_selection_mode == ListSelectionMode::LIST_SINGLE_SELECTION ||
 		(ListSelectionMode)m_selection_mode == ListSelectionMode::LIST_NO_SELECTION)
 	{
-		unselect_all();
+		Widget* current = m_column->children();
+		while (current)
+		{
+			if (dynamic_cast<ListItem*>(current))
+			{
+				current->selected(false);
+			}
+			current = current->next();
+		}
 	}
 
 	if ((ListSelectionMode)m_selection_mode != ListSelectionMode::LIST_NO_SELECTION)
@@ -232,6 +248,43 @@ void List::select(int index, bool state)
 			current = current->next();
 			current_index++;
 		}
+	}
+	notify_selection_changed(previous_indices);
+}
+
+// Get the selected indices in display order.
+Vector<int32_t> List::selection_indices() const
+{
+	Vector<int32_t> result;
+	int32_t item_index = 0;
+	Widget* current = m_column ? m_column->children() : nullptr;
+	while (current)
+	{
+		if (dynamic_cast<ListItem*>(current))
+		{
+			if (current->selected())
+			{
+				result.push_back(item_index);
+			}
+			item_index++;
+		}
+		current = current->next();
+	}
+	return result;
+}
+
+// Notify listeners if the selected indices changed.
+void List::notify_selection_changed(const Vector<int32_t> & previous_indices)
+{
+	Vector<int32_t> current_indices = selection_indices();
+	bool changed = previous_indices.size() != current_indices.size();
+	for (uint32_t index = 0; changed == false && index < current_indices.size(); index++)
+	{
+		changed = previous_indices[index] != current_indices[index];
+	}
+	if (changed)
+	{
+		UIManager::notifier()->push_event(new SelectionEvent(previous_indices, current_indices, this));
 	}
 }
 
@@ -277,18 +330,22 @@ void List::remove(int index)
 	ListItem* item = at(index);
 	if (item)
 	{
+		Vector<int32_t> previous_indices = selection_indices();
 		// Delete from column - m_column will handle cleanup via Widget destructor chain
 		delete item;
 		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+		notify_selection_changed(previous_indices);
 	}
 }
 
 // Remove all items from the list
 void List::clear()
 {
+	Vector<int32_t> previous_indices = selection_indices();
 	// Clear all children of m_column
 	m_column->clear();
 	UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	notify_selection_changed(previous_indices);
 }
 
 // Get all selected items from the list
@@ -341,32 +398,36 @@ ListItem * List::select_next()
 
 	if ((ListSelectionMode)m_selection_mode == ListSelectionMode::LIST_SINGLE_SELECTION)
 	{
-		ListItem * sel = selected_item();
+		ListItem * selected = selected_item();
 
 		// If no item selected
-		if (sel == nullptr)
+		if (selected == nullptr)
 		{
 			result = select_first();
 		}
-		// Select the next item
 		else
 		{
-			Widget* current = sel->next();
-
-			// Search the next item
+			int selected_index = -1;
+			int index = 0;
+			Widget* current = m_column->children();
 			while (current)
 			{
-				ListItem * item = dynamic_cast<ListItem*>(current);
-				if (item)
+				if (dynamic_cast<ListItem*>(current))
 				{
-					sel->selected(false);
-					item->selected(true);
-					result = item;
-					break;
+					if (current == selected)
+					{
+						selected_index = index;
+						break;
+					}
+					index++;
 				}
 				current = current->next();
 			}
-
+			if (selected_index >= 0 && selected_index + 1 < (int)count())
+			{
+				select(selected_index + 1);
+				result = at(selected_index + 1);
+			}
 		}
 	}
 
@@ -393,29 +454,26 @@ ListItem * List::select_previous()
 		// Select the previous item
 		else
 		{
-			ListItem * previous = nullptr;
-			Widget * current = m_column->children();
-
-			// Search the previous item
+			int selected_index = -1;
+			int index = 0;
+			Widget* current = m_column->children();
 			while (current)
 			{
-				ListItem * item = dynamic_cast<ListItem*>(current);
-				if (item)
+				if (dynamic_cast<ListItem*>(current))
 				{
-					if (item == sel)
+					if (current == sel)
 					{
-						result = previous;
+						selected_index = index;
 						break;
 					}
-					previous = item;
+					index++;
 				}
 				current = current->next();
 			}
-
-			if (result && result != sel)
+			if (selected_index > 0)
 			{
-				result->selected(true);
-				sel->selected(false);
+				select(selected_index - 1);
+				result = at(selected_index - 1);
 			}
 		}
 	}
@@ -432,18 +490,10 @@ ListItem * List::select_first()
 	ListItem * result = nullptr;
 	if ((ListSelectionMode)m_selection_mode == ListSelectionMode::LIST_SINGLE_SELECTION)
 	{
-		Widget* current = m_column->children();
-
-		while (current)
+		if (count() > 0)
 		{
-			ListItem * item = dynamic_cast<ListItem*>(current);
-			if (item)
-			{
-				item->selected(true);
-				result = item;
-				break;
-			}
-			current = current->next();
+			select(0);
+			result = at(0);
 		}
 	}
 	return result;
@@ -456,20 +506,10 @@ ListItem * List::select_last()
 	ListItem * result = nullptr;
 	if ((ListSelectionMode)m_selection_mode == ListSelectionMode::LIST_SINGLE_SELECTION)
 	{
-		Widget * current = m_column->children();
-		while (current)
+		if (count() > 0)
 		{
-			ListItem * item = dynamic_cast<ListItem*>(current);
-			if (item)
-			{
-				result = item;
-			}
-			current = current->next();
-		}
-
-		if (result)
-		{
-			result->selected(true);
+			select((int)count() - 1);
+			result = at((int)count() - 1);
 		}
 	}
 	return result;

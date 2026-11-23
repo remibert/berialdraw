@@ -10,6 +10,7 @@ void bind_edit(pybind11::module_& m) {
         BIND_EVENT_PROPERTY(berialdraw::Edit, berialdraw::ClickEvent, on_click)
         BIND_EVENT_PROPERTY(berialdraw::Edit, berialdraw::KeyEvent, on_key_down)
         BIND_EVENT_PROPERTY(berialdraw::Edit, berialdraw::SelectEvent, on_select)
+        BIND_EVENT_PROPERTY(berialdraw::Edit, berialdraw::TextEvent, on_text_changed)
         BIND_EVENT_PROPERTY(berialdraw::Edit, berialdraw::FocusEvent, on_focus)
         BIND_EVENT_PROPERTY(berialdraw::Edit, berialdraw::TouchEvent, on_touch);
 }

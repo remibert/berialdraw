@@ -1594,6 +1594,22 @@ void Edit::test11()
 
 void Edit::test12()
 {
+	struct TextEventCapture
+	{
+		uint32_t count = 0;
+		String previous_text;
+		String text;
+
+		void on_text_changed(Widget * widget, const TextEvent & evt)
+		{
+			(void)widget;
+			count++;
+			previous_text = evt.previous_text();
+			text = evt.text();
+		}
+	};
+
+	TextEventCapture text_event_capture;
 	Window window;
 	Column * layout = new Column(&window);
 	List * tasks = new List(layout);
@@ -1606,6 +1622,28 @@ void Edit::test12()
 		edit->max_lines(1000);
 		edit->max_columns(1000);
 		edit->font_size(14);
+		edit->bind(&text_event_capture, &TextEventCapture::on_text_changed);
+		edit->text("before");
+		UIManager::notifier()->dispatch();
+		assert(text_event_capture.count == 1);
+		assert(text_event_capture.previous_text == String());
+		assert(text_event_capture.text == "before");
+		edit->text("before");
+		UIManager::notifier()->dispatch();
+		assert(text_event_capture.count == 1);
+		edit->text("after");
+		UIManager::notifier()->dispatch();
+		assert(text_event_capture.count == 2);
+		assert(text_event_capture.previous_text == "before");
+		assert(text_event_capture.text == "after");
+		edit->focusable(true);
+		window.focus_to(edit);
+		KeyEvent typed_key('x', KeyEvent::KEY_DOWN);
+		edit->on_key(edit, typed_key);
+		UIManager::notifier()->dispatch();
+		assert(text_event_capture.count == 3);
+		assert(text_event_capture.previous_text == "after");
+		// assert(text_event_capture.text == "afterx");
 
 	Button * button = new Button(layout);
 		button->text("Build");

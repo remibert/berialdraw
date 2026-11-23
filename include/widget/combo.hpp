@@ -165,12 +165,17 @@ namespace berialdraw
 		void on_button_click(Widget * widget, const ClickEvent & evt);
 		void on_item_click(Widget * widget, const ClickEvent & evt);
 		void set_value(const String & value);
+		/** Notify listeners when the text value changes and refresh the selected option. */
+		void on_text_changed(const String & previous_text) override;
+		/** Notify listeners when the selected option changes. */
+		void notify_selection_changed();
 		void update_editable_state();
 
 		Button * m_button = 0;
 		Popup * m_popup = 0;
 		List * m_list = 0;
 		Entry::TypingMode m_editable_typing_mode = Entry::TypingMode::INSERTION;
+		int m_selection_index = -1;
 		/// @endcond
 	};
 }

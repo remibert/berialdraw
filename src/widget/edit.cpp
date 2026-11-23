@@ -292,10 +292,21 @@ void Edit::on_key(Widget * widget, const KeyEvent & evt)
 		{
 			if (!(evt.key() == (wchar_t)ReservedKey::KEY_ENTER && m_max_lines <= 1))
 			{
+				String previous_text = input();
 				m_edit_modified = on_key_down(evt.key(), evt.modifier()) ? 1 : 0;
+				on_text_changed(previous_text);
 				//UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
 			}
 		}
+	}
+}
+
+// Notify listeners when the text value changes.
+void Edit::on_text_changed(const String & previous_text)
+{
+	if (text() != previous_text)
+	{
+		UIManager::notifier()->push_event(new TextEvent(previous_text, text(), this));
 	}
 }
 

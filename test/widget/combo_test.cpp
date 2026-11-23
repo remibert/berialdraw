@@ -281,6 +281,38 @@ void Combo::test2()
 
 void Combo::test3()
 {
+	struct TextEventCapture
+	{
+		uint32_t count = 0;
+		String previous_text;
+		String text;
+
+		void on_text_changed(Widget * widget, const TextEvent & evt)
+		{
+			(void)widget;
+			count++;
+			previous_text = evt.previous_text();
+			text = evt.text();
+		}
+	};
+
+	struct SelectionEventCapture
+	{
+		uint32_t count = 0;
+		Vector<int32_t> previous_indices;
+		Vector<int32_t> indices;
+
+		void on_selection_changed(Widget * widget, const SelectionEvent & evt)
+		{
+			(void)widget;
+			count++;
+			previous_indices = evt.previous_indices();
+			indices = evt.indices();
+		}
+	};
+
+	TextEventCapture text_event_capture;
+	SelectionEventCapture selection_event_capture;
 	MemoryLeakLog
 	Window window;
 	window.size(320, 240);
@@ -311,6 +343,9 @@ void Combo::test3()
 	combo->select(3);
 	assert(combo->selected_index() == 3);
 	assert(combo->input() == String("Fourth option"));
+	UIManager::notifier()->dispatch();
+	combo->bind(&text_event_capture, &TextEventCapture::on_text_changed);
+	combo->bind(&selection_event_capture, &SelectionEventCapture::on_selection_changed);
 	UIManager::desktop()->dispatch("$(ui.tests)/out/combo3_3.svg");
 
 	ListItem * clicked_item = combo->at(4);
@@ -320,9 +355,18 @@ void Combo::test3()
 		clicked_area.y() + (Coord)(clicked_area.height() / 2),
 		clicked_item);
 	UIManager::notifier()->dispatch();
+	UIManager::notifier()->dispatch();
 	assert(combo->is_open() == false);
 	assert(combo->selected_index() == 4);
 	assert(combo->input() == String("Fifth option"));
+	assert(text_event_capture.count == 1);
+	assert(text_event_capture.previous_text == "Fourth option");
+	assert(text_event_capture.text == "Fifth option");
+	assert(selection_event_capture.count == 1);
+	assert(selection_event_capture.previous_indices.size() == 1);
+	assert(selection_event_capture.previous_indices[0] == 3);
+	assert(selection_event_capture.indices.size() == 1);
+	assert(selection_event_capture.indices[0] == 4);
 	UIManager::desktop()->dispatch("$(ui.tests)/out/combo3_4.svg");
 
 	ClickEvent invalid_item_click(Point(), combo->m_button);

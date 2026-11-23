@@ -163,6 +163,12 @@ namespace berialdraw
 		@param index Item position (supports negative indexing) */
 		void select(int index, bool state);
 
+		/** Get the selected indices in display order */
+		Vector<int32_t> selection_indices() const;
+
+		/** Notify listeners if the selected indices changed */
+		void notify_selection_changed(const Vector<int32_t> & previous_indices);
+
 		/** Remove operator = */
 		List& operator=(const List& other) = delete;
 

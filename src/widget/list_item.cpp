@@ -281,14 +281,25 @@ void ListItem::on_click(Widget * widget, const ClickEvent & evt)
 	if (list)
 	{
 		focus_to(list);
-		if (list->selection_mode() == ListSelectionMode::LIST_MULTI_SELECTION)
+		int item_index = -1;
+		for (int index = 0; index < (int)list->count(); index++)
 		{
-			m_selected = !m_selected;
+			if (list->at(index) == this)
+			{
+				item_index = index;
+				break;
+			}
 		}
-		else if (list->selection_mode() == ListSelectionMode::LIST_SINGLE_SELECTION)
+		if (item_index >= 0)
 		{
-			list->unselect_all();
-			m_selected = true;
+			if (list->selection_mode() == ListSelectionMode::LIST_MULTI_SELECTION && selected())
+			{
+				list->unselect(item_index);
+			}
+			else
+			{
+				list->select(item_index);
+			}
 		}
 	}
 }

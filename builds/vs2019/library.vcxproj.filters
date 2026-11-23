@@ -345,7 +345,13 @@
     <ClCompile Include="..\..\src\event\select_event.cpp">
       <Filter>berialdraw\event</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\event\selection_event.cpp">
+      <Filter>berialdraw\event</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\event\slide_event.cpp">
+      <Filter>berialdraw\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\event\text_event.cpp">
       <Filter>berialdraw\event</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\event\touch_event.cpp">
@@ -1743,7 +1749,13 @@
     <ClInclude Include="..\..\include\event\select_event.hpp">
       <Filter>berialdraw\event</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\event\selection_event.hpp">
+      <Filter>berialdraw\event</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\event\slide_event.hpp">
+      <Filter>berialdraw\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\event\text_event.hpp">
       <Filter>berialdraw\event</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\event\touch_event.hpp">
