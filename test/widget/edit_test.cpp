@@ -1576,6 +1576,26 @@ void Edit::test11()
 	}
 
 	{
+		Window multiline_window;
+		multiline_window.size(240,80);
+		Edit * multiline_read_only = new Edit(&multiline_window);
+		multiline_read_only->typing_mode(Entry::TypingMode::READ_ONLY);
+		multiline_read_only->max_columns(20);
+		multiline_read_only->max_lines(2);
+		multiline_read_only->text("first line\nsecond line\nthird line\nfourth line");
+		UIManager::desktop()->dispatch();
+		assert(multiline_read_only->m_cursor_shift.y() == 0);
+
+		multiline_read_only->cursor_position(-1, false);
+		UIManager::desktop()->dispatch();
+		assert(multiline_read_only->m_cursor_shift.y() < 0);
+
+		multiline_read_only->cursor_position(0, false);
+		UIManager::desktop()->dispatch();
+		assert(multiline_read_only->m_cursor_shift.y() == 0);
+	}
+
+	{
 		Window resize_window;
 		resize_window.size(100,80);
 		Edit * resized_edit = new Edit(&resize_window);
@@ -1643,7 +1663,7 @@ void Edit::test12()
 		UIManager::notifier()->dispatch();
 		assert(text_event_capture.count == 3);
 		assert(text_event_capture.previous_text == "after");
-		// assert(text_event_capture.text == "afterx");
+		assert(text_event_capture.text == "xafter");
 
 	Button * button = new Button(layout);
 		button->text("Build");

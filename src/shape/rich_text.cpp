@@ -463,7 +463,7 @@ void RichText::parse_tag(const String & tag_content, Font & default_font,
 	{
 		JsonIterator it(json);
 
-		if (it.exists(StyleNames::TEXT_SKETCH))
+		if (it.exists(StyleNames::TEXT_SKETCH) || it.exists(StyleNames::TEXT_PATH))
 		{
 			parse_image_tag(json, it, span);
 		}
@@ -483,7 +483,7 @@ void RichText::parse_tag(const String & tag_content, Font & default_font,
 	}
 }
 
-/** Load an inline image from a formatting tag */
+/** Load an inline sketch or vector path from a formatting tag */
 void RichText::parse_image_tag(Json & json, JsonIterator & it, TextSpan & span)
 {
 	String align = it[StyleNames::COMMON_ALIGN] | "bottom";
@@ -491,9 +491,25 @@ void RichText::parse_image_tag(Json & json, JsonIterator & it, TextSpan & span)
 	span.image = new VectorImage(0);
 	if (span.image != 0)
 	{
-		String filename = json[StyleNames::TEXT_SKETCH];
-		span.image->filename(filename);
-		if (span.image->load())
+		bool loaded = false;
+		if (it.exists(StyleNames::TEXT_PATH))
+		{
+			String path = json[StyleNames::TEXT_PATH];
+			if (path.size() > 0)
+			{
+				span.image->resolution(24, 24);
+				span.image->add_path((uint32_t)Color::BLACK, path);
+				loaded = true;
+			}
+		}
+		else
+		{
+			String filename = json[StyleNames::TEXT_SKETCH];
+			span.image->filename(filename);
+			loaded = span.image->load();
+		}
+
+		if (loaded)
 		{
 			Size image_size = span.image->image_size();
 			image_size.unserialize(StyleNames::COMMON_SIZE, it);

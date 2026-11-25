@@ -16,7 +16,7 @@ namespace berialdraw
 		Dim      height = 0;          ///< Height for this span
 		Dim      line_height = 0;     ///< Total height of this text line
 		Coord    baseline = 0;        ///< Baseline offset for this span (26.6 fixed point)
-		VectorImage* image = 0;       ///< Used for sketch
+		VectorImage* image = 0;       ///< Used for inline sketch or path
 		bool     image_center = false; ///< Center the image vertically with text
 		Coord    image_baseline_offset = 0; ///< Image bottom offset from the line baseline
 	};
@@ -32,7 +32,10 @@ namespace berialdraw
 	      vertical tabs share the remaining width equally; without one, each is one space.
 	      Each spacer is at least one space wide. Example: "Name\vValue\v>".
 	    - Image: $<'sketch':'$(ui.icons)/filter_vintage.icn','size':{'width':100,'height':100},'color':0xFFFF0000,'align':'center'>
-	      Inserts an inline sketch; size and color are optional. Alignment is
+	      Inserts an inline sketch from a file.
+	    - Path: $<'path':'.0,0;.768,768;.1536,0;~;','size':{'width':24,'height':24},'color':0xFFFF0000,'align':'center'>
+	      Inserts an inline vector path in a 24x24 pixel reference area. Path coordinates
+	      use the vector-script Q6 units. Size and color are optional. Alignment is
 	      'bottom' by default, or 'center' to center it vertically with the text.
 	*/
 	class RichText
@@ -104,7 +107,7 @@ namespace berialdraw
 		/** Compute each line's height, baseline, and inline-image offsets */
 		void calculate_line_heights();
 
-		/** Load an inline image from a formatting tag */
+		/** Load an inline sketch or vector path from a formatting tag */
 		void parse_image_tag(Json & json, JsonIterator & it, TextSpan & span);
 
 		/** Apply font and color properties from a formatting tag */

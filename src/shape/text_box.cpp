@@ -59,7 +59,6 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 	Size space_size;
 	uint32_t i;
 	LineInfo info;
-	bool selection = false;
 
 	// Default line height and space size from default font
 	default_line_height = font.real_size().height_q6();
@@ -172,7 +171,6 @@ void TextBox::parse(const Area & text_area, Font & font, String & text,
 			// If the current character is selected
 			if (i >= sel_start && i <= sel_end && sel_start != sel_end)
 			{
-				selection = true;
 				// If selection start not yet detected
 				if (info.selection_start == UINT32_MAX)
 				{
@@ -511,10 +509,27 @@ uint32_t TextBox::cursor_position(const Point & click_location, const Area & tex
 }
 
 /** Moves the text to make the area containing the cursor visible. */
-void TextBox::text_shift(Point & cursor_shift, const Area & text_area, bool insertion)
+void TextBox::text_shift(Point & cursor_shift, const Area & text_area, bool insertion, bool cursor_visible)
 {
 	Area cursor_clip(m_cursor_pos,m_cursor_size);
-	if (insertion)
+	if (cursor_visible == false)
+	{
+		// Hidden cursor: only keep the character under it in view, never the blank space after the end of line
+		Dim available_width = 0;
+		if (m_cursor_line < m_lines.size())
+		{
+			Coord end_of_line = m_lines[m_cursor_line].position.x_q6() + (Coord)m_lines[m_cursor_line].size.width_q6();
+			if (end_of_line > m_cursor_pos.x_q6())
+			{
+				available_width = (Dim)(end_of_line - m_cursor_pos.x_q6());
+			}
+		}
+		if (available_width < cursor_clip.size().width_q6())
+		{
+			cursor_clip.size().width_q6(available_width);
+		}
+	}
+	else if (insertion)
 	{
 		cursor_clip.size().width_q6(INSERTION_CURSOR_WIDTH << 6);
 	}

@@ -14,9 +14,6 @@
     <ProjectReference Include="library.vcxproj">
       <Project>{d2b0c9ba-6691-49bc-b111-1945063134ea}</Project>
     </ProjectReference>
-    <ProjectReference Include="samples.vcxproj">
-      <Project>{868545b8-87b3-42d0-abab-e22335eaab0e}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\pybind\clock.py" />

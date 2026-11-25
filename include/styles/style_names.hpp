@@ -165,6 +165,7 @@ namespace berialdraw
 		static constexpr char TEXT_ALIGN[] = "text_align";
 		static constexpr char TEXT_PADDING[] = "padding";
 		static constexpr char TEXT_SKETCH[] = "sketch";
+		static constexpr char TEXT_PATH[] = "path";
 
 		// Scrollbar style
 		static constexpr char SCROLLBAR_VISIBLE    [] = "scrollbar_visible";

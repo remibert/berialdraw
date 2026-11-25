@@ -246,16 +246,10 @@ void Edit::paint(const Region & parent_region)
 		region.intersect(text_clip);
 		UIManager::renderer()->region(region);
 
-		// Only scroll the text to follow a visible, editable cursor.
-		if (typing_mode() != Entry::TypingMode::READ_ONLY)
-		{
-			bool insertion_cursor = (TypingMode)m_typing_mode == TypingMode::INSERTION;
-			m_text_box.text_shift(m_cursor_shift, m_text_foreclip, insertion_cursor);
-		}
-		else
-		{
-			m_cursor_shift.set(0, 0);
-		}
+		// Keep the text position synchronized with the cursor, even when it is hidden.
+		bool insertion_cursor = (TypingMode)m_typing_mode == TypingMode::INSERTION;
+		bool cursor_visible = (TypingMode)m_typing_mode != TypingMode::READ_ONLY;
+		m_text_box.text_shift(m_cursor_shift, m_text_foreclip, insertion_cursor, cursor_visible);
 
 		// Move to text to display cursor location
 		Point text_shift(m_text_foreclip.position());

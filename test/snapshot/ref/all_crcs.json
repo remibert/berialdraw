@@ -3831,7 +3831,7 @@
 		},
 		"$(ui.tests)/out/combo1_1.svg" : 
 		{
-			"scale_1" : 1872664408,
+			"scale_1" : 2422536833,
 			"scale_2" : 2029484501
 		},
 		"$(ui.tests)/out/line1.svg" : 
@@ -5557,27 +5557,27 @@
 		},
 		"$(ui.tests)/out/combo3_1.svg" : 
 		{
-			"scale_1" : 1476393772,
+			"scale_1" : 3976377002,
 			"scale_2" : 159029189
 		},
 		"$(ui.tests)/out/combo3_2.svg" : 
 		{
-			"scale_1" : 74987621,
+			"scale_1" : 3196416483,
 			"scale_2" : 4036492611
 		},
 		"$(ui.tests)/out/combo3_3.svg" : 
 		{
-			"scale_1" : 2793599215,
+			"scale_1" : 478132585,
 			"scale_2" : 1917535140
 		},
 		"$(ui.tests)/out/combo3_4.svg" : 
 		{
-			"scale_1" : 282918264,
+			"scale_1" : 2854335742,
 			"scale_2" : 1900154140
 		},
 		"$(ui.tests)/out/combo3_5.svg" : 
 		{
-			"scale_1" : 1004748393,
+			"scale_1" : 3547939327,
 			"scale_2" : 637069328
 		},
 		"$(ui.tests)/out/combo3_6.svg" : 
@@ -5587,7 +5587,7 @@
 		},
 		"$(ui.tests)/out/combo2_1.svg" : 
 		{
-			"scale_1" : 3929623807,
+			"scale_1" : 1605476117,
 			"scale_2" : 1224568422
 		},
 		"$(ui.tests)/out/grid_shape1.svg" : 
@@ -5597,7 +5597,7 @@
 		},
 		"$(ui.tests)/out/sample_combo_1.svg" : 
 		{
-			"scale_1" : 237293918,
+			"scale_1" : 2712997234,
 			"scale_2" : 3856538672
 		},
 		"$(ui.tests)/out/tab_view3_1.svg" : 

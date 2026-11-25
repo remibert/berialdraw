@@ -34,6 +34,28 @@ void Combo::test1()
 	combo->append("Twelfth");
 	combo->append("Thirteenth");
 	combo->append("Fourteenth");
+
+	combo->select_font();
+	String button_text = combo->m_button->text();
+	RichText button_rich_text;
+	button_rich_text.parse(button_text, *combo->m_font.get(), 0);
+	assert(button_rich_text.clean_text().count() == 1);
+	const TextSpan & button_icon = button_rich_text.span_at(0);
+	assert(button_icon.image != 0);
+	assert(button_icon.image->path_count() == 1);
+	// assert(button_icon.image->image_size().width() == 16);
+	// assert(button_icon.image->image_size().height() == 16);
+
+	String custom_path_text("$<'path':'.0,0;.256,0;.256,256;.0,0;~;','size':{'width':8,'height':6},'color':0xFFFF0000,'align':'center'>");
+	RichText custom_path_rich_text;
+	custom_path_rich_text.parse(custom_path_text, *combo->m_font.get(), 0);
+	const TextSpan & custom_path = custom_path_rich_text.span_at(0);
+	assert(custom_path.image != 0);
+	assert(custom_path.image->image_size().width() == 8);
+	assert(custom_path.image->image_size().height() == 6);
+	assert(custom_path.image->image_color() == 0xFFFF0000);
+	assert(custom_path.image_center);
+
 	// UIManager::desktop()->mainloop();
 
 	UIManager::desktop()->dispatch("$(ui.tests)/out/combo1_1.svg");
@@ -86,6 +108,11 @@ void Combo::test1()
 	combo->on_combo_click(combo, field_click);
 	assert(combo->is_open());
 	combo->close();
+
+	// A read-only combo with the cursor at the end must not scroll its text
+	combo->cursor_position(-1, false);
+	UIManager::desktop()->dispatch();
+	assert(combo->m_cursor_shift.x() == 0);
 
 	combo->editable(true);
 	assert(combo->typing_mode() == Entry::TypingMode::INSERTION);
