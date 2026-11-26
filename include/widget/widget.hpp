@@ -143,6 +143,10 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		virtual void unserialize(JsonIterator & it) = 0;
 
+		/** Create child widgets recursively from the "children" array.
+		@return True if all child widgets were created successfully */
+		bool unserialize_children(JsonIterator & it);
+
 		/** Get the class name of this widget (e.g., "Button", "TextEdit", "Label") */
 		virtual const char* classname() const { return m_classname; }
 
@@ -170,6 +174,11 @@ namespace berialdraw
 
 		/** Set the focus on this widget if it focusable */
 		virtual void focus_to(Widget * widget);
+
+#ifdef _DEBUG
+		static void test();
+		static void test1();
+#endif
 
 	protected:
 /// @cond DOXYGEN_IGNORE

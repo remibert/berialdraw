@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Canvas::Canvas(Widget * parent):
-	Widget("canvas",parent, sizeof(Canvas))
+	Widget(StyleNames::TYPE_CANVAS,parent, sizeof(Canvas))
 {
 	UIManager::styles()->apply(this, (CommonStyle*)this);
 	UIManager::styles()->apply(this, (WidgetStyle*)this);

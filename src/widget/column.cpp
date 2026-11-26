@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Column::Column(Widget * parent):
-	Widget("column", parent, sizeof(Column))
+	Widget(StyleNames::TYPE_COLUMN, parent, sizeof(Column))
 {
 	m_color = Color::TRANSPARENT;
 }

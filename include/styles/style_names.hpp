@@ -243,6 +243,37 @@ namespace berialdraw
 		static constexpr char SIZE_WIDTH[] = "width";
 		static constexpr char SIZE_HEIGHT[] = "height";
 
+		// Widget types
+		static constexpr char TYPE_BUTTON[] = "button";
+		static constexpr char TYPE_CANVAS[] = "canvas";
+		static constexpr char TYPE_CALENDAR[] = "calendar";
+		static constexpr char TYPE_CHECKBOX[] = "checkbox";
+		static constexpr char TYPE_COLUMN[] = "column";
+		static constexpr char TYPE_COMBO[] = "combo";
+		static constexpr char TYPE_EDIT[] = "edit";
+		static constexpr char TYPE_GRID[] = "grid";
+		static constexpr char TYPE_ICON[] = "icon";
+		static constexpr char TYPE_KEYBOARD[] = "keyboard";
+		static constexpr char TYPE_LABEL[] = "label";
+		static constexpr char TYPE_LIST[] = "list";
+		static constexpr char TYPE_LIST_ITEM[] = "list_item";
+		static constexpr char TYPE_PANE[] = "pane";
+		static constexpr char TYPE_PICTURE[] = "picture";
+		static constexpr char TYPE_PROGRESS_BAR[] = "progress_bar";
+		static constexpr char TYPE_RADIO[] = "radio";
+		static constexpr char TYPE_ROW[] = "row";
+		static constexpr char TYPE_SCROLL_VIEW[] = "scroll_view";
+		static constexpr char TYPE_SLIDER[] = "slider";
+		static constexpr char TYPE_SWITCH[] = "switch";
+		static constexpr char TYPE_TAB[] = "tab";
+		static constexpr char TYPE_TAB_VIEW[] = "tab_view";
+		static constexpr char TYPE_TABLE_VIEW[] = "table_view";
+		static constexpr char TYPE_TIMER[] = "timer";
+		static constexpr char TYPE_WINDOW[] = "window";
+
+		// Widget styles
+		static constexpr char STYLE_COMBO_BUTTON[] = "combo_button";
+
 		// Widget serialization
 		static constexpr char WIDGET_TYPE[] = "type";
 		static constexpr char WIDGET_CHILDREN[] = "children";

@@ -39,7 +39,7 @@ void Calendar::test1()
 	Calendar * calendar = new Calendar(&window, CalendarDate{2026, 11, 19});
 	calendar->position(20, 20);
 	calendar->size(420, 420);
-	UIManager::desktop()->dispatch("$(ui.tests)/out/Calendar1_%d.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/calendar1.svg");
 	UIManager::desktop()->mainloop();
 	CalendarEventReceiver receiver;
 	calendar->bind(&receiver, &CalendarEventReceiver::on_date_changed);

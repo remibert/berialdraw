@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Edit::Edit(Widget * parent):
-	Widget("edit", parent, sizeof(Edit)),
+	Widget(StyleNames::TYPE_EDIT, parent, sizeof(Edit)),
 	Entry(&m_text, this),
 	m_text_box()
 {

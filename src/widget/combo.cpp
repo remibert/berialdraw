@@ -5,7 +5,7 @@ using namespace berialdraw;
 Combo::Combo(Widget * parent):
 	Edit(parent)
 {
-	m_classname = "combo";
+	m_classname = StyleNames::TYPE_COMBO;
 	m_edited = 0;
 	UIManager::styles()->apply(this, (CommonStyle*)this);
 	UIManager::styles()->apply(this, (WidgetStyle*)this);
@@ -21,11 +21,11 @@ Combo::Combo(Widget * parent):
 	update_editable_state();
 
 	m_button = new Button(this);
-	UIManager::styles()->apply("combo_button", (CommonStyle*)m_button);
-	UIManager::styles()->apply("combo_button", (WidgetStyle*)m_button);
-	UIManager::styles()->apply("combo_button", (BorderStyle*)m_button);
-	UIManager::styles()->apply("combo_button", (TextStyle*)m_button);
-	UIManager::styles()->apply("combo_button", (PaddingStyle*)m_button);
+	UIManager::styles()->apply(StyleNames::STYLE_COMBO_BUTTON, (CommonStyle*)m_button);
+	UIManager::styles()->apply(StyleNames::STYLE_COMBO_BUTTON, (WidgetStyle*)m_button);
+	UIManager::styles()->apply(StyleNames::STYLE_COMBO_BUTTON, (BorderStyle*)m_button);
+	UIManager::styles()->apply(StyleNames::STYLE_COMBO_BUTTON, (TextStyle*)m_button);
+	UIManager::styles()->apply(StyleNames::STYLE_COMBO_BUTTON, (PaddingStyle*)m_button);
 	m_button->bind(this, &Combo::on_button_click);
 
 	Window * window = dynamic_cast<Window*>(root());

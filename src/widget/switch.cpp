@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Switch::Switch(Widget * parent):
-	Widget("switch", parent, sizeof(Switch))
+	Widget(StyleNames::TYPE_SWITCH, parent, sizeof(Switch))
 {
 	UIManager::styles()->apply(this, (CommonStyle  *)this);
 	UIManager::styles()->apply(this, (WidgetStyle  *)this);

@@ -15,7 +15,8 @@ namespace berialdraw
 		UIManager::colors()->palette(Color::PALETTE_LIME);
 
 #if defined(_DEBUG) && defined(ALL_TESTS)
-		// Calendar::test();
+		Widget::test();
+		Calendar::test();
 		TabView::test();
 
 		// Widget
@@ -43,6 +44,7 @@ namespace berialdraw
 		TableView::test();
 		// Calendar::test();
 		TabView::test();
+		Widget::test();
 		Window::test();
 
 		// Shape

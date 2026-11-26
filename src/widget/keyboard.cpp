@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Keyboard::Keyboard(Widget * parent):
-	Widget("keyboard", parent, sizeof(Keyboard))
+	Widget(StyleNames::TYPE_KEYBOARD, parent, sizeof(Keyboard))
 {
 	UIManager::styles()->apply(this, (CommonStyle*)this);
 	UIManager::styles()->apply(this, (WidgetStyle*)this);

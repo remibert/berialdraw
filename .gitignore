@@ -20,3 +20,4 @@ doc/doxygen_sqlite3.db
 delivery/doc/
 tmp/*
 test/snapshot/out/*
+spec*.md

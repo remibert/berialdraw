@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 TableView::TableView(Widget * parent):
-	ScrollableContent("table_view", parent, sizeof(TableView)),
+	ScrollableContent(StyleNames::TYPE_TABLE_VIEW, parent, sizeof(TableView)),
 	m_grid(nullptr),
 	m_table_view_modified(1)
 {

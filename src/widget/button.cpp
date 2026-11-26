@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Button::Button(Widget * parent):
-	Button("button", parent, sizeof(Button))
+	Button(StyleNames::TYPE_BUTTON, parent, sizeof(Button))
 {
 }
 

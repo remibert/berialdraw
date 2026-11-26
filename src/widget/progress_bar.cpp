@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 ProgressBar::ProgressBar(Widget * parent):
-	Widget("progress_bar", parent, sizeof(ProgressBar))
+	Widget(StyleNames::TYPE_PROGRESS_BAR, parent, sizeof(ProgressBar))
 {
 	UIManager::styles()->apply(this, (CommonStyle*)this);
 	UIManager::styles()->apply(this, (WidgetStyle*)this);

@@ -2,7 +2,7 @@
 
 using namespace berialdraw;
 
-Window::Window() : Widget("window",0, sizeof(Window))
+Window::Window() : Widget(StyleNames::TYPE_WINDOW,0, sizeof(Window))
 {
 	m_allocated = false;
 	UIManager::desktop()->add(this);

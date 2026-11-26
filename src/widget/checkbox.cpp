@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Checkbox::Checkbox(Widget * parent):
-	Widget("checkbox", parent, sizeof(Checkbox))
+	Widget(StyleNames::TYPE_CHECKBOX, parent, sizeof(Checkbox))
 {
 	UIManager::styles()->apply(this, (CommonStyle  *)this);
 	UIManager::styles()->apply(this, (WidgetStyle  *)this);

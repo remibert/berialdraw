@@ -5,7 +5,7 @@ using namespace berialdraw;
 /** ScrollView Implementation */
 
 ScrollView::ScrollView(Widget * parent):
-	ScrollableContent("scroll_view", parent, sizeof(ScrollView))
+	ScrollableContent(StyleNames::TYPE_SCROLL_VIEW, parent, sizeof(ScrollView))
 {
 }
 

@@ -2675,6 +2675,138 @@
     <None Include="..\..\resources\styles\pearl\calendar.sty">
       <Filter>resources\styles\pearl</Filter>
     </None>
+    <None Include="..\..\resources\styles\pearl\combo.sty">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\styles\pearl\grid_shape.sty">
+      <Filter>resources\styles\pearl</Filter>
+    </None>
+    <None Include="..\..\resources\icons\account_balance.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\account_tree.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\alarm.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\apps.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\arrow_back.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\arrow_forward.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\autorenew.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\backspace.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\bar_chart.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\block.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\clock_loader_90.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\create_new_folder.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\credit_card.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\delete.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\delete_forever.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\download.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\favorite.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\filter_alt.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\fullscreen.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\groups.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\iframe.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\ios_share.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\keyboard_return.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\more_vert.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\photo_camera.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\pip.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\qr_code_scanner.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\remove.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\reply.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\restart_alt.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\schedule.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\shift.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\sort.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\stack.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\sunny.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\sync.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\tab_group.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\timer.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\today.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\undo.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\upload.icn">
+      <Filter>resources\icons</Filter>
+    </None>
+    <None Include="..\..\resources\icons\zoom_out.icn">
+      <Filter>resources\icons</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\external\freetype\src\base\ftver.rc">

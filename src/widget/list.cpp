@@ -4,7 +4,7 @@ using namespace berialdraw;
 
 /** Create widget */
 List::List(Widget * parent):
-	ScrollableContent("list", parent, sizeof(List)),
+	ScrollableContent(StyleNames::TYPE_LIST, parent, sizeof(List)),
 	m_column(nullptr)
 {
 	UIManager::styles()->apply(this, (ListStyle*)this);

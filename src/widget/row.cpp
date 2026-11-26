@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Row::Row(Widget * parent):
-	Widget("row", parent, sizeof(Row))
+	Widget(StyleNames::TYPE_ROW, parent, sizeof(Row))
 {
 	m_color = Color::TRANSPARENT;
 }

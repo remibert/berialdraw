@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Picture::Picture(Widget * parent):
-	Widget("picture", parent, sizeof(Picture))
+	Widget(StyleNames::TYPE_PICTURE, parent, sizeof(Picture))
 {
 	UIManager::styles()->apply(this, (CommonStyle*)this);
 	UIManager::styles()->apply(this, (WidgetStyle*)this);

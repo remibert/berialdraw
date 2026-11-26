@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Radio::Radio(Widget * parent):
-	Widget("radio", parent, sizeof(Radio))
+	Widget(StyleNames::TYPE_RADIO, parent, sizeof(Radio))
 {
 	UIManager::styles()->apply(this, (CommonStyle*)this);
 	UIManager::styles()->apply(this, (WidgetStyle*)this);

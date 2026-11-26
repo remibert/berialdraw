@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Slider::Slider(Widget * parent):
-	Widget("slider", parent, sizeof(Slider))
+	Widget(StyleNames::TYPE_SLIDER, parent, sizeof(Slider))
 {
 	UIManager::styles()->apply(this, (CommonStyle*)this);
 	UIManager::styles()->apply(this, (WidgetStyle*)this);

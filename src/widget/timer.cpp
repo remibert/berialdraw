@@ -3,7 +3,7 @@ using namespace berialdraw;
 
 // Create timer widget
 Timer::Timer(Widget * parent)
-	: Widget("timer", parent, sizeof(Timer))
+	: Widget(StyleNames::TYPE_TIMER, parent, sizeof(Timer))
 	, m_timer_id(0)
 {
 	// Timer widgets are invisible by default

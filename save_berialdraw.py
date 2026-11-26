@@ -37,7 +37,7 @@ if __name__ == "__main__":
 		'*/tmp/*',
 		'*/*.png',
 		'*/*.jpg',
-		'*/*.svg',
+		#~ '*/resources/*.svg',
 		'*.log',
 		'*.tmp',
 		'*/.DS_Store',

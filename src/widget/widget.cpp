@@ -2,6 +2,152 @@
 
 using namespace berialdraw;
 
+// Create a supported child widget from its serialized type.
+static Widget * create_child_widget(const String & type, Widget * parent)
+{
+	Widget * result = nullptr;
+
+	if (type == StyleNames::TYPE_BUTTON)
+	{
+		result = new Button(parent);
+	}
+	else if (type == StyleNames::TYPE_CANVAS)
+	{
+		result = new Canvas(parent);
+	}
+	else if (type == StyleNames::TYPE_CHECKBOX)
+	{
+		result = new Checkbox(parent);
+	}
+	else if (type == StyleNames::TYPE_COLUMN)
+	{
+		result = new Column(parent);
+	}
+	else if (type == StyleNames::TYPE_COMBO)
+	{
+		result = new Combo(parent);
+	}
+	else if (type == StyleNames::TYPE_EDIT)
+	{
+		result = new Edit(parent);
+	}
+	else if (type == StyleNames::TYPE_GRID)
+	{
+		result = new Grid(parent);
+	}
+	else if (type == StyleNames::TYPE_ICON)
+	{
+		result = new Icon(parent);
+	}
+	else if (type == StyleNames::TYPE_LABEL)
+	{
+		result = new Label(parent);
+	}
+	else if (type == StyleNames::TYPE_LIST)
+	{
+		result = new List(parent);
+	}
+	else if (type == StyleNames::TYPE_LIST_ITEM)
+	{
+		result = new ListItem(parent);
+	}
+	else if (type == StyleNames::TYPE_PANE)
+	{
+		result = new Pane(parent);
+	}
+	else if (type == StyleNames::TYPE_PICTURE)
+	{
+		result = new Picture(parent);
+	}
+	else if (type == StyleNames::TYPE_PROGRESS_BAR)
+	{
+		result = new ProgressBar(parent);
+	}
+	else if (type == StyleNames::TYPE_RADIO)
+	{
+		result = new Radio(parent);
+	}
+	else if (type == StyleNames::TYPE_ROW)
+	{
+		result = new Row(parent);
+	}
+	else if (type == StyleNames::TYPE_SCROLL_VIEW)
+	{
+		result = new ScrollView(parent);
+	}
+	else if (type == StyleNames::TYPE_SLIDER)
+	{
+		result = new Slider(parent);
+	}
+	else if (type == StyleNames::TYPE_SWITCH)
+	{
+		result = new Switch(parent);
+	}
+	else if (type == StyleNames::TYPE_TAB)
+	{
+		result = new Tab(parent);
+	}
+	else if (type == StyleNames::TYPE_TABLE_VIEW)
+	{
+		result = new TableView(parent);
+	}
+	else if (type == StyleNames::TYPE_TIMER)
+	{
+		result = new Timer(parent);
+	}
+
+	return result;
+}
+
+// Apply properties and recursively create a widget's children.
+static bool unserialize_child_tree(Widget * parent, JsonIterator & it)
+{
+	bool result = true;
+	JsonIterator children = it[StyleNames::WIDGET_CHILDREN];
+
+	if (children.exist())
+	{
+		if (children.type() == JsonType::ARRAY)
+		{
+			for (int32_t index = 0; index < children.count(); index++)
+			{
+				JsonIterator child_data = children[index];
+				if (child_data.type() == JsonType::OBJECT &&
+					child_data.type(StyleNames::WIDGET_TYPE) == JsonType::STRING)
+				{
+					String type = child_data[StyleNames::WIDGET_TYPE];
+					Widget * child = create_child_widget(type, parent);
+					if (child)
+					{
+						child->unserialize(child_data);
+						if (unserialize_child_tree(child, child_data) == false)
+						{
+							result = false;
+						}
+					}
+					else
+					{
+						bd_printf("Widget: unsupported child type '%s'\n", type.c_str());
+						result = false;
+					}
+				}
+				else
+				{
+					bd_printf("Widget: child entry must be an object with a string type\n");
+					result = false;
+				}
+			}
+		}
+		else
+		{
+			bd_printf("Widget: children must be an array\n");
+			result = false;
+		}
+	}
+
+	return result;
+}
+
 Widget::Widget(const char * classname, Widget * parent, size_t size_of_widget, Dim index):
 	m_classname(classname),
 	m_parent(parent)
@@ -1004,6 +1150,25 @@ Widget * Widget::search(Dim id)
 			child = child->m_next;
 		}
 	}
+	return result;
+}
+
+// Create child widgets recursively from a JSON children array.
+bool Widget::unserialize_children(JsonIterator & it)
+{
+	bool result = false;
+	if (it.type() == JsonType::OBJECT)
+	{
+		String serialized = it.serialize();
+		Json snapshot(serialized.c_str());
+		JsonIterator snapshot_iterator(snapshot);
+		result = unserialize_child_tree(this, snapshot_iterator);
+	}
+	else
+	{
+		bd_printf("Widget: widget data must be an object\n");
+	}
+
 	return result;
 }
 

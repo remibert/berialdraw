@@ -74,7 +74,7 @@ static void place_tab_bar(ScrollView * scroll, TabPosition position)
 
 // Create a tab view.
 TabView::TabView(Widget * parent):
-	Widget("tab_view", parent, sizeof(TabView))
+	Widget(StyleNames::TYPE_TAB_VIEW, parent, sizeof(TabView))
 {
 	UIManager::styles()->apply(this, (TabViewStyle *)this);
 	UIManager::styles()->apply(this, (CommonStyle *)this);

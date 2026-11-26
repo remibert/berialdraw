@@ -4,7 +4,7 @@ using namespace berialdraw;
 
 // Create a tab button using the dedicated tab style.
 Tab::Tab(Widget * parent):
-	Button("tab", parent, sizeof(Tab))
+	Button(StyleNames::TYPE_TAB, parent, sizeof(Tab))
 {
 	focusable(false);
 }

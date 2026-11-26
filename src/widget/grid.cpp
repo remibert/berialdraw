@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Grid::Grid(Widget * parent):
-	Widget("grid", parent, sizeof(Grid))
+	Widget(StyleNames::TYPE_GRID, parent, sizeof(Grid))
 {
 	m_color = Color::TRANSPARENT;
 }

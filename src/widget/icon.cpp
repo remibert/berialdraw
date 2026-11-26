@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Icon::Icon(Widget * parent):
-	Widget("icon", parent, sizeof(Icon))
+	Widget(StyleNames::TYPE_ICON, parent, sizeof(Icon))
 {
 	m_sketch = new Sketch(this);
 	UIManager::styles()->apply(this, (CommonStyle*)this);

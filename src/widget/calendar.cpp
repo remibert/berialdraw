@@ -80,7 +80,7 @@ namespace
 
 // Create a calendar initialized to the local date.
 Calendar::Calendar(Widget * parent) :
-	Widget("calendar", parent, sizeof(Calendar))
+	Widget(StyleNames::TYPE_CALENDAR, parent, sizeof(Calendar))
 {
 	initialize();
 	CalendarDate current;
@@ -97,7 +97,7 @@ Calendar::Calendar(Widget * parent) :
 
 // Create a calendar initialized to a specified date.
 Calendar::Calendar(Widget * parent, const CalendarDate & date) :
-	Widget("calendar", parent, sizeof(Calendar))
+	Widget(StyleNames::TYPE_CALENDAR, parent, sizeof(Calendar))
 {
 	initialize();
 	if (!commit_date(date, false))

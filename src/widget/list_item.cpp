@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 ListItem::ListItem(Widget* parent, Dim index) :
-	Widget("list_item", parent, sizeof(ListItem), index)
+	Widget(StyleNames::TYPE_LIST_ITEM, parent, sizeof(ListItem), index)
 {
 	UIManager::styles()->apply(this, (CommonStyle  *)this);
 	UIManager::styles()->apply(this, (WidgetStyle  *)this);

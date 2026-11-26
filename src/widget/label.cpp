@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Label::Label(Widget * parent):
-	Widget("label", parent, sizeof(Label))
+	Widget(StyleNames::TYPE_LABEL, parent, sizeof(Label))
 {
 	UIManager::styles()->apply(this, (CommonStyle*)this);
 	UIManager::styles()->apply(this, (WidgetStyle*)this);

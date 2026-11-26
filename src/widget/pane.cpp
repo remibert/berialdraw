@@ -3,7 +3,7 @@
 using namespace berialdraw;
 
 Pane::Pane(Widget * parent):
-	Pane("pane", parent, sizeof(Pane))
+	Pane(StyleNames::TYPE_PANE, parent, sizeof(Pane))
 {
 }
 
