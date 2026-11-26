@@ -1091,156 +1091,15 @@ void Button::test13()
 
 void Button::test14()
 {
-	UIManager::styles()->style("pearl");            // Select the style pearl
-	UIManager::colors()->appearance("light");       // Select the light appearance
-	UIManager::colors()->palette(Color::PALETTE_LIME);  // Select the color palette
-
 	Window window;
-	Column * col;
-	Label * label;
-	Edit * edit;
-	Label * spacer;
-	Switch * check;
-
 		window.color(0xFFF4F4F4);
-
-		ScrollView * main_scroll = new ScrollView(&window);
-		main_scroll->scroll_direction(ScrollDirection::SCROLL_VERTICAL);
-		Column * column = new Column(main_scroll);
-
-		ScrollView * scroll = new ScrollView(column);
-		scroll->scroll_direction(ScrollDirection::SCROLL_HORIZONTAL);
-		scroll->align(Align::ALIGN_LEFT);
-		scroll->scrollbar_visible(false);
-		Row * row = new Row(scroll);
-			// row->size_policy(SizePolicy::SHRINK_WIDTH);
-			Button * buttonRef;
-			row->margin(10,10,0,10);
-			Button * button;
-
-			// buttonRef = new Button(row);
-			// 	buttonRef->text("⏴");
-			// 	buttonRef->borders(ALL_BORDERS| ROUNDED_END | RIGHT_ANGLE_WITHOUT_BORDER);
-			// 	buttonRef->margin(5,1,0,1);
-			// 	buttonRef->radius(0);
-			// 	buttonRef->thickness(1);
-			// 	buttonRef->bind(&test13_on_page);
-			// 	buttonRef->id(5);
-			// 	buttonRef->focusable(false);
-			// 	buttonRef->extend(Extend::EXTEND_HEIGHT);
-			// 	buttonRef->size_policy(SizePolicy::SHRINK_WIDTH);
-
-			// button = new Button(row);
-			// 	button->copy(buttonRef);
-			// 	button->text("⏵");
-
-
-			buttonRef = new Button(row);
-				buttonRef->text("One");
-				buttonRef->borders(TOP_BORDER| ROUNDED_END | RIGHT_ANGLE_WITHOUT_BORDER);
-				buttonRef->margin(5,3,0,3);
-				buttonRef->radius(0);
-				buttonRef->thickness(1);
-				buttonRef->bind(&test13_on_page);
-				buttonRef->id(1);
-
-			button = new Button(row);
-				button->copy(buttonRef);
-				button->text("Two");
-				button->bind(&test13_on_page);
-				button->id(2);
-
-			button = new Button(row);
-				button->copy(*buttonRef);
-				button->text("Three");
-				button->bind(&test13_on_page);
-				button->id(3);
-
-			button = new Button(row);
-				button->copy(*buttonRef);
-				button->text("Four");
-				button->bind(&test13_on_page);
-				button->id(4);
-
-			button = new Button(row);
-				button->copy(*buttonRef);
-				button->text("Five");
-				button->bind(&test13_on_page);
-				button->id(4);
-
-			for (int i = 0; i < 10; i++)
-			{
-				button = new Button(row);
-					button->copy(*buttonRef);
-					button->text("%d",i);
-					button->bind(&test13_on_page);
-					button->id(i);
-			}
-
-
-		Grid * pages = new Grid(column);
-			pages->margin(0,10,10,10);
-			pages->size_policy(SizePolicy::ENLARGE_ALL);
-			Pane * paneOne = new Pane(pages);
-				paneOne->id(101);
-				paneOne->cell(0,0);
-				paneOne->color(Color::WHITE);
-				paneOne->radius(0);
-				paneOne->thickness(1);
-
-				col = new Column(paneOne);
-					label = new Label(col);
-						label->text("Birth day : ");
-						label->text_align(Align::ALIGN_LEFT);
-
-					edit = new Edit(col);
-						edit->text("");
-
-					label = new Label(col);
-						label->text("Country : ");
-						label->text_align(Align::ALIGN_LEFT);
-
-					edit = new Edit(col);
-						edit->text("");
-
-					spacer = new Label(col);
-						spacer->size_policy(SizePolicy::ENLARGE_ALL);
-
-			Pane * paneTwo = new Pane(pages);
-				paneTwo->id(102);
-				paneTwo->cell(0,0);
-				paneTwo->color(Color::WHITE);
-				paneTwo->radius(0);
-				paneTwo->thickness(1);
-				paneTwo->hidden(true);
-				col = new Column(paneTwo);
-					label = new Label(col);
-						label->text("First name : ");
-						label->text_align(Align::ALIGN_LEFT);
-
-					edit = new Edit(col);
-						edit->text("");
-
-					label = new Label(col);
-						label->text("Last name : ");
-						label->text_align(Align::ALIGN_LEFT);
-
-					edit = new Edit(col);
-						edit->text("");
-
-					label = new Label(col);
-						label->text("Married");
-						label->text_align(Align::ALIGN_LEFT);
-
-					check = new Switch(col);
-						check->align(Align::ALIGN_LEFT);
-
-					spacer = new Label(col);
-						spacer->size_policy(SizePolicy::ENLARGE_ALL);
-
-		UIManager::desktop()->dispatch("$(ui.tests)/out/button13.svg");
-	while(1)
-		UIManager::desktop()->dispatch();
+			Button * button = new Button(&window);
+			button->font_size(160);
+			button->text("A|$<'path':'.486,682;.597,571;.597,571;.708,682;.708,682;.768,622;.768,622;.657,512;.657,512;.768,401;.768,401;.708,341;.708,341;.597,452;.597,452;.486,341;.486,341;.426,401;.426,401;.537,512;.537,512;.426,622;.426,622;.486,682;~;.384,853;^363,853;.345,844;.345,844;^327,835;.315,819;.315,819;.85,512;.85,512;.315,204;.315,204;^327,188;.345,179;.345,179;^363,170;.384,170;.384,170;.853,170;.853,170;^888,170;.913,195;.913,195;^938,221;.938,256;.938,256;.938,768;.938,768;^938,802;.913,828;.913,828;^888,853;.853,853;.853,853;.384,853;~;.192,512;.384,768;.384,768;.853,768;.853,768;.853,256;.853,256;.384,256;.384,256;.192,512;~;', 'size':{'width':160,'height':160},'color':0xFFFF0000, 'align':'center'>|");
+		UIManager::desktop()->dispatch("$(ui.tests)/out/button14.svg");
+	// while(1)
+		// UIManager::desktop()->dispatch();
+	UIManager::desktop()->dispatch("$(ui.tests)/out/button14.svg");
 }
 
 void Button::test15()
@@ -1404,7 +1263,7 @@ void Button::test()
 	{
 		MemoryLeakLog
 		done = true;
-// test14();
+test14();
 		test20();
 		test19();
 		test18();

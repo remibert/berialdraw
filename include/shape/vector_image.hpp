@@ -128,8 +128,9 @@ namespace berialdraw
 		@param angle Rotation angle (Q6)
 		@param zoom_q6 Zoom value shifted by 6 bits
 		@param stated_color Color override (Color::TRANSPARENT keeps the file colors)
+		@param center_content Center path bounds in the image resolution
 		@param scratch Optional polygon reused as work area */
-		void paint(const Point & position, const Point & shift, const Point & center, Coord angle, Dim zoom_q6, uint32_t stated_color, Polygon * scratch = 0);
+		void paint(const Point & position, const Point & shift, const Point & center, Coord angle, Dim zoom_q6, uint32_t stated_color, Polygon * scratch = 0, bool center_content = false);
 
 	protected:
 /// @cond DOXYGEN_IGNORE

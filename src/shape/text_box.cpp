@@ -767,7 +767,8 @@ void TextBox::paint_line_segments(const LineInfo & line, const Point & position,
 	Coord seg_x = 0;
 	Point seg_line_center(line_center);
 
-	while (seg_start <= line_end)
+	// The trailing line end may also represent the cursor position after the final character.
+	while (seg_start <= line_end && seg_start < clean.count())
 	{
 		if (seg_start < clean.count() && clean.get(seg_start) == L'\v')
 		{
@@ -879,7 +880,7 @@ void TextBox::paint_image_segment(uint32_t seg_start,
 		seg_center.y_q6(seg_center.y_q6() - (line.baseline_ref + span.image_baseline_offset - (Coord)image_size.height_q6()));
 
 	Point no_shift;
-	span.image->paint(seg_pos, no_shift, seg_center, angle, zoom, color);
+	span.image->paint(seg_pos, no_shift, seg_center, angle, zoom, color, 0, span.image_center_content);
 	seg_x += image_size.width_q6();
 }
 

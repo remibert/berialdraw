@@ -247,6 +247,9 @@ void RichText::init_default_span(TextSpan & span, uint32_t start, Font & font, u
 	span.height = font.real_size().height_q6();
 	span.baseline = font.baseline_q6();
 	span.image = 0;
+	span.image_center = false;
+	span.image_center_content = false;
+	span.image_baseline_offset = 0;
 }
 
 /** Close the current span and add it to the list if it has content */
@@ -488,6 +491,7 @@ void RichText::parse_image_tag(Json & json, JsonIterator & it, TextSpan & span)
 {
 	String align = it[StyleNames::COMMON_ALIGN] | "bottom";
 	span.image_center = align == "center";
+	span.image_center_content = span.image_center && it.exists(StyleNames::TEXT_PATH);
 	span.image = new VectorImage(0);
 	if (span.image != 0)
 	{

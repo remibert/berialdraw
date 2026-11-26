@@ -10,6 +10,7 @@ todo.txt
 .vs/*
 log.txt
 *.log
+*.pyc
 
 # Doxygen generated documentation
 doc/html/

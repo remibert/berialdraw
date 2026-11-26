@@ -334,13 +334,66 @@ Size VectorImage::content_size(Dim zoom_q6) const
 }
 
 // Paint all paths
-void VectorImage::paint(const Point & position, const Point & shift, const Point & center, Coord angle, Dim zoom_q6, uint32_t stated_color, Polygon * scratch)
+void VectorImage::paint(const Point & position, const Point & shift, const Point & center, Coord angle, Dim zoom_q6, uint32_t stated_color, Polygon * scratch, bool center_content)
 {
 	if (m_paths.size() > 0)
 	{
 		Polygon local(0);
 		Polygon & polygon = scratch ? *scratch : local;
 		bool one_color = true;
+		Point content_offset;
+
+		// Center the combined path bounds inside the image resolution when requested
+		if (center_content && m_resolution.width_q6() > 0 && m_resolution.height_q6() > 0)
+		{
+			FT_BBox content_bounds = {0, 0, 0, 0};
+			bool has_bounds = false;
+			for (uint32_t i = 0; i < m_paths.size(); i++)
+			{
+				Path * path = m_paths[i];
+				if (path)
+				{
+					VectorsScript vectors_script(polygon);
+					vectors_script.select(path->path());
+					if (vectors_script.parse() == VectorsScript::SUCCESS && polygon.outline().get().n_points > 0)
+					{
+						FT_BBox path_bounds;
+						FT_Outline_Get_CBox(&polygon.outline().get(), &path_bounds);
+						if (has_bounds == false)
+						{
+							content_bounds = path_bounds;
+							has_bounds = true;
+						}
+						else
+						{
+							if (path_bounds.xMin < content_bounds.xMin)
+							{
+								content_bounds.xMin = path_bounds.xMin;
+							}
+							if (path_bounds.yMin < content_bounds.yMin)
+							{
+								content_bounds.yMin = path_bounds.yMin;
+							}
+							if (path_bounds.xMax > content_bounds.xMax)
+							{
+								content_bounds.xMax = path_bounds.xMax;
+							}
+							if (path_bounds.yMax > content_bounds.yMax)
+							{
+								content_bounds.yMax = path_bounds.yMax;
+							}
+						}
+					}
+				}
+			}
+
+			if (has_bounds)
+			{
+				Coord offset_x = (Coord)(((int64_t)m_resolution.width_q6() - content_bounds.xMin - content_bounds.xMax) / 2);
+				Coord offset_y = (Coord)(((int64_t)m_resolution.height_q6() - content_bounds.yMin - content_bounds.yMax) / 2);
+				content_offset.set_q6((Coord)(((int64_t)offset_x * zoom_q6) >> 6), (Coord)(((int64_t)offset_y * zoom_q6) >> 6));
+			}
+		}
 
 		// Check if image has only one color
 		for (uint32_t i = 1; i < m_paths.size(); i++)
@@ -392,7 +445,9 @@ void VectorImage::paint(const Point & position, const Point & shift, const Point
 				vectors_script.select(path->path());
 				vectors_script.parse();
 
-				UIManager::renderer()->draw_outline(position, 0, shift, center, path_color, angle, polygon.outline());
+				Point adjusted_center(center);
+				adjusted_center.move_q6(0 - content_offset.x_q6(), 0 - content_offset.y_q6());
+				UIManager::renderer()->draw_outline(position, 0, shift, adjusted_center, path_color, angle, polygon.outline());
 			}
 		}
 	}

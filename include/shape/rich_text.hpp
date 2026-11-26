@@ -18,6 +18,7 @@ namespace berialdraw
 		Coord    baseline = 0;        ///< Baseline offset for this span (26.6 fixed point)
 		VectorImage* image = 0;       ///< Used for inline sketch or path
 		bool     image_center = false; ///< Center the image vertically with text
+		bool     image_center_content = false; ///< Center inline path bounds in the image box
 		Coord    image_baseline_offset = 0; ///< Image bottom offset from the line baseline
 	};
 
