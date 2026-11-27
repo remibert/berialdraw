@@ -66,6 +66,18 @@ namespace berialdraw
 		template<typename T>
 		bool apply(Widget* widget, T* properties);
 
+		/** Create a widget's internal children from its style layout.
+		@param widget Widget whose style file defines the layout
+		@return True if the layout was loaded and created successfully */
+		bool apply_widget_layout(Widget * widget);
+
+		/** Apply a named style layout to another widget, including its properties.
+		@param style_owner Widget whose style file defines the layout
+		@param layout_root Widget to configure and populate
+		@param layout_name Name of the layout field in the style file
+		@return True if the layout was loaded and created successfully */
+		bool apply_widget_layout(Widget * style_owner, Widget * layout_root, const char * layout_name);
+
 		/** Template specialization for Key to resolve ambiguous 'create()' from multiple inheritance */
 		template<>
 		inline bool apply<Key>(const char* classname, Key* properties)
@@ -142,6 +154,9 @@ namespace berialdraw
 
 		/** Load the style according to the name specified */
 		Style * load(const char * classname, const char * property_name, StyleCreator_t creator);
+
+		/** Apply a named style layout and optionally configure its root widget. */
+		bool load_widget_layout(Widget * style_owner, Widget * layout_root, const char * layout_name, bool apply_root_properties);
 
 		/** Clear the properties cache */
 		void clear_properties_cache();

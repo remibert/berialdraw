@@ -1928,7 +1928,6 @@
     <None Include="..\..\resources\styles\pearl\grid_shape.sty" />
     <None Include="..\..\resources\styles\pearl\tab.sty" />
     <None Include="..\..\resources\styles\pearl\tab_view.sty" />
-    <None Include="..\..\resources\styles\pearl\combo_button.sty" />
     <None Include="..\..\resources\styles\pearl\canvas.sty" />
     <None Include="..\..\resources\styles\pearl\checkbox.sty" />
     <None Include="..\..\resources\styles\pearl\list_item.sty" />

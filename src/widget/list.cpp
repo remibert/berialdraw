@@ -390,6 +390,27 @@ ListItem * List::selected_item() const
 	return result;
 }
 
+// Scroll the selected item into view after the list is laid out
+void List::scroll_to_selected()
+{
+	if (selected_item())
+	{
+		m_scroll_selected_on_place = true;
+		UIManager::invalidator()->dirty(this, Invalidator::GEOMETRY);
+	}
+}
+
+// Place the list and apply any deferred selected-item scrolling
+void List::place(const Area & area, bool in_layout)
+{
+	ScrollableContent::place(area, in_layout);
+	if (m_scroll_selected_on_place)
+	{
+		m_scroll_selected_on_place = false;
+		scroll_focus(selected_item());
+	}
+}
+
 /** Select the next item in case of only one item can be selected 
 @return the selected item or null if no item selected */
 ListItem * List::select_next()

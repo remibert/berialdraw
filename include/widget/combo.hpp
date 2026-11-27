@@ -152,6 +152,7 @@ namespace berialdraw
 		static void test1();
 		static void test2();
 		static void test3();
+		static void test4();
 		/// @endcond
 #endif
 
@@ -171,6 +172,8 @@ namespace berialdraw
 		void notify_selection_changed();
 		void update_editable_state();
 
+		static constexpr Dim BUTTON_ID = 1;
+		static constexpr Dim LIST_ID = 2;
 		Button * m_button = 0;
 		Popup * m_popup = 0;
 		List * m_list = 0;

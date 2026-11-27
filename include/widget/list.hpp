@@ -103,6 +103,9 @@ namespace berialdraw
 		@return the selected item or null if no item selected */
 		ListItem * selected_item() const;
 
+		/** Scroll the selected item into view after the list is laid out. */
+		void scroll_to_selected();
+
 		/** Select the next item in case of only one item can be selected 
 		@return the selected item or null if no item selected */
 		ListItem * select_next();
@@ -172,6 +175,9 @@ namespace berialdraw
 		/** Remove operator = */
 		List& operator=(const List& other) = delete;
 
+		/** Place the list and scroll the selected item into view when requested. */
+		void place(const Area & area, bool in_layout) override;
+
 		/**
 		 * Normalize index to positive range [0, size()-1] (or [0, size()] for insert).
 		 * Converts Python-style negative indices to positive indices.
@@ -193,6 +199,7 @@ namespace berialdraw
 
 		/** Internal column container holding all items */
 		Column * m_column;
+		bool m_scroll_selected_on_place = false;
 /// @endcond
 	};
 }

@@ -15,7 +15,10 @@ void ComboStyle::serialize(JsonIterator & it)
 
 void ComboStyle::unserialize(JsonIterator & it)
 {
-	m_editable = (bool)(it[StyleNames::COMBO_EDITABLE] | m_editable);
+	if (it.exists(StyleNames::COMBO_EDITABLE))
+	{
+		m_editable = (bool)it[StyleNames::COMBO_EDITABLE];
+	}
 	if (it.exists(StyleNames::COMBO_BUTTON_WIDTH))
 	{
 		m_button_width = (uint16_t)(int)it[StyleNames::COMBO_BUTTON_WIDTH];

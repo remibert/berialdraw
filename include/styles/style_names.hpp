@@ -271,12 +271,11 @@ namespace berialdraw
 		static constexpr char TYPE_TIMER[] = "timer";
 		static constexpr char TYPE_WINDOW[] = "window";
 
-		// Widget styles
-		static constexpr char STYLE_COMBO_BUTTON[] = "combo_button";
-
 		// Widget serialization
 		static constexpr char WIDGET_TYPE[] = "type";
 		static constexpr char WIDGET_CHILDREN[] = "children";
+		static constexpr char WIDGET_LAYOUT[] = "widget_layout";
+		static constexpr char WIDGET_POPUP_LAYOUT[] = "popup_layout";
 		static constexpr char EDIT_MASK[] = "mask";
 	};
 }

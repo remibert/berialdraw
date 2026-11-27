@@ -20,25 +20,37 @@ Combo::Combo(Widget * parent):
 	m_editable_typing_mode = typing_mode();
 	update_editable_state();
 
-	m_button = new Button(this);
-	UIManager::styles()->apply(StyleNames::STYLE_COMBO_BUTTON, (CommonStyle*)m_button);
-	UIManager::styles()->apply(StyleNames::STYLE_COMBO_BUTTON, (WidgetStyle*)m_button);
-	UIManager::styles()->apply(StyleNames::STYLE_COMBO_BUTTON, (BorderStyle*)m_button);
-	UIManager::styles()->apply(StyleNames::STYLE_COMBO_BUTTON, (TextStyle*)m_button);
-	UIManager::styles()->apply(StyleNames::STYLE_COMBO_BUTTON, (PaddingStyle*)m_button);
-	m_button->bind(this, &Combo::on_button_click);
+	UIManager::styles()->apply_widget_layout(this);
+	Widget * child = children();
+	while (child && m_button == nullptr)
+	{
+		m_button = dynamic_cast<Button*>(child->search(BUTTON_ID));
+		child = child->next();
+	}
+	if (m_button)
+	{
+		m_button->bind(this, &Combo::on_button_click);
+	}
+	else
+	{
+		bd_printf("Combo: style layout must define a button with id %u\n", (unsigned int)BUTTON_ID);
+	}
 
 	Window * window = dynamic_cast<Window*>(root());
 	if (window)
 	{
 		m_popup = new Popup(window);
-		m_list = new List(m_popup);
-		m_list->extend(Extend::EXTEND_ALL);
-		m_list->margin(0);
-		m_list->thickness(0);
-		m_list->scroll_direction(SCROLL_VERTICAL);
-		m_list->selection_mode(ListSelectionMode::LIST_SINGLE_SELECTION);
-		m_list->focusable(true);
+		UIManager::styles()->apply_widget_layout(this, m_popup, StyleNames::WIDGET_POPUP_LAYOUT);
+		Widget * popup_child = m_popup->children();
+		while (popup_child && m_list == nullptr)
+		{
+			m_list = dynamic_cast<List*>(popup_child->search(LIST_ID));
+			popup_child = popup_child->next();
+		}
+		if (m_list == nullptr)
+		{
+			bd_printf("Combo: popup layout must define a list with id %u\n", (unsigned int)LIST_ID);
+		}
 	}
 }
 
@@ -101,6 +113,7 @@ bool Combo::open()
 		result = m_popup->open(this);
 		if (result)
 		{
+			m_list->scroll_to_selected();
 			Window * window = dynamic_cast<Window*>(root());
 			if (window)
 			{

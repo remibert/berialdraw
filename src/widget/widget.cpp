@@ -15,6 +15,10 @@ static Widget * create_child_widget(const String & type, Widget * parent)
 	{
 		result = new Canvas(parent);
 	}
+	else if (type == StyleNames::TYPE_CALENDAR)
+	{
+		result = new Calendar(parent);
+	}
 	else if (type == StyleNames::TYPE_CHECKBOX)
 	{
 		result = new Checkbox(parent);

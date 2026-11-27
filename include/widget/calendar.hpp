@@ -83,8 +83,18 @@ namespace berialdraw
 #endif
 
 	private:
-		void initialize();
-		void build_controls();
+		bool initialize();
+		bool build_controls();
+		static constexpr Dim CONTENT_ID = 100;
+		static constexpr Dim CONTROLS_ID = 101;
+		static constexpr Dim PREVIOUS_BUTTON_ID = 102;
+		static constexpr Dim MONTH_COMBO_ID = 103;
+		static constexpr Dim YEAR_COMBO_ID = 104;
+		static constexpr Dim NEXT_BUTTON_ID = 105;
+		static constexpr Dim TODAY_BUTTON_ID = 106;
+		static constexpr Dim TABLE_ID = 107;
+		static constexpr Dim WEEKDAY_BUTTON_ID_BASE = 200;
+		static constexpr Dim DAY_BUTTON_ID_BASE = 300;
 		void update_controls();
 		void update_year_combo();
 		void update_table_grid_style();

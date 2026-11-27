@@ -8,6 +8,7 @@ void Combo::test()
 	{
 		MemoryLeakLog
 		done = true;
+		test4();
 		test3();
 		test2();
 		test1();
@@ -408,6 +409,14 @@ void Combo::test3()
 	assert(combo->m_list->selected_item() == nullptr);
 	combo->close();
 
+	combo->select(6);
+	combo->m_list->scroll_position(0, 0);
+	assert(combo->open());
+	UIManager::desktop()->dispatch();
+	assert(combo->m_list->scroll_position().y_q6() != 0);
+	combo->close();
+	UIManager::desktop()->dispatch();
+
 	ClickEvent button_click(Point(), combo->m_button);
 	combo->on_button_click(combo->m_button, button_click);
 	assert(combo->is_open());
@@ -450,4 +459,52 @@ void Combo::test3()
 	UIManager::desktop()->dispatch("$(ui.tests)/out/combo3_6.svg");
 	assert(combo->m_contentclip.width_q6() == 0);
 	assert(combo->m_button->foreclip().width_q6() <= combo->m_foreclip.width_q6());
+}
+
+void Combo::test4()
+{
+	Window window;
+	window.size(480, 240);
+	Combo * first = new Combo(&window);
+	first->position(20, 20);
+	first->size(200, 50);
+	Combo * second = new Combo(&window);
+	second->position(20, 100);
+	second->size(200, 50);
+
+	assert(first->m_button != nullptr);
+	assert(second->m_button != nullptr);
+	assert(first->m_button != second->m_button);
+	assert(first->m_button->id() == BUTTON_ID);
+	assert(second->m_button->id() == BUTTON_ID);
+	Margin zero_margin;
+	assert(first->m_button->padding() == zero_margin);
+	assert(second->m_button->padding() == zero_margin);
+	assert(first->m_popup != nullptr);
+	assert(second->m_popup != nullptr);
+	assert(first->m_list != nullptr);
+	assert(second->m_list != nullptr);
+	assert(first->m_list != second->m_list);
+	assert(first->m_list->parent() == first->m_popup);
+	assert(second->m_list->parent() == second->m_popup);
+	assert(first->m_list->id() == LIST_ID);
+	assert(second->m_list->id() == LIST_ID);
+	assert(first->m_list->extend() == Extend::EXTEND_ALL);
+	assert(second->m_list->extend() == Extend::EXTEND_ALL);
+	assert(first->m_list->margin() == zero_margin);
+	assert(second->m_list->margin() == zero_margin);
+	assert(first->m_list->thickness() == 0);
+	assert(second->m_list->thickness() == 0);
+	assert(first->m_list->scroll_direction() == SCROLL_VERTICAL);
+	assert(second->m_list->scroll_direction() == SCROLL_VERTICAL);
+	assert(first->m_list->selection_mode() == ListSelectionMode::LIST_SINGLE_SELECTION);
+	assert(second->m_list->selection_mode() == ListSelectionMode::LIST_SINGLE_SELECTION);
+	assert(first->m_list->focusable());
+	assert(second->m_list->focusable());
+
+	uint32_t second_button_color = second->m_button->color();
+	first->m_button->color(Color::RED);
+	assert(second->m_button->color() == second_button_color);
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/combo_style_layout.svg");
 }

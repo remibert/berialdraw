@@ -23,4 +23,50 @@
 	"editable"           : true,
 	"button_width"       : 24,
 	"max_popup_height"   : 160,
+	"widget_layout"      : {
+		"children" : [
+			{
+				"type"            : "button",
+				"id"              : 1,
+				"color"           : 0x0000001A, # BUTTON_COLOR
+				"border_color"    : 0x0000001B, # BUTTON_BORDER_COLOR
+				"text_color"      : 0x0000001C, # BUTTON_TEXT_COLOR
+				"focus_color"     : 0x0000001D, # BUTTON_FOCUS_COLOR
+				"thickness"       : 1,
+				"radius"          : 0,
+				"margin"          : {"top":0,"left":0,"bottom":0,"right":0},
+				"align"           : "center",
+				"font_size"       : {"width":20,"height":22},
+				"padding"         : {"top":0,"left":0,"bottom":0,"right":0},
+				"text"            : "$<'path':'.512,640;.298,426;.298,426;.725,426;.725,426;.512,640;~;','size':{'width':32,'height':32},'align':'center'>",
+				"text_align"      : "center",
+				"extend"          : "all",
+				"focusable"       : true,
+				"pressable"       : true,
+				"focus_thickness" : 3,
+				"focus_gap"       : 0
+			}
+		]
+	},
+	"popup_layout"       : {
+		"type"        : "popup",
+		"color"       : 0x00000037,
+		"border_color": 0x00000038,
+		"thickness"   : 1,
+		"radius"      : 1,
+		"align"       : "center",
+		"extend"      : "none",
+		"children"    : [
+			{
+				"type"            : "list",
+				"id"              : 2,
+				"extend"          : "all",
+				"margin"          : {"top":0,"left":0,"bottom":0,"right":0},
+				"thickness"       : 0,
+				"scroll_direction": "vertical",
+				"selection_mode"  : "single-selection",
+				"focusable"       : true
+			}
+		]
+	},
 }

@@ -39,6 +39,17 @@ void Calendar::test1()
 	Calendar * calendar = new Calendar(&window, CalendarDate{2026, 11, 19});
 	calendar->position(20, 20);
 	calendar->size(420, 420);
+	assert(calendar->m_content == calendar->children());
+	assert(calendar->m_previous_button->id() == Calendar::PREVIOUS_BUTTON_ID);
+	assert(calendar->m_month_combo->id() == Calendar::MONTH_COMBO_ID);
+	assert(calendar->m_year_combo->id() == Calendar::YEAR_COMBO_ID);
+	assert(calendar->m_next_button->id() == Calendar::NEXT_BUTTON_ID);
+	assert(calendar->m_today_button->id() == Calendar::TODAY_BUTTON_ID);
+	assert(calendar->m_table->id() == Calendar::TABLE_ID);
+	for (Dim index = 0; index < 49; index++)
+	{
+		assert(calendar->m_day_buttons[index]->id() == Calendar::DAY_BUTTON_ID_BASE + index);
+	}
 	UIManager::desktop()->dispatch("$(ui.tests)/out/calendar1.svg");
 	UIManager::desktop()->mainloop();
 	CalendarEventReceiver receiver;
@@ -57,6 +68,13 @@ void Calendar::test1()
 	assert(table->column_count() == 7);
 	assert(table->row_count() == 7);
 	assert(table->get_widget(0, 0)->color() == calendar->weekday_back_color());
+	Button * weekday_header = dynamic_cast<Button*>(table->get_widget(0, 0));
+	assert(weekday_header != nullptr);
+	assert(weekday_header->border_color() == Color::TRANSPARENT);
+	assert(weekday_header->thickness() == 0);
+	assert(weekday_header->focusable() == false);
+	assert(weekday_header->pressable() == false);
+	assert(calendar->m_month_combo->editable() == false);
 	assert(table->get_widget(1, 0)->color() == calendar->outside_day_back_color());
 	assert(table->get_widget(2, 0)->color() == calendar->day_back_color());
 	assert(dynamic_cast<TextStyle*>(table->get_widget(0, 0))->font_size() == calendar->weekday_font_size());

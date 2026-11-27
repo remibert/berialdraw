@@ -116,6 +116,12 @@ void Button::place(const Area & area, bool in_layout)
 
 	// Place button text
 	place_in_layout(m_contentclip, m_text_size, marg, EXTEND_NONE, m_text_foreclip, m_text_align);
+	if (m_text_size.width_q6() > m_contentclip.width_q6() &&
+		(m_text_align & Align::ALIGN_HORIZONTAL) == Align::CENTER)
+	{
+		Coord overflow = (Coord)(m_text_size.width_q6() - m_contentclip.width_q6());
+		m_text_foreclip.x_q6(m_text_foreclip.x_q6() - overflow / 2);
+	}
 	if (m_text_box.has_spacers())
 	{
 		m_text_foreclip.x_q6(m_contentclip.x_q6());

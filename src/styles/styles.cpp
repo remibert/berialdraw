@@ -334,6 +334,58 @@ Style * Styles::load(const char * classname, const char * property_name, StyleCr
 	return result;
 }
 
+// Create the internal widget tree declared in a widget's style file.
+bool Styles::apply_widget_layout(Widget * widget)
+{
+	return load_widget_layout(widget, widget, StyleNames::WIDGET_LAYOUT, false);
+}
+
+// Apply a named style layout to a target widget.
+bool Styles::apply_widget_layout(Widget * style_owner, Widget * layout_root, const char * layout_name)
+{
+	return load_widget_layout(style_owner, layout_root, layout_name, true);
+}
+
+// Load a layout from its owner's style and create it on the target widget.
+bool Styles::load_widget_layout(Widget * style_owner, Widget * layout_root, const char * layout_name, bool apply_root_properties)
+{
+	bool result = false;
+	if (style_owner && layout_root && layout_name)
+	{
+		String filename;
+		filename.print("$(ui.styles)/%s/%s.sty", m_style.c_str(), style_owner->classname());
+		auto it = m_json_cache.get_iterator(filename);
+		if (it)
+		{
+			if (it->exists(layout_name))
+			{
+				JsonIterator layout = (*it)[layout_name];
+				if (layout.type() == JsonType::OBJECT)
+				{
+					if (apply_root_properties)
+					{
+						layout_root->unserialize(layout);
+					}
+					result = layout_root->unserialize_children(layout);
+				}
+				else
+				{
+					bd_printf("Widget: layout '%s' in '%s' must be an object\n", layout_name, filename.c_str());
+				}
+			}
+			else
+			{
+				result = true;
+			}
+		}
+		else
+		{
+			bd_printf("Widget: unable to load style file '%s'\n", filename.c_str());
+		}
+	}
+	return result;
+}
+
 // ============================================================================
 // Template Implementations
 // ============================================================================

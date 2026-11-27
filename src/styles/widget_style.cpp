@@ -54,9 +54,18 @@ void WidgetStyle::unserialize(JsonIterator & it)
 {
 	m_min_size.unserialize(StyleNames::WIDGET_MIN_SIZE,it),
 	m_max_size.unserialize(StyleNames::WIDGET_MAX_SIZE,it);
-	m_id     = it[StyleNames::KEY_ID]             | (int)m_id;
-	m_row    = it[StyleNames::WIDGET_CELL][StyleNames::WIDGET_ROW]    | (int)m_row;
-	m_column = it[StyleNames::WIDGET_CELL][StyleNames::WIDGET_COLUMN] | (int)m_column;
+	if (it.exists(StyleNames::KEY_ID))
+	{
+		m_id = (Dim)(unsigned int)it[StyleNames::KEY_ID];
+	}
+	if (it[StyleNames::WIDGET_CELL].exists(StyleNames::WIDGET_ROW))
+	{
+		m_row = (Dim)(unsigned int)it[StyleNames::WIDGET_CELL][StyleNames::WIDGET_ROW];
+	}
+	if (it[StyleNames::WIDGET_CELL].exists(StyleNames::WIDGET_COLUMN))
+	{
+		m_column = (Dim)(unsigned int)it[StyleNames::WIDGET_CELL][StyleNames::WIDGET_COLUMN];
+	}
 	Extend extend = (Extend)m_extend;
 	berialdraw::unserialize(it, extend);
 	m_extend = extend;
@@ -64,16 +73,46 @@ void WidgetStyle::unserialize(JsonIterator & it)
 	SizePolicy size_policy = (SizePolicy)m_size_policy;
 	berialdraw::unserialize(it, size_policy);
 	m_size_policy = size_policy;
-	m_pressed   = (int)it[StyleNames::WIDGET_PRESSED]  | m_pressed;
-	m_checked   = (int)it[StyleNames::WIDGET_CHECKED]  | m_checked;
-	m_focusable = (int)it[StyleNames::WIDGET_FOCUSABLE] | m_focusable;
-	m_parent_focusable = (int)it[StyleNames::WIDGET_PARENT_FOCUSABLE] | m_parent_focusable;
-	m_selectable = (int)it[StyleNames::WIDGET_SELECTABLE] | m_selectable;
-	m_selected = (int)it[StyleNames::WIDGET_SELECTED] | m_selected;
-	m_inherited_focus_color  = (int)it[StyleNames::WIDGET_INHERITED_FOCUS_COLOR] | m_inherited_focus_color;
-	m_pressable  = (int)it[StyleNames::WIDGET_PRESSABLE] | m_pressable;
-	m_flow       = (int)it[StyleNames::WIDGET_FLOW] | m_flow;
-	m_enabled    = (int)it[StyleNames::WIDGET_ENABLED] | m_enabled;
+	if (it.exists(StyleNames::WIDGET_PRESSED))
+	{
+		m_pressed = (int)it[StyleNames::WIDGET_PRESSED] != 0;
+	}
+	if (it.exists(StyleNames::WIDGET_CHECKED))
+	{
+		m_checked = (int)it[StyleNames::WIDGET_CHECKED] != 0;
+	}
+	if (it.exists(StyleNames::WIDGET_FOCUSABLE))
+	{
+		m_focusable = (int)it[StyleNames::WIDGET_FOCUSABLE] != 0;
+	}
+	if (it.exists(StyleNames::WIDGET_PARENT_FOCUSABLE))
+	{
+		m_parent_focusable = (int)it[StyleNames::WIDGET_PARENT_FOCUSABLE] != 0;
+	}
+	if (it.exists(StyleNames::WIDGET_SELECTABLE))
+	{
+		m_selectable = (int)it[StyleNames::WIDGET_SELECTABLE] != 0;
+	}
+	if (it.exists(StyleNames::WIDGET_SELECTED))
+	{
+		m_selected = (int)it[StyleNames::WIDGET_SELECTED] != 0;
+	}
+	if (it.exists(StyleNames::WIDGET_INHERITED_FOCUS_COLOR))
+	{
+		m_inherited_focus_color = (int)it[StyleNames::WIDGET_INHERITED_FOCUS_COLOR] != 0;
+	}
+	if (it.exists(StyleNames::WIDGET_PRESSABLE))
+	{
+		m_pressable = (int)it[StyleNames::WIDGET_PRESSABLE] != 0;
+	}
+	if (it.exists(StyleNames::WIDGET_FLOW))
+	{
+		m_flow = (int)it[StyleNames::WIDGET_FLOW] != 0;
+	}
+	if (it.exists(StyleNames::WIDGET_ENABLED))
+	{
+		m_enabled = (int)it[StyleNames::WIDGET_ENABLED] != 0;
+	}
 
 	if (it.exists(StyleNames::WIDGET_STYLE))
 	{

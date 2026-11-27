@@ -1096,10 +1096,18 @@ void Button::test14()
 			Button * button = new Button(&window);
 			button->font_size(160);
 			button->text("A|$<'path':'.486,682;.597,571;.597,571;.708,682;.708,682;.768,622;.768,622;.657,512;.657,512;.768,401;.768,401;.708,341;.708,341;.597,452;.597,452;.486,341;.486,341;.426,401;.426,401;.537,512;.537,512;.426,622;.426,622;.486,682;~;.384,853;^363,853;.345,844;.345,844;^327,835;.315,819;.315,819;.85,512;.85,512;.315,204;.315,204;^327,188;.345,179;.345,179;^363,170;.384,170;.384,170;.853,170;.853,170;^888,170;.913,195;.913,195;^938,221;.938,256;.938,256;.938,768;.938,768;^938,802;.913,828;.913,828;^888,853;.853,853;.853,853;.384,853;~;.192,512;.384,768;.384,768;.853,768;.853,768;.853,256;.853,256;.384,256;.384,256;.192,512;~;', 'size':{'width':160,'height':160},'color':0xFFFF0000, 'align':'center'>|");
-		UIManager::desktop()->dispatch("$(ui.tests)/out/button14.svg");
-	// while(1)
-		// UIManager::desktop()->dispatch();
-	UIManager::desktop()->dispatch("$(ui.tests)/out/button14.svg");
+		UIManager::desktop()->dispatch("$(ui.tests)/out/button14_1.svg");
+
+		button->font_size(16);
+		button->text("$<'path':'.486,682;.597,571;.597,571;.708,682;.708,682;.768,622;.768,622;.657,512;.657,512;.768,401;.768,401;.708,341;.708,341;.597,452;.597,452;.486,341;.486,341;.426,401;.426,401;.537,512;.537,512;.426,622;.426,622;.486,682;~;.384,853;^363,853;.345,844;.345,844;^327,835;.315,819;.315,819;.85,512;.85,512;.315,204;.315,204;^327,188;.345,179;.345,179;^363,170;.384,170;.384,170;.853,170;.853,170;^888,170;.913,195;.913,195;^938,221;.938,256;.938,256;.938,768;.938,768;^938,802;.913,828;.913,828;^888,853;.853,853;.853,853;.384,853;~;.192,512;.384,768;.384,768;.853,768;.853,768;.853,256;.853,256;.384,256;.384,256;.192,512;~;', 'size':{'width':200,'height':200},'color':0xFFFF0000, 'align':'center'>");
+		UIManager::desktop()->dispatch("$(ui.tests)/out/button14_2.svg");
+		button->size(400, 400);
+		button->size_policy(SizePolicy::NORMAL_SIZE);
+		button->extend(Extend::EXTEND_NONE);
+		
+		//while(1)
+		 //UIManager::desktop()->dispatch();
+	//UIManager::desktop()->dispatch("$(ui.tests)/out/button14.svg");
 }
 
 void Button::test15()
@@ -1252,7 +1260,21 @@ void Button::test19()
 
 void Button::test20()
 {
+	MemoryLeakLog
+	Window window;
+	Button * button = new Button(&window);
+	button->size(24, 38);
+	button->thickness(1);
+	button->text_align(Align::CENTER);
+	button->text("$<'path':'.512,640;.298,426;.298,426;.725,426;.725,426;.512,640;~;','size':{'width':32,'height':32},'align':'center'>");
 
+	Area area;
+	area.size().set(24, 38);
+	bool in_layout = false;
+	button->place(area, in_layout);
+
+	Coord overflow = (Coord)(button->m_text_size.width_q6() - button->m_contentclip.width_q6());
+	//assert(button->m_text_foreclip.x_q6() == button->m_contentclip.x_q6() - overflow);
 }
 
 

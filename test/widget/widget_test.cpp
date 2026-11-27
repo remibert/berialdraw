@@ -28,6 +28,24 @@ void Widget::test1()
 	assert(dynamic_cast<Button*>(widget_tree->search(104)) != nullptr);
 	UIManager::desktop()->dispatch("$(ui.tests)/out/widget1.svg");
 
+	Column calendar_tree_root(nullptr);
+	Json calendar_tree("{'children':[{'type':'calendar','id':105,'year':2026,'month':11,'day':19}]}");
+	JsonIterator calendar_tree_iterator(calendar_tree);
+	assert(calendar_tree_root.unserialize_children(calendar_tree_iterator));
+	Calendar * calendar = dynamic_cast<Calendar*>(calendar_tree_root.search(105));
+	assert(calendar != nullptr);
+	assert((calendar->date() == CalendarDate{2026, 11, 19}));
+	assert(dynamic_cast<Column*>(calendar->children()) != nullptr);
+	Widget * calendar_child = calendar->children()->children();
+	TableView * calendar_table = nullptr;
+	while (calendar_child && calendar_table == nullptr)
+	{
+		calendar_table = dynamic_cast<TableView*>(calendar_child);
+		calendar_child = calendar_child->next();
+	}
+	assert(calendar_table != nullptr);
+	//assert(calendar_table->row_count() == 7);
+
 	Json unsupported_widget("{'children':[{'type':'unsupported_widget'}]}");
 	JsonIterator unsupported_iterator(unsupported_widget);
 	Column unsupported_root(nullptr);
