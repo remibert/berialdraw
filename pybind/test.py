@@ -59,9 +59,9 @@ event_window.destroy()
 
 language = UIManager.language()
 assert language.locale == "en-US"
-assert language.translate("calendar.action.today") == "Today"
+assert language.translate("monday") == "Mon"
 assert language.select("fr-FR")
-assert language.translate("calendar.action.today") == "Aujourd’hui"
+assert language.translate("monday") == "Lun"
 assert language.select("en-US")
 
 calendar_parent = Window()

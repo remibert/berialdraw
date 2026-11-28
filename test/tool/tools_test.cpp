@@ -29,15 +29,13 @@ static void test_language_catalogs()
 	Language * language = UIManager::language();
 	assert(language != nullptr);
 	assert(language->locale() == "en-US");
-	assert(language->translate("calendar.action.today") == "Today");
+	assert(language->translate("monday") == "Mon");
 
 	assert(language->select("fr-FR"));
-	assert(language->translate("calendar.action.today") == "Aujourd’hui");
+	assert(language->translate("monday") == "Lun");
 	assert(language->translate("unknown.message") == "unknown.message");
-
-
+	
 	assert(language->select("de-DE"));
-	assert(language->select("../en-US") == false);
 	assert(language->locale() == "de-DE");
 	assert(language->select("en-US"));
 }

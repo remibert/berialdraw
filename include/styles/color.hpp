@@ -132,6 +132,7 @@ namespace berialdraw
 		CALENDAR_DAY_SELECTED_BACK_COLOR   = 0x0000005E, ///< Selected calendar day background color
 		CALENDAR_GRID_COLOR                = 0x0000005F, ///< Calendar grid line color
 		CALENDAR_DAY_BORDER_COLOR          = 0x00000060, ///< Calendar day cell border color
+		CALENDAR_BORDER_COLOR              = 0x00000061, ///< Calendar outer border color
 
 		PALETTE_BACK_COLOR            = 0x000000E0, // Base color theme
 		PALETTE_BACK_COLOR_LIGHT_1    = 0x000000E1, //   |

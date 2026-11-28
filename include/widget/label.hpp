@@ -29,6 +29,7 @@ namespace berialdraw
 		/** Copy all styles of the label */
 		void copy(const Label * label);
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -42,7 +43,6 @@ namespace berialdraw
 		static void test9();
 #endif
 	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		Label& operator=(const Label& other) = delete;
 		

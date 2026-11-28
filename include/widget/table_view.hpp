@@ -56,6 +56,7 @@ namespace berialdraw
 			return m_grid;
 		}
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -69,7 +70,6 @@ namespace berialdraw
 		static void test9();
 #endif
 	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Load JSON data from stream */
 		void load_json_from_stream(TextStream& stream);
 

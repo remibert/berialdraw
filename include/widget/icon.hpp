@@ -34,6 +34,7 @@ namespace berialdraw
 		/** Copy all styles of the icon */
 		void copy(const Icon * icon);
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -43,7 +44,6 @@ namespace berialdraw
 		static void test5();
 #endif
 	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		Icon& operator=(const Icon& other) = delete;
 

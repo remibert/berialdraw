@@ -85,6 +85,7 @@ void bind_color(py::module& m) {
         .value("CALENDAR_DAY_SELECTED_BACK_COLOR", berialdraw::Color::CALENDAR_DAY_SELECTED_BACK_COLOR)
         .value("CALENDAR_GRID_COLOR", berialdraw::Color::CALENDAR_GRID_COLOR)
         .value("CALENDAR_DAY_BORDER_COLOR", berialdraw::Color::CALENDAR_DAY_BORDER_COLOR)
+        .value("CALENDAR_BORDER_COLOR", berialdraw::Color::CALENDAR_BORDER_COLOR)
         .value("CALENDAR_WEEKDAY_BACK_COLOR", berialdraw::Color::CALENDAR_WEEKDAY_BACK_COLOR)
         .value("CALENDAR_OUTSIDE_DAY_BACK_COLOR", berialdraw::Color::CALENDAR_OUTSIDE_DAY_BACK_COLOR)
         

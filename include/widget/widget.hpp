@@ -175,14 +175,13 @@ namespace berialdraw
 		/** Set the focus on this widget if it focusable */
 		virtual void focus_to(Widget * widget);
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
 #endif
 
 	protected:
-/// @cond DOXYGEN_IGNORE
-
 		void dump(Widget * parent, int level = 0);
 
 		/** Indicates whether the widget is positioned absolutely */

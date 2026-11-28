@@ -54,13 +54,13 @@ namespace berialdraw
 		/** Invalidate all windows after the screen size changes */
 		void screen_size_changed();
 
+/// @cond DOXYGEN_IGNORE
 	private:
 		void export_raster_snapshot(const File::Location& location, bool jpeg);
 		bool encode_raster_snapshot(Window& window, Argb8888& image, const File::Location& location, bool jpeg);
 		std::unique_ptr<Argb8888> render_window_offscreen(Window& window);
 
 	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		Desktop& operator=(const Desktop& other) = delete;
 		

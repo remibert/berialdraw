@@ -49,6 +49,7 @@ namespace berialdraw
 		/** Get the style cascade mode for this widget. */
 		virtual StyleCascadeMode style_cascade_mode() const override;
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -95,5 +96,6 @@ namespace berialdraw
 		uint32_t m_tab_id = 0;
 		TabPosition m_previous_tab_position = TabPosition::TOP;
 		Margin m_previous_tab_margin;
+/// @endcond
 	};
 }

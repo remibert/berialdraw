@@ -8,7 +8,7 @@ namespace berialdraw
 	class TableView;
 
 	/** Monthly date selector with localized controls and a clickable week grid. */
-	class Calendar : public Widget, public CalendarStyle
+	class Calendar : public Widget, public BorderStyle, public CalendarStyle
 	{
 	public:
 		/** Create a calendar initialized to the current local date.
@@ -77,9 +77,15 @@ namespace berialdraw
 		/** Return the calendar style cascade mode. */
 		StyleCascadeMode style_cascade_mode() const override;
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
+		static void test2();
+		static void test3();
+		static void test4();
+		static void test5();
+		static void test6();
 #endif
 
 	private:
@@ -112,6 +118,8 @@ namespace berialdraw
 		void on_year_key(Widget * widget, const KeyEvent & event);
 		void on_date_cell_click(Widget * widget, const ClickEvent & event);
 		void on_date_cell_key(Widget * widget, const KeyEvent & event);
+		Size content_size() override;
+		void paint(const Region & parent_region) override;
 		void place(const Area & area, bool in_layout) override;
 
 		CalendarDate m_date;
@@ -126,5 +134,7 @@ namespace berialdraw
 		CalendarDate m_cell_dates[49];
 		bool m_cell_date_valid[49] = {};
 		Dim m_visible_weeks = 0;
+/// @endcond 
+
 	};
 }

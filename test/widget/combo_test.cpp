@@ -506,5 +506,5 @@ void Combo::test4()
 	first->m_button->color(Color::RED);
 	assert(second->m_button->color() == second_button_color);
 
-	UIManager::desktop()->dispatch("$(ui.tests)/out/combo_style_layout.svg");
+	UIManager::desktop()->dispatch("$(ui.tests)/out/combo_4.svg");
 }

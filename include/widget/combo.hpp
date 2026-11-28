@@ -146,18 +146,16 @@ namespace berialdraw
 		/** Get the style cascade mode for this widget. */
 		StyleCascadeMode style_cascade_mode() const override;
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
-		/// @cond DOXYGEN_IGNORE
 		static void test();
 		static void test1();
 		static void test2();
 		static void test3();
 		static void test4();
-		/// @endcond
 #endif
 
 	protected:
-		/// @cond DOXYGEN_IGNORE
 		void place(const Area & area, bool in_layout) override;
 		Size content_size() override;
 		Widget * hovered(const Region & parent_region, const Point & position) override;
@@ -179,6 +177,6 @@ namespace berialdraw
 		List * m_list = 0;
 		Entry::TypingMode m_editable_typing_mode = Entry::TypingMode::INSERTION;
 		int m_selection_index = -1;
-		/// @endcond
+/// @endcond
 	};
 }

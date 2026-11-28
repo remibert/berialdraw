@@ -96,6 +96,8 @@ namespace berialdraw
 
 		/** Get input mask */
 		const String mask() const;
+
+		/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		// Unitary test
 		static void test1();
@@ -104,7 +106,6 @@ namespace berialdraw
 		static void test();
 #endif
 	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Update entry */
 		void force_update();
 

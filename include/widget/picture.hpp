@@ -27,6 +27,7 @@ namespace berialdraw
 		/** Return the size of content without marges */
 		virtual Size content_size() override;
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -44,7 +45,6 @@ namespace berialdraw
 		static void test13();
 #endif
 	protected:
-	/// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		Picture& operator=(const Picture& other) = delete;
 
@@ -82,6 +82,6 @@ namespace berialdraw
 		// Computed content size after place() analysis
 		Size          m_fit_content_size;
 		bool          m_picture_placed = false;
-	/// @endcond
+/// @endcond
 	};
 }

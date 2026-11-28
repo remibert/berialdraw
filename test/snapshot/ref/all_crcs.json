@@ -4587,7 +4587,7 @@
 		"$(ui.tests)/out/styles1_2.svg" : 
 		{
 			"scale_2" : 1438480284,
-			"scale_1" : 1621145463
+			"scale_1" : 3788044836
 		},
 		"$(ui.tests)/out/sample_palette_1.svg" : 
 		{
@@ -5734,5 +5734,45 @@
 		"$(ui.tests)/out/combo_style_layout.svg" : 
 		{
 			"scale_1" : 3986443306
+		},
+		"$(ui.tests)/out/calendar5_1.svg" : 
+		{
+			"scale_1" : 190619886
+		},
+		"$(ui.tests)/out/calendar5_2.svg" : 
+		{
+			"scale_1" : 2015274673
+		},
+		"$(ui.tests)/out/calendar4_1.svg" : 
+		{
+			"scale_1" : 4178631269
+		},
+		"$(ui.tests)/out/calendar4_2.svg" : 
+		{
+			"scale_1" : 3999043514
+		},
+		"$(ui.tests)/out/calendar4_3.svg" : 
+		{
+			"scale_1" : 488417913
+		},
+		"$(ui.tests)/out/calendar4_4.svg" : 
+		{
+			"scale_1" : 4272821122
+		},
+		"$(ui.tests)/out/calendar3_1.svg" : 
+		{
+			"scale_1" : 3124285679
+		},
+		"$(ui.tests)/out/calendar3_2.svg" : 
+		{
+			"scale_1" : 3627550412
+		},
+		"$(ui.tests)/out/combo_4.svg" : 
+		{
+			"scale_1" : 3986443306
+		},
+		"$(ui.tests)/out/calendar6.svg" : 
+		{
+			"scale_1" : 4178631269
 		}
 	}

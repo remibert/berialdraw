@@ -31,6 +31,7 @@ namespace berialdraw
 
 		/** Copy all styles of the slider */
 		void copy(const Slider * slider);
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -40,7 +41,6 @@ namespace berialdraw
 		static void test5();
 #endif
 	protected:
-/// @cond DOXYGEN_IGNORE
 		friend class Notifier;
 
 		/** Remove operator = */

@@ -52,6 +52,7 @@ namespace berialdraw
 		/** Unserialize the content of widget from json */
 		void unserialize(JsonIterator& it) override;
 
+/// @cond DOXYGEN_IGNORE
 	protected:
 		/** Constructor for subclasses */
 		ScrollableContent(const char * classname, Widget * parent, size_t size_of_widget);

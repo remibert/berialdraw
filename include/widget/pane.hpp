@@ -28,6 +28,7 @@ namespace berialdraw
 		/** Copy all styles of the pane */
 		void copy(const Pane * pane);
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -39,7 +40,6 @@ namespace berialdraw
 		static void test7();
 #endif
 	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		Pane& operator=(const Pane& other) = delete;
 				/** Create a pane-derived widget with its own class name and allocation size */

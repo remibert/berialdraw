@@ -148,7 +148,7 @@ namespace berialdraw
 		/** Copy all styles of the list */
 		void copy(const List* list);
 
-
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -161,7 +161,6 @@ namespace berialdraw
 #endif
 
 	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Select one item in list
 		@param index Item position (supports negative indexing) */
 		void select(int index, bool state);

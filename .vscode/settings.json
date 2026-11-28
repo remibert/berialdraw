@@ -72,6 +72,7 @@
 
 	"extensions.ignoreRecommendations": true,
 
+	"files.eol": "auto",
 	"editor.autoClosingBrackets": "never",
 	"editor.autoClosingQuotes": "never",
 	"editor.quickSuggestions": {

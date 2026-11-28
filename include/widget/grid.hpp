@@ -36,6 +36,7 @@ namespace berialdraw
 		/** Place the grid and its cells in the specified area. */
 		void layout(const Area & area, bool in_layout);
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -46,7 +47,6 @@ namespace berialdraw
 		static void test6();
 #endif
 	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		Grid& operator=(const Grid& other) = delete;
 		

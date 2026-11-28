@@ -84,6 +84,7 @@ namespace berialdraw
 		/** Get the placed width of a specific column */
 		Dim column_width(Dim col) const { return (col < m_columns_count && m_widths) ? (m_widths[col].m_placed/* & 0xFFFFFFFC0*/) : 0; }
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -91,7 +92,6 @@ namespace berialdraw
 #endif
 
 	protected:
-/// @cond DOXYGEN_IGNORE
 		Dim reduce_mini(Cell * cells, Dim count, Dim missing, Dim available);
 		Dim resize_dim(Cell * cells, Dim count, Dim area_size, bool on_width);
 		Dim reduce_marged(Cell * cells, Dim count, Dim missing);

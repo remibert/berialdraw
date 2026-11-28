@@ -32,6 +32,7 @@ namespace berialdraw
 		/** Copy all styles of the progress_bar */
 		void copy(const ProgressBar * progress_bar);
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -40,7 +41,6 @@ namespace berialdraw
 		static void test4();
 #endif
 	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		ProgressBar& operator=(const ProgressBar& other) = delete;
 		

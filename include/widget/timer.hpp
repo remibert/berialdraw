@@ -41,6 +41,7 @@ namespace berialdraw
 		/** Get the timer identifier assigned by the system */
 		uint32_t timer_id() const { return m_timer_id; }
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -49,7 +50,6 @@ namespace berialdraw
 		static void test4();
 #endif
 	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		Timer& operator=(const Timer& other) = delete;
 

@@ -61,6 +61,7 @@ namespace berialdraw
 		/** Flow replacement detected */
 		bool flow_replacement();
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -74,7 +75,6 @@ namespace berialdraw
 		static void test9();
 #endif
 	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Return the size of content without marges */
 		virtual Size content_size() override;
 

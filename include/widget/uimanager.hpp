@@ -166,5 +166,6 @@ namespace berialdraw
 		static std::unique_ptr<Language>    m_language;
 		static std::unique_ptr<Clipboard>   m_clipboard;
 		static std::unique_ptr<ImageCache>  m_image_cache;	static std::unique_ptr<TimerManager> m_timer_manager;/// @endcond
+// @endcond
 	};
 }

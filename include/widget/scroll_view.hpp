@@ -29,6 +29,7 @@ namespace berialdraw
 		/** Copy all styles of the scrollview */
 		void copy(const ScrollView* scroll_view);
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 	public:
 		static void test();
@@ -43,7 +44,6 @@ namespace berialdraw
 		static void test_create_window(Window & window);
 #endif
 	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		ScrollView& operator=(const ScrollView& other) = delete;
 /// @endcond

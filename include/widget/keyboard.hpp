@@ -29,8 +29,19 @@ namespace berialdraw
 		/** Copy all styles of the keyboard */
 		void copy(const Keyboard * keyboard);
 
-	protected:
 /// @cond DOXYGEN_IGNORE
+#ifdef _DEBUG
+		static void test();
+		static void test1();
+		static void test2();
+		static void test3();
+		static void test4();
+		static void test5();
+		static void test6();
+		static void test7();
+		static void test8();
+#endif
+	protected:
 		/** Remove operator = */
 		Keyboard& operator=(const Keyboard& other) = delete;
 
@@ -58,18 +69,5 @@ namespace berialdraw
 		/** Call back on click key */
 		void on_touch_key(Widget * widget, const TouchEvent & evt);
 /// @endcond
-
-#ifdef _DEBUG
-	public:
-		static void test();
-		static void test1();
-		static void test2();
-		static void test3();
-		static void test4();
-		static void test5();
-		static void test6();
-		static void test7();
-		static void test8();
-#endif
 	};
 }

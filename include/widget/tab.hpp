@@ -23,7 +23,9 @@ namespace berialdraw
 		/** Rotate widget alignment clockwise for a tab position. */
 		static Align rotate_align(Align align, TabPosition position);
 
+/// @cond DOXYGEN_IGNORE
 	private:
 		TabPosition m_position = TabPosition::TOP;
+/// @endcond
 	};
 }

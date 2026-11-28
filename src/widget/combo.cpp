@@ -128,12 +128,12 @@ void Combo::close()
 {
 	if (m_popup && m_popup->is_open())
 	{
-		m_popup->close();
 		Window * window = dynamic_cast<Window*>(root());
 		if (window)
 		{
 			window->focus_to(this);
 		}
+		m_popup->close();
 	}
 }
 

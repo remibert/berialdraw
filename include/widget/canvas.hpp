@@ -38,6 +38,7 @@ namespace berialdraw
 		/** Copy all styles of the canvas */
 		void copy(const Canvas * canvas);
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -56,7 +57,6 @@ namespace berialdraw
 #endif
 
 	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		Canvas& operator=(const Canvas& other) = delete;
 		

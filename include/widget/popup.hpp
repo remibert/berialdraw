@@ -29,6 +29,7 @@ namespace berialdraw
 		/** Transient widgets are omitted from persistent widget serialization. */
 		virtual bool is_transient() const override { return true; }
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -71,5 +72,6 @@ namespace berialdraw
 		Point m_anchor_position;
 		bool m_open = false;
 		bool m_point_anchor = false;
+/// @endcond
 	};
 }

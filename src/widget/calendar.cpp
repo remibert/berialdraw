@@ -4,21 +4,8 @@ using namespace berialdraw;
 
 namespace
 {
-	const char * const month_message_ids[] =
-	{
-		"calendar.month.january", "calendar.month.february", "calendar.month.march",
-		"calendar.month.april", "calendar.month.may", "calendar.month.june",
-		"calendar.month.july", "calendar.month.august", "calendar.month.september",
-		"calendar.month.october", "calendar.month.november", "calendar.month.december"
-	};
-
-	const char * const weekday_message_ids[] =
-	{
-		"calendar.weekday.monday.short", "calendar.weekday.tuesday.short",
-		"calendar.weekday.wednesday.short", "calendar.weekday.thursday.short",
-		"calendar.weekday.friday.short", "calendar.weekday.saturday.short",
-		"calendar.weekday.sunday.short"
-	};
+	const char * const month_message_ids[] = {"january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"};
+	const char * const weekday_message_ids[] = {"monday", "tuesday","wednesday", "thursday","friday", "saturday","sunday"};
 
 	// Add a day offset to a date within the supported calendar range.
 	bool offset_date(const CalendarDate & base, int offset, CalendarDate & result)
@@ -63,6 +50,35 @@ namespace
 			valid = result.is_valid();
 		}
 		return valid;
+	}
+
+	// Shift a date by whole months, clamping the day and preserving it on range failure.
+	bool shift_month(CalendarDate & date, int month_offset)
+	{
+		bool result = date.is_valid() && month_offset != 0;
+		int year = date.year;
+		int month = (int)date.month + month_offset;
+
+		while (result && month < 1)
+		{
+			month += 12;
+			year--;
+		}
+		while (result && month > 12)
+		{
+			month -= 12;
+			year++;
+		}
+
+		result = result && year >= Date::MIN_YEAR && year <= Date::MAX_YEAR;
+		if (result)
+		{
+			uint8_t maximum_day = Date::days_in_month(year, (uint8_t)month);
+			date.year = year;
+			date.month = (uint8_t)month;
+			date.day = date.day > maximum_day ? maximum_day : date.day;
+		}
+		return result;
 	}
 
 	// Resolve a translation key from the active language.
@@ -141,6 +157,7 @@ bool Calendar::initialize()
 	UIManager::styles()->apply(this, (CommonStyle*)this);
 	UIManager::styles()->apply(this, (WidgetStyle*)this);
 	UIManager::styles()->apply(this, (PaddingStyle*)this);
+	UIManager::styles()->apply(this, (BorderStyle*)this);
 	UIManager::styles()->apply(this, (CalendarStyle*)this);
 	bool result = UIManager::styles()->apply_widget_layout(this);
 	if (result)
@@ -161,7 +178,7 @@ bool Calendar::initialize()
 // Build the calendar controls and fixed-capacity date grid.
 bool Calendar::build_controls()
 {
-	bool result = true;
+	bool result = false;
 	m_content = dynamic_cast<Column*>(find_widget_by_id(this, CONTENT_ID));
 	Row * controls = dynamic_cast<Row*>(find_widget_by_id(this, CONTROLS_ID));
 	m_previous_button = dynamic_cast<Button*>(find_widget_by_id(this, PREVIOUS_BUTTON_ID));
@@ -169,60 +186,49 @@ bool Calendar::build_controls()
 	m_year_combo = dynamic_cast<Combo*>(find_widget_by_id(this, YEAR_COMBO_ID));
 	m_next_button = dynamic_cast<Button*>(find_widget_by_id(this, NEXT_BUTTON_ID));
 	m_today_button = dynamic_cast<Button*>(find_widget_by_id(this, TODAY_BUTTON_ID));
-	m_table = dynamic_cast<TableView*>(find_widget_by_id(this, TABLE_ID));
+	TableView * table = dynamic_cast<TableView*>(find_widget_by_id(this, TABLE_ID));
+	m_table = nullptr;
 
-	if (m_content == nullptr || controls == nullptr || m_previous_button == nullptr ||
-		m_month_combo == nullptr || m_year_combo == nullptr || m_next_button == nullptr ||
-		m_today_button == nullptr || m_table == nullptr)
+	if (m_content != nullptr && controls != nullptr && m_previous_button != nullptr &&
+		m_month_combo != nullptr && m_year_combo != nullptr && m_next_button != nullptr &&
+		m_today_button != nullptr && table != nullptr)
 	{
-		result = false;
-	}
-
-	for (Dim column = 0; result && column < 7; column++)
-	{
-		Widget * weekday = find_widget_by_id(m_table, WEEKDAY_BUTTON_ID_BASE + column);
-		if (dynamic_cast<Button*>(weekday) == nullptr)
+		bool controls_valid = true;
+		for (Dim column = 0; controls_valid && column < 7; column++)
 		{
-			result = false;
+			Widget * weekday = find_widget_by_id(table, WEEKDAY_BUTTON_ID_BASE + column);
+			controls_valid = dynamic_cast<Button*>(weekday) != nullptr;
 		}
-	}
-
-	for (Dim index = 0; result && index < 49; index++)
-	{
-		m_day_buttons[index] = dynamic_cast<Button*>(find_widget_by_id(m_table, DAY_BUTTON_ID_BASE + index));
-		if (m_day_buttons[index] == nullptr)
+		for (Dim index = 0; controls_valid && index < 49; index++)
 		{
-			result = false;
-		}
-	}
-
-	if (result)
-	{
-		m_previous_button->bind(this, &Calendar::on_previous_month);
-		m_month_combo->bind(this, &Calendar::on_month_key);
-		m_year_combo->bind(this, &Calendar::on_year_key);
-		m_next_button->bind(this, &Calendar::on_next_month);
-		m_today_button->bind(this, &Calendar::on_today);
-		m_today_button->text(translated_message("calendar.action.today"));
-		update_table_grid_style();
-
-		for (Dim column = 0; column < 7; column++)
-		{
-			Button * weekday = dynamic_cast<Button*>(find_widget_by_id(m_table, WEEKDAY_BUTTON_ID_BASE + column));
-			update_weekday_style(weekday);
-			weekday->text(translated_message(weekday_message_ids[column]));
+			m_day_buttons[index] = dynamic_cast<Button*>(find_widget_by_id(table, DAY_BUTTON_ID_BASE + index));
+			controls_valid = m_day_buttons[index] != nullptr;
 		}
 
-		for (Dim index = 0; index < 49; index++)
+		if (controls_valid)
 		{
-			Button * day = m_day_buttons[index];
-			update_day_style(day, false, false);
-			day->bind(this, &Calendar::on_date_cell_click);
+			m_table = table;
+			m_previous_button->bind(this, &Calendar::on_previous_month);
+			m_month_combo->bind(this, &Calendar::on_month_key);
+			m_year_combo->bind(this, &Calendar::on_year_key);
+			m_next_button->bind(this, &Calendar::on_next_month);
+			m_today_button->bind(this, &Calendar::on_today);
+			update_table_grid_style();
+
+			for (Dim column = 0; column < 7; column++)
+			{
+				Button * weekday = dynamic_cast<Button*>(find_widget_by_id(m_table, WEEKDAY_BUTTON_ID_BASE + column));
+				update_weekday_style(weekday);
+				weekday->text(translated_message(weekday_message_ids[column]));
+			}
+			for (Dim index = 0; index < 49; index++)
+			{
+				Button * day = m_day_buttons[index];
+				update_day_style(day, false, false);
+				day->bind(this, &Calendar::on_date_cell_click);
+			}
+			result = true;
 		}
-	}
-	else
-	{
-		m_table = nullptr;
 	}
 
 	return result;
@@ -339,34 +345,9 @@ bool Calendar::day(uint8_t value)
 // Show and select the previous month.
 void Calendar::previous_month()
 {
-	bool valid = m_date.is_valid();
 	CalendarDate updated = m_date;
-	if (valid)
+	if (shift_month(updated, -1))
 	{
-		if (updated.month == 1)
-		{
-			if (updated.year == Date::MIN_YEAR)
-			{
-				valid = false;
-			}
-			else
-			{
-				updated.year--;
-				updated.month = 12;
-			}
-		}
-		else
-		{
-			updated.month--;
-		}
-	}
-	if (valid)
-	{
-		uint8_t maximum_day = Date::days_in_month(updated.year, updated.month);
-		if (updated.day > maximum_day)
-		{
-			updated.day = maximum_day;
-		}
 		commit_date(updated, true);
 		update_controls();
 	}
@@ -379,34 +360,9 @@ void Calendar::previous_month()
 // Show and select the next month.
 void Calendar::next_month()
 {
-	bool valid = m_date.is_valid();
 	CalendarDate updated = m_date;
-	if (valid)
+	if (shift_month(updated, 1))
 	{
-		if (updated.month == 12)
-		{
-			if (updated.year == Date::MAX_YEAR)
-			{
-				valid = false;
-			}
-			else
-			{
-				updated.year++;
-				updated.month = 1;
-			}
-		}
-		else
-		{
-			updated.month++;
-		}
-	}
-	if (valid)
-	{
-		uint8_t maximum_day = Date::days_in_month(updated.year, updated.month);
-		if (updated.day > maximum_day)
-		{
-			updated.day = maximum_day;
-		}
 		commit_date(updated, true);
 		update_controls();
 	}
@@ -438,6 +394,7 @@ void Calendar::serialize(JsonIterator & it)
 	CommonStyle::serialize(it);
 	WidgetStyle::serialize(it);
 	PaddingStyle::serialize(it);
+	BorderStyle::serialize(it);
 	CalendarStyle::serialize(it);
 	it[StyleNames::CALENDAR_DATE_YEAR] = m_date.year;
 	it[StyleNames::CALENDAR_DATE_MONTH] = (unsigned int)m_date.month;
@@ -450,6 +407,7 @@ void Calendar::unserialize(JsonIterator & it)
 	CommonStyle::unserialize(it);
 	WidgetStyle::unserialize(it);
 	PaddingStyle::unserialize(it);
+	BorderStyle::unserialize(it);
 	CalendarStyle::unserialize(it);
 
 	bool has_year = it[StyleNames::CALENDAR_DATE_YEAR].exist();
@@ -480,12 +438,38 @@ StyleCascadeMode Calendar::style_cascade_mode() const
 	return StyleCascadeMode::NONE;
 }
 
+// Return the calendar size including padding and border.
+Size Calendar::content_size()
+{
+	Size result = Widget::content_size();
+	result.increase(padding());
+	result.increase_q6(thickness_q6() << 1, thickness_q6() << 1);
+	return result;
+}
+
+// Paint the calendar background, border, and clipped child widgets.
+void Calendar::paint(const Region & parent_region)
+{
+	Region region(parent_region);
+	region.intersect(m_backclip);
+
+	if (region.is_inside(m_backclip.position(), m_backclip.size()) != Overlap::OUT)
+	{
+		UIManager::renderer()->region(region);
+		paint_background(m_foreclip, *(CommonStyle*)this, *(BorderStyle*)this);
+
+		region.intersect(m_contentclip);
+		UIManager::renderer()->region(region);
+		Widget::paint(region);
+	}
+}
+
 // Place the calendar and its content column.
 void Calendar::place(const Area & area, bool in_layout)
 {
 	if (UIManager::invalidator()->is_dirty(this))
 	{
-		compute_widget_placement(area, in_layout, 0, false);
+		compute_widget_placement(area, in_layout, thickness_q6(), false);
 		Area backclip(m_backclip);
 		Area foreclip(m_foreclip);
 		Area contentclip(m_contentclip);
@@ -544,10 +528,6 @@ void Calendar::update_controls()
 {
 	if (m_date.is_valid() && m_month_combo && m_year_combo)
 	{
-		if (m_today_button)
-		{
-			m_today_button->text(translated_message("calendar.action.today"));
-		}
 		m_month_combo->clear();
 		for (int index = 0; index < 12; index++)
 		{
@@ -609,6 +589,7 @@ void Calendar::update_weekday_style(Button * weekday)
 {
 	if (weekday)
 	{
+		weekday->focusable(false);
 		weekday->color(weekday_back_color());
 		weekday->text_color(weekday_text_color());
 		weekday->font_size(weekday_font_size());
@@ -791,7 +772,20 @@ void Calendar::on_year_selection(Widget * widget, const ClickEvent & event)
 // Apply month combo changes made with the keyboard.
 void Calendar::on_month_key(Widget * widget, const KeyEvent & event)
 {
-	if (widget == m_month_combo && event.state() == KeyEvent::KEY_UP && m_date.is_valid())
+	if (widget == m_month_combo && m_month_combo->focused() &&
+		event.state() == KeyEvent::KEY_DOWN && m_date.is_valid() &&
+		(event.key() == (wchar_t)ReservedKey::KEY_PAGE_UP ||
+		 event.key() == (wchar_t)ReservedKey::KEY_PAGE_DOWN))
+	{
+		int month_delta = event.key() == (wchar_t)ReservedKey::KEY_PAGE_UP ? -3 : 3;
+		CalendarDate updated = m_date;
+		if (shift_month(updated, month_delta) && commit_date(updated, true))
+		{
+			update_controls();
+		}
+	}
+	else if (widget == m_month_combo && m_month_combo->focused() &&
+		event.state() == KeyEvent::KEY_UP && m_date.is_valid())
 	{
 		int selected_index = m_month_combo->selected_index();
 		if (selected_index >= 0)
@@ -808,13 +802,32 @@ void Calendar::on_month_key(Widget * widget, const KeyEvent & event)
 	}
 }
 
-// Commit typed years when Enter is pressed.
+// Navigate the year combo by decades and commit typed years.
 void Calendar::on_year_key(Widget * widget, const KeyEvent & event)
 {
-	bool arrow_released = event.state() == KeyEvent::KEY_UP &&
+	bool decade_key = widget == m_year_combo && m_year_combo->focused() &&
+		event.state() == KeyEvent::KEY_DOWN &&
+		(event.key() == (wchar_t)ReservedKey::KEY_PAGE_UP ||
+		 event.key() == (wchar_t)ReservedKey::KEY_PAGE_DOWN);
+	bool arrow_released = widget == m_year_combo && m_year_combo->focused() &&
+		event.state() == KeyEvent::KEY_UP &&
 		(event.key() == (wchar_t)ReservedKey::KEY_UP ||
 		 event.key() == (wchar_t)ReservedKey::KEY_DOWN);
-	if (widget == m_year_combo && m_date.is_valid() && arrow_released)
+	if (decade_key && m_date.is_valid())
+	{
+		int target_year = m_date.year +
+			(event.key() == (wchar_t)ReservedKey::KEY_PAGE_UP ? -10 : 10);
+		if (target_year < Date::MIN_YEAR)
+		{
+			target_year = Date::MIN_YEAR;
+		}
+		else if (target_year > Date::MAX_YEAR)
+		{
+			target_year = Date::MAX_YEAR;
+		}
+		year(target_year);
+	}
+	else if (widget == m_year_combo && m_date.is_valid() && arrow_released)
 	{
 		ListItem * selected = m_year_combo->selected_item();
 		String value = selected ? selected->text() : m_year_combo->input();
@@ -824,7 +837,8 @@ void Calendar::on_year_key(Widget * widget, const KeyEvent & event)
 			year(selected_year);
 		}
 	}
-	else if (widget == m_year_combo && event.state() == KeyEvent::KEY_DOWN &&
+	else if (widget == m_year_combo && m_year_combo->focused() &&
+		event.state() == KeyEvent::KEY_DOWN &&
 		event.key() == (wchar_t)ReservedKey::KEY_ENTER)
 	{
 		int year = 0;
@@ -918,50 +932,7 @@ void Calendar::on_date_cell_key(Widget * widget, const KeyEvent & event)
 		}
 		else if (month_offset != 0)
 		{
-			if (month_offset < 0)
-			{
-				if (updated.month == 1)
-				{
-					if (updated.year == Date::MIN_YEAR)
-					{
-						valid = false;
-					}
-					else
-					{
-						updated.year--;
-						updated.month = 12;
-					}
-				}
-				else
-				{
-					updated.month--;
-				}
-			}
-			else if (updated.month == 12)
-			{
-				if (updated.year == Date::MAX_YEAR)
-				{
-					valid = false;
-				}
-				else
-				{
-					updated.year++;
-					updated.month = 1;
-				}
-			}
-			else
-			{
-				updated.month++;
-			}
-
-			if (valid)
-			{
-				uint8_t maximum_day = Date::days_in_month(updated.year, updated.month);
-				if (updated.day > maximum_day)
-				{
-					updated.day = maximum_day;
-				}
-			}
+			valid = shift_month(updated, month_offset);
 		}
 		else if (target_day != 0)
 		{

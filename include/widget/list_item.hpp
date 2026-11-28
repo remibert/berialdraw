@@ -30,6 +30,7 @@ namespace berialdraw
 		/** Copy all styles of the list item */
 		void copy(const ListItem * list_item);
 
+/// @cond DOXYGEN_IGNORE
 #if defined(_DEBUG) 
 	public:
 
@@ -55,7 +56,6 @@ namespace berialdraw
 #endif
 
 	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		ListItem& operator=(const ListItem& other) = delete;
 

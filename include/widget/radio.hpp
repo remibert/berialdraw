@@ -33,6 +33,7 @@ namespace berialdraw
 		/** Place all widget in area */
 		virtual void place(const Area & area, bool in_layout) override;
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 		static void test();
 		static void test1();
@@ -42,7 +43,6 @@ namespace berialdraw
 #endif
 
 	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		Radio& operator=(const Radio& other) = delete;
 

@@ -7,99 +7,29 @@ static Widget * create_child_widget(const String & type, Widget * parent)
 {
 	Widget * result = nullptr;
 
-	if (type == StyleNames::TYPE_BUTTON)
-	{
-		result = new Button(parent);
-	}
-	else if (type == StyleNames::TYPE_CANVAS)
-	{
-		result = new Canvas(parent);
-	}
-	else if (type == StyleNames::TYPE_CALENDAR)
-	{
-		result = new Calendar(parent);
-	}
-	else if (type == StyleNames::TYPE_CHECKBOX)
-	{
-		result = new Checkbox(parent);
-	}
-	else if (type == StyleNames::TYPE_COLUMN)
-	{
-		result = new Column(parent);
-	}
-	else if (type == StyleNames::TYPE_COMBO)
-	{
-		result = new Combo(parent);
-	}
-	else if (type == StyleNames::TYPE_EDIT)
-	{
-		result = new Edit(parent);
-	}
-	else if (type == StyleNames::TYPE_GRID)
-	{
-		result = new Grid(parent);
-	}
-	else if (type == StyleNames::TYPE_ICON)
-	{
-		result = new Icon(parent);
-	}
-	else if (type == StyleNames::TYPE_LABEL)
-	{
-		result = new Label(parent);
-	}
-	else if (type == StyleNames::TYPE_LIST)
-	{
-		result = new List(parent);
-	}
-	else if (type == StyleNames::TYPE_LIST_ITEM)
-	{
-		result = new ListItem(parent);
-	}
-	else if (type == StyleNames::TYPE_PANE)
-	{
-		result = new Pane(parent);
-	}
-	else if (type == StyleNames::TYPE_PICTURE)
-	{
-		result = new Picture(parent);
-	}
-	else if (type == StyleNames::TYPE_PROGRESS_BAR)
-	{
-		result = new ProgressBar(parent);
-	}
-	else if (type == StyleNames::TYPE_RADIO)
-	{
-		result = new Radio(parent);
-	}
-	else if (type == StyleNames::TYPE_ROW)
-	{
-		result = new Row(parent);
-	}
-	else if (type == StyleNames::TYPE_SCROLL_VIEW)
-	{
-		result = new ScrollView(parent);
-	}
-	else if (type == StyleNames::TYPE_SLIDER)
-	{
-		result = new Slider(parent);
-	}
-	else if (type == StyleNames::TYPE_SWITCH)
-	{
-		result = new Switch(parent);
-	}
-	else if (type == StyleNames::TYPE_TAB)
-	{
-		result = new Tab(parent);
-	}
-	else if (type == StyleNames::TYPE_TABLE_VIEW)
-	{
-		result = new TableView(parent);
-	}
-	else if (type == StyleNames::TYPE_TIMER)
-	{
-		result = new Timer(parent);
-	}
-
+	if      (type == StyleNames::TYPE_BUTTON)       result = new Button(parent);
+	else if (type == StyleNames::TYPE_CANVAS)       result = new Canvas(parent);
+	else if (type == StyleNames::TYPE_CALENDAR)     result = new Calendar(parent);
+	else if (type == StyleNames::TYPE_CHECKBOX)     result = new Checkbox(parent);
+	else if (type == StyleNames::TYPE_COLUMN)       result = new Column(parent);
+	else if (type == StyleNames::TYPE_COMBO)        result = new Combo(parent);
+	else if (type == StyleNames::TYPE_EDIT)         result = new Edit(parent);
+	else if (type == StyleNames::TYPE_GRID)         result = new Grid(parent);
+	else if (type == StyleNames::TYPE_ICON)         result = new Icon(parent);
+	else if (type == StyleNames::TYPE_LABEL)        result = new Label(parent);
+	else if (type == StyleNames::TYPE_LIST)         result = new List(parent);
+	else if (type == StyleNames::TYPE_LIST_ITEM)    result = new ListItem(parent);
+	else if (type == StyleNames::TYPE_PANE)         result = new Pane(parent);
+	else if (type == StyleNames::TYPE_PICTURE)      result = new Picture(parent);
+	else if (type == StyleNames::TYPE_PROGRESS_BAR) result = new ProgressBar(parent);
+	else if (type == StyleNames::TYPE_RADIO)        result = new Radio(parent);
+	else if (type == StyleNames::TYPE_ROW)          result = new Row(parent);
+	else if (type == StyleNames::TYPE_SCROLL_VIEW)  result = new ScrollView(parent);
+	else if (type == StyleNames::TYPE_SLIDER)       result = new Slider(parent);
+	else if (type == StyleNames::TYPE_SWITCH)       result = new Switch(parent);
+	else if (type == StyleNames::TYPE_TAB)          result = new Tab(parent);
+	else if (type == StyleNames::TYPE_TABLE_VIEW)   result = new TableView(parent);
+	else if (type == StyleNames::TYPE_TIMER)        result = new Timer(parent);
 	return result;
 }
 

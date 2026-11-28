@@ -3,7 +3,8 @@
 
 void bind_calendar(py::module_& m)
 {
-	py::class_<berialdraw::Calendar, berialdraw::Widget, berialdraw::CalendarStyle,
+	py::class_<berialdraw::Calendar, berialdraw::Widget, berialdraw::PaddingStyle,
+		berialdraw::BorderStyle, berialdraw::CalendarStyle,
 		std::unique_ptr<berialdraw::Calendar, py::nodelete>>(m, "Calendar")
 		.def(py::init<berialdraw::Widget*>(),
 			py::arg("parent") = nullptr,

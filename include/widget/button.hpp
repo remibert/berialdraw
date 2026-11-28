@@ -33,6 +33,7 @@ namespace berialdraw
 		/** Copy all styles of the button */
 		void copy(const Button * button);
 
+/// @cond DOXYGEN_IGNORE
 #if defined(_DEBUG) 
 	public:
 
@@ -59,9 +60,8 @@ namespace berialdraw
 		static void test20();
 #endif
 	protected:
-/// @cond DOXYGEN_IGNORE
-			/** Create a button-derived widget and register its full object size. */
-			Button(const char * classname, Widget * parent, size_t object_size);
+		/** Create a button-derived widget and register its full object size. */
+		Button(const char * classname, Widget * parent, size_t object_size);
 
 		/** Remove operator = */
 		Button& operator=(const Button& other) = delete;

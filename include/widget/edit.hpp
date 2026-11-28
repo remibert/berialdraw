@@ -29,6 +29,7 @@ namespace berialdraw
 		/** Copy all styles of the edit */
 		void copy(const Edit * edit);
 
+/// @cond DOXYGEN_IGNORE
 #ifdef _DEBUG
 	public:
 		static void test();
@@ -46,7 +47,6 @@ namespace berialdraw
 		static void test12();
 #endif
 	protected:
-/// @cond DOXYGEN_IGNORE
 		/** Remove operator = */
 		Edit& operator=(const Edit& other) = delete;
 		
