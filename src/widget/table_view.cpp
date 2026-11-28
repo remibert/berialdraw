@@ -23,8 +23,7 @@ TableView::~TableView()
 void TableView::serialize(JsonIterator& it)
 {
 	it[StyleNames::WIDGET_TYPE] = m_classname;
-	CommonStyle::serialize(it);
-	WidgetStyle::serialize(it);
+	ScrollableContent::serialize(it);
 	GridStyle::serialize(it);
 	TableViewStyle::serialize(it);
 }
@@ -32,11 +31,9 @@ void TableView::serialize(JsonIterator& it)
 /** Unserialize the content of widget from json */
 void TableView::unserialize(JsonIterator& it)
 {
-	CommonStyle::unserialize(it);
-	WidgetStyle::unserialize(it);
+	ScrollableContent::unserialize(it);
 	GridStyle::unserialize(it);
 	TableViewStyle::unserialize(it);
-	UIManager::invalidator()->dirty(this, Invalidator::ALL);
 }
 
 StyleCascadeMode TableView::style_cascade_mode() const

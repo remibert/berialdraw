@@ -25,31 +25,33 @@ void berialdraw::serialize(const char * name, JsonIterator & it, Align value)
 
 void berialdraw::unserialize(const char * name, JsonIterator & it, Align & value)
 {
-	String text = it[name] | "default";
-
-	if (text != "default")
+	if (it.exists(name))
 	{
-		value = Align::CENTER;
+		String text = it[name] | "default";
+		if (text == "default")
+		{
+			value = Align::ALIGN_DEFAULT;
+		}
+		else
+		{
+			value = Align::CENTER;
 
-		if (text.find("left") != INT32_MAX)
-		{
-			value = (value | Align::ALIGN_LEFT);
+			if (text.find("left") != INT32_MAX)
+			{
+				value = (value | Align::ALIGN_LEFT);
+			}
+			if (text.find("right") != INT32_MAX)
+			{
+				value = (value | Align::ALIGN_RIGHT);
+			}
+			if (text.find("top") != INT32_MAX)
+			{
+				value = (value | Align::ALIGN_TOP);
+			}
+			if (text.find("bottom") != INT32_MAX)
+			{
+				value = (value | Align::ALIGN_BOTTOM);
+			}
 		}
-		if (text.find("right") != INT32_MAX)
-		{
-			value = (value | Align::ALIGN_RIGHT);
-		}
-		if (text.find("top") != INT32_MAX)
-		{
-			value = (value | Align::ALIGN_TOP);
-		}
-		if (text.find("bottom") != INT32_MAX)
-		{
-			value = (value | Align::ALIGN_BOTTOM);
-		}
-	}
-	else
-	{
-		value = Align::ALIGN_DEFAULT;
 	}
 }

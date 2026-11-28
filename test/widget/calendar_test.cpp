@@ -39,6 +39,9 @@ void Calendar::test1()
 	Calendar * calendar = new Calendar(&window, CalendarDate{2026, 11, 19});
 	calendar->position(20, 20);
 	calendar->size(420, 420);
+
+	UIManager::desktop()->dispatch("$(ui.tests)/out/calendar1bad.svg");
+	UIManager::desktop()->mainloop();
 	assert(calendar->m_content == calendar->children());
 	assert(calendar->m_previous_button->id() == Calendar::PREVIOUS_BUTTON_ID);
 	assert(calendar->m_month_combo->id() == Calendar::MONTH_COMBO_ID);
@@ -51,7 +54,7 @@ void Calendar::test1()
 		assert(calendar->m_day_buttons[index]->id() == Calendar::DAY_BUTTON_ID_BASE + index);
 	}
 	UIManager::desktop()->dispatch("$(ui.tests)/out/calendar1.svg");
-	UIManager::desktop()->mainloop();
+	
 	CalendarEventReceiver receiver;
 	calendar->bind(&receiver, &CalendarEventReceiver::on_date_changed);
 	UIManager::desktop()->dispatch();
@@ -67,6 +70,7 @@ void Calendar::test1()
 	assert(table != nullptr);
 	assert(table->column_count() == 7);
 	assert(table->row_count() == 7);
+	assert(table->align() == Align::ALIGN_TOP_LEFT);
 	assert(table->get_widget(0, 0)->color() == calendar->weekday_back_color());
 	Button * weekday_header = dynamic_cast<Button*>(table->get_widget(0, 0));
 	assert(weekday_header != nullptr);
